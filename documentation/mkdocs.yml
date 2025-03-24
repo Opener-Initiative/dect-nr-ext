@@ -1,0 +1,23 @@
+site_name: DECT NR+ NS3 simulation project
+nav:
+  - Main Page: index.md
+  - Core Concepts of DECT NR+ NS3 Simulation: core_concepts.md
+  - Installation: installation.md
+  - Simulation Guide: simulation_guide.md
+theme:
+  name: material
+  icon:
+    logo: material/library-shelves
+  palette: 
+    primary: black
+    accent: cyan
+  features:
+    - content.code.copy
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences
+plugins:
+  - offline
