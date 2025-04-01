@@ -20,7 +20,6 @@ DectPhy::SetChannel(ns3::Ptr<ns3::YansWifiChannel> channel)
     m_channel = channel;
 }
 
-/*
 std::vector<ns3::Ptr<ns3::WifiPhy>>
 DectPhy::Create(ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::WifiNetDevice> device) const
 {
@@ -51,4 +50,3 @@ DectPhy::Create(ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::WifiNetDevice> device) c
 
     return std::vector<ns3::Ptr<ns3::WifiPhy>>({phy});
 }
-*/

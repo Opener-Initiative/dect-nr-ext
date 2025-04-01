@@ -187,7 +187,7 @@
         
   
   <span class="md-ellipsis">
-    Core Concepts of DECT NR+ NS3 Simulation
+    Core Technical Concepts of DECT NR+ NS3 Simulation
     
   </span>
   
@@ -234,6 +234,18 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Simulation Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="simulation_guide.html" class="md-nav__link md-nav__link--active">
         
   
@@ -244,6 +256,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#debug-ns3-simulation-script-with-gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug NS3 simulation script with GDB
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -269,6 +309,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#debug-ns3-simulation-script-with-gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug NS3 simulation script with GDB
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -284,7 +341,10 @@
 
 
 <h1 id="simulation-guide">Simulation Guide</h1>
-<p>Here, the simulation guidelines will be defined.</p>
+<h3 id="debug-ns3-simulation-script-with-gdb">Debug NS3 simulation script with <a href="https://sourceware.org/gdb/">GDB</a></h3>
+<p>(to follow the following examples, it is recommended to append your system's env PATH variable with the path to the NS3 executable)
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ns3<span class="w"> </span>run<span class="w"> </span>--gdb<span class="w"> </span>script.cc
+</span></code></pre></div></p>
 
 
 

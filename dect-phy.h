@@ -16,7 +16,7 @@ class DectPhy : public ns3::WifiPhyHelper
         void SetChannel(ns3::Ptr<ns3::YansWifiChannel> channel);
 
     private:
-        //std::vector<ns3::Ptr<ns3::WifiPhy>> Create(ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::WifiNetDevice> device) const override;
+        std::vector<ns3::Ptr<ns3::WifiPhy>> Create(ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::WifiNetDevice> device) const override;
         ns3::Ptr<ns3::YansWifiChannel> m_channel;
 };
 
