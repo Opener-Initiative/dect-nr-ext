@@ -3,9 +3,9 @@
 #include "ns3/propagation-delay-model.h"
 #include "ns3/propagation-loss-model.h"
 
-DectChannel::DectChannel()
-{
-}
+DectChannel::DectChannel(){}
+
+DectChannel::~DectChannel(){}
 
 DectChannel
 DectChannel::Default()

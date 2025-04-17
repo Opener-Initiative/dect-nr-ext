@@ -1,9 +1,9 @@
 site_name: DECT NR+ NS3 simulation project
 nav:
   - Main Page: index.md
-  - Core Technical Concepts of DECT NR+ NS3 Simulation: core_concepts.md
+  - DECT NR+ NS3 Technical Reference: technical_reference.md
   - Installation: installation.md
-  - Simulation Guide: simulation_guide.md
+  - Simulation: simulation.md
 theme:
   name: material
   icon:

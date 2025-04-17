@@ -14,6 +14,8 @@ DectPhy::DectPhy() : ns3::WifiPhyHelper(1), m_channel(nullptr)
     SetErrorRateModel("ns3::TableBasedErrorRateModel");
 }
 
+DectPhy::~DectPhy(){}
+
 void
 DectPhy::SetChannel(ns3::Ptr<ns3::YansWifiChannel> channel)
 {

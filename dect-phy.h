@@ -10,8 +10,9 @@
 
 class DectPhy : public ns3::WifiPhyHelper
 {
-    public:
+    public: 
         DectPhy();
+        ~DectPhy();
 
         void SetChannel(ns3::Ptr<ns3::YansWifiChannel> channel);
 

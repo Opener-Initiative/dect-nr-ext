@@ -12,6 +12,7 @@ class DectChannel
 {
     public:
         DectChannel();
+        ~DectChannel();
 
         static DectChannel Default();
 

@@ -1,6 +1,7 @@
-# Core Technical Concepts of DECT NR+ NS3 Simulation
+# DECT NR+ NS3 Technical Reference
 
 ## Applications
+
 [ns3::UdpEchoServer](https://www.nsnam.org/docs/release/3.28/doxygen/classns3_1_1_udp_echo_server.html)  
 [ns3::UdpEchoClient](https://www.nsnam.org/docs/release/3.28/doxygen/classns3_1_1_udp_echo_client.html)  
 

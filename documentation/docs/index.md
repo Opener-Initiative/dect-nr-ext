@@ -17,6 +17,6 @@ The project aims to implement the DECT NR MAC layer functionality (e.g. architec
 - Test practical scenarios before deployment
 
 
-## [Core Technical Concepts of DECT NR+ NS3 Simulation](core_concepts.md)  
+## [DECT NR+ NS3 Technical Reference](technical_reference.md)  
 ## [Installation](installation.md)  
-## [Simulation Guide](simulation_guide.md)
+## [Simulation](simulation.md)
