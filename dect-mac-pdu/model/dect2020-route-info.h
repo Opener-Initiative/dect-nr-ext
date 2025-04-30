@@ -6,11 +6,11 @@
 namespace ns3
 {
 
-    class Dect2020MeshHeader : public Header
+    class Dect2020RouteInfo : public Header
     {
         public:
-            Dect2020MeshHeader();
-            virtual ~Dect2020MeshHeader();
+            Dect2020RouteInfo();
+            virtual ~Dect2020RouteInfo();
             
             // Setter und Getter
             void SetSinkAddress(uint32_t networkId);
@@ -31,9 +31,10 @@ namespace ns3
             virtual uint32_t Deserialize(Buffer::Iterator start);
 
         private:
-            uint32_t m_sinkAddress;
-            uint32_t m_routeCost;
-            uint32_t m_applicationSequenceNumber;
+            //  ETSI 103 636-4 
+            uint32_t m_sinkAddress; // 32 bits
+            uint32_t m_routeCost; // 8 bits
+            uint32_t m_applicationSequenceNumber; // 8 bits
     };
 
 } // namespace ns3

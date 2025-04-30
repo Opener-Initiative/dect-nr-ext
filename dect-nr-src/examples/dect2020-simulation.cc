@@ -11,6 +11,8 @@
 #include "ns3/dect2020-phy.h"
 #include "ns3/dect2020-spectrum-signal-parameters.h"
 #include "ns3/dect2020-physical-header-field.h"
+#include "ns3/netanim-module.h"
+#include "ns3/mobility-module.h"
 
 using namespace ns3;
 using TermPointType = Dect2020NetDevice::TerminationPointType;
@@ -31,7 +33,10 @@ ReceivePacket(Ptr<NetDevice> device,
 int
 main(int argc, char* argv[])
 {
-    Simulator::Stop(Seconds(3));
+    // Enable packet metadata at the beginning
+    PacketMetadata::Enable();
+    
+    Simulator::Stop(Seconds(10)); // Increased simulation time
 
     NS_LOG_INFO(Simulator::Now().GetMilliSeconds());
 
@@ -48,6 +53,15 @@ main(int argc, char* argv[])
     // Erstellen der Knoten
     NodeContainer nodes;
     nodes.Create(2);
+    
+    // Add mobility models to nodes
+    MobilityHelper mobility;
+    mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+    mobility.Install(nodes);
+    
+    // Set positions for the nodes
+    nodes.Get(0)->GetObject<MobilityModel>()->SetPosition(Vector(0.0, 0.0, 0.0));
+    nodes.Get(1)->GetObject<MobilityModel>()->SetPosition(Vector(10.0, 0.0, 0.0));
 
     // Erstellen des Kanals
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
@@ -103,6 +117,11 @@ main(int argc, char* argv[])
 
     // Setzen des Empfangs-Callbacks für Gerät 2
     // devices.Get(1)->SetReceiveCallback(MakeCallback(&ReceivePacket));
+
+    // After creating all nodes and devices, add this:
+    AnimationInterface anim("dect2020-animation.xml"); // Create animation interface
+    anim.SetMobilityPollInterval(Seconds(0.1)); // Set update interval
+    anim.EnablePacketMetadata(true); // Enable packet metadata for better visualization
 
     // Simulation ausführen
     Simulator::Run();
