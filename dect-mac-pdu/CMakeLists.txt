@@ -14,11 +14,15 @@ set(header_files
     model/dect2020-route-info.h
     model/dect2020-unicast-header.h)
 
+set(test_source_files
+    test/dect2020-beacon-header-test.cc
+    test/dect2020-beacon-header-test-case.cc
+    test/dect2020-beacon-message-test.cc
+    test/dect2020-beacon-message-test-case.cc)
+
 build_lib(
     LIBNAME dect-mac-pdu
     SOURCE_FILES ${source_files}
     HEADER_FILES ${header_files}
-    TEST_SOURCES
-        test/dect2020-test-suite.cc
-        test/dect2020-test-case.cc
+    TEST_SOURCES ${test_source_files}
 )
