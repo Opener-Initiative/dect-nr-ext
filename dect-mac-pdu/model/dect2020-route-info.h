@@ -16,11 +16,11 @@ namespace ns3
             void SetSinkAddress(uint32_t networkId);
             uint32_t GetSinkAddress() const;
 
-            void SetRouteCost(uint32_t routeCost);
-            uint32_t GetRouteCost() const;
+            void SetRouteCost(uint8_t routeCost);
+            uint8_t GetRouteCost() const;
 
-            void SetApplicationSequenceNumber(uint32_t applicationSequenceNumber);
-            uint32_t GetApplicationSequenceNumber() const;
+            void SetApplicationSequenceNumber(uint8_t applicationSequenceNumber);
+            uint8_t GetApplicationSequenceNumber() const;
 
             // Überladene Methoden von Header
             static TypeId GetTypeId(void);
@@ -33,8 +33,8 @@ namespace ns3
         private:
             //  ETSI 103 636-4 
             uint32_t m_sinkAddress; // 32 bits
-            uint32_t m_routeCost; // 8 bits
-            uint32_t m_applicationSequenceNumber; // 8 bits
+            uint8_t m_routeCost; // 8 bits
+            uint8_t m_applicationSequenceNumber; // 8 bits
     };
 
 } // namespace ns3

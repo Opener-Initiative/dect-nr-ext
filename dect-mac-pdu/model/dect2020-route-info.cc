@@ -44,24 +44,24 @@ Dect2020RouteInfo::GetSinkAddress() const
 }
 
 void
-Dect2020RouteInfo::SetRouteCost(uint32_t routeCost)
+Dect2020RouteInfo::SetRouteCost(uint8_t routeCost)
 {
     m_routeCost = routeCost;
 }
 
-uint32_t
+uint8_t
 Dect2020RouteInfo::GetRouteCost() const
 {
     return m_routeCost;
 }
 
 void
-Dect2020RouteInfo::SetApplicationSequenceNumber(uint32_t applicationSequenceNumber)
+Dect2020RouteInfo::SetApplicationSequenceNumber(uint8_t applicationSequenceNumber)
 {
     m_applicationSequenceNumber = applicationSequenceNumber;
 }
 
-uint32_t
+uint8_t
 Dect2020RouteInfo::GetApplicationSequenceNumber() const
 {
     return m_applicationSequenceNumber;

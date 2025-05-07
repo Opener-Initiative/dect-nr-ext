@@ -18,7 +18,11 @@ set(test_source_files
     test/dect2020-beacon-header-test.cc
     test/dect2020-beacon-header-test-case.cc
     test/dect2020-beacon-message-test.cc
-    test/dect2020-beacon-message-test-case.cc)
+    test/dect2020-beacon-message-test-case.cc
+    test/dect2020-mac-header-type-test.cc
+    test/dect2020-mac-header-type-test-case.cc
+    test/dect2020-route-info-test.cc
+    test/dect2020-route-info-test-case.cc)
 
 build_lib(
     LIBNAME dect-mac-pdu
