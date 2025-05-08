@@ -1,4 +1,3 @@
-#include "dect2020-beacon-header-test-case.h"
 #include "dect2020-beacon-message-test-case.h"
 #include "ns3/test.h"
 

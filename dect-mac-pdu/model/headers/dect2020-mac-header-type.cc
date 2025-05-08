@@ -1,7 +1,7 @@
 #include "dect2020-mac-header-type.h"
 
 #include "dect2020-beacon-header.h"
-#include "dect2020-beacon-message.h"
+#include "ns3/dect2020-beacon-message.h"
 
 #include "ns3/log.h"
 

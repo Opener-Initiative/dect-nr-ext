@@ -1,7 +1,5 @@
 #include "dect2020-beacon-message.h"
 
-#include "dect2020-beacon-header.h"
-
 #include "ns3/log.h"
 
 #include <algorithm> // für std::copy

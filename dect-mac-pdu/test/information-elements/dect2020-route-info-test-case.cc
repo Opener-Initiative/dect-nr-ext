@@ -34,7 +34,7 @@ Dect2020RouteInfoTestCase::DoRun()
     std::cout << "[ORIGINAL VALUES]" << "\n";
     std::cout << "Original sink address: 0x" << std::hex << originalHeader.GetSinkAddress() << "\n";
     std::cout << "Original route cost: 0x" << std::hex << originalHeader.GetRouteCost() << "\n";
-    std::cout << "Original application sequence number: 0x" << std::hex << originalHeader.GetApplicationSequenceNumber() << "\n" << "\n";
+    std::cout << "Original application sequence number: 0x" << std::hex << (int)originalHeader.GetApplicationSequenceNumber() << "\n" << "\n";
 
     packet.AddHeader(originalHeader);
     packet.RemoveHeader(deserializedHeader);
@@ -42,7 +42,7 @@ Dect2020RouteInfoTestCase::DoRun()
     std::cout << "[DESERIALIZED VALUES]" << "\n";
     std::cout << "Deserialized sink address: 0x" << std::hex << deserializedHeader.GetSinkAddress() << "\n";
     std::cout << "Deserialized route cost: 0x" << std::hex << deserializedHeader.GetRouteCost() << "\n";
-    std::cout << "Deserialized application sequence number: 0x" << std::hex << deserializedHeader.GetApplicationSequenceNumber() << "\n" << "\n";
+    std::cout << "Deserialized application sequence number: 0x" << std::hex << (int)deserializedHeader.GetApplicationSequenceNumber() << "\n" << "\n";
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetSinkAddress(), 
                          sinkAddress,
