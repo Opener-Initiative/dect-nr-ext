@@ -13,9 +13,9 @@ class Dect2020UnicastHeader : public Header
         ~Dect2020UnicastHeader();
 
         // Set MAC Sequence
-        void SetMacSequence(uint32_t number);
+        void SetMacSequence(uint8_t number);
         // Get MAC Sequence
-        uint32_t GetMacSequence() const;
+        uint8_t GetMacSequence() const;
 
         // Set Sequence Number
         void SetSequenceNumber(uint8_t number);
@@ -41,10 +41,10 @@ class Dect2020UnicastHeader : public Header
         virtual uint32_t Deserialize(Buffer::Iterator start);
 
     private:
-        uint8_t m_macSequence;
-        uint8_t m_sequenceNumber;
-        uint32_t m_receiverAddress;
-        uint32_t m_transmitterAddress;
+        uint8_t m_macSequence; // 4 bits
+        uint8_t m_sequenceNumber; // 8 bits
+        uint32_t m_receiverAddress; // 32 bits
+        uint32_t m_transmitterAddress; // 32 bits
 };
 
 } // namespace ns3

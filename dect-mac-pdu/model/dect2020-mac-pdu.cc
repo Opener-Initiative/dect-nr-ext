@@ -23,7 +23,7 @@ Dect2020MacPdu::TypeAssigned()
 {
     if(m_pduType != PduType::BROADCAST && m_pduType != PduType::MESH && m_pduType != PduType::UNICAST)
     {
-        throw std::runtime_error("[ERROR] - MAC PDU type was not assigned!");
+        throw std::runtime_error("[ERROR] MAC PDU type was not assigned!");
     }
 }
 

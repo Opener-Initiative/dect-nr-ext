@@ -16,12 +16,16 @@ Dect2020UnicastHeader::~Dect2020UnicastHeader()
 }
 
 void
-Dect2020UnicastHeader::SetMacSequence(uint32_t number)
+Dect2020UnicastHeader::SetMacSequence(uint8_t number)
 {
+    if((number >> 4) != 0)
+    {
+        throw std::runtime_error("[ERROR] Argument of SetMacSequence function is longer than 4 bits!");
+    } 
     m_macSequence = number;
 }
 
-uint32_t
+uint8_t
 Dect2020UnicastHeader::GetMacSequence() const
 {
     return m_macSequence;
@@ -94,13 +98,7 @@ Dect2020UnicastHeader::GetSerializedSize() const
 void
 Dect2020UnicastHeader::Serialize(Buffer::Iterator start) const
 {
-    // Byte 0
-    uint8_t byte0 = 0;
-    // Bit 0-2 reserved
-    // Bit 3 reset
-    byte0 |= m_macSequence;
-
-    start.WriteU8(byte0); // MAC Sequence
+    start.WriteU8(m_macSequence); // MAC Sequence
     start.WriteU8(m_sequenceNumber); // Sequence Number
     start.WriteU32(m_receiverAddress); // Receiver Address
     start.WriteU32(m_transmitterAddress); // Transmitter Address
@@ -109,13 +107,10 @@ Dect2020UnicastHeader::Serialize(Buffer::Iterator start) const
 uint32_t
 Dect2020UnicastHeader::Deserialize(Buffer::Iterator start)
 {
-    // Byte 0
-    uint8_t byte0 = 0;
-    byte0 = start.ReadU8();
-    m_macSequence = byte0;
+    m_macSequence = start.ReadU8();
     m_sequenceNumber = start.ReadU8();
     m_receiverAddress = start.ReadU32();
-    m_receiverAddress = start.ReadU32();
+    m_transmitterAddress = start.ReadU32();
 
     return 10;
 }
