@@ -68,7 +68,21 @@ Dect2020PhysicalHeaderField::Print(std::ostream& os) const
 uint32_t
 Dect2020PhysicalHeaderField::GetSerializedSize(void) const
 {
-    return 5;
+    if(m_type != Type::TYPE1 && m_type != Type::TYPE2)
+    {
+        throw std::runtime_error("[ERROR] Physical Layer Control Field type was not selected");
+    }
+    else
+    {
+        if(m_type == Type::TYPE1)
+        {
+            return 5;
+        }
+        else
+        {
+            return 10;
+        }
+    }
 }
 
 void

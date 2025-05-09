@@ -22,6 +22,13 @@ class Dect2020PhysicalHeaderField : public Header
                                 uint8_t dFMCS);
     virtual ~Dect2020PhysicalHeaderField();
 
+    // Physical header field types
+    enum Type
+    {
+      TYPE1,
+      TYPE2
+    };
+
     // Überladene Methoden von Header
     static TypeId GetTypeId(void);
     virtual TypeId GetInstanceTypeId(void) const;
@@ -54,6 +61,7 @@ class Dect2020PhysicalHeaderField : public Header
     uint8_t m_dFMCS;
     uint32_t m_networkId;          // 24 Bits relevant
     uint32_t m_transmitterAddress; // 32 Bits
+    Type m_type;
 };
 
 } // namespace ns3
