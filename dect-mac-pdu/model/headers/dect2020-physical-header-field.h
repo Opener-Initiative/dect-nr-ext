@@ -51,6 +51,9 @@ class Dect2020PhysicalHeaderField : public Header
     void SetDFMCS(uint8_t dFMCS);
     uint8_t GetDFMCS();
 
+    void SetType(Type type);
+    Type GetType() const;
+
   private:
     uint8_t m_headerFormat;
     uint8_t m_packetLengthType;
@@ -61,6 +64,14 @@ class Dect2020PhysicalHeaderField : public Header
     uint8_t m_dFMCS;
     uint32_t m_networkId;          // 24 Bits relevant
     uint32_t m_transmitterAddress; // 32 Bits
+
+    uint16_t m_receiverIdentity; // 16 bits
+    uint8_t m_spatialStreams; // 2 bits
+    uint8_t m_DFRedundancyVersion; // 2 bits
+    uint8_t m_DFNewDataIndication; // 1 bit
+    uint8_t m_DFHarqProcessNr; // 3 bits
+    uint8_t m_feedbackFormat; // 4 bits
+    uint32_t m_feedbackInfo; // 12 relevant bits
     Type m_type;
 };
 

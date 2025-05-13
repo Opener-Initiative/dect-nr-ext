@@ -1,25 +1,25 @@
-#include "dect2020-physical-header-field-test-case.h"
+#include "dect2020-physical-header-field-test-case-1.h"
 #include "ns3/dect2020-physical-header-field.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020PhysicalHeaderFieldTestCase::Dect2020PhysicalHeaderFieldTestCase() 
+Dect2020PhysicalHeaderFieldTestCase1::Dect2020PhysicalHeaderFieldTestCase1() 
     : TestCase("PhysicalHeaderFieldSerializationTest")
 {
 }
 
-Dect2020PhysicalHeaderFieldTestCase::~Dect2020PhysicalHeaderFieldTestCase()
+Dect2020PhysicalHeaderFieldTestCase1::~Dect2020PhysicalHeaderFieldTestCase1()
 {
 }
 
 void
-Dect2020PhysicalHeaderFieldTestCase::DoSetup()
+Dect2020PhysicalHeaderFieldTestCase1::DoSetup()
 {
 }
 
 void
-Dect2020PhysicalHeaderFieldTestCase::DoRun()
+Dect2020PhysicalHeaderFieldTestCase1::DoRun()
 {
     Dect2020PhysicalHeaderField originalHeader;
     Dect2020PhysicalHeaderField deserializedHeader;
@@ -39,6 +39,7 @@ Dect2020PhysicalHeaderFieldTestCase::DoRun()
     originalHeader.SetTransmitterIdentity(transmitterIdentity);
     originalHeader.SetTransmitPower(transmitPower);
     originalHeader.SetDFMCS(dFMCS);
+    originalHeader.SetType(Dect2020PhysicalHeaderField::Type::TYPE1);
 
     std::cout << "[ORIGINAL VALUES]" << "\n";
     std::cout << "Original packet length type: 0x" << std::hex << (int)originalHeader.GetPacketLengthType() << "\n";

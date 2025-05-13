@@ -17,14 +17,15 @@ set(header_files
     model/dect2020-mac-pdu.h)
 
 set(test_source_files
-    test/headers/dect2020-beacon-header-test.cc
-    test/headers/dect2020-beacon-header-test-case.cc
-    test/headers/dect2020-mac-header-type-test.cc
-    test/headers/dect2020-mac-header-type-test-case.cc
-    test/headers/dect2020-unicast-header-test.cc
-    test/headers/dect2020-unicast-header-test-case.cc
-    test/headers/dect2020-physical-header-field-test.cc
-    test/headers/dect2020-physical-header-field-test-case.cc
+    test/headers/beacon-header/dect2020-beacon-header-test.cc
+    test/headers/beacon-header/dect2020-beacon-header-test-case.cc
+    test/headers/mac-header-type/dect2020-mac-header-type-test.cc
+    test/headers/mac-header-type/dect2020-mac-header-type-test-case.cc
+    test/headers/unicast-header/dect2020-unicast-header-test.cc
+    test/headers/unicast-header/dect2020-unicast-header-test-case.cc
+    test/headers/physical-header-field/dect2020-physical-header-field-test.cc
+    test/headers/physical-header-field/dect2020-physical-header-field-test-case-1.cc
+    test/headers/physical-header-field/dect2020-physical-header-field-test-case-2.cc
     test/messages/dect2020-beacon-message-test.cc
     test/messages/dect2020-beacon-message-test-case.cc
     test/information-elements/dect2020-route-info-test.cc

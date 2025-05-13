@@ -90,67 +90,195 @@ Dect2020PhysicalHeaderField::Serialize(Buffer::Iterator start) const
 {
     // ETSI 103 636 04: Figure 6.2.1-1
 
-    // Byte 0
-    uint8_t byte0 = 0;
-    // Bit 0-2 Header Format: Set to 000
-    byte0 |= (m_packetLengthType << 4);
-    byte0 |= (m_packetLength & 0x0F);
+    if(m_type == Type::TYPE1)
+    {
+        // Byte 0
+        uint8_t byte0 = 0;
+        // Bit 0-2 Header Format: Set to 000
+        byte0 |= (m_packetLengthType << 4);
+        byte0 |= (m_packetLength & 0x0F);
 
-    start.WriteU8(byte0);
+        start.WriteU8(byte0);
 
-    // Byte 1
-    uint8_t byte1 = (m_shortNetworkID & 0xFF);
+        // Byte 1
+        uint8_t byte1 = (m_shortNetworkID & 0xFF);
 
-    start.WriteU8(byte1);
+        start.WriteU8(byte1);
 
-    // Byte 2
-    uint8_t byte2 = (m_transmitterIdentity >> 8) & 0xFF;
+        // Byte 2
+        uint8_t byte2 = (m_transmitterIdentity >> 8) & 0xFF;
 
-    start.WriteU8(byte2);
+        start.WriteU8(byte2);
 
-    // Byte 3
-    uint8_t byte3 = (m_transmitterIdentity) & 0xFF;
+        // Byte 3
+        uint8_t byte3 = (m_transmitterIdentity) & 0xFF;
 
-    start.WriteU8(byte3);
+        start.WriteU8(byte3);
 
-    // Byte 4
-    uint8_t byte4 = (m_transmitPower & 0x0F) << 4;
-    // Bit 4 reserved
-    byte4 |= (m_dFMCS & 0x3);
+        // Byte 4
+        uint8_t byte4 = (m_transmitPower & 0x0F) << 4;
+        // Bit 4 reserved
+        byte4 |= (m_dFMCS & 0x3);
 
-    start.WriteU8(byte4);
+        start.WriteU8(byte4);
+    }
+    else
+    {
+        // Byte 0
+        uint8_t byte0 = 0;
+        // Bit 0-2 Header Format: Set to 000
+        byte0 |= (m_packetLengthType << 4);
+        byte0 |= (m_packetLength & 0x0F);
+
+        start.WriteU8(byte0);
+
+        // Byte 1
+        uint8_t byte1 = (m_shortNetworkID & 0xFF);
+
+        start.WriteU8(byte1);
+
+        // Byte 2
+        uint8_t byte2 = (m_transmitterIdentity >> 8) & 0xFF;
+
+        start.WriteU8(byte2);
+
+        // Byte 3
+        uint8_t byte3 = (m_transmitterIdentity) & 0xFF;
+
+        start.WriteU8(byte3);
+
+        // Byte 4
+        uint8_t byte4 = (m_transmitPower & 0x0F) << 4;
+        // Bit 4 reserved
+        byte4 |= (m_dFMCS & 0x3);
+
+        start.WriteU8(byte4);
+
+        // byte 5
+        uint8_t byte5 = (m_receiverIdentity >> 8) & 0xFF;
+
+        start.WriteU8(byte5);
+
+        // byte 6
+        uint8_t byte6 = (m_receiverIdentity) & 0xFF;
+
+        start.WriteU8(byte6);
+
+        // byte 7
+        uint8_t byte7;
+        byte7 |= (m_spatialStreams << 5);
+        byte7 |= (m_DFRedundancyVersion << 4);
+        byte7 |= (m_DFNewDataIndication << 3);
+        byte7 |= m_DFHarqProcessNr;
+
+        start.WriteU8(byte7);
+
+        // byte 8
+        uint8_t byte8;
+        byte8 |= (m_feedbackFormat << 4);
+        byte8 |= (m_feedbackInfo >> 8);
+
+        start.WriteU8(byte8);
+
+        // byte 9
+        uint8_t byte9;
+        byte9 |= (m_feedbackInfo & 0x0FF);
+
+        start.WriteU8(byte9);
+    }
 }
 
 uint32_t
 Dect2020PhysicalHeaderField::Deserialize(Buffer::Iterator start)
 {
-    uint32_t bytesRead = 0;
-    uint8_t byte0 = start.ReadU8();
-    bytesRead++;
+    if(m_type == Type::TYPE1)
+    {
 
-    // Bit 0-2 set to 0 (Header format)
-    m_packetLengthType = (byte0 & (1 << 4)) != 0;
-    m_packetLength = (byte0 & 0x0F);
+        uint32_t bytesRead = 0;
+        uint8_t byte0 = start.ReadU8();
+        bytesRead++;
 
-    // Byte 1
-    uint8_t byte1 = start.ReadU8();
-    bytesRead++;
-    m_shortNetworkID = (byte1 & 0xFF);
+        // Bit 0-2 set to 0 (Header format)
+        m_packetLengthType = (byte0 & (1 << 4)) != 0;
+        m_packetLength = (byte0 & 0x0F);
 
-    // Byte 2-3
-    uint8_t byte2 = start.ReadU8();
-    uint8_t byte3 = start.ReadU8();
+        // Byte 1
+        uint8_t byte1 = start.ReadU8();
+        bytesRead++;
+        m_shortNetworkID = (byte1 & 0xFF);
 
-    m_transmitterIdentity = (byte2 << 8) | byte3;
-    bytesRead += 2;
+        // Byte 2-3
+        uint8_t byte2 = start.ReadU8();
+        uint8_t byte3 = start.ReadU8();
 
-    // Byte 4
-    uint8_t byte4 = start.ReadU8();
-    bytesRead++;
-    m_transmitPower = (byte4 & 0xF0) >> 4;
-    m_dFMCS = (byte4 & 0x03);
+        m_transmitterIdentity = (byte2 << 8) | byte3;
+        bytesRead += 2;
 
-    return bytesRead;
+        // Byte 4
+        uint8_t byte4 = start.ReadU8();
+        bytesRead++;
+        m_transmitPower = (byte4 & 0xF0) >> 4;
+        m_dFMCS = (byte4 & 0x03);
+
+        return bytesRead;
+    }
+    else
+    {
+        uint32_t bytesRead = 0;
+        uint8_t byte0 = start.ReadU8();
+        bytesRead++;
+
+        // Bit 0-2 set to 0 (Header format)
+        m_packetLengthType = (byte0 & (1 << 4)) != 0;
+        m_packetLength = (byte0 & 0x0F);
+
+        // Byte 1
+        uint8_t byte1 = start.ReadU8();
+        bytesRead++;
+        m_shortNetworkID = (byte1 & 0xFF);
+
+        // Byte 2-3
+        uint8_t byte2 = start.ReadU8();
+        uint8_t byte3 = start.ReadU8();
+
+        m_transmitterIdentity = (byte2 << 8) | byte3;
+        bytesRead += 2;
+
+        // Byte 4
+        uint8_t byte4 = start.ReadU8();
+        bytesRead++;
+        m_transmitPower = (byte4 & 0xF0) >> 4;
+        m_dFMCS = (byte4 & 0x03);
+
+        // byte 5 and byte 6
+        uint16_t byte5and6 = start.ReadU16();
+        bytesRead += 2;
+
+        // byte 7
+        uint8_t byte7 = start.ReadU8();
+        bytesRead++;
+
+        m_spatialStreams = (byte7 >> 0x6);
+        m_DFRedundancyVersion = ((byte7 >> 4) & 0x3);
+        m_DFNewDataIndication = ((byte7 >> 3) & 0x1);
+        m_DFHarqProcessNr =  (byte7 & 0x7);
+
+        // byte 8
+        uint8_t byte8 = start.ReadU8();
+        bytesRead++;
+
+        m_feedbackFormat = (byte8 >> 4);
+        m_feedbackInfo = (byte8 & 0xF);
+
+        // byte 9
+        uint8_t byte9 = start.ReadU8();
+        bytesRead++;
+
+        m_feedbackInfo |= (m_feedbackInfo << 8);
+        m_feedbackInfo |= byte9;
+
+        return bytesRead;
+    }
 }
 
 void
@@ -265,6 +393,18 @@ uint8_t
 Dect2020PhysicalHeaderField::GetDFMCS()
 {
     return m_dFMCS;
+}
+
+void
+Dect2020PhysicalHeaderField::SetType(Dect2020PhysicalHeaderField::Type type)
+{
+    m_type = type;
+}
+
+Dect2020PhysicalHeaderField::Type
+Dect2020PhysicalHeaderField::GetType() const
+{
+    return m_type;
 }
 
 } // namespace ns3
