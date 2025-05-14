@@ -1,39 +1,81 @@
 [ENTRIES]
 1:
-<folder> = messages
-<file-name> = cluster-beacon-message
-<header-preprocessor-variable> = CLUSTER_BEACON_MESSAGE_H
-<header-class-name> = ClusterBeaconMessage
+<folder> = information-elements
+<file-name> = mac-security-info-ie
+<header-preprocessor-variable> = MAC_SECURITY_INFO_IE_H
+<header-class-name> = MacSecurityInfoIE
 
 2:
-<folder> = messages
-<file-name> = association-request-message
-<header-preprocessor-variable> = ASSOCIATION_REQUEST_MESSAGE_H
-<header-class-name> = AssociationRequestMessage
+<folder> = information-elements
+<file-name> = resource-allocation-ie
+<header-preprocessor-variable> = RESOURCE_ALLOCATION_IE_H
+<header-class-name> = ResourceAllocationIE
 
 3:
-<folder> = messages
-<file-name> = association-response-message
-<header-preprocessor-variable> = ASSOCIATION_RESPONSE_MESSAGE_H
-<header-class-name> = AssociationResponseMessage
+<folder> = information-elements
+<file-name> = random-access-resource-ie
+<header-preprocessor-variable> = RANDOM_ACCESS_RESOURCE_IE_H
+<header-class-name> = RandomAccessResourceIE
 
 4:
-<folder> = messages
-<file-name> = association-release-message
-<header-preprocessor-variable> = ASSOCIATION_RELEASE_MESSAGE_H
-<header-class-name> = AssociationReleaseMessage
+<folder> = information-elements
+<file-name> = rd-capability-ie
+<header-preprocessor-variable> = RD_CAPABILITY_IE_H
+<header-class-name> = RdCapabilityIE
 
 5:
-<folder> = messages
-<file-name> = reconfiguration-request-message
-<header-preprocessor-variable> = RECONFIGURATION_REQUEST_MESSAGE_H
-<header-class-name> = ReconfigurationRequestMessage
+<folder> = information-elements
+<file-name> = neighbouring-ie
+<header-preprocessor-variable> = NEIGHBOURING_IE_H
+<header-class-name> = NeighbouringIE
 
 6:
-<folder> = messages
-<file-name> = reconfiguration-response-message
-<header-preprocessor-variable> = RECONFIGURATION_RESPONSE_MESSAGE_H
-<header-class-name> = ReconfigurationResponseMessage
+<folder> = information-elements
+<file-name> = broadcast-indication-ie
+<header-preprocessor-variable> = BROADCAST_INDICATION_IE_H
+<header-class-name> = BroadcastIndicationIE
+
+7:
+<folder> = information-elements
+<file-name> = padding-ie
+<header-preprocessor-variable> = PADDING_IE_H
+<header-class-name> = PaddingIE
+
+8:
+<folder> = information-elements
+<file-name> = group-assignment-ie
+<header-preprocessor-variable> = GROUP_ASSIGNMENT_IE_H
+<header-class-name> = GroupAssignmentIE
+
+9:
+<folder> = information-elements
+<file-name> = load-info-ie
+<header-preprocessor-variable> = LOAD_INFO_IE_H
+<header-class-name> = LoadInfoIE
+
+10:
+<folder> = information-elements
+<file-name> = configuration-request-ie
+<header-preprocessor-variable> = CONFIGURATION_REQUEST_IE_H
+<header-class-name> = ConfigurationRequestIE
+
+11:
+<folder> = information-elements
+<file-name> = measurement-report-ie
+<header-preprocessor-variable> = MEASUREMENT_REPORT_IE_H
+<header-class-name> = MeasurementReportIE
+
+12:
+<folder> = information-elements
+<file-name> = radio-device-status-ie
+<header-preprocessor-variable> = RADIO_DEVICE_STATUS_IE_H
+<header-class-name> = RadioDeviceStatusIE
+
+13:
+<folder> = information-elements
+<file-name> = keep-alive-ie
+<header-preprocessor-variable> = KEEP_ALIVE_IE_H
+<header-class-name> = KeepAliveIE
 
 Above, you can see the [ENTRIES] section. This section provides values for variables that can be substituted. For each entry, I need you to do these steps:
 
