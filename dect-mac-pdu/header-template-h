@@ -1,0 +1,33 @@
+#ifndef <header-preprocessor-variable>
+#define <header-preprocessor-variable>
+
+#include "ns3/header.h"
+
+namespace ns3
+{
+
+class <header-class-name> : public Header
+{
+    public:
+        <header-class-name>();
+        ~<header-class-name>() override;
+
+        // Virtual Header base class methods
+
+        static TypeId GetTypeId(void);
+        virtual TypeId GetInstanceTypeId() const override;
+        virtual uint32_t GetSerializedSize() const override;
+        virtual void Serialize(Buffer::Iterator start) const override;
+        virtual uint32_t Deserialize(Buffer::Iterator start) override;
+        virtual void Print(std::ostream &os) const override;
+
+        // Setters and Getters
+
+
+    private:
+        
+};
+
+} // namespace ns3
+
+#endif // <header-preprocessor-variable>

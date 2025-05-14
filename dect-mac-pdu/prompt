@@ -1,0 +1,49 @@
+[ENTRIES]
+1:
+<folder> = messages
+<file-name> = cluster-beacon-message
+<header-preprocessor-variable> = CLUSTER_BEACON_MESSAGE_H
+<header-class-name> = ClusterBeaconMessage
+
+2:
+<folder> = messages
+<file-name> = association-request-message
+<header-preprocessor-variable> = ASSOCIATION_REQUEST_MESSAGE_H
+<header-class-name> = AssociationRequestMessage
+
+3:
+<folder> = messages
+<file-name> = association-response-message
+<header-preprocessor-variable> = ASSOCIATION_RESPONSE_MESSAGE_H
+<header-class-name> = AssociationResponseMessage
+
+4:
+<folder> = messages
+<file-name> = association-release-message
+<header-preprocessor-variable> = ASSOCIATION_RELEASE_MESSAGE_H
+<header-class-name> = AssociationReleaseMessage
+
+5:
+<folder> = messages
+<file-name> = reconfiguration-request-message
+<header-preprocessor-variable> = RECONFIGURATION_REQUEST_MESSAGE_H
+<header-class-name> = ReconfigurationRequestMessage
+
+6:
+<folder> = messages
+<file-name> = reconfiguration-response-message
+<header-preprocessor-variable> = RECONFIGURATION_RESPONSE_MESSAGE_H
+<header-class-name> = ReconfigurationResponseMessage
+
+Above, you can see the [ENTRIES] section. This section provides values for variables that can be substituted. For each entry, I need you to do these steps:
+
+1.
+Create:
+Folder: contrib/dect-mac-pdu/model/<folder>/<file-name>
+Two files inside the new folder: <file-name>.cc and <file-name>.h
+
+2. Use the template @header-template-h. Substitute the values enclosed in <> with the values provided in the entry. Please, be sure that you substitute only the variable which value was given inside the entry..
+
+3. Inside <file-name>.cc, create definitions for functions
+
+4. Proceed to the next entry if available
