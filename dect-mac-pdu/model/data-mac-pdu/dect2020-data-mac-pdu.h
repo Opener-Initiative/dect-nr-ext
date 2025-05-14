@@ -1,16 +1,16 @@
-#ifndef MAC_MULTIPLEXING_HEADER_H
-#define MAC_MULTIPLEXING_HEADER_H
+#ifndef DECT2020_DATA_MAC_PDU_H
+#define DECT2020_DATA_MAC_PDU_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class MacMultiplexingHeader : public Header
+class Dect2020DataMacPdu : public Header
 {
     public:
-        MacMultiplexingHeader();
-        ~MacMultiplexingHeader() override;
+        Dect2020DataMacPdu();
+        virtual ~Dect2020DataMacPdu();
 
         // Virtual Header base class methods
 
@@ -22,12 +22,16 @@ class MacMultiplexingHeader : public Header
         virtual void Print(std::ostream &os) const override;
 
         // Setters and Getters
-
-
-    private:
+        void SetReset(uint8_t value);
+        uint8_t GetReset() const;
+        void SetSequenceNumber(uint16_t sequenceNumber);
+        uint16_t GetSequenceNumber() const;
         
+    private:
+        uint8_t m_reset;
+        uint16_t m_sequenceNumber; // 12 relevant bits
 };
 
 } // namespace ns3
 
-#endif // MAC_MULTIPLEXING_HEADER_H 
+#endif // DECT2020_DATA_MAC_PDU_H 
