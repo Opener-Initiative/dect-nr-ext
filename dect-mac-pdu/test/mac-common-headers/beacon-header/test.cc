@@ -1,0 +1,25 @@
+#include "test-case.cc"
+#include "ns3/test.h"
+
+namespace ns3 {
+
+class Dect2020BeaconHeaderTest : public TestSuite
+{
+    public:
+        Dect2020BeaconHeaderTest();
+        ~Dect2020BeaconHeaderTest() override;
+};
+
+Dect2020BeaconHeaderTest::Dect2020BeaconHeaderTest() 
+    : TestSuite("dect2020-beacon-header-serialization-test", Type::UNIT)
+{
+    AddTestCase(new Dect2020BeaconHeaderTestCase(), TestCase::Duration::QUICK);
+}
+
+Dect2020BeaconHeaderTest::~Dect2020BeaconHeaderTest()
+{
+}
+
+static Dect2020BeaconHeaderTest dect2020BeaconHeaderTest;
+
+} // namespace ns3

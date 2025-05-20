@@ -2,7 +2,7 @@
 #include "ns3/packet.h"
 #include "ns3/dect2020-beacon-header.h"
 #include "ns3/dect2020-unicast-header.h"
-#include "ns3/dect2020-route-info.h"
+#include "ns3/dect2020-route-info-ie.h"
 
 using namespace ns3;
 

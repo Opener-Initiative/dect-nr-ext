@@ -1,43 +1,54 @@
-set(source_files
-    model/headers/beacon-header/dect2020-beacon-header.cc
-    model/headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.cc
-    model/headers/unicast-header/dect2020-unicast-header.cc
-    model/information-elements/dect2020-route-info.cc
-    model/mac-header-type/dect2020-mac-header-type.cc
-    model/messages/dect2020-beacon-message.cc
-    model/physical-header-field/dect2020-physical-header-field.cc
-    model/dect2020-mac-pdu.cc)
+# Source code
 
-set(header_files
-    model/headers/beacon-header/dect2020-beacon-header.h
-    model/headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
-    model/headers/unicast-header/dect2020-unicast-header.h
-    model/information-elements/dect2020-route-info.h
-    model/mac-header-type/dect2020-mac-header-type.h
-    model/messages/dect2020-beacon-message.h
-    model/physical-header-field/dect2020-physical-header-field.h
-    model/dect2020-mac-pdu.h)
+# Helper
+set(mac_pdu_helper_src
+    helper/dect2020-mac-pdu-helper.cc)
 
-set(test_source_files
-    test/headers/beacon-header/dect2020-beacon-header-test.cc
-    test/headers/beacon-header/dect2020-beacon-header-test-case.cc
-    test/mac-header-type/dect2020-mac-header-type-test.cc
-    test/mac-header-type/dect2020-mac-header-type-test-case.cc
-    test/headers/unicast-header/dect2020-unicast-header-test.cc
-    test/headers/unicast-header/dect2020-unicast-header-test-case.cc
-    test/physical-header-field/dect2020-physical-header-field-test.cc
-    test/physical-header-field/dect2020-physical-header-field-test-case-1.cc
-    test/physical-header-field/dect2020-physical-header-field-test-case-2.cc
-    test/messages/dect2020-beacon-message-test.cc
-    test/messages/dect2020-beacon-message-test-case.cc
-    test/information-elements/dect2020-route-info-test.cc
-    test/information-elements/dect2020-route-info-test-case.cc
-    test/headers/rd-broadcasting-header/test.cc
-    test/headers/rd-broadcasting-header/test-case.cc)
+set(mac_pdu_helper_h
+    helper/dect2020-mac-pdu-helper.h)
+
+# Model
+set(mac_header_type_src
+    model/mac-header-type/dect2020-mac-header-type.cc)
+
+set(mac_header_type_h
+    model/mac-header-type/dect2020-mac-header-type.h)
+
+set(mac_common_headers_src
+    model/mac-common-headers/beacon-header/dect2020-beacon-header.cc
+    model/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.cc
+    model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.cc
+    model/mac-common-headers/unicast-header/dect2020-unicast-header.cc)
+
+set(mac_common_headers_h
+    model/mac-common-headers/beacon-header/dect2020-beacon-header.h
+    model/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.h
+    model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
+    model/mac-common-headers/unicast-header/dect2020-unicast-header.h)
+
+# Tests
+set(mac_header_type_test_src
+    test/mac-header-type/test.cc
+    test/mac-header-type/test-case.cc)
+
+set(rd_broadcasting_header_test_src
+    test/mac-common-headers/rd-broadcasting-header/test.cc
+    test/mac-common-headers/rd-broadcasting-header/test-case.cc)
 
 build_lib(
     LIBNAME dect-mac-pdu
-    SOURCE_FILES ${source_files}
-    HEADER_FILES ${header_files}
-    TEST_SOURCES ${test_source_files}
+    SOURCE_FILES
+        ${mac_pdu_helper_src}
+        ${mac_header_type_src}
+        ${mac_common_headers_src}
+    HEADER_FILES
+        ${mac_pdu_helper_h}
+        ${mac_header_type_h}
+        ${mac_common_headers_h}
+    TEST_SOURCES
+        ${mac_header_type_test_src}
+        ${rd_broadcasting_header_test_src}
+    LIBRARIES_TO_LINK
+        ${libcore}
+        ${libnetwork}
 )

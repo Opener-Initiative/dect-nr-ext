@@ -1,6 +1,5 @@
 set(base_examples
-    pdu-creation
-    serialization-deserialization
+    mac-pdu-creation
 )
 
 foreach(

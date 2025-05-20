@@ -1,60 +1,43 @@
 #ifndef DECT2020_MAC_PDU_H
 #define DECT2020_MAC_PDU_H
 
-#include "ns3/dect2020-mac-header-type.h"
-#include "ns3/dect2020-beacon-header.h"
-#include "ns3/dect2020-beacon-message.h"
-#include "ns3/dect2020-route-info.h"
-
-#include "ns3/pointer.h"
-#include "ns3/packet.h"
-
 namespace ns3
 {
-
-class Dect2020MacHeaderType;
-class Dect2020BeaconHeader;
-class Dect2020BeaconMessage;
-class Dect2020RouteInfo;
 
 class Dect2020MacPdu
 {
     public:
-        Dect2020MacPdu();
-        ~Dect2020MacPdu();
-
-        enum PduType
+        enum MacHeaderType
         {
-            BROADCAST,
-            MESH,
-            UNICAST
+            DATA_MAC_PDU_HEADER,
+            BEACON_HEADER,
+            UNICAST_HEADER,
+            RD_BROADCASTING_HEADER,
+            ESCAPE
         };
 
-        // Setters, getters
-        void SetPduType(PduType type);
-        PduType GetPduType() const;
+        enum MacSecurity
+        {
+            MAC_SECURITY_NOT_USED,
+            MAC_SECURITY_USED_NO_IE,
+            MAC_SECURITY_USED_WITH_IE,
+            RESERVED
+        };
 
-        // Error-checking
-        void TypeAssigned();
+        Dect2020MacPdu(MacHeaderType type);
+        ~Dect2020MacPdu();
 
-        // Create BROADCAST PDU
-        Ptr<Packet> CreateBroadcastPdu();
+        // Setters and Getters
 
-        // Create MESH PDU
-        Ptr<Packet> CreateMeshPdu();
-
-        // Create UNICAST PDU
-        Ptr<Packet> CreateUnicastPdu();
-
-        // Create MAC PDU
-        Ptr<Packet> CreateMacPdu();
+        MacHeaderType GetMacHeaderType() const;
+        void SetMacHeaderType(MacHeaderType type);
+        
+        MacSecurity GetMacSecurity() const;
+        void SetMacSecurity(MacSecurity security);
 
     private:
-        Dect2020MacHeaderType m_macHeaderType;
-        Dect2020BeaconHeader m_beaconHeader;
-        Dect2020BeaconMessage m_beaconMessage;
-        Dect2020RouteInfo m_routeInfo;
-        PduType m_pduType;
+        MacHeaderType m_macHeaderType;
+        MacSecurity m_macSecurity;
 };
 
 }

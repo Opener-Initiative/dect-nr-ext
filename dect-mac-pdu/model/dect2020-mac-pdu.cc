@@ -3,94 +3,36 @@
 namespace ns3
 {
 
-Dect2020MacPdu::Dect2020MacPdu(){}
+Dect2020MacPdu::Dect2020MacPdu(MacHeaderType type, MacSecurity security)
+{
+    m_macHeaderType = type;
+    m_macSecurity = security;
+}
+
 Dect2020MacPdu::~Dect2020MacPdu(){}
 
-void
-Dect2020MacPdu::SetPduType(PduType type)
+MacHeaderType
+Dect2020MacPdu::GetMacHeaderType() const
 {
-    m_pduType = type;
-}
-
-Dect2020MacPdu::PduType
-Dect2020MacPdu::GetPduType() const
-{
-    return m_pduType;
+    return m_macHeaderType;
 }
 
 void
-Dect2020MacPdu::TypeAssigned()
+Dect2020MacPdu::SetMacHeaderType(MacHeaderType type)
 {
-    if(m_pduType != PduType::BROADCAST && m_pduType != PduType::MESH && m_pduType != PduType::UNICAST)
-    {
-        throw std::runtime_error("[ERROR] MAC PDU type was not assigned!");
-    }
+    m_macHeaderType = type;
 }
 
-// MAC Header Type | MAC Common Header | Network Beacon Message
-Ptr<Packet>
-Dect2020MacPdu::CreateBroadcastPdu()
+MacSecurity
+Dect2020MacPdu::GetMacSecurity() const
 {
-    Ptr<Packet> packet = Create<Packet>();
-
-    packet->AddHeader(m_macHeaderType);
-    packet->AddHeader(m_beaconHeader); // MAC Common Header
-    packet->AddHeader(m_beaconMessage); // Network Beacon Message
-
-    return packet;
+    return m_macSecurity;
 }
 
-// MAC Header Type | MAC Common Header | Network Beacon Message | Route Info
-Ptr<Packet>
-Dect2020MacPdu::CreateMeshPdu()
+void
+Dect2020MacPdu::SetMacSecurity(MacSecurity security)
 {
-    Ptr<Packet> packet = Create<Packet>();
-
-    packet->AddHeader(m_macHeaderType);
-    packet->AddHeader(m_beaconHeader); // MAC Common Header
-    packet->AddHeader(m_beaconMessage); // Network Beacon Message
-    packet->AddHeader(m_routeInfo); // Mesh Header
-
-    return packet;
-}
-
-// MAC Header Type | MAC Unicast Header | Cluster Beacon Message ???
-Ptr<Packet>
-Dect2020MacPdu::CreateUnicastPdu()
-{
-
-}
-
-Ptr<Packet>
-Dect2020MacPdu::CreateMacPdu()
-{
-
-    Ptr<Packet> pdu = Create<Packet>();
-
-    try
-    {
-        TypeAssigned();
-    }
-    catch(const std::runtime_error& e)
-    {
-        std::cerr << e.what() << "\n";
-        exit(EXIT_FAILURE);
-    }
-
-    switch(m_pduType)
-    {
-        case BROADCAST:
-            pdu = CreateBroadcastPdu();
-            break;
-        case MESH:
-            pdu = CreateMeshPdu();
-            break;
-        case UNICAST:
-            pdu = CreateUnicastPdu();
-            break;
-    }
-    
-    return pdu;
+    m_macSecurity = security;
 }
 
 } // namespace ns3
