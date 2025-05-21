@@ -6,6 +6,9 @@
 namespace ns3
 {
 
+/**
+ * Helper class which helps to create MAC PDUs
+ */
 class Dect2020MacPduHelper
 {
     public:
