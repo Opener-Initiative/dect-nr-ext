@@ -41,7 +41,7 @@ set(rd_broadcasting_header_test_src
     test/mac-common-headers/rd-broadcasting-header/test-case.cc)
 
 build_lib(
-    LIBNAME dect-mac-pdu
+    LIBNAME dect-nr
     SOURCE_FILES
         ${mac_pdu_helper_src}
         ${mac_header_type_src}
