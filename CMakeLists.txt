@@ -32,13 +32,19 @@ set(mac_common_headers_h
     model/mac-common-headers/unicast-header/dect2020-unicast-header.h)
 
 # Tests
+set(mac_common_headers_tests_src
+    test/mac-common-headers/unicast-header/unicast-header-test.cc
+    test/mac-common-headers/unicast-header/serialization-test-case.cc
+    test/mac-common-headers/rd-broadcasting-header/rd-broadcasting-header-test.cc
+    test/mac-common-headers/rd-broadcasting-header/serialization-test-case.cc
+    test/mac-common-headers/data-mac-pdu/data-mac-pdu-test.cc
+    test/mac-common-headers/data-mac-pdu/serialization-test-case.cc
+    test/mac-common-headers/beacon-header/beacon-header-test.cc
+    test/mac-common-headers/beacon-header/serialization-test-case.cc)
+
 set(mac_header_type_test_src
     test/mac-header-type/test.cc
     test/mac-header-type/test-case.cc)
-
-set(rd_broadcasting_header_test_src
-    test/mac-common-headers/rd-broadcasting-header/test.cc
-    test/mac-common-headers/rd-broadcasting-header/test-case.cc)
 
 build_lib(
     LIBNAME dect-nr
@@ -52,7 +58,7 @@ build_lib(
         ${mac_common_headers_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
-        ${rd_broadcasting_header_test_src}
+        ${mac_common_headers_tests_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}

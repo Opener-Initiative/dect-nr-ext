@@ -1,4 +1,4 @@
-#include "test-case.cc"
+#include "serialization-test-case.cc"
 #include "ns3/test.h"
 
 namespace ns3 {
@@ -7,11 +7,11 @@ class Dect2020BeaconHeaderTest : public TestSuite
 {
     public:
         Dect2020BeaconHeaderTest();
-        ~Dect2020BeaconHeaderTest() override;
+        virtual ~Dect2020BeaconHeaderTest();
 };
 
 Dect2020BeaconHeaderTest::Dect2020BeaconHeaderTest() 
-    : TestSuite("dect2020-beacon-header-serialization-test", Type::UNIT)
+    : TestSuite("dect2020-beacon-header-test", Type::UNIT)
 {
     AddTestCase(new Dect2020BeaconHeaderTestCase(), TestCase::Duration::QUICK);
 }

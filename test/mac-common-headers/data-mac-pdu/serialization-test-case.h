@@ -12,7 +12,7 @@ class SerializationTestCase : public TestCase
         SerializationTestCase();
         virtual void DoSetup();
         virtual void DoRun();
-}
+};
 
 } // namespace ns3
 

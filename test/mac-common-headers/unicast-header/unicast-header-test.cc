@@ -1,4 +1,4 @@
-#include "test-case.cc"
+#include "serialization-test-case.cc"
 #include "ns3/test.h"
 
 namespace ns3 {
@@ -13,7 +13,7 @@ class Dect2020UnicastHeaderTest : public TestSuite
 Dect2020UnicastHeaderTest::Dect2020UnicastHeaderTest() 
     : TestSuite("dect2020-unicast-header-serialization-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020UnicastHeaderTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new SerializationTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020UnicastHeaderTest::~Dect2020UnicastHeaderTest()
