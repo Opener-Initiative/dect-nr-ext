@@ -40,20 +40,113 @@ Dect2020ClusterBeaconMessage::GetSerializedSize() const
 void
 Dect2020ClusterBeaconMessage::Serialize(Buffer::Iterator start) const
 {
-    // TODO: Implement serialization
+    // byte 0
+    uint8_t byte0 = m_SFN;
+    start.WriteU8(byte0);
+
+    // byte 1
+    // 4 first bits are reserved
+    uint8_t byte1 = (m_powerConst << 3);
+    byte1 |= (m_FO << 2);
+    byte1 |= (m_nextChannel << 1);
+    byte1 |= m_timeToNext;
+    start.WriteU8(byte1);
+
+    // byte 2
+    uint8_t byte2 = (m_networkBeaconPeriod << 4);
+    byte2 |= m_clusterBeaconPeriod;
+    start.WriteU8(byte2);
+
+    // byte 3
+    uint8_t byte3 = (m_countToTrigger << 4);
+    byte3 |= (m_relQuality << 2);
+    byte3 |= m_minQuality;
+    start.WriteU8(byte3);
+
+    // byte 4
+    start.WriteU8(m_frameOffset);
+
+    // byte 5
+    // first 3 bits are reserved
+    uint8_t byte5 = (m_nextClusterChannel >> 8);
+    start.WriteU8(byte5);
+
+    // byte 6
+    uint8_t byte6 = (m_nextClusterChannel && 0x00FF);
+    start.WriteU8(byte6);
+
+    // Time To Next
+    start.WriteU32(m_timeToNext);
 }
 
 uint32_t
 Dect2020ClusterBeaconMessage::Deserialize(Buffer::Iterator start)
 {
-    // TODO: Implement deserialization
-    return 0; // Number of bytes consumed
+    int bytesRead = 0;
+
+    // byte 0
+    m_SFN = start.ReadU8();
+    bytesRead++;
+
+    // byte1
+    uint8_t byte1 = start.ReadU8();
+    m_powerConst = (byte1 & 0x08);
+    m_FO = (byte1 & 0x04);
+    m_nextChannel = (byte1 & 0x02);
+    m_timeToNext = (byte1 & 0x01);
+    bytesRead++;
+
+    // byte 2
+    uint8_t byte2 = start.ReadU8();
+    m_networkBeaconPeriod = (byte2 & 0xF0);
+    m_clusterBeaconPeriod = (byte2 & 0x0F);
+    bytesRead++;
+
+    // byte 3
+    uint8_t byte3 = start.ReadU8();
+    m_countToTrigger = (byte3 & 0xF0);
+    m_relQuality = (byte3 & 0x0C);
+    m_minQuality = (byte3 & 0x03);
+    bytesRead++;
+
+    // byte 4
+    m_frameOffset = start.ReadU8();
+    bytesRead++;
+
+    // Next Cluster Channel
+    uint8_t byte5 = start.ReadU8();
+    m_nextClusterChannel = byte5;
+    bytesRead++;
+
+    uint8_t byte6 = start.ReadU8();
+    m_nextClusterChannel = (m_nextClusterChannel << 8);
+    m_nextClusterChannel = (m_nextClusterChannel & byte6);
+    bytesRead++;
+
+    // Time To Next
+    m_timeToNext = start.ReadU32();
+    bytesRead += 4;
+
+    return bytesRead; // Number of bytes consumed
 }
 
 void
 Dect2020ClusterBeaconMessage::Print(std::ostream& os) const
 {
-    // TODO: Implement this method
+    os << "[DECT2020 CLUSTER BEACON MESSAGE]" << "\n"
+       << "SFN: 0x" << std::hex << (int)GetSFN() << "\n"
+       << "Power Const: 0x" << std::hex << (int)GetPowerConst() << "\n"
+       << "FO: 0x" << std::hex << (int)GetFO() << "\n"
+       << "Next Channel: 0x" << std::hex << (int)GetNextChannel() << "\n"
+       << "Time To Next (1-bit): 0x" << std::hex << (int)GetTimeToNextBit() << "\n"
+       << "Network Beacon Period: 0x" << std::hex << (int)GetNetworkBeaconPeriod() << "\n"
+       << "Cluster Beacon Period: 0x" << std::hex << (int)GetClusterBeaconPeriod() << "\n"
+       << "Count To Trigger: 0x" << std::hex << (int)GetCountToTrigger() << "\n"
+       << "Relative Quality: 0x" << std::hex << (int)GetRelQuality() << "\n"
+       << "Minimum Quality: 0x" << std::hex << (int)GetMinQuality() << "\n"
+       << "Frame Offset: 0x" << std::hex << (int)GetFrameOffset() << "\n"
+       << "Next Cluster Channel: 0x" << std::hex << (int)GetNextClusterChannel() << "\n"
+       << "Time To Next (4-byte): 0x" << std::hex << (int)GetTimeToNext() << "\n";
 }
 
 // SFN

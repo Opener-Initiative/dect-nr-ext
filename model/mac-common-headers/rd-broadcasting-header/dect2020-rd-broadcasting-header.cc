@@ -40,8 +40,8 @@ uint32_t Dect2020RDBroadcastingHeader::GetSerializedSize() const
 void Dect2020RDBroadcastingHeader::Serialize(Buffer::Iterator start) const
 {
     // byte 0
-    // 3 first bytes are reserved
-    uint8_t byte0 = (m_reset << 4);
+    // 3 first bits are reserved
+    uint8_t byte0 = (m_reset << 4); 
     byte0 |= (m_sequenceNumber >> 8);
     start.WriteU8(byte0);
 

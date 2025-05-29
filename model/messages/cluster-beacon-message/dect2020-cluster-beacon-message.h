@@ -88,7 +88,6 @@ class Dect2020ClusterBeaconMessage : public Header
 
     private:
         uint8_t m_SFN; // 1-byte SFN
-        uint8_t m_TXPower; // 1 relevant bit
         uint8_t m_powerConst; // 1 relevant bit;
         uint8_t m_FO; // 1 relevant bit
         uint8_t m_nextChannel; // 1 relevant bit;
