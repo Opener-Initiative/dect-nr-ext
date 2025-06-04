@@ -34,6 +34,13 @@ set(mac_common_headers_h
     model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
     model/mac-common-headers/unicast-header/dect2020-unicast-header.h)
 
+# mac multiplexing header
+set(mac_multiplexing_header_src
+    model/mac-multiplexing-header/dect2020-mac-multiplexing-header.cc)
+
+set(mac_multiplexing_header_h
+    model/mac-multiplexing-header/dect2020-mac-multiplexing-header.h)
+
 # information elements
 set(network_beacon_message_ie_src
     model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.cc)
@@ -63,11 +70,13 @@ build_lib(
         ${mac_header_type_src}
         ${mac_common_headers_src}
         ${network_beacon_message_ie_src}
+        ${mac_multiplexing_header_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
         ${mac_common_headers_h}
         ${network_beacon_message_ie_h}
+        ${mac_multiplexing_header_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${mac_common_headers_tests_src}

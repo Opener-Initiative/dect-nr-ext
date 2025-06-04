@@ -1,4 +1,5 @@
 #include "ns3/dect2020-mac-pdu-helper.h"
+#include "ns3/dect2020-mac-multiplexing-header.h"
 #include "ns3/dect2020-network-beacon-message-ie.h"
 
 #include "ns3/pointer.h"
@@ -22,6 +23,9 @@ CreateBeaconPdu()
 int
 main(int argc, char* argv[])
 {
-    Ptr<Packet> pdu =CreateBeaconPdu();
+    Dect2020MacMultiplexingHeader muxHeader;
+    muxHeader.SetType(Dect2020MacMultiplexingHeader::Type::C);
+    std::cout << "Type: " << muxHeader.GetType() << std::endl;
+    std::cout << bool(muxHeader.GetType() == Dect2020MacMultiplexingHeader::Type::C) << std::endl;
     return 0;
 }
