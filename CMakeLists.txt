@@ -78,8 +78,8 @@ build_lib(
         ${network_beacon_message_ie_h}
         ${mac_multiplexing_header_h}
     TEST_SOURCES
-        ${mac_header_type_test_src}
         ${mac_common_headers_tests_src}
+        ${mac_header_type_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}

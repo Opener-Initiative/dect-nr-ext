@@ -8,7 +8,7 @@ class Dect2020DataMacPduTest : public TestSuite
 {
     public:
         Dect2020DataMacPduTest();
-}
+};
 
 Dect2020DataMacPduTest::Dect2020DataMacPduTest()
     : TestSuite("dect2020-data-mac-pdu-test", Type::UNIT)
