@@ -1,4 +1,4 @@
-#include "serialization-test-case.cc"
+#include "serialization-test-case.h"
 #include "ns3/test.h"
 
 namespace ns3 {
@@ -13,7 +13,7 @@ class Dect2020BeaconHeaderTest : public TestSuite
 Dect2020BeaconHeaderTest::Dect2020BeaconHeaderTest() 
     : TestSuite("dect2020-beacon-header-test", Type::UNIT)
 {
-    AddTestCase(new SerializationTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020BeaconHeaderSerializationTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020BeaconHeaderTest::~Dect2020BeaconHeaderTest()

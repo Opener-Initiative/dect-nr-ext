@@ -50,9 +50,9 @@ set(network_beacon_message_ie_h
 
 # Tests
 
-# mac common headers
+# MAC COMMON HEADERS
 
-# unicast header test
+# UNICAST HEADER TEST
 set(unicast_header_test_src
     test/mac-common-headers/unicast-header/test.cc
     test/mac-common-headers/unicast-header/serialization-test-case.cc)
@@ -72,7 +72,7 @@ set(beacon_header_test_src
     test/mac-common-headers/beacon-header/test.cc
     test/mac-common-headers/beacon-header/serialization-test-case.cc)
 
-# mac header type test
+# MAC HEADER TYPE TEST
 set(mac_header_type_test_src
     test/mac-header-type/test.cc
     test/mac-header-type/serialization-test-case.cc)
@@ -96,6 +96,7 @@ build_lib(
         ${unicast_header_test_src}
         ${rd_broadcasting_header_test_src}
         ${data_mac_pdu_test_src}
+        ${beacon_header_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}

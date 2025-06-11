@@ -1,19 +1,19 @@
-#ifndef SERIALIZATION_TEST_CASE_H
-#define SERIALIZATION_TEST_CASE_H
+#ifndef DECT2020_BEACON_HEADER_SERIALIZATION_TEST_CASE_H
+#define DECT2020_BEACON_HEADER_SERIALIZATION_TEST_CASE_H
 
 #include "ns3/test.h"
 
 namespace ns3 {
 
-class SerializationTestCase : public TestCase
+class Dect2020BeaconHeaderSerializationTestCase : public TestCase
 {
 public:
-    SerializationTestCase();
-    virtual ~SerializationTestCase();
-    void DoSetup() override;
-    void DoRun() override;
+    Dect2020BeaconHeaderSerializationTestCase();
+    virtual ~Dect2020BeaconHeaderSerializationTestCase();
+    virtual void DoSetup();
+    virtual void DoRun();
 };
 
 } // namespace ns3
 
-#endif // SERIALIZATION_TEST_CASE_H
+#endif // DECT2020_BEACON_HEADER_SERIALIZATION_TEST_CASE_H
