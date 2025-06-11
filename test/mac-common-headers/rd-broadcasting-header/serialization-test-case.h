@@ -1,19 +1,19 @@
-#ifndef RD_BROADCASTING_SERIALIZATION_TEST_CASE_H
-#define RD_BROADCASTING_SERIALIZATION_TEST_CASE_H
+#ifndef DECT2020_RD_BROADCASTING_HEADER_SERIALIZATION_TEST_CASE_H
+#define DECT2020_RD_BROADCASTING_HEADER_SERIALIZATION_TEST_CASE_H
 
 #include "ns3/test.h"
 
 namespace ns3 {
 
-class SerializationTestCase : public TestCase
+class Dect2020RDBroadcastingHeaderSerializationTestCase : public TestCase
 {
 public:
-    SerializationTestCase();
-    virtual ~SerializationTestCase();
-    void DoSetup() override;
-    void DoRun() override;
+    Dect2020RDBroadcastingHeaderSerializationTestCase();
+    virtual ~Dect2020RDBroadcastingHeaderSerializationTestCase();
+    virtual void DoSetup();
+    virtual void DoRun();
 };
 
 } // namespace ns3
 
-#endif // RD_BROADCASTING_SERIALIZATION_TEST_CASE_H
+#endif // DECT2020_RD_BROADCASTING_HEADER_SERIALIZATION_TEST_CASE_H

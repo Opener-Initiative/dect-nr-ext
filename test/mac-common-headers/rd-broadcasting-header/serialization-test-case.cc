@@ -4,20 +4,20 @@
 
 namespace ns3 {
 
-SerializationTestCase::SerializationTestCase()
+Dect2020RDBroadcastingHeaderSerializationTestCase::Dect2020RDBroadcastingHeaderSerializationTestCase()
     : TestCase("Dect2020RDBroadcastingHeaderSerializationTestCase")
 {
 }
 
-SerializationTestCase::~SerializationTestCase()
+Dect2020RDBroadcastingHeaderSerializationTestCase::~Dect2020RDBroadcastingHeaderSerializationTestCase()
 {
 }
 
-void SerializationTestCase::DoSetup()
+void Dect2020RDBroadcastingHeaderSerializationTestCase::DoSetup()
 {
 }
 
-void SerializationTestCase::DoRun()
+void Dect2020RDBroadcastingHeaderSerializationTestCase::DoRun()
 {
     Dect2020RDBroadcastingHeader originalHeader;
     Dect2020RDBroadcastingHeader deserializedHeader;
