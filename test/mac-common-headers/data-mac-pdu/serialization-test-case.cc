@@ -4,15 +4,23 @@
 namespace ns3
 {
 
-SerializationTestCase::SerializationTestCase()
+Dect2020DataMacPduSerializationTestCase::Dect2020DataMacPduSerializationTestCase()
     : TestCase("Dect2020DataMacPduHeaderSerializationTestCase")
 {
 }
 
-void
-SerializationTestCase::DoRun()
+Dect2020DataMacPduSerializationTestCase::~Dect2020DataMacPduSerializationTestCase()
 {
+}
 
+void
+Dect2020DataMacPduSerializationTestCase::DoSetup()
+{
+}
+
+void
+Dect2020DataMacPduSerializationTestCase::DoRun()
+{
 }
 
 } // namespace ns3

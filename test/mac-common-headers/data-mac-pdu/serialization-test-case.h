@@ -6,10 +6,11 @@
 namespace ns3
 {
 
-class SerializationTestCase : public TestCase
+class Dect2020DataMacPduSerializationTestCase : public TestCase
 {
     public:
-        SerializationTestCase();
+        Dect2020DataMacPduSerializationTestCase();
+        ~Dect2020DataMacPduSerializationTestCase();
         virtual void DoSetup();
         virtual void DoRun();
 };
