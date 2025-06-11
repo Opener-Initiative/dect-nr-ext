@@ -11,7 +11,8 @@ class Dect2020RDBroadcastingHeaderTest : public TestSuite
         virtual ~Dect2020RDBroadcastingHeaderTest();
 };
 
-Dect2020RDBroadcastingHeaderTest::Dect2020RDBroadcastingHeaderTest() : TestSuite("dect2020-rd-broadcasting-header-test", Type::UNIT)
+Dect2020RDBroadcastingHeaderTest::Dect2020RDBroadcastingHeaderTest()
+    : TestSuite("dect2020-rd-broadcasting-header-test", Type::UNIT)
 {
     AddTestCase(new SerializationTestCase(), TestCase::Duration::QUICK);
 }

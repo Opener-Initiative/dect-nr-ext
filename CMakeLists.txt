@@ -14,7 +14,7 @@ set(mac_pdu_helper_h
 
 # Model
 
-# header type
+# mac header type
 set(mac_header_type_src
     model/mac-header-type/dect2020-mac-header-type.cc)
 
@@ -49,19 +49,26 @@ set(network_beacon_message_ie_h
     model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.h)
 
 # Tests
+
+# mac common headers
+
+# unicast header
+set(unicast_header_test_src
+    test/mac-common-headers/unicast-header/test.cc
+    test/mac-common-headers/unicast-header/serialization-test-case.cc)
+
 set(mac_common_headers_tests_src
-    test/mac-common-headers/unicast-header/unicast-header-test.cc
-    test/mac-common-headers/unicast-header/serialization-test-case.cc
-    test/mac-common-headers/rd-broadcasting-header/rd-broadcasting-header-test.cc
+    test/mac-common-headers/rd-broadcasting-header/test.cc
     test/mac-common-headers/rd-broadcasting-header/serialization-test-case.cc
-    test/mac-common-headers/data-mac-pdu/data-mac-pdu-test.cc
+    test/mac-common-headers/data-mac-pdu/test.cc
     test/mac-common-headers/data-mac-pdu/serialization-test-case.cc
-    test/mac-common-headers/beacon-header/beacon-header-test.cc
+    test/mac-common-headers/beacon-header/test.cc
     test/mac-common-headers/beacon-header/serialization-test-case.cc)
 
+# mac header type test
 set(mac_header_type_test_src
     test/mac-header-type/test.cc
-    test/mac-header-type/test-case.cc)
+    test/mac-header-type/serialization-test-case.cc)
 
 build_lib(
     LIBNAME dect-nr
@@ -78,8 +85,8 @@ build_lib(
         ${network_beacon_message_ie_h}
         ${mac_multiplexing_header_h}
     TEST_SOURCES
-        ${mac_common_headers_tests_src}
         ${mac_header_type_test_src}
+        ${unicast_header_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}
