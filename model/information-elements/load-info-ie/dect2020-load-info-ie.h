@@ -1,16 +1,16 @@
-#ifndef LOAD_INFO_IE_H
-#define LOAD_INFO_IE_H
+#ifndef DECT2020_LOAD_INFO_IE_H
+#define DECT2020_LOAD_INFO_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class LoadInfoIE : public Header
+class Dect2020LoadInfoIE : public Header
 {
     public:
-        LoadInfoIE();
-        ~LoadInfoIE() override;
+        Dect2020LoadInfoIE();
+        virtual ~Dect2020LoadInfoIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class LoadInfoIE : public Header
 
 } // namespace ns3
 
-#endif // LOAD_INFO_IE_H 
+#endif // DECT2020_LOAD_INFO_IE_H 
