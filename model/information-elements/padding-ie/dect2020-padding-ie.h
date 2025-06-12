@@ -1,16 +1,16 @@
-#ifndef PADDING_IE_H
-#define PADDING_IE_H
+#ifndef DECT2020_PADDING_IE_H
+#define DECT2020_PADDING_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class PaddingIE : public Header
+class Dect2020PaddingIE : public Header
 {
     public:
-        PaddingIE();
-        ~PaddingIE() override;
+        Dect2020PaddingIE();
+        virtual ~Dect2020PaddingIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class PaddingIE : public Header
 
 } // namespace ns3
 
-#endif // PADDING_IE_H 
+#endif // DECT2020_PADDING_IE_H 
