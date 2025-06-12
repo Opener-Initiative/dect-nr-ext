@@ -1,16 +1,16 @@
-#ifndef KEEP_ALIVE_IE_H
-#define KEEP_ALIVE_IE_H
+#ifndef DECT2020_KEEP_ALIVE_IE_H
+#define DECT2020_KEEP_ALIVE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class KeepAliveIE : public Header
+class Dect2020KeepAliveIE : public Header
 {
     public:
-        KeepAliveIE();
-        ~KeepAliveIE() override;
+        Dect2020KeepAliveIE();
+        virtual ~Dect2020KeepAliveIE();
 
         // Virtual Header base class methods
 
@@ -23,11 +23,10 @@ class KeepAliveIE : public Header
 
         // Setters and Getters
 
-
     private:
         
 };
 
 } // namespace ns3
 
-#endif // KEEP_ALIVE_IE_H 
+#endif // DECT2020_KEEP_ALIVE_IE_H 
