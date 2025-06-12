@@ -1,16 +1,16 @@
-#ifndef ASSOCIATION_RESPONSE_MESSAGE_H
-#define ASSOCIATION_RESPONSE_MESSAGE_H
+#ifndef DECT2020_ASSOCIATION_RESPONSE_MESSAGE_IE_H
+#define DECT2020_ASSOCIATION_RESPONSE_MESSAGE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class AssociationResponseMessage : public Header
+class Dect2020AssociationResponseMessageIE : public Header
 {
     public:
-        AssociationResponseMessage();
-        ~AssociationResponseMessage() override;
+        Dect2020AssociationResponseMessageIE();
+        virtual ~Dect2020AssociationResponseMessageIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class AssociationResponseMessage : public Header
 
 } // namespace ns3
 
-#endif // ASSOCIATION_RESPONSE_MESSAGE_H 
+#endif // DECT2020_ASSOCIATION_RESPONSE_MESSAGE_IE_H 
