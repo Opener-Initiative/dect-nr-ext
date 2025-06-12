@@ -1,16 +1,16 @@
-#ifndef MEASUREMENT_REPORT_IE_H
-#define MEASUREMENT_REPORT_IE_H
+#ifndef DECT2020_MEASUREMENT_REPORT_IE_H
+#define DECT2020_MEASUREMENT_REPORT_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class MeasurementReportIE : public Header
+class Dect2020MeasurementReportIE : public Header
 {
     public:
-        MeasurementReportIE();
-        ~MeasurementReportIE() override;
+        Dect2020MeasurementReportIE();
+        virtual ~Dect2020MeasurementReportIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class MeasurementReportIE : public Header
 
 } // namespace ns3
 
-#endif // MEASUREMENT_REPORT_IE_H 
+#endif // DECT2020_MEASUREMENT_REPORT_IE_H 
