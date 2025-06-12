@@ -1,16 +1,16 @@
-#ifndef RECONFIGURATION_REQUEST_MESSAGE_H
-#define RECONFIGURATION_REQUEST_MESSAGE_H
+#ifndef DECT2020_RECONFIGURATION_REQUEST_MESSAGE_H
+#define DECT2020_RECONFIGURATION_REQUEST_MESSAGE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class ReconfigurationRequestMessage : public Header
+class Dect2020ReconfigurationRequestMessageIE : public Header
 {
     public:
-        ReconfigurationRequestMessage();
-        ~ReconfigurationRequestMessage() override;
+        Dect2020ReconfigurationRequestMessageIE();
+        virtual ~Dect2020ReconfigurationRequestMessageIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class ReconfigurationRequestMessage : public Header
 
 } // namespace ns3
 
-#endif // RECONFIGURATION_REQUEST_MESSAGE_H 
+#endif // DECT2020_RECONFIGURATION_REQUEST_MESSAGE_H 
