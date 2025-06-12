@@ -1,19 +1,19 @@
 // DECT 2020 Cluster Beacon Message
 // ETSI TS 103 636-4 6.4.2.3
 
-#ifndef DECT2020_CLUSTER_BEACON_MESSAGE_H
-#define DECT2020_CLUSTER_BEACON_MESSAGE_H
+#ifndef DECT2020_CLUSTER_BEACON_MESSAGE_IE_H
+#define DECT2020_CLUSTER_BEACON_MESSAGE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020ClusterBeaconMessage : public Header
+class Dect2020ClusterBeaconMessageIE : public Header
 {
     public:
-        Dect2020ClusterBeaconMessage();
-        virtual ~Dect2020ClusterBeaconMessage();
+        Dect2020ClusterBeaconMessageIE();
+        virtual ~Dect2020ClusterBeaconMessageIE();
 
         // Virtual Header base class methods
 
@@ -29,10 +29,6 @@ class Dect2020ClusterBeaconMessage : public Header
         // SFN
         void SetSFN(uint8_t sfn);
         uint8_t GetSFN() const;
-
-        // TXPower
-        void SetTXPower(uint8_t txPower);
-        uint8_t GetTXPower() const;
 
         // PowerConst
         void SetPowerConst(uint8_t powerConst);
@@ -105,4 +101,4 @@ class Dect2020ClusterBeaconMessage : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_CLUSTER_BEACON_MESSAGE_H 
+#endif // DECT2020_CLUSTER_BEACON_MESSAGE_IE_H 
