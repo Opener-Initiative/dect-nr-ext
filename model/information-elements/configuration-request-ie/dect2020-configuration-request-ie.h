@@ -1,16 +1,16 @@
-#ifndef CONFIGURATION_REQUEST_IE_H
-#define CONFIGURATION_REQUEST_IE_H
+#ifndef DECT2020_CONFIGURATION_REQUEST_IE_H
+#define DECT2020_CONFIGURATION_REQUEST_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class ConfigurationRequestIE : public Header
+class Dect2020ConfigurationRequestIE : public Header
 {
     public:
-        ConfigurationRequestIE();
-        ~ConfigurationRequestIE() override;
+        Dect2020ConfigurationRequestIE();
+        virtual ~Dect2020ConfigurationRequestIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class ConfigurationRequestIE : public Header
 
 } // namespace ns3
 
-#endif // CONFIGURATION_REQUEST_IE_H 
+#endif // DECT2020_CONFIGURATION_REQUEST_IE_H 
