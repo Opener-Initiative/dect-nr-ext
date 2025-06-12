@@ -1,16 +1,16 @@
-#ifndef NEIGHBOURING_IE_H
-#define NEIGHBOURING_IE_H
+#ifndef DECT2020_NEIGHBOURING_IE_H
+#define DECT2020_NEIGHBOURING_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class NeighbouringIE : public Header
+class Dect2020NeighbouringIE : public Header
 {
     public:
-        NeighbouringIE();
-        ~NeighbouringIE() override;
+        Dect2020NeighbouringIE();
+        virtual ~Dect2020NeighbouringIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class NeighbouringIE : public Header
 
 } // namespace ns3
 
-#endif // NEIGHBOURING_IE_H 
+#endif // DECT2020_NEIGHBOURING_IE_H 
