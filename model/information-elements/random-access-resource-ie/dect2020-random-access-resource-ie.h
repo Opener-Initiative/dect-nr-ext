@@ -1,16 +1,16 @@
-#ifndef RANDOM_ACCESS_RESOURCE_IE_H
-#define RANDOM_ACCESS_RESOURCE_IE_H
+#ifndef DECT2020_RANDOM_ACCESS_RESOURCE_IE_H
+#define DECT2020_RANDOM_ACCESS_RESOURCE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class RandomAccessResourceIE : public Header
+class Dect2020RandomAccessResourceIE : public Header
 {
     public:
-        RandomAccessResourceIE();
-        ~RandomAccessResourceIE() override;
+        Dect2020RandomAccessResourceIE();
+        virtual ~Dect2020RandomAccessResourceIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class RandomAccessResourceIE : public Header
 
 } // namespace ns3
 
-#endif // RANDOM_ACCESS_RESOURCE_IE_H 
+#endif // DECT2020_RANDOM_ACCESS_RESOURCE_IE_H 
