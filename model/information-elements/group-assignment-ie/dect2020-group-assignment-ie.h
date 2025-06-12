@@ -1,16 +1,16 @@
-#ifndef GROUP_ASSIGNMENT_IE_H
-#define GROUP_ASSIGNMENT_IE_H
+#ifndef DECT2020_GROUP_ASSIGNMENT_IE_H
+#define DECT2020_GROUP_ASSIGNMENT_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class GroupAssignmentIE : public Header
+class Dect2020GroupAssignmentIE : public Header
 {
     public:
-        GroupAssignmentIE();
-        ~GroupAssignmentIE() override;
+        Dect2020GroupAssignmentIE();
+        virtual ~Dect2020GroupAssignmentIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class GroupAssignmentIE : public Header
 
 } // namespace ns3
 
-#endif // GROUP_ASSIGNMENT_IE_H 
+#endif // DECT2020_GROUP_ASSIGNMENT_IE_H 
