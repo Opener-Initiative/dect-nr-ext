@@ -1,16 +1,16 @@
-#ifndef RESOURCE_ALLOCATION_IE_H
-#define RESOURCE_ALLOCATION_IE_H
+#ifndef DECT2020_RESOURCE_ALLOCATION_IE_H
+#define DECT2020_RESOURCE_ALLOCATION_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class ResourceAllocationIE : public Header
+class Dect2020ResourceAllocationIE : public Header
 {
     public:
-        ResourceAllocationIE();
-        ~ResourceAllocationIE() override;
+        Dect2020ResourceAllocationIE();
+        virtual ~Dect2020ResourceAllocationIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class ResourceAllocationIE : public Header
 
 } // namespace ns3
 
-#endif // RESOURCE_ALLOCATION_IE_H 
+#endif // DECT2020_RESOURCE_ALLOCATION_IE_H 
