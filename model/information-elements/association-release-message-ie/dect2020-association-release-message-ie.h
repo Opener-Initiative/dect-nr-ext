@@ -1,16 +1,16 @@
-#ifndef ASSOCIATION_RELEASE_MESSAGE_H
-#define ASSOCIATION_RELEASE_MESSAGE_H
+#ifndef DECT2020_ASSOCIATION_RELEASE_MESSAGE_IE_H
+#define DECT2020_ASSOCIATION_RELEASE_MESSAGE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class AssociationReleaseMessage : public Header
+class Dect2020AssociationReleaseMessageIE : public Header
 {
     public:
-        AssociationReleaseMessage();
-        ~AssociationReleaseMessage() override;
+        Dect2020AssociationReleaseMessageIE();
+        virtual ~Dect2020AssociationReleaseMessageIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class AssociationReleaseMessage : public Header
 
 } // namespace ns3
 
-#endif // ASSOCIATION_RELEASE_MESSAGE_H 
+#endif // DECT2020_ASSOCIATION_RELEASE_MESSAGE_IE_H 
