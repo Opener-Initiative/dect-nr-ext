@@ -1,16 +1,16 @@
-#ifndef BROADCAST_INDICATION_IE_H
-#define BROADCAST_INDICATION_IE_H
+#ifndef DECT2020_BROADCAST_INDICATION_IE_H
+#define DECT2020_BROADCAST_INDICATION_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class BroadcastIndicationIE : public Header
+class Dect2020BroadcastIndicationIE : public Header
 {
     public:
-        BroadcastIndicationIE();
-        ~BroadcastIndicationIE() override;
+        Dect2020BroadcastIndicationIE();
+        virtual ~Dect2020BroadcastIndicationIE();
 
         // Virtual Header base class methods
 
@@ -23,11 +23,10 @@ class BroadcastIndicationIE : public Header
 
         // Setters and Getters
 
-
     private:
         
 };
 
 } // namespace ns3
 
-#endif // BROADCAST_INDICATION_IE_H 
+#endif // DECT2020_BROADCAST_INDICATION_IE_H 
