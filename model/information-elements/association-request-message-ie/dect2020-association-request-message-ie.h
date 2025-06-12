@@ -1,16 +1,16 @@
-#ifndef ASSOCIATION_REQUEST_MESSAGE_H
-#define ASSOCIATION_REQUEST_MESSAGE_H
+#ifndef DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H
+#define DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class AssociationRequestMessage : public Header
+class Dect2020AssociationRequestMessageIE : public Header
 {
     public:
-        AssociationRequestMessage();
-        ~AssociationRequestMessage() override;
+        Dect2020AssociationRequestMessageIE();
+        virtual ~Dect2020AssociationRequestMessageIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class AssociationRequestMessage : public Header
 
 } // namespace ns3
 
-#endif // ASSOCIATION_REQUEST_MESSAGE_H 
+#endif // DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H 
