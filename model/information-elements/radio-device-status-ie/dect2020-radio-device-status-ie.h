@@ -1,16 +1,16 @@
-#ifndef RADIO_DEVICE_STATUS_IE_H
-#define RADIO_DEVICE_STATUS_IE_H
+#ifndef DECT2020_RADIO_DEVICE_STATUS_IE_H
+#define DECT2020_RADIO_DEVICE_STATUS_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class RadioDeviceStatusIE : public Header
+class Dect2020RadioDeviceStatusIE : public Header
 {
     public:
-        RadioDeviceStatusIE();
-        ~RadioDeviceStatusIE() override;
+        Dect2020RadioDeviceStatusIE();
+        virtual ~Dect2020RadioDeviceStatusIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class RadioDeviceStatusIE : public Header
 
 } // namespace ns3
 
-#endif // RADIO_DEVICE_STATUS_IE_H 
+#endif // DECT2020_RADIO_DEVICE_STATUS_IE_H 
