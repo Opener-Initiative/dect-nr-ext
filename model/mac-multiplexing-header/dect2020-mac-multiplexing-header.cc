@@ -1,11 +1,9 @@
 #include "dect2020-mac-multiplexing-header.h"
-#include "ns3/log.h"
 
 namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020MacMultiplexingHeader");
-
 NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeader);
 
 Dect2020MacMultiplexingHeader::Dect2020MacMultiplexingHeader()
@@ -32,54 +30,7 @@ Dect2020MacMultiplexingHeader::GetInstanceTypeId() const
     return GetTypeId();
 }
 
-uint32_t
-Dect2020MacMultiplexingHeader::GetSerializedSize() const
-{
-    return m_type;
-}
-
-void
-Dect2020MacMultiplexingHeader::Serialize(Buffer::Iterator start) const
-{
-    if(m_type == Type::A)
-    {
-        // byte 0
-        uint8_t byte0 = (m_macExtension << 6);
-        byte0 |= (m_length << 5);
-        byte0 |= (m_IEType & 0x1F);
-        start.WriteU8(byte0);
-    }
-}
-
-uint32_t
-Dect2020MacMultiplexingHeader::Deserialize(Buffer::Iterator start)
-{
-    int bytesRead = 0;
-    if(m_type == Type::A)
-    {
-        // byte 0
-        uint8_t byte0 = start.ReadU8();
-        m_macExtension = (byte0 >> 6) & 0x03;
-        m_length = (byte0 >> 5) & 0x01;
-        m_IEType = byte0 & 0x1F;
-        bytesRead = 1;
-        return bytesRead;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-void
-Dect2020MacMultiplexingHeader::Print(std::ostream &os) const
-{
-    os << "[Dect2020MacMultiplexingHeader]" << "\n"
-       << "Type = " << m_type << "\n"
-       << "MacExtension = " << m_macExtension << "\n"
-       << "Length = " << m_length << "\n"
-       << "IEType = " << m_IEType;
-}
+// Dect2020MacMultiplexingHeader Setters and Getters
 
 // Type setter and getter
 void
