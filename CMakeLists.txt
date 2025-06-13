@@ -88,7 +88,8 @@ set(mac_header_type_test_src
 # Mac Multiplexing Header Test
 set(mac_multiplexing_header_test_src
     test/mac-multiplexing-header/mac-multiplexing-header-type-b/test.cc
-    test/mac-multiplexing-header/mac-multiplexing-header-type-b/payload-insertion-test-case.cc)
+    test/mac-multiplexing-header/mac-multiplexing-header-type-b/payload-insertion-test-case.cc
+    test/mac-multiplexing-header/mac-multiplexing-header-type-b/serialization-test-case.cc)
 
 #######################################################################################
 
