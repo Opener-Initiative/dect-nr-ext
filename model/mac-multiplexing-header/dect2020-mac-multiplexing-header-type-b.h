@@ -2,8 +2,7 @@
 #define DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_B_H
 
 #include "dect2020-mac-multiplexing-header.h"
-#include "ns3/header.h"
-#include "ns3/byte-tag-list.h"
+
 namespace ns3
 {
 

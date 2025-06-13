@@ -10,6 +10,10 @@
 namespace ns3
 {
 
+// Forward declarations
+class Dect2020MacMultiplexingHeaderTypeA;
+class Dect2020MacMultiplexingHeaderTypeB;
+
 class Dect2020MacMultiplexingHeader
 {
     public:

@@ -18,3 +18,10 @@ build_lib_example(
     LIBRARIES_TO_LINK
         ${libnetwork}
 )
+
+build_lib_example(
+    NAME mac-mux-header-type-a
+    SOURCE_FILES mac-mux-header-type-a.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr}
+)

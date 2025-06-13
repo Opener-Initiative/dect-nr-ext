@@ -9,9 +9,7 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeA);
 TypeId
 Dect2020MacMultiplexingHeaderTypeA::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeA")
-                            .SetParent<Dect2020MacMultiplexingHeader>()
-                            .SetGroupName("DectMacPdu");
+    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeA");
     return tid;
 }
 
@@ -31,9 +29,9 @@ void
 Dect2020MacMultiplexingHeaderTypeA::Serialize(Buffer::Iterator start) const
 {
     // byte 0
-    uint8_t byte0 = m_macExtension << 6;
-    byte0 |= m_length << 5;
-    byte0 |= m_IEType;
+    uint8_t byte0 = (m_macExtension << 6) & 0xC0;
+    byte0 |= (m_length << 5) & 0x20;
+    byte0 |= (m_IEType & 0x1F);
     start.WriteU8(byte0);
 }
 

@@ -30,9 +30,7 @@ Dect2020MacMultiplexingHeaderTypeB::RemoveSDU(Header& header)
 TypeId
 Dect2020MacMultiplexingHeaderTypeB::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeB")
-                            .SetParent<Dect2020MacMultiplexingHeader>()
-                            .SetGroupName("DectMacPdu");
+    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeB");
     return tid;
 }
 
