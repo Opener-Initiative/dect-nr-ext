@@ -34,6 +34,7 @@ class Dect2020MacMultiplexingHeader
         // TODO: Add IE type
 
         // Setters and Getters
+
         void SetType(Type type);
         Type GetType() const;
         
@@ -46,16 +47,11 @@ class Dect2020MacMultiplexingHeader
         void SetIEType(uint8_t ieType);
         uint8_t GetIEType() const;
 
-        // Virtual methods to add IEs to SDU
-        virtual void InsertSDU(const Header& header);
-        virtual uint32_t RemoveSDU(Header& header);
-
     protected:
         Type m_type;
         uint8_t m_macExtension; // 2 relevant bits
         uint8_t m_length; // 1 relevant bit
         uint8_t m_IEType; // 5 relevant bits
-        Buffer m_SDU; // buffer to store the SDU
 };
 
 } // namespace ns3

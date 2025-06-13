@@ -9,9 +9,10 @@ namespace ns3
 class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader, public Header
 {
     public:
-        // Enabling operations on SDU
-        void InsertSDU(const Header& header);
-        uint32_t RemoveSDU(Header& header);
+
+        // Enabling 1-byte operations on SDU
+        void InsertSDU(const uint8_t sdu);
+        uint8_t RemoveSDU();
 
         // Virtual methods of header class
         static TypeId GetTypeId(void);
@@ -22,7 +23,7 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
         virtual void Print(std::ostream &os) const;
 
     private:
-        Buffer m_SDU; // 1 byte MAC SDU
+        Buffer m_buffer; // 1 byte MAC SDU
         uint8_t m_macExtension; // 2 relevant bits
         uint8_t m_length; // 1 relevant bit
         uint8_t m_IEType; // 5 relevant bits
