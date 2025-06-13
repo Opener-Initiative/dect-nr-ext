@@ -85,6 +85,11 @@ set(mac_header_type_test_src
     test/mac-header-type/test.cc
     test/mac-header-type/serialization-test-case.cc)
 
+# Mac Multiplexing Header Test
+set(mac_multiplexing_header_test_src
+    test/mac-multiplexing-header/mac-multiplexing-header-type-b/test.cc
+    test/mac-multiplexing-header/mac-multiplexing-header-type-b/payload-insertion-test-case.cc)
+
 #######################################################################################
 
 build_lib(
@@ -107,6 +112,7 @@ build_lib(
         ${rd_broadcasting_header_test_src}
         ${data_mac_pdu_test_src}
         ${beacon_header_test_src}
+        ${mac_multiplexing_header_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}

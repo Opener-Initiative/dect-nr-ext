@@ -5,7 +5,6 @@
 #define DECT2020_MAC_MULTIPLEXING_HEADER_H
 
 #include "ns3/header.h"
-#include "ns3/buffer.h"
 
 namespace ns3
 {

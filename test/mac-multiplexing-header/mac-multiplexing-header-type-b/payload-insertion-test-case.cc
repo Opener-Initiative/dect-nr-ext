@@ -20,6 +20,12 @@ Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoSetup(void)
 void
 Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoRun(void)
 {
+    Dect2020MacMultiplexingHeaderTypeB muxHeader;
+    uint8_t originalPayload = 0xFF;
+    uint8_t removedPayload = 0x00;
+    muxHeader.InsertSDU(originalPayload);
+    removedPayload = muxHeader.RemoveSDU();
+    NS_TEST_ASSERT_MSG_EQ(originalPayload, removedPayload, "Payload insertion and removal failed");
 }
 
 } // namespace ns3

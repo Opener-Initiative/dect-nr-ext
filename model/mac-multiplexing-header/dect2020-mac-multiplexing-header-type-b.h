@@ -2,6 +2,7 @@
 #define DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_B_H
 
 #include "dect2020-mac-multiplexing-header.h"
+#include "ns3/buffer.h"
 
 namespace ns3
 {
@@ -9,9 +10,11 @@ namespace ns3
 class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader, public Header
 {
     public:
+        Dect2020MacMultiplexingHeaderTypeB();
+        ~Dect2020MacMultiplexingHeaderTypeB();
 
         // Enabling 1-byte operations on SDU
-        void InsertSDU(const uint8_t sdu);
+        void InsertSDU(const uint8_t payload);
         uint8_t RemoveSDU();
 
         // Virtual methods of header class
@@ -24,9 +27,6 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
 
     private:
         Buffer m_buffer; // 1 byte MAC SDU
-        uint8_t m_macExtension; // 2 relevant bits
-        uint8_t m_length; // 1 relevant bit
-        uint8_t m_IEType; // 5 relevant bits
 };
 
 } // namespace ns3
