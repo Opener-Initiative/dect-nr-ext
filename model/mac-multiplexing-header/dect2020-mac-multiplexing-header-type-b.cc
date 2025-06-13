@@ -41,6 +41,12 @@ Dect2020MacMultiplexingHeaderTypeB::RemoveSDU()
     return payload;
 }
 
+uint8_t
+Dect2020MacMultiplexingHeaderTypeB::GetSDU() const
+{
+    return m_buffer.Begin().PeekU8();
+}
+
 TypeId
 Dect2020MacMultiplexingHeaderTypeB::GetTypeId(void)
 {
@@ -102,6 +108,7 @@ Dect2020MacMultiplexingHeaderTypeB::Print(std::ostream &os) const
     os << "[MAC MULTIPLEXING HEADER TYPE B]\n"
        << "MAC Extension: " << std::hex << (int)m_macExtension << "\n"
        << "Length: " << std::hex << (int)m_length << "\n"
+       << "SDU: " << std::hex << GetSDU() << "\n"
        << "IE Type: " << std::hex << (int)m_IEType << "\n" << "\n";
 }
 

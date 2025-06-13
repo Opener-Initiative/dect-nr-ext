@@ -25,10 +25,9 @@ Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoRun(void)
     uint8_t removedPayload = 0x00;
 
     muxHeader.InsertSDU(originalPayload);
-    muxHeader.Print(std::cout);
-
+    std::cout << "Inserted payload: " << std::hex << muxHeader.GetSDU() << "\n";
     removedPayload = muxHeader.RemoveSDU();
-    muxHeader.Print(std::cout);
+    std::cout << "Removed payload: " << std::hex << removedPayload << "\n";
 
     NS_TEST_ASSERT_MSG_EQ(originalPayload, removedPayload, "Payload insertion and removal failed");
 }

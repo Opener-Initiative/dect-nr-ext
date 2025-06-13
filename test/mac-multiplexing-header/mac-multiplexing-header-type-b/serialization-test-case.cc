@@ -38,15 +38,12 @@ Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoRun(void)
     // Serialize and deserialize
 
     packet.AddHeader(originalMuxHeader);
-    originalMuxHeader.Print(std::cout);
-
     packet.RemoveHeader(deserializedMuxHeader);
-    deserializedMuxHeader.Print(std::cout);
 
     NS_TEST_ASSERT_MSG_EQ(originalMuxHeader.GetMacExtension(), deserializedMuxHeader.GetMacExtension(), "Mac extension mismatch");
     NS_TEST_ASSERT_MSG_EQ(originalMuxHeader.GetLength(), deserializedMuxHeader.GetLength(), "Length mismatch");
     NS_TEST_ASSERT_MSG_EQ(originalMuxHeader.GetIEType(), deserializedMuxHeader.GetIEType(), "IE type mismatch");
-    NS_TEST_ASSERT_MSG_EQ(payload, deserializedMuxHeader.RemoveSDU(), "SDU mismatch");
+    NS_TEST_ASSERT_MSG_EQ(payload, deserializedMuxHeader.GetSDU(), "SDU mismatch");
 }
 
 } // namespace ns3

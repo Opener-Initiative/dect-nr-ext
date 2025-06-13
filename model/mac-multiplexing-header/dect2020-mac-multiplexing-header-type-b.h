@@ -16,6 +16,7 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
         // Enabling 1-byte operations on SDU
         void InsertSDU(const uint8_t payload);
         uint8_t RemoveSDU();
+        uint8_t GetSDU() const;
 
         // Virtual methods of header class
         static TypeId GetTypeId(void);
