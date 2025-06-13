@@ -12,16 +12,18 @@ set(mac_pdu_helper_src
 set(mac_pdu_helper_h
     helper/dect2020-mac-pdu-helper.h)
 
+#######################################################################################
+
 # Model
 
-# mac header type
+# Mac Header Type
 set(mac_header_type_src
     model/mac-header-type/dect2020-mac-header-type.cc)
 
 set(mac_header_type_h
     model/mac-header-type/dect2020-mac-header-type.h)
 
-# common headers
+# Common Headers
 set(mac_common_headers_src
     model/mac-common-headers/beacon-header/dect2020-beacon-header.cc
     model/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.cc
@@ -34,48 +36,52 @@ set(mac_common_headers_h
     model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
     model/mac-common-headers/unicast-header/dect2020-unicast-header.h)
 
-# mac multiplexing header
+# Mac Multiplexing Header
 set(mac_multiplexing_header_src
     model/mac-multiplexing-header/dect2020-mac-multiplexing-header.cc)
 
 set(mac_multiplexing_header_h
     model/mac-multiplexing-header/dect2020-mac-multiplexing-header.h)
 
-# information elements
+# Information Elements
 set(network_beacon_message_ie_src
     model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.cc)
 
 set(network_beacon_message_ie_h
     model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.h)
 
+#######################################################################################
+
 # Tests
 
-# MAC COMMON HEADERS
+# MAC Common Headers
 
-# UNICAST HEADER TEST
+# Unicast Header Test
 set(unicast_header_test_src
     test/mac-common-headers/unicast-header/test.cc
     test/mac-common-headers/unicast-header/serialization-test-case.cc)
 
-# rd broadcasting header test
+# Rd Broadcasting Header Test
 set(rd_broadcasting_header_test_src
     test/mac-common-headers/rd-broadcasting-header/test.cc
     test/mac-common-headers/rd-broadcasting-header/serialization-test-case.cc)
 
-# data mac pdu test
+# Data Mac PDU Test
 set(data_mac_pdu_test_src
     test/mac-common-headers/data-mac-pdu/test.cc
     test/mac-common-headers/data-mac-pdu/serialization-test-case.cc)
 
-# beacon header test
+# Beacon Header Test
 set(beacon_header_test_src
     test/mac-common-headers/beacon-header/test.cc
     test/mac-common-headers/beacon-header/serialization-test-case.cc)
 
-# MAC HEADER TYPE TEST
+# Mac Header Type Test
 set(mac_header_type_test_src
     test/mac-header-type/test.cc
     test/mac-header-type/serialization-test-case.cc)
+
+#######################################################################################
 
 build_lib(
     LIBNAME dect-nr

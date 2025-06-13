@@ -11,3 +11,10 @@ build_lib_example(
     LIBRARIES_TO_LINK
         ${libdect-nr}
 )   
+
+build_lib_example(
+    NAME buffer-experiment
+    SOURCE_FILES buffer-experiment.cc
+    LIBRARIES_TO_LINK
+        ${libnetwork}
+)

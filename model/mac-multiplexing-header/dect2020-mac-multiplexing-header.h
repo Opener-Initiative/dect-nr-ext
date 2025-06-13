@@ -10,7 +10,7 @@
 namespace ns3
 {
 
-class Dect2020MacMultiplexingHeader : public Header
+class Dect2020MacMultiplexingHeader
 {
     public:
         Dect2020MacMultiplexingHeader();
@@ -27,10 +27,7 @@ class Dect2020MacMultiplexingHeader : public Header
             F = 6 // Medium or Large SDU with IE type extension
         };
 
-        // IE type
-
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId() const;
+        // TODO: Add IE type
 
         // Setters and Getters
         void SetType(Type type);
@@ -54,7 +51,7 @@ class Dect2020MacMultiplexingHeader : public Header
         uint8_t m_macExtension; // 2 relevant bits
         uint8_t m_length; // 1 relevant bit
         uint8_t m_IEType; // 5 relevant bits
-        Buffer m_SDU;
+        Buffer m_SDU; // buffer to store the SDU
 };
 
 } // namespace ns3
