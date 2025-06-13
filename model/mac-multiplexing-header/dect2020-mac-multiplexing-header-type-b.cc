@@ -99,9 +99,10 @@ Dect2020MacMultiplexingHeaderTypeB::Deserialize(Buffer::Iterator start)
 void
 Dect2020MacMultiplexingHeaderTypeB::Print(std::ostream &os) const
 {
-    os << "MAC Extension: " << (int)m_macExtension
-       << ", Length: " << (int)m_length
-       << ", IE Type: " << (int)m_IEType;
+    os << "[MAC MULTIPLEXING HEADER TYPE B]\n"
+       << "MAC Extension: " << std::hex << (int)m_macExtension << "\n"
+       << "Length: " << std::hex << (int)m_length << "\n"
+       << "IE Type: " << std::hex << (int)m_IEType << "\n" << "\n";
 }
 
 } // namespace ns3
