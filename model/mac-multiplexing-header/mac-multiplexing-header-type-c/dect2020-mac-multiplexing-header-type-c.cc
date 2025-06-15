@@ -17,11 +17,14 @@ Dect2020MacMultiplexingHeaderTypeC::GetTypeId(void)
 }
 
 Dect2020MacMultiplexingHeaderTypeC::Dect2020MacMultiplexingHeaderTypeC()
+    : m_payload(nullptr)
 {
 }
 
 Dect2020MacMultiplexingHeaderTypeC::~Dect2020MacMultiplexingHeaderTypeC()
 {
+    // No need to delete m_payload as it's owned by the caller
+    m_payload = nullptr;
 }
 
 TypeId
@@ -75,7 +78,13 @@ Dect2020MacMultiplexingHeaderTypeC::GetSerializedSize() const
 void
 Dect2020MacMultiplexingHeaderTypeC::Serialize(Buffer::Iterator start) const
 {
-    // TODO: Implement serialization logic
+    // byte 0
+    uint8_t byte0 = (m_macExtension & 0x03) << 6;
+    byte0 |= (m_IEType & 0x3F);
+    start.WriteU8(byte0);
+
+    // SDU
+
 }
 
 uint32_t
