@@ -1,27 +1,27 @@
-#include "dect2020-route-info-test-case.h"
-#include "ns3/dect2020-route-info.h"
+#include "serialization-test-case.h"
+#include "ns3/dect2020-route-info-ie.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020RouteInfoTestCase::Dect2020RouteInfoTestCase() : TestCase("RouteInfoSerializationTest")
+Dect2020RouteInfoIETestCase::Dect2020RouteInfoIETestCase() : TestCase("RouteInfoSerializationTest")
 {
 }
 
-Dect2020RouteInfoTestCase::~Dect2020RouteInfoTestCase()
-{
-}
-
-void
-Dect2020RouteInfoTestCase::DoSetup()
+Dect2020RouteInfoIETestCase::~Dect2020RouteInfoIETestCase()
 {
 }
 
 void
-Dect2020RouteInfoTestCase::DoRun()
+Dect2020RouteInfoIETestCase::DoSetup()
 {
-    Dect2020RouteInfo originalHeader;
-    Dect2020RouteInfo deserializedHeader;
+}
+
+void
+Dect2020RouteInfoIETestCase::DoRun()
+{
+    Dect2020RouteInfoIE originalHeader;
+    Dect2020RouteInfoIE deserializedHeader;
     Packet packet;
     uint32_t sinkAddress = 0xFBFED010;
     uint8_t routeCost = 0x1F;

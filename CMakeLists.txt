@@ -69,6 +69,12 @@ set(cluster_beacon_message_ie_src
 set(cluster_beacon_message_ie_h
     model/information-elements/cluster-beacon-message-ie/dect2020-cluster-beacon-message-ie.h)
 
+set(route_info_ie_src
+    model/information-elements/route-info-ie/dect2020-route-info-ie.cc)
+
+set(route_info_ie_h
+    model/information-elements/route-info-ie/dect2020-route-info-ie.h)
+
 #######################################################################################
 
 # Tests
@@ -118,6 +124,10 @@ set(network_beacon_message_ie_test_src
     test/information-elements/network-beacon-message-ie/test.cc
     test/information-elements/network-beacon-message-ie/serialization-test-case.cc)
 
+set(route_info_ie_test_src
+    test/information-elements/route-info-ie/test.cc
+    test/information-elements/route-info-ie/serialization-test-case.cc)
+
 #######################################################################################
 
 build_lib(
@@ -130,6 +140,7 @@ build_lib(
         ${cluster_beacon_message_ie_src}
         ${mac_multiplexing_header_src}
         ${physical_header_field_src}
+        ${route_info_ie_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -138,6 +149,7 @@ build_lib(
         ${cluster_beacon_message_ie_h}
         ${mac_multiplexing_header_h}
         ${physical_header_field_h}
+        ${route_info_ie_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
@@ -147,6 +159,7 @@ build_lib(
         ${mac_multiplexing_header_test_src}
         ${physical_header_field_test_src}
         ${network_beacon_message_ie_test_src}
+        ${route_info_ie_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}
