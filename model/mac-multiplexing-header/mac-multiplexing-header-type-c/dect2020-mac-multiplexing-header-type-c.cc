@@ -23,16 +23,12 @@ Dect2020MacMultiplexingHeaderTypeC::Dect2020MacMultiplexingHeaderTypeC()
 
 Dect2020MacMultiplexingHeaderTypeC::~Dect2020MacMultiplexingHeaderTypeC()
 {
-    delete m_payload;
+    m_payload = nullptr;
 }
 
 void
 Dect2020MacMultiplexingHeaderTypeC::AddPayload(Header* payload, int payloadSize)
 {
-    if (m_payload != nullptr)
-    {
-        delete m_payload;
-    }
     m_payload = payload;
     m_payloadSize = payloadSize;
 }
@@ -40,7 +36,6 @@ Dect2020MacMultiplexingHeaderTypeC::AddPayload(Header* payload, int payloadSize)
 void
 Dect2020MacMultiplexingHeaderTypeC::RemovePayload()
 {
-    delete m_payload;
     m_payload = nullptr;
     m_payloadSize = 0;
 }

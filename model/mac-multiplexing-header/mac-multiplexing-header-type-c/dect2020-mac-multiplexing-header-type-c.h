@@ -44,7 +44,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
         virtual void Print(std::ostream &os) const;
 
     private:
-        Header* m_payload; // Pointer to store different types of IEs
+        Header* m_payload;
         int m_payloadSize;
         uint8_t m_IEType;
 };
