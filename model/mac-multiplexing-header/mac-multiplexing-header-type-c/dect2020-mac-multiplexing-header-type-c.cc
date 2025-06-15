@@ -10,7 +10,7 @@ TypeId
 Dect2020MacMultiplexingHeaderTypeC::GetTypeId(void)
 {
     TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeC")
-        .SetParent<Dect2020MacMultiplexingHeader>()
+        .SetParent<Header>()
         .AddConstructor<Dect2020MacMultiplexingHeaderTypeC>()
     ;
     return tid;
@@ -55,12 +55,12 @@ Dect2020MacMultiplexingHeaderTypeC::GetSDU() const
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeC::SetIEType(IEType ieType)
+Dect2020MacMultiplexingHeaderTypeC::SetIEType(ExtendedIEType ieType)
 {
     m_IEType = ieType;
 }
 
-Dect2020MacMultiplexingHeaderTypeC::IEType
+uint8_t
 Dect2020MacMultiplexingHeaderTypeC::GetIEType() const
 {
     return m_IEType;

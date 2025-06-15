@@ -14,6 +14,18 @@ Dect2020MacMultiplexingHeaderTypeB::~Dect2020MacMultiplexingHeaderTypeB()
 {
 }
 
+void
+Dect2020MacMultiplexingHeaderTypeB::SetIEType(OneBytePayloadIEType ieType)
+{
+    m_IEType = ieType;
+}
+
+uint8_t
+Dect2020MacMultiplexingHeaderTypeB::GetIEType() const
+{
+    return m_IEType;
+}
+
 // Insert a payload into the SDU
 void
 Dect2020MacMultiplexingHeaderTypeB::InsertSDU(const uint8_t payload)
@@ -74,7 +86,7 @@ Dect2020MacMultiplexingHeaderTypeB::Serialize(Buffer::Iterator start) const
     // byte 0
     uint8_t byte0 = (m_macExtension & 0x03) << 6;
     byte0 |= (m_length & 0x01) << 5;
-    byte0 |= (m_IEType & 0x1F);
+    byte0 |= (m_type & 0x1F);
     start.WriteU8(byte0);
 
     // byte 1

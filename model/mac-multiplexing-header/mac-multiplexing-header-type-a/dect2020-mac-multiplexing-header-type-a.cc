@@ -6,6 +6,27 @@ namespace ns3
 NS_LOG_COMPONENT_DEFINE("Dect2020MacMultiplexingHeaderTypeA");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeA);
 
+Dect2020MacMultiplexingHeaderTypeA::Dect2020MacMultiplexingHeaderTypeA()
+{
+    m_IEType = 0;
+}
+
+Dect2020MacMultiplexingHeaderTypeA::~Dect2020MacMultiplexingHeaderTypeA()
+{
+}
+
+void
+Dect2020MacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType ieType)
+{
+    m_IEType = ieType;
+}
+
+uint8_t
+Dect2020MacMultiplexingHeaderTypeA::GetIEType() const
+{
+    return m_IEType;
+}
+
 TypeId
 Dect2020MacMultiplexingHeaderTypeA::GetTypeId(void)
 {

@@ -40,12 +40,14 @@ set(mac_common_headers_h
 set(mac_multiplexing_header_src
     model/mac-multiplexing-header/dect2020-mac-multiplexing-header.cc
     model/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.cc
-    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.cc)
+    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.cc
+    model/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.cc)
 
 set(mac_multiplexing_header_h
     model/mac-multiplexing-header/dect2020-mac-multiplexing-header.h
     model/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.h
-    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.h)
+    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.h
+    model/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.h)
 
 # Information Elements
 set(network_beacon_message_ie_src

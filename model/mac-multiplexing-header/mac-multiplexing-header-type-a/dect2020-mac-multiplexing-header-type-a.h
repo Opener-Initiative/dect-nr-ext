@@ -8,14 +8,22 @@ namespace ns3
 
 class Dect2020MacMultiplexingHeaderTypeA : public Dect2020MacMultiplexingHeader, public Header
 {
+
     public:
+        void SetIEType(NoPayloadIEType ieType);
+        uint8_t GetIEType() const;
+    
         // Virtual methods of header class
+
         static TypeId GetTypeId(void);
         virtual TypeId GetInstanceTypeId() const;
         virtual uint32_t GetSerializedSize() const;
         virtual void Serialize(Buffer::Iterator start) const;
         virtual uint32_t Deserialize(Buffer::Iterator start);
         virtual void Print(std::ostream &os) const;
+
+    private:
+        uint8_t m_IEType;
 };
 
 } // namespace ns3

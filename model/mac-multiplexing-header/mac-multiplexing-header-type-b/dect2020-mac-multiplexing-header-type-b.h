@@ -13,6 +13,9 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
         Dect2020MacMultiplexingHeaderTypeB();
         ~Dect2020MacMultiplexingHeaderTypeB();
 
+        void SetIEType(OneBytePayloadIEType ieType);
+        uint8_t GetIEType() const;
+
         // Enabling 1-byte operations on SDU
         void InsertSDU(const uint8_t payload);
         uint8_t RemoveSDU();
@@ -28,6 +31,7 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
 
     private:
         Buffer m_buffer; // 1 byte MAC SDU
+        uint8_t m_IEType;
 };
 
 } // namespace ns3

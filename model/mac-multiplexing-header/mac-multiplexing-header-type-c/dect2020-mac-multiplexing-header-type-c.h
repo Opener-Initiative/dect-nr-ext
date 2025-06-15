@@ -10,39 +10,6 @@ namespace ns3
 
 class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader, public Header
 {
-    // IEType ETSI TS 103 636-4 6.3.4-2
-    enum IEType : uint8_t
-    {
-        PaddingIE = 0b000000,
-        HigherLayerSignallingFlow1 = 0b000001,
-        HigherLayerSignallingFlow2 = 0b000010,
-        UserPlaneDataFlow1 = 0b000011,
-        UserPlaneDataFlow2 = 0b000100,
-        UserPlaneDataFlow3 = 0b000101,
-        UserPlaneDataFlow4 = 0b000110,
-        // Reserved = 0b000111,
-        NetworkBeaconMessage = 0b001000,
-        ClusterBeaconMessage = 0b001001,
-        AssociationRequestMessage = 0b001010,
-        AssociationResponseMessage = 0b001011,
-        AssociationReleaseMessage = 0b001100,
-        ReconfigurationRequest = 0b001101,
-        ReconfigurationResponse = 0b001110,
-        AdditionalMacMessages = 0b001111,
-        MacSecurityInfoIE = 0b010000,
-        RouteInfoIE = 0b010001,
-        ResourceAllocationIE = 0b010010,
-        RandomAccessResourceIE = 0b010011,
-        RdCapabilityIE = 0b010100,
-        NeighbouringIE = 0b010101,
-        BroadcastIndicationIE = 0b010110,
-        GroupAssignmentIE = 0b010111,
-        LoadInfoIE = 0b011000,
-        MeasurementReportIE = 0b011001,
-        //Reserved = 0b011010,
-        Escape = 0b111110,
-        IETypeExtension = 0b111111
-    };
 
     public:
         Dect2020MacMultiplexingHeaderTypeC();
@@ -56,8 +23,8 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
         // IEType setter and getter
 
-        void SetIEType(IEType ieType);
-        IEType GetIEType() const;
+        void SetIEType(ExtendedIEType ieType);
+        uint8_t GetIEType() const;
 
         // Virtual methods of header class
         static TypeId GetTypeId(void);
@@ -69,7 +36,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
     private:
         Buffer m_buffer; // variable length MAC SDU
-        IEType m_IEType;
+        ExtendedIEType m_IEType;
 };
 
 } // namespace ns3

@@ -47,16 +47,4 @@ Dect2020MacMultiplexingHeader::GetLength() const
     return m_length;
 }
 
-void
-Dect2020MacMultiplexingHeader::SetIEType(uint8_t ieType)
-{
-    m_IEType = ieType & 0x1F; // Ensure only 5 bits are used
-}
-
-uint8_t
-Dect2020MacMultiplexingHeader::GetIEType() const
-{
-    return m_IEType;
-}
-
 } // namespace ns3 
