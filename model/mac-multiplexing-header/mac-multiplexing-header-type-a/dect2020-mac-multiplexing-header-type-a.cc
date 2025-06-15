@@ -8,7 +8,6 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeA);
 
 Dect2020MacMultiplexingHeaderTypeA::Dect2020MacMultiplexingHeaderTypeA()
 {
-    m_IEType = 0;
 }
 
 Dect2020MacMultiplexingHeaderTypeA::~Dect2020MacMultiplexingHeaderTypeA()
@@ -16,9 +15,9 @@ Dect2020MacMultiplexingHeaderTypeA::~Dect2020MacMultiplexingHeaderTypeA()
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType ieType)
+Dect2020MacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType IEType)
 {
-    m_IEType = ieType;
+    m_IEType = IEType;
 }
 
 uint8_t

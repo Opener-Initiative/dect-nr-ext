@@ -23,7 +23,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
         // IEType setter and getter
 
-        void SetIEType(ExtendedIEType ieType);
+        void SetIEType(ExtendedIEType IEType);
         uint8_t GetIEType() const;
 
         // Virtual methods of header class

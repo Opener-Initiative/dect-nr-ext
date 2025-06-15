@@ -55,9 +55,9 @@ Dect2020MacMultiplexingHeaderTypeC::GetSDU() const
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeC::SetIEType(ExtendedIEType ieType)
+Dect2020MacMultiplexingHeaderTypeC::SetIEType(ExtendedIEType IEType)
 {
-    m_IEType = ieType;
+    m_IEType = IEType;
 }
 
 uint8_t

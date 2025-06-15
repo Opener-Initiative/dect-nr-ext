@@ -10,6 +10,9 @@ class Dect2020MacMultiplexingHeaderTypeA : public Dect2020MacMultiplexingHeader,
 {
 
     public:
+        Dect2020MacMultiplexingHeaderTypeA();
+        ~Dect2020MacMultiplexingHeaderTypeA();
+
         void SetIEType(NoPayloadIEType ieType);
         uint8_t GetIEType() const;
     

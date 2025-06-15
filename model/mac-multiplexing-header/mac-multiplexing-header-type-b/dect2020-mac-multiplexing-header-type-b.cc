@@ -15,9 +15,9 @@ Dect2020MacMultiplexingHeaderTypeB::~Dect2020MacMultiplexingHeaderTypeB()
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeB::SetIEType(OneBytePayloadIEType ieType)
+Dect2020MacMultiplexingHeaderTypeB::SetIEType(OneBytePayloadIEType IEType)
 {
-    m_IEType = ieType;
+    m_IEType = IEType;
 }
 
 uint8_t

@@ -13,7 +13,7 @@ class Dect2020MacMultiplexingHeaderTypeB : public Dect2020MacMultiplexingHeader,
         Dect2020MacMultiplexingHeaderTypeB();
         ~Dect2020MacMultiplexingHeaderTypeB();
 
-        void SetIEType(OneBytePayloadIEType ieType);
+        void SetIEType(OneBytePayloadIEType IEType);
         uint8_t GetIEType() const;
 
         // Enabling 1-byte operations on SDU

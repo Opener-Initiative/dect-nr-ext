@@ -46,23 +46,24 @@ class Dect2020MacMultiplexingHeader
         uint8_t m_macExtension; // 2 relevant bits
         uint8_t m_length; // 1 relevant bit
 
+    public:
         // IEType ETSI TS 103 636-4 6.3.4-3
         enum NoPayloadIEType : uint8_t 
         {
-            PaddingIE = 0b00000,
+            NoPayloadPaddingIE = 0b00000,
             ConfigurationRequestIE = 0b00001,
             KeepAliveIE = 0b00010,
             // Reserved00011To01111 = 0b00011,
-            MacSecurityInfoIE = 0b10000,
+            NoPayloadMacSecurityInfoIE = 0b10000,
             // Reserved10001To11101 = 0b10001,
-            Escape = 0b11110,
+            NoPayloadEscape = 0b11110,
             // Reserved11111 = 0b11111
         };
 
         // IEType ETSI TS 103 636-4 6.3.4-2
         enum ExtendedIEType : uint8_t
         {
-            PaddingIE = 0b000000,
+            ExtendedPaddingIE = 0b000000,
             HigherLayerSignallingFlow1 = 0b000001,
             HigherLayerSignallingFlow2 = 0b000010,
             UserPlaneDataFlow1 = 0b000011,
@@ -78,7 +79,7 @@ class Dect2020MacMultiplexingHeader
             ReconfigurationRequest = 0b001101,
             ReconfigurationResponse = 0b001110,
             AdditionalMacMessages = 0b001111,
-            MacSecurityInfoIE = 0b010000,
+            ExtendedMacSecurityInfoIE = 0b010000,
             RouteInfoIE = 0b010001,
             ResourceAllocationIE = 0b010010,
             RandomAccessResourceIE = 0b010011,
@@ -89,17 +90,17 @@ class Dect2020MacMultiplexingHeader
             LoadInfoIE = 0b011000,
             MeasurementReportIE = 0b011001,
             //Reserved = 0b011010,
-            Escape = 0b111110,
+            ExtendedEscape = 0b111110,
             IETypeExtension = 0b111111
         };
 
         // IEType ETSI TS 103 636-4 6.3.4-4
         enum OneBytePayloadIEType : uint8_t
         {
-            PaddingIE = 0b00000,
+            OneBytePaddingIE = 0b00000,
             RadioDeviceStatusIE = 0b00001,
             // Reserved00010to11101 = 0b00010,
-            Escape = 0b11110,
+            OneByteEscape = 0b11110,
             // Reserved11111 = 0b11111
         };
 };
