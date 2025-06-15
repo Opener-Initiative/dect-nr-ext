@@ -1,7 +1,7 @@
 #ifndef DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_B_H
 #define DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_B_H
 
-#include "dect2020-mac-multiplexing-header.h"
+#include "ns3/dect2020-mac-multiplexing-header.h"
 #include "ns3/buffer.h"
 
 namespace ns3
