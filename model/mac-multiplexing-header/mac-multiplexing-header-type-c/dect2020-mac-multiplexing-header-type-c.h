@@ -18,16 +18,17 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
         // Enabling operations on SDU
 
         // Add payload pointer to the object
-        template<class T>
-        void AddPayload();
+        void AddPayload(Header* payload, int payloadSize);
 
         // Remove the payload pointer from the object
         void RemovePayload();
 
-        // Insert a payload to the SDU
-        void InsertSDU(const Header &header); // should be like Packet::AddHeader
-        uint8_t RemoveSDU(Header &header); // should be like Packet::RemoveHeader
-        uint8_t GetSDU() const; // should be like Packet::PeekHeader
+        // Get payload as a specific type
+        template<class T>
+        T* GetPayloadAs() const { return dynamic_cast<T*>(m_payload); }
+
+        // Get the payload pointer
+        Header* GetPayload() const { return m_payload; }
 
         // IEType setter and getter
 
@@ -43,24 +44,10 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
         virtual void Print(std::ostream &os) const;
 
     private:
-        Buffer m_buffer; // variable length MAC SDU
         Header* m_payload; // Pointer to store different types of IEs
+        int m_payloadSize;
         uint8_t m_IEType;
 };
-
-template<class T>
-void
-Dect2020MacMultiplexingHeaderTypeC::AddPayload()
-{
-    m_payload = new T;
-}
-
-void
-Dect2020MacMultiplexingHeaderTypeC::RemovePayload()
-{
-    delete m_payload;
-    m_payload = nullptr;
-}
 
 } // namespace ns3
 

@@ -9,7 +9,7 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeC);
 TypeId
 Dect2020MacMultiplexingHeaderTypeC::GetTypeId(void)
 {
-    TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeC")
+    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeC")
         .SetParent<Header>()
         .AddConstructor<Dect2020MacMultiplexingHeaderTypeC>()
     ;
@@ -26,34 +26,29 @@ Dect2020MacMultiplexingHeaderTypeC::~Dect2020MacMultiplexingHeaderTypeC()
     delete m_payload;
 }
 
+void
+Dect2020MacMultiplexingHeaderTypeC::AddPayload(Header* payload, int payloadSize)
+{
+    if (m_payload != nullptr)
+    {
+        delete m_payload;
+    }
+    m_payload = payload;
+    m_payloadSize = payloadSize;
+}
+
+void
+Dect2020MacMultiplexingHeaderTypeC::RemovePayload()
+{
+    delete m_payload;
+    m_payload = nullptr;
+    m_payloadSize = 0;
+}
+
 TypeId
 Dect2020MacMultiplexingHeaderTypeC::GetInstanceTypeId(void) const
 {
     return GetTypeId();
-}
-
-void
-Dect2020MacMultiplexingHeaderTypeC::InsertSDU(const Header &header)
-{
-    uint32_t size = header.GetSerializedSize();
-    m_buffer.AddAtStart(size);
-    header.Serialize(m_buffer.Begin());
-}
-
-uint8_t
-Dect2020MacMultiplexingHeaderTypeC::RemoveSDU(Header &header)
-{
-    uint32_t deserialized = header.Deserialize(m_buffer.Begin());
-    m_buffer.RemoveAtStart(deserialized);
-
-    return deserialized;
-}
-
-uint8_t
-Dect2020MacMultiplexingHeaderTypeC::GetSDU() const
-{
-    // TODO: Implement SDU retrieval logic
-    return 0;
 }
 
 void
@@ -71,7 +66,11 @@ Dect2020MacMultiplexingHeaderTypeC::GetIEType() const
 uint32_t
 Dect2020MacMultiplexingHeaderTypeC::GetSerializedSize() const
 {
-    return m_buffer.GetSize() + 1;
+    if (m_payload == nullptr)
+    {
+        return 1; // Just the header byte
+    }
+    return m_payloadSize + 1;
 }
 
 void
@@ -83,7 +82,10 @@ Dect2020MacMultiplexingHeaderTypeC::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte0);
 
     // SDU
-    m_payload->Serialize(start);
+    if (m_payload != nullptr)
+    {
+        m_payload->Serialize(start);
+    }
 }
 
 uint32_t

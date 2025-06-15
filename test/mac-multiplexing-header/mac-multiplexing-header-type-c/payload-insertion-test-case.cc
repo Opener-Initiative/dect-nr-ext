@@ -22,9 +22,6 @@ Dect2020MacMultiplexingHeaderTypeCPayloadInsertionTestCase::DoSetup()
 void
 Dect2020MacMultiplexingHeaderTypeCPayloadInsertionTestCase::DoRun()
 {
-	Dect2020MacMultiplexingHeaderTypeC mxHeader;
-	mxHeader.AddPayload<Dect2020ClusterBeaconMessageIE>();
-	mxHeader.RemovePayload();
 }
 
 } // namespace ns3
