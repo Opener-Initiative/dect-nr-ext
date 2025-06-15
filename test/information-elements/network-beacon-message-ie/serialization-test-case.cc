@@ -1,36 +1,36 @@
-#include "dect2020-beacon-message-test-case.h"
-#include "ns3/dect2020-beacon-message.h"
+#include "serialization-test-case.h"
+#include "ns3/dect2020-network-beacon-message-ie.h"
 #include "ns3/packet.h"
 #include "ns3/test.h"
 
 namespace ns3 {
 
-Dect2020BeaconMessageTestCase::Dect2020BeaconMessageTestCase() : TestCase("BeaconMessageSerializationTest")
+Dect2020NetworkBeaconMessageIESerializationTestCase::Dect2020NetworkBeaconMessageIESerializationTestCase() : TestCase("NetworkBeaconMessageIESerializationTest")
 {
 }
 
-Dect2020BeaconMessageTestCase::~Dect2020BeaconMessageTestCase()
-{
-}
-
-void
-Dect2020BeaconMessageTestCase::DoSetup()
+Dect2020NetworkBeaconMessageIESerializationTestCase::~Dect2020NetworkBeaconMessageIESerializationTestCase()
 {
 }
 
 void
-Dect2020BeaconMessageTestCase::DoRun()
+Dect2020NetworkBeaconMessageIESerializationTestCase::DoSetup()
 {
-    Dect2020BeaconMessage originalHeader;
-    Dect2020BeaconMessage deserializedHeader;
+}
+
+void
+Dect2020NetworkBeaconMessageIESerializationTestCase::DoRun()
+{
+    Dect2020NetworkBeaconMessageIE originalHeader;
+    Dect2020NetworkBeaconMessageIE deserializedHeader;
     Packet packet;
 
     originalHeader.SetTxPowerIncluded(true);
     originalHeader.SetPowerConstraints(true);
     originalHeader.SetCurrentClusterChannelIncluded(true);
     originalHeader.SetNetworkBeaconChannels(0x3);
-    originalHeader.SetNetworkBeaconPeriod(Dect2020BeaconMessage::NetworkBeaconPeriod::NETWORK_PERIOD_1000MS);
-    originalHeader.SetClusterBeaconPeriod(Dect2020BeaconMessage::ClusterBeaconPeriod::CLUSTER_PERIOD_50MS);
+    originalHeader.SetNetworkBeaconPeriod(Dect2020NetworkBeaconMessageIE::NetworkBeaconPeriod::NETWORK_PERIOD_1000MS);
+    originalHeader.SetClusterBeaconPeriod(Dect2020NetworkBeaconMessageIE::ClusterBeaconPeriod::CLUSTER_PERIOD_50MS);
     originalHeader.SetNextClusterChannel(0x1234);
     originalHeader.SetTimeToNext(0xABCDEF01);
     originalHeader.SetClustersMaxTxPower(0xF);

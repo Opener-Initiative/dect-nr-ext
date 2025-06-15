@@ -112,6 +112,12 @@ set(mac_multiplexing_header_test_src
     test/mac-multiplexing-header/mac-multiplexing-header-type-c/payload-insertion-test-case.cc
     test/mac-multiplexing-header/mac-multiplexing-header-type-c/serialization-test-case.cc)
 
+# Information Elements
+
+set(network_beacon_message_ie_test_src
+    test/information-elements/network-beacon-message-ie/test.cc
+    test/information-elements/network-beacon-message-ie/serialization-test-case.cc)
+
 #######################################################################################
 
 build_lib(
@@ -140,6 +146,7 @@ build_lib(
         ${beacon_header_test_src}
         ${mac_multiplexing_header_test_src}
         ${physical_header_field_test_src}
+        ${network_beacon_message_ie_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}
