@@ -11,6 +11,6 @@ NS_LOG_COMPONENT_DEFINE("MacPduCreationExample");
 int
 main(int argc, char* argv[])
 {
-    Header* header = new Dect2020NetworkBeaconMessageIE;
-    header->Print(std::cout);
+    Dect2020MacMultiplexingHeaderTypeC mxHeader;
+    mxHeader.AddPayload<Dect2020NetworkBeaconMessageIE>();
 }
