@@ -17,9 +17,14 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
         // Enabling operations on SDU
 
+        // Add payload pointer to the object
         template<class T>
         void AddPayload();
 
+        // Remove the payload pointer from the object
+        void RemovePayload();
+
+        // Insert a payload to the SDU
         void InsertSDU(const Header &header); // should be like Packet::AddHeader
         uint8_t RemoveSDU(Header &header); // should be like Packet::RemoveHeader
         uint8_t GetSDU() const; // should be like Packet::PeekHeader
@@ -48,6 +53,13 @@ void
 Dect2020MacMultiplexingHeaderTypeC::AddPayload()
 {
     m_payload = new T;
+}
+
+void
+Dect2020MacMultiplexingHeaderTypeC::RemovePayload()
+{
+    delete m_payload;
+    m_payload = nullptr;
 }
 
 } // namespace ns3
