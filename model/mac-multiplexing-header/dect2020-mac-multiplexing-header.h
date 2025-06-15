@@ -12,7 +12,7 @@ namespace ns3
 // Forward declarations
 class Dect2020MacMultiplexingHeaderTypeA;
 class Dect2020MacMultiplexingHeaderTypeB;
-
+class Dect2020MacMultiplexingHeaderTypeC;
 class Dect2020MacMultiplexingHeader
 {
     public:
@@ -30,8 +30,6 @@ class Dect2020MacMultiplexingHeader
             F = 6 // Medium or Large SDU with IE type extension
         };
 
-        // TODO: Add IE type
-
         // Setters and Getters
 
         void SetType(Type type);
@@ -42,9 +40,6 @@ class Dect2020MacMultiplexingHeader
         
         void SetLength(uint8_t length);
         uint8_t GetLength() const;
-        
-        void SetIEType(uint8_t ieType);
-        uint8_t GetIEType() const;
 
     protected:
         Type m_type;
