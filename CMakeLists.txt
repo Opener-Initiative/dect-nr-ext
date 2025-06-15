@@ -16,6 +16,13 @@ set(mac_pdu_helper_h
 
 # Model
 
+# Physical Header Field
+set(physical_header_field_src
+    model/physical-header-field/dect2020-physical-header-field.cc)
+
+set(physical_header_field_h
+    model/physical-header-field/dect2020-physical-header-field.h)
+
 # Mac Header Type
 set(mac_header_type_src
     model/mac-header-type/dect2020-mac-header-type.cc)
@@ -66,6 +73,12 @@ set(cluster_beacon_message_ie_h
 
 # Tests
 
+# Physical Header Field
+set(physical_header_field_test_src
+    test/physical-header-field/test.cc
+    test/physical-header-field/serialization-test-case-1.cc
+    test/physical-header-field/serialization-test-case-2.cc)
+
 # MAC Common Headers
 
 # Unicast Header Test
@@ -110,6 +123,7 @@ build_lib(
         ${network_beacon_message_ie_src}
         ${cluster_beacon_message_ie_src}
         ${mac_multiplexing_header_src}
+        ${physical_header_field_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -117,6 +131,7 @@ build_lib(
         ${network_beacon_message_ie_h}
         ${cluster_beacon_message_ie_h}
         ${mac_multiplexing_header_h}
+        ${physical_header_field_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
@@ -124,6 +139,7 @@ build_lib(
         ${data_mac_pdu_test_src}
         ${beacon_header_test_src}
         ${mac_multiplexing_header_test_src}
+        ${physical_header_field_test_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}

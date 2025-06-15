@@ -1,25 +1,25 @@
-#include "dect2020-physical-header-field-test-case-1.h"
+#include "serialization-test-case-1.h"
 #include "ns3/dect2020-physical-header-field.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020PhysicalHeaderFieldTestCase1::Dect2020PhysicalHeaderFieldTestCase1() 
+Dect2020PhysicalHeaderFieldSerializationTestCase1::Dect2020PhysicalHeaderFieldSerializationTestCase1() 
     : TestCase("PhysicalHeaderFieldSerializationTest")
 {
 }
 
-Dect2020PhysicalHeaderFieldTestCase1::~Dect2020PhysicalHeaderFieldTestCase1()
+Dect2020PhysicalHeaderFieldSerializationTestCase1::~Dect2020PhysicalHeaderFieldSerializationTestCase1()
 {
 }
 
 void
-Dect2020PhysicalHeaderFieldTestCase1::DoSetup()
+Dect2020PhysicalHeaderFieldSerializationTestCase1::DoSetup()
 {
 }
 
 void
-Dect2020PhysicalHeaderFieldTestCase1::DoRun()
+Dect2020PhysicalHeaderFieldSerializationTestCase1::DoRun()
 {
     Dect2020PhysicalHeaderField originalHeader;
     Dect2020PhysicalHeaderField deserializedHeader;
