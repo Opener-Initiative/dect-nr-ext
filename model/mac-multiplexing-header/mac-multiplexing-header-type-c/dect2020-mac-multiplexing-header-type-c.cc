@@ -33,14 +33,18 @@ Dect2020MacMultiplexingHeaderTypeC::GetInstanceTypeId(void) const
 void
 Dect2020MacMultiplexingHeaderTypeC::InsertSDU(const Header &header)
 {
-    // TODO: Implement SDU insertion logic
+    uint32_t size = header.GetSerializedSize();
+    m_buffer.AddAtStart(size);
+    header.Serialize(m_buffer.Begin());
 }
 
 uint8_t
-Dect2020MacMultiplexingHeaderTypeC::RemoveSDU()
+Dect2020MacMultiplexingHeaderTypeC::RemoveSDU(Header &header)
 {
-    // TODO: Implement SDU removal logic
-    return 0;
+    uint32_t deserialized = header.Deserialize(m_buffer.Begin());
+    m_buffer.RemoveAtStart(deserialized);
+
+    return deserialized;
 }
 
 uint8_t
@@ -53,21 +57,19 @@ Dect2020MacMultiplexingHeaderTypeC::GetSDU() const
 void
 Dect2020MacMultiplexingHeaderTypeC::SetIEType(IEType ieType)
 {
-    // TODO: Implement IE type setting logic
+    m_IEType = ieType;
 }
 
 Dect2020MacMultiplexingHeaderTypeC::IEType
 Dect2020MacMultiplexingHeaderTypeC::GetIEType() const
 {
-    // TODO: Implement IE type retrieval logic
-    return PaddingIE;
+    return m_IEType;
 }
 
 uint32_t
 Dect2020MacMultiplexingHeaderTypeC::GetSerializedSize() const
 {
-    // TODO: Implement serialized size calculation
-    return 0;
+    return m_buffer.GetSize() + 1;
 }
 
 void

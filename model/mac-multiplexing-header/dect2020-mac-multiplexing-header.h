@@ -45,7 +45,6 @@ class Dect2020MacMultiplexingHeader
         Type m_type;
         uint8_t m_macExtension; // 2 relevant bits
         uint8_t m_length; // 1 relevant bit
-        uint8_t m_IEType; // 5 relevant bits
 };
 
 } // namespace ns3

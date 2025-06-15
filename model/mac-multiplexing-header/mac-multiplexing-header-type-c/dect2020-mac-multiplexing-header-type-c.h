@@ -51,7 +51,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
         // Enabling operations on SDU
 
         void InsertSDU(const Header &header); // should be like Packet::AddHeader
-        uint8_t RemoveSDU(); // should be like Packet::RemoveHeader
+        uint8_t RemoveSDU(Header &header); // should be like Packet::RemoveHeader
         uint8_t GetSDU() const; // should be like Packet::PeekHeader
 
         // IEType setter and getter
@@ -69,6 +69,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
     private:
         Buffer m_buffer; // variable length MAC SDU
+        IEType m_IEType;
 };
 
 } // namespace ns3
