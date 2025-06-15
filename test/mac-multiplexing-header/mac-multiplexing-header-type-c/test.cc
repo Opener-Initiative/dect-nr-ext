@@ -8,10 +8,10 @@ class Dect2020MacMultiplexingHeaderTypeCTestSuite : public TestSuite
 {
 public:
   Dect2020MacMultiplexingHeaderTypeCTestSuite()
-      : TestSuite("dect2020-mac-multiplexing-header-type-c-test", UNIT)
+      : TestSuite("dect2020-mac-multiplexing-header-type-c-test", Type::UNIT)
   {
-    AddTestCase(new Dect2020MacMultiplexingHeaderTypeCPayloadInsertionTestCase(), TestCase::QUICK);
-    AddTestCase(new Dect2020MacMultiplexingHeaderTypeCSerializationTestCase(), TestCase::QUICK);
+    AddTestCase(new Dect2020MacMultiplexingHeaderTypeCPayloadInsertionTestCase(), Duration::QUICK);
+    AddTestCase(new Dect2020MacMultiplexingHeaderTypeCSerializationTestCase(), Duration::QUICK);
   }
 };
 

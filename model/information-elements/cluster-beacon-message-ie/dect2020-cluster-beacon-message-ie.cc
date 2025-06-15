@@ -49,7 +49,7 @@ Dect2020ClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
     uint8_t byte1 = (m_powerConst << 3);
     byte1 |= (m_FO << 2);
     byte1 |= (m_nextChannel << 1);
-    byte1 |= m_timeToNext;
+    byte1 |= m_1BitTimeToNext;
     start.WriteU8(byte1);
 
     // byte 2
@@ -76,7 +76,7 @@ Dect2020ClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte6);
 
     // Time To Next
-    start.WriteU32(m_timeToNext);
+    start.WriteU32(m_4BytesTimeToNext);
 }
 
 uint32_t
@@ -93,7 +93,7 @@ Dect2020ClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
     m_powerConst = (byte1 & 0x08);
     m_FO = (byte1 & 0x04);
     m_nextChannel = (byte1 & 0x02);
-    m_timeToNext = (byte1 & 0x01);
+    m_1BitTimeToNext = (byte1 & 0x01);
     bytesRead++;
 
     // byte 2
@@ -124,7 +124,7 @@ Dect2020ClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
     bytesRead++;
 
     // Time To Next
-    m_timeToNext = start.ReadU32();
+    m_4BytesTimeToNext = start.ReadU32();
     bytesRead += 4;
 
     return bytesRead; // Number of bytes consumed
@@ -205,13 +205,13 @@ Dect2020ClusterBeaconMessageIE::GetNextChannel() const
 void
 Dect2020ClusterBeaconMessageIE::SetTimeToNextBit(uint8_t timeToNext)
 {
-    m_timeToNext = timeToNext;
+    m_1BitTimeToNext = timeToNext;
 }
 
 uint8_t
 Dect2020ClusterBeaconMessageIE::GetTimeToNextBit() const
 {
-    return m_timeToNext;
+    return m_1BitTimeToNext;
 }
 
 // NetworkBeaconPeriod
@@ -322,13 +322,13 @@ Dect2020ClusterBeaconMessageIE::GetNextClusterChannel() const
 void
 Dect2020ClusterBeaconMessageIE::SetTimeToNext(uint32_t timeToNext)
 {
-    m_timeToNext = timeToNext;
+    m_4BytesTimeToNext = timeToNext;
 }
 
 uint32_t
 Dect2020ClusterBeaconMessageIE::GetTimeToNext() const
 {
-    return m_timeToNext;
+    return m_4BytesTimeToNext;
 }
 
 } // namespace ns3 

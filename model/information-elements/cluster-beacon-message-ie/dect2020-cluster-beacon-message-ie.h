@@ -87,7 +87,7 @@ class Dect2020ClusterBeaconMessageIE : public Header
         uint8_t m_powerConst; // 1 relevant bit;
         uint8_t m_FO; // 1 relevant bit
         uint8_t m_nextChannel; // 1 relevant bit;
-        uint8_t m_timeToNext; // 1 relevant bit;
+        uint8_t m_1BitTimeToNext; // 1 relevant bit;
         uint8_t m_networkBeaconPeriod; // 4 relevant bits;
         uint8_t m_clusterBeaconPeriod; // 4 relevant bits;
         uint8_t m_countToTrigger; // 4 relevant bits;
@@ -96,7 +96,7 @@ class Dect2020ClusterBeaconMessageIE : public Header
         uint8_t m_clusterMaxTXPower; // 4 relevant bits
         uint8_t m_frameOffset; // 1-byte Frame Offset
         uint16_t m_nextClusterChannel; // 13 relevant bits
-        uint32_t m_timeToNext; // 4-byte Time To Next
+        uint32_t m_4BytesTimeToNext; // 4-byte Time To Next
 };
 
 } // namespace ns3

@@ -47,7 +47,6 @@ template<class T>
 void
 Dect2020MacMultiplexingHeaderTypeC::AddPayload()
 {
-    NS_ASSERT_MSG(payload != nullptr, "Payload cannot be null");
     m_payload = new T;
 }
 
