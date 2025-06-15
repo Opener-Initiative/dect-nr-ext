@@ -7,7 +7,6 @@ namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020BeaconHeader");
-
 NS_OBJECT_ENSURE_REGISTERED(Dect2020BeaconHeader);
 
 Dect2020BeaconHeader::Dect2020BeaconHeader()

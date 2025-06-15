@@ -23,8 +23,7 @@ Dect2020MacMultiplexingHeaderTypeC::Dect2020MacMultiplexingHeaderTypeC()
 
 Dect2020MacMultiplexingHeaderTypeC::~Dect2020MacMultiplexingHeaderTypeC()
 {
-    // No need to delete m_payload as it's owned by the caller
-    m_payload = nullptr;
+    delete m_payload;
 }
 
 TypeId
@@ -84,14 +83,23 @@ Dect2020MacMultiplexingHeaderTypeC::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte0);
 
     // SDU
-
+    m_payload->Serialize(start);
 }
 
 uint32_t
 Dect2020MacMultiplexingHeaderTypeC::Deserialize(Buffer::Iterator start)
 {
-    // TODO: Implement deserialization logic
-    return 0;
+    int bytesRead = 0;
+    // byte 0
+    uint8_t byte0 = start.ReadU8();
+    m_macExtension = (byte0 >> 6) & 0x03;
+    m_IEType = byte0 & 0x3F;
+    bytesRead++;
+
+    // SDU
+    bytesRead += m_payload->Deserialize(start);
+
+    return bytesRead;
 }
 
 void

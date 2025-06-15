@@ -1,6 +1,4 @@
-#include "ns3/dect2020-mac-multiplexing-header.h"
-#include "ns3/dect2020-mac-multiplexing-header-type-a.h"
-#include "ns3/dect2020-mac-multiplexing-header-type-b.h"
+#include "ns3/dect2020-network-beacon-message-ie.h"
 #include "ns3/dect2020-mac-multiplexing-header-type-c.h"
 
 #include "ns3/pointer.h"
@@ -13,7 +11,6 @@ NS_LOG_COMPONENT_DEFINE("MacPduCreationExample");
 int
 main(int argc, char* argv[])
 {
-    Dect2020MacMultiplexingHeaderTypeA headerA;
-    headerA.SetIEType(Dect2020MacMultiplexingHeader::NoPayloadIEType::KeepAliveIE);
-    std::cout << "headerA: " << headerA.GetIEType() << std::endl;
+    Header* header = new Dect2020NetworkBeaconMessageIE;
+    header->Print(std::cout);
 }

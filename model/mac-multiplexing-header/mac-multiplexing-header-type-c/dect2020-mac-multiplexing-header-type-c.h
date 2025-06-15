@@ -18,7 +18,7 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
         // Enabling operations on SDU
 
         template<class T>
-        void AddPayload(Ptr<T> payload);
+        void AddPayload();
 
         void InsertSDU(const Header &header); // should be like Packet::AddHeader
         uint8_t RemoveSDU(Header &header); // should be like Packet::RemoveHeader
@@ -40,15 +40,15 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
     private:
         Buffer m_buffer; // variable length MAC SDU
         Header* m_payload; // Pointer to store different types of IEs
-        ExtendedIEType m_IEType;
+        uint8_t m_IEType;
 };
 
 template<class T>
 void
-Dect2020MacMultiplexingHeaderTypeC::AddPayload(Ptr<T> payload)
+Dect2020MacMultiplexingHeaderTypeC::AddPayload()
 {
     NS_ASSERT_MSG(payload != nullptr, "Payload cannot be null");
-    m_payload = payload.get();
+    m_payload = new T;
 }
 
 } // namespace ns3
