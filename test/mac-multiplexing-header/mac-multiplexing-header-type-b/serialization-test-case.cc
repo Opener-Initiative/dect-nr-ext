@@ -32,7 +32,7 @@ Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoRun(void)
 
     originalMuxHeader.SetMacExtension(macExtension);
     originalMuxHeader.SetLength(length);
-    originalMuxHeader.SetIEType(ieType);
+    originalMuxHeader.SetIEType(Dect2020MacMultiplexingHeaderTypeB::OneBytePayloadIEType::RadioDeviceStatusIE);
     originalMuxHeader.InsertSDU(payload);
 
     // Serialize and deserialize
