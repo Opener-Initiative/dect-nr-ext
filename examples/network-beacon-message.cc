@@ -28,7 +28,7 @@ main(int argc, char* argv[])
     networkBeaconMessageIE.SetTxPowerIncluded(true);
     networkBeaconMessageIE.SetPowerConstraints(false);
     networkBeaconMessageIE.SetCurrentClusterChannelIncluded(true);
-    networkBeaconMessageIE.SetNetworkBeaconChannels(5);
+    networkBeaconMessageIE.SetNetworkBeaconChannels(2);
     networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020NetworkBeaconMessageIE::NETWORK_PERIOD_1000MS);
     networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020NetworkBeaconMessageIE::CLUSTER_PERIOD_500MS);
     networkBeaconMessageIE.SetNextClusterChannel(1234);

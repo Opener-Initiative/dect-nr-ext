@@ -12,9 +12,8 @@ set(mac_pdu_helper_src
 set(mac_pdu_helper_h
     helper/dect2020-mac-pdu-helper.h)
 
-#######################################################################################
 
-# Model
+# Model --------------------------------------------------------------------------------
 
 # Physical Header Field
 set(physical_header_field_src
@@ -75,9 +74,7 @@ set(route_info_ie_src
 set(route_info_ie_h
     model/information-elements/route-info-ie/dect2020-route-info-ie.h)
 
-#######################################################################################
-
-# Tests
+# Tests --------------------------------------------------------------------------------
 
 # Physical Header Field
 set(physical_header_field_test_src
@@ -128,7 +125,9 @@ set(route_info_ie_test_src
     test/information-elements/route-info-ie/test.cc
     test/information-elements/route-info-ie/serialization-test-case.cc)
 
-#######################################################################################
+# Network Beacon Message
+set(network_beacon_message_example_src
+    examples/network-beacon-message.cc)
 
 build_lib(
     LIBNAME dect-nr
