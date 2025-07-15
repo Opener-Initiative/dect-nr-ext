@@ -3,6 +3,13 @@ build_lib_example(
     SOURCE_FILES network-beacon-message.cc
     LIBRARIES_TO_LINK
         ${libdect-nr}
+)
+
+build_lib_example(
+    NAME cluster-beacon-message
+    SOURCE_FILES cluster-beacon-message.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr}
 )   
 
 build_lib_example(
