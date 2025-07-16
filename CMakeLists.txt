@@ -74,6 +74,12 @@ set(route_info_ie_src
 set(route_info_ie_h
     model/information-elements/route-info-ie/dect2020-route-info-ie.h)
 
+set(association_request_message_ie_src
+    model/information-elements/association-request-message-ie/dect2020-association-request-message-ie.cc)
+
+set(association_request_message_ie_h
+    model/information-elements/association-request-message-ie/dect2020-association-request-message-ie.h)
+
 # Tests --------------------------------------------------------------------------------
 
 # Physical Header Field
@@ -140,6 +146,7 @@ build_lib(
         ${mac_multiplexing_header_src}
         ${physical_header_field_src}
         ${route_info_ie_src}
+        ${association_request_message_ie_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -149,6 +156,7 @@ build_lib(
         ${mac_multiplexing_header_h}
         ${physical_header_field_h}
         ${route_info_ie_h}
+        ${association_request_message_ie_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
