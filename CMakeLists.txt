@@ -17,68 +17,68 @@ set(mac_pdu_helper_h
 
 # Physical Header Field
 set(physical_header_field_src
-    model/physical-header-field/dect2020-physical-header-field.cc)
+    model/mac-pdu/physical-header-field/dect2020-physical-header-field.cc)
 
 set(physical_header_field_h
-    model/physical-header-field/dect2020-physical-header-field.h)
+    model/mac-pdu/physical-header-field/dect2020-physical-header-field.h)
 
 # Mac Header Type
 set(mac_header_type_src
-    model/mac-header-type/dect2020-mac-header-type.cc)
+    model/mac-pdu/mac-header-type/dect2020-mac-header-type.cc)
 
 set(mac_header_type_h
-    model/mac-header-type/dect2020-mac-header-type.h)
+    model/mac-pdu/mac-header-type/dect2020-mac-header-type.h)
 
 # Common Headers
 set(mac_common_headers_src
-    model/mac-common-headers/beacon-header/dect2020-beacon-header.cc
-    model/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.cc
-    model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.cc
-    model/mac-common-headers/unicast-header/dect2020-unicast-header.cc)
+    model/mac-pdu/mac-common-headers/beacon-header/dect2020-beacon-header.cc
+    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.cc
+    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.cc
+    model/mac-pdu/mac-common-headers/unicast-header/dect2020-unicast-header.cc)
 
 set(mac_common_headers_h
-    model/mac-common-headers/beacon-header/dect2020-beacon-header.h
-    model/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.h
-    model/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
-    model/mac-common-headers/unicast-header/dect2020-unicast-header.h)
+    model/mac-pdu/mac-common-headers/beacon-header/dect2020-beacon-header.h
+    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020-data-mac-pdu-header.h
+    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020-rd-broadcasting-header.h
+    model/mac-pdu/mac-common-headers/unicast-header/dect2020-unicast-header.h)
 
 # Mac Multiplexing Header
 set(mac_multiplexing_header_src
-    model/mac-multiplexing-header/dect2020-mac-multiplexing-header.cc
-    model/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.cc
-    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.cc
-    model/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.cc)
+    model/mac-pdu/mac-multiplexing-header/dect2020-mac-multiplexing-header.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.cc)
 
 set(mac_multiplexing_header_h
-    model/mac-multiplexing-header/dect2020-mac-multiplexing-header.h
-    model/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.h
-    model/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.h
-    model/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.h)
+    model/mac-pdu/mac-multiplexing-header/dect2020-mac-multiplexing-header.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020-mac-multiplexing-header-type-a.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020-mac-multiplexing-header-type-b.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020-mac-multiplexing-header-type-c.h)
 
 # Information Elements
 set(network_beacon_message_ie_src
-    model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.cc)
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.cc)
 
 set(network_beacon_message_ie_h
-    model/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.h)
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020-network-beacon-message-ie.h)
 
 set(cluster_beacon_message_ie_src
-    model/information-elements/cluster-beacon-message-ie/dect2020-cluster-beacon-message-ie.cc)
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020-cluster-beacon-message-ie.cc)
 
 set(cluster_beacon_message_ie_h
-    model/information-elements/cluster-beacon-message-ie/dect2020-cluster-beacon-message-ie.h)
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020-cluster-beacon-message-ie.h)
 
 set(route_info_ie_src
-    model/information-elements/route-info-ie/dect2020-route-info-ie.cc)
+    model/mac-pdu/information-elements/route-info-ie/dect2020-route-info-ie.cc)
 
 set(route_info_ie_h
-    model/information-elements/route-info-ie/dect2020-route-info-ie.h)
+    model/mac-pdu/information-elements/route-info-ie/dect2020-route-info-ie.h)
 
 set(association_request_message_ie_src
-    model/information-elements/association-request-message-ie/dect2020-association-request-message-ie.cc)
+    model/mac-pdu/information-elements/association-request-message-ie/dect2020-association-request-message-ie.cc)
 
 set(association_request_message_ie_h
-    model/information-elements/association-request-message-ie/dect2020-association-request-message-ie.h)
+    model/mac-pdu/information-elements/association-request-message-ie/dect2020-association-request-message-ie.h)
 
 # Tests --------------------------------------------------------------------------------
 
