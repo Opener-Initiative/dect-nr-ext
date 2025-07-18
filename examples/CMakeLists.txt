@@ -1,4 +1,12 @@
 build_lib_example(
+    NAME sending-mac-pdu
+    SOURCE_FILES sending-mac-pdu.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr}
+        ${libnetwork-utils}
+)
+
+build_lib_example(
     NAME network-beacon-message
     SOURCE_FILES network-beacon-message.cc
     LIBRARIES_TO_LINK
