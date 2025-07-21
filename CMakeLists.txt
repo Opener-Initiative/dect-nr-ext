@@ -80,6 +80,12 @@ set(association_request_message_ie_src
 set(association_request_message_ie_h
     model/mac-pdu/information-elements/association-request-message-ie/dect2020-association-request-message-ie.h)
 
+# Channel
+set(dect2020_channel_src
+    model/dect-channel/dect2020-channel.cc)
+
+set(dect2020_channel_h
+    model/dect-channel/dect2020-channel.h)
 # Tests --------------------------------------------------------------------------------
 
 # Physical Header Field
@@ -147,6 +153,7 @@ build_lib(
         ${physical_header_field_src}
         ${route_info_ie_src}
         ${association_request_message_ie_src}
+        ${dect2020_channel_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -157,6 +164,7 @@ build_lib(
         ${physical_header_field_h}
         ${route_info_ie_h}
         ${association_request_message_ie_h}
+        ${dect2020_channel_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
@@ -167,6 +175,7 @@ build_lib(
         ${physical_header_field_test_src}
         ${network_beacon_message_ie_test_src}
         ${route_info_ie_test_src}
+        ${network_beacon_message_example_src}
     LIBRARIES_TO_LINK
         ${libcore}
         ${libnetwork}
