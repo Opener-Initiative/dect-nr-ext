@@ -14,6 +14,9 @@ class Dect2020NetDevice
         Dect2020NetDevice();
         ~Dect2020NetDevice();
 
+        static TypeId GetTypeId(void);
+        TypeId GetInstanceTypeId(void) const;
+
     private:
         Ptr<SimpleNetDevice> m_device;
 };
