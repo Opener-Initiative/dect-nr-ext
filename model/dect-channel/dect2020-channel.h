@@ -26,7 +26,7 @@ class Dect2020Channel : public Object
 
         // Setters and Getters
 
-        Ptr<SimpleChannel> GetWrappedChannelPointer(void) const;
+        Ptr<SimpleChannel> GetWrappedChannel(void) const;
 
     private:
         Ptr<SimpleChannel> m_simpleChannel;
