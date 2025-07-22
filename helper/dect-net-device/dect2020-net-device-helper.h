@@ -8,7 +8,7 @@ namespace ns3
 
 class Dect2020NetDevice;
 
-class Dect2020NetDeviceHelper
+class Dect2020NetDeviceHelper : public Object
 {
     public:
         Dect2020NetDeviceHelper();
