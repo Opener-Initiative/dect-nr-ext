@@ -1,3 +1,6 @@
+#ifndef DECT2020_NET_DEVICE_H
+#define DECT2020_NET_DEVICE_H
+
 #include "ns3/simple-net-device.h"
 #include "ns3/simple-channel.h"
 #include "ns3/pointer.h"
@@ -26,3 +29,5 @@ class Dect2020NetDevice : public Object
 };
 
 } // namespace ns3
+
+#endif // DECT2020_NET_DEVICE_H

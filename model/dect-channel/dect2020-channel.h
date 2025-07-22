@@ -1,5 +1,8 @@
 // Dect2020Channel - wrapper around ns3::SimpleChannel
 
+#ifndef DECT2020_CHANNEL_H
+#define DECT2020_CHANNEL_H
+
 #include "ns3/simple-channel.h"
 #include "ns3/simple-net-device.h"
 #include "ns3/pointer.h"
@@ -31,3 +34,5 @@ class Dect2020Channel : public Object
 };
 
 } // namespace ns3
+
+#endif // DECT2020_CHANNEL_H
