@@ -44,7 +44,7 @@ Dect2020Channel::Add(Ptr<SimpleNetDevice> device)
 }
 
 Ptr<SimpleChannel>
-Dect2020Channel::GetChannelPointer(void) const
+Dect2020Channel::GetWrappedChannelPointer(void) const
 {
     return m_simpleChannel;
 }
