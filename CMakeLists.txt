@@ -7,10 +7,16 @@ endif()
 
 # Helper
 set(mac_pdu_helper_src
-    helper/dect2020-mac-pdu-helper.cc)
+    helper/mac-pdu/dect2020-mac-pdu-helper.cc)
 
 set(mac_pdu_helper_h
-    helper/dect2020-mac-pdu-helper.h)
+    helper/mac-pdu/dect2020-mac-pdu-helper.h)
+
+set(dect_net_device_helper_src
+    helper/dect-net-device/dect2020-net-device-helper.cc)
+
+set(dect_net_device_helper_h
+    helper/dect-net-device/dect2020-net-device-helper.h)
 
 
 # Model --------------------------------------------------------------------------------
@@ -160,6 +166,7 @@ build_lib(
     LIBNAME dect-nr
     SOURCE_FILES
         ${mac_pdu_helper_src}
+        ${dect_net_device_helper_src}
         ${mac_header_type_src}
         ${mac_common_headers_src}
         ${network_beacon_message_ie_src}
@@ -173,6 +180,7 @@ build_lib(
         ${dect2020_mac_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
+        ${dect_net_device_helper_h}
         ${mac_header_type_h}
         ${mac_common_headers_h}
         ${network_beacon_message_ie_h}
