@@ -49,5 +49,11 @@ Dect2020Channel::GetWrappedChannel(void) const
     return m_simpleChannel;
 }
 
+void
+Dect2020Channel::SetAttribute(std::string name, const AttributeValue &value)
+{
+    m_simpleChannel->SetAttribute(name, value);
+}
+
 } // namespace ns3
 

@@ -20,34 +20,36 @@ class Dect2020NetDevice : public NetDevice
 
         // Virtual methods from NetDevice
 
-        void SetIfIndex(uint32_t index);
-        uint32_t GetIfIndex() const;
-        Ptr<Channel> GetChannel() const;
-        void SetAddress(Address address);
-        Address GetAddress() const;
-        bool SetMtu(const uint16_t mtu);
-        uint16_t GetMtu() const;
-        bool IsLinkUp() const;
-        void AddLinkChangeCallback(Callback<void> callback);
-        bool IsBroadcast() const;
-        Address GetBroadcast() const;
-        bool IsMulticast() const;
-        Address GetMulticast(Ipv4Address multicastGroup) const;
-        Address GetMulticast(Ipv6Address multicastGroup) const;
-        bool IsBridge() const;
-        bool IsPointToPoint() const;
-        bool Send(Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber);
-        bool SendFrom(Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber);
-        Ptr<Node> GetNode() const;
-        void SetNode(Ptr<Node> node);
-        bool NeedsArp() const;
-        void SetReceiveCallback(ReceiveCallback cb);
-        void SetPromiscReceiveCallback(PromiscReceiveCallback cb);
-        bool SupportsSendFrom() const;
+        void SetIfIndex(uint32_t index) override;
+        uint32_t GetIfIndex() const override;
+        Ptr<Channel> GetChannel() const override;
+        void SetAddress(Address address) override;
+        Address GetAddress() const override;
+        bool SetMtu(const uint16_t mtu) override;
+        uint16_t GetMtu() const override;
+        bool IsLinkUp() const override;
+        void AddLinkChangeCallback(Callback<void> callback) override;
+        bool IsBroadcast() const override;
+        Address GetBroadcast() const override;
+        bool IsMulticast() const override;
+        Address GetMulticast(Ipv4Address multicastGroup) const override;
+        Address GetMulticast(Ipv6Address multicastGroup) const override;
+        bool IsBridge() const override;
+        bool IsPointToPoint() const override;
+        bool Send(Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber) override;
+        bool SendFrom(Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber) override;
+        Ptr<Node> GetNode() const override;
+        void SetNode(Ptr<Node> node) override;
+        bool NeedsArp() const override;
+        void SetReceiveCallback(ReceiveCallback cb) override;
+        void SetPromiscReceiveCallback(PromiscReceiveCallback cb) override;
+        bool SupportsSendFrom() const override;
+
+        // SimpleNetDevice wrapped methods
 
         void SetChannel(Ptr<SimpleChannel> channel);
 
-        // Setters and Getters
+        // Dect2020NetDevice Setters and Getters
 
         Ptr<SimpleNetDevice> GetWrappedDevicePointer() const;
 

@@ -24,9 +24,9 @@ class Dect2020Channel : public Object
 
         void Add(Ptr<SimpleNetDevice> device);
 
-        // Setters and Getters
-
         Ptr<SimpleChannel> GetWrappedChannel(void) const;
+
+        void SetAttribute(std::string name, const AttributeValue &value);
 
     private:
         Ptr<SimpleChannel> m_simpleChannel;

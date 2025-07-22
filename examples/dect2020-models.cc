@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     Ptr<Dect2020Channel> channel = CreateObject<Dect2020Channel>();
     Ptr<Dect2020NetDevice> device = CreateObject<Dect2020NetDevice>();
 
+    channel->SetAttribute("Delay", TimeValue(Seconds(0)));
     device->SetChannel(channel->GetWrappedChannel());
     node->AddDevice(device);
 
