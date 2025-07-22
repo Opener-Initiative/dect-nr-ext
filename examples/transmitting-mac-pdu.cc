@@ -77,19 +77,24 @@ int main(int argc, char *argv[])
     Ptr<SimpleChannel> channel = CreateObject<SimpleChannel>();
     channel->SetAttribute("Delay", TimeValue(MilliSeconds(1)));
 
-    // Create SimpleNetDeviceHelper
-    SimpleNetDeviceHelper simpleNetDeviceHelper;
+    // Create SimpleNetDevices
+    Ptr<SimpleNetDevice> device0 = CreateObject<SimpleNetDevice>();
+    Ptr<SimpleNetDevice> device1 = CreateObject<SimpleNetDevice>();
 
     // Install SimpleNetDevices on nodes and attach SimpleChannel to the devices
-    NetDeviceContainer devices = simpleNetDeviceHelper.Install(nodes, channel);
+    device0->SetChannel(channel);
+    device1->SetChannel(channel);
+
+    nodes.Get(0)->AddDevice(device0);
+    nodes.Get(1)->AddDevice(device1);
 
     // Set ReceiveCallback functions
-    devices.Get(0)->SetReceiveCallback(MakeCallback(&ReceiveCallback));
-    devices.Get(1)->SetReceiveCallback(MakeCallback(&ReceiveCallback));
+    device0->SetReceiveCallback(MakeCallback(&ReceiveCallback));
+    device1->SetReceiveCallback(MakeCallback(&ReceiveCallback));
 
     // Get device addresses
-    Address addr0 = devices.Get(0)->GetAddress();
-    Address addr1 = devices.Get(1)->GetAddress();
+    Address addr0 = device0->GetAddress();
+    Address addr1 = device1->GetAddress();
     
     NS_LOG_INFO("Node 0 address: " << addr0);
     NS_LOG_INFO("Node 1 address: " << addr1);
@@ -104,10 +109,10 @@ int main(int argc, char *argv[])
 
     // Schedule packet transmission from node 0 to node 1
     NS_LOG_INFO("Scheduling packet transmission...");
-    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, devices.Get(0), packet1, addr1, 0x0103); // DECT NR protocol number???
-    Simulator::Schedule(Seconds(2.0), &NetDevice::Send, devices.Get(0), packet2, addr1, 0x0103);
-    Simulator::Schedule(Seconds(3.0), &NetDevice::Send, devices.Get(0), packet3, addr1, 0x0103);
-    Simulator::Schedule(Seconds(4.0), &NetDevice::Send, devices.Get(0), networkBeaconMessage, addr1, 0x0103);
+    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device0, packet1, addr1, 0x0103); // DECT NR protocol number???
+    Simulator::Schedule(Seconds(2.0), &NetDevice::Send, device0, packet2, addr1, 0x0103);
+    Simulator::Schedule(Seconds(3.0), &NetDevice::Send, device0, packet3, addr1, 0x0103);
+    Simulator::Schedule(Seconds(4.0), &NetDevice::Send, device0, networkBeaconMessage, addr1, 0x0103);
 
     Simulator::Stop(Seconds(5.0));
     Simulator::Run();
