@@ -1,4 +1,5 @@
 #include "ns3/dect2020-channel.h"
+#include "ns3/dect2020-net-device.h"
 
 #include "ns3/log.h"
 #include "ns3/node-container.h"
@@ -17,14 +18,12 @@ using namespace ns3;
 
 int main(int argc, char *argv[])
 {
-    NodeContainer nodes;
-    nodes.Create(2);
-
     Ptr<Dect2020Channel> channel = CreateObject<Dect2020Channel>();
     channel->SetAttribute("Delay", TimeValue(Seconds(0.001)));
 
-    SimpleNetDeviceHelper simpleNetDeviceHelper;
+    Ptr<Dect2020NetDevice> device0 = CreateObject<Dect2020NetDevice>();
 
-    NetDeviceContainer devices = simpleNetDeviceHelper.Install(nodes, channel->GetChannel());
+    device0->SetChannel(channel);
+
     return 0;
 }

@@ -26,10 +26,10 @@ class Dect2020Channel : public Object
 
         // Setters and Getters
 
-        Ptr<SimpleChannel> GetChannel(void) const;
+        Ptr<SimpleChannel> GetChannelPointer(void) const;
 
     private:
-        Ptr<SimpleChannel> m_channel;
+        Ptr<SimpleChannel> m_simpleChannel;
         Time m_delay;
 };
 

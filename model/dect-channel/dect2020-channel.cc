@@ -8,12 +8,12 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020Channel);
 
 Dect2020Channel::Dect2020Channel()
 {
-    m_channel = CreateObject<SimpleChannel>();
+    m_simpleChannel = CreateObject<SimpleChannel>();
 }
 
 Dect2020Channel::~Dect2020Channel()
 {
-    m_channel = nullptr;
+    m_simpleChannel = nullptr;
 }
 
 TypeId
@@ -40,13 +40,13 @@ Dect2020Channel::GetInstanceTypeId(void) const
 void
 Dect2020Channel::Add(Ptr<SimpleNetDevice> device)
 {
-    m_channel->Add(device);
+    m_simpleChannel->Add(device);
 }
 
 Ptr<SimpleChannel>
-Dect2020Channel::GetChannel(void) const
+Dect2020Channel::GetChannelPointer(void) const
 {
-    return m_channel;
+    return m_simpleChannel;
 }
 
 } // namespace ns3
