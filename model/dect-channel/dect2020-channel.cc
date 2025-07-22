@@ -13,6 +13,7 @@ Dect2020Channel::Dect2020Channel()
 
 Dect2020Channel::~Dect2020Channel()
 {
+    m_channel = nullptr;
 }
 
 TypeId

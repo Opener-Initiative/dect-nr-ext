@@ -22,6 +22,7 @@ class Dect2020Channel : public Object
         void Add(Ptr<SimpleNetDevice> device);
 
         // Setters and Getters
+
         Ptr<SimpleChannel> GetChannel(void) const;
 
     private:

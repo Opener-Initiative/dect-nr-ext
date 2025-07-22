@@ -8,7 +8,7 @@ namespace ns3
 class SimpleNetDevice;
 class SimpleChannel;
 
-class Dect2020NetDevice
+class Dect2020NetDevice : public Object
 {
     public:
         Dect2020NetDevice();
@@ -16,6 +16,10 @@ class Dect2020NetDevice
 
         static TypeId GetTypeId(void);
         TypeId GetInstanceTypeId(void) const;
+
+        // Setters and Getters
+
+        Ptr<SimpleNetDevice> GetDevice(void) const;
 
     private:
         Ptr<SimpleNetDevice> m_device;
