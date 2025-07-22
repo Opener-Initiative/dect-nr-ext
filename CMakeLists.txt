@@ -94,6 +94,13 @@ set(dect2020_net_device_src
 set(dect2020_net_device_h
     model/dect-net-device/dect2020-net-device.h)
 
+# Dect2020Mac
+set(dect2020_mac_src
+    model/dect-mac/dect2020-mac.cc)
+
+set(dect2020_mac_h
+    model/dect-mac/dect2020-mac.h)
+
 # Tests --------------------------------------------------------------------------------
 
 # Physical Header Field
@@ -163,6 +170,7 @@ build_lib(
         ${association_request_message_ie_src}
         ${dect2020_channel_src}
         ${dect2020_net_device_src}
+        ${dect2020_mac_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -175,6 +183,7 @@ build_lib(
         ${association_request_message_ie_h}
         ${dect2020_channel_h}
         ${dect2020_net_device_h}
+        ${dect2020_mac_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
