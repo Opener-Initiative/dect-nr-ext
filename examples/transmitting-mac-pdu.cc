@@ -11,6 +11,9 @@
 #include "ns3/dect2020-mac-multiplexing-header-type-c.h"
 #include "ns3/dect2020-network-beacon-message-ie.h"
 
+#include "ns3/dect2020-channel.h"
+#include "ns3/dect2020-net-device.h"
+
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("TransmittingMacPduExample");
@@ -22,71 +25,29 @@ ReceiveCallback(Ptr<NetDevice> device, Ptr<const Packet> packet, uint16_t protoc
     return true;
 }
 
-Ptr<Packet>
-CreateNetworkBeaconMessage()
-{
-    Dect2020MacPduHelper macPduHelper;
-    Dect2020MacMultiplexingHeaderTypeC mxHeader;
-    Dect2020NetworkBeaconMessageIE networkBeaconMessageIE;
-
-    // Creating MAC PDU (ns3::Packet) with:
-    // MAC Header Type and MAC Common Header as Beacon Header
-    Ptr<Packet> macPdu = macPduHelper.BEACON(
-        MacSecurityField::MAC_SECURITY_NOT_USED,
-        0xFFFFFFFF,
-        0xFFFFFFFF
-    );
-
-    // Setting values for Network Beacon Message IE
-    networkBeaconMessageIE.SetTxPowerIncluded(true);
-    networkBeaconMessageIE.SetPowerConstraints(false);
-    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(true);
-    networkBeaconMessageIE.SetNetworkBeaconChannels(2);
-    networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020NetworkBeaconMessageIE::NETWORK_PERIOD_1000MS);
-    networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020NetworkBeaconMessageIE::CLUSTER_PERIOD_500MS);
-    networkBeaconMessageIE.SetNextClusterChannel(1234);
-    networkBeaconMessageIE.SetTimeToNext(50000); // 50ms in microseconds
-    networkBeaconMessageIE.SetClustersMaxTxPower(20); // 20 dBm
-    networkBeaconMessageIE.SetCurrentClusterChannel(5678);
-    
-    // Set additional network beacon channels
-    uint16_t additionalChannels[3] = {100, 200, 300};
-    networkBeaconMessageIE.SetAdditionalNetworkBeaconChannels(additionalChannels);
-
-    // Setting up the multiplexing header
-    mxHeader.SetMacExtension(0x00); // 00 = No length is included in the IE Header. The IE type defines the length of the IE payload.
-    mxHeader.SetIEType(Dect2020MacMultiplexingHeader::ExtendedIEType::NetworkBeaconMessage);
-    mxHeader.AddPayload(&networkBeaconMessageIE, networkBeaconMessageIE.GetSerializedSize());
-
-    // Inserting the multiplexing header together with the payload into the MAC PDU
-    macPdu->AddHeader(mxHeader); 
-
-    return macPdu;
-}
-
 int main(int argc, char *argv[])
 {
     // Enable logging for this component
     LogComponentEnable("TransmittingMacPduExample", LOG_LEVEL_INFO);
     
     // Create nodes
-    NodeContainer nodes;
-    nodes.Create(2);
+    Ptr<Node> node0 = CreateObject<Node>();
+    Ptr<Node> node1 = CreateObject<Node>();
 
     // Create and configure SimpleChannel
-    Ptr<SimpleChannel> channel = CreateObject<SimpleChannel>();
+    Ptr<Dect2020Channel> channel = CreateObject<Dect2020Channel>();
     channel->SetAttribute("Delay", TimeValue(MilliSeconds(1)));
 
-    // Create SimpleNetDevices
-    Ptr<SimpleNetDevice> device0 = CreateObject<SimpleNetDevice>();
-    Ptr<SimpleNetDevice> device1 = CreateObject<SimpleNetDevice>();
+    // Create Dect2020NetDevices
+    Ptr<Dect2020NetDevice> device0 = CreateObject<Dect2020NetDevice>();
+    Ptr<Dect2020NetDevice> device1 = CreateObject<Dect2020NetDevice>();
 
-    // Install SimpleNetDevices on nodes and attach SimpleChannel to the devices
-    device0->SetChannel(channel);
-    device1->SetChannel(channel);
+    // Install Dect2020NetDevices on nodes and attach Dect2020Channel to the devices
+    device0->SetChannel(channel->GetWrappedChannel());
+    device1->SetChannel(channel->GetWrappedChannel());
 
-    nodes.Get(0)->AddDevice(device0);
-    nodes.Get(1)->AddDevice(device1);
+    node0->AddDevice(device0);
+    node1->AddDevice(device1);
 
     // Set ReceiveCallback functions
     device0->SetReceiveCallback(MakeCallback(&ReceiveCallback));
@@ -104,15 +65,11 @@ int main(int argc, char *argv[])
     Ptr<Packet> packet2 = Create<Packet>(200);
     Ptr<Packet> packet3 = Create<Packet>(150);
 
-    // Create Network Beacon Message
-    Ptr<Packet> networkBeaconMessage = CreateNetworkBeaconMessage();
-
     // Schedule packet transmission from node 0 to node 1
     NS_LOG_INFO("Scheduling packet transmission...");
     Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device0, packet1, addr1, 0x0103); // DECT NR protocol number???
     Simulator::Schedule(Seconds(2.0), &NetDevice::Send, device0, packet2, addr1, 0x0103);
     Simulator::Schedule(Seconds(3.0), &NetDevice::Send, device0, packet3, addr1, 0x0103);
-    Simulator::Schedule(Seconds(4.0), &NetDevice::Send, device0, networkBeaconMessage, addr1, 0x0103);
 
     Simulator::Stop(Seconds(5.0));
     Simulator::Run();
