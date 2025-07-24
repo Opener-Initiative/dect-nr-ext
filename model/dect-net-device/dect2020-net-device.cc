@@ -6,11 +6,13 @@ namespace ns3
 Dect2020NetDevice::Dect2020NetDevice()
 {
     m_simpleNetDevice = CreateObject<SimpleNetDevice>();
+    m_mac = nullptr;
 }
 
 Dect2020NetDevice::~Dect2020NetDevice()
 {
     m_simpleNetDevice = nullptr;
+    m_mac = nullptr;
 }
 
 TypeId
@@ -130,6 +132,10 @@ Dect2020NetDevice::IsPointToPoint() const
 bool
 Dect2020NetDevice::Send(Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber)
 {
+    if(m_mac != nullptr)
+    {
+        m_mac->ProcessPacket(packet);
+    }
     return m_simpleNetDevice->Send(packet, dest, protocolNumber);
 }
 
@@ -187,6 +193,13 @@ Ptr<SimpleNetDevice>
 Dect2020NetDevice::GetWrappedDevicePointer() const
 {
     return m_simpleNetDevice;
+}
+
+void
+Dect2020NetDevice::SetMac(const Ptr<Dect2020Mac> mac)
+{
+    m_mac = mac;
+    m_mac->SetNetDevice(this);
 }
 
 } // namespace ns3

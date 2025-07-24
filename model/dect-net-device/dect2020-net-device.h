@@ -5,9 +5,12 @@
 #include "ns3/simple-channel.h"
 #include "ns3/net-device.h"
 #include "ns3/node.h"
+#include "ns3/dect2020-mac.h"
 
 namespace ns3
 {
+
+class Dect2020Mac;
 
 class Dect2020NetDevice : public NetDevice
 {
@@ -52,9 +55,11 @@ class Dect2020NetDevice : public NetDevice
         // Dect2020NetDevice Setters and Getters
 
         Ptr<SimpleNetDevice> GetWrappedDevicePointer() const;
+        void SetMac(const Ptr<Dect2020Mac> mac);
 
     private:
         Ptr<SimpleNetDevice> m_simpleNetDevice;
+        Ptr<Dect2020Mac> m_mac;
 };
 
 } // namespace ns3

@@ -4,6 +4,7 @@
 #include "ns3/packet.h"
 #include "ns3/simulator.h"
 #include "ns3/mac48-address.h"
+#include "ns3/dect2020-mac.h"
 
 using namespace ns3;
 
@@ -19,6 +20,7 @@ ReceiveCallback(Ptr<NetDevice> device, Ptr<const Packet> packet, uint16_t protoc
 int main(int argc, char *argv[])
 {
     LogComponentEnable("Dect2020ModelsExample", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020Mac", LOG_LEVEL_INFO);
 
     Ptr<Node> node0 = CreateObject<Node>();
     Ptr<Node> node1 = CreateObject<Node>();
@@ -33,6 +35,13 @@ int main(int argc, char *argv[])
     // Adding the channel to the devices
     device0->SetChannel(channel->GetWrappedChannel());
     device1->SetChannel(channel->GetWrappedChannel());
+
+    // Adding the MAC layer to the devices
+    Ptr<Dect2020Mac> mac0 = CreateObject<Dect2020Mac>();
+    Ptr<Dect2020Mac> mac1 = CreateObject<Dect2020Mac>();
+
+    device0->SetMac(mac0);
+    device1->SetMac(mac1);
 
     // Adding the devices to the nodes
     node0->AddDevice(device0);
@@ -54,8 +63,8 @@ int main(int argc, char *argv[])
     Ptr<Packet> packet1 = Create<Packet>(100);
 
     // Scheduling packet transmission
-    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device0, packet0, address1, 0x0103);
-    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device1, packet1, address0, 0x0103);
+    Simulator::Schedule(Seconds(1.0), &Dect2020NetDevice::Send, device0, packet0, address1, 0x0103);
+    Simulator::Schedule(Seconds(1.0), &Dect2020NetDevice::Send, device1, packet1, address0, 0x0103);
 
     Simulator::Stop(Seconds(10.0));
     Simulator::Run();
