@@ -42,4 +42,10 @@ Dect2020Mac::SetNetDevice(Ptr<Dect2020NetDevice> netDevice)
     m_netDevice = netDevice;
 }
 
+Ptr<Dect2020NetDevice>
+Dect2020Mac::GetNetDevice() const
+{
+    return m_netDevice;
+}
+
 } // namespace ns3

@@ -3,6 +3,9 @@
 namespace ns3
 {
 
+NS_LOG_COMPONENT_DEFINE("Dect2020NetDevice");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020NetDevice);
+
 Dect2020NetDevice::Dect2020NetDevice()
 {
     m_simpleNetDevice = CreateObject<SimpleNetDevice>();
@@ -200,6 +203,12 @@ Dect2020NetDevice::SetMac(const Ptr<Dect2020Mac> mac)
 {
     m_mac = mac;
     m_mac->SetNetDevice(this);
+}
+
+Ptr<Dect2020Mac>
+Dect2020NetDevice::GetMac() const
+{
+    return m_mac;
 }
 
 } // namespace ns3

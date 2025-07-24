@@ -24,7 +24,7 @@ class Dect2020Mac : public Object
         // Setters and Getters
 
         void SetNetDevice(Ptr<Dect2020NetDevice> netDevice);
-        // Ptr<Dect2020NetDevice> GetNetDevice() const;
+        Ptr<Dect2020NetDevice> GetNetDevice() const;
 
     private:
         Ptr<Dect2020NetDevice> m_netDevice;

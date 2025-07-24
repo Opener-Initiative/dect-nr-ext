@@ -56,6 +56,7 @@ class Dect2020NetDevice : public NetDevice
 
         Ptr<SimpleNetDevice> GetWrappedDevicePointer() const;
         void SetMac(const Ptr<Dect2020Mac> mac);
+        Ptr<Dect2020Mac> GetMac() const;
 
     private:
         Ptr<SimpleNetDevice> m_simpleNetDevice;
