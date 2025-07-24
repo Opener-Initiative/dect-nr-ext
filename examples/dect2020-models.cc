@@ -5,11 +5,6 @@
 #include "ns3/simulator.h"
 #include "ns3/mac48-address.h"
 
-#include "ns3/simple-net-device.h"
-#include "ns3/simple-channel.h"
-#include "ns3/node-container.h"
-#include "ns3/log.h"
-
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ModelsExample");
@@ -47,16 +42,22 @@ int main(int argc, char *argv[])
     device0->SetReceiveCallback(MakeCallback(&ReceiveCallback));
     device1->SetReceiveCallback(MakeCallback(&ReceiveCallback));
 
-    //Address address0 = device0->GetAddress();
+    // Setting addresses
+    device0->SetAddress(Mac48Address::Allocate());
+    device1->SetAddress(Mac48Address::Allocate());
+
+    Address address0 = device0->GetAddress();
     Address address1 = device1->GetAddress();
 
     // Creating a packet
-    Ptr<Packet> packet = Create<Packet>(100);
+    Ptr<Packet> packet0 = Create<Packet>(100);
+    Ptr<Packet> packet1 = Create<Packet>(100);
 
     // Scheduling packet transmission
-    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device0, packet, address1, 0x0103);
+    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device0, packet0, address1, 0x0103);
+    Simulator::Schedule(Seconds(1.0), &NetDevice::Send, device1, packet1, address0, 0x0103);
 
-    Simulator::Stop(Seconds(3.0)); // Stop the simulator after 2 seconds
+    Simulator::Stop(Seconds(10.0));
     Simulator::Run();
     Simulator::Destroy();
 
