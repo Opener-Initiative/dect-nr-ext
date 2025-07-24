@@ -6,10 +6,14 @@
 #include "ns3/net-device.h"
 #include "ns3/node.h"
 #include "ns3/dect2020-mac.h"
+#include "ns3/queue.h"
+#include "ns3/data-rate.h"
+#include "ns3/dect2020-channel.h"
 
 namespace ns3
 {
 
+class Dect2020Channel;
 class Dect2020Mac;
 
 class Dect2020NetDevice : public NetDevice
@@ -20,6 +24,16 @@ class Dect2020NetDevice : public NetDevice
 
         static TypeId GetTypeId(void);
         TypeId GetInstanceTypeId(void) const;
+
+        void StartTransmission();
+        void FinishTransmission(Ptr<Packet> packet);
+        void Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address to, Mac48Address from);
+
+        enum RDMode
+        {
+            FT,
+            PT
+        };
 
         // Virtual methods from NetDevice
 
@@ -50,17 +64,28 @@ class Dect2020NetDevice : public NetDevice
 
         // SimpleNetDevice wrapped methods
 
-        void SetChannel(Ptr<SimpleChannel> channel);
+        void SetChannel(Ptr<Dect2020Channel> channel);
 
         // Dect2020NetDevice Setters and Getters
 
         Ptr<SimpleNetDevice> GetWrappedDevicePointer() const;
         void SetMac(const Ptr<Dect2020Mac> mac);
         Ptr<Dect2020Mac> GetMac() const;
+        void SetRdMode(RDMode rdMode);
+        RDMode GetRdMode() const;
 
     private:
         Ptr<SimpleNetDevice> m_simpleNetDevice;
         Ptr<Dect2020Mac> m_mac;
+        RDMode m_rdMode;
+        Ptr<Queue<Packet>> m_queue;
+        EventId FinishTransmissionEvent;
+        DataRate m_bps;
+        Ptr<Dect2020Channel> m_channel;
+        Ptr<Node> m_node;
+        uint32_t m_ifIndex;
+        NetDevice::ReceiveCallback m_rxCallback;
+        NetDevice::PromiscReceiveCallback m_promiscRxCallback;
 };
 
 } // namespace ns3
