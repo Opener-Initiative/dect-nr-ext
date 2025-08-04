@@ -153,16 +153,17 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020NetDevice);
 
 Dect2020NetDevice::Dect2020NetDevice()
 {
-    m_simpleNetDevice = CreateObject<SimpleNetDevice>();
     m_mac = nullptr;
     m_queue = CreateObject<DropTailQueue<Packet>>(); // <-- This is critical!
     m_bps = DataRate(1000000);
     m_node = nullptr;
+    m_mtu = 1500;
+    m_linkUp = false;
+    m_ifIndex = 0;
 }
 
 Dect2020NetDevice::~Dect2020NetDevice()
 {
-    m_simpleNetDevice = nullptr;
     m_mac = nullptr;
     m_queue = CreateObject<DropTailQueue<Packet>>();
 }
@@ -186,193 +187,6 @@ TypeId
 Dect2020NetDevice::GetInstanceTypeId(void) const
 {
     return GetTypeId();
-}
-
-void
-Dect2020NetDevice::Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address to, Mac48Address from)
-{
-    NS_LOG_FUNCTION(this);
-    NS_LOG_FUNCTION(this << packet << protocol << to << from);
-    NetDevice::PacketType packetType;
-
-    // if (m_receiveErrorModel && m_receiveErrorModel->IsCorrupt(packet))
-    // {
-    //     m_phyRxDropTrace(packet);
-    //     return;
-    // }
-
-    if (to == m_address)
-    {
-        packetType = NetDevice::PACKET_HOST;
-    }
-    else if (to.IsBroadcast())
-    {
-        packetType = NetDevice::PACKET_BROADCAST;
-    }
-    else if (to.IsGroup())
-    {
-        packetType = NetDevice::PACKET_MULTICAST;
-    }
-    else
-    {
-        packetType = NetDevice::PACKET_OTHERHOST;
-    }
-
-    if (packetType != NetDevice::PACKET_OTHERHOST)
-    {
-        m_rxCallback(this, packet, protocol, from);
-    }
-
-    // if (!m_promiscCallback.IsNull())
-    // {
-    //     m_promiscCallback(this, packet, protocol, from, to, packetType);
-    // }
-}
-
-// Virtual methods from NetDevice
-
-void
-Dect2020NetDevice::SetIfIndex(uint32_t index)
-{
-    m_ifIndex = index;
-}
-
-uint32_t
-Dect2020NetDevice::GetIfIndex() const
-{
-    return m_ifIndex;
-}
-
-Ptr<Channel>
-Dect2020NetDevice::GetChannel() const
-{
-    return m_channel;
-}
-
-void
-Dect2020NetDevice::SetAddress(Address address)
-{
-    m_address = Mac48Address::ConvertFrom(address);
-}
-
-Address
-Dect2020NetDevice::GetAddress() const
-{
-    return m_address;
-}  
-
-bool
-Dect2020NetDevice::SetMtu(const uint16_t mtu)
-{
-    return m_simpleNetDevice->SetMtu(mtu);
-}
-
-uint16_t
-Dect2020NetDevice::GetMtu() const
-{
-    return m_simpleNetDevice->GetMtu();
-}
-
-bool
-Dect2020NetDevice::IsLinkUp() const
-{
-    return m_simpleNetDevice->IsLinkUp();
-}
-
-void
-Dect2020NetDevice::AddLinkChangeCallback(Callback<void> callback)
-{
-    m_simpleNetDevice->AddLinkChangeCallback(callback);
-}
-
-bool
-Dect2020NetDevice::IsBroadcast() const
-{
-    return m_simpleNetDevice->IsBroadcast();
-}
-
-Address
-Dect2020NetDevice::GetBroadcast() const
-{
-    return m_simpleNetDevice->GetBroadcast();
-}
-
-bool
-Dect2020NetDevice::IsMulticast() const
-{
-    return m_simpleNetDevice->IsMulticast();
-}
-
-Address
-Dect2020NetDevice::GetMulticast(Ipv4Address multicastGroup) const
-{
-    return m_simpleNetDevice->GetMulticast(multicastGroup);
-}
-
-Address
-Dect2020NetDevice::GetMulticast(Ipv6Address multicastGroup) const
-{
-    return m_simpleNetDevice->GetMulticast(multicastGroup);
-}
-
-bool
-Dect2020NetDevice::IsBridge() const
-{
-    return m_simpleNetDevice->IsBridge();
-}
-
-bool
-Dect2020NetDevice::IsPointToPoint() const
-{
-    return m_simpleNetDevice->IsPointToPoint();
-}
-
-bool
-Dect2020NetDevice::Send(Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber)
-{
-    if(m_mac != nullptr)
-    {
-        m_mac->ProcessPacket(packet);
-    }
-    return true;
-}
-
-bool
-Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber)
-{
-    NS_LOG_FUNCTION(this);
-    if(m_mac != nullptr)
-    {
-        m_mac->ProcessPacket(packet);
-    }
-
-    NS_LOG_FUNCTION(this << packet << source << dest << protocolNumber);
-    if (packet->GetSize() > m_simpleNetDevice->GetMtu())
-    {
-        return false;
-    }
-
-    Mac48Address to = Mac48Address::ConvertFrom(dest);
-    Mac48Address from = Mac48Address::ConvertFrom(source);
-
-    Dect2020Tag tag;
-    tag.SetSrc(from);
-    tag.SetDst(to);
-    tag.SetProto(protocolNumber);
-
-    packet->AddPacketTag(tag);
-
-    if (m_queue->Enqueue(packet))
-    {
-        NS_LOG_INFO("Enqueued packet");
-        if (m_queue->GetNPackets() == 1 && !FinishTransmissionEvent.IsPending())
-        {
-            StartTransmission();
-        }
-        return true;
-    }
-
-    return false;
 }
 
 void
@@ -417,6 +231,203 @@ Dect2020NetDevice::FinishTransmission(Ptr<Packet> packet)
     StartTransmission();
 }
 
+void
+Dect2020NetDevice::Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address to, Mac48Address from)
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_FUNCTION(this << packet << protocol << to << from);
+    NetDevice::PacketType packetType;
+
+    // if (m_receiveErrorModel && m_receiveErrorModel->IsCorrupt(packet))
+    // {
+    //     m_phyRxDropTrace(packet);
+    //     return;
+    // }
+
+    if (to == m_address)
+    {
+        packetType = NetDevice::PACKET_HOST;
+    }
+    else if (to.IsBroadcast())
+    {
+        packetType = NetDevice::PACKET_BROADCAST;
+    }
+    else if (to.IsGroup())
+    {
+        packetType = NetDevice::PACKET_MULTICAST;
+    }
+    else
+    {
+        packetType = NetDevice::PACKET_OTHERHOST;
+    }
+
+    if (packetType != NetDevice::PACKET_OTHERHOST)
+    {
+        m_rxCallback(this, packet, protocol, from);
+    }
+
+    // if (!m_promiscCallback.IsNull())
+    // {
+    //     m_promiscCallback(this, packet, protocol, from, to, packetType);
+    // }
+}
+
+void
+Dect2020NetDevice::SetChannel(Ptr<Dect2020Channel> channel)
+{
+    m_channel = channel;
+    m_channel->Add(this);
+    NS_LOG_INFO("Channel added to device");
+}
+
+// Virtual methods from NetDevice
+
+void
+Dect2020NetDevice::SetIfIndex(uint32_t index)
+{
+    m_ifIndex = index;
+}
+
+uint32_t
+Dect2020NetDevice::GetIfIndex() const
+{
+    return m_ifIndex;
+}
+
+Ptr<Channel>
+Dect2020NetDevice::GetChannel() const
+{
+    return m_channel;
+}
+
+void
+Dect2020NetDevice::SetAddress(Address address)
+{
+    m_address = Mac48Address::ConvertFrom(address);
+}
+
+Address
+Dect2020NetDevice::GetAddress() const
+{
+    return m_address;
+}  
+
+bool
+Dect2020NetDevice::SetMtu(const uint16_t mtu)
+{
+    m_mtu = mtu;
+    return true;
+}
+
+uint16_t
+Dect2020NetDevice::GetMtu() const
+{
+    return m_mtu;
+}
+
+bool
+Dect2020NetDevice::IsLinkUp() const
+{
+    return m_linkUp;
+}
+
+void
+Dect2020NetDevice::AddLinkChangeCallback(Callback<void> callback)
+{
+    m_linkChangeCallbacks.ConnectWithoutContext(callback);
+}
+
+bool
+Dect2020NetDevice::IsBroadcast() const
+{
+    return true;
+}
+
+Address
+Dect2020NetDevice::GetBroadcast() const
+{
+    return m_address;
+}
+
+bool
+Dect2020NetDevice::IsMulticast() const
+{
+    return true;
+}
+
+Address
+Dect2020NetDevice::GetMulticast(Ipv4Address multicastGroup) const
+{
+    return Mac48Address::GetMulticast(multicastGroup);
+}
+
+Address
+Dect2020NetDevice::GetMulticast(Ipv6Address multicastGroup) const
+{
+    return Mac48Address::GetMulticast(multicastGroup);
+}
+
+bool
+Dect2020NetDevice::IsBridge() const
+{
+    return false;
+}
+
+bool
+Dect2020NetDevice::IsPointToPoint() const
+{
+    return false;
+}
+
+bool
+Dect2020NetDevice::Send(Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber)
+{
+    if(m_mac != nullptr)
+    {
+        m_mac->ProcessPacket(packet);
+    }
+    return true;
+}
+
+bool
+Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber)
+{
+    NS_LOG_FUNCTION(this);
+    if(m_mac != nullptr)
+    {
+        m_mac->ProcessPacket(packet);
+    }
+
+    NS_LOG_FUNCTION(this << packet << source << dest << protocolNumber);
+    if (packet->GetSize() > m_mtu)
+    {
+        return false;
+    }
+
+    Mac48Address to = Mac48Address::ConvertFrom(dest);
+    Mac48Address from = Mac48Address::ConvertFrom(source);
+
+    Dect2020Tag tag;
+    tag.SetSrc(from);
+    tag.SetDst(to);
+    tag.SetProto(protocolNumber);
+
+    packet->AddPacketTag(tag);
+
+    if (m_queue->Enqueue(packet))
+    {
+        NS_LOG_INFO("Enqueued packet");
+        if (m_queue->GetNPackets() == 1 && !FinishTransmissionEvent.IsPending())
+        {
+            StartTransmission();
+        }
+        return true;
+    }
+
+    return false;
+}
+
+
 Ptr<Node>
 Dect2020NetDevice::GetNode() const
 {
@@ -432,7 +443,7 @@ Dect2020NetDevice::SetNode(Ptr<Node> node)
 bool
 Dect2020NetDevice::NeedsArp() const
 {
-    return m_simpleNetDevice->NeedsArp();
+    return false;
 }
 
 void
@@ -453,21 +464,7 @@ Dect2020NetDevice::SupportsSendFrom() const
     return true;
 }
 
-// Wrapped methods from SimpleNetDevice
-
-void
-Dect2020NetDevice::SetChannel(Ptr<Dect2020Channel> channel)
-{
-    m_channel = channel;
-    m_channel->Add(this);
-    NS_LOG_INFO("Channel added to device");
-}
-
-Ptr<SimpleNetDevice>
-Dect2020NetDevice::GetWrappedDevicePointer() const
-{
-    return m_simpleNetDevice;
-}
+// Dect2020NetDevice Setters and Getters
 
 void
 Dect2020NetDevice::SetMac(const Ptr<Dect2020Mac> mac)

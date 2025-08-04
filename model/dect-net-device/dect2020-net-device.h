@@ -28,6 +28,7 @@ class Dect2020NetDevice : public NetDevice
         void StartTransmission();
         void FinishTransmission(Ptr<Packet> packet);
         void Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address to, Mac48Address from);
+        void SetChannel(Ptr<Dect2020Channel> channel);
 
         enum RDMode
         {
@@ -62,20 +63,14 @@ class Dect2020NetDevice : public NetDevice
         void SetPromiscReceiveCallback(PromiscReceiveCallback cb) override;
         bool SupportsSendFrom() const override;
 
-        // SimpleNetDevice wrapped methods
-
-        void SetChannel(Ptr<Dect2020Channel> channel);
-
         // Dect2020NetDevice Setters and Getters
 
-        Ptr<SimpleNetDevice> GetWrappedDevicePointer() const;
         void SetMac(const Ptr<Dect2020Mac> mac);
         Ptr<Dect2020Mac> GetMac() const;
         void SetRdMode(RDMode rdMode);
         RDMode GetRdMode() const;
 
     private:
-        Ptr<SimpleNetDevice> m_simpleNetDevice;
         Ptr<Dect2020Mac> m_mac;
         RDMode m_rdMode;
         Ptr<Queue<Packet>> m_queue;
@@ -87,6 +82,9 @@ class Dect2020NetDevice : public NetDevice
         NetDevice::ReceiveCallback m_rxCallback;
         NetDevice::PromiscReceiveCallback m_promiscRxCallback;
         Mac48Address m_address;
+        uint16_t m_mtu;
+        bool m_linkUp;
+        TracedCallback<> m_linkChangeCallbacks;
 };
 
 } // namespace ns3
