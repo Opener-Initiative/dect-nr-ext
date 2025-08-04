@@ -3,8 +3,6 @@
 #ifndef DECT2020_CHANNEL_H
 #define DECT2020_CHANNEL_H
 
-#include "ns3/simple-channel.h"
-#include "ns3/simple-net-device.h"
 #include "ns3/pointer.h"
 #include "ns3/channel.h"
 #include "ns3/dect2020-net-device.h"
@@ -12,8 +10,6 @@
 namespace ns3
 {
 
-class SimpleChannel;
-class SimpleNetDevice;
 class Channel;
 class Dect2020NetDevice;
 

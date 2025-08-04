@@ -55,14 +55,6 @@ Dect2020Channel::Send(Ptr<Packet> packet, uint16_t protocol, Mac48Address dst, M
         {
             continue;
         }
-        // if (m_blackListedDevices.find(tmp) != m_blackListedDevices.end())
-        // {
-        //     if (find(m_blackListedDevices[tmp].begin(), m_blackListedDevices[tmp].end(), sender) !=
-        //         m_blackListedDevices[tmp].end())
-        //     {
-        //         continue;
-        //     }
-        // }
 
         Simulator::ScheduleWithContext(tmp->GetNode()->GetId(),
                                        m_delay,
@@ -98,4 +90,3 @@ Dect2020Channel::GetDevice(std::size_t i) const
 }
 
 } // namespace ns3
-
