@@ -125,7 +125,7 @@ Dect2020NetDevice::Dect2020NetDevice()
 {
     m_mac = nullptr;
     m_queue = CreateObject<DropTailQueue<Packet>>(); // <-- This is critical!
-    m_bps = DataRate(1000000);
+    m_bps = DataRate("0b/s");
     m_node = nullptr;
     m_mtu = 1500;
     m_linkUp = false;
@@ -185,6 +185,7 @@ void
 Dect2020NetDevice::FinishTransmission(Ptr<Packet> packet)
 {
     NS_LOG_FUNCTION(this);
+
     Dect2020Tag tag;
     packet->RemovePacketTag(tag);
 
@@ -192,11 +193,7 @@ Dect2020NetDevice::FinishTransmission(Ptr<Packet> packet)
     Mac48Address dst = tag.GetDst();
     uint16_t proto = tag.GetProto();
 
-    NS_ASSERT_MSG(m_channel, "m_channel is not initialized!");
-    NS_LOG_INFO(m_channel->GetDelay());
     m_channel->Send(packet, proto, dst, src, this);
-
-    NS_LOG_FUNCTION(this);
 
     StartTransmission();
 }
@@ -377,8 +374,18 @@ Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Add
     Mac48Address to = Mac48Address::ConvertFrom(dest);
     Mac48Address from = Mac48Address::ConvertFrom(source);
 
+    // Simple option >>>>>>>>>>>>>>>>>
     m_channel->Send(packet, protocolNumber, to, from, this);
     return true;
+    // Simple option >>>>>>>>>>>>>>>>>
+
+    // Complex option >>>>>>>>>>>>>>>>>
+    // Dect2020Tag tag;
+    // tag.SetSrc(from);
+    // tag.SetDst(to);
+    // tag.SetProto(protocolNumber);
+
+    // packet->AddPacketTag(tag);
 
     // if (m_queue->Enqueue(packet))
     // {
@@ -390,7 +397,7 @@ Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Add
     // }
 
     // return false;
-
+    // Complex option >>>>>>>>>>>>>>>>>
 }
 
 

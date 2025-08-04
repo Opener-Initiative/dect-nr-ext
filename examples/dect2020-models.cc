@@ -13,7 +13,10 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ModelsExample");
 bool
 ReceiveCallback(Ptr<NetDevice> device, Ptr<const Packet> packet, uint16_t protocol, const Address& sender)
 {
-    NS_LOG_INFO(packet->GetSize() << " bytes received from " << sender);
+    NS_LOG_INFO(packet->GetSize()
+                    << " bytes received from " 
+                    << sender << " at " 
+                    << Simulator::Now().GetSeconds() << " seconds");
     return true;
 }
 
@@ -29,7 +32,7 @@ int main(int argc, char *argv[])
 
     // Configuring the channel
     Ptr<Dect2020Channel> channel = CreateObject<Dect2020Channel>();
-    channel->SetAttribute("Delay", TimeValue(Seconds(1)));
+    channel->SetAttribute("Delay", TimeValue(MilliSeconds(1)));
 
     Ptr<Dect2020NetDevice> device0 = CreateObject<Dect2020NetDevice>();
     Ptr<Dect2020NetDevice> device1 = CreateObject<Dect2020NetDevice>();
@@ -61,14 +64,13 @@ int main(int argc, char *argv[])
     Address address1 = device1->GetAddress();
 
     // Creating a packet
-    Ptr<Packet> packet0 = Create<Packet>(100);
-    Ptr<Packet> packet1 = Create<Packet>(100);
+    Ptr<Packet> packet0 = Create<Packet>(150);
+    Ptr<Packet> packet1 = Create<Packet>(150);
 
     // Scheduling packet transmission
     Simulator::Schedule(Seconds(1.0), &Dect2020NetDevice::SendFrom, device0, packet0, address0, address1, 0x0103);
     Simulator::Schedule(Seconds(1.0), &Dect2020NetDevice::SendFrom, device1, packet1, address1, address0, 0x0103);
 
-    Simulator::Stop(Seconds(10.0));
     Simulator::Run();
     Simulator::Destroy();
 
