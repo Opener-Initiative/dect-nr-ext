@@ -10,12 +10,10 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020Channel);
 
 Dect2020Channel::Dect2020Channel()
 {
-    m_simpleChannel = CreateObject<SimpleChannel>();
 }
 
 Dect2020Channel::~Dect2020Channel()
 {
-    m_simpleChannel = nullptr;
 }
 
 TypeId
@@ -37,6 +35,13 @@ TypeId
 Dect2020Channel::GetInstanceTypeId(void) const
 {
     return GetTypeId();
+}
+
+
+void
+Dect2020Channel::Add(Ptr<Dect2020NetDevice> device)
+{
+    m_devices.push_back(device);
 }
 
 void
@@ -70,40 +75,26 @@ Dect2020Channel::Send(Ptr<Packet> packet, uint16_t protocol, Mac48Address dst, M
     }
 }
 
-// Virtual methods from Channel
-
-std::size_t
-Dect2020Channel::GetNDevices() const
-{
-    return m_simpleChannel->GetNDevices();
-}
-
-Ptr<NetDevice>
-Dect2020Channel::GetDevice(std::size_t i) const
-{
-    return m_simpleChannel->GetDevice(i);
-}
-
-// Wrapped methods from SimpleChannel
-
-void
-Dect2020Channel::Add(Ptr<Dect2020NetDevice> device)
-{
-    m_devices.push_back(device);
-}
-
 // Dect2020Channel Setters and Getters
-
-Ptr<SimpleChannel>
-Dect2020Channel::GetWrappedChannel(void) const
-{
-    return m_simpleChannel;
-}
 
 Time
 Dect2020Channel::GetDelay(void) const
 {
     return m_delay;
+}
+
+// Virtual methods from Channel
+
+std::size_t
+Dect2020Channel::GetNDevices() const
+{
+    return m_devices.size();
+}
+
+Ptr<NetDevice>
+Dect2020Channel::GetDevice(std::size_t i) const
+{
+    return m_devices[i];
 }
 
 } // namespace ns3

@@ -27,7 +27,6 @@ class Dect2020Channel : public Channel
         TypeId GetInstanceTypeId(void) const;
 
         void Add(Ptr<Dect2020NetDevice> device);
-        Ptr<SimpleChannel> GetWrappedChannel(void) const;
         void Send(Ptr<Packet> packet, uint16_t protocol, Mac48Address dst, Mac48Address src, Ptr<Dect2020NetDevice> sender);
         Time GetDelay(void) const;
 
@@ -37,7 +36,6 @@ class Dect2020Channel : public Channel
         virtual Ptr<NetDevice> GetDevice(std::size_t i) const;
 
     private:
-        Ptr<SimpleChannel> m_simpleChannel;
         Time m_delay;
         std::vector<Ptr<Dect2020NetDevice>> m_devices;
 };
