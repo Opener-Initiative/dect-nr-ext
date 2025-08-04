@@ -65,8 +65,8 @@ class Dect2020NetDevice : public NetDevice
 
         void SetMac(const Ptr<Dect2020Mac> mac);
         Ptr<Dect2020Mac> GetMac() const;
-        void SetRdMode(RDMode rdMode);
-        RDMode GetRdMode() const;
+        void SetRDMode(RDMode rdMode);
+        RDMode GetRDMode() const;
 
     private:
         Ptr<Dect2020Mac> m_mac;

@@ -453,13 +453,13 @@ Dect2020NetDevice::GetMac() const
 }
 
 void
-Dect2020NetDevice::SetRdMode(RDMode rdMode)
+Dect2020NetDevice::SetRDMode(RDMode rdMode)
 {
     m_rdMode = rdMode;
 }
 
 Dect2020NetDevice::RDMode
-Dect2020NetDevice::GetRdMode() const
+Dect2020NetDevice::GetRDMode() const
 {
     return m_rdMode;
 }

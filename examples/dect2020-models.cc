@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
     Ptr<Dect2020NetDevice> device0 = CreateObject<Dect2020NetDevice>();
     Ptr<Dect2020NetDevice> device1 = CreateObject<Dect2020NetDevice>();
 
+    device0->SetRDMode(Dect2020NetDevice::RDMode::FT);
+    device1->SetRDMode(Dect2020NetDevice::RDMode::FT);
+
     // Adding the channel to the devices
     device0->SetChannel(channel);
     device1->SetChannel(channel);

@@ -20,6 +20,10 @@ class Dect2020Mac : public Object
         TypeId GetInstanceTypeId() const;
 
         void ProcessPacket(Ptr<Packet> packet);
+        void StartNetworkBeaconTransmission();
+        void StopNetworkBeaconTransmission();
+        void StartClusterBeaconTransmission();
+        void StopClusterBeaconTransmission();
 
         // Setters and Getters
 

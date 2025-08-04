@@ -1,4 +1,5 @@
 #include "dect2020-mac.h"
+#include "ns3/dect2020-mac-pdu-helper.h"
 
 namespace ns3
 {
@@ -8,10 +9,12 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020Mac);
 
 Dect2020Mac::Dect2020Mac()
 {
+    m_netDevice = nullptr;
 }
 
 Dect2020Mac::~Dect2020Mac()
 {
+    m_netDevice = nullptr;
 }
 
 TypeId
@@ -34,6 +37,36 @@ void
 Dect2020Mac::ProcessPacket(Ptr<Packet> packet)
 {
     NS_LOG_INFO("HELLO FROM MAC =)");
+}
+
+void
+Dect2020Mac::StartNetworkBeaconTransmission()
+{
+    NS_LOG_FUNCTION(this);
+    NS_ASSERT_MSG((m_netDevice != nullptr), "NetDevice is not set");
+    NS_ASSERT_MSG((m_netDevice->GetChannel() != nullptr), "Channel is not set");
+    NS_ASSERT_MSG((m_netDevice->GetRDMode() == Dect2020NetDevice::RDMode::FT), "NetDevice is not in FT mode");
+}
+
+void
+Dect2020Mac::StopNetworkBeaconTransmission()
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020Mac::StartClusterBeaconTransmission()
+{
+    NS_LOG_FUNCTION(this);
+    NS_ASSERT_MSG((m_netDevice != nullptr), "NetDevice is not set");
+    NS_ASSERT_MSG((m_netDevice->GetChannel() != nullptr), "Channel is not set");
+    NS_ASSERT_MSG((m_netDevice->GetRDMode() == Dect2020NetDevice::RDMode::FT), "NetDevice is not in FT mode");
+}
+
+void
+Dect2020Mac::StopClusterBeaconTransmission()
+{
+    NS_LOG_FUNCTION(this);
 }
 
 void
