@@ -86,6 +86,7 @@ class Dect2020NetDevice : public NetDevice
         uint32_t m_ifIndex;
         NetDevice::ReceiveCallback m_rxCallback;
         NetDevice::PromiscReceiveCallback m_promiscRxCallback;
+        Mac48Address m_address;
 };
 
 } // namespace ns3

@@ -19,8 +19,8 @@ ReceiveCallback(Ptr<NetDevice> device, Ptr<const Packet> packet, uint16_t protoc
 
 int main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ModelsExample", LOG_LEVEL_INFO);
-    LogComponentEnable("Dect2020Mac", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ModelsExample", LOG_LEVEL_ALL);
+    LogComponentEnable("Dect2020Mac", LOG_LEVEL_ALL);
     LogComponentEnable("Dect2020NetDevice", LOG_LEVEL_ALL);
     LogComponentEnable("Dect2020Channel", LOG_LEVEL_ALL);
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     // Configuring the channel
     Ptr<Dect2020Channel> channel = CreateObject<Dect2020Channel>();
-    channel->SetAttribute("Delay", TimeValue(Seconds(1))); // this works
+    channel->SetAttribute("Delay", TimeValue(Seconds(1)));
 
     Ptr<Dect2020NetDevice> device0 = CreateObject<Dect2020NetDevice>();
     Ptr<Dect2020NetDevice> device1 = CreateObject<Dect2020NetDevice>();

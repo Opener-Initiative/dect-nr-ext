@@ -192,7 +192,41 @@ void
 Dect2020NetDevice::Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address to, Mac48Address from)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Received packet");
+    NS_LOG_FUNCTION(this << packet << protocol << to << from);
+    NetDevice::PacketType packetType;
+
+    // if (m_receiveErrorModel && m_receiveErrorModel->IsCorrupt(packet))
+    // {
+    //     m_phyRxDropTrace(packet);
+    //     return;
+    // }
+
+    if (to == m_address)
+    {
+        packetType = NetDevice::PACKET_HOST;
+    }
+    else if (to.IsBroadcast())
+    {
+        packetType = NetDevice::PACKET_BROADCAST;
+    }
+    else if (to.IsGroup())
+    {
+        packetType = NetDevice::PACKET_MULTICAST;
+    }
+    else
+    {
+        packetType = NetDevice::PACKET_OTHERHOST;
+    }
+
+    if (packetType != NetDevice::PACKET_OTHERHOST)
+    {
+        m_rxCallback(this, packet, protocol, from);
+    }
+
+    // if (!m_promiscCallback.IsNull())
+    // {
+    //     m_promiscCallback(this, packet, protocol, from, to, packetType);
+    // }
 }
 
 // Virtual methods from NetDevice
@@ -218,13 +252,13 @@ Dect2020NetDevice::GetChannel() const
 void
 Dect2020NetDevice::SetAddress(Address address)
 {
-    m_simpleNetDevice->SetAddress(address);
+    m_address = Mac48Address::ConvertFrom(address);
 }
 
 Address
 Dect2020NetDevice::GetAddress() const
 {
-    return m_simpleNetDevice->GetAddress();
+    return m_address;
 }  
 
 bool
@@ -306,6 +340,7 @@ Dect2020NetDevice::Send(Ptr<Packet> packet, const Address& dest, uint16_t protoc
 bool
 Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber)
 {
+    NS_LOG_FUNCTION(this);
     if(m_mac != nullptr)
     {
         m_mac->ProcessPacket(packet);
