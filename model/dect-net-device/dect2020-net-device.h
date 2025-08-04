@@ -1,8 +1,6 @@
 #ifndef DECT2020_NET_DEVICE_H
 #define DECT2020_NET_DEVICE_H
 
-#include "ns3/simple-net-device.h"
-#include "ns3/simple-channel.h"
 #include "ns3/net-device.h"
 #include "ns3/node.h"
 #include "ns3/dect2020-mac.h"

@@ -9,10 +9,6 @@ namespace ns3
 class Dect2020Tag : public Tag
 {
   public:
-    /**
-     * @brief Get the type ID.
-     * @return the object TypeId
-     */
     static TypeId GetTypeId();
     TypeId GetInstanceTypeId() const override;
 
@@ -20,37 +16,11 @@ class Dect2020Tag : public Tag
     void Serialize(TagBuffer i) const override;
     void Deserialize(TagBuffer i) override;
 
-    /**
-     * Set the source address
-     * @param src source address
-     */
     void SetSrc(Mac48Address src);
-    /**
-     * Get the source address
-     * @return the source address
-     */
     Mac48Address GetSrc() const;
-
-    /**
-     * Set the destination address
-     * @param dst destination address
-     */
     void SetDst(Mac48Address dst);
-    /**
-     * Get the destination address
-     * @return the destination address
-     */
     Mac48Address GetDst() const;
-
-    /**
-     * Set the protocol number
-     * @param proto protocol number
-     */
     void SetProto(uint16_t proto);
-    /**
-     * Get the protocol number
-     * @return the protocol number
-     */
     uint16_t GetProto() const;
 
     void Print(std::ostream& os) const override;
@@ -275,9 +245,9 @@ Dect2020NetDevice::Receive(Ptr<Packet> packet, uint16_t protocol, Mac48Address t
 void
 Dect2020NetDevice::SetChannel(Ptr<Dect2020Channel> channel)
 {
+    NS_LOG_FUNCTION(this);
     m_channel = channel;
     m_channel->Add(this);
-    NS_LOG_INFO("Channel added to device");
 }
 
 // Virtual methods from NetDevice
@@ -407,24 +377,20 @@ Dect2020NetDevice::SendFrom(Ptr<Packet> packet, const Address& source, const Add
     Mac48Address to = Mac48Address::ConvertFrom(dest);
     Mac48Address from = Mac48Address::ConvertFrom(source);
 
-    Dect2020Tag tag;
-    tag.SetSrc(from);
-    tag.SetDst(to);
-    tag.SetProto(protocolNumber);
+    m_channel->Send(packet, protocolNumber, to, from, this);
+    return true;
 
-    packet->AddPacketTag(tag);
+    // if (m_queue->Enqueue(packet))
+    // {
+    //     if (m_queue->GetNPackets() == 1 && !FinishTransmissionEvent.IsPending())
+    //     {
+    //         StartTransmission();
+    //     }
+    //     return true;
+    // }
 
-    if (m_queue->Enqueue(packet))
-    {
-        NS_LOG_INFO("Enqueued packet");
-        if (m_queue->GetNPackets() == 1 && !FinishTransmissionEvent.IsPending())
-        {
-            StartTransmission();
-        }
-        return true;
-    }
+    // return false;
 
-    return false;
 }
 
 
