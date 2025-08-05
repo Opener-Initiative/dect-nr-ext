@@ -40,16 +40,42 @@ Dect2020Mac::ProcessPacket(Ptr<Packet> packet)
 }
 
 void
-Dect2020Mac::StartNetworkBeaconTransmission()
+Dect2020Mac::InitializeNetwork()
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void 
+Dect2020Mac::GenerateValidNetworkID()
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020Mac::StartBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
     NS_ASSERT_MSG((m_netDevice != nullptr), "NetDevice is not set");
     NS_ASSERT_MSG((m_netDevice->GetChannel() != nullptr), "Channel is not set");
     NS_ASSERT_MSG((m_netDevice->GetRDMode() == Dect2020NetDevice::RDMode::FT), "NetDevice is not in FT mode");
+    // StartNetworkBeaconSweep
+    // StartClusterBeaconTransmission
 }
 
 void
-Dect2020Mac::StopNetworkBeaconTransmission()
+Dect2020Mac::StopBeaconTransmission()
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020Mac::StartNetworkBeaconSweep()
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020Mac::StopNetworkBeaconSweep()
 {
     NS_LOG_FUNCTION(this);
 }
