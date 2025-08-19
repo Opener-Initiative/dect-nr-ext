@@ -5,21 +5,19 @@ if(NOT HAVE_STDINT_H)
     message(FATAL_ERROR "stdint.h not found. This is required for the dect-mac-pdu module.")
 endif()
 
-# Helper
+##########
+##Helper##
+##########
+
 set(mac_pdu_helper_src
     helper/mac-pdu/dect2020-mac-pdu-helper.cc)
 
 set(mac_pdu_helper_h
     helper/mac-pdu/dect2020-mac-pdu-helper.h)
 
-# set(dect_net_device_helper_src
-#     helper/dect-net-device/dect2020-net-device-helper.cc)
-
-# set(dect_net_device_helper_h
-#     helper/dect-net-device/dect2020-net-device-helper.h)
-
-
-# Model --------------------------------------------------------------------------------
+#########
+##Model##
+#########
 
 # Physical Header Field
 set(physical_header_field_src
@@ -86,28 +84,30 @@ set(association_request_message_ie_src
 set(association_request_message_ie_h
     model/mac-pdu/information-elements/association-request-message-ie/dect2020-association-request-message-ie.h)
 
-# Dect2020Channel
-set(dect2020_channel_src
-    model/dect-channel/dect2020-channel.cc)
+# Dect2020Channel - These are provided by dect-nr module
+# set(dect2020_channel_src
+#     model/dect-channel/dect2020-channel.cc)
 
-set(dect2020_channel_h
-    model/dect-channel/dect2020-channel.h)
+# set(dect2020_channel_h
+#     model/dect-channel/dect2020-channel.h)
 
-# Dect2020NetDevice
-set(dect2020_net_device_src
-    model/dect-net-device/dect2020-net-device.cc)
+# Dect2020NetDevice - These are provided by dect-nr module
+# set(dect2020_net_device_src
+#     model/dect-net-device/dect2020-net-device.cc)
 
-set(dect2020_net_device_h
-    model/dect-net-device/dect2020-net-device.h)
+# set(dect2020_net_device_h
+#     model/dect-net-device/dect2020-net-device.h)
 
-# Dect2020Mac
-set(dect2020_mac_src
-    model/dect-mac/dect2020-mac.cc)
+# Dect2020Mac - These are provided by dect-nr module
+# set(dect2020_mac_src
+#     model/dect-mac/dect2020-mac.cc)
 
-set(dect2020_mac_h
-    model/dect-mac/dect2020-mac.h)
+# set(dect2020_mac_h
+#     model/dect-mac/dect2020-mac.h)
 
-# Tests --------------------------------------------------------------------------------
+#########
+##Tests##
+#########
 
 # Physical Header Field
 set(physical_header_field_test_src
@@ -158,15 +158,14 @@ set(route_info_ie_test_src
     test/information-elements/route-info-ie/test.cc
     test/information-elements/route-info-ie/serialization-test-case.cc)
 
-# Network Beacon Message
-set(network_beacon_message_example_src
-    examples/network-beacon-message.cc)
+# Network Beacon Message - Example file doesn't exist
+# set(network_beacon_message_example_src
+#     examples/network-beacon-message.cc)
 
 build_lib(
-    LIBNAME dect-nr
+    LIBNAME dect-nr-ext
     SOURCE_FILES
         ${mac_pdu_helper_src}
-        #${dect_net_device_helper_src}
         ${mac_header_type_src}
         ${mac_common_headers_src}
         ${network_beacon_message_ie_src}
@@ -175,12 +174,8 @@ build_lib(
         ${physical_header_field_src}
         ${route_info_ie_src}
         ${association_request_message_ie_src}
-        ${dect2020_channel_src}
-        ${dect2020_net_device_src}
-        ${dect2020_mac_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
-        #${dect_net_device_helper_h}
         ${mac_header_type_h}
         ${mac_common_headers_h}
         ${network_beacon_message_ie_h}
@@ -189,9 +184,6 @@ build_lib(
         ${physical_header_field_h}
         ${route_info_ie_h}
         ${association_request_message_ie_h}
-        ${dect2020_channel_h}
-        ${dect2020_net_device_h}
-        ${dect2020_mac_h}
     TEST_SOURCES
         ${mac_header_type_test_src}
         ${unicast_header_test_src}
@@ -202,8 +194,7 @@ build_lib(
         ${physical_header_field_test_src}
         ${network_beacon_message_ie_test_src}
         ${route_info_ie_test_src}
-        ${network_beacon_message_example_src}
     LIBRARIES_TO_LINK
-        ${libcore}
-        ${libnetwork}
+        ${libdect-nr}
+        ${libnetwork-utils}
 )
