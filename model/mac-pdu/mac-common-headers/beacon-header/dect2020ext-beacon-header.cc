@@ -1,4 +1,4 @@
-#include "dect2020-beacon-header.h"
+#include "dect2020ext-beacon-header.h"
 
 #include "ns3/address-utils.h"
 #include "ns3/log.h"
@@ -6,74 +6,74 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020BeaconHeader");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020BeaconHeader);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtBeaconHeader");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtBeaconHeader);
 
-Dect2020BeaconHeader::Dect2020BeaconHeader()
+Dect2020ExtBeaconHeader::Dect2020ExtBeaconHeader()
     : m_networkId(0),
       m_transmitterAddress(0)
 {
 }
 
-Dect2020BeaconHeader::~Dect2020BeaconHeader()
+Dect2020ExtBeaconHeader::~Dect2020ExtBeaconHeader()
 {
 }
 
 TypeId
-Dect2020BeaconHeader::GetTypeId(void)
+Dect2020ExtBeaconHeader::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020BeaconHeader")
+    static TypeId tid = TypeId("ns3::Dect2020ExtBeaconHeader")
                             .SetParent<Header>()
-                            .SetGroupName("Dect2020")
-                            .AddConstructor<Dect2020BeaconHeader>();
+                            .SetGroupName("Dect2020Ext")
+                            .AddConstructor<Dect2020ExtBeaconHeader>();
     return tid;
 }
 
 TypeId
-Dect2020BeaconHeader::GetInstanceTypeId(void) const
+Dect2020ExtBeaconHeader::GetInstanceTypeId(void) const
 {
     return GetTypeId();
 }
 
 void
-Dect2020BeaconHeader::SetNetworkId(uint32_t networkId)
+Dect2020ExtBeaconHeader::SetNetworkId(uint32_t networkId)
 {
     m_networkId = networkId & 0xFFFFFF; // Nur die unteren 24 Bits speichern
 }
 
 uint32_t
-Dect2020BeaconHeader::GetNetworkId() const
+Dect2020ExtBeaconHeader::GetNetworkId() const
 {
     return m_networkId;
 }
 
 void
-Dect2020BeaconHeader::SetTransmitterAddress(uint32_t transmitterId)
+Dect2020ExtBeaconHeader::SetTransmitterAddress(uint32_t transmitterId)
 {
     m_transmitterAddress = transmitterId;
 }
 
 uint32_t
-Dect2020BeaconHeader::GetTransmitterAddress() const
+Dect2020ExtBeaconHeader::GetTransmitterAddress() const
 {
     return m_transmitterAddress;
 }
 
 void
-Dect2020BeaconHeader::Print(std::ostream& os) const
+Dect2020ExtBeaconHeader::Print(std::ostream& os) const
 {
     os << "Beacon Header:" << std::endl << "NetworkId = 0x" << std::hex << m_networkId << std::endl
        << "TransmitterAddress = 0x" << std::hex << m_transmitterAddress << std::endl;
 }
 
 uint32_t
-Dect2020BeaconHeader::GetSerializedSize(void) const
+Dect2020ExtBeaconHeader::GetSerializedSize(void) const
 {
     return 7; // 24 Bits Network ID + 32 Bits Transmitter Address = 56 Bits => 7 Bytes
 }
 
 void
-Dect2020BeaconHeader::Serialize(Buffer::Iterator start) const
+Dect2020ExtBeaconHeader::Serialize(Buffer::Iterator start) const
 {
     // Network ID (24 Bits)
     start.WriteU8((m_networkId >> 16) & 0xFF);
@@ -85,7 +85,7 @@ Dect2020BeaconHeader::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020BeaconHeader::Deserialize(Buffer::Iterator start)
+Dect2020ExtBeaconHeader::Deserialize(Buffer::Iterator start)
 {
     Buffer::Iterator i = start;
 

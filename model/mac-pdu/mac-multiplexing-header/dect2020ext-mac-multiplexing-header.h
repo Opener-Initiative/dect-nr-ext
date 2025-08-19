@@ -1,8 +1,8 @@
 // MAC multiplexing header
 // ETSI TS 103 636-4 6.3.4
 
-#ifndef DECT2020_MAC_MULTIPLEXING_HEADER_H
-#define DECT2020_MAC_MULTIPLEXING_HEADER_H
+#ifndef DECT2020EXT_MAC_MULTIPLEXING_HEADER_H
+#define DECT2020EXT_MAC_MULTIPLEXING_HEADER_H
 
 #include "ns3/header.h"
 
@@ -10,14 +10,14 @@ namespace ns3
 {
 
 // Forward declarations
-class Dect2020MacMultiplexingHeaderTypeA;
-class Dect2020MacMultiplexingHeaderTypeB;
-class Dect2020MacMultiplexingHeaderTypeC;
-class Dect2020MacMultiplexingHeader
+class Dect2020ExtMacMultiplexingHeaderTypeA;
+class Dect2020ExtMacMultiplexingHeaderTypeB;
+class Dect2020ExtMacMultiplexingHeaderTypeC;
+class Dect2020ExtMacMultiplexingHeader
 {
     public:
-        Dect2020MacMultiplexingHeader();
-        virtual ~Dect2020MacMultiplexingHeader();
+        Dect2020ExtMacMultiplexingHeader();
+        virtual ~Dect2020ExtMacMultiplexingHeader();
 
         // Type of the MAC multiplexing header
         enum Type
@@ -107,4 +107,4 @@ class Dect2020MacMultiplexingHeader
 
 } // namespace ns3
 
-#endif // DECT2020_MAC_MULTIPLEXING_HEADER_H 
+#endif // DECT2020EXT_MAC_MULTIPLEXING_HEADER_H 

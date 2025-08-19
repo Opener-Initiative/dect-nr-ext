@@ -1,19 +1,19 @@
-#ifndef DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_C_H
-#define DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_C_H
+#ifndef DECT2020EXT_MAC_MULTIPLEXING_HEADER_TYPE_C_H
+#define DECT2020EXT_MAC_MULTIPLEXING_HEADER_TYPE_C_H
 
-#include "ns3/dect2020-mac-multiplexing-header.h"
+#include "ns3/dect2020ext-mac-multiplexing-header.h"
 #include "ns3/buffer.h"
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader, public Header
+class Dect2020ExtMacMultiplexingHeaderTypeC : public Dect2020ExtMacMultiplexingHeader, public Header
 {
 
     public:
-        Dect2020MacMultiplexingHeaderTypeC();
-        ~Dect2020MacMultiplexingHeaderTypeC();
+        Dect2020ExtMacMultiplexingHeaderTypeC();
+        ~Dect2020ExtMacMultiplexingHeaderTypeC();
 
         // Enabling operations on SDU
 
@@ -51,4 +51,4 @@ class Dect2020MacMultiplexingHeaderTypeC : public Dect2020MacMultiplexingHeader,
 
 } // namespace ns3
 
-#endif // DECT2020_MAC_MULTIPLEXING_HEADER_TYPE_C_H
+#endif // DECT2020EXT_MAC_MULTIPLEXING_HEADER_TYPE_C_H

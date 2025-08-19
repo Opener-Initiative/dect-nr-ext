@@ -1,16 +1,16 @@
-#ifndef DECT2020_RECONFIGURATION_RESPONSE_MESSAGE_H
-#define DECT2020_RECONFIGURATION_RESPONSE_MESSAGE_H
+#ifndef DECT2020EXT_RECONFIGURATION_RESPONSE_MESSAGE_H
+#define DECT2020EXT_RECONFIGURATION_RESPONSE_MESSAGE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020ReconfigurationResponseMessageIE : public Header
+class Dect2020ExtReconfigurationResponseMessageIE : public Header
 {
     public:
-        Dect2020ReconfigurationResponseMessageIE();
-        virtual ~Dect2020ReconfigurationResponseMessageIE();
+        Dect2020ExtReconfigurationResponseMessageIE();
+        virtual ~Dect2020ExtReconfigurationResponseMessageIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class Dect2020ReconfigurationResponseMessageIE : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_RECONFIGURATION_RESPONSE_MESSAGE_H 
+#endif // DECT2020EXT_RECONFIGURATION_RESPONSE_MESSAGE_H 

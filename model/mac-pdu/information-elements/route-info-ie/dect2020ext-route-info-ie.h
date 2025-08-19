@@ -1,16 +1,16 @@
-#ifndef DECT2020_ROUTE_INFO_IE_H
-#define DECT2020_ROUTE_INFO_IE_H
+#ifndef DECT2020EXT_ROUTE_INFO_IE_H
+#define DECT2020EXT_ROUTE_INFO_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-    class Dect2020RouteInfoIE : public Header
+    class Dect2020ExtRouteInfoIE : public Header
     {
         public:
-            Dect2020RouteInfoIE();
-            virtual ~Dect2020RouteInfoIE();
+            Dect2020ExtRouteInfoIE();
+            virtual ~Dect2020ExtRouteInfoIE();
             
             // Setter und Getter
             void SetSinkAddress(uint32_t networkId);
@@ -39,4 +39,4 @@ namespace ns3
 
 } // namespace ns3
 
-#endif // DECT2020_ROUTE_INFO_IE_H
+#endif // DECT2020EXT_ROUTE_INFO_IE_H

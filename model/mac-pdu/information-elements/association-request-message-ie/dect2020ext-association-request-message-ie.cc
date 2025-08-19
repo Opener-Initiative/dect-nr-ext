@@ -1,44 +1,44 @@
-#include "dect2020-association-request-message-ie.h"
+#include "dect2020ext-association-request-message-ie.h"
 #include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020AssociationRequestMessageIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtAssociationRequestMessageIE");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020AssociationRequestMessageIE);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtAssociationRequestMessageIE);
 
-Dect2020AssociationRequestMessageIE::Dect2020AssociationRequestMessageIE()
+Dect2020ExtAssociationRequestMessageIE::Dect2020ExtAssociationRequestMessageIE()
 {
 }
 
-Dect2020AssociationRequestMessageIE::~Dect2020AssociationRequestMessageIE()
+Dect2020ExtAssociationRequestMessageIE::~Dect2020ExtAssociationRequestMessageIE()
 {
 }
 
 TypeId
-Dect2020AssociationRequestMessageIE::GetTypeId(void)
+Dect2020ExtAssociationRequestMessageIE::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020AssociationRequestMessageIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtAssociationRequestMessageIE")
                             .SetParent<Header>()
-                            .AddConstructor<Dect2020AssociationRequestMessageIE>();
+                            .AddConstructor<Dect2020ExtAssociationRequestMessageIE>();
     return tid;
 }
 
 TypeId
-Dect2020AssociationRequestMessageIE::GetInstanceTypeId() const
+Dect2020ExtAssociationRequestMessageIE::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020AssociationRequestMessageIE::GetSerializedSize() const
+Dect2020ExtAssociationRequestMessageIE::GetSerializedSize() const
 {
     return 14; // Size in bytes
 }
 
 void
-Dect2020AssociationRequestMessageIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtAssociationRequestMessageIE::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     uint8_t byte0 = 0;
@@ -102,7 +102,7 @@ Dect2020AssociationRequestMessageIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020AssociationRequestMessageIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtAssociationRequestMessageIE::Deserialize(Buffer::Iterator start)
 {
     uint32_t bytesRead = 0;
 
@@ -164,9 +164,9 @@ Dect2020AssociationRequestMessageIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020AssociationRequestMessageIE::Print(std::ostream& os) const
+Dect2020ExtAssociationRequestMessageIE::Print(std::ostream& os) const
 {
-    os << "Dect2020AssociationRequestMessageIE" << "\n";
+    os << "Dect2020ExtAssociationRequestMessageIE" << "\n";
     os << "Setup Cause: " << m_setupCause << "\n";
     os << "Number of Flows: " << m_numberOfFlows << "\n";
     os << "Power Const: " << m_powerConst << "\n";

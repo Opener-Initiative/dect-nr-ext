@@ -1,34 +1,34 @@
-#include "dect2020-mac-multiplexing-header-type-b.h"
+#include "dect2020ext-mac-multiplexing-header-type-b.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020MacMultiplexingHeaderTypeB");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeB);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacMultiplexingHeaderTypeB");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacMultiplexingHeaderTypeB);
 
-Dect2020MacMultiplexingHeaderTypeB::Dect2020MacMultiplexingHeaderTypeB()
+Dect2020ExtMacMultiplexingHeaderTypeB::Dect2020ExtMacMultiplexingHeaderTypeB()
 {
 }
 
-Dect2020MacMultiplexingHeaderTypeB::~Dect2020MacMultiplexingHeaderTypeB()
+Dect2020ExtMacMultiplexingHeaderTypeB::~Dect2020ExtMacMultiplexingHeaderTypeB()
 {
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeB::SetIEType(OneBytePayloadIEType IEType)
+Dect2020ExtMacMultiplexingHeaderTypeB::SetIEType(OneBytePayloadIEType IEType)
 {
     m_IEType = IEType;
 }
 
 uint8_t
-Dect2020MacMultiplexingHeaderTypeB::GetIEType() const
+Dect2020ExtMacMultiplexingHeaderTypeB::GetIEType() const
 {
     return m_IEType;
 }
 
 // Insert a payload into the SDU
 void
-Dect2020MacMultiplexingHeaderTypeB::InsertSDU(const uint8_t payload)
+Dect2020ExtMacMultiplexingHeaderTypeB::InsertSDU(const uint8_t payload)
 {
     uint32_t size = 1;
     m_buffer.AddAtStart(size);
@@ -42,7 +42,7 @@ Dect2020MacMultiplexingHeaderTypeB::InsertSDU(const uint8_t payload)
 
 // Remove the payload from the SDU
 uint8_t
-Dect2020MacMultiplexingHeaderTypeB::RemoveSDU()
+Dect2020ExtMacMultiplexingHeaderTypeB::RemoveSDU()
 {
     uint8_t payload = m_buffer.Begin().ReadU8();
     m_buffer.RemoveAtStart(1);
@@ -54,34 +54,34 @@ Dect2020MacMultiplexingHeaderTypeB::RemoveSDU()
 }
 
 uint8_t
-Dect2020MacMultiplexingHeaderTypeB::GetSDU() const
+Dect2020ExtMacMultiplexingHeaderTypeB::GetSDU() const
 {
     return m_buffer.Begin().PeekU8();
 }
 
 TypeId
-Dect2020MacMultiplexingHeaderTypeB::GetTypeId(void)
+Dect2020ExtMacMultiplexingHeaderTypeB::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeB")
+    static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeB")
         .SetParent<Header>()
-        .AddConstructor<Dect2020MacMultiplexingHeaderTypeB>();
+        .AddConstructor<Dect2020ExtMacMultiplexingHeaderTypeB>();
     return tid;
 }
 
 TypeId
-Dect2020MacMultiplexingHeaderTypeB::GetInstanceTypeId() const
+Dect2020ExtMacMultiplexingHeaderTypeB::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020MacMultiplexingHeaderTypeB::GetSerializedSize() const
+Dect2020ExtMacMultiplexingHeaderTypeB::GetSerializedSize() const
 {
     return 2; // 1 byte for header, 1 byte for SDU
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeB::Serialize(Buffer::Iterator start) const
+Dect2020ExtMacMultiplexingHeaderTypeB::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     uint8_t byte0 = (m_macExtension & 0x03) << 6;
@@ -94,7 +94,7 @@ Dect2020MacMultiplexingHeaderTypeB::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020MacMultiplexingHeaderTypeB::Deserialize(Buffer::Iterator start)
+Dect2020ExtMacMultiplexingHeaderTypeB::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -115,7 +115,7 @@ Dect2020MacMultiplexingHeaderTypeB::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeB::Print(std::ostream &os) const
+Dect2020ExtMacMultiplexingHeaderTypeB::Print(std::ostream &os) const
 {
     os << "[MAC MULTIPLEXING HEADER TYPE B]\n"
        << "MAC Extension: " << std::hex << (int)m_macExtension << "\n"

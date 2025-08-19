@@ -1,16 +1,16 @@
-#ifndef DECT2020_MAC_SECURITY_INFO_IE_H
-#define DECT2020_MAC_SECURITY_INFO_IE_H
+#ifndef DECT2020EXT_MAC_SECURITY_INFO_IE_H
+#define DECT2020EXT_MAC_SECURITY_INFO_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020MacSecurityInfoIE : public Header
+class Dect2020ExtMacSecurityInfoIE : public Header
 {
     public:
-        Dect2020MacSecurityInfoIE();
-        virtual ~Dect2020MacSecurityInfoIE();
+        Dect2020ExtMacSecurityInfoIE();
+        virtual ~Dect2020ExtMacSecurityInfoIE();
 
         // Virtual Header base class methods
 
@@ -30,4 +30,4 @@ class Dect2020MacSecurityInfoIE : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_MAC_SECURITY_INFO_IE_H 
+#endif // DECT2020EXT_MAC_SECURITY_INFO_IE_H 

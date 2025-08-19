@@ -1,64 +1,64 @@
-#include "dect2020-radio-device-status-ie.h"
+#include "dect2020ext-radio-device-status-ie.h"
 #include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020RadioDeviceStatusIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtRadioDeviceStatusIE");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020RadioDeviceStatusIE);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRadioDeviceStatusIE);
 
-Dect2020RadioDeviceStatusIE::Dect2020RadioDeviceStatusIE()
+Dect2020ExtRadioDeviceStatusIE::Dect2020ExtRadioDeviceStatusIE()
 {
     NS_LOG_FUNCTION(this);
 }
 
-Dect2020RadioDeviceStatusIE::~Dect2020RadioDeviceStatusIE()
+Dect2020ExtRadioDeviceStatusIE::~Dect2020ExtRadioDeviceStatusIE()
 {
     NS_LOG_FUNCTION(this);
 }
 
 TypeId
-Dect2020RadioDeviceStatusIE::GetTypeId(void)
+Dect2020ExtRadioDeviceStatusIE::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020RadioDeviceStatusIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtRadioDeviceStatusIE")
                             .SetParent<Header>()
-                            .AddConstructor<Dect2020RadioDeviceStatusIE>();
+                            .AddConstructor<Dect2020ExtRadioDeviceStatusIE>();
     return tid;
 }
 
 TypeId
-Dect2020RadioDeviceStatusIE::GetInstanceTypeId() const
+Dect2020ExtRadioDeviceStatusIE::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020RadioDeviceStatusIE::GetSerializedSize() const
+Dect2020ExtRadioDeviceStatusIE::GetSerializedSize() const
 {
     NS_LOG_FUNCTION(this);
     return 0; // TODO: Implement actual size calculation
 }
 
 void
-Dect2020RadioDeviceStatusIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtRadioDeviceStatusIE::Serialize(Buffer::Iterator start) const
 {
     NS_LOG_FUNCTION(this << &start);
     // TODO: Implement serialization
 }
 
 uint32_t
-Dect2020RadioDeviceStatusIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtRadioDeviceStatusIE::Deserialize(Buffer::Iterator start)
 {
     NS_LOG_FUNCTION(this << &start);
     return 0; // TODO: Implement deserialization
 }
 
 void
-Dect2020RadioDeviceStatusIE::Print(std::ostream &os) const
+Dect2020ExtRadioDeviceStatusIE::Print(std::ostream &os) const
 {
     NS_LOG_FUNCTION(this << &os);
-    os << "Dect2020RadioDeviceStatusIE";
+    os << "Dect2020ExtRadioDeviceStatusIE";
 }
 
 } // namespace ns3 

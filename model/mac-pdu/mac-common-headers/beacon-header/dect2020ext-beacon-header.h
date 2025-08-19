@@ -1,5 +1,5 @@
-#ifndef DECT2020_BEACON_HEADER_H
-#define DECT2020_BEACON_HEADER_H
+#ifndef DECT2020EXT_BEACON_HEADER_H
+#define DECT2020EXT_BEACON_HEADER_H
 
 #include "ns3/header.h"
 #include "ns3/nstime.h"
@@ -8,11 +8,11 @@
 namespace ns3
 {
 
-class Dect2020BeaconHeader : public Header
+class Dect2020ExtBeaconHeader : public Header
 {
   public:
-    Dect2020BeaconHeader();
-    virtual ~Dect2020BeaconHeader();
+    Dect2020ExtBeaconHeader();
+    virtual ~Dect2020ExtBeaconHeader();
 
     // Setter und Getter
     void SetNetworkId(uint32_t networkId);
@@ -36,4 +36,4 @@ class Dect2020BeaconHeader : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_BEACON_HEADER_H
+#endif // DECT2020EXT_BEACON_HEADER_H

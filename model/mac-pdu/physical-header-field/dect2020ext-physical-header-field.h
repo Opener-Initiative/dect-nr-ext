@@ -1,5 +1,5 @@
-#ifndef DECT2020_PHYSICAL_HEADER_FIELD
-#define DECT2020_PHYSICAL_HEADER_FIELD
+#ifndef DECT2020EXT_PHYSICAL_HEADER_FIELD
+#define DECT2020EXT_PHYSICAL_HEADER_FIELD
 
 #include "ns3/address.h"
 #include "ns3/header.h"
@@ -10,17 +10,17 @@ namespace ns3
 
 // TODO: Implement Physical Layer Control Field Type 1
 
-class Dect2020PhysicalHeaderField : public Header
+class Dect2020ExtPhysicalHeaderField : public Header
 {
   public:
-    Dect2020PhysicalHeaderField();
-    Dect2020PhysicalHeaderField(uint8_t packetLengthType,
+    Dect2020ExtPhysicalHeaderField();
+    Dect2020ExtPhysicalHeaderField(uint8_t packetLengthType,
                                 uint8_t packetLength,
                                 uint8_t shortNetworkID,
                                 uint16_t transmitterIdentity,
                                 uint8_t transmitPower,
                                 uint8_t dFMCS);
-    virtual ~Dect2020PhysicalHeaderField();
+    virtual ~Dect2020ExtPhysicalHeaderField();
 
     // Physical header field types
     enum Type
@@ -77,4 +77,4 @@ class Dect2020PhysicalHeaderField : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_PHYSICAL_HEADER_FIELD
+#endif // DECT2020EXT_PHYSICAL_HEADER_FIELD

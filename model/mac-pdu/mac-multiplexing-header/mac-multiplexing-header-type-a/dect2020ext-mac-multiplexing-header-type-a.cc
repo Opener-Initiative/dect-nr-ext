@@ -1,52 +1,52 @@
-#include "dect2020-mac-multiplexing-header-type-a.h"
+#include "dect2020ext-mac-multiplexing-header-type-a.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020MacMultiplexingHeaderTypeA");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020MacMultiplexingHeaderTypeA);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacMultiplexingHeaderTypeA");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacMultiplexingHeaderTypeA);
 
-Dect2020MacMultiplexingHeaderTypeA::Dect2020MacMultiplexingHeaderTypeA()
+Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtMacMultiplexingHeaderTypeA()
 {
 }
 
-Dect2020MacMultiplexingHeaderTypeA::~Dect2020MacMultiplexingHeaderTypeA()
+Dect2020ExtMacMultiplexingHeaderTypeA::~Dect2020ExtMacMultiplexingHeaderTypeA()
 {
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType IEType)
+Dect2020ExtMacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType IEType)
 {
     m_IEType = IEType;
 }
 
 uint8_t
-Dect2020MacMultiplexingHeaderTypeA::GetIEType() const
+Dect2020ExtMacMultiplexingHeaderTypeA::GetIEType() const
 {
     return m_IEType;
 }
 
 TypeId
-Dect2020MacMultiplexingHeaderTypeA::GetTypeId(void)
+Dect2020ExtMacMultiplexingHeaderTypeA::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020MacMultiplexingHeaderTypeA");
+    static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeA");
     return tid;
 }
 
 TypeId
-Dect2020MacMultiplexingHeaderTypeA::GetInstanceTypeId() const
+Dect2020ExtMacMultiplexingHeaderTypeA::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020MacMultiplexingHeaderTypeA::GetSerializedSize() const
+Dect2020ExtMacMultiplexingHeaderTypeA::GetSerializedSize() const
 {
     return 1;
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeA::Serialize(Buffer::Iterator start) const
+Dect2020ExtMacMultiplexingHeaderTypeA::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     uint8_t byte0 = (m_macExtension << 6) & 0xC0;
@@ -56,7 +56,7 @@ Dect2020MacMultiplexingHeaderTypeA::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020MacMultiplexingHeaderTypeA::Deserialize(Buffer::Iterator start)
+Dect2020ExtMacMultiplexingHeaderTypeA::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
     uint8_t byte0 = start.ReadU8();
@@ -69,9 +69,9 @@ Dect2020MacMultiplexingHeaderTypeA::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeA::Print(std::ostream &os) const
+Dect2020ExtMacMultiplexingHeaderTypeA::Print(std::ostream &os) const
 {
-    os << "Dect2020MacMultiplexingHeaderTypeA: " << "MAC Extension: " << m_macExtension << " Length: " << m_length << " IE Type: " << m_IEType;
+    os << "Dect2020ExtMacMultiplexingHeaderTypeA: " << "MAC Extension: " << m_macExtension << " Length: " << m_length << " IE Type: " << m_IEType;
 }
 
 } // namespace ns3

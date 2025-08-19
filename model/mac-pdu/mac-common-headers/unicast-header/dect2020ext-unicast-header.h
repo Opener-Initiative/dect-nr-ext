@@ -1,16 +1,16 @@
-#ifndef DECT2020_UNICAST_HEADER_H
-#define DECT2020_UNICAST_HEADER_H
+#ifndef DECT2020EXT_UNICAST_HEADER_H
+#define DECT2020EXT_UNICAST_HEADER_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020UnicastHeader : public Header
+class Dect2020ExtUnicastHeader : public Header
 {
     public: 
-        Dect2020UnicastHeader();
-        virtual ~Dect2020UnicastHeader();
+        Dect2020ExtUnicastHeader();
+        virtual ~Dect2020ExtUnicastHeader();
 
         // Set MAC Sequence
         void SetMacSequence(uint8_t number);
@@ -49,4 +49,4 @@ class Dect2020UnicastHeader : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_UNICAST_HEADER_H
+#endif // DECT2020EXT_UNICAST_HEADER_H

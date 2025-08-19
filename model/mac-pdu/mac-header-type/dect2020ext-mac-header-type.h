@@ -1,5 +1,5 @@
-#ifndef DECT2020_MAC_HEADER_TYPE
-#define DECT2020_MAC_HEADER_TYPE
+#ifndef DECT2020EXT_MAC_HEADER_TYPE
+#define DECT2020EXT_MAC_HEADER_TYPE
 
 #include "ns3/header.h"
 #include "ns3/nstime.h"
@@ -7,7 +7,7 @@
 namespace ns3
 {
 
-class Dect2020MacHeaderType : public Header
+class Dect2020ExtMacHeaderType : public Header
 {
   public:
     enum MacSecurityField // ETSI TS 103 636-4 V 1.51 #6.3.2-1
@@ -27,8 +27,8 @@ class Dect2020MacHeaderType : public Header
         ESCAPE = 15                 // Escape
     };
 
-    Dect2020MacHeaderType();
-    virtual ~Dect2020MacHeaderType();
+    Dect2020ExtMacHeaderType();
+    virtual ~Dect2020ExtMacHeaderType();
 
     void SetVersion(uint8_t version);
     uint8_t GetVersion() const;
@@ -53,4 +53,4 @@ class Dect2020MacHeaderType : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_MAC_HEADER_TYPE
+#endif // DECT2020EXT_MAC_HEADER_TYPE

@@ -1,16 +1,16 @@
-#ifndef DECT2020_DATA_MAC_PDU_H
-#define DECT2020_DATA_MAC_PDU_H
+#ifndef DECT2020EXT_DATA_MAC_PDU_H
+#define DECT2020EXT_DATA_MAC_PDU_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020DataMacPduHeader : public Header
+class Dect2020ExtDataMacPduHeader : public Header
 {
     public:
-        Dect2020DataMacPduHeader();
-        virtual ~Dect2020DataMacPduHeader();
+        Dect2020ExtDataMacPduHeader();
+        virtual ~Dect2020ExtDataMacPduHeader();
 
         // Virtual Header base class methods
 
@@ -34,4 +34,4 @@ class Dect2020DataMacPduHeader : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_DATA_MAC_PDU_H 
+#endif // DECT2020EXT_DATA_MAC_PDU_H 

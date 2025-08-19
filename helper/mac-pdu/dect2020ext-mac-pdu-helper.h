@@ -1,23 +1,23 @@
-#ifndef DECT2020_MAC_PDU_HELPER_H
-#define DECT2020_MAC_PDU_HELPER_H
+#ifndef DECT2020EXT_MAC_PDU_HELPER_H
+#define DECT2020EXT_MAC_PDU_HELPER_H
 
-#include "ns3/dect2020-mac-header-type.h"
+#include "ns3/dect2020ext-mac-header-type.h"
 
 #include "ns3/packet.h"
 
 namespace ns3
 {
 
-typedef Dect2020MacHeaderType::MacSecurityField MacSecurityField;
+typedef Dect2020ExtMacHeaderType::MacSecurityField MacSecurityField;
 
 /**
  * Helper class which helps to create MAC PDUs
  */
-class Dect2020MacPduHelper
+class Dect2020ExtMacPduHelper
 {
     public:
-        Dect2020MacPduHelper();
-        ~Dect2020MacPduHelper();
+        Dect2020ExtMacPduHelper();
+        ~Dect2020ExtMacPduHelper();
 
         /**
          * Creates MAC PDU object with:
@@ -96,4 +96,4 @@ class Dect2020MacPduHelper
 
 } // namespace ns3
 
-#endif // DECT2020_MAC_PDU_HELPER_H
+#endif // DECT2020EXT_MAC_PDU_HELPER_H

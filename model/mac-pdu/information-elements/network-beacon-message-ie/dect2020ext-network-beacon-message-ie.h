@@ -1,5 +1,5 @@
-#ifndef DECT2020_NETWORK_BEACON_MESSAGE_IE_H
-#define DECT2020_NETWORK_BEACON_MESSAGE_IE_H
+#ifndef DECT2020EXT_NETWORK_BEACON_MESSAGE_IE_H
+#define DECT2020EXT_NETWORK_BEACON_MESSAGE_IE_H
 
 #include "ns3/header.h"
 #include "ns3/log.h"
@@ -9,7 +9,7 @@
 namespace ns3
 {
 
-class Dect2020NetworkBeaconMessageIE : public Header
+class Dect2020ExtNetworkBeaconMessageIE : public Header
 {
   public:
     enum NetworkBeaconPeriod // ETSI TS 103 636-4 V 1.51 #6.4.2.2-1
@@ -38,8 +38,8 @@ class Dect2020NetworkBeaconMessageIE : public Header
         CLUSTER_PERIOD_32000MS = 10
     };
 
-    Dect2020NetworkBeaconMessageIE();
-    virtual ~Dect2020NetworkBeaconMessageIE();
+    Dect2020ExtNetworkBeaconMessageIE();
+    virtual ~Dect2020ExtNetworkBeaconMessageIE();
 
     // Setter und Getter für jedes Feld
     void SetTxPowerIncluded(bool txPowerIncluded);

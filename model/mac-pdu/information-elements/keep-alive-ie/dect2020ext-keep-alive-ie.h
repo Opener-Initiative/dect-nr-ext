@@ -1,16 +1,16 @@
-#ifndef DECT2020_KEEP_ALIVE_IE_H
-#define DECT2020_KEEP_ALIVE_IE_H
+#ifndef DECT2020EXT_KEEP_ALIVE_IE_H
+#define DECT2020EXT_KEEP_ALIVE_IE_H
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020KeepAliveIE : public Header
+class Dect2020ExtKeepAliveIE : public Header
 {
     public:
-        Dect2020KeepAliveIE();
-        virtual ~Dect2020KeepAliveIE();
+        Dect2020ExtKeepAliveIE();
+        virtual ~Dect2020ExtKeepAliveIE();
 
         // Virtual Header base class methods
 
@@ -29,4 +29,4 @@ class Dect2020KeepAliveIE : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_KEEP_ALIVE_IE_H 
+#endif // DECT2020EXT_KEEP_ALIVE_IE_H 

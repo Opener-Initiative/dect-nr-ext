@@ -1,44 +1,44 @@
-#include "dect2020-cluster-beacon-message-ie.h"
+#include "dect2020ext-cluster-beacon-message-ie.h"
 #include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ClusterBeaconMessageIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtClusterBeaconMessageIE");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ClusterBeaconMessageIE);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtClusterBeaconMessageIE);
 
-Dect2020ClusterBeaconMessageIE::Dect2020ClusterBeaconMessageIE()
+Dect2020ExtClusterBeaconMessageIE::Dect2020ExtClusterBeaconMessageIE()
 {
 }
 
-Dect2020ClusterBeaconMessageIE::~Dect2020ClusterBeaconMessageIE()
+Dect2020ExtClusterBeaconMessageIE::~Dect2020ExtClusterBeaconMessageIE()
 {
 }
 
 TypeId
-Dect2020ClusterBeaconMessageIE::GetTypeId(void)
+Dect2020ExtClusterBeaconMessageIE::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020ClusterBeaconMessageIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtClusterBeaconMessageIE")
                             .SetParent<Header>()
-                            .AddConstructor<Dect2020ClusterBeaconMessageIE>();
+                            .AddConstructor<Dect2020ExtClusterBeaconMessageIE>();
     return tid;
 }
 
 TypeId
-Dect2020ClusterBeaconMessageIE::GetInstanceTypeId() const
+Dect2020ExtClusterBeaconMessageIE::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020ClusterBeaconMessageIE::GetSerializedSize() const
+Dect2020ExtClusterBeaconMessageIE::GetSerializedSize() const
 {
     return 12; // Size in bytes
 }
 
 void
-Dect2020ClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     uint8_t byte0 = m_SFN;
@@ -80,7 +80,7 @@ Dect2020ClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -131,7 +131,7 @@ Dect2020ClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ClusterBeaconMessageIE::Print(std::ostream& os) const
+Dect2020ExtClusterBeaconMessageIE::Print(std::ostream& os) const
 {
     os << "[DECT2020 CLUSTER BEACON MESSAGE]" << "\n"
        << "SFN: 0x" << std::hex << (int)GetSFN() << "\n"
@@ -151,182 +151,182 @@ Dect2020ClusterBeaconMessageIE::Print(std::ostream& os) const
 
 // SFN
 void
-Dect2020ClusterBeaconMessageIE::SetSFN(uint8_t sfn)
+Dect2020ExtClusterBeaconMessageIE::SetSFN(uint8_t sfn)
 {
     m_SFN = sfn;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetSFN() const
+Dect2020ExtClusterBeaconMessageIE::GetSFN() const
 {
     return m_SFN;
 }
 
 // PowerConst
 void
-Dect2020ClusterBeaconMessageIE::SetPowerConst(uint8_t powerConst)
+Dect2020ExtClusterBeaconMessageIE::SetPowerConst(uint8_t powerConst)
 {
     m_powerConst = powerConst;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetPowerConst() const
+Dect2020ExtClusterBeaconMessageIE::GetPowerConst() const
 {
     return m_powerConst;
 }
 
 // FO
 void
-Dect2020ClusterBeaconMessageIE::SetFO(uint8_t fo)
+Dect2020ExtClusterBeaconMessageIE::SetFO(uint8_t fo)
 {
     m_FO = fo;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetFO() const
+Dect2020ExtClusterBeaconMessageIE::GetFO() const
 {
     return m_FO;
 }
 
 // NextChannel
 void
-Dect2020ClusterBeaconMessageIE::SetNextChannel(uint8_t nextChannel)
+Dect2020ExtClusterBeaconMessageIE::SetNextChannel(uint8_t nextChannel)
 {
     m_nextChannel = nextChannel;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetNextChannel() const
+Dect2020ExtClusterBeaconMessageIE::GetNextChannel() const
 {
     return m_nextChannel;
 }
 
 // TimeToNext (1-bit version)
 void
-Dect2020ClusterBeaconMessageIE::SetTimeToNextBit(uint8_t timeToNext)
+Dect2020ExtClusterBeaconMessageIE::SetTimeToNextBit(uint8_t timeToNext)
 {
     m_1BitTimeToNext = timeToNext;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetTimeToNextBit() const
+Dect2020ExtClusterBeaconMessageIE::GetTimeToNextBit() const
 {
     return m_1BitTimeToNext;
 }
 
 // NetworkBeaconPeriod
 void
-Dect2020ClusterBeaconMessageIE::SetNetworkBeaconPeriod(uint8_t period)
+Dect2020ExtClusterBeaconMessageIE::SetNetworkBeaconPeriod(uint8_t period)
 {
     m_networkBeaconPeriod = period;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetNetworkBeaconPeriod() const
+Dect2020ExtClusterBeaconMessageIE::GetNetworkBeaconPeriod() const
 {
     return m_networkBeaconPeriod;
 }
 
 // ClusterBeaconPeriod
 void
-Dect2020ClusterBeaconMessageIE::SetClusterBeaconPeriod(uint8_t period)
+Dect2020ExtClusterBeaconMessageIE::SetClusterBeaconPeriod(uint8_t period)
 {
     m_clusterBeaconPeriod = period;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetClusterBeaconPeriod() const
+Dect2020ExtClusterBeaconMessageIE::GetClusterBeaconPeriod() const
 {
     return m_clusterBeaconPeriod;
 }
 
 // CountToTrigger
 void
-Dect2020ClusterBeaconMessageIE::SetCountToTrigger(uint8_t count)
+Dect2020ExtClusterBeaconMessageIE::SetCountToTrigger(uint8_t count)
 {
     m_countToTrigger = count;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetCountToTrigger() const
+Dect2020ExtClusterBeaconMessageIE::GetCountToTrigger() const
 {
     return m_countToTrigger;
 }
 
 // RelQuality
 void
-Dect2020ClusterBeaconMessageIE::SetRelQuality(uint8_t quality)
+Dect2020ExtClusterBeaconMessageIE::SetRelQuality(uint8_t quality)
 {
     m_relQuality = quality;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetRelQuality() const
+Dect2020ExtClusterBeaconMessageIE::GetRelQuality() const
 {
     return m_relQuality;
 }
 
 // MinQuality
 void
-Dect2020ClusterBeaconMessageIE::SetMinQuality(uint8_t quality)
+Dect2020ExtClusterBeaconMessageIE::SetMinQuality(uint8_t quality)
 {
     m_minQuality = quality;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetMinQuality() const
+Dect2020ExtClusterBeaconMessageIE::GetMinQuality() const
 {
     return m_minQuality;
 }
 
 // ClusterMaxTXPower
 void
-Dect2020ClusterBeaconMessageIE::SetClusterMaxTXPower(uint8_t power)
+Dect2020ExtClusterBeaconMessageIE::SetClusterMaxTXPower(uint8_t power)
 {
     m_clusterMaxTXPower = power;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetClusterMaxTXPower() const
+Dect2020ExtClusterBeaconMessageIE::GetClusterMaxTXPower() const
 {
     return m_clusterMaxTXPower;
 }
 
 // FrameOffset
 void
-Dect2020ClusterBeaconMessageIE::SetFrameOffset(uint8_t offset)
+Dect2020ExtClusterBeaconMessageIE::SetFrameOffset(uint8_t offset)
 {
     m_frameOffset = offset;
 }
 
 uint8_t
-Dect2020ClusterBeaconMessageIE::GetFrameOffset() const
+Dect2020ExtClusterBeaconMessageIE::GetFrameOffset() const
 {
     return m_frameOffset;
 }
 
 // NextClusterChannel
 void
-Dect2020ClusterBeaconMessageIE::SetNextClusterChannel(uint16_t channel)
+Dect2020ExtClusterBeaconMessageIE::SetNextClusterChannel(uint16_t channel)
 {
     m_nextClusterChannel = channel;
 }
 
 uint16_t
-Dect2020ClusterBeaconMessageIE::GetNextClusterChannel() const
+Dect2020ExtClusterBeaconMessageIE::GetNextClusterChannel() const
 {
     return m_nextClusterChannel;
 }
 
 // TimeToNext (4-byte version)
 void
-Dect2020ClusterBeaconMessageIE::SetTimeToNext(uint32_t timeToNext)
+Dect2020ExtClusterBeaconMessageIE::SetTimeToNext(uint32_t timeToNext)
 {
     m_4BytesTimeToNext = timeToNext;
 }
 
 uint32_t
-Dect2020ClusterBeaconMessageIE::GetTimeToNext() const
+Dect2020ExtClusterBeaconMessageIE::GetTimeToNext() const
 {
     return m_4BytesTimeToNext;
 }

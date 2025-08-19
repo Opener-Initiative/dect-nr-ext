@@ -1,4 +1,4 @@
-#include "dect2020-mac-header-type.h"
+#include "dect2020ext-mac-header-type.h"
 
 #include "ns3/log.h"
 
@@ -8,38 +8,38 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020MacHeaderType");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020MacHeaderType);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacHeaderType");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacHeaderType);
 
 TypeId
-Dect2020MacHeaderType::GetTypeId(void)
+Dect2020ExtMacHeaderType::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020MacHeaderType")
+    static TypeId tid = TypeId("ns3::Dect2020ExtMacHeaderType")
                             .SetParent<Header>()
-                            .SetGroupName("Dect2020")
-                            .AddConstructor<Dect2020MacHeaderType>();
+                            .SetGroupName("Dect2020Ext")
+                            .AddConstructor<Dect2020ExtMacHeaderType>();
     return tid;
 }
 
 TypeId
-Dect2020MacHeaderType::GetInstanceTypeId() const
+Dect2020ExtMacHeaderType::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
-Dect2020MacHeaderType::Dect2020MacHeaderType()
+Dect2020ExtMacHeaderType::Dect2020ExtMacHeaderType()
     : m_version(0),
       m_macSecurity(MAC_SECURITY_NOT_USED),
       m_macHeaderTypeField(DATA_MAC_PDU_HEADER)
 {
 }
 
-Dect2020MacHeaderType::~Dect2020MacHeaderType()
+Dect2020ExtMacHeaderType::~Dect2020ExtMacHeaderType()
 {
 }
 
 void
-Dect2020MacHeaderType::SetVersion(uint8_t version)
+Dect2020ExtMacHeaderType::SetVersion(uint8_t version)
 {
     if (version != 0)
     {
@@ -52,13 +52,13 @@ Dect2020MacHeaderType::SetVersion(uint8_t version)
 }
 
 uint8_t
-Dect2020MacHeaderType::GetVersion() const
+Dect2020ExtMacHeaderType::GetVersion() const
 {
     return m_version;
 }
 
 void
-Dect2020MacHeaderType::SetMacSecurity(MacSecurityField macSecurity)
+Dect2020ExtMacHeaderType::SetMacSecurity(MacSecurityField macSecurity)
 {
     if ((macSecurity < 0) || (macSecurity > 3))
     {
@@ -70,14 +70,14 @@ Dect2020MacHeaderType::SetMacSecurity(MacSecurityField macSecurity)
     m_macSecurity = macSecurity;
 }
 
-ns3::Dect2020MacHeaderType::MacSecurityField
-Dect2020MacHeaderType::GetMacSecurity() const
+ns3::Dect2020ExtMacHeaderType::MacSecurityField
+Dect2020ExtMacHeaderType::GetMacSecurity() const
 {
     return m_macSecurity;
 }
 
 void
-Dect2020MacHeaderType::SetMacHeaderTypeField(MacHeaderTypeField macHeaderTypeField)
+Dect2020ExtMacHeaderType::SetMacHeaderTypeField(MacHeaderTypeField macHeaderTypeField)
 {
     if ((macHeaderTypeField < 0) || (macHeaderTypeField > 15))
     {
@@ -89,20 +89,20 @@ Dect2020MacHeaderType::SetMacHeaderTypeField(MacHeaderTypeField macHeaderTypeFie
     m_macHeaderTypeField = macHeaderTypeField;
 }
 
-ns3::Dect2020MacHeaderType::MacHeaderTypeField
-Dect2020MacHeaderType::GetMacHeaderTypeField() const
+ns3::Dect2020ExtMacHeaderType::MacHeaderTypeField
+Dect2020ExtMacHeaderType::GetMacHeaderTypeField() const
 {
     return m_macHeaderTypeField;
 }
 
 uint32_t
-Dect2020MacHeaderType::GetSerializedSize() const
+Dect2020ExtMacHeaderType::GetSerializedSize() const
 {
     return 1;
 }
 
 void
-Dect2020MacHeaderType::Print(std::ostream& os) const
+Dect2020ExtMacHeaderType::Print(std::ostream& os) const
 {
     os << "Beacon Header Type:" << std::endl << "Version = " << static_cast<int>(m_version) << std::endl
        << "MAC Security = " << static_cast<int>(m_macSecurity) << std::endl
@@ -110,7 +110,7 @@ Dect2020MacHeaderType::Print(std::ostream& os) const
 }
 
 void
-Dect2020MacHeaderType::Serialize(Buffer::Iterator start) const
+Dect2020ExtMacHeaderType::Serialize(Buffer::Iterator start) const
 {
     // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
 
@@ -124,7 +124,7 @@ Dect2020MacHeaderType::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020MacHeaderType::Deserialize(Buffer::Iterator start)
+Dect2020ExtMacHeaderType::Deserialize(Buffer::Iterator start)
 {
     // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
     uint8_t bytesRead = 0;

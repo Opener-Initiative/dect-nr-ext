@@ -1,25 +1,25 @@
-#include "dect2020-mac-pdu-helper.h"
-#include "ns3/dect2020-data-mac-pdu-header.h"
-#include "ns3/dect2020-beacon-header.h"
-#include "ns3/dect2020-unicast-header.h"
-#include "ns3/dect2020-rd-broadcasting-header.h"
+#include "dect2020ext-mac-pdu-helper.h"
+#include "ns3/dect2020ext-data-mac-pdu-header.h"
+#include "ns3/dect2020ext-beacon-header.h"
+#include "ns3/dect2020ext-unicast-header.h"
+#include "ns3/dect2020ext-rd-broadcasting-header.h"
 
 namespace ns3
 {
 
-typedef Dect2020MacHeaderType::MacHeaderTypeField MacHeaderTypeField;
+typedef Dect2020ExtMacHeaderType::MacHeaderTypeField MacHeaderTypeField;
 
-Dect2020MacPduHelper::Dect2020MacPduHelper(){}
-Dect2020MacPduHelper::~Dect2020MacPduHelper(){}
+Dect2020ExtMacPduHelper::Dect2020ExtMacPduHelper(){}
+Dect2020ExtMacPduHelper::~Dect2020ExtMacPduHelper(){}
 
 Ptr<Packet>
-Dect2020MacPduHelper::DATAMACPDU(MacSecurityField security,
+Dect2020ExtMacPduHelper::DATAMACPDU(MacSecurityField security,
                                     uint8_t reset,
                                     uint16_t sequenceNumber)
 {
     Ptr<Packet> packet = Create<Packet>();
-    Dect2020MacHeaderType macHeaderType;
-    Dect2020DataMacPduHeader dataMacPduHeader;
+    Dect2020ExtMacHeaderType macHeaderType;
+    Dect2020ExtDataMacPduHeader dataMacPduHeader;
 
     macHeaderType.SetMacSecurity(security);
     macHeaderType.SetMacHeaderTypeField(MacHeaderTypeField::DATA_MAC_PDU_HEADER);
@@ -34,13 +34,13 @@ Dect2020MacPduHelper::DATAMACPDU(MacSecurityField security,
 }
 
 Ptr<Packet>
-Dect2020MacPduHelper::BEACON(MacSecurityField security,
+Dect2020ExtMacPduHelper::BEACON(MacSecurityField security,
                                 uint32_t networkId,
                                 uint32_t transmitterAddress)
 {
     Ptr<Packet> packet = Create<Packet>();
-    Dect2020MacHeaderType macHeaderType;
-    Dect2020BeaconHeader beaconHeader;
+    Dect2020ExtMacHeaderType macHeaderType;
+    Dect2020ExtBeaconHeader beaconHeader;
 
     macHeaderType.SetMacSecurity(security);
     macHeaderType.SetMacHeaderTypeField(MacHeaderTypeField::BEACON_HEADER);
@@ -55,15 +55,15 @@ Dect2020MacPduHelper::BEACON(MacSecurityField security,
 }
 
 Ptr<Packet>
-Dect2020MacPduHelper::UNICAST(MacSecurityField security,
+Dect2020ExtMacPduHelper::UNICAST(MacSecurityField security,
                                 uint8_t macSequence,
                                 uint8_t sequenceNumber,
                                 uint32_t receiverAddress,
                                 uint32_t transmitterAddress)
 {
     Ptr<Packet> packet = Create<Packet>();
-    Dect2020MacHeaderType macHeaderType;
-    Dect2020UnicastHeader unicastHeader;
+    Dect2020ExtMacHeaderType macHeaderType;
+    Dect2020ExtUnicastHeader unicastHeader;
 
     macHeaderType.SetMacSecurity(security);
     macHeaderType.SetMacHeaderTypeField(MacHeaderTypeField::UNICAST_HEADER);
@@ -80,14 +80,14 @@ Dect2020MacPduHelper::UNICAST(MacSecurityField security,
 }
 
 Ptr<Packet>
-Dect2020MacPduHelper::RDBROADCASTING(MacSecurityField security,
+Dect2020ExtMacPduHelper::RDBROADCASTING(MacSecurityField security,
                                         uint8_t reset,
                                         uint16_t sequenceNumber,
                                         uint32_t transmitterAddress)
 {
     Ptr<Packet> packet = Create<Packet>();
-    Dect2020MacHeaderType macHeaderType;
-    Dect2020RDBroadcastingHeader rdBroadcastingHeader;
+    Dect2020ExtMacHeaderType macHeaderType;
+    Dect2020ExtRDBroadcastingHeader rdBroadcastingHeader;
 
     macHeaderType.SetMacSecurity(security);
     macHeaderType.SetMacHeaderTypeField(MacHeaderTypeField::RD_BROADCASTING_HEADER);

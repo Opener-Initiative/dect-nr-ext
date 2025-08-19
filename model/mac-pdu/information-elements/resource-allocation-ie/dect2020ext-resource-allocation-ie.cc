@@ -1,64 +1,64 @@
-#include "dect2020-resource-allocation-ie.h"
+#include "dect2020ext-resource-allocation-ie.h"
 #include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ResourceAllocationIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtResourceAllocationIE");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ResourceAllocationIE);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtResourceAllocationIE);
 
-Dect2020ResourceAllocationIE::Dect2020ResourceAllocationIE()
+Dect2020ExtResourceAllocationIE::Dect2020ExtResourceAllocationIE()
 {
     NS_LOG_FUNCTION(this);
 }
 
-Dect2020ResourceAllocationIE::~Dect2020ResourceAllocationIE()
+Dect2020ExtResourceAllocationIE::~Dect2020ExtResourceAllocationIE()
 {
     NS_LOG_FUNCTION(this);
 }
 
 TypeId
-Dect2020ResourceAllocationIE::GetTypeId(void)
+Dect2020ExtResourceAllocationIE::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020ResourceAllocationIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtResourceAllocationIE")
                             .SetParent<Header>()
-                            .AddConstructor<Dect2020ResourceAllocationIE>();
+                            .AddConstructor<Dect2020ExtResourceAllocationIE>();
     return tid;
 }
 
 TypeId
-Dect2020ResourceAllocationIE::GetInstanceTypeId() const
+Dect2020ExtResourceAllocationIE::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020ResourceAllocationIE::GetSerializedSize() const
+Dect2020ExtResourceAllocationIE::GetSerializedSize() const
 {
     NS_LOG_FUNCTION(this);
     return 0; // TODO: Implement actual size calculation
 }
 
 void
-Dect2020ResourceAllocationIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtResourceAllocationIE::Serialize(Buffer::Iterator start) const
 {
     NS_LOG_FUNCTION(this << &start);
     // TODO: Implement serialization
 }
 
 uint32_t
-Dect2020ResourceAllocationIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtResourceAllocationIE::Deserialize(Buffer::Iterator start)
 {
     NS_LOG_FUNCTION(this << &start);
     return 0; // TODO: Implement deserialization
 }
 
 void
-Dect2020ResourceAllocationIE::Print(std::ostream &os) const
+Dect2020ExtResourceAllocationIE::Print(std::ostream &os) const
 {
     NS_LOG_FUNCTION(this << &os);
-    os << "Dect2020ResourceAllocationIE";
+    os << "Dect2020ExtResourceAllocationIE";
 }
 
 } // namespace ns3 

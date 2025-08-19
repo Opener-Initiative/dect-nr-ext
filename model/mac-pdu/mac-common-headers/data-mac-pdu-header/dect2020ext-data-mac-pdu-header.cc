@@ -1,43 +1,43 @@
-#include "dect2020-data-mac-pdu-header.h"
+#include "dect2020ext-data-mac-pdu-header.h"
 #include "ns3/log.h"
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020DataMacPduHeader");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020DataMacPduHeader);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtDataMacPduHeader");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtDataMacPduHeader);
 
-Dect2020DataMacPduHeader::Dect2020DataMacPduHeader ()
+Dect2020ExtDataMacPduHeader::Dect2020ExtDataMacPduHeader ()
 {
 }
 
-Dect2020DataMacPduHeader::~Dect2020DataMacPduHeader ()
+Dect2020ExtDataMacPduHeader::~Dect2020ExtDataMacPduHeader ()
 {
 }
 
 TypeId
-Dect2020DataMacPduHeader::GetTypeId (void)
+Dect2020ExtDataMacPduHeader::GetTypeId (void)
 {
-	static TypeId tid = TypeId ("ns3::Dect2020DataMacPduHeader")
+	static TypeId tid = TypeId ("ns3::Dect2020ExtDataMacPduHeader")
 								.SetParent<Header> ()
-								.SetGroupName("Dect2020")
-								.AddConstructor<Dect2020DataMacPduHeader>();
+								.SetGroupName("Dect2020Ext")
+								.AddConstructor<Dect2020ExtDataMacPduHeader>();
 	return tid;
 }
 
 TypeId
-Dect2020DataMacPduHeader::GetInstanceTypeId (void) const
+Dect2020ExtDataMacPduHeader::GetInstanceTypeId (void) const
 {
 	return GetTypeId();
 }
 
 uint32_t
-Dect2020DataMacPduHeader::GetSerializedSize (void) const
+Dect2020ExtDataMacPduHeader::GetSerializedSize (void) const
 {
 	return 2;
 }
 
 void
-Dect2020DataMacPduHeader::Serialize (Buffer::Iterator start) const
+Dect2020ExtDataMacPduHeader::Serialize (Buffer::Iterator start) const
 {
 	// byte 0
 	// 3 first bytes are reserved
@@ -51,7 +51,7 @@ Dect2020DataMacPduHeader::Serialize (Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020DataMacPduHeader::Deserialize (Buffer::Iterator start)
+Dect2020ExtDataMacPduHeader::Deserialize (Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -73,7 +73,7 @@ Dect2020DataMacPduHeader::Deserialize (Buffer::Iterator start)
 }
 
 void
-Dect2020DataMacPduHeader::Print (std::ostream &os) const
+Dect2020ExtDataMacPduHeader::Print (std::ostream &os) const
 {
     os << "[DATA MAC PDU HEADER]" << "\n"
         << "Reset value: 0x" << std::hex << (int)GetReset() << "\n"
@@ -82,7 +82,7 @@ Dect2020DataMacPduHeader::Print (std::ostream &os) const
 
 // Setters and Getters
 
-void Dect2020DataMacPduHeader::SetReset(uint8_t value)
+void Dect2020ExtDataMacPduHeader::SetReset(uint8_t value)
 {
     if(value != 0x0 && value != 0x1)
     {
@@ -94,12 +94,12 @@ void Dect2020DataMacPduHeader::SetReset(uint8_t value)
     }
 }
 
-uint8_t Dect2020DataMacPduHeader::GetReset() const
+uint8_t Dect2020ExtDataMacPduHeader::GetReset() const
 {
     return m_reset;
 }
 
-void Dect2020DataMacPduHeader::SetSequenceNumber(uint16_t sequenceNumber)
+void Dect2020ExtDataMacPduHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
     if((sequenceNumber & 0xF000) != 0)
     {
@@ -111,7 +111,7 @@ void Dect2020DataMacPduHeader::SetSequenceNumber(uint16_t sequenceNumber)
     }
 }
 
-uint16_t Dect2020DataMacPduHeader::GetSequenceNumber() const
+uint16_t Dect2020ExtDataMacPduHeader::GetSequenceNumber() const
 {
     return m_sequenceNumber;
 }

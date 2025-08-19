@@ -1,22 +1,22 @@
-#ifndef DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H
-#define DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H
+#ifndef DECT2020EXT_ASSOCIATION_REQUEST_MESSAGE_IE_H
+#define DECT2020EXT_ASSOCIATION_REQUEST_MESSAGE_IE_H
 
-#include "ns3/dect2020-network-beacon-message-ie.h"
+#include "ns3/dect2020ext-network-beacon-message-ie.h"
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020NetworkBeaconMessageIE;
+class Dect2020ExtNetworkBeaconMessageIE;
 
-typedef Dect2020NetworkBeaconMessageIE::NetworkBeaconPeriod NetworkBeaconPeriod;
-typedef Dect2020NetworkBeaconMessageIE::ClusterBeaconPeriod ClusterBeaconPeriod;
+typedef Dect2020ExtNetworkBeaconMessageIE::NetworkBeaconPeriod NetworkBeaconPeriod;
+typedef Dect2020ExtNetworkBeaconMessageIE::ClusterBeaconPeriod ClusterBeaconPeriod;
 
-class Dect2020AssociationRequestMessageIE : public Header
+class Dect2020ExtAssociationRequestMessageIE : public Header
 {
     public:
-        Dect2020AssociationRequestMessageIE();
-        virtual ~Dect2020AssociationRequestMessageIE();
+        Dect2020ExtAssociationRequestMessageIE();
+        virtual ~Dect2020ExtAssociationRequestMessageIE();
 
         // ETSI TS 103 636-4 6.4.2.4-2
         enum SetupCause
@@ -61,4 +61,4 @@ class Dect2020AssociationRequestMessageIE : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_ASSOCIATION_REQUEST_MESSAGE_IE_H 
+#endif // DECT2020EXT_ASSOCIATION_REQUEST_MESSAGE_IE_H 

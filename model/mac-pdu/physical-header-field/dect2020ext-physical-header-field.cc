@@ -1,4 +1,4 @@
-#include "dect2020-physical-header-field.h"
+#include "dect2020ext-physical-header-field.h"
 
 #include "ns3/address-utils.h"
 #include "ns3/log.h"
@@ -8,16 +8,16 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020PhysicalHeaderField");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhysicalHeaderField");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020PhysicalHeaderField);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhysicalHeaderField);
 
-Dect2020PhysicalHeaderField::Dect2020PhysicalHeaderField()
+Dect2020ExtPhysicalHeaderField::Dect2020ExtPhysicalHeaderField()
 {
     m_headerFormat = 0;
 }
 
-Dect2020PhysicalHeaderField::Dect2020PhysicalHeaderField(uint8_t packetLengthType,
+Dect2020ExtPhysicalHeaderField::Dect2020ExtPhysicalHeaderField(uint8_t packetLengthType,
                                                          uint8_t packetLength,
                                                          uint8_t shortNetworkID,
                                                          uint16_t transmitterIdentity,
@@ -32,28 +32,28 @@ Dect2020PhysicalHeaderField::Dect2020PhysicalHeaderField(uint8_t packetLengthTyp
     SetDFMCS(dFMCS);
 }
 
-Dect2020PhysicalHeaderField::~Dect2020PhysicalHeaderField()
+Dect2020ExtPhysicalHeaderField::~Dect2020ExtPhysicalHeaderField()
 {
 }
 
 TypeId
-Dect2020PhysicalHeaderField::GetTypeId(void)
+Dect2020ExtPhysicalHeaderField::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020PhysicalHeaderField")
+    static TypeId tid = TypeId("ns3::Dect2020ExtPhysicalHeaderField")
                             .SetParent<Header>()
-                            .SetGroupName("Dect2020")
-                            .AddConstructor<Dect2020PhysicalHeaderField>();
+                            .SetGroupName("Dect2020ExtExt")
+                            .AddConstructor<Dect2020ExtPhysicalHeaderField>();
     return tid;
 }
 
 TypeId
-Dect2020PhysicalHeaderField::GetInstanceTypeId(void) const
+Dect2020ExtPhysicalHeaderField::GetInstanceTypeId(void) const
 {
     return GetTypeId();
 }
 
 void
-Dect2020PhysicalHeaderField::Print(std::ostream& os) const
+Dect2020ExtPhysicalHeaderField::Print(std::ostream& os) const
 {
     os << "Physical Header Field:" << std::endl << "Header Format: " << static_cast<int>(m_headerFormat) << std::endl
        << "Packet length type: " << static_cast<int>(m_packetLengthType) << std::endl
@@ -66,7 +66,7 @@ Dect2020PhysicalHeaderField::Print(std::ostream& os) const
 }
 
 uint32_t
-Dect2020PhysicalHeaderField::GetSerializedSize(void) const
+Dect2020ExtPhysicalHeaderField::GetSerializedSize(void) const
 {
     if(m_type != Type::TYPE1 && m_type != Type::TYPE2)
     {
@@ -86,7 +86,7 @@ Dect2020PhysicalHeaderField::GetSerializedSize(void) const
 }
 
 void
-Dect2020PhysicalHeaderField::Serialize(Buffer::Iterator start) const
+Dect2020ExtPhysicalHeaderField::Serialize(Buffer::Iterator start) const
 {
     // ETSI 103 636 04: Figure 6.2.1-1
 
@@ -189,7 +189,7 @@ Dect2020PhysicalHeaderField::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020PhysicalHeaderField::Deserialize(Buffer::Iterator start)
+Dect2020ExtPhysicalHeaderField::Deserialize(Buffer::Iterator start)
 {
     if(m_type == Type::TYPE1)
     {
@@ -282,7 +282,7 @@ Dect2020PhysicalHeaderField::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020PhysicalHeaderField::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020ExtPhysicalHeaderField::SetPacketLengthType(uint8_t packetLengthType)
 {
     if (packetLengthType == 0 || packetLengthType == 1)
     {
@@ -295,13 +295,13 @@ Dect2020PhysicalHeaderField::SetPacketLengthType(uint8_t packetLengthType)
 }
 
 uint8_t
-Dect2020PhysicalHeaderField::GetPacketLengthType()
+Dect2020ExtPhysicalHeaderField::GetPacketLengthType()
 {
     return m_packetLengthType;
 }
 
 void
-Dect2020PhysicalHeaderField::SetPacketLength(uint8_t packetLength)
+Dect2020ExtPhysicalHeaderField::SetPacketLength(uint8_t packetLength)
 {
     if (packetLength >= 0 && packetLength <= 15)
     {
@@ -314,13 +314,13 @@ Dect2020PhysicalHeaderField::SetPacketLength(uint8_t packetLength)
 }
 
 uint8_t
-Dect2020PhysicalHeaderField::GetPacketLength()
+Dect2020ExtPhysicalHeaderField::GetPacketLength()
 {
     return m_packetLength;
 }
 
 void
-Dect2020PhysicalHeaderField::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020ExtPhysicalHeaderField::SetShortNetworkID(uint8_t shortNetworkID)
 {
     if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
     {
@@ -333,13 +333,13 @@ Dect2020PhysicalHeaderField::SetShortNetworkID(uint8_t shortNetworkID)
 }
 
 uint8_t
-Dect2020PhysicalHeaderField::GetShortNetworkID()
+Dect2020ExtPhysicalHeaderField::GetShortNetworkID()
 {
     return m_shortNetworkID;
 }
 
 void
-Dect2020PhysicalHeaderField::SetTransmitterIdentity(uint16_t transmitterIdentity)
+Dect2020ExtPhysicalHeaderField::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
     if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
     {
@@ -352,13 +352,13 @@ Dect2020PhysicalHeaderField::SetTransmitterIdentity(uint16_t transmitterIdentity
 }
 
 uint16_t
-Dect2020PhysicalHeaderField::GetTransmitterIdentity()
+Dect2020ExtPhysicalHeaderField::GetTransmitterIdentity()
 {
     return m_transmitterIdentity;
 }
 
 void
-Dect2020PhysicalHeaderField::SetTransmitPower(uint8_t transmitPower)
+Dect2020ExtPhysicalHeaderField::SetTransmitPower(uint8_t transmitPower)
 {
     if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
     {
@@ -371,13 +371,13 @@ Dect2020PhysicalHeaderField::SetTransmitPower(uint8_t transmitPower)
 }
 
 uint8_t
-Dect2020PhysicalHeaderField::GetTransmitPower()
+Dect2020ExtPhysicalHeaderField::GetTransmitPower()
 {
     return m_transmitPower;
 }
 
 void
-Dect2020PhysicalHeaderField::SetDFMCS(uint8_t dFMCS)
+Dect2020ExtPhysicalHeaderField::SetDFMCS(uint8_t dFMCS)
 {
     if (dFMCS >= 0 && dFMCS <= pow(2, 3) - 1)
     {
@@ -390,19 +390,19 @@ Dect2020PhysicalHeaderField::SetDFMCS(uint8_t dFMCS)
 }
 
 uint8_t
-Dect2020PhysicalHeaderField::GetDFMCS()
+Dect2020ExtPhysicalHeaderField::GetDFMCS()
 {
     return m_dFMCS;
 }
 
 void
-Dect2020PhysicalHeaderField::SetType(Dect2020PhysicalHeaderField::Type type)
+Dect2020ExtPhysicalHeaderField::SetType(Dect2020ExtPhysicalHeaderField::Type type)
 {
     m_type = type;
 }
 
-Dect2020PhysicalHeaderField::Type
-Dect2020PhysicalHeaderField::GetType() const
+Dect2020ExtPhysicalHeaderField::Type
+Dect2020ExtPhysicalHeaderField::GetType() const
 {
     return m_type;
 }
