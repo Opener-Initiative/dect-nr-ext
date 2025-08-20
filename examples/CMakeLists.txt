@@ -3,4 +3,5 @@ build_lib_example(
     SOURCE_FILES mac-pdu-transmission.cc
     LIBRARIES_TO_LINK
         ${libdect-nr}
+        ${libdect-nr-ext}
 )
