@@ -19,6 +19,13 @@ set(mac_pdu_helper_h
 ##Model##
 #########
 
+# DECT-2020 PHY Wrapper
+set(dect2020ext_phy_src
+    model/dect-phy/dect2020ext-phy.cc)
+
+set(dect2020ext_phy_h
+    model/dect-phy/dect2020ext-phy.h)
+
 # Physical Header Field
 set(physical_header_field_src
     model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.cc)
@@ -149,6 +156,7 @@ build_lib(
         ${physical_header_field_src}
         ${route_info_ie_src}
         ${association_request_message_ie_src}
+        ${dect2020ext_phy_src}
     HEADER_FILES
         ${mac_pdu_helper_h}
         ${mac_header_type_h}
@@ -159,6 +167,7 @@ build_lib(
         ${physical_header_field_h}
         ${route_info_ie_h}
         ${association_request_message_ie_h}
+        ${dect2020ext_phy_h}
     # TEST_SOURCES
         # ${mac_header_type_test_src}
         # ${unicast_header_test_src}

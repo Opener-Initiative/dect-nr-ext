@@ -1,22 +1,21 @@
-#include "ns3/core-module.h"
+#include "ns3/log.h"
+#include "ns3/simulator.h"
+#include "ns3/node.h"
 #include "ns3/dect2020ext-mac-pdu-helper.h"
+#include "ns3/dect2020-net-device.h"
+#include "ns3/dect2020-channel-manager.h"
 
 using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE("MacPduTransmissionExample");
 
 int
 main(int argc, char* argv[])
 {
-    CommandLine cmd(__FILE__);
-    cmd.Parse(argc, argv);
+    LogComponentEnable("MacPduTransmissionExample", LOG_LEVEL_ALL);
 
-    std::cout << "DECT-NR-Ext MAC PDU Example" << std::endl;
-    std::cout << "This example demonstrates the MAC PDU functionality." << std::endl;
-
-    // Create a simple MAC PDU helper instance
-    Dect2020ExtMacPduHelper helper;
-
-    std::cout << "MAC PDU Helper created successfully!" << std::endl;
-    std::cout << "Example completed successfully." << std::endl;
+    Simulator::Run();
+    Simulator::Destroy();
 
     return 0;
 }
