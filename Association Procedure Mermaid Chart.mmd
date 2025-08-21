@@ -1,0 +1,155 @@
+---
+config:
+  theme: neo-dark
+---
+sequenceDiagram
+    participant App as Application
+    participant FT_MAC as FT MAC (0x565424ef9630)
+    participant FT_PHY as FT PHY (0x565424e42540)
+    participant PT_MAC as PT MAC (0x565424efaf10)
+    participant PT_PHY as PT PHY (0x565424e41a00)
+    participant Channel as Spectrum Channel
+    Note over App, Channel: Initialization Phase (+0.000000000s)
+    App->>FT_MAC: Dect2020Mac()
+    FT_MAC->>FT_MAC: InitializeDevice()
+    FT_MAC->>FT_MAC: GenerateLongRadioDeviceId()
+    Note over FT_MAC: "Long RD ID: 0x2ccd7c2e"
+    FT_MAC->>FT_MAC: GenerateShortRadioDeviceId()
+    FT_MAC->>FT_MAC: GetTypeId()
+    App->>FT_PHY: Dect2020Phy()
+    FT_PHY->>FT_PHY: GetTypeId()
+    FT_PHY->>FT_PHY: Start()
+    FT_PHY->>FT_PHY: StartFrameTimer()
+    FT_MAC->>FT_MAC: Start()
+    FT_MAC->>FT_MAC: InitializeNetwork()
+    FT_MAC->>FT_MAC: GenerateValidNetworkId()
+    Note over FT_MAC: "Network ID: 50570f3d"
+    App->>PT_MAC: Dect2020Mac()
+    PT_MAC->>PT_MAC: InitializeDevice()
+    PT_MAC->>PT_MAC: GenerateLongRadioDeviceId()
+    Note over PT_MAC: "Long RD ID: 0xc9eed105"
+    PT_MAC->>PT_MAC: GenerateShortRadioDeviceId()
+    PT_MAC->>PT_MAC: GetTypeId()
+    App->>PT_PHY: Dect2020Phy()
+    PT_PHY->>PT_PHY: GetTypeId()
+    PT_PHY->>PT_PHY: Start()
+    PT_PHY->>PT_PHY: StartFrameTimer()
+    PT_MAC->>PT_MAC: Start()
+    Note over App, Channel: Frame Timer Loop (+0.010000000s - +1.000000000s)
+    loop Every 10ms
+        FT_PHY->>FT_PHY: StartFrameTimer()
+        PT_PHY->>PT_PHY: StartFrameTimer()
+    end
+    Note over App, Channel: Network Discovery Phase (+0.100000000s)
+    PT_MAC->>PT_MAC: DiscoverNetworks()
+    Note over App, Channel: Channel Scanning Phase (+1.000000000s - +1.209791331s)
+    FT_MAC->>FT_MAC: OperatingChannelSelection()
+    Note over FT_MAC: "Channel 1657: +1.000000000s"
+    FT_MAC->>FT_MAC: StartSubslotScan(1657, 48)
+    loop 48 subslots (~10ms)
+        FT_MAC->>FT_MAC: MeasureAndScheduleNextSubslot()
+    end
+    Note over FT_MAC: "Channel 1658: +1.009999984s"
+    FT_MAC->>FT_MAC: StartSubslotScan(1658, 48)
+    Note over FT_MAC: "Channels 1659-1677: every ~10ms"
+    loop Channels 1659-1677
+        FT_MAC->>FT_MAC: StartSubslotScan(channelId, 48)
+        loop 48 subslots
+            FT_MAC->>FT_MAC: MeasureAndScheduleNextSubslot()
+        end
+    end
+    Note over FT_MAC: "Final channel 1677: +1.199999680s"
+    FT_MAC->>FT_MAC: EvaluateAllChannels()
+    Note over App, Channel: Beacon Transmission Start (+1.209791331s)
+    FT_MAC->>FT_MAC: StartBeaconTransmission()
+    FT_MAC->>FT_MAC: StartNetworkBeaconSweep()
+    FT_MAC->>FT_MAC: StartClusterBeaconTransmission()
+    FT_MAC->>FT_MAC: BuildRandomAccessResourceIE()
+    FT_MAC->>FT_MAC: CalculateAbsoluteStartSubslot()
+    FT_MAC->>FT_MAC: BuildBeacon(cluster=true, ch=1675)
+    FT_MAC->>FT_MAC: CreatePhysicalHeaderField()
+    FT_MAC->>FT_PHY: Send(ClusterBeacon)
+    FT_PHY->>Channel: Send()
+    Note over FT_MAC: "Network Beacon (+1.234791331s)"
+    FT_MAC->>FT_MAC: SendNetworkBeaconOnChannel(1675)
+    FT_MAC->>FT_MAC: BuildBeacon(cluster=false, ch=1675)
+    FT_MAC->>FT_MAC: CreatePhysicalHeaderField()
+    FT_MAC->>FT_PHY: Send(NetworkBeacon)
+    FT_PHY->>Channel: Send()
+    FT_MAC->>FT_MAC: ReturnToOperatingChannel()
+    Note over App, Channel: Regular Beacon Pattern (+1.309791331s onwards)
+    Note over FT_MAC: "Every 100ms cluster beacon cycle"
+    loop Beacon Transmission Cycle (100ms intervals)
+        FT_MAC->>FT_MAC: StartClusterBeaconTransmission()
+        FT_MAC->>FT_MAC: BuildRandomAccessResourceIE()
+        FT_MAC->>FT_MAC: CalculateAbsoluteStartSubslot()
+        FT_MAC->>FT_MAC: BuildBeacon(cluster=true)
+        FT_MAC->>FT_MAC: CreatePhysicalHeaderField()
+        FT_MAC->>FT_PHY: Send(ClusterBeacon)
+        FT_PHY->>Channel: Send()
+        Note over FT_MAC: "Network beacon sweep"
+        FT_MAC->>FT_MAC: StartNetworkBeaconSweep()
+        FT_MAC->>FT_MAC: SendNetworkBeaconOnChannel()
+        FT_MAC->>FT_MAC: BuildBeacon(cluster=false)
+        FT_MAC->>FT_MAC: CreatePhysicalHeaderField()
+        FT_MAC->>FT_PHY: Send(NetworkBeacon)
+        FT_PHY->>Channel: Send()
+        FT_MAC->>FT_MAC: ReturnToOperatingChannel()
+    end
+    Note over App, Channel: First Beacon Reception (+1.835624838s)
+    Channel->>PT_PHY: StartRx()
+    PT_PHY->>PT_MAC: ReceiveFromPhy(packet, rssiDbm)
+    PT_MAC->>PT_MAC: HandleBeaconPacket()
+    PT_MAC->>PT_MAC: FindOrCreateFtCandidate()
+    Note over App, Channel: Continuous Beacon Reception (+1.910624838s onwards)
+    loop Beacon Reception Pattern
+        Channel->>PT_PHY: StartRx()
+        PT_PHY->>PT_MAC: ReceiveFromPhy()
+        PT_MAC->>PT_MAC: HandleBeaconPacket()
+        PT_MAC->>PT_MAC: EvaluateClusterBeacon()
+        PT_MAC->>PT_MAC: FindOrCreateFtCandidate()
+    end
+    Note over App, Channel: Association Process Begins (+3.910624838s)
+    PT_MAC->>PT_MAC: SelectBestFtCandidate()
+    Note over PT_MAC: "Beacon triggers association"
+    PT_PHY->>PT_MAC: ReceiveFromPhy()
+    PT_MAC->>PT_MAC: HandleBeaconPacket()
+    PT_MAC->>PT_MAC: EvaluateClusterBeacon()
+    PT_PHY->>PT_PHY: GetTimeToNextAbsoluteSubslot(135, 8, 1)
+    Note over App, Channel: Association Request (+3.913749833s)
+    PT_MAC->>PT_MAC: SendAssociationRequest()
+    PT_MAC->>PT_MAC: CreatePhysicalHeaderField()
+    PT_MAC->>PT_PHY: Send(AssociationRequest)
+    PT_PHY->>Channel: Send()
+    Note over App, Channel: FT Processes Request (+3.914583340s)
+    Channel->>FT_PHY: StartRx()
+    FT_PHY->>FT_MAC: ReceiveFromPhy()
+    FT_MAC->>FT_MAC: HandleUnicastPacket()
+    FT_MAC->>FT_MAC: ProcessAssociationRequest()
+    FT_MAC->>FT_MAC: CalculcateTimeOffsetFromCurrentSubslot(3)
+    FT_PHY->>FT_PHY: GetTimeToNextAbsoluteSubslot(136, 12, 1)
+    Note over FT_MAC: "Schedule response in 3 subslots (624μs)"
+    Note over App, Channel: Association Response (+3.915208339s)
+    FT_MAC->>FT_MAC: SendAssociationResponse()
+    FT_MAC->>FT_MAC: CreatePhysicalHeaderField()
+    FT_MAC->>FT_PHY: Send(AssociationResponse)
+    FT_PHY->>Channel: Send()
+    Note over App, Channel: PT Accepts Response (+3.916041846s)
+    Channel->>PT_PHY: StartRx()
+    PT_PHY->>PT_MAC: ReceiveFromPhy()
+    PT_MAC->>PT_MAC: HandleUnicastPacket()
+    PT_MAC->>PT_MAC: ProcessAssociationResponse()
+    Note over PT_MAC: "Association Response accepted!"
+    Note over App, Channel: Post-Association Monitoring (+4.010624838s onwards)
+    loop Continued Beacon Reception
+        PT_PHY->>PT_MAC: ReceiveFromPhy()
+        PT_MAC->>PT_MAC: HandleBeaconPacket()
+        PT_MAC->>PT_MAC: EvaluateClusterBeacon()
+        PT_MAC->>PT_MAC: FindOrCreateFtCandidate()
+    end
+    Note over App, Channel: Association Status Verification (+4.113749833s)
+    PT_MAC->>PT_MAC: VerifyPendingAssociationStatus()
+    Note over App, Channel: Timeout Verification (+5.910624838s)
+    PT_MAC->>PT_MAC: VerifyWaitingForSelectedFtAssociationStatus()
+    Note over App, Channel: Simulation Continues Until +10.000000000s
+    Note over App, Channel: "Total Packets Sent: 175, No Drops"

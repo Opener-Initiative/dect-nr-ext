@@ -1,0 +1,63 @@
+// Function declarations for DECT2020 MAC functions with NS_LOG_FUNCTION enabled
+// Extracted from dect2020-mac.cc
+
+// Static member function
+static TypeId GetTypeId(void);
+
+// Constructor and Destructor
+Dect2020Mac();
+virtual ~Dect2020Mac();
+
+// Packet Transmission and Reception
+void Send(Ptr<Packet> packet, const Address& dest, Dect2020PacketType type);
+void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);
+
+// Beacon and Packet Handling
+void HandleBeaconPacket(Ptr<Packet> packet, FtCandidateInfo* ft);
+void HandleUnicastPacket(Ptr<Packet> packet);
+
+// Association Management
+void ProcessAssociationRequest(Dect2020AssociationRequestMessage assoReqMsg, Dect2020RdCapabilityIE rdCapabilityIe, Dect2020AssociationControlIE assoControlIe, uint32_t assoInitiatorLongRdId);
+void ProcessAssociationResponse(Dect2020AssociationResponseMessage assoRespMsg, Dect2020RdCapabilityIE rdCapabilityIe, uint32_t ftLongRdId);
+void SendAssociationResponse(AssociatedPtInfo ptInfo);
+void EvaluateClusterBeacon(const Dect2020ClusterBeaconMessage& clusterBeaconMsg, const Dect2020RandomAccessResourceIE& rarIe, FtCandidateInfo* ft);
+void SelectBestFtCandidate();
+void VerifyPendingAssociationStatus();
+void VerifyWaitingForSelectedFtAssociationStatus();
+void VerifyAssociatedStatus();
+void SendAssociationRequest(FtCandidateInfo* ft);
+
+// Time and Scheduling
+Time CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots);
+
+// MAC Layer Control
+void Start();
+void InitializeNetwork();
+void DiscoverNetworks();
+
+// Beacon Transmission
+void StartClusterBeaconTransmission();
+Dect2020RandomAccessResourceIE BuildRandomAccessResourceIE();
+uint8_t CalculateAbsoluteStartSubslot();
+void StartNetworkBeaconSweep();
+void ReturnToOperatingChannel();
+void SendNetworkBeaconOnChannel(uint16_t channelId);
+Ptr<Packet> BuildBeacon(bool isCluster, uint16_t networkBeaconTransmissionChannelId);
+void StartBeaconTransmission();
+
+// Channel Scanning and Selection
+void StartSubslotScan(uint32_t channelId, uint32_t numSubslots, std::function<void(const ChannelEvaluation&)> onComplete);
+void MeasureAndScheduleNextSubslot(std::shared_ptr<SubslotScanContext> context, uint32_t numSubslots);
+FtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
+FtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
+void OperatingChannelSelection();
+void EvaluateAllChannels();
+
+// PHY Header Creation
+Dect2020PHYControlFieldType1 CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+
+// Network and Device ID Management
+uint32_t GenerateValidNetworkId();
+uint32_t GenerateLongRadioDeviceId();
+uint16_t GenerateShortRadioDeviceId();
+void InitializeDevice();

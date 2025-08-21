@@ -181,4 +181,8 @@ build_lib(
     LIBRARIES_TO_LINK
         ${libdect-nr}
         ${libnetwork-utils}
+        ${libpoint-to-point}
+        ${libinternet}
+        ${libnetwork}
+        ${libapplications}
 )
