@@ -6,7 +6,7 @@ if(NOT HAVE_STDINT_H)
 endif()
 
 ##########
-##Helper##
+##HELPER##
 ##########
 
 set(mac_pdu_helper_src
@@ -16,10 +16,17 @@ set(mac_pdu_helper_h
     helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
 
 #########
-##Model##
+##MODEL##
 #########
 
-# DECT-2020 PHY Wrapper
+# DECT-2020 EXT NetDevice
+set(dect2020ext_net_device_src
+    model/dect-net-device/dect2020ext-net-device.cc)
+
+set(dect2020ext_net_device_h
+    model/dect-net-device/dect2020ext-net-device.h)
+
+# DECT-2020 EXT PHY
 set(dect2020ext_phy_src
     model/dect-phy/dect2020ext-phy.cc)
 
@@ -147,42 +154,11 @@ set(association_request_message_ie_h
 build_lib(
     LIBNAME dect-nr-ext
     SOURCE_FILES
-        ${mac_pdu_helper_src}
-        ${mac_header_type_src}
-        ${mac_common_headers_src}
-        ${network_beacon_message_ie_src}
-        ${cluster_beacon_message_ie_src}
-        ${mac_multiplexing_header_src}
-        ${physical_header_field_src}
-        ${route_info_ie_src}
-        ${association_request_message_ie_src}
+        ${dect2020ext_net_device_src}
         ${dect2020ext_phy_src}
     HEADER_FILES
-        ${mac_pdu_helper_h}
-        ${mac_header_type_h}
-        ${mac_common_headers_h}
-        ${network_beacon_message_ie_h}
-        ${cluster_beacon_message_ie_h}
-        ${mac_multiplexing_header_h}
-        ${physical_header_field_h}
-        ${route_info_ie_h}
-        ${association_request_message_ie_h}
+        ${dect2020ext_net_device_h}
         ${dect2020ext_phy_h}
-    # TEST_SOURCES
-        # ${mac_header_type_test_src}
-        # ${unicast_header_test_src}
-        # ${rd_broadcasting_header_test_src}
-        # ${data_mac_pdu_test_src}
-        # ${beacon_header_test_src}
-        # ${mac_multiplexing_header_test_src}
-        # ${physical_header_field_test_src}
-        # ${network_beacon_message_ie_test_src}
-        # ${route_info_ie_test_src}
     LIBRARIES_TO_LINK
-        ${libdect-nr}
-        ${libnetwork-utils}
-        ${libpoint-to-point}
-        ${libinternet}
         ${libnetwork}
-        ${libapplications}
 )
