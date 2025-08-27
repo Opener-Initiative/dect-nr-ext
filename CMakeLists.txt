@@ -155,10 +155,10 @@ build_lib(
     LIBNAME dect-nr-ext
     SOURCE_FILES
         ${dect2020ext_net_device_src}
-        ${dect2020ext_phy_src}
+        # ${dect2020ext_phy_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
-        ${dect2020ext_phy_h}
+        # ${dect2020ext_phy_h}
     LIBRARIES_TO_LINK
         ${libnetwork}
 )
