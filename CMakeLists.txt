@@ -2,18 +2,18 @@
 include(CheckIncludeFile)
 check_include_file(stdint.h HAVE_STDINT_H)
 if(NOT HAVE_STDINT_H)
-    message(FATAL_ERROR "stdint.h not found. This is required for the dect-mac-pdu module.")
+    message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
 endif()
 
 ##########
 ##HELPER##
 ##########
 
-set(mac_pdu_helper_src
-    helper/mac-pdu/dect2020ext-mac-pdu-helper.cc)
+# set(mac_pdu_helper_src
+#     helper/mac-pdu/dect2020ext-mac-pdu-helper.cc)
 
-set(mac_pdu_helper_h
-    helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
+# set(mac_pdu_helper_h
+#     helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
 
 #########
 ##MODEL##
@@ -26,77 +26,91 @@ set(dect2020ext_net_device_src
 set(dect2020ext_net_device_h
     model/dect-net-device/dect2020ext-net-device.h)
 
-# DECT-2020 EXT PHY
-set(dect2020ext_phy_src
-    model/dect-phy/dect2020ext-phy.cc)
+# DECT-2020 EXT Channel
+set(dect2020ext_channel_src
+    model/dect-channel/dect2020ext-channel.cc)
+    
+set(dect2020ext_channel_h
+    model/dect-channel/dect2020ext-channel.h)
 
-set(dect2020ext_phy_h
-    model/dect-phy/dect2020ext-phy.h)
+# DECT-2020 EXT Channel Manager
+set(dect2020ext_channel_manager_src
+    model/dect-channel/dect2020ext-channel-manager.cc)
 
-# Physical Header Field
-set(physical_header_field_src
-    model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.cc)
+set(dect2020ext_channel_manager_h
+    model/dect-channel/dect2020ext-channel-manager.h)
 
-set(physical_header_field_h
-    model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.h)
+# # DECT-2020 EXT PHY
+# set(dect2020ext_phy_src
+#     model/dect-phy/dect2020ext-phy.cc)
 
-# Mac Header Type
-set(mac_header_type_src
-    model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.cc)
+# set(dect2020ext_phy_h
+#     model/dect-phy/dect2020ext-phy.h)
 
-set(mac_header_type_h
-    model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.h)
+# # Physical Header Field
+# set(physical_header_field_src
+#     model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.cc)
 
-# Common Headers
-set(mac_common_headers_src
-    model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.cc
-    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.cc
-    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.cc
-    model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.cc)
+# set(physical_header_field_h
+#     model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.h)
 
-set(mac_common_headers_h
-    model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.h
-    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.h
-    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.h
-    model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.h)
+# # Mac Header Type
+# set(mac_header_type_src
+#     model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.cc)
 
-# Mac Multiplexing Header
-set(mac_multiplexing_header_src
-    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.cc)
+# set(mac_header_type_h
+#     model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.h)
 
-set(mac_multiplexing_header_h
-    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
+# # Common Headers
+# set(mac_common_headers_src
+#     model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.cc
+#     model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.cc
+#     model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.cc
+#     model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.cc)
 
-# Information Elements
-set(network_beacon_message_ie_src
-    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc)
+# set(mac_common_headers_h
+#     model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.h
+#     model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.h
+#     model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.h
+#     model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.h)
 
-set(network_beacon_message_ie_h
-    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h)
+# # Mac Multiplexing Header
+# set(mac_multiplexing_header_src
+#     model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.cc
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.cc)
 
-set(cluster_beacon_message_ie_src
-    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
+# set(mac_multiplexing_header_h
+#     model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.h
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
+#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
 
-set(cluster_beacon_message_ie_h
-    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h)
+# # Information Elements
+# set(network_beacon_message_ie_src
+#     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc)
 
-set(route_info_ie_src
-    model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)
+# set(network_beacon_message_ie_h
+#     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h)
 
-set(route_info_ie_h
-    model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.h)
+# set(cluster_beacon_message_ie_src
+#     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
 
-set(association_request_message_ie_src
-    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc)
+# set(cluster_beacon_message_ie_h
+#     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h)
 
-set(association_request_message_ie_h
-    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h)
+# set(route_info_ie_src
+#     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)
+
+# set(route_info_ie_h
+#     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.h)
+
+# set(association_request_message_ie_src
+#     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc)
+
+# set(association_request_message_ie_h
+#     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h)
 
 #########
 ##Tests##
@@ -155,10 +169,13 @@ build_lib(
     LIBNAME dect-nr-ext
     SOURCE_FILES
         ${dect2020ext_net_device_src}
-        # ${dect2020ext_phy_src}
+        ${dect2020ext_channel_manager_src}
+        ${dect2020ext_channel_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
-        # ${dect2020ext_phy_h}
+        ${dect2020ext_channel_manager_h}
+        ${dect2020ext_channel_h}
     LIBRARIES_TO_LINK
         ${libnetwork}
+        ${libdect-nr}
 )
