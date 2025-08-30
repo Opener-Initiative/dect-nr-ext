@@ -40,6 +40,13 @@ set(dect2020ext_channel_manager_src
 set(dect2020ext_channel_manager_h
     model/dect-channel/dect2020ext-channel-manager.h)
 
+# DECT-2020 EXT MAC
+set(dect2020ext_mac_src
+    model/dect-mac/dect2020ext-mac.cc)
+
+set(dect2020ext_mac_h
+    model/dect-mac/dect2020ext-mac.h)
+
 # # DECT-2020 EXT PHY
 # set(dect2020ext_phy_src
 #     model/dect-phy/dect2020ext-phy.cc)
@@ -171,10 +178,12 @@ build_lib(
         ${dect2020ext_net_device_src}
         ${dect2020ext_channel_manager_src}
         ${dect2020ext_channel_src}
+        ${dect2020ext_mac_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
         ${dect2020ext_channel_h}
+        ${dect2020ext_mac_h}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libdect-nr}

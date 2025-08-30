@@ -6,9 +6,7 @@
 namespace ns3
 {
 
-class Dect2020Phy; // Forward declaration of inherited class
-
-class Dect2020ExtPhy : public Dect2020Phy
+class Dect2020ExtPhy : public Object
 {
   public:
     Dect2020ExtPhy();

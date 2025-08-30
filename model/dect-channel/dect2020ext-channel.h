@@ -17,15 +17,15 @@ enum SubslotStatus
 
 struct Subslot
 {
-    uint32_t subslotId;
-    SubslotStatus status;
-    double rssi;
+    uint32_t subslotId; // [0 - 15]
+    SubslotStatus status; // [FREE, POSSIBLE, BUSY]
+    double rssi; // Received Signal Strength Indicator in dBm
     double subslotDurationNs; // Duration of a Subslot in ns
 };
 
 struct Slot
 {
-    uint32_t slotId;
+    uint32_t slotId; // [0 - 23]
     std::vector<Subslot> subslots;
 };
 

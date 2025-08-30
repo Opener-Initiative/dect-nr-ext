@@ -1,11 +1,17 @@
 #ifndef DECT2020EXT_NET_DEVICE_H
 #define DECT2020EXT_NET_DEVICE_H
 
+#include "ns3/dect2020ext-mac.h"
+
 #include "ns3/net-device.h"
 #include "ns3/traced-callback.h"
 
 namespace ns3
 {
+
+// Forward declarations
+
+class Dect2020ExtMac;
 
 class Dect2020ExtNetDevice : public NetDevice
 {
@@ -21,6 +27,12 @@ class Dect2020ExtNetDevice : public NetDevice
 			PT, // Portable Termination
 			FT // Fixed Termination
 		};
+
+		// Dect2020ExtNetDevice specific methods
+
+		void SetMac(Ptr<Dect2020ExtMac> mac);
+		void SetBandNumber(uint8_t bandNumber);
+		uint8_t GetBandNumber() const;
 
 		// NetDevice virtual methods
 
@@ -62,6 +74,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		ReceiveCallback m_receiveCallback;
 		PromiscReceiveCallback m_promiscCallback;
 		Address m_address;
+		Ptr<Dect2020ExtMac> m_mac;
+		uint8_t m_bandNumber;
 };
 
 } // namespace ns3

@@ -31,13 +31,12 @@ public:
     static TypeId GetTypeId(void);
 
     void InitializeChannels(uint8_t bandNumber,
-                            uint8_t subcarrierScalingFactor,
-                            uint8_t transmissionScalingFactor);
+                            uint8_t subcarrierScalingFactor);
     BandParameters GetBandParameters(uint8_t bandNumber);
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
-
-private:
-    std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
+    static std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
+    static std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> GetChannels(void);
+    static uint32_t GetSubslotsPerSlot(void);
 
 }; // class Dect2020ExtChannelManager
 

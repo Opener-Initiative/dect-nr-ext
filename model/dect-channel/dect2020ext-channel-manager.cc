@@ -6,6 +6,9 @@ namespace ns3
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtChannelManager");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
+std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
+uint8_t m_subcarrierScalingFactor;
+
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
 }
@@ -26,8 +29,7 @@ Dect2020ExtChannelManager::GetTypeId(void)
 
 void
 Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
-                                              uint8_t subcarrierScalingFactor,
-                                              uint8_t transmissionScalingFactor)
+                                              uint8_t subcarrierScalingFactor)
 {
     NS_LOG_FUNCTION(this);
 
@@ -38,16 +40,14 @@ Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
         NS_FATAL_ERROR("Invalid subcarrier scaling factor");
     }
 
+    m_subcarrierScalingFactor = subcarrierScalingFactor;
     const uint32_t slotsPerFrame = 24; // #ETSI 103 636-3 V1.5.1, Section 4.4
 
     BandParameters bandParams = GetBandParameters(bandNumber); // Get current band parameters
     uint32_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of Channels
 
     // Compute the subslot duration in nanoseconds
-    uint32_t numSubslotsPerSlot = (subcarrierScalingFactor == 1)   ? 2
-                                  : (subcarrierScalingFactor == 2) ? 4
-                                  : (subcarrierScalingFactor == 4) ? 8
-                                                                   : 16;
+    uint32_t numSubslotsPerSlot = GetSubslotsPerSlot();
     const double slotDurationNs = 10000000 / slotsPerFrame;         // 0,41667 milliseconds in nanoseconds
     double subslotDurationNs = slotDurationNs / numSubslotsPerSlot; // Subslot Duration in nanoseconds
 
@@ -151,6 +151,35 @@ Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t
     // TODO: Add more Bands
 
     return centerFrequency;
+}
+
+std::vector<Ptr<Dect2020ExtChannel>>
+Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
+{
+    std::vector<Ptr<Dect2020ExtChannel>> validChannels;
+
+    auto it = m_channels.find(bandNumber);
+    if (it != m_channels.end())
+    {
+        validChannels = it->second;
+    }
+    return validChannels;
+}
+
+std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>>
+Dect2020ExtChannelManager::GetChannels(void)
+{
+    return m_channels;
+}
+
+uint32_t
+Dect2020ExtChannelManager::GetSubslotsPerSlot(void)
+{    
+    uint32_t numSubslotsPerSlot = (m_subcarrierScalingFactor == 1)   ? 2
+                                  : (m_subcarrierScalingFactor == 2) ? 4
+                                  : (m_subcarrierScalingFactor == 4) ? 8
+                                                                   : 16;
+    return numSubslotsPerSlot;
 }
 
 }; // namespace ns3

@@ -1,4 +1,5 @@
 #include "dect2020ext-net-device.h"
+#include "ns3/dect2020ext-mac.h"
 
 #include "ns3/node.h"
 #include "ns3/channel.h"
@@ -32,6 +33,25 @@ Dect2020ExtNetDevice::Dect2020ExtNetDevice()
 Dect2020ExtNetDevice::~Dect2020ExtNetDevice()
 {
     NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020ExtNetDevice::SetMac(Ptr<Dect2020ExtMac> mac)
+{
+    m_mac = mac;
+    m_mac->SetNetDevice(this);
+}
+
+void
+Dect2020ExtNetDevice::SetBandNumber(uint8_t bandNumber)
+{
+    m_bandNumber = bandNumber;
+}
+
+uint8_t
+Dect2020ExtNetDevice::GetBandNumber() const
+{
+    return m_bandNumber;
 }
 
 void
