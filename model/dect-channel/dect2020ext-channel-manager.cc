@@ -1,13 +1,18 @@
 #include "dect2020ext-channel-manager.h"
 
+
+#include <cmath>
+
 namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtChannelManager");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
-std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
-uint8_t m_subcarrierScalingFactor;
+// Define static member variables
+std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> Dect2020ExtChannelManager::m_channels;
+std::map<uint8_t, Ptr<SpectrumValue>> Dect2020ExtChannelManager::m_channelOccupancy;
+uint8_t Dect2020ExtChannelManager::m_subcarrierScalingFactor = 1;
 
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
@@ -180,6 +185,141 @@ Dect2020ExtChannelManager::GetSubslotsPerSlot(void)
                                   : (m_subcarrierScalingFactor == 4) ? 8
                                                                    : 16;
     return numSubslotsPerSlot;
+}
+
+uint8_t
+Dect2020ExtChannelManager::GetBandNumber(uint16_t channelNumber)
+{
+    struct BandChannelRange
+    {
+        uint8_t bandNumber;
+        uint16_t nStart;
+        uint16_t nEnd;
+    };
+
+    static const std::vector<BandChannelRange> bandMap = {{1, 1657, 1677},
+                                                          {2, 1680, 1700},
+                                                          {20, 3416, 3645},
+                                                          {21, 3357, 3414}};
+
+    for (const auto& band : bandMap)
+    {
+        if (channelNumber >= band.nStart && channelNumber <= band.nEnd)
+        {
+            return band.bandNumber;
+        }
+    }
+
+    return -1; // Invalid band number
+}
+
+uint16_t
+Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
+{
+    switch (bandNumber)
+    {
+    case 1:
+
+        return 1657;
+        break;
+
+    case 2:
+
+        return 1680;
+        break;
+
+    case 20:
+
+        return 3416;
+        break;
+
+    case 21:
+
+        return 3357;
+        break;
+
+    default:
+        NS_FATAL_ERROR("Invalid band number. Supported bands are 1, 2, 20, and 21.");
+    }
+}
+
+Ptr<SpectrumModel>
+Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
+{
+    // // Check if a SpectrumModel for this band already exists
+    // auto iterator = m_bandModels.find(bandId);
+    // if (iterator != m_bandModels.end())
+    // {
+    //     return iterator->second;
+    // }
+
+    // Spectrum Model for this band does not exist --> create it
+    BandParameters bp = GetBandParameters(bandId);
+
+    // Generate a list of center frequencies, one per DECT channel
+    std::vector<double> frequencies;
+    for (int i = 0; i < bp.nEnd - bp.nStart + 1; i++)
+    {
+        frequencies.push_back(bp.startFrequency + i * bp.frequencyStep);
+    }
+
+    // Create the SpectrumModel from the calculated frequencies
+    Ptr<SpectrumModel> model = Create<SpectrumModel>(frequencies);
+    // m_bandModels[bandId] = model;
+
+    // Create an initial PSD (Power Spectral Density) entry for channel occupancy
+    Ptr<SpectrumValue> psd = Create<SpectrumValue>(model);
+
+    // Add a realistic noise floor for each channel (e.g. −111 dBm per channel)
+    // This corresponds to thermal noise: −174 dBm/Hz + 10*log10(channel bandwidth in Hz)
+    for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
+    {
+        double noiseDbm = -111.0;
+        double noiseWatt = DbmToW(noiseDbm); // Convert dBm to linear Watt
+        (*psd)[i] = noiseWatt;               // Set the baseline noise power
+    }
+
+    // Store the initialized PSD
+    m_channelOccupancy[bandId] = psd;
+
+    NS_LOG_INFO("Created SpectrumModel for Band " << static_cast<int>(bandId) << " with "
+                                                  << psd->GetSpectrumModel()->GetNumBands()
+                                                  << " channels and noise floor.");
+
+    return model;
+}
+
+double
+Dect2020ExtChannelManager::GetRssiDbm(uint16_t channelId)
+{
+    uint8_t bandNumber = GetBandNumber(channelId);
+    uint16_t channelIndex = channelId - GetFirstValidChannelNumber(bandNumber);
+
+    auto it = m_channelOccupancy.find(bandNumber);
+
+    if (it == m_channelOccupancy.end() || it->second == nullptr)
+    {
+        NS_LOG_WARN("SpectrumValue for band " << static_cast<int>(bandNumber)
+                                              << " not initialized. Creating now.");
+
+        Ptr<SpectrumModel> model = GetSpectrumModel(bandNumber);
+        it = m_channelOccupancy.find(bandNumber);
+    }
+
+    Ptr<SpectrumValue> psd = it->second;
+    return WToDbm((*psd)[channelIndex]);
+}
+
+double
+Dect2020ExtChannelManager::DbmToW(double dBm)
+{
+    return std::pow(10.0, 0.1 * (dBm - 30.0));
+}
+
+double
+Dect2020ExtChannelManager::WToDbm(double w)
+{
+    return 10.0 * std::log10(w) + 30.0;
 }
 
 }; // namespace ns3

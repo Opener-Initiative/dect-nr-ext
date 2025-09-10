@@ -20,18 +20,91 @@
 
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace ns3;
 using TermPointType = Dect2020NetDevice::TerminationPointType;
+
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtSimulation1");
+
+/**
+ * \brief Calculate path loss using log-distance model
+ * \param distance Distance between nodes in meters
+ * \param frequency Operating frequency in Hz
+ * \return Path loss in dB
+ */
+double CalculatePathLoss(double distance, double frequency)
+{
+    // Free space path loss model: FSPL(d) = 20*log10(d) + 20*log10(f) + 20*log10(4π/c)
+    // Where d is distance in meters, f is frequency in Hz, c is speed of light
+    
+    if (distance <= 1.0)
+    {
+        distance = 1.0; // Minimum distance to avoid log(0)
+    }
+    
+    // Free space path loss in dB
+    double pathLoss = 20 * log10(distance) + 20 * log10(frequency) + 20 * log10(4 * M_PI / 3e8);
+    
+    return pathLoss;
+}
+
+/**
+ * \brief Function to monitor RSSI for all channels in a band
+ * \param channelManager Reference to the channel manager
+ * \param bandNumber The band number to monitor
+ * \param devices Container of devices to get realistic RSSI measurements from
+ */
+void MonitorRssi(Dect2020ChannelManager& channelManager, uint8_t bandNumber, NetDeviceContainer devices)
+{
+    // Get band parameters to determine channel range
+    BandParameters bandParams = Dect2020ChannelManager::GetBandParameters(bandNumber);
+    
+    // Monitor RSSI for each channel in the band
+    for (uint16_t channelId = bandParams.nStart; channelId <= bandParams.nEnd; ++channelId)
+    {
+        double rssiDbm = Dect2020ChannelManager::GetRssiDbm(channelId);
+        NS_LOG_INFO("Channel " << channelId << " Channel Occupancy: " << rssiDbm << " dBm");
+    }
+    
+    // Additionally, get realistic RSSI measurements by calculating path loss between nodes
+    if (devices.GetN() >= 2)
+    {
+        Ptr<Node> node1 = devices.Get(0)->GetNode();
+        Ptr<Node> node2 = devices.Get(1)->GetNode();
+        
+        Ptr<MobilityModel> mob1 = node1->GetObject<MobilityModel>();
+        Ptr<MobilityModel> mob2 = node2->GetObject<MobilityModel>();
+        
+        if (mob1 && mob2)
+        {
+            double distance = mob1->GetDistanceFrom(mob2);
+            
+            // Calculate realistic RSSI using log-distance path loss model
+            // Reference: ETSI TS 103 636-2 for DECT-2020 NR
+            double txPowerDbm = 10.0;  // Typical DECT TX power
+            double pathLossDb = CalculatePathLoss(distance, 1881.792e6); // Band 1 center frequency
+            double realisticRssiDbm = txPowerDbm - pathLossDb;
+            
+            NS_LOG_INFO("Realistic RSSI between nodes: " << realisticRssiDbm 
+                       << " dBm (distance: " << distance << " m, path loss: " << pathLossDb << " dB)");
+        }
+    }
+    
+    // Schedule the next RSSI monitoring call in 1 millisecond
+    Simulator::Schedule(MilliSeconds(1), &MonitorRssi, std::ref(channelManager), bandNumber, devices);
+}
 
 int
 main(int argc, char* argv[])
 {
     Simulator::Stop(Seconds(10));
 
-    LogComponentEnable("Dect2020Phy", LOG_LEVEL_FUNCTION);
-    LogComponentEnable("Dect2020Mac", LOG_LEVEL_FUNCTION);
+    LogComponentEnable("Dect2020Mac", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtSimulation1", LOG_LEVEL_INFO);
+    // Enable logging for RSSI monitoring
     LogComponentEnableAll(LOG_PREFIX_TIME);
+    LogComponentEnableAll(LOG_PREFIX_FUNC);
     uint8_t bandNumber = 1;
 
     Dect2020ChannelManager channelManager;
@@ -135,6 +208,9 @@ main(int argc, char* argv[])
         phy->Start();
         mac->Start();
     }
+
+    // Start RSSI monitoring for all channels in the band every millisecond
+    Simulator::Schedule(MilliSeconds(0), &MonitorRssi, std::ref(channelManager), bandNumber, devices);
 
     Simulator::Run();
 

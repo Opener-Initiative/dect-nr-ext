@@ -31,6 +31,12 @@ Dect2020ExtMac::GetTypeId(void)
 }
 
 void
+Dect2020ExtMac::OperatingChannelSelection(void)
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
 Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
 {
     NS_LOG_FUNCTION(this);
@@ -60,20 +66,34 @@ Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020Ext
                 if (subslot.rssi <= RSSI_THRESHOLD_MIN)
                 {
                     evaluation.free++;
+                    break;
                 }
 
                 if (subslot.rssi > RSSI_THRESHOLD_MIN || subslot.rssi <= RSSI_THRESHOLD_MAX)
                 {
                     evaluation.possible++;
+                    break;
                 }
 
                 if (subslot.rssi > RSSI_THRESHOLD_MAX)
                 {
                     evaluation.busy++;
+                    break;
                 }
             }
         }
         m_scanEvaluations[evaluation.channelId] = evaluation;
+    }
+    SelectOperatingChannel();
+}
+
+void
+Dect2020ExtMac::SelectOperatingChannel(void)
+{
+    NS_LOG_FUNCTION(this);
+    for (auto& evaluation : m_scanEvaluations)
+    {
+        NS_LOG_INFO("Channel ID: " << evaluation.first << " RSSI: " << Dect2020ExtChannelManager::GetRssiDbm(evaluation.first));
     }
 }
 

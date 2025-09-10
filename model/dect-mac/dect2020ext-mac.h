@@ -6,6 +6,7 @@
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
+#include "ns3/event-id.h"
 #include <map>
 #include <vector>
 
@@ -46,8 +47,10 @@ public:
 
     static TypeId GetTypeId(void);
 
+    void OperatingChannelSelection(void);
     void ScheduleBackgroundScan(Time delay);
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
+    void SelectOperatingChannel(void);
 
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
 
