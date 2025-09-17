@@ -93,7 +93,7 @@ Dect2020ExtMac::SelectOperatingChannel(void)
     NS_LOG_FUNCTION(this);
     for (auto& evaluation : m_scanEvaluations)
     {
-        NS_LOG_INFO("Channel ID: " << evaluation.first << " RSSI: " << Dect2020ExtChannelManager::GetRssiDbm(evaluation.first));
+        // NS_LOG_INFO("Channel ID: " << evaluation.first << " RSSI: " << Dect2020ExtChannelManager::GetRssiDbm(evaluation.first, MilliSeconds(1)));
     }
 }
 

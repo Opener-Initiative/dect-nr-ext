@@ -6,6 +6,9 @@
 #include "ns3/object.h"
 #include "ns3/spectrum-model.h"
 #include "ns3/spectrum-value.h"
+#include "ns3/spectrum-channel.h"
+#include "ns3/spectrum-analyzer.h"
+#include "ns3/single-model-spectrum-channel.h"
 
 #include <map>
 
@@ -45,14 +48,20 @@ public:
     static uint8_t GetBandNumber(uint16_t channelNumber);
     static uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
     static Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
-    static double GetRssiDbm(uint16_t channelId);
+    static void GetRssiDbm();
     static double DbmToW(double dBm);
     static double WToDbm(double w);
+
+    static void SpectrumAnalyzerReport(Ptr<const SpectrumValue> spectrumValue);
 
 private:
     static std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
     static std::map<uint8_t, Ptr<SpectrumValue>> m_channelOccupancy;
     static uint8_t m_subcarrierScalingFactor;
+
+    // Spectrum
+    static Ptr<SpectrumAnalyzer> m_spectrumAnalyzer;
+    static std::map<uint16_t, Ptr<SingleModelSpectrumChannel>> m_spectrumChannels;
 
 }; // class Dect2020ExtChannelManager
 

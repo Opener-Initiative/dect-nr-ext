@@ -1,7 +1,14 @@
 #include "dect2020ext-channel-manager.h"
 
+#include "ns3/spectrum-analyzer.h"
+#include "ns3/single-model-spectrum-channel.h"
+#include "ns3/propagation-module.h"
+#include "ns3/simulator.h"
 
+#include <vector>
 #include <cmath>
+#include <iomanip>
+#include <limits>
 
 namespace ns3
 {
@@ -10,9 +17,12 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtChannelManager");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
 // Define static member variables
+
+uint8_t Dect2020ExtChannelManager::m_subcarrierScalingFactor;
 std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> Dect2020ExtChannelManager::m_channels;
 std::map<uint8_t, Ptr<SpectrumValue>> Dect2020ExtChannelManager::m_channelOccupancy;
-uint8_t Dect2020ExtChannelManager::m_subcarrierScalingFactor = 1;
+std::map<uint16_t, Ptr<SingleModelSpectrumChannel>> Dect2020ExtChannelManager::m_spectrumChannels; // Channel ID (1657 for example) -> Spectrum Channel
+Ptr<SpectrumAnalyzer> Dect2020ExtChannelManager::m_spectrumAnalyzer;
 
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
@@ -32,11 +42,17 @@ Dect2020ExtChannelManager::GetTypeId(void)
     return tid;
 }
 
+
+// Initializes logic channels
 void
 Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
                                               uint8_t subcarrierScalingFactor)
 {
     NS_LOG_FUNCTION(this);
+
+    // ###################################
+    // #### Initialize logic channels ####
+    // ###################################
 
     // Check if subcarrier scaling factor is valid
     if (!(subcarrierScalingFactor == 1 || subcarrierScalingFactor == 2 ||
@@ -86,6 +102,21 @@ Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
         }
 
         m_channels[bandNumber].push_back(dect2020ExtChannel);
+    }
+
+    // ######################################
+    // #### Initialize Spectrum Channels ####
+    // ######################################
+
+    m_spectrumChannels.clear();
+    Ptr<ConstantSpeedPropagationDelayModel> propagationDelay = Create<ConstantSpeedPropagationDelayModel>();
+    Ptr<LogDistancePropagationLossModel> propagationLoss = Create<LogDistancePropagationLossModel>();
+    for (auto channel : m_channels[bandNumber])
+    {
+        Ptr<SingleModelSpectrumChannel> spectrumChannel = Create<SingleModelSpectrumChannel>();
+        spectrumChannel->SetPropagationDelayModel(propagationDelay);
+        spectrumChannel->AddPropagationLossModel(propagationLoss);
+        m_spectrumChannels[channel->m_channelId] = spectrumChannel;
     }
 }
 
@@ -246,13 +277,6 @@ Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
 Ptr<SpectrumModel>
 Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 {
-    // // Check if a SpectrumModel for this band already exists
-    // auto iterator = m_bandModels.find(bandId);
-    // if (iterator != m_bandModels.end())
-    // {
-    //     return iterator->second;
-    // }
-
     // Spectrum Model for this band does not exist --> create it
     BandParameters bp = GetBandParameters(bandId);
 
@@ -265,49 +289,95 @@ Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 
     // Create the SpectrumModel from the calculated frequencies
     Ptr<SpectrumModel> model = Create<SpectrumModel>(frequencies);
-    // m_bandModels[bandId] = model;
-
-    // Create an initial PSD (Power Spectral Density) entry for channel occupancy
-    Ptr<SpectrumValue> psd = Create<SpectrumValue>(model);
-
-    // Add a realistic noise floor for each channel (e.g. −111 dBm per channel)
-    // This corresponds to thermal noise: −174 dBm/Hz + 10*log10(channel bandwidth in Hz)
-    for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
-    {
-        double noiseDbm = -111.0;
-        double noiseWatt = DbmToW(noiseDbm); // Convert dBm to linear Watt
-        (*psd)[i] = noiseWatt;               // Set the baseline noise power
-    }
-
-    // Store the initialized PSD
-    m_channelOccupancy[bandId] = psd;
-
-    NS_LOG_INFO("Created SpectrumModel for Band " << static_cast<int>(bandId) << " with "
-                                                  << psd->GetSpectrumModel()->GetNumBands()
-                                                  << " channels and noise floor.");
 
     return model;
 }
 
-double
-Dect2020ExtChannelManager::GetRssiDbm(uint16_t channelId)
+// Global variables to store spectrum analyzer results
+static std::map<uint16_t, double> g_channelRssiResults;
+static std::map<uint16_t, bool> g_channelMeasurementComplete;
+
+void
+Dect2020ExtChannelManager::SpectrumAnalyzerReport(Ptr<const SpectrumValue> spectrumValue)
 {
-    uint8_t bandNumber = GetBandNumber(channelId);
-    uint16_t channelIndex = channelId - GetFirstValidChannelNumber(bandNumber);
-
-    auto it = m_channelOccupancy.find(bandNumber);
-
-    if (it == m_channelOccupancy.end() || it->second == nullptr)
+    static int reportCount = 0;
+    reportCount++;
+    NS_LOG_INFO("SpectrumAnalyzerReport #" << reportCount);
+    
+    // Get the spectrum model to access center frequencies
+    Ptr<const SpectrumModel> spectrumModel = spectrumValue->GetSpectrumModel();
+    
+    std::cout << "Report #" << reportCount << " at time " << Simulator::Now().GetSeconds() << "s:" << std::endl;
+    
+    // Calculate RSSI for each frequency band separately
+    size_t bandIndex = 0;
+    
+    auto modelIt = spectrumModel->Begin();
+    auto valueIt = spectrumValue->ConstValuesBegin();
+    
+    for (; modelIt != spectrumModel->End() && valueIt != spectrumValue->ConstValuesEnd(); 
+         ++modelIt, ++valueIt, ++bandIndex)
     {
-        NS_LOG_WARN("SpectrumValue for band " << static_cast<int>(bandNumber)
-                                              << " not initialized. Creating now.");
-
-        Ptr<SpectrumModel> model = GetSpectrumModel(bandNumber);
-        it = m_channelOccupancy.find(bandNumber);
+        double bandPower_W = *valueIt;
+        double centerFreq_MHz = modelIt->fc / 1e6; // Convert Hz to MHz
+        
+        // Calculate RSSI for this specific frequency band
+        double rssi_dBm;
+        if (bandPower_W > 0) {
+            double bandPower_mW = bandPower_W * 1000.0;
+            rssi_dBm = 10.0 * std::log10(bandPower_mW);
+        } else {
+            rssi_dBm = -std::numeric_limits<double>::infinity();
+        }
+        
+        std::cout << "  Channel " << std::setfill(' ') << std::setw(2) << bandIndex 
+                  << " - Freq: " << std::fixed << std::setprecision(3) << centerFreq_MHz 
+                  << " MHz, RSSI: " << std::setprecision(1) << rssi_dBm << " dBm";
+        
+        // Highlight channels with significant traffic (above thermal noise)
+        if (bandPower_W > 1e-15) { // Much higher than thermal noise (~4e-21)
+            std::cout << " <-- TRAFFIC DETECTED!";
+            if (bandPower_W > 5e-15) {
+                std::cout << " [HIGH TRAFFIC]";
+            } else if (bandPower_W > 1e-15) {
+                std::cout << " [MEDIUM TRAFFIC]";
+            } else {
+                std::cout << " [LOW TRAFFIC]";
+            }
+        }
+        std::cout << std::endl;
     }
+    
+    // Stop the analyzer after the first report
+    if (reportCount == 1) {
+        std::cout << "Stopping SpectrumAnalyzer after first report..." << std::endl;
+        m_spectrumAnalyzer->Stop();
+    }
+}
 
-    Ptr<SpectrumValue> psd = it->second;
-    return WToDbm((*psd)[channelIndex]);
+void
+Dect2020ExtChannelManager::GetRssiDbm()
+{
+    Ptr<ConstantSpeedPropagationDelayModel> propagationDelay = Create<ConstantSpeedPropagationDelayModel>();
+    Ptr<LogDistancePropagationLossModel> propagationLoss = Create<LogDistancePropagationLossModel>();
+    Ptr<SingleModelSpectrumChannel> spectrumChannel = Create<SingleModelSpectrumChannel>();
+
+    spectrumChannel->SetPropagationDelayModel(propagationDelay);
+    spectrumChannel->AddPropagationLossModel(propagationLoss);
+
+    Ptr<SpectrumAnalyzer> spectrumAnalyzer = CreateObject<SpectrumAnalyzer>();
+
+    Ptr<SpectrumModel> spectrumModel = GetSpectrumModel(1);
+    m_spectrumAnalyzer = spectrumAnalyzer;
+    spectrumAnalyzer->SetRxSpectrumModel(spectrumModel);
+
+    spectrumAnalyzer->SetAttribute("Resolution", TimeValue(MicroSeconds(416.67)));
+
+    spectrumAnalyzer->TraceConnectWithoutContext("AveragePowerSpectralDensityReport",
+                                                    MakeCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerReport));
+                                
+    spectrumChannel->AddRx(spectrumAnalyzer);
+    m_spectrumAnalyzer->Start();
 }
 
 double
