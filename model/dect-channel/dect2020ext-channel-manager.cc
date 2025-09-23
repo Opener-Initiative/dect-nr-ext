@@ -1,3 +1,25 @@
+// Note: for RSSI measurements use completion callbacks or signals/events:
+// Add to header:
+// static std::function<void(double)> m_onMeasurementComplete;
+
+// // In callback:
+// if (m_onMeasurementComplete) {
+//     m_onMeasurementComplete(rssi_dBm);
+// }
+
+// // Usage:
+// Dect2020ExtChannelManager::m_onMeasurementComplete = [](double rssi) {
+//     std::cout << "Measurement complete: " << rssi << " dBm" << std::endl;
+// };
+
+// Add to header:
+// static TracedCallback<double> m_measurementTrace;
+
+// // In callback:
+// m_measurementTrace(rssi_dBm);
+
+// // Usage: Connect your own callback to get notified
+
 #include "dect2020ext-channel-manager.h"
 
 #include "ns3/spectrum-analyzer.h"
@@ -23,11 +45,9 @@ std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> Dect2020ExtChannelManag
 std::map<uint8_t, Ptr<SpectrumValue>> Dect2020ExtChannelManager::m_channelOccupancy;
 uint8_t Dect2020ExtChannelManager::m_subcarrierScalingFactor;
 
-Ptr<SpectrumAnalyzer> Dect2020ExtChannelManager::m_spectrumAnalyzer;
 Ptr<SingleModelSpectrumChannel> Dect2020ExtChannelManager::m_spectrumChannel;
 
-std::vector<double> Dect2020ExtChannelManager::m_powerResults;
-std::vector<double> Dect2020ExtChannelManager::m_rssiResults;
+std::map<uint16_t, std::vector<double>> Dect2020ExtChannelManager::m_rssiResults;
 
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
@@ -291,44 +311,50 @@ static std::map<uint16_t, bool> g_channelMeasurementComplete;
 void
 Dect2020ExtChannelManager::DisplayRssiResults(void)
 {
-    if (m_rssiResults.empty() && m_powerResults.empty())
+    if (m_rssiResults.empty())
     {
         std::cout << "No RSSI results available" << std::endl;
         return;
     }
     else
     {
-        for (auto rssi : m_rssiResults)
+        for (const auto& channelPair : m_rssiResults)
         {
-            std::cout << rssi << std::endl;
-        }
-        for (auto power : m_powerResults)
-        {
-            std::cout << power << std::endl;
+            uint16_t channelId = channelPair.first;
+            const std::vector<double>& rssiValues = channelPair.second;
+            
+            std::cout << "Channel " << channelId << " RSSI values:" << rssiValues.size() << std::endl;
         }
     }
 }
 
-void
-Dect2020ExtChannelManager::SpectrumAnalyzerCallback(Ptr<const SpectrumValue> spectrumValue)
+std::map<uint16_t, std::vector<double>>
+Dect2020ExtChannelManager::GetRssiResults(void)
 {
+    return m_rssiResults;
+}
+
+void
+Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
+{
+    NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
     static int reportCount = 0;
     reportCount++;
-    NS_LOG_INFO("SpectrumAnalyzerReport #" << reportCount);
     
     // Get the spectrum model to access center frequencies
     Ptr<const SpectrumModel> spectrumModel = spectrumValue->GetSpectrumModel();
     
-    std::cout << "Report #" << reportCount << " at time " << Simulator::Now().GetSeconds() << "s:" << std::endl;
+    // NS_LOG_INFO("Report #" << reportCount << " at time " << Simulator::Now().GetSeconds() << "s:");
     
     auto modelIt = spectrumModel->Begin();
     auto valueIt = spectrumValue->ConstValuesBegin();
+    auto logicChannelIt = m_channels[1].begin();
     
     for (; modelIt != spectrumModel->End() && valueIt != spectrumValue->ConstValuesEnd(); 
-         ++modelIt, ++valueIt)
+         ++modelIt, ++valueIt, ++logicChannelIt)
     {
         double bandPower_W = *valueIt;
-        
+
         // Calculate RSSI
         double rssi_dBm;
         
@@ -341,38 +367,34 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallback(Ptr<const SpectrumValue> spe
             std::cout << "  WARNING: Very small or zero power detected: " << bandPower_W << " W" << std::endl;
         }
 
-        m_rssiResults.push_back(rssi_dBm);
-        m_powerResults.push_back(bandPower_W);
+        m_rssiResults[(*logicChannelIt)->m_channelId].push_back(rssi_dBm);
     }
     
-    // Stop the analyzer after the first report
-    if (reportCount == 1) {
-        std::cout << "Stopping SpectrumAnalyzer after first report..." << std::endl;
-        m_spectrumAnalyzer->Stop();
-    }
+    // NS_LOG_INFO("Stopping SpectrumAnalyzer after first report...");
+    analyzer->Stop();
 }
 
 void
-Dect2020ExtChannelManager::MeasureRssi()
+Dect2020ExtChannelManager::MeasureRssi(TimeValue duration)
 {
     if (m_spectrumChannel == nullptr)
     {
         NS_FATAL_ERROR("Spectrum channel is not set for Dect2020ExtChannelManager");
     }
 
+    // Create a NEW spectrum analyzer for each measurement
     Ptr<SpectrumAnalyzer> spectrumAnalyzer = CreateObject<SpectrumAnalyzer>();
-    Ptr<SpectrumModel> spectrumModel = GetSpectrumModel(1);
-    m_spectrumAnalyzer = spectrumAnalyzer;
 
-    spectrumAnalyzer->SetRxSpectrumModel(spectrumModel);
+    spectrumAnalyzer->SetRxSpectrumModel(GetSpectrumModel(1));
 
-    spectrumAnalyzer->SetAttribute("Resolution", TimeValue(MicroSeconds(416.67)));
+    spectrumAnalyzer->SetAttribute("Resolution", duration);
 
+    // Use MakeBoundCallback to bind the specific analyzer to the callback
     spectrumAnalyzer->TraceConnectWithoutContext("AveragePowerSpectralDensityReport",
-                                                    MakeCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallback));
+                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer, spectrumAnalyzer));
                                 
     m_spectrumChannel->AddRx(spectrumAnalyzer);
-    m_spectrumAnalyzer->Start();
+    spectrumAnalyzer->Start();
 }
 
 void 
