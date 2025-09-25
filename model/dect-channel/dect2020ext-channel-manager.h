@@ -49,11 +49,11 @@ public:
     static uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
 
     static Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
-    static void MeasureRssi(TimeValue duration);
+    static void MeasureRssi(uint16_t channelId, TimeValue duration);
     static double DbmToW(double dBm);
     static double WToDbm(double w);
 
-    static void SpectrumAnalyzerCallbackWithAnalyzer(Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
+    static void SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
     static void DisplayRssiResults(void);
     static std::map<uint16_t, std::vector<double>> GetRssiResults(void);
 
@@ -69,6 +69,8 @@ private:
     static Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
 
     static std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
+
+    static std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels;
 
 }; // class Dect2020ExtChannelManager
 

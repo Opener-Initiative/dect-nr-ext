@@ -49,6 +49,8 @@ Ptr<SingleModelSpectrumChannel> Dect2020ExtChannelManager::m_spectrumChannel;
 
 std::map<uint16_t, std::vector<double>> Dect2020ExtChannelManager::m_rssiResults;
 
+std::map<uint8_t, Ptr<SpectrumModel>> Dect2020ExtChannelManager::m_bandModels;
+
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
     m_spectrumChannel = nullptr;
@@ -288,6 +290,13 @@ Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
 Ptr<SpectrumModel>
 Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 {
+    // Check if a SpectrumModel for this band already exists
+    auto iterator = m_bandModels.find(bandId);
+    if (iterator != m_bandModels.end())
+    {
+        return iterator->second;
+    }
+
     // Spectrum Model for this band does not exist --> create it
     BandParameters bp = GetBandParameters(bandId);
 
@@ -300,6 +309,7 @@ Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 
     // Create the SpectrumModel from the calculated frequencies
     Ptr<SpectrumModel> model = Create<SpectrumModel>(frequencies);
+    m_bandModels[bandId] = model;
 
     return model;
 }
@@ -335,7 +345,7 @@ Dect2020ExtChannelManager::GetRssiResults(void)
 }
 
 void
-Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
+Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
     NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
     static int reportCount = 0;
@@ -367,7 +377,7 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(Ptr<SpectrumAnal
             std::cout << "  WARNING: Very small or zero power detected: " << bandPower_W << " W" << std::endl;
         }
 
-        m_rssiResults[(*logicChannelIt)->m_channelId].push_back(rssi_dBm);
+        m_rssiResults[channelId].push_back(rssi_dBm);
     }
     
     // NS_LOG_INFO("Stopping SpectrumAnalyzer after first report...");
@@ -375,7 +385,7 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(Ptr<SpectrumAnal
 }
 
 void
-Dect2020ExtChannelManager::MeasureRssi(TimeValue duration)
+Dect2020ExtChannelManager::MeasureRssi(uint16_t channelId, TimeValue duration)
 {
     if (m_spectrumChannel == nullptr)
     {
@@ -391,7 +401,7 @@ Dect2020ExtChannelManager::MeasureRssi(TimeValue duration)
 
     // Use MakeBoundCallback to bind the specific analyzer to the callback
     spectrumAnalyzer->TraceConnectWithoutContext("AveragePowerSpectralDensityReport",
-                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer, spectrumAnalyzer));
+                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer, channelId, spectrumAnalyzer));
                                 
     m_spectrumChannel->AddRx(spectrumAnalyzer);
     spectrumAnalyzer->Start();

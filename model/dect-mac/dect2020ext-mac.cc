@@ -100,10 +100,17 @@ Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020Ext
     double subslotDurationNs = slotDurationNs / numSubslots; // Subslot Duration in nanoseconds
     NS_LOG_INFO("Subslot Duration: " << subslotDurationNs << " ns");
     double subslotRssiMeasurementDelayNs = 0;
-    for (uint32_t i = 0; i < 24*numSubslots; i++)
+
+    for (auto channel : validChannels)
     {
-        Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, TimeValue(NanoSeconds(subslotDurationNs)));
-        subslotRssiMeasurementDelayNs += subslotDurationNs;
+        for (auto slot : channel->m_slots)
+        {
+            for (auto subslot : slot.subslots)
+            {
+                Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, channel->m_channelId, TimeValue(NanoSeconds(subslotDurationNs)));
+                subslotRssiMeasurementDelayNs += subslotDurationNs;
+            }
+        }
     }
     Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs + 100), &Dect2020ExtMac::OperatingChannelSelection, this);
 }
