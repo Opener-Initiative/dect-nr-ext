@@ -47,12 +47,12 @@ set(dect2020ext_mac_src
 set(dect2020ext_mac_h
     model/dect-mac/dect2020ext-mac.h)
 
-# # DECT-2020 EXT PHY
-# set(dect2020ext_phy_src
-#     model/dect-phy/dect2020ext-phy.cc)
+# DECT-2020 EXT PHY
+set(dect2020ext_phy_src
+    model/dect-phy/dect2020ext-phy.cc)
 
-# set(dect2020ext_phy_h
-#     model/dect-phy/dect2020ext-phy.h)
+set(dect2020ext_phy_h
+    model/dect-phy/dect2020ext-phy.h)
 
 # # Physical Header Field
 # set(physical_header_field_src
@@ -179,11 +179,13 @@ build_lib(
         ${dect2020ext_channel_manager_src}
         ${dect2020ext_channel_src}
         ${dect2020ext_mac_src}
+        ${dect2020ext_phy_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
         ${dect2020ext_channel_h}
         ${dect2020ext_mac_h}
+        ${dect2020ext_phy_h}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libdect-nr}

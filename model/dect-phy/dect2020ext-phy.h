@@ -5,6 +5,10 @@
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
+#include "ns3/traced-value.h"
+#include "ns3/callback.h"
+
+#include <vector>
 
 namespace ns3
 {
@@ -23,12 +27,24 @@ class Dect2020ExtPhy : public Object
 
 		void StartFrameTimer();
 		void ProcessSlot(uint32_t slot, double slotStartTime);
-		void ProcessSubslot(uint32_t slotId, uint32_t subslotId);
-		Slot* GetCurrentSlot(uint32_t channelId);
-		Subslot* GetCurrentSubslot(uint32_t channelId);
+		void ProcessSubslot(uint32_t slotId, uint32_t subslotId, uint32_t absoluteSubslotId);
+		Slot* GetCurrentSlot();
+		Subslot* GetCurrentSubslot();
+		void OnNewFrame(Callback<void, uint32_t, uint32_t> callback);
+		void DisconnectSFNCallback();
+
+		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+		uint8_t GetSubcarrierScalingFactor() const;
+		Time GetNextSubslotTime();
 	
+		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
+		Callback<void, uint32_t, uint32_t> m_SFNCallback;
 	private:
 	    Time m_frameStartTime;
+		uint8_t m_subcarrierScalingFactor;
+		std::vector<int> m_frame;
+		uint32_t m_currentSubslotId;
+		uint32_t m_totalSubslotsPerFrame;
 
 		// ###################
 		// #### Constants ####
@@ -36,6 +52,7 @@ class Dect2020ExtPhy : public Object
 
 		const double SLOT_DURATION_NS = 416666; // 0,41667 ms in nanoseconds
 		const uint16_t FRAME_DURATION_US = 10000; // 10 ms in microseconds
+		const uint32_t SLOTS_PER_FRAME = 24;
 };
 
 } // namespace ns3

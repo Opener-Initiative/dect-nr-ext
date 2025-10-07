@@ -51,6 +51,8 @@ std::map<uint16_t, std::vector<double>> Dect2020ExtChannelManager::m_rssiResults
 
 std::map<uint8_t, Ptr<SpectrumModel>> Dect2020ExtChannelManager::m_bandModels;
 
+uint8_t Dect2020ExtChannelManager::m_bandNumber;
+
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
     m_spectrumChannel = nullptr;
@@ -81,6 +83,13 @@ Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
     // ###################################
     // #### Initialize logic channels ####
     // ###################################
+
+    // Check if band number is valid (currently only 1 band is supported)
+    if (bandNumber != 1)
+    {
+        NS_FATAL_ERROR("Invalid band number. Currently only band 1 is supported.");
+    }
+    m_bandNumber = bandNumber;
 
     // Check if subcarrier scaling factor is valid
     if (!(subcarrierScalingFactor == 1 || subcarrierScalingFactor == 2 ||
@@ -215,10 +224,10 @@ Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
     return validChannels;
 }
 
-std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>>
+std::vector<Ptr<Dect2020ExtChannel>>
 Dect2020ExtChannelManager::GetChannels(void)
 {
-    return m_channels;
+    return m_channels[m_bandNumber];
 }
 
 uint32_t
