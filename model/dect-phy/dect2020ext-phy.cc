@@ -86,6 +86,7 @@ Dect2020ExtPhy::ProcessSubslot(uint32_t slotId, uint32_t subslotId, uint32_t abs
 Slot*
 Dect2020ExtPhy::GetCurrentSlot()
 {
+    // TODO: Implement slot retrieval logic
     return nullptr;
 }
 
@@ -127,22 +128,26 @@ Dect2020ExtPhy::GetSubcarrierScalingFactor() const
 Time
 Dect2020ExtPhy::GetNextSubslotTime()
 {
-    NS_LOG_FUNCTION(this);
+    // TODO: Implement this method if required
 
-    uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
+    // NS_LOG_FUNCTION(this);
 
-    uint32_t nextSubslotId = (m_currentSubslotId + 1) % m_totalSubslotsPerFrame;
+    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
+    // double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
 
-    // If we're going to the next frame
-    if (nextSubslotId == 0)
-    {
-        Time nextFrameStart = m_frameStartTime + MicroSeconds(FRAME_DURATION_US);
-        return nextFrameStart;
-    }
+    // uint32_t nextSubslotId = (m_currentSubslotId + 1) % m_totalSubslotsPerFrame;
 
-    Time nextSubslotTime = m_frameStartTime + NanoSeconds(nextSubslotId * subslotDurationNs);
-    return nextSubslotTime;
+    // // If we're going to the next frame
+    // if (nextSubslotId == 0)
+    // {
+    //     Time nextFrameStart = m_frameStartTime + MicroSeconds(FRAME_DURATION_US);
+    //     return nextFrameStart;
+    // }
+
+    // Time nextSubslotTime = m_frameStartTime + NanoSeconds(nextSubslotId * subslotDurationNs);
+    // return nextSubslotTime;
+
+    return Seconds(0);
 }
 
 } // namespace ns3
