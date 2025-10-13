@@ -24,3 +24,15 @@ build_lib_example(
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
 )
+
+build_lib_example(
+    NAME dect2020ext-rssi-test.cc
+    SOURCE_FILES dect2020ext-rssi-test.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr-ext}
+        ${libdect-nr}
+        ${libpoint-to-point}
+        ${libinternet}
+        ${libnetwork}
+        ${libapplications}
+)

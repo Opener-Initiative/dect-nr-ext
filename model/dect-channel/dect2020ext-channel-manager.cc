@@ -41,18 +41,6 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
 // Define static member variables
 
-std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> Dect2020ExtChannelManager::m_channels;
-std::map<uint8_t, Ptr<SpectrumValue>> Dect2020ExtChannelManager::m_channelOccupancy;
-uint8_t Dect2020ExtChannelManager::m_subcarrierScalingFactor;
-
-Ptr<SingleModelSpectrumChannel> Dect2020ExtChannelManager::m_spectrumChannel;
-
-std::map<uint16_t, std::vector<double>> Dect2020ExtChannelManager::m_rssiResults;
-
-std::map<uint8_t, Ptr<SpectrumModel>> Dect2020ExtChannelManager::m_bandModels;
-
-uint8_t Dect2020ExtChannelManager::m_bandNumber;
-
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
     m_spectrumChannel = nullptr;
@@ -68,9 +56,14 @@ Dect2020ExtChannelManager::GetTypeId(void)
     static TypeId tid = TypeId("ns3::Dect2020ExtChannelManager")
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
-                                .AddConstructor<Dect2020ExtChannelManager>();
+                                .AddConstructor<Dect2020ExtChannelManager>()
+                                .AddTraceSource("RssiMeasured",
+                                                "RSSI Measurement",
+                                                MakeTraceSourceAccessor(&Dect2020ExtChannelManager::m_rssiMeasured),
+                                                "ns3::TracedCallback::Uint16Double");
     return tid;
 }
+
 
 
 // Initializes logic channels
@@ -354,6 +347,12 @@ Dect2020ExtChannelManager::GetRssiResults(void)
 }
 
 void
+Dect2020ExtChannelManager::SpectrumAnalyzerCbThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
+{
+    self->SpectrumAnalyzerCallbackWithAnalyzer(channelId, analyzer, spectrumValue);
+}
+
+void
 Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
     NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
@@ -386,7 +385,13 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channel
             std::cout << "  WARNING: Very small or zero power detected: " << bandPower_W << " W" << std::endl;
         }
 
-        m_rssiResults[channelId].push_back(rssi_dBm);
+        uint16_t currentChannelId = (*logicChannelIt)->m_channelId;
+        
+        if (currentChannelId == channelId)
+        {
+            m_rssiMeasured(channelId, rssi_dBm);
+        }
+        m_rssiResults[currentChannelId].push_back(rssi_dBm);
     }
     
     // NS_LOG_INFO("Stopping SpectrumAnalyzer after first report...");
@@ -408,9 +413,9 @@ Dect2020ExtChannelManager::MeasureRssi(uint16_t channelId, TimeValue duration)
 
     spectrumAnalyzer->SetAttribute("Resolution", duration);
 
-    // Use MakeBoundCallback to bind the specific analyzer to the callback
+    // Use MakeBoundCallback with static thunk to bind channelId and analyzer parameters
     spectrumAnalyzer->TraceConnectWithoutContext("AveragePowerSpectralDensityReport",
-                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer, channelId, spectrumAnalyzer));
+                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCbThunk, this, channelId, spectrumAnalyzer));
                                 
     m_spectrumChannel->AddRx(spectrumAnalyzer);
     spectrumAnalyzer->Start();

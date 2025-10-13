@@ -41,29 +41,29 @@ Dect2020ExtPhy::StartFrameTimer()
 
     m_frameStartTime = Simulator::Now();
     m_currentSubslotId = 0;
-    uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    m_totalSubslotsPerFrame = SLOTS_PER_FRAME * subslotsPerSlot;
-    double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
+    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
+    // m_totalSubslotsPerFrame = SLOTS_PER_FRAME * subslotsPerSlot;
+    // double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
 
-    // Schedule all subslots for this frame
-    for (uint32_t slot = 0; slot < SLOTS_PER_FRAME; slot++)
-    {
-        for (uint32_t subslot = 0; subslot < subslotsPerSlot; subslot++)
-        {
-            double subslotStartTime = (slot * SLOT_DURATION_NS) + (subslot * subslotDurationNs);
+    // // Schedule all subslots for this frame
+    // for (uint32_t slot = 0; slot < SLOTS_PER_FRAME; slot++)
+    // {
+    //     for (uint32_t subslot = 0; subslot < subslotsPerSlot; subslot++)
+    //     {
+    //         double subslotStartTime = (slot * SLOT_DURATION_NS) + (subslot * subslotDurationNs);
 
-            Simulator::Schedule(NanoSeconds(subslotStartTime),
-                                &Dect2020ExtPhy::ProcessSubslot,
-                                this,
-                                slot,
-                                subslot,
-                                slot * subslotsPerSlot + subslot);
-        }
-    }
+    //         Simulator::Schedule(NanoSeconds(subslotStartTime),
+    //                             &Dect2020ExtPhy::ProcessSubslot,
+    //                             this,
+    //                             slot,
+    //                             subslot,
+    //                             slot * subslotsPerSlot + subslot);
+    //     }
+    // }
 
-    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US),
-                        &Dect2020ExtPhy::StartFrameTimer,
-                        this);
+    // Simulator::Schedule(MicroSeconds(FRAME_DURATION_US),
+    //                     &Dect2020ExtPhy::StartFrameTimer,
+    //                     this);
 }
 
 void
@@ -78,9 +78,9 @@ Dect2020ExtPhy::ProcessSubslot(uint32_t slotId, uint32_t subslotId, uint32_t abs
     {
         m_SFN++;
     }
-    uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    m_currentSubslotId = slotId * subslotsPerSlot + subslotId;
-    NS_LOG_INFO(slotId << " " << subslotId << " " << absoluteSubslotId);
+    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
+    // m_currentSubslotId = slotId * subslotsPerSlot + subslotId;
+    // NS_LOG_INFO(slotId << " " << subslotId << " " << absoluteSubslotId);
 }
 
 Slot*
@@ -148,6 +148,13 @@ Dect2020ExtPhy::GetNextSubslotTime()
     // return nextSubslotTime;
 
     return Seconds(0);
+}
+
+void
+Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
+{
+    m_mac = mac;
+    m_mac->SetPhy(this);
 }
 
 } // namespace ns3

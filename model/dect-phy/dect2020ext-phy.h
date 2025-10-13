@@ -2,6 +2,7 @@
 #define DECT2020EXT_PHY_H
 
 #include "ns3/dect2020ext-channel.h"
+#include "ns3/dect2020ext-mac.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -16,6 +17,7 @@ namespace ns3
 class Dect2020ExtChannel;
 struct Slot;
 struct Subslot;
+class Dect2020ExtMac;
 
 class Dect2020ExtPhy : public Object
 {
@@ -36,15 +38,19 @@ class Dect2020ExtPhy : public Object
 		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
 		uint8_t GetSubcarrierScalingFactor() const;
 		Time GetNextSubslotTime();
+
+		void SetMac(Ptr<Dect2020ExtMac> mac);
 	
-		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
 		Callback<void, uint32_t, uint32_t> m_SFNCallback;
+
 	private:
 	    Time m_frameStartTime;
 		uint8_t m_subcarrierScalingFactor;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;
+		Ptr<Dect2020ExtMac> m_mac;
+		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
 
 		// ###################
 		// #### Constants ####

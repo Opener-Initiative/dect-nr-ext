@@ -39,39 +39,41 @@ public:
 
     void InitializeChannels(uint8_t bandNumber,
                             uint8_t subcarrierScalingFactor);
-    static BandParameters GetBandParameters(uint8_t bandNumber);
+    BandParameters GetBandParameters(uint8_t bandNumber);
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
-    static std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
-    static std::vector<Ptr<Dect2020ExtChannel>> GetChannels(void);
+    std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
+    std::vector<Ptr<Dect2020ExtChannel>> GetChannels(void);
 
-    static uint32_t GetSubslotsPerSlot(void);
-    static uint8_t GetBandNumber(uint16_t channelNumber);
-    static uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
+    uint32_t GetSubslotsPerSlot(void);
+    uint8_t GetBandNumber(uint16_t channelNumber);
+    uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
 
-    static Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
-    static void MeasureRssi(uint16_t channelId, TimeValue duration);
-    static double DbmToW(double dBm);
-    static double WToDbm(double w);
+    Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
+    void MeasureRssi(uint16_t channelId, TimeValue duration);
+    double DbmToW(double dBm);
+    double WToDbm(double w);
 
-    static void SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    static void DisplayRssiResults(void);
-    static std::map<uint16_t, std::vector<double>> GetRssiResults(void);
+    static void SpectrumAnalyzerCbThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
+    void SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
 
-    static void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
-    static Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
+    void DisplayRssiResults(void);
+    std::map<uint16_t, std::vector<double>> GetRssiResults(void);
+
+    void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
+    Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
+    TracedCallback<uint16_t, double> m_rssiMeasured; // (channelId, rssiDbm)
 
 private:
-    static std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
-    static std::map<uint8_t, Ptr<SpectrumValue>> m_channelOccupancy;
-    static uint8_t m_subcarrierScalingFactor;
-    static uint8_t m_bandNumber;
+    std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
+    std::map<uint8_t, Ptr<SpectrumValue>> m_channelOccupancy;
+    uint8_t m_subcarrierScalingFactor;
+    uint8_t m_bandNumber;
 
     // Spectrum
-    static Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
+    Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
 
-    static std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
-
-    static std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels;
+    std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
+    std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels;
 
 }; // class Dect2020ExtChannelManager
 

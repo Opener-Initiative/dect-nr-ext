@@ -4,6 +4,7 @@
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
 #include "ns3/attribute.h"
+#include "ns3/callback.h"
 
 namespace ns3
 {
@@ -11,9 +12,22 @@ namespace ns3
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtMac");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 
+// Helper to adapt member method to Callback<void,uint32_t,uint32_t>
+static void
+MeasureRssiAndScheduleNextThunk(Dect2020ExtMac* mac,
+                                uint32_t numSubslots,
+                                std::vector<Ptr<Dect2020ExtChannel>> validChannels,
+                                uint16_t numOfValidChannels,
+                                uint32_t oldValue,
+                                uint32_t newValue)
+{
+    mac->MeasureAndScheduleNextSubslot(numSubslots, validChannels, numOfValidChannels, oldValue, newValue);
+}
+
 Dect2020ExtMac::Dect2020ExtMac()
 {
     NS_LOG_FUNCTION(this);
+    // Dect2020ExtChannelManager::m_rssiMeasured.ConnectWithoutContext(MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 }
 
 Dect2020ExtMac::~Dect2020ExtMac()
@@ -35,45 +49,45 @@ void
 Dect2020ExtMac::OperatingChannelSelection(void)
 {
     NS_LOG_FUNCTION(this);
-    const auto rssiResults = Dect2020ExtChannelManager::GetRssiResults();
-    auto channels = Dect2020ExtChannelManager::GetValidChannels(1);
+    // const auto rssiResults = Dect2020ExtChannelManager::GetRssiResults();
+    // auto channels = Dect2020ExtChannelManager::GetValidChannels(1);
     
-    for (auto channel : channels)  // channel is Ptr<Dect2020ExtChannel>, so this is OK
-    {
-        auto rssiIt = rssiResults.find(channel->m_channelId);
-        if (rssiIt != rssiResults.end())
-        {
-            auto rssiResultsIt = rssiIt->second.begin();
+    // for (auto channel : channels)  // channel is Ptr<Dect2020ExtChannel>, so this is OK
+    // {
+    //     auto rssiIt = rssiResults.find(channel->m_channelId);
+    //     if (rssiIt != rssiResults.end())
+    //     {
+    //         auto rssiResultsIt = rssiIt->second.begin();
             
-            for (auto& slot : channel->m_slots)  // REFERENCE to slot
-            {
-                for (auto& subslot : slot.subslots)  // REFERENCE to subslot
-                {
-                    if (rssiResultsIt != rssiIt->second.end())
-                    {
-                        if (*rssiResultsIt <= RSSI_THRESHOLD_MIN)
-                        {
-                            subslot.status = SubslotStatus::FREE;
-                        }
-                        if (*rssiResultsIt > RSSI_THRESHOLD_MIN && *rssiResultsIt <= RSSI_THRESHOLD_MAX)
-                        {
-                            subslot.status = SubslotStatus::POSSIBLE;
-                        }
-                        if (*rssiResultsIt > RSSI_THRESHOLD_MAX)
-                        {
-                            subslot.status = SubslotStatus::BUSY;
-                        }
-                        subslot.rssi = *rssiResultsIt;  // Now modifying the ORIGINAL
-                        rssiResultsIt++;
-                    }
-                }
-            }
-        }
-        else
-        {
-            NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
-        }
-    }
+    //         for (auto& slot : channel->m_slots)  // REFERENCE to slot
+    //         {
+    //             for (auto& subslot : slot.subslots)  // REFERENCE to subslot
+    //             {
+    //                 if (rssiResultsIt != rssiIt->second.end())
+    //                 {
+    //                     if (*rssiResultsIt <= RSSI_THRESHOLD_MIN)
+    //                     {
+    //                         subslot.status = SubslotStatus::FREE;
+    //                     }
+    //                     if (*rssiResultsIt > RSSI_THRESHOLD_MIN && *rssiResultsIt <= RSSI_THRESHOLD_MAX)
+    //                     {
+    //                         subslot.status = SubslotStatus::POSSIBLE;
+    //                     }
+    //                     if (*rssiResultsIt > RSSI_THRESHOLD_MAX)
+    //                     {
+    //                         subslot.status = SubslotStatus::BUSY;
+    //                     }
+    //                     subslot.rssi = *rssiResultsIt;  // Now modifying the ORIGINAL
+    //                     rssiResultsIt++;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     else
+    //     {
+    //         NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
+    //     }
+    // }
 }
 
 void
@@ -82,37 +96,58 @@ Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
     NS_LOG_FUNCTION(this);
 
     // Prepare for the background scan
-    uint32_t numSubslots = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    auto validChannels = Dect2020ExtChannelManager::GetValidChannels(1);
+    uint32_t numSubslots = m_channelManager->GetSubslotsPerSlot();
+    auto validChannels = m_channelManager->GetValidChannels(1);
     uint16_t numOfValidChannels = validChannels.size();
+    m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
     // Schedule the background scan
     Simulator::Schedule(delay, &Dect2020ExtMac::BackgroundScan, this, numSubslots, validChannels, numOfValidChannels);
 }
 
 void
-Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels)
+Dect2020ExtMac::MeasureAndScheduleNextSubslot(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels, uint32_t ondValue, uint32_t newValue)
 {
     NS_LOG_FUNCTION(this << numSubslots << validChannels.size() << numOfValidChannels);
-    
+}
+
+void
+Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
+{
+    NS_LOG_FUNCTION(this << channelId << rssiDbm);
+    m_rssiByChannel[channelId].push_back(rssiDbm);
+}
+
+void
+Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, double subslotDurationNs)
+{
+    // TODO: Figure out how to give all necessary information to the OnRssiMeasurement callback to determine if all channels have been measured
+    NS_LOG_FUNCTION(this << channel->m_channelId);
+    double subslotRssiMeasurementDelayNs = 0;
+    for (auto& slot : channel->m_slots)
+    {
+        for (auto& subslot : slot.subslots)
+        {
+            Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, m_channelManager, channel->m_channelId, TimeValue(NanoSeconds(subslotDurationNs)));
+            subslotRssiMeasurementDelayNs += subslotDurationNs;
+        }
+    }
+}
+
+void
+Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels)
+{
     const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
     const double slotDurationNs = 10000000 / slotsPerFrame;         // 0,41667 milliseconds in nanoseconds
     double subslotDurationNs = slotDurationNs / numSubslots; // Subslot Duration in nanoseconds
     NS_LOG_INFO("Subslot Duration: " << subslotDurationNs << " ns");
-    double subslotRssiMeasurementDelayNs = 0;
-
+    double channelRssiMeasurementDelayNs = 0;
     for (auto channel : validChannels)
     {
-        for (auto slot : channel->m_slots)
-        {
-            for (auto subslot : slot.subslots)
-            {
-                Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, channel->m_channelId, TimeValue(NanoSeconds(subslotDurationNs)));
-                subslotRssiMeasurementDelayNs += subslotDurationNs;
-            }
-        }
+        // Schedule the RSSI measurement for each channel with 10ms period
+        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, subslotDurationNs);
+        channelRssiMeasurementDelayNs += 10000000; // 10 milliseconds
     }
-    Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs + 100), &Dect2020ExtMac::OperatingChannelSelection, this);
 }
 
 void
@@ -125,6 +160,19 @@ void
 Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
 {
     m_netDevice = device;
+}
+
+void
+Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
+{
+    m_phy = phy;
+    m_phy->SetMac(this);
+}
+
+void
+Dect2020ExtMac::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
+{
+    m_channelManager = channelManager;
 }
 
 } // namespace ns3

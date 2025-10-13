@@ -3,6 +3,8 @@
 
 #include "ns3/dect2020ext-net-device.h"
 #include "ns3/dect2020ext-channel.h"
+#include "ns3/dect2020ext-phy.h"
+#include "ns3/dect2020ext-channel-manager.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -13,7 +15,9 @@
 namespace ns3
 {
 
+class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
+class Dect2020ExtPhy;
 
 struct ChannelEvaluation
 {
@@ -49,14 +53,22 @@ public:
 
     void OperatingChannelSelection(void);
     void ScheduleBackgroundScan(Time delay);
+    void MeasureAndScheduleNextSubslot(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels, uint32_t ondValue, uint32_t newValue);
+    void OnRssiMeasurement(uint16_t channelId, double rssiDbm);
+    void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, double subslotDurationNs);
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
     void SelectOperatingChannel(void);
 
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
+    void SetPhy(Ptr<Dect2020ExtPhy> phy);
+    void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 
 private:
     Ptr<Dect2020ExtNetDevice> m_netDevice;
+    Ptr<Dect2020ExtPhy> m_phy;
     std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
+    std::map<uint16_t, std::vector<double>> m_rssiByChannel;
+    Ptr<Dect2020ExtChannelManager> m_channelManager;
 
     // ####################
     // ##### Constants ####
