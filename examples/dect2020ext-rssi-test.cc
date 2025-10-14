@@ -56,9 +56,9 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtMac> mac = CreateObject<Dect2020ExtMac>();
     mac->SetChannelManager(channelManager);
 
-    mac->ScheduleBackgroundScan(Seconds(0));
+    mac->ScheduleBackgroundScan(MilliSeconds(0));
 
-    Simulator::Stop(MilliSeconds(11));
+    Simulator::Stop(MilliSeconds(211));
     Simulator::Run();
     Simulator::Destroy();
 

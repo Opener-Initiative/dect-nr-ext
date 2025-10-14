@@ -116,12 +116,19 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << channelId << rssiDbm);
     m_rssiByChannel[channelId].push_back(rssiDbm);
+    auto validChannels = m_channelManager->GetValidChannels(1);
+    const uint32_t totalSubslotsPerChannel = m_channelManager->GetSubslotsPerSlot() * 24;
+    if (m_rssiByChannel.size() == validChannels.size() && 
+        std::all_of(m_rssiByChannel.begin(), m_rssiByChannel.end(), 
+                    [totalSubslotsPerChannel](const auto& kv) { return kv.second.size() == totalSubslotsPerChannel; }))
+    {
+        OperatingChannelSelection();
+    }
 }
 
 void
 Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, double subslotDurationNs)
 {
-    // TODO: Figure out how to give all necessary information to the OnRssiMeasurement callback to determine if all channels have been measured
     NS_LOG_FUNCTION(this << channel->m_channelId);
     double subslotRssiMeasurementDelayNs = 0;
     for (auto& slot : channel->m_slots)
