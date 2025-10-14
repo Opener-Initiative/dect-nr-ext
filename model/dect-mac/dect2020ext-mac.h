@@ -55,7 +55,7 @@ public:
     void ScheduleBackgroundScan(Time delay);
     void MeasureAndScheduleNextSubslot(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels, uint32_t ondValue, uint32_t newValue);
     void OnRssiMeasurement(uint16_t channelId, double rssiDbm);
-    void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, double subslotDurationNs);
+    void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots);
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
     void SelectOperatingChannel(void);
 

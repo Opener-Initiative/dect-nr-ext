@@ -127,16 +127,19 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
 }
 
 void
-Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, double subslotDurationNs)
+Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots)
 {
     NS_LOG_FUNCTION(this << channel->m_channelId);
-    double subslotRssiMeasurementDelayNs = 0;
+    uint32_t subslotIndex = 0;
     for (auto& slot : channel->m_slots)
     {
         for (auto& subslot : slot.subslots)
         {
+            // Calculate delay based on proportion of frame duration to avoid rounding accumulation
+            int64_t subslotRssiMeasurementDelayNs = (frameDurationNs * subslotIndex) / numSubslots;
+            int64_t subslotDurationNs = (frameDurationNs * (subslotIndex + 1)) / numSubslots - subslotRssiMeasurementDelayNs;
             Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, m_channelManager, channel->m_channelId, TimeValue(NanoSeconds(subslotDurationNs)));
-            subslotRssiMeasurementDelayNs += subslotDurationNs;
+            subslotIndex++;
         }
     }
 }
@@ -145,15 +148,16 @@ void
 Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels)
 {
     const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
-    const double slotDurationNs = 10000000 / slotsPerFrame;         // 0,41667 milliseconds in nanoseconds
-    double subslotDurationNs = slotDurationNs / numSubslots; // Subslot Duration in nanoseconds
-    NS_LOG_INFO("Subslot Duration: " << subslotDurationNs << " ns");
-    double channelRssiMeasurementDelayNs = 0;
+    const int64_t frameDurationNs = 10000000; // 10 milliseconds in nanoseconds
+    const uint32_t totalSubslotsPerFrame = slotsPerFrame * numSubslots;
+    NS_LOG_INFO("Total subslots per frame: " << totalSubslotsPerFrame);
+    
+    int64_t channelRssiMeasurementDelayNs = 0;
     for (auto channel : validChannels)
     {
         // Schedule the RSSI measurement for each channel with 10ms period
-        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, subslotDurationNs);
-        channelRssiMeasurementDelayNs += 10000000; // 10 milliseconds
+        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, frameDurationNs, totalSubslotsPerFrame);
+        channelRssiMeasurementDelayNs += frameDurationNs;
     }
 }
 

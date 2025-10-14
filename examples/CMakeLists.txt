@@ -26,7 +26,7 @@ build_lib_example(
 )
 
 build_lib_example(
-    NAME dect2020ext-rssi-test.cc
+    NAME dect2020ext-rssi-test
     SOURCE_FILES dect2020ext-rssi-test.cc
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
