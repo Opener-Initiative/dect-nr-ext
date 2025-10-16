@@ -19,18 +19,18 @@ class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
 
-// struct ChannelEvaluation
-// {
-//     uint16_t channelId;
-//     uint32_t free = 0;
-//     uint32_t possible = 0;
-//     uint32_t busy = 0;
+struct Dect2020ExtChannelEvaluation
+{
+    uint16_t channelId;
+    uint32_t free = 0;
+    uint32_t possible = 0;
+    uint32_t busy = 0;
 
-//     uint32_t Total() const
-//     {
-//         return free + possible + busy;
-//     }
-// };
+    uint32_t Total() const
+    {
+        return free + possible + busy;
+    }
+};
 
 // struct SubslotScanContext
 // {
@@ -51,7 +51,8 @@ public:
 
     static TypeId GetTypeId(void);
 
-    void OperatingChannelSelection(void);
+    void EvaluateAllChannels(void);
+    void SelectOperatingChannel(void);
     void ScheduleBackgroundScan(Time delay);
     void OnRssiMeasurement(uint16_t channelId, double rssiDbm);
     void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots);
@@ -67,6 +68,7 @@ private:
     Ptr<Dect2020ExtPhy> m_phy;
     std::map<uint16_t, std::vector<double>> m_rssiByChannel;
     Ptr<Dect2020ExtChannelManager> m_channelManager;
+    uint32_t m_operatingChannelId;
 
     // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

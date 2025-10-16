@@ -34,7 +34,7 @@ Dect2020ExtMac::GetTypeId(void)
 }
 
 void
-Dect2020ExtMac::OperatingChannelSelection(void)
+Dect2020ExtMac::EvaluateAllChannels(void)
 {
     // TODO: Review this function and ensure that types are correct and that the logic is correct.
     NS_LOG_FUNCTION(this);
@@ -77,6 +77,46 @@ Dect2020ExtMac::OperatingChannelSelection(void)
             NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
         }
     }
+    SelectOperatingChannel();
+}
+
+void
+Dect2020ExtMac::SelectOperatingChannel(void)
+{
+    std::vector<Dect2020ExtChannelEvaluation> evaluations;
+    for (auto& channel : m_channelManager->GetChannels())
+    {
+        Dect2020ExtChannelEvaluation evaluation;
+        evaluation.channelId = channel->m_channelId;
+
+        for (auto& slot : channel->m_slots)
+        {
+            for (auto& subslot : slot.subslots)
+            {
+                if (subslot.status == SubslotStatus::FREE)
+                {
+                    evaluation.free++;
+                }
+                else if (subslot.status == SubslotStatus::POSSIBLE)
+                {
+                    evaluation.possible++;
+                }
+                else if (subslot.status == SubslotStatus::BUSY)
+                {
+                    evaluation.busy++;
+                }
+            }
+        }
+        evaluations.push_back(evaluation);
+    }
+
+    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
+    {
+        return a.free > b.free;
+    };
+
+    std::sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
+    m_operatingChannelId = evaluations[0].channelId;
 }
 
 void
@@ -105,7 +145,7 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
         std::all_of(m_rssiByChannel.begin(), m_rssiByChannel.end(), 
                     [totalSubslotsPerChannel](const auto& kv) { return kv.second.size() == totalSubslotsPerChannel; }))
     {
-        OperatingChannelSelection();
+        EvaluateAllChannels();
     }
 }
 
