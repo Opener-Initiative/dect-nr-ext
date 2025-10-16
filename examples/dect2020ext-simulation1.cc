@@ -15,24 +15,24 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtSimulation1");
 void
 CreateRSSIMatrix(void)
 {
-    auto channels = Dect2020ExtChannelManager::GetValidChannels(1);
-    std::cout << "\n========== RSSI Matrix ==========" << std::endl;
+    // // auto channels = Dect2020ExtChannelManager::GetValidChannels(1);
+    // std::cout << "\n========== RSSI Matrix ==========" << std::endl;
     
-    for (auto channel : channels)
-    {
-        std::cout << "Channel " << channel->m_channelId << " (Freq: " << channel->m_centerFrequency << " Hz):" << std::endl;
+    // for (auto channel : channels)
+    // {
+    //     std::cout << "Channel " << channel->m_channelId << " (Freq: " << channel->m_centerFrequency << " Hz):" << std::endl;
         
-        for (const auto& slot : channel->m_slots)  // Use const reference for reading
-        {
-            std::cout << "  Slot " << slot.slotId << ":" << std::endl;
-            for (const auto& subslot : slot.subslots)  // Use const reference for reading
-            {
-                std::cout << "    Subslot " << subslot.subslotId << ": RSSI = " << subslot.rssi << " dBm" << " Status = " << subslot.status << std::endl;
-            }
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "=================================" << std::endl;
+    //     for (const auto& slot : channel->m_slots)  // Use const reference for reading
+    //     {
+    //         std::cout << "  Slot " << slot.slotId << ":" << std::endl;
+    //         for (const auto& subslot : slot.subslots)  // Use const reference for reading
+    //         {
+    //             std::cout << "    Subslot " << subslot.subslotId << ": RSSI = " << subslot.rssi << " dBm" << " Status = " << subslot.status << std::endl;
+    //         }
+    //     }
+    //     std::cout << std::endl;
+    // }
+    // std::cout << "=================================" << std::endl;
 }
 
 int

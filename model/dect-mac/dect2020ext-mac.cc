@@ -48,46 +48,47 @@ Dect2020ExtMac::GetTypeId(void)
 void
 Dect2020ExtMac::OperatingChannelSelection(void)
 {
+    // TODO: Review this function and ensure that types are correct and that the logic is correct.
     NS_LOG_FUNCTION(this);
-    // const auto rssiResults = Dect2020ExtChannelManager::GetRssiResults();
-    // auto channels = Dect2020ExtChannelManager::GetValidChannels(1);
+    const auto rssiResults = m_rssiByChannel;
+    auto channels = m_channelManager->GetValidChannels(1);
     
-    // for (auto channel : channels)  // channel is Ptr<Dect2020ExtChannel>, so this is OK
-    // {
-    //     auto rssiIt = rssiResults.find(channel->m_channelId);
-    //     if (rssiIt != rssiResults.end())
-    //     {
-    //         auto rssiResultsIt = rssiIt->second.begin();
+    for (auto channel : channels)  // channel is Ptr<Dect2020ExtChannel>, so this is OK
+    {
+        auto rssiIt = rssiResults.find(channel->m_channelId);
+        if (rssiIt != rssiResults.end())
+        {
+            auto rssiResultsIt = rssiIt->second.begin();
             
-    //         for (auto& slot : channel->m_slots)  // REFERENCE to slot
-    //         {
-    //             for (auto& subslot : slot.subslots)  // REFERENCE to subslot
-    //             {
-    //                 if (rssiResultsIt != rssiIt->second.end())
-    //                 {
-    //                     if (*rssiResultsIt <= RSSI_THRESHOLD_MIN)
-    //                     {
-    //                         subslot.status = SubslotStatus::FREE;
-    //                     }
-    //                     if (*rssiResultsIt > RSSI_THRESHOLD_MIN && *rssiResultsIt <= RSSI_THRESHOLD_MAX)
-    //                     {
-    //                         subslot.status = SubslotStatus::POSSIBLE;
-    //                     }
-    //                     if (*rssiResultsIt > RSSI_THRESHOLD_MAX)
-    //                     {
-    //                         subslot.status = SubslotStatus::BUSY;
-    //                     }
-    //                     subslot.rssi = *rssiResultsIt;  // Now modifying the ORIGINAL
-    //                     rssiResultsIt++;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
-    //     }
-    // }
+            for (auto& slot : channel->m_slots)  // REFERENCE to slot
+            {
+                for (auto& subslot : slot.subslots)  // REFERENCE to subslot
+                {
+                    if (rssiResultsIt != rssiIt->second.end())
+                    {
+                        if (*rssiResultsIt <= RSSI_THRESHOLD_MIN)
+                        {
+                            subslot.status = SubslotStatus::FREE;
+                        }
+                        if (*rssiResultsIt > RSSI_THRESHOLD_MIN && *rssiResultsIt <= RSSI_THRESHOLD_MAX)
+                        {
+                            subslot.status = SubslotStatus::POSSIBLE;
+                        }
+                        if (*rssiResultsIt > RSSI_THRESHOLD_MAX)
+                        {
+                            subslot.status = SubslotStatus::BUSY;
+                        }
+                        subslot.rssi = *rssiResultsIt;  // Now modifying the ORIGINAL
+                        rssiResultsIt++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
+        }
+    }
 }
 
 void

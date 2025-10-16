@@ -43,35 +43,35 @@ public:
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetChannels(void);
-
     uint32_t GetSubslotsPerSlot(void);
     uint8_t GetBandNumber(uint16_t channelNumber);
     uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
-
     Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
+
+    // RSSI
+    void DisplayRssiResults(void);
+    std::map<uint16_t, std::vector<double>> GetRssiResults(void);
+    static void SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
+    void SpectrumAnalyzerCallback(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
     void MeasureRssi(uint16_t channelId, TimeValue duration);
+
+    // Setters and Getters
+    void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
+    Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
+
     double DbmToW(double dBm);
     double WToDbm(double w);
 
-    static void SpectrumAnalyzerCbThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    void SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-
-    void DisplayRssiResults(void);
-    std::map<uint16_t, std::vector<double>> GetRssiResults(void);
-
-    void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
-    Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
     TracedCallback<uint16_t, double> m_rssiMeasured; // (channelId, rssiDbm)
 
 private:
-    std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
-    std::map<uint8_t, Ptr<SpectrumValue>> m_channelOccupancy;
     uint8_t m_subcarrierScalingFactor;
     uint8_t m_bandNumber;
-
-    // Spectrum
+    std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
     Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
 
+    // These member variables are used for compatibility with the DECT-NR module.
+    // In the future, they should be changed to match the DECT-NR-EXT module.
     std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
     std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels;
 

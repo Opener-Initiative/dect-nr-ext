@@ -1,25 +1,3 @@
-// Note: for RSSI measurements use completion callbacks or signals/events:
-// Add to header:
-// static std::function<void(double)> m_onMeasurementComplete;
-
-// // In callback:
-// if (m_onMeasurementComplete) {
-//     m_onMeasurementComplete(rssi_dBm);
-// }
-
-// // Usage:
-// Dect2020ExtChannelManager::m_onMeasurementComplete = [](double rssi) {
-//     std::cout << "Measurement complete: " << rssi << " dBm" << std::endl;
-// };
-
-// Add to header:
-// static TracedCallback<double> m_measurementTrace;
-
-// // In callback:
-// m_measurementTrace(rssi_dBm);
-
-// // Usage: Connect your own callback to get notified
-
 #include "dect2020ext-channel-manager.h"
 
 #include "ns3/spectrum-analyzer.h"
@@ -39,11 +17,8 @@ namespace ns3
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtChannelManager");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
-// Define static member variables
-
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
-    m_spectrumChannel = nullptr;
 }
 
 Dect2020ExtChannelManager::~Dect2020ExtChannelManager()
@@ -64,9 +39,7 @@ Dect2020ExtChannelManager::GetTypeId(void)
     return tid;
 }
 
-
-
-// Initializes logic channels
+// Initialize logic channels
 void
 Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
                                               uint8_t subcarrierScalingFactor)
@@ -91,7 +64,7 @@ Dect2020ExtChannelManager::InitializeChannels(uint8_t bandNumber,
         NS_FATAL_ERROR("Invalid subcarrier scaling factor");
     }
 
-    m_subcarrierScalingFactor = subcarrierScalingFactor;
+    m_subcarrierScalingFactor = subcarrierScalingFactor; // Store the subcarrier scaling factor
     const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
 
     BandParameters bandParams = GetBandParameters(bandNumber); // Get current band parameters
@@ -204,6 +177,8 @@ Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t
     return centerFrequency;
 }
 
+// This function is here only for compatibility with the DECT-NR module.
+// It should not be used in the DECT-NR-EXT module.
 std::vector<Ptr<Dect2020ExtChannel>>
 Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
 {
@@ -347,15 +322,15 @@ Dect2020ExtChannelManager::GetRssiResults(void)
 }
 
 void
-Dect2020ExtChannelManager::SpectrumAnalyzerCbThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
+Dect2020ExtChannelManager::SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
-    self->SpectrumAnalyzerCallbackWithAnalyzer(channelId, analyzer, spectrumValue);
+    self->SpectrumAnalyzerCallback(channelId, analyzer, spectrumValue);
 }
 
 void
-Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
+Dect2020ExtChannelManager::SpectrumAnalyzerCallback(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
-    NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
+    // NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
     static int reportCount = 0;
     reportCount++;
     
@@ -376,13 +351,16 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallbackWithAnalyzer(uint16_t channel
         // Calculate RSSI
         double rssi_dBm;
         
-        if (bandPower_W > 0) {
+        if (bandPower_W > 0)
+        {
             double bandPower_mW = bandPower_W * 1000.0;
             rssi_dBm = 10.0 * std::log10(bandPower_mW);
-        } else {
+        }
+        else
+        {
             // Handle very small or zero power
             rssi_dBm = -std::numeric_limits<double>::infinity();
-            std::cout << "  WARNING: Very small or zero power detected: " << bandPower_W << " W" << std::endl;
+            NS_LOG_WARN("Very small or zero power detected: " << bandPower_W << " W");
         }
 
         uint16_t currentChannelId = (*logicChannelIt)->m_channelId;
@@ -415,7 +393,7 @@ Dect2020ExtChannelManager::MeasureRssi(uint16_t channelId, TimeValue duration)
 
     // Use MakeBoundCallback with static thunk to bind channelId and analyzer parameters
     spectrumAnalyzer->TraceConnectWithoutContext("AveragePowerSpectralDensityReport",
-                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCbThunk, this, channelId, spectrumAnalyzer));
+                                                  MakeBoundCallback(&Dect2020ExtChannelManager::SpectrumAnalyzerCallbackThunk, this, channelId, spectrumAnalyzer));
                                 
     m_spectrumChannel->AddRx(spectrumAnalyzer);
     spectrumAnalyzer->Start();
