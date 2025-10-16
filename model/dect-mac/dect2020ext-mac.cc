@@ -12,18 +12,6 @@ namespace ns3
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtMac");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 
-// Helper to adapt member method to Callback<void,uint32_t,uint32_t>
-static void
-MeasureRssiAndScheduleNextThunk(Dect2020ExtMac* mac,
-                                uint32_t numSubslots,
-                                std::vector<Ptr<Dect2020ExtChannel>> validChannels,
-                                uint16_t numOfValidChannels,
-                                uint32_t oldValue,
-                                uint32_t newValue)
-{
-    mac->MeasureAndScheduleNextSubslot(numSubslots, validChannels, numOfValidChannels, oldValue, newValue);
-}
-
 Dect2020ExtMac::Dect2020ExtMac()
 {
     NS_LOG_FUNCTION(this);
@@ -107,12 +95,6 @@ Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
 }
 
 void
-Dect2020ExtMac::MeasureAndScheduleNextSubslot(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels, uint32_t ondValue, uint32_t newValue)
-{
-    NS_LOG_FUNCTION(this << numSubslots << validChannels.size() << numOfValidChannels);
-}
-
-void
 Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << channelId << rssiDbm);
@@ -134,7 +116,7 @@ Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t fr
     uint32_t subslotIndex = 0;
     for (auto& slot : channel->m_slots)
     {
-        for (auto& subslot : slot.subslots)
+        for (auto& _ : slot.subslots)
         {
             // Calculate delay based on proportion of frame duration to avoid rounding accumulation
             int64_t subslotRssiMeasurementDelayNs = (frameDurationNs * subslotIndex) / numSubslots;
@@ -160,12 +142,6 @@ Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020Ext
         Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, frameDurationNs, totalSubslotsPerFrame);
         channelRssiMeasurementDelayNs += frameDurationNs;
     }
-}
-
-void
-Dect2020ExtMac::SelectOperatingChannel(void)
-{
-    NS_LOG_FUNCTION(this);
 }
 
 void

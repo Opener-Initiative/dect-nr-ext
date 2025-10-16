@@ -19,28 +19,28 @@ class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
 
-struct ChannelEvaluation
-{
-    uint16_t channelId;
-    uint32_t free = 0;
-    uint32_t possible = 0;
-    uint32_t busy = 0;
+// struct ChannelEvaluation
+// {
+//     uint16_t channelId;
+//     uint32_t free = 0;
+//     uint32_t possible = 0;
+//     uint32_t busy = 0;
 
-    uint32_t Total() const
-    {
-        return free + possible + busy;
-    }
-};
+//     uint32_t Total() const
+//     {
+//         return free + possible + busy;
+//     }
+// };
 
-struct SubslotScanContext
-{
-    uint32_t channelId;
-    uint32_t subslotCount; // Counter for how many Subslots have been measured
-    ChannelEvaluation evaluation;
-    std::function<void(const ChannelEvaluation&)>
-        onComplete; // Callback to be called when the scan is complete (OperatingChannelSelection,
-                    // LBT, ...)
-};
+// struct SubslotScanContext
+// {
+//     uint32_t channelId;
+//     uint32_t subslotCount; // Counter for how many Subslots have been measured
+//     ChannelEvaluation evaluation;
+//     std::function<void(const ChannelEvaluation&)>
+//         onComplete; // Callback to be called when the scan is complete (OperatingChannelSelection,
+//                     // LBT, ...)
+// };
 
 class Dect2020ExtMac : public Object
 {
@@ -53,12 +53,11 @@ public:
 
     void OperatingChannelSelection(void);
     void ScheduleBackgroundScan(Time delay);
-    void MeasureAndScheduleNextSubslot(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels, uint32_t ondValue, uint32_t newValue);
     void OnRssiMeasurement(uint16_t channelId, double rssiDbm);
     void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots);
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
-    void SelectOperatingChannel(void);
 
+    // Setters
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
     void SetPhy(Ptr<Dect2020ExtPhy> phy);
     void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
@@ -66,9 +65,10 @@ public:
 private:
     Ptr<Dect2020ExtNetDevice> m_netDevice;
     Ptr<Dect2020ExtPhy> m_phy;
-    std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
     std::map<uint16_t, std::vector<double>> m_rssiByChannel;
     Ptr<Dect2020ExtChannelManager> m_channelManager;
+
+    // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 
     // ####################
     // ##### Constants ####
