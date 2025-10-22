@@ -51,6 +51,8 @@ public:
 
     static TypeId GetTypeId(void);
 
+    // Spectrum Management Procedure
+
     void EvaluateAllChannels(void);
     void SelectOperatingChannel(void);
     void ScheduleBackgroundScan(Time delay);
@@ -58,7 +60,13 @@ public:
     void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots);
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
 
+    // Beacon Transmission
+    void StartBeaconTransmission(void);
+    void StartNetworkBeaconTransmission(void);
+    void StartClusterBeaconTransmission(void);
+
     // Setters
+
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
     void SetPhy(Ptr<Dect2020ExtPhy> phy);
     void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
@@ -69,6 +77,9 @@ private:
     std::map<uint16_t, std::vector<double>> m_rssiByChannel;
     Ptr<Dect2020ExtChannelManager> m_channelManager;
     uint32_t m_operatingChannelId;
+    uint32_t m_networkBeaconChannelId;
+
+
 
     // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

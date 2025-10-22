@@ -5,11 +5,11 @@
 
 namespace ns3 {
 
-class Dect2020PhysicalHeaderFieldSerializationTestCase1 : public TestCase
+class Dect2020ExtPhysicalHeaderFieldSerializationTestCase1 : public TestCase
 {
 public:
-    Dect2020PhysicalHeaderFieldSerializationTestCase1();
-    virtual ~Dect2020PhysicalHeaderFieldSerializationTestCase1();
+    Dect2020ExtPhysicalHeaderFieldSerializationTestCase1();
+    virtual ~Dect2020ExtPhysicalHeaderFieldSerializationTestCase1();
     void DoSetup() override;
     void DoRun() override;
 };

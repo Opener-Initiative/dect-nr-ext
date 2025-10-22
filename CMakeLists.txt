@@ -5,19 +5,19 @@ if(NOT HAVE_STDINT_H)
     message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
 endif()
 
-##########
-##HELPER##
-##########
+############
+## HELPER ##
+############
 
-# set(mac_pdu_helper_src
-#     helper/mac-pdu/dect2020ext-mac-pdu-helper.cc)
+set(dect2020ext_mac_pdu_helper_src
+    helper/mac-pdu/dect2020ext-mac-pdu-helper.cc)
 
-# set(mac_pdu_helper_h
-#     helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
+set(dect2020ext_mac_pdu_helper_h
+    helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
 
-#########
-##MODEL##
-#########
+###########
+## MODEL ##
+###########
 
 # DECT-2020 EXT NetDevice
 set(dect2020ext_net_device_src
@@ -54,34 +54,34 @@ set(dect2020ext_phy_src
 set(dect2020ext_phy_h
     model/dect-phy/dect2020ext-phy.h)
 
-# # Physical Header Field
-# set(physical_header_field_src
-#     model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.cc)
+# DECT-2020 EXT Physical Header Field
+set(dect2020ext_physical_header_field_src
+    model/mac-pdu/physical-header-field/dect2020ext-physical-header-field-type-1.cc)
 
-# set(physical_header_field_h
-#     model/mac-pdu/physical-header-field/dect2020ext-physical-header-field.h)
+set(dect2020ext_physical_header_field_h
+    model/mac-pdu/physical-header-field/dect2020ext-physical-header-field-type-1.h)
 
-# # Mac Header Type
-# set(mac_header_type_src
-#     model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.cc)
+# DECT-2020 EXT MAC Header Type
+set(dect2020ext_mac_header_type_src
+    model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.cc)
 
-# set(mac_header_type_h
-#     model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.h)
+set(dect2020ext_mac_header_type_h
+    model/mac-pdu/mac-header-type/dect2020ext-mac-header-type.h)
 
-# # Common Headers
-# set(mac_common_headers_src
-#     model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.cc
-#     model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.cc
-#     model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.cc
-#     model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.cc)
+# DECT-2020 EXT MAC Common Headers
+set(dect2020ext_mac_common_headers_src
+    model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.cc
+    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.cc
+    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.cc
+    model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.cc)
 
-# set(mac_common_headers_h
-#     model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.h
-#     model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.h
-#     model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.h
-#     model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.h)
+set(dect2020ext_mac_common_headers_h
+    model/mac-pdu/mac-common-headers/beacon-header/dect2020ext-beacon-header.h
+    model/mac-pdu/mac-common-headers/data-mac-pdu-header/dect2020ext-data-mac-pdu-header.h
+    model/mac-pdu/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header.h
+    model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.h)
 
-# # Mac Multiplexing Header
+# Mac Multiplexing Header
 # set(mac_multiplexing_header_src
 #     model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
 #     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
@@ -119,15 +119,14 @@ set(dect2020ext_phy_h
 # set(association_request_message_ie_h
 #     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h)
 
-#########
-##Tests##
-#########
+###########
+## TESTS ##
+###########
 
-# # Physical Header Field
-# set(physical_header_field_test_src
-#     test/physical-header-field/test.cc
-#     test/physical-header-field/serialization-test-case-1.cc
-#     test/physical-header-field/serialization-test-case-2.cc)
+# Physical Header Field
+set(physical_header_field_test_src
+    test/physical-header-field/test.cc
+    test/physical-header-field/type-1/serialization-test-case-1.cc)
 
 # # MAC Common Headers
 
@@ -180,12 +179,22 @@ build_lib(
         ${dect2020ext_channel_src}
         ${dect2020ext_mac_src}
         ${dect2020ext_phy_src}
+        ${dect2020ext_mac_pdu_helper_src}
+        ${dect2020ext_physical_header_field_src}
+        ${dect2020ext_mac_header_type_src}
+        ${dect2020ext_mac_common_headers_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
         ${dect2020ext_channel_h}
         ${dect2020ext_mac_h}
         ${dect2020ext_phy_h}
+        ${dect2020ext_mac_pdu_helper_h}
+        ${dect2020ext_physical_header_field_h}
+        ${dect2020ext_mac_header_type_h}
+        ${dect2020ext_mac_common_headers_h}
+    TEST_SOURCES
+        ${physical_header_field_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libdect-nr}

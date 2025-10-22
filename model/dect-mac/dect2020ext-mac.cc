@@ -185,6 +185,26 @@ Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020Ext
 }
 
 void
+Dect2020ExtMac::StartBeaconTransmission(void)
+{
+    NS_LOG_FUNCTION(this);
+    StartNetworkBeaconTransmission();
+    StartClusterBeaconTransmission();
+}
+
+void
+Dect2020ExtMac::StartNetworkBeaconTransmission(void)
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020ExtMac::StartClusterBeaconTransmission(void)
+{
+    NS_LOG_FUNCTION(this);
+}
+
+void
 Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
 {
     m_netDevice = device;

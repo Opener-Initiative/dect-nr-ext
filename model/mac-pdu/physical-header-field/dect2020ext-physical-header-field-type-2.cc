@@ -1,9 +1,7 @@
-#include "dect2020ext-physical-header-field.h"
+#include "dect2020ext-physical-header-field-type-1.h"
 
 #include "ns3/address-utils.h"
 #include "ns3/log.h"
-
-#include <cstdint>
 
 namespace ns3
 {
@@ -14,22 +12,6 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhysicalHeaderField);
 
 Dect2020ExtPhysicalHeaderField::Dect2020ExtPhysicalHeaderField()
 {
-    m_headerFormat = 0;
-}
-
-Dect2020ExtPhysicalHeaderField::Dect2020ExtPhysicalHeaderField(uint8_t packetLengthType,
-                                                         uint8_t packetLength,
-                                                         uint8_t shortNetworkID,
-                                                         uint16_t transmitterIdentity,
-                                                         uint8_t transmitPower,
-                                                         uint8_t dFMCS)
-{
-    SetPacketLengthType(packetLengthType);
-    SetPacketLength(packetLength);
-    SetShortNetworkID(shortNetworkID);
-    SetTransmitterIdentity(transmitterIdentity);
-    SetTransmitPower(transmitPower);
-    SetDFMCS(dFMCS);
 }
 
 Dect2020ExtPhysicalHeaderField::~Dect2020ExtPhysicalHeaderField()
@@ -41,7 +23,7 @@ Dect2020ExtPhysicalHeaderField::GetTypeId(void)
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtPhysicalHeaderField")
                             .SetParent<Header>()
-                            .SetGroupName("Dect2020ExtExt")
+                            .SetGroupName("Dect2020Ext")
                             .AddConstructor<Dect2020ExtPhysicalHeaderField>();
     return tid;
 }
@@ -56,25 +38,24 @@ void
 Dect2020ExtPhysicalHeaderField::Print(std::ostream& os) const
 {
     os << "Physical Header Field:" << std::endl << "Header Format: " << static_cast<int>(m_headerFormat) << std::endl
-       << "Packet length type: " << static_cast<int>(m_packetLengthType) << std::endl
        << "Packet Length: " << static_cast<int>(m_packetLength) << std::endl
        << "Short Network ID: 0x" << std::hex << static_cast<int>(m_shortNetworkID) << std::endl
        << "Transmitter Identity: 0x" << std::hex << static_cast<int>(m_transmitterIdentity)
        << std::endl
        << "Transmit power: " << static_cast<int>(m_transmitPower) << std::endl
-       << "DF MCS: " << static_cast<int>(m_dFMCS) << std::endl;
+       << "DF MCS: " << static_cast<int>(m_DFMCS) << std::endl;
 }
 
 uint32_t
 Dect2020ExtPhysicalHeaderField::GetSerializedSize(void) const
 {
-    if(m_type != Type::TYPE1 && m_type != Type::TYPE2)
+    if(m_type != Dect2020ExtPhysicalHeaderFieldType::TYPE1 && m_type != Dect2020ExtPhysicalHeaderFieldType::TYPE2)
     {
         throw std::runtime_error("[ERROR] Physical Layer Control Field type was not selected");
     }
     else
     {
-        if(m_type == Type::TYPE1)
+        if(m_type == Dect2020ExtPhysicalHeaderFieldType::TYPE1)
         {
             return 5;
         }
