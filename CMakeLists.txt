@@ -94,12 +94,12 @@ set(dect2020ext_mac_common_headers_h
 #     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
 #     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
 
-# # Information Elements
-# set(network_beacon_message_ie_src
-#     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc)
+# Information Elements
+set(dect2020ext_information_elements_src
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc)
 
-# set(network_beacon_message_ie_h
-#     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h)
+set(dect2020ext_information_elements_h
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h)
 
 # set(cluster_beacon_message_ie_src
 #     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
@@ -124,7 +124,7 @@ set(dect2020ext_mac_common_headers_h
 ###########
 
 # Physical Header Field
-set(physical_header_field_test_src
+set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/test.cc
     test/physical-header-field/type-1/serialization-test-case-1.cc)
 
@@ -183,6 +183,7 @@ build_lib(
         ${dect2020ext_physical_header_field_src}
         ${dect2020ext_mac_header_type_src}
         ${dect2020ext_mac_common_headers_src}
+        ${dect2020ext_information_elements_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
@@ -193,8 +194,9 @@ build_lib(
         ${dect2020ext_physical_header_field_h}
         ${dect2020ext_mac_header_type_h}
         ${dect2020ext_mac_common_headers_h}
+        ${dect2020ext_information_elements_h}
     TEST_SOURCES
-        ${physical_header_field_test_src}
+        ${dect2020ext_physical_header_field_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libdect-nr}

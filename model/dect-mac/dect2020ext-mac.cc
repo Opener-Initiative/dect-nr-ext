@@ -1,6 +1,11 @@
 #include "dect2020ext-mac.h" 
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-net-device.h"
+
+#include "ns3/dect2020ext-mac-header-type.h"
+#include "ns3/dect2020ext-beacon-header.h"
+#include "ns3/dect2020ext-network-beacon-message-ie.h"
+
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
 #include "ns3/attribute.h"
