@@ -3,23 +3,23 @@
 
 namespace ns3 {
 
-class Dect2020NetworkBeaconMessageIESerializationTest : public TestSuite
+class Dect2020ExtNetworkBeaconMessageIESerializationTest : public TestSuite
 {
     public:
-        Dect2020NetworkBeaconMessageIESerializationTest();
-        virtual ~Dect2020NetworkBeaconMessageIESerializationTest();
+        Dect2020ExtNetworkBeaconMessageIESerializationTest();
+        virtual ~Dect2020ExtNetworkBeaconMessageIESerializationTest();
 };
 
-Dect2020NetworkBeaconMessageIESerializationTest::Dect2020NetworkBeaconMessageIESerializationTest() 
-    : TestSuite("dect2020-network-beacon-message-ie-serialization-test", Type::UNIT)
+Dect2020ExtNetworkBeaconMessageIESerializationTest::Dect2020ExtNetworkBeaconMessageIESerializationTest() 
+    : TestSuite("dect2020ext-network-beacon-message-ie-serialization-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020NetworkBeaconMessageIESerializationTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtNetworkBeaconMessageIESerializationTestCase(), TestCase::Duration::QUICK);
 }
 
-Dect2020NetworkBeaconMessageIESerializationTest::~Dect2020NetworkBeaconMessageIESerializationTest()
+Dect2020ExtNetworkBeaconMessageIESerializationTest::~Dect2020ExtNetworkBeaconMessageIESerializationTest()
 {
 }
 
-static Dect2020NetworkBeaconMessageIESerializationTest dect2020NetworkBeaconMessageIESerializationTest;
+static Dect2020ExtNetworkBeaconMessageIESerializationTest dect2020ExtNetworkBeaconMessageIESerializationTest;
 
 } // namespace ns3

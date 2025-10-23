@@ -128,7 +128,7 @@ set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/test.cc
     test/physical-header-field/type-1/serialization-test-case-1.cc)
 
-# # MAC Common Headers
+# MAC Common Headers
 
 # # Unicast Header Test
 # set(unicast_header_test_src
@@ -161,11 +161,11 @@ set(dect2020ext_physical_header_field_test_src
 #     test/mac-multiplexing-header/mac-multiplexing-header-type-c/payload-insertion-test-case.cc
 #     test/mac-multiplexing-header/mac-multiplexing-header-type-c/serialization-test-case.cc)
 
-# # Information Elements
+# Information Elements Tests
 
-# set(network_beacon_message_ie_test_src
-#     test/information-elements/network-beacon-message-ie/test.cc
-#     test/information-elements/network-beacon-message-ie/serialization-test-case.cc)
+set(dect2020ext_network_beacon_message_ie_test_src
+    test/information-elements/network-beacon-message-ie/test.cc
+    test/information-elements/network-beacon-message-ie/serialization-test-case.cc)
 
 # set(route_info_ie_test_src
 #     test/information-elements/route-info-ie/test.cc
@@ -197,7 +197,7 @@ build_lib(
         ${dect2020ext_information_elements_h}
     TEST_SOURCES
         ${dect2020ext_physical_header_field_test_src}
+        ${dect2020ext_network_beacon_message_ie_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
-        ${libdect-nr}
 )

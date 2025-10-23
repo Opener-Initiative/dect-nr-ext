@@ -36,7 +36,32 @@ Dect2020ExtNetworkBeaconMessageIE::GetInstanceTypeId() const
 uint32_t
 Dect2020ExtNetworkBeaconMessageIE::GetSerializedSize() const
 {
-    return 13;
+    uint32_t sizeInBits = 0;
+
+    sizeInBits += 64; // Byte 0 - Byte 7
+
+    if (m_txPowerIncluded == 1)
+    {
+        sizeInBits += 4; // Reserved
+        sizeInBits += 4; // Clusters Max TX Power Field
+    }
+
+    if (m_currentClusterChannelIncluded == 1)
+    {
+        sizeInBits += 3;  // Reserved
+        sizeInBits += 13; // Current Cluster Channel Field
+    }
+
+    if (m_networkBeaconChannels > 0)
+    {
+        sizeInBits += m_networkBeaconChannels * 3;  // Reserved
+        sizeInBits += m_networkBeaconChannels * 13; // Additional Network Beacon Channels
+    }
+
+    // Round up to the next multiple of 8.
+    uint32_t sizeInBytes = (sizeInBits + 7) / 8;
+
+    return sizeInBytes;
 }
 
 void
@@ -74,7 +99,7 @@ Dect2020ExtNetworkBeaconMessageIE::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte3);
 
     // Byte 4-7
-    start.WriteHtonU32(m_timeToNext);
+    start.WriteU32(m_timeToNext);
 
     if (m_txPowerIncluded)
     {
@@ -109,6 +134,7 @@ Dect2020ExtNetworkBeaconMessageIE::Serialize(Buffer::Iterator start) const
             start.WriteU16(m_additionalNetworkBeaconChannels[idx] & 0x1FFF);
         }
     }
+
 }
 
 uint32_t
@@ -156,7 +182,7 @@ Dect2020ExtNetworkBeaconMessageIE::Deserialize(Buffer::Iterator start)
     m_nextClusterChannel = nextClusterChannelHigh | nextClusterChannelLow;
 
     // Byte 4-7: Time To next
-    m_timeToNext = start.ReadNtohU32();
+    m_timeToNext = start.ReadU32();
     bytesRead += 4;
 
     // Optional Fields
@@ -215,10 +241,6 @@ Dect2020ExtNetworkBeaconMessageIE::Print(std::ostream& os) const
     os << "Clusters Max Tx Power: " << m_clustersMaxTxPower << std::endl;
     os << "Current Cluster Channel: " << m_currentClusterChannel << std::endl;
     os << "Additional Network Beacon Channels: ";
-    for (int idx = 0; idx < m_networkBeaconChannels; idx++)
-    {
-        os << m_additionalNetworkBeaconChannels[idx] << " ";
-    }
     os << std::endl;
 }
 
@@ -408,12 +430,11 @@ Dect2020ExtNetworkBeaconMessageIE::GetCurrentClusterChannel() const
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetAdditionalNetworkBeaconChannels(uint16_t* additionalNetworkBeaconChannels)
+Dect2020ExtNetworkBeaconMessageIE::SetAdditionalNetworkBeaconChannels(uint16_t additionalNetworkBeaconChannels[3])
 {
     std::copy(additionalNetworkBeaconChannels,
               additionalNetworkBeaconChannels + 3,
               m_additionalNetworkBeaconChannels);
-    // m_additionalNetworkBeaconChannels = additionalNetworkBeaconChannels;
 }
 
 uint16_t*
