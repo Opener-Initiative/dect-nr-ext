@@ -22,7 +22,7 @@ class Dect2020ExtNetDevice : public NetDevice
 
 		static TypeId GetTypeId();
 
-		enum TerminationPointType
+		enum Dect2020ExtTerminationPointType
 		{
 			PT, // Portable Termination
 			FT // Fixed Termination
@@ -33,6 +33,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		void SetMac(Ptr<Dect2020ExtMac> mac);
 		void SetBandNumber(uint8_t bandNumber);
 		uint8_t GetBandNumber() const;
+		void SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType);
+		Dect2020ExtTerminationPointType GetTerminationPointType() const;
 
 		// NetDevice virtual methods
 
@@ -65,6 +67,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		bool SupportsSendFrom() const override;
 
 	private:
+		Dect2020ExtTerminationPointType m_terminationPointType;
+
 		Ptr<Node> m_node;
 		uint32_t m_ifIndex;
 		uint16_t m_mtu;

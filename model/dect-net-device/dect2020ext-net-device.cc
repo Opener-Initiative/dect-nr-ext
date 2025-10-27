@@ -55,6 +55,18 @@ Dect2020ExtNetDevice::GetBandNumber() const
 }
 
 void
+Dect2020ExtNetDevice::SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType)
+{
+    m_terminationPointType = terminationPointType;
+}
+
+Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
+Dect2020ExtNetDevice::GetTerminationPointType() const
+{
+    return m_terminationPointType;
+}
+
+void
 Dect2020ExtNetDevice::SetIfIndex(const uint32_t index)
 {
     m_ifIndex = index;

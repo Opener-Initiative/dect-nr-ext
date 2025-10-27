@@ -2,8 +2,8 @@
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-net-device.h"
 
-#include "ns3/dect2020ext-mac-header-type.h"
-#include "ns3/dect2020ext-beacon-header.h"
+#include "ns3/dect2020ext-mac-pdu-helper.h"
+#include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
 
 #include "ns3/simulator.h"
@@ -21,6 +21,7 @@ Dect2020ExtMac::Dect2020ExtMac()
 {
     NS_LOG_FUNCTION(this);
     // Dect2020ExtChannelManager::m_rssiMeasured.ConnectWithoutContext(MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
+    InitializeDevice();
 }
 
 Dect2020ExtMac::~Dect2020ExtMac()
@@ -36,6 +37,79 @@ Dect2020ExtMac::GetTypeId(void)
                             .SetGroupName("Dect2020Ext")
                             .AddConstructor<Dect2020ExtMac>();
     return tid;
+}
+
+void
+Dect2020ExtMac::InitializeDevice(void)
+{
+    NS_LOG_FUNCTION(this);
+    SetLongRadioDeviceId(GenerateLongRadioDeviceId());
+    SetShortRadioDeviceId(GenerateShortRadioDeviceId());
+}
+void
+Dect2020ExtMac::Start(void)
+{
+    if (m_netDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    {
+        InitializeNetwork();
+    }
+}
+
+void
+Dect2020ExtMac::InitializeNetwork(void)
+{
+    uint32_t networkId = GenerateValidNetworkID();
+    SetNetworkId(networkId);
+
+    Simulator::Schedule(Seconds(1), &Dect2020ExtMac::ScheduleBackgroundScan, this, Seconds(0));
+}
+
+uint32_t
+Dect2020ExtMac::GenerateValidNetworkID(void)
+{
+    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
+    uint32_t networkId = 0;
+    uint8_t lsb;
+    uint32_t msb;
+    do
+    {
+        networkId = randomVar->GetValue(1, std::numeric_limits<uint32_t>::max());
+        lsb = networkId & 0xFF;
+        msb = (networkId >> 8) & 0xFFFFFF;
+    } while (lsb == 0x00 || msb == 0x000000);
+
+    return networkId;
+}
+
+uint32_t
+Dect2020ExtMac::GenerateLongRadioDeviceId(void)
+{
+    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
+    uint32_t rdId = 0;
+
+    do
+    {
+        rdId = randomVar->GetValue(1, 0xFFFFFFFD); // Range 0x00000001 bis 0xFFFFFFFD
+    } while (rdId == 0x00000000 || rdId == 0xFFFFFFFE || rdId == 0xFFFFFFFF);
+
+    return rdId;
+}
+
+uint16_t
+Dect2020ExtMac::GenerateShortRadioDeviceId(void)
+{
+    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
+    uint16_t rdId = 0;
+
+    do
+    {
+        rdId = randomVar->GetValue(1, 0xFFFE); // Range 0x0001 to 0xFFFE
+    } while (rdId == 0x0000 || rdId == 0xFFFF);
+
+    NS_LOG_DEBUG(Simulator::Now().GetMilliSeconds()
+                 << ": Short Radio Device ID " << rdId << "generated.");
+
+    return rdId;
 }
 
 void
@@ -201,12 +275,72 @@ void
 Dect2020ExtMac::StartNetworkBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
+    Time networkBeaconPeriod = m_networkBeaconPeriodTime; // gap between each transmission
+    Simulator::Schedule(networkBeaconPeriod, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
+
+    // Schedule the next network beacon transmission
+    static uint32_t sweepCount = 0;
+    Time dynamicOffset = MilliSeconds(25 + (sweepCount++ % 3) * 2);
+    Simulator::Schedule(networkBeaconPeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
 }
 
 void
 Dect2020ExtMac::StartClusterBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
+}
+
+void
+Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
+{
+    NS_LOG_FUNCTION(this << channelId);
+    Ptr<Packet> beacon = BuildNetworkBeacon(channelId);
+}
+
+void
+Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
+{
+    NS_LOG_FUNCTION(this << channelId);
+    Ptr<Packet> packet = Create<Packet>();
+}
+
+Ptr<Packet>
+Dect2020ExtMac::BuildNetworkBeacon(uint16_t networkBeaconTransmissionChannelID)
+{
+    NS_LOG_FUNCTION(this);
+
+    // MAC Header Type
+    // MAC Common Header
+
+    Ptr<Packet> beacon = Dect2020ExtMacPduHelper::BEACON(MacSecurityField::MAC_SECURITY_NOT_USED,
+                                                         m_networkId,
+                                                         m_longRadioDeviceId);
+
+    Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
+    mxHeaderTypeA.SetMacExtension(0); // No length field included in the IE Header
+    mxHeaderTypeA.SetLength(0); // No length field included in the IE Header
+
+    beacon->AddHeader(mxHeaderTypeA);
+
+    Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
+    // Network Beacon Message IE
+    // TODO: MAC SDU Payload
+    return beacon;
+}
+
+Ptr<Packet>
+Dect2020ExtMac::BuildClusterBeacon(void)
+{
+    NS_LOG_FUNCTION(this);
+
+    // MAC Header Type
+    // MAC Common Header
+
+    Ptr<Packet> beacon = Dect2020ExtMacPduHelper::BEACON(MacSecurityField::MAC_SECURITY_NOT_USED,
+                                                         m_networkId,
+                                                         m_longRadioDeviceId);
+
+    return beacon;
 }
 
 void
@@ -226,6 +360,66 @@ void
 Dect2020ExtMac::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
 {
     m_channelManager = channelManager;
+}
+
+void
+Dect2020ExtMac::SetNetworkId(uint32_t networkId)
+{
+    m_networkId = networkId;
+}
+
+uint32_t
+Dect2020ExtMac::GetNetworkId(void) const
+{
+    return m_networkId;
+}
+
+void
+Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
+{
+    if (!(rdId == 0x00000000))
+    {
+        m_longRadioDeviceId = rdId;
+
+        NS_LOG_INFO(Simulator::Now().GetMilliSeconds()
+                    << ": Set Long Radio Device ID: 0x" << std::hex << rdId << " on Device "
+                    << this);
+    }
+    else
+    {
+        NS_LOG_WARN(Simulator::Now().GetMilliSeconds()
+                    << ": Invalid Long Radio Device ID detected. Generate a new one.");
+
+        SetLongRadioDeviceId(GenerateLongRadioDeviceId());
+    }
+}
+
+uint32_t
+Dect2020ExtMac::GetLongRadioDeviceId(void) const
+{
+    return m_longRadioDeviceId;
+}
+
+void
+Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
+{
+    if (!(rdId == 0x0000))
+    {
+        m_shortRadioDeviceId = rdId;
+    }
+    else
+    {
+        NS_LOG_WARN(Simulator::Now().GetMilliSeconds()
+                    << ": Invalid Short Radio Device ID detected. Generate a new one.");
+
+        SetShortRadioDeviceId(GenerateShortRadioDeviceId());
+    }
+}
+
+uint16_t
+Dect2020ExtMac::GetShortRadioDeviceId(void) const
+{
+    return m_shortRadioDeviceId;
 }
 
 } // namespace ns3

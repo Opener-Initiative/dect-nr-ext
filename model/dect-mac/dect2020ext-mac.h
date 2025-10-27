@@ -51,6 +51,15 @@ public:
 
     static TypeId GetTypeId(void);
 
+    // Initialization
+
+    void InitializeDevice(void);
+    void Start(void);
+    void InitializeNetwork(void);
+    uint32_t GenerateValidNetworkID(void);
+    uint32_t GenerateLongRadioDeviceId(void);
+    uint16_t GenerateShortRadioDeviceId(void);
+
     // Spectrum Management Procedure
 
     void EvaluateAllChannels(void);
@@ -61,15 +70,26 @@ public:
     void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
 
     // Beacon Transmission
+
     void StartBeaconTransmission(void);
     void StartNetworkBeaconTransmission(void);
     void StartClusterBeaconTransmission(void);
+    void SendNetworkBeaconOnChannel(uint16_t channelId);
+    void SendClusterBeaconOnChannel(uint16_t channelId);
+    Ptr<Packet> BuildNetworkBeacon(uint16_t networkBeaconTransmissionChannelID);
+    Ptr<Packet> BuildClusterBeacon(void);
 
-    // Setters
+    // Setters and Getters
 
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
     void SetPhy(Ptr<Dect2020ExtPhy> phy);
     void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
+    void SetNetworkId(uint32_t networkId);
+    uint32_t GetNetworkId(void) const;
+    void SetLongRadioDeviceId(uint32_t rdId);
+    uint32_t GetLongRadioDeviceId(void) const;
+    void SetShortRadioDeviceId(uint16_t rdId);
+    uint16_t GetShortRadioDeviceId(void) const;
 
 private:
     Ptr<Dect2020ExtNetDevice> m_netDevice;
@@ -78,8 +98,12 @@ private:
     Ptr<Dect2020ExtChannelManager> m_channelManager;
     uint32_t m_operatingChannelId;
     uint32_t m_networkBeaconChannelId;
+    uint32_t m_networkId;
+    uint32_t m_longRadioDeviceId;
+    uint16_t m_shortRadioDeviceId;
 
-
+    Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
+    Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
 
     // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

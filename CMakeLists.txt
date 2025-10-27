@@ -82,17 +82,17 @@ set(dect2020ext_mac_common_headers_h
     model/mac-pdu/mac-common-headers/unicast-header/dect2020ext-unicast-header.h)
 
 # Mac Multiplexing Header
-# set(mac_multiplexing_header_src
-#     model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.cc
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.cc)
+set(dect2020ext_mac_multiplexing_header_src
+    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.cc
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.cc)
 
-# set(mac_multiplexing_header_h
-#     model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.h
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
-#     model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
+set(dect2020ext_mac_multiplexing_header_h
+    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
 
 # Information Elements
 set(dect2020ext_information_elements_src
@@ -184,6 +184,7 @@ build_lib(
         ${dect2020ext_mac_header_type_src}
         ${dect2020ext_mac_common_headers_src}
         ${dect2020ext_information_elements_src}
+        ${dect2020ext_mac_multiplexing_header_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
@@ -195,6 +196,7 @@ build_lib(
         ${dect2020ext_mac_header_type_h}
         ${dect2020ext_mac_common_headers_h}
         ${dect2020ext_information_elements_h}
+        ${dect2020ext_mac_multiplexing_header_h}
     TEST_SOURCES
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_network_beacon_message_ie_test_src}
