@@ -71,6 +71,7 @@ class Dect2020ExtNetworkBeaconMessageIE : public Header
 		uint16_t GetCurrentClusterChannel() const;
 		void SetAdditionalNetworkBeaconChannels(uint16_t additionalNetworkBeaconChannels[3]);
 		uint16_t* GetAdditionalNetworkBeaconChannels();
+
 	private:
 		// ETSI TS 103 636-4 V 1.51 #6.4.2.2-1
 

@@ -4,6 +4,7 @@
 #include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-mac.h"
 
+#include "ns3/spectrum-phy.h"
 #include "ns3/object.h"
 #include "ns3/nstime.h"
 #include "ns3/traced-value.h"
@@ -19,13 +20,15 @@ struct Slot;
 struct Subslot;
 class Dect2020ExtMac;
 
-class Dect2020ExtPhy : public Object
+class Dect2020ExtPhy : public SpectrumPhy
 {
 	public:
 		Dect2020ExtPhy();
 		virtual ~Dect2020ExtPhy();
 
 		static TypeId GetTypeId();
+
+		// Frame Timer and SFN
 
 		void StartFrameTimer();
 		void ProcessSlot(uint32_t slot, double slotStartTime);
@@ -35,15 +38,36 @@ class Dect2020ExtPhy : public Object
 		void OnNewFrame(Callback<void, uint32_t, uint32_t> callback);
 		void DisconnectSFNCallback();
 
+		// Dect2020ExtPhy Setters and Getters
+
 		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
 		uint8_t GetSubcarrierScalingFactor() const;
-		Time GetNextSubslotTime();
-
 		void SetMac(Ptr<Dect2020ExtMac> mac);
-	
+		uint32_t GetCurrentSFN() const;
+
+		// Inherited from SpectrumPhy
+
+		void SetDevice(Ptr<NetDevice> d) override;
+		Ptr<NetDevice> GetDevice() const override;
+		void SetMobility(Ptr<MobilityModel> m) override;
+		Ptr<MobilityModel> GetMobility() const override;
+		void SetChannel(Ptr<SpectrumChannel> c) override;
+		Ptr<SpectrumChannel> GetChannel() const; // Not inherited from SpectrumPhy
+		Ptr<const SpectrumModel> GetRxSpectrumModel() const override;
+		void SetAntenna(Ptr<Object> antenna); // Not inherited from SpectrumPhy
+		Ptr<Object> GetAntenna() const override;
+		void StartRx(Ptr<SpectrumSignalParameters> params) override;
+
+		// Dect2020ExtPhy Methods
+		// void Send(Ptr<Packet> packet, )
+
+		// Callbacks
+
 		Callback<void, uint32_t, uint32_t> m_SFNCallback;
 
 	private:
+	    // Dect2020ExtPhy Private Members
+
 	    Time m_frameStartTime;
 		uint8_t m_subcarrierScalingFactor;
 		std::vector<int> m_frame;
@@ -51,6 +75,12 @@ class Dect2020ExtPhy : public Object
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
 		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
+
+		Ptr<NetDevice> m_device;
+		Ptr<MobilityModel> m_mobilityModel;
+		Ptr<SpectrumChannel> m_channel;
+		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
+		Ptr<Object> m_antenna;
 
 		// ###################
 		// #### Constants ####

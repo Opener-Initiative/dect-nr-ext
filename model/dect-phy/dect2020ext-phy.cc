@@ -125,36 +125,82 @@ Dect2020ExtPhy::GetSubcarrierScalingFactor() const
     return m_subcarrierScalingFactor;
 }
 
-Time
-Dect2020ExtPhy::GetNextSubslotTime()
-{
-    // TODO: Implement this method if required
-
-    // NS_LOG_FUNCTION(this);
-
-    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    // double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
-
-    // uint32_t nextSubslotId = (m_currentSubslotId + 1) % m_totalSubslotsPerFrame;
-
-    // // If we're going to the next frame
-    // if (nextSubslotId == 0)
-    // {
-    //     Time nextFrameStart = m_frameStartTime + MicroSeconds(FRAME_DURATION_US);
-    //     return nextFrameStart;
-    // }
-
-    // Time nextSubslotTime = m_frameStartTime + NanoSeconds(nextSubslotId * subslotDurationNs);
-    // return nextSubslotTime;
-
-    return Seconds(0);
-}
-
 void
 Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
 {
     m_mac = mac;
     m_mac->SetPhy(this);
+}
+
+uint32_t
+Dect2020ExtPhy::GetCurrentSFN() const
+{
+    return m_SFN.Get();
+}
+
+void
+Dect2020ExtPhy::SetDevice(Ptr<NetDevice> d)
+{
+    m_device = d;
+}
+
+Ptr<NetDevice>
+Dect2020ExtPhy::GetDevice() const
+{
+    return m_device;
+}
+
+void
+Dect2020ExtPhy::SetMobility(Ptr<MobilityModel> m)
+{
+    m_mobilityModel = m;
+}
+
+Ptr<MobilityModel>
+Dect2020ExtPhy::GetMobility() const
+{
+    return m_mobilityModel;
+}
+
+void
+Dect2020ExtPhy::SetChannel(Ptr<SpectrumChannel> c)
+{
+    m_channel = c;
+    if (m_channel)
+    {
+        m_channel->AddRx(this);
+    }
+}
+
+Ptr<SpectrumChannel>
+Dect2020ExtPhy::GetChannel() const
+{
+    return m_channel;
+}
+
+Ptr<const SpectrumModel>
+Dect2020ExtPhy::GetRxSpectrumModel() const
+{
+    return m_spectrumModel;
+}
+
+void
+Dect2020ExtPhy::SetAntenna(Ptr<Object> antenna)
+{
+    m_antenna = antenna;
+}
+
+Ptr<Object>
+Dect2020ExtPhy::GetAntenna() const
+{
+    return m_antenna;
+}
+
+void
+Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
+{
+    NS_LOG_FUNCTION(this << params);
+    // TODO: Implement this method
 }
 
 } // namespace ns3

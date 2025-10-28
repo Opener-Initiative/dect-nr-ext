@@ -76,7 +76,7 @@ public:
     void StartClusterBeaconTransmission(void);
     void SendNetworkBeaconOnChannel(uint16_t channelId);
     void SendClusterBeaconOnChannel(uint16_t channelId);
-    Ptr<Packet> BuildNetworkBeacon(uint16_t networkBeaconTransmissionChannelID);
+    Ptr<Packet> BuildNetworkBeacon(void);
     Ptr<Packet> BuildClusterBeacon(void);
 
     // Setters and Getters

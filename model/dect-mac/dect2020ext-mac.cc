@@ -294,7 +294,8 @@ void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
 {
     NS_LOG_FUNCTION(this << channelId);
-    Ptr<Packet> beacon = BuildNetworkBeacon(channelId);
+    Ptr<Packet> networkBeacon = BuildNetworkBeacon();
+    // m_phy->Send(networkBeacon, CreatePhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
 void
@@ -305,13 +306,12 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildNetworkBeacon(uint16_t networkBeaconTransmissionChannelID)
+Dect2020ExtMac::BuildNetworkBeacon(void)
 {
     NS_LOG_FUNCTION(this);
 
     // MAC Header Type
     // MAC Common Header
-
     Ptr<Packet> beacon = Dect2020ExtMacPduHelper::BEACON(MacSecurityField::MAC_SECURITY_NOT_USED,
                                                          m_networkId,
                                                          m_longRadioDeviceId);
@@ -322,9 +322,19 @@ Dect2020ExtMac::BuildNetworkBeacon(uint16_t networkBeaconTransmissionChannelID)
 
     beacon->AddHeader(mxHeaderTypeA);
 
-    Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
     // Network Beacon Message IE
-    // TODO: MAC SDU Payload
+    Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
+    networkBeaconMessageIE.SetTxPowerIncluded(1);
+    networkBeaconMessageIE.SetPowerConstraints(0);
+    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(0);
+    networkBeaconMessageIE.SetNetworkBeaconChannels(0);
+    networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
+    networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
+    networkBeaconMessageIE.SetNextClusterChannel(m_operatingChannelId);
+    networkBeaconMessageIE.SetTimeToNext(0); // TODO: Time to next = Next send time - current sim time
+
+    beacon->AddHeader(networkBeaconMessageIE);
+
     return beacon;
 }
 
