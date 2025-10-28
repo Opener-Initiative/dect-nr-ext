@@ -3,6 +3,7 @@
 
 #include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-mac.h"
+#include "ns3/dect2020ext-channel-manager.h"
 
 #include "ns3/spectrum-phy.h"
 #include "ns3/object.h"
@@ -15,6 +16,7 @@
 namespace ns3
 {
 
+class Dect2020ExtChannelManager;
 class Dect2020ExtChannel;
 struct Slot;
 struct Subslot;
@@ -44,6 +46,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint8_t GetSubcarrierScalingFactor() const;
 		void SetMac(Ptr<Dect2020ExtMac> mac);
 		uint32_t GetCurrentSFN() const;
+		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
+		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 
 		// Inherited from SpectrumPhy
 
@@ -68,6 +72,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 	private:
 	    // Dect2020ExtPhy Private Members
 
+		Ptr<Dect2020ExtChannelManager> m_channelManager;
 	    Time m_frameStartTime;
 		uint8_t m_subcarrierScalingFactor;
 		std::vector<int> m_frame;

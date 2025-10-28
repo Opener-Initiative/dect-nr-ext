@@ -41,29 +41,29 @@ Dect2020ExtPhy::StartFrameTimer()
 
     m_frameStartTime = Simulator::Now();
     m_currentSubslotId = 0;
-    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    // m_totalSubslotsPerFrame = SLOTS_PER_FRAME * subslotsPerSlot;
-    // double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
+    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    m_totalSubslotsPerFrame = SLOTS_PER_FRAME * subslotsPerSlot;
+    double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
 
-    // // Schedule all subslots for this frame
-    // for (uint32_t slot = 0; slot < SLOTS_PER_FRAME; slot++)
-    // {
-    //     for (uint32_t subslot = 0; subslot < subslotsPerSlot; subslot++)
-    //     {
-    //         double subslotStartTime = (slot * SLOT_DURATION_NS) + (subslot * subslotDurationNs);
+    // Schedule all subslots for this frame
+    for (uint32_t slot = 0; slot < SLOTS_PER_FRAME; slot++)
+    {
+        for (uint32_t subslot = 0; subslot < subslotsPerSlot; subslot++)
+        {
+            double subslotStartTime = (slot * SLOT_DURATION_NS) + (subslot * subslotDurationNs);
 
-    //         Simulator::Schedule(NanoSeconds(subslotStartTime),
-    //                             &Dect2020ExtPhy::ProcessSubslot,
-    //                             this,
-    //                             slot,
-    //                             subslot,
-    //                             slot * subslotsPerSlot + subslot);
-    //     }
-    // }
+            Simulator::Schedule(NanoSeconds(subslotStartTime),
+                                &Dect2020ExtPhy::ProcessSubslot,
+                                this,
+                                slot,
+                                subslot,
+                                slot * subslotsPerSlot + subslot);
+        }
+    }
 
-    // Simulator::Schedule(MicroSeconds(FRAME_DURATION_US),
-    //                     &Dect2020ExtPhy::StartFrameTimer,
-    //                     this);
+    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US),
+                        &Dect2020ExtPhy::StartFrameTimer,
+                        this);
 }
 
 void
@@ -136,6 +136,18 @@ uint32_t
 Dect2020ExtPhy::GetCurrentSFN() const
 {
     return m_SFN.Get();
+}
+
+void
+Dect2020ExtPhy::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
+{
+    m_channelManager = channelManager;
+}
+
+Ptr<Dect2020ExtChannelManager>
+Dect2020ExtPhy::GetChannelManager() const
+{
+    return m_channelManager;
 }
 
 void

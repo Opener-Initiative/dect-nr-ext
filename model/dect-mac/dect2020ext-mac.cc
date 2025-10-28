@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-mac-pdu-helper.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
+#include "ns3/dect2020ext-physical-layer-control-field-type-1.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
