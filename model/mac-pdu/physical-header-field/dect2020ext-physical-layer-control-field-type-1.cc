@@ -1,4 +1,4 @@
-#include "dect2020ext-physical-header-field-type-1.h"
+#include "dect2020ext-physical-layer-control-field-type-1.h"
 
 #include "ns3/address-utils.h"
 #include "ns3/log.h"
@@ -8,48 +8,48 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhysicalHeaderFieldType1");
+NS_LOG_COMPONENT_DEFINE("Dect2020PhysicalLayerControlFieldType1");
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhysicalHeaderFieldType1);
+NS_OBJECT_ENSURE_REGISTERED(Dect2020PhysicalLayerControlFieldType1);
 
-Dect2020ExtPhysicalHeaderFieldType1::Dect2020ExtPhysicalHeaderFieldType1()
+Dect2020PhysicalLayerControlFieldType1::Dect2020PhysicalLayerControlFieldType1()
 {
 }
 
-Dect2020ExtPhysicalHeaderFieldType1::~Dect2020ExtPhysicalHeaderFieldType1()
+Dect2020PhysicalLayerControlFieldType1::~Dect2020PhysicalLayerControlFieldType1()
 {
 }
 
 TypeId
-Dect2020ExtPhysicalHeaderFieldType1::GetTypeId(void)
+Dect2020PhysicalLayerControlFieldType1::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtPhysicalHeaderField")
+    static TypeId tid = TypeId("ns3::Dect2020PhysicalLayerControlFieldType1")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtPhysicalHeaderFieldType1>();
+                            .AddConstructor<Dect2020PhysicalLayerControlFieldType1>();
     return tid;
 }
 
 TypeId
-Dect2020ExtPhysicalHeaderFieldType1::GetInstanceTypeId(void) const
+Dect2020PhysicalLayerControlFieldType1::GetInstanceTypeId(void) const
 {
     return GetTypeId();
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::Print(std::ostream& os) const
+Dect2020PhysicalLayerControlFieldType1::Print(std::ostream& os) const
 {
     // TODO: Implement
 }
 
 uint32_t
-Dect2020ExtPhysicalHeaderFieldType1::GetSerializedSize(void) const
+Dect2020PhysicalLayerControlFieldType1::GetSerializedSize(void) const
 {
     return 5;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::Serialize(Buffer::Iterator start) const
+Dect2020PhysicalLayerControlFieldType1::Serialize(Buffer::Iterator start) const
 {
     // ETSI 103 636 04: Figure 6.2.1-1
 
@@ -73,7 +73,7 @@ Dect2020ExtPhysicalHeaderFieldType1::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtPhysicalHeaderFieldType1::Deserialize(Buffer::Iterator start)
+Dect2020PhysicalLayerControlFieldType1::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -100,13 +100,13 @@ Dect2020ExtPhysicalHeaderFieldType1::Deserialize(Buffer::Iterator start)
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetHeaderFormat() const
+Dect2020PhysicalLayerControlFieldType1::GetHeaderFormat() const
 {
     return m_headerFormat;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020PhysicalLayerControlFieldType1::SetPacketLengthType(uint8_t packetLengthType)
 {
     if (packetLengthType == 0 || packetLengthType == 1)
     {
@@ -119,13 +119,13 @@ Dect2020ExtPhysicalHeaderFieldType1::SetPacketLengthType(uint8_t packetLengthTyp
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetPacketLengthType() const
+Dect2020PhysicalLayerControlFieldType1::GetPacketLengthType() const
 {
     return m_packetLengthType;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetPacketLength(uint8_t packetLength)
+Dect2020PhysicalLayerControlFieldType1::SetPacketLength(uint8_t packetLength)
 {
     if (packetLength >= 0 && packetLength <= 15)
     {
@@ -138,13 +138,13 @@ Dect2020ExtPhysicalHeaderFieldType1::SetPacketLength(uint8_t packetLength)
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetPacketLength() const
+Dect2020PhysicalLayerControlFieldType1::GetPacketLength() const
 {
     return m_packetLength;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020PhysicalLayerControlFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
 {
     if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
     {
@@ -157,13 +157,13 @@ Dect2020ExtPhysicalHeaderFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetShortNetworkID() const
+Dect2020PhysicalLayerControlFieldType1::GetShortNetworkID() const
 {
     return m_shortNetworkID;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetTransmitterIdentity(uint16_t transmitterIdentity)
+Dect2020PhysicalLayerControlFieldType1::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
     if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
     {
@@ -176,13 +176,13 @@ Dect2020ExtPhysicalHeaderFieldType1::SetTransmitterIdentity(uint16_t transmitter
 }
 
 uint16_t
-Dect2020ExtPhysicalHeaderFieldType1::GetTransmitterIdentity() const
+Dect2020PhysicalLayerControlFieldType1::GetTransmitterIdentity() const
 {
     return m_transmitterIdentity;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetTransmitPower(uint8_t transmitPower)
+Dect2020PhysicalLayerControlFieldType1::SetTransmitPower(uint8_t transmitPower)
 {
     if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
     {
@@ -195,13 +195,13 @@ Dect2020ExtPhysicalHeaderFieldType1::SetTransmitPower(uint8_t transmitPower)
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetTransmitPower() const
+Dect2020PhysicalLayerControlFieldType1::GetTransmitPower() const
 {
     return m_transmitPower;
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldType1::SetDFMCS(uint8_t DFMCS)
+Dect2020PhysicalLayerControlFieldType1::SetDFMCS(uint8_t DFMCS)
 {
     if (DFMCS >= 0 && DFMCS <= pow(2, 3) - 1)
     {
@@ -214,7 +214,7 @@ Dect2020ExtPhysicalHeaderFieldType1::SetDFMCS(uint8_t DFMCS)
 }
 
 uint8_t
-Dect2020ExtPhysicalHeaderFieldType1::GetDFMCS() const
+Dect2020PhysicalLayerControlFieldType1::GetDFMCS() const
 {
     return m_DFMCS;
 }
