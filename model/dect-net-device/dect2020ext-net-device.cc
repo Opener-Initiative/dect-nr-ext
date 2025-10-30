@@ -35,11 +35,35 @@ Dect2020ExtNetDevice::~Dect2020ExtNetDevice()
     NS_LOG_FUNCTION(this);
 }
 
+/**
+ * Assigns the MAC to the net device.
+ * Assigns the net device to the MAC.
+ * Sets the termination point type to the MAC.
+ */
 void
 Dect2020ExtNetDevice::SetMac(Ptr<Dect2020ExtMac> mac)
 {
     m_mac = mac;
     m_mac->SetNetDevice(this);
+}
+
+Ptr<Dect2020ExtMac>
+Dect2020ExtNetDevice::GetMac() const
+{
+    return m_mac;
+}
+
+void
+Dect2020ExtNetDevice::SetPhy(Ptr<Dect2020ExtPhy> phy)
+{
+    m_phy = phy;
+    m_phy->SetDevice(this);
+}
+
+Ptr<Dect2020ExtPhy>
+Dect2020ExtNetDevice::GetPhy() const
+{
+    return m_phy;
 }
 
 void

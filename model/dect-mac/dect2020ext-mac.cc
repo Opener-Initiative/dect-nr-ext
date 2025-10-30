@@ -5,7 +5,6 @@
 #include "ns3/dect2020ext-mac-pdu-helper.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
-#include "ns3/dect2020ext-physical-layer-control-field-type-1.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -82,6 +81,7 @@ Dect2020ExtMac::GenerateValidNetworkID(void)
     return networkId;
 }
 
+// TODO: Mitigate collision of long radio device IDs
 uint32_t
 Dect2020ExtMac::GenerateLongRadioDeviceId(void)
 {
@@ -296,7 +296,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
 {
     NS_LOG_FUNCTION(this << channelId);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
-    // m_phy->Send(networkBeacon, CreatePhysicalHeaderField(1, networkBeacon->GetSize()));
+    m_phy->Send(networkBeacon, CreatePhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
 void
@@ -354,17 +354,75 @@ Dect2020ExtMac::BuildClusterBeacon(void)
     return beacon;
 }
 
+Dect2020ExtPHYControlFieldType1
+Dect2020ExtMac::CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes)
+{
+    Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+    physicalHeaderField.SetPacketLengthType(packetLengthType); // 0 = in Subslots, 1 = in Slots
+
+    if (packetLengthType == 0) // Packet length is given in subslots
+    {
+        // TBD
+    }
+    else if (packetLengthType == 1) // Packet length is given in slots
+    {
+        double packetLengthBits = packetLengthBytes * 8;
+        double mcsTransportBlockSizeBits =
+            this->m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor,
+                                                  m_fourierTransformScalingFactor,
+                                                  m_mcs);
+        uint16_t packetLengthInSlots = 0;
+        packetLengthInSlots = std::ceil(packetLengthBits / mcsTransportBlockSizeBits);
+
+        physicalHeaderField.SetPacketLength(
+            packetLengthInSlots); // Size of packet in slots/subslots
+    }
+
+    physicalHeaderField.SetShortNetworkID(m_networkId);
+    physicalHeaderField.SetTransmitterIdentity(m_shortRadioDeviceId);
+    physicalHeaderField.SetTransmitPower(23); // TODO: How to determine the transmit power?
+    physicalHeaderField.SetDFMCS(m_mcs);
+
+    return physicalHeaderField;
+}
+
+void
+Dect2020ExtMac::SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType)
+{
+    m_terminationPointType = terminationPointType;
+}
+
+Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
+Dect2020ExtMac::GetTerminationPointType(void) const
+{
+    return m_terminationPointType;
+}
+
 void
 Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
 {
     m_netDevice = device;
 }
 
+Ptr<Dect2020ExtNetDevice>
+Dect2020ExtMac::GetNetDevice(void) const
+{
+    return m_netDevice;
+}
+
+/**
+ * Assigns the PHY to the MAC.
+ */
 void
 Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
 {
     m_phy = phy;
-    m_phy->SetMac(this);
+}
+
+Ptr<Dect2020ExtPhy>
+Dect2020ExtMac::GetPhy(void) const
+{
+    return m_phy;
 }
 
 void
@@ -431,6 +489,42 @@ uint16_t
 Dect2020ExtMac::GetShortRadioDeviceId(void) const
 {
     return m_shortRadioDeviceId;
+}
+
+void
+Dect2020ExtMac::SetBandNumber(uint8_t bandNumber)
+{
+    m_bandNumber = bandNumber;
+}
+
+uint8_t
+Dect2020ExtMac::GetBandNumber(void) const
+{
+    return m_bandNumber;
+}
+
+void
+Dect2020ExtMac::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
+{
+    m_subcarrierScalingFactor = subcarrierScalingFactor;
+}
+
+uint8_t
+Dect2020ExtMac::GetSubcarrierScalingFactor(void) const
+{
+    return m_subcarrierScalingFactor;
+}
+
+void
+Dect2020ExtMac::SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor)
+{
+    m_fourierTransformScalingFactor = fourierTransformScalingFactor;
+}
+
+uint8_t
+Dect2020ExtMac::GetFourierTransformScalingFactor(void) const
+{
+    return m_fourierTransformScalingFactor;
 }
 
 } // namespace ns3

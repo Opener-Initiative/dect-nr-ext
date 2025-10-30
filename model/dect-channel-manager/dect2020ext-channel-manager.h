@@ -1,7 +1,8 @@
 #ifndef DECT2020EXT_CHANNEL_MANAGER_H
 #define DECT2020EXT_CHANNEL_MANAGER_H
 
-#include "dect2020ext-channel.h"
+#include "ns3/dect2020ext-channel.h"
+#include "ns3/dect2020ext-net-device.h"
 
 #include "ns3/object.h"
 #include "ns3/spectrum-model.h"
@@ -16,6 +17,7 @@ namespace ns3
 {
 
 class Dect2020ExtChannel;
+class Dect2020ExtNetDevice;
 
 struct BandParameters
 {
@@ -37,8 +39,7 @@ public:
 
     static TypeId GetTypeId(void);
 
-    void InitializeChannels(uint8_t bandNumber,
-                            uint8_t subcarrierScalingFactor);
+    void InitializeChannels(void);
     BandParameters GetBandParameters(uint8_t bandNumber);
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
@@ -49,6 +50,7 @@ public:
     Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
 
     // RSSI
+
     void DisplayRssiResults(void);
     std::map<uint16_t, std::vector<double>> GetRssiResults(void);
     static void SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
@@ -62,13 +64,27 @@ public:
     double DbmToW(double dBm);
     double WToDbm(double w);
 
+    // Configuration
+
+    void SetBandNumber(uint8_t bandNumber);
+    uint8_t GetBandNumber(void) const;
+    void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+    uint8_t GetSubcarrierScalingFactor(void) const;
+    void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+    uint8_t GetFourierTransformScalingFactor(void) const;
+    void ConfigureDevice(Ptr<Dect2020ExtNetDevice> netDevice);
+
     TracedCallback<uint16_t, double> m_rssiMeasured; // (channelId, rssiDbm)
 
 private:
-    uint8_t m_subcarrierScalingFactor;
-    uint8_t m_bandNumber;
     std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
     Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
+
+    // Configuration variables for the DECT-NR-EXT module
+
+    uint8_t m_bandNumber;
+    uint8_t m_subcarrierScalingFactor;
+    uint8_t m_fourierTransformScalingFactor;
 
     // These member variables are used for compatibility with the DECT-NR module.
     // In the future, they should be changed to match the DECT-NR-EXT module.

@@ -35,10 +35,10 @@ set(dect2020ext_channel_h
 
 # DECT-2020 EXT Channel Manager
 set(dect2020ext_channel_manager_src
-    model/dect-channel/dect2020ext-channel-manager.cc)
+    model/dect-channel-manager/dect2020ext-channel-manager.cc)
 
 set(dect2020ext_channel_manager_h
-    model/dect-channel/dect2020ext-channel-manager.h)
+    model/dect-channel-manager/dect2020ext-channel-manager.h)
 
 # DECT-2020 EXT MAC
 set(dect2020ext_mac_src
@@ -54,12 +54,19 @@ set(dect2020ext_phy_src
 set(dect2020ext_phy_h
     model/dect-phy/dect2020ext-phy.h)
 
+# DECT-2020 EXT Spectrum Signal Parameters
+set(dect2020ext_spectrum_signal_parameters_src
+    model/spectrum-signal-parameters/dect2020ext-spectrum-signal-parameters.cc)
+
+set(dect2020ext_spectrum_signal_parameters_h
+    model/spectrum-signal-parameters/dect2020ext-spectrum-signal-parameters.h)
+
 # DECT-2020 EXT Physical Header Field
 set(dect2020ext_physical_header_field_src
-    model/mac-pdu/physical-header-field/dect2020ext-physical-layer-control-field-type-1.cc)
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.cc)
 
 set(dect2020ext_physical_header_field_h
-    model/mac-pdu/physical-header-field/dect2020ext-physical-layer-control-field-type-1.h)
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.h)
 
 # DECT-2020 EXT MAC Header Type
 set(dect2020ext_mac_header_type_src
@@ -185,6 +192,7 @@ build_lib(
         ${dect2020ext_mac_common_headers_src}
         ${dect2020ext_information_elements_src}
         ${dect2020ext_mac_multiplexing_header_src}
+        ${dect2020ext_spectrum_signal_parameters_src}
     HEADER_FILES
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
@@ -197,6 +205,7 @@ build_lib(
         ${dect2020ext_mac_common_headers_h}
         ${dect2020ext_information_elements_h}
         ${dect2020ext_mac_multiplexing_header_h}
+        ${dect2020ext_spectrum_signal_parameters_h}
     TEST_SOURCES
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_network_beacon_message_ie_test_src}

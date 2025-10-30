@@ -28,9 +28,12 @@ class Dect2020ExtNetDevice : public NetDevice
 			FT // Fixed Termination
 		};
 
-		// Dect2020ExtNetDevice specific methods
+		// Dect2020ExtNetDevice methods
 
 		void SetMac(Ptr<Dect2020ExtMac> mac);
+		Ptr<Dect2020ExtMac> GetMac() const;
+		void SetPhy(Ptr<Dect2020ExtPhy> phy);
+		Ptr<Dect2020ExtPhy> GetPhy() const;
 		void SetBandNumber(uint8_t bandNumber);
 		uint8_t GetBandNumber() const;
 		void SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType);
@@ -79,6 +82,7 @@ class Dect2020ExtNetDevice : public NetDevice
 		PromiscReceiveCallback m_promiscCallback;
 		Address m_address;
 		Ptr<Dect2020ExtMac> m_mac;
+		Ptr<Dect2020ExtPhy> m_phy;
 		uint8_t m_bandNumber;
 };
 

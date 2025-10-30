@@ -36,3 +36,10 @@ build_lib_example(
         ${libnetwork}
         ${libapplications}
 )
+
+build_lib_example(
+    NAME dect2020ext-spectrum-management-procedure
+    SOURCE_FILES dect2020ext-spectrum-management-procedure.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr-ext}
+)

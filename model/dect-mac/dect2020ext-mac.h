@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-channel-manager.h"
+#include "ns3/dect2020ext-phy-control-field-type-1.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -18,6 +19,7 @@ namespace ns3
 class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
+class Dect2020ExtPHYControlFieldType1;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -78,11 +80,15 @@ public:
     void SendClusterBeaconOnChannel(uint16_t channelId);
     Ptr<Packet> BuildNetworkBeacon(void);
     Ptr<Packet> BuildClusterBeacon(void);
+    Dect2020ExtPHYControlFieldType1 CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
     // Setters and Getters
-
+    void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
+    Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
     void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
+    Ptr<Dect2020ExtNetDevice> GetNetDevice(void) const;
     void SetPhy(Ptr<Dect2020ExtPhy> phy);
+    Ptr<Dect2020ExtPhy> GetPhy(void) const;
     void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
     void SetNetworkId(uint32_t networkId);
     uint32_t GetNetworkId(void) const;
@@ -90,8 +96,17 @@ public:
     uint32_t GetLongRadioDeviceId(void) const;
     void SetShortRadioDeviceId(uint16_t rdId);
     uint16_t GetShortRadioDeviceId(void) const;
+    void SetBandNumber(uint8_t bandNumber);
+    uint8_t GetBandNumber(void) const;
+    void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+    uint8_t GetSubcarrierScalingFactor(void) const;
+    void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+    uint8_t GetFourierTransformScalingFactor(void) const;
+
+    uint16_t m_currentChannelId;
 
 private:
+    Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
     Ptr<Dect2020ExtNetDevice> m_netDevice;
     Ptr<Dect2020ExtPhy> m_phy;
     std::map<uint16_t, std::vector<double>> m_rssiByChannel;
@@ -104,6 +119,11 @@ private:
 
     Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
     Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
+
+    uint8_t m_bandNumber;
+    uint8_t m_subcarrierScalingFactor;
+    uint8_t m_fourierTransformScalingFactor;
+    uint8_t m_mcs = 0; // Modulation and Coding Scheme TODO: determine how MCS is adjusted during simulation
 
     // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

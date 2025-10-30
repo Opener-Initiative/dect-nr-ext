@@ -1,16 +1,16 @@
-#ifndef DECT2020_PHYSICAL_LAYER_CONTROL_FIELD_TYPE_1
-#define DECT2020_PHYSICAL_LAYER_CONTROL_FIELD_TYPE_1
+#ifndef DECT2020EXT_PHY_CONTROL_FIELD_TYPE_1
+#define DECT2020EXT_PHY_CONTROL_FIELD_TYPE_1
 
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020PhysicalLayerControlFieldType1 : public Header
+class Dect2020ExtPHYControlFieldType1 : public Header
 {
 	public:
-		Dect2020PhysicalLayerControlFieldType1();
-		virtual ~Dect2020PhysicalLayerControlFieldType1();
+		Dect2020ExtPHYControlFieldType1();
+		virtual ~Dect2020ExtPHYControlFieldType1();
 
 		// Overloaded Methods from the Header class
 
@@ -48,4 +48,4 @@ class Dect2020PhysicalLayerControlFieldType1 : public Header
 
 } // namespace ns3
 
-#endif // DECT2020_PHYSICAL_LAYER_CONTROL_FIELD_TYPE_1
+#endif // DECT2020EXT_PHY_CONTROL_FIELD_TYPE_1

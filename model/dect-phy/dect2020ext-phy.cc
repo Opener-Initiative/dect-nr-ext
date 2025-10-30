@@ -1,13 +1,31 @@
 #include "dect2020ext-phy.h"
+#include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-channel-manager.h"
+#include "ns3/dect2020ext-spectrum-signal-parameters.h"
 
 #include "ns3/simulator.h"
-#include "ns3/dect2020ext-channel-manager.h"
 
 namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhy");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhy);
+
+const std::vector<uint16_t> Dect2020ExtPhy::m_singleSlotSingleStreamTransportBlockSizesMu1Beta1
+{
+    136,  // MCS 0
+    296,  // MCS 1
+    456,  // MCS 2
+    616,  // MCS 3
+    936,  // MCS 4
+    1256, // MCS 5
+    1416, // MCS 6
+    1576, // MCS 7
+    1896, // MCS 8
+    2040, // MCS 9
+    2296, // MCS 10
+    2552  // MCS 11
+};
 
 TypeId
 Dect2020ExtPhy::GetTypeId(void)
@@ -129,7 +147,6 @@ void
 Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
 {
     m_mac = mac;
-    m_mac->SetPhy(this);
 }
 
 uint32_t
@@ -148,6 +165,23 @@ Ptr<Dect2020ExtChannelManager>
 Dect2020ExtPhy::GetChannelManager() const
 {
     return m_channelManager;
+}
+
+uint16_t
+Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex)
+{
+    if (mu == 1 && beta == 1)
+    {
+        if (mcsIndex >= m_singleSlotSingleStreamTransportBlockSizesMu1Beta1.size())
+        {
+            NS_LOG_WARN("Invalid MCS index for (mu = 1, beta = 1)");
+            return 0;
+        }
+        return m_singleSlotSingleStreamTransportBlockSizesMu1Beta1[mcsIndex];
+    }
+
+    NS_LOG_WARN("Unsupported (mu,beta) combination in GetMCSTransportBlockSize");
+    return 0;
 }
 
 void
@@ -213,6 +247,46 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
     NS_LOG_FUNCTION(this << params);
     // TODO: Implement this method
+}
+
+void
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader)
+{
+    NS_LOG_FUNCTION(this << packet << physicalHeader);
+    NS_ASSERT_MSG(packet, "Packet is null");
+    NS_ASSERT_MSG(this->m_device, "m_device is null");
+
+    // Create and initialize the transmission parameters
+    Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
+    params->txPhy = this;
+    params->txPacket = packet->Copy(); // deep copy to avoid modifying original
+    params->txPacket->AddHeader(physicalHeader);
+    params->m_currentChannelId = this->m_mac->m_currentChannelId;
+
+    // Calculate the TX duration based on the packet size and MCS
+    Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
+}
+
+double
+Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader)
+{
+    // TODO: Implement this method
+
+    // if (physicalHeaderField.GetPacketLengthType() == 0) // Packet length is given in subslots
+    // {
+    //     // TBD
+    // }
+    // else if (physicalHeaderField.GetPacketLengthType() == 1) // Packet length is given in slots
+    // {
+    //     return physicalHeaderField.GetPacketLength() * 416670; // 416.67 ns per slot
+    // }
+    // else
+    // {
+    //     NS_LOG_WARN("Invalid packet length type");
+    //     return 0;
+    // }
+
+    return 0;
 }
 
 } // namespace ns3

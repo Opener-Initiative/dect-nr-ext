@@ -4,6 +4,7 @@
 #include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-channel-manager.h"
+#include "ns3/dect2020ext-phy-control-field-type-1.h"
 
 #include "ns3/spectrum-phy.h"
 #include "ns3/object.h"
@@ -21,6 +22,7 @@ class Dect2020ExtChannel;
 struct Slot;
 struct Subslot;
 class Dect2020ExtMac;
+class Dect2020ExtPHYControlFieldType1;
 
 class Dect2020ExtPhy : public SpectrumPhy
 {
@@ -48,6 +50,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t GetCurrentSFN() const;
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
+		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
 
 		// Inherited from SpectrumPhy
 
@@ -63,7 +66,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void StartRx(Ptr<SpectrumSignalParameters> params) override;
 
 		// Dect2020ExtPhy Methods
-		// void Send(Ptr<Packet> packet, )
+		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
+		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
 
 		// Callbacks
 
@@ -80,6 +84,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
 		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
+
+		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
 
 		Ptr<NetDevice> m_device;
 		Ptr<MobilityModel> m_mobilityModel;
