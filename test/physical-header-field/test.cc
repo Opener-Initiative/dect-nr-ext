@@ -2,7 +2,8 @@
 
 #include "ns3/test.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Dect2020ExtPhysicalHeaderFieldTest : public TestSuite
 {

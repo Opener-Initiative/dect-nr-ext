@@ -11,6 +11,8 @@
 #include "ns3/nstime.h"
 #include "ns3/traced-value.h"
 #include "ns3/callback.h"
+#include "ns3/packet.h"
+#include "ns3/uinteger.h"
 
 #include <vector>
 
@@ -85,9 +87,6 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		Ptr<Dect2020ExtChannelManager> m_channelManager;
 	    Time m_frameStartTime;
-		uint8_t m_subcarrierScalingFactor;
-		uint8_t m_bandNumber;
-		uint8_t m_fourierTransformScalingFactor;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;
@@ -101,6 +100,12 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<SpectrumChannel> m_channel;
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
 		Ptr<Object> m_antenna;
+
+		// Configuration Attributes
+
+		uint8_t m_subcarrierScalingFactor;
+		uint8_t m_bandNumber;
+		uint8_t m_fourierTransformScalingFactor;
 
 		// ###################
 		// #### Constants ####

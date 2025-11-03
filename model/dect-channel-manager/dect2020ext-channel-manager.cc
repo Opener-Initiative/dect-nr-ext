@@ -5,6 +5,7 @@
 #include "ns3/propagation-module.h"
 #include "ns3/simulator.h"
 #include "ns3/double.h"
+#include "ns3/config.h"
 
 #include <vector>
 #include <cmath>
@@ -32,6 +33,25 @@ Dect2020ExtChannelManager::GetTypeId(void)
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
                                 .AddConstructor<Dect2020ExtChannelManager>()
+
+                                .AddAttribute("config_BandNumber",
+                                              "DECT-2020 band number configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_bandNumber),
+                                              MakeUintegerChecker<uint8_t>(1, 21))
+
+                                .AddAttribute("config_SubcarrierScalingFactor",
+                                              "DECT-2020 subcarrier scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_subcarrierScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
+                                .AddAttribute("config_FourierTransformScalingFactor",
+                                              "DECT-2020 Fourier transform scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_fourierTransformScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
                                 .AddTraceSource("RssiMeasured",
                                                 "RSSI Measurement",
                                                 MakeTraceSourceAccessor(&Dect2020ExtChannelManager::m_rssiMeasured),
@@ -456,10 +476,19 @@ Dect2020ExtChannelManager::GetFourierTransformScalingFactor(void) const
     return m_fourierTransformScalingFactor;
 }
 
+/**
+ * Configures DECT-2020 MAC and PHY using the configuration attributes
+ * Updates the default values of the DECT-2020 MAC and PHY attributes
+ */
 void
-Dect2020ExtChannelManager::ConfigureDevice(Ptr<Dect2020ExtNetDevice> netDevice)
+Dect2020ExtChannelManager::Configure(void)
 {
-    netDevice->GetMac()->SetSubcarrierScalingFactor(m_subcarrierScalingFactor);
+    Config::SetDefault("ns3::Dect2020ExtMac::config_BandNumber", UintegerValue(m_bandNumber));
+    Config::SetDefault("ns3::Dect2020ExtMac::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtMac::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtPhy::config_BandNumber", UintegerValue(m_bandNumber));
+    Config::SetDefault("ns3::Dect2020ExtPhy::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtPhy::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
 }
 
 }; // namespace ns3

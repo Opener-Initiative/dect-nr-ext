@@ -35,12 +35,6 @@ main(int argc, char *argv[])
     ftNetDevice->SetPhy(ftPHY);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
 
-    channelManager->ConfigureDevice(ftNetDevice);
-
-    // FT Node
-    Ptr<Node> ftNode = CreateObject<Node>();
-    ftNode->AddDevice(ftNetDevice);
-
     Simulator::Run();
     Simulator::Stop();
     Simulator::Destroy();

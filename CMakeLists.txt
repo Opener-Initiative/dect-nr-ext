@@ -130,6 +130,11 @@ set(dect2020ext_information_elements_h
 ## TESTS ##
 ###########
 
+# Configuration Test
+set(dect2020ext_configuration_test_src
+    test/configuration/dect2020ext-configuration-test.cc
+    test/configuration/dect2020ext-configuration-test-case.cc)
+
 # Physical Header Field
 set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/test.cc
@@ -209,6 +214,10 @@ build_lib(
     TEST_SOURCES
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_network_beacon_message_ie_test_src}
+        ${dect2020ext_configuration_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
+        ${libspectrum}
+        ${libmobility}
+        ${libpropagation}
 )

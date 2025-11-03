@@ -1,10 +1,10 @@
 #ifndef DECT2020EXT_NET_DEVICE_H
 #define DECT2020EXT_NET_DEVICE_H
 
-#include "ns3/dect2020ext-mac.h"
-
 #include "ns3/net-device.h"
 #include "ns3/traced-callback.h"
+#include "ns3/channel.h"
+#include "ns3/packet.h"
 
 namespace ns3
 {
@@ -12,6 +12,7 @@ namespace ns3
 // Forward declarations
 
 class Dect2020ExtMac;
+class Dect2020ExtPhy;
 
 class Dect2020ExtNetDevice : public NetDevice
 {
@@ -24,7 +25,7 @@ class Dect2020ExtNetDevice : public NetDevice
 
 		enum Dect2020ExtTerminationPointType
 		{
-			PT, // Portable Termination
+			PT,// Portable Termination
 			FT // Fixed Termination
 		};
 

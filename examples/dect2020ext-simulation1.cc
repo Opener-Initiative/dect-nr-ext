@@ -54,7 +54,7 @@ main(int argc, char *argv[])
     channelManager.SetSpectrumChannel(spectrumChannel);
     
     // Initialize channels for band 1 with subcarrier scaling factor 1
-    channelManager.InitializeChannels(1, 1);
+    channelManager.InitializeChannels();
 
     // Spectrum Model
     Ptr<SpectrumModel> spectrumModel = channelManager.GetSpectrumModel(1);

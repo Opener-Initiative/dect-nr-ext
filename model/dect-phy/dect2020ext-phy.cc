@@ -31,13 +31,32 @@ TypeId
 Dect2020ExtPhy::GetTypeId(void)
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtPhy")
-                            .SetParent<Object>()
-                            .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtPhy>()
-                            .AddTraceSource("SFN",
-                                            "System Frame Number (SFN)",
-                                            MakeTraceSourceAccessor(&Dect2020ExtPhy::m_SFN),
-                                            "ns3::TracedValueCallback::Uint32");
+                                .SetParent<Object>()
+                                .SetGroupName("Dect2020Ext")
+                                .AddConstructor<Dect2020ExtPhy>()
+
+                                .AddTraceSource("SFN",
+                                                "System Frame Number (SFN)",
+                                                MakeTraceSourceAccessor(&Dect2020ExtPhy::m_SFN),
+                                                "ns3::TracedValueCallback::Uint32")
+
+                                .AddAttribute("config_BandNumber",
+                                              "DECT-2020 band number configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_bandNumber),
+                                              MakeUintegerChecker<uint8_t>(1, 21))
+
+                                .AddAttribute("config_SubcarrierScalingFactor",
+                                              "DECT-2020 subcarrier scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_subcarrierScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
+                                .AddAttribute("config_FourierTransformScalingFactor",
+                                              "DECT-2020 Fourier transform scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_fourierTransformScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 

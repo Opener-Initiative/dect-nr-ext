@@ -10,6 +10,7 @@
 #include "ns3/spectrum-channel.h"
 #include "ns3/spectrum-analyzer.h"
 #include "ns3/single-model-spectrum-channel.h"
+#include "ns3/uinteger.h"
 
 #include <map>
 
@@ -72,7 +73,7 @@ public:
     uint8_t GetSubcarrierScalingFactor(void) const;
     void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
     uint8_t GetFourierTransformScalingFactor(void) const;
-    void ConfigureDevice(Ptr<Dect2020ExtNetDevice> netDevice);
+    void Configure(void);
 
     TracedCallback<uint16_t, double> m_rssiMeasured; // (channelId, rssiDbm)
 

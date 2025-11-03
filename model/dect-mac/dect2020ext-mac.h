@@ -10,6 +10,9 @@
 #include "ns3/object.h"
 #include "ns3/nstime.h"
 #include "ns3/event-id.h"
+#include "ns3/packet.h"
+#include "ns3/uinteger.h"
+
 #include <map>
 #include <vector>
 
@@ -97,13 +100,14 @@ class Dect2020ExtMac : public Object
         void SetShortRadioDeviceId(uint16_t rdId);
         uint16_t GetShortRadioDeviceId(void) const;
 
-        // Configuration Setters and Getters
+        // Configuration
         void SetBandNumber(uint8_t bandNumber);
         uint8_t GetBandNumber(void) const;
         void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
         uint8_t GetSubcarrierScalingFactor(void) const;
         void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
         uint8_t GetFourierTransformScalingFactor(void) const;
+        void PrintConfiguration(void);
 
         uint16_t m_currentChannelId;
 
@@ -119,12 +123,14 @@ class Dect2020ExtMac : public Object
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
 
-        Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
-        Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
-
+        // Configuration Attributes
         uint8_t m_bandNumber;
         uint8_t m_subcarrierScalingFactor;
         uint8_t m_fourierTransformScalingFactor;
+
+        Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
+        Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
+
         uint8_t m_mcs = 0; // Modulation and Coding Scheme TODO: determine how MCS is adjusted during simulation
 
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;

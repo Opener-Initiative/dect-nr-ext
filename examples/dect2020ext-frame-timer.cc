@@ -32,7 +32,7 @@ main(int argc, char* argv[])
 
     // Channel Manager
     Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
-    channelManager->InitializeChannels(1, 1);
+    channelManager->InitializeChannels();
 
     Ptr<Dect2020ExtPhy> phy = CreateObject<Dect2020ExtPhy>();
     phy->StartFrameTimer();

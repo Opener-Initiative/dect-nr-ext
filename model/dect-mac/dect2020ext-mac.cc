@@ -33,9 +33,27 @@ TypeId
 Dect2020ExtMac::GetTypeId(void)
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtMac")
-                            .SetParent<Object>()
-                            .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtMac>();
+                                .SetParent<Object>()
+                                .SetGroupName("Dect2020Ext")
+                                .AddConstructor<Dect2020ExtMac>()
+
+                                .AddAttribute("config_BandNumber",
+                                              "DECT-2020 band number configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtMac::m_bandNumber),
+                                              MakeUintegerChecker<uint8_t>(1, 21))
+
+                                .AddAttribute("config_SubcarrierScalingFactor",
+                                              "DECT-2020 subcarrier scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtMac::m_subcarrierScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
+                                .AddAttribute("config_FourierTransformScalingFactor",
+                                              "DECT-2020 Fourier transform scaling factor configuration",
+                                              UintegerValue(1),
+                                              MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
+                                              MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 
@@ -525,6 +543,21 @@ uint8_t
 Dect2020ExtMac::GetFourierTransformScalingFactor(void) const
 {
     return m_fourierTransformScalingFactor;
+}
+
+void
+Dect2020ExtMac::PrintConfiguration(void)
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("DECT-2020 MAC Configuration:");
+    NS_LOG_INFO("Band Number: " << static_cast<uint32_t>(m_bandNumber));
+    NS_LOG_INFO("Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
+    NS_LOG_INFO("Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
+
+    std::cout << "DECT-2020 MAC Configuration:" << "\n";
+    std::cout << "Band Number: " << static_cast<uint32_t>(m_bandNumber) << "\n";
+    std::cout << "Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor) << "\n";
+    std::cout << "Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor) << "\n";
 }
 
 } // namespace ns3

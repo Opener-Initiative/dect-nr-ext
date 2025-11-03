@@ -1,5 +1,5 @@
 #include "serialization-test-case-1.h"
-#include "ns3/dect2020ext-physical-header-field-type-1.h"
+#include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
@@ -21,8 +21,8 @@ Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoSetup()
 void
 Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoRun()
 {
-    Dect2020ExtPhysicalHeaderFieldType1 originalHeader;
-    Dect2020ExtPhysicalHeaderFieldType1 deserializedHeader;
+    Dect2020ExtPHYControlFieldType1 originalHeader;
+    Dect2020ExtPHYControlFieldType1 deserializedHeader;
     Packet packet;
 
     // Set test values
