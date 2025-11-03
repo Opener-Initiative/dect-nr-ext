@@ -44,13 +44,19 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		// Dect2020ExtPhy Setters and Getters
 
-		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-		uint8_t GetSubcarrierScalingFactor() const;
 		void SetMac(Ptr<Dect2020ExtMac> mac);
 		uint32_t GetCurrentSFN() const;
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
+
+		// Configuration Setters and Getters
+		void SetBandNumber(uint8_t bandNumber);
+		uint8_t GetBandNumber(void) const;
+		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+		uint8_t GetSubcarrierScalingFactor(void) const;
+		void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+		uint8_t GetFourierTransformScalingFactor(void) const;
 
 		// Inherited from SpectrumPhy
 
@@ -66,6 +72,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void StartRx(Ptr<SpectrumSignalParameters> params) override;
 
 		// Dect2020ExtPhy Methods
+
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
 
@@ -79,6 +86,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<Dect2020ExtChannelManager> m_channelManager;
 	    Time m_frameStartTime;
 		uint8_t m_subcarrierScalingFactor;
+		uint8_t m_bandNumber;
+		uint8_t m_fourierTransformScalingFactor;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;

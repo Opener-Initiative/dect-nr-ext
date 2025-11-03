@@ -130,19 +130,9 @@ Dect2020ExtPhy::DisconnectSFNCallback()
     TraceDisconnectWithoutContext("SFN", m_SFNCallback);
 }
 
-void
-Dect2020ExtPhy::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
-{
-    NS_LOG_FUNCTION(this << subcarrierScalingFactor);
-    m_subcarrierScalingFactor = subcarrierScalingFactor;
-}
-
-uint8_t
-Dect2020ExtPhy::GetSubcarrierScalingFactor() const
-{
-    return m_subcarrierScalingFactor;
-}
-
+/**
+ * Assigns the MAC to the PHY
+ */
 void
 Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
 {
@@ -182,6 +172,45 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
 
     NS_LOG_WARN("Unsupported (mu,beta) combination in GetMCSTransportBlockSize");
     return 0;
+}
+
+void
+Dect2020ExtPhy::SetBandNumber(uint8_t bandNumber)
+{
+    NS_LOG_FUNCTION(this << bandNumber);
+    m_bandNumber = bandNumber;
+}
+
+uint8_t
+Dect2020ExtPhy::GetBandNumber() const
+{
+    return m_bandNumber;
+}
+
+void
+Dect2020ExtPhy::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
+{
+    NS_LOG_FUNCTION(this << subcarrierScalingFactor);
+    m_subcarrierScalingFactor = subcarrierScalingFactor;
+}
+
+uint8_t
+Dect2020ExtPhy::GetSubcarrierScalingFactor() const
+{
+    return m_subcarrierScalingFactor;
+}
+
+void
+Dect2020ExtPhy::SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor)
+{
+    NS_LOG_FUNCTION(this << fourierTransformScalingFactor);
+    m_fourierTransformScalingFactor = fourierTransformScalingFactor;
+}
+
+uint8_t
+Dect2020ExtPhy::GetFourierTransformScalingFactor() const
+{
+    return m_fourierTransformScalingFactor;
 }
 
 void

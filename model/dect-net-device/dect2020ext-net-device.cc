@@ -36,9 +36,8 @@ Dect2020ExtNetDevice::~Dect2020ExtNetDevice()
 }
 
 /**
- * Assigns the MAC to the net device.
- * Assigns the net device to the MAC.
- * Sets the termination point type to the MAC.
+ * Assigns the MAC to the net device
+ * Assigns the net device to the MAC
  */
 void
 Dect2020ExtNetDevice::SetMac(Ptr<Dect2020ExtMac> mac)
@@ -53,6 +52,11 @@ Dect2020ExtNetDevice::GetMac() const
     return m_mac;
 }
 
+
+/**
+ * Assigns the PHY to the net device
+ * Assigns the net device to the PHY
+ */
 void
 Dect2020ExtNetDevice::SetPhy(Ptr<Dect2020ExtPhy> phy)
 {

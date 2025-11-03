@@ -411,7 +411,7 @@ Dect2020ExtMac::GetNetDevice(void) const
 }
 
 /**
- * Assigns the PHY to the MAC.
+ * Assigns the PHY to the MAC
  */
 void
 Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)

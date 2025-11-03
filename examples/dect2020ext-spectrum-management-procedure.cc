@@ -33,9 +33,7 @@ main(int argc, char *argv[])
     ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftNetDevice->SetMac(ftMAC);
     ftNetDevice->SetPhy(ftPHY);
-    ftMAC->SetNetDevice(ftNetDevice);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
-    ftPHY->SetNetDevice(ftNetDevice);
 
     channelManager->ConfigureDevice(ftNetDevice);
 
