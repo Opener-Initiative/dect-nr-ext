@@ -1,0 +1,18 @@
+---
+config:
+    theme: dark
+---
+
+flowchart TD
+    Dect2020ExtMac --> |"Dect2020ExtMac()"| InitializeDevice
+    Dect2020ExtMac --> Start
+
+    subgraph InitializeDevice["InitializeDevice(void)"]
+        GenerateLongRadioDeviceId["GenerateLongRadioDeviceId(void)"] --> SetLongRadioDeviceId["SetLongRadioDeviceId(void)"]
+        GenerateShortRadioDeviceId["GenerateShortRadioDeviceId(void)"] --> SetShortRadioDeviceId["SetShortRadioDeviceId(void)"]
+    end
+
+    subgraph Start["Start(void)"]
+        InitializeNetwork["InitializeNetwork(void)"] --> GenerateValidNetworkId["GenerateValidNetworkId(void)"]
+        InitializeNetwork --> ScheduleBackgroundScan["ScheduleBackgroundScan(ns::Time delay)"]
+    end

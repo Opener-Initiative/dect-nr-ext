@@ -4,6 +4,12 @@ check_include_file(stdint.h HAVE_STDINT_H)
 if(NOT HAVE_STDINT_H)
     message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
 endif()
+###########
+## TYPES ##
+###########
+
+set(dect2020ext_types_h
+    model/dect-types/dect2020ext-types.h)
 
 ############
 ## HELPER ##
@@ -199,6 +205,7 @@ build_lib(
         ${dect2020ext_mac_multiplexing_header_src}
         ${dect2020ext_spectrum_signal_parameters_src}
     HEADER_FILES
+        ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
         ${dect2020ext_channel_h}
