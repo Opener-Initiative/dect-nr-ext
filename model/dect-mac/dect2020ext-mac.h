@@ -107,7 +107,7 @@ class Dect2020ExtMac : public Object
         uint8_t GetSubcarrierScalingFactor(void) const;
         void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
         uint8_t GetFourierTransformScalingFactor(void) const;
-        void PrintConfiguration(void);
+        void PrintConfiguration(void) const;
 
         uint16_t m_currentChannelId;
 

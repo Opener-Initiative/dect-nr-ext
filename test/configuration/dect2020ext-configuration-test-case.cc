@@ -26,15 +26,24 @@ Dect2020ExtConfigurationTestCase::DoRun()
     Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
 
     // Configuration
-    channelManager->SetBandNumber(6);
-    channelManager->SetSubcarrierScalingFactor(6);
-    channelManager->SetFourierTransformScalingFactor(6);
-    // channelManager->Configure();
+    uint8_t bandNumber = 6;
+    uint8_t subcarrierScalingFactor = 6;
+    uint8_t fourierTransformScalingFactor = 6;
+
+    channelManager->SetBandNumber(bandNumber);
+    channelManager->SetSubcarrierScalingFactor(subcarrierScalingFactor);
+    channelManager->SetFourierTransformScalingFactor(fourierTransformScalingFactor);
+    channelManager->Configure();
 
     Ptr<Dect2020ExtMac> mac = CreateObject<Dect2020ExtMac>();
     Ptr<Dect2020ExtPhy> phy = CreateObject<Dect2020ExtPhy>();
 
-    mac->PrintConfiguration();
+    NS_TEST_ASSERT_MSG_EQ(mac->GetBandNumber(), bandNumber, "MAC: Band Number mismatch after configuration");
+    NS_TEST_ASSERT_MSG_EQ(mac->GetSubcarrierScalingFactor(), subcarrierScalingFactor, "MAC: Subcarrier Scaling Factor mismatch after configuration");
+    NS_TEST_ASSERT_MSG_EQ(mac->GetFourierTransformScalingFactor(), fourierTransformScalingFactor, "MAC: Fourier Transform Scaling Factor mismatch after configuration");
+    NS_TEST_ASSERT_MSG_EQ(phy->GetBandNumber(), bandNumber, "PHY: Band Number mismatch after configuration");
+    NS_TEST_ASSERT_MSG_EQ(phy->GetSubcarrierScalingFactor(), subcarrierScalingFactor, "PHY: Subcarrier Scaling Factor mismatch after configuration");
+    NS_TEST_ASSERT_MSG_EQ(phy->GetFourierTransformScalingFactor(), fourierTransformScalingFactor, "PHY: Fourier Transform Scaling Factor mismatch after configuration");
 }
 
 } // namespace ns3

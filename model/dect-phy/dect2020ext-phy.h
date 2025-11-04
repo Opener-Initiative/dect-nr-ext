@@ -52,13 +52,15 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
 
-		// Configuration Setters and Getters
+		// Configuration
+
 		void SetBandNumber(uint8_t bandNumber);
 		uint8_t GetBandNumber(void) const;
 		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
 		uint8_t GetSubcarrierScalingFactor(void) const;
 		void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
 		uint8_t GetFourierTransformScalingFactor(void) const;
+		void PrintConfiguration(void) const;
 
 		// Inherited from SpectrumPhy
 

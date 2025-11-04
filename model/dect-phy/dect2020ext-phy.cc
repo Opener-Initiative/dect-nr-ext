@@ -233,6 +233,21 @@ Dect2020ExtPhy::GetFourierTransformScalingFactor() const
 }
 
 void
+Dect2020ExtPhy::PrintConfiguration(void) const
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("DECT-2020 PHY Configuration:");
+    NS_LOG_INFO("Band Number: " << static_cast<uint32_t>(m_bandNumber));
+    NS_LOG_INFO("Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
+    NS_LOG_INFO("Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
+
+    std::cout << "DECT-2020 PHY Configuration:" << "\n";
+    std::cout << "Band Number: " << static_cast<uint32_t>(m_bandNumber) << "\n";
+    std::cout << "Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor) << "\n";
+    std::cout << "Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor) << "\n";
+}
+
+void
 Dect2020ExtPhy::SetDevice(Ptr<NetDevice> d)
 {
     m_device = d;

@@ -546,7 +546,7 @@ Dect2020ExtMac::GetFourierTransformScalingFactor(void) const
 }
 
 void
-Dect2020ExtMac::PrintConfiguration(void)
+Dect2020ExtMac::PrintConfiguration(void) const
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("DECT-2020 MAC Configuration:");
