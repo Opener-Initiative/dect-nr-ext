@@ -21,15 +21,18 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannelManager);
 
 Dect2020ExtChannelManager::Dect2020ExtChannelManager()
 {
+    NS_LOG_FUNCTION(this);
 }
 
 Dect2020ExtChannelManager::~Dect2020ExtChannelManager()
 {
+    NS_LOG_FUNCTION(this);
 }
 
 TypeId
 Dect2020ExtChannelManager::GetTypeId(void)
 {
+    NS_LOG_FUNCTION_NOARGS();
     static TypeId tid = TypeId("ns3::Dect2020ExtChannelManager")
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
@@ -129,6 +132,7 @@ Dect2020ExtChannelManager::InitializeChannels()
 BandParameters
 Dect2020ExtChannelManager::GetBandParameters(uint8_t bandNumber)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     // Note: Currently only Bands 1, 2, 20, and 21 are implemented.
     BandParameters bp;
     bp.bandNumber = bandNumber;
@@ -181,6 +185,7 @@ Dect2020ExtChannelManager::GetBandParameters(uint8_t bandNumber)
 double
 Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber) << channelNumber);
     double centerFrequency = 0;
 
     if ((bandNumber >= 1 && bandNumber <= 12) || bandNumber == 22)
@@ -200,6 +205,7 @@ Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t
 std::vector<Ptr<Dect2020ExtChannel>>
 Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     std::vector<Ptr<Dect2020ExtChannel>> validChannels;
 
     auto it = m_channels.find(bandNumber);
@@ -213,12 +219,14 @@ Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
 std::vector<Ptr<Dect2020ExtChannel>>
 Dect2020ExtChannelManager::GetChannels(void)
 {
+    NS_LOG_FUNCTION(this);
     return m_channels[m_bandNumber];
 }
 
 uint32_t
 Dect2020ExtChannelManager::GetSubslotsPerSlot(void)
-{    
+{
+    NS_LOG_FUNCTION(this);
     uint32_t numSubslotsPerSlot = (m_subcarrierScalingFactor == 1)   ? 2
                                   : (m_subcarrierScalingFactor == 2) ? 4
                                   : (m_subcarrierScalingFactor == 4) ? 8
@@ -229,6 +237,7 @@ Dect2020ExtChannelManager::GetSubslotsPerSlot(void)
 uint8_t
 Dect2020ExtChannelManager::GetBandNumber(uint16_t channelNumber)
 {
+    NS_LOG_FUNCTION(this << channelNumber);
     struct BandChannelRange
     {
         uint8_t bandNumber;
@@ -255,6 +264,7 @@ Dect2020ExtChannelManager::GetBandNumber(uint16_t channelNumber)
 uint16_t
 Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     switch (bandNumber)
     {
     case 1:
@@ -285,6 +295,7 @@ Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
 Ptr<SpectrumModel>
 Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandId));
     // Check if a SpectrumModel for this band already exists
     auto iterator = m_bandModels.find(bandId);
     if (iterator != m_bandModels.end())
@@ -316,6 +327,7 @@ static std::map<uint16_t, bool> g_channelMeasurementComplete;
 void
 Dect2020ExtChannelManager::DisplayRssiResults(void)
 {
+    NS_LOG_FUNCTION(this);
     if (m_rssiResults.empty())
     {
         std::cout << "No RSSI results available" << std::endl;
@@ -336,18 +348,21 @@ Dect2020ExtChannelManager::DisplayRssiResults(void)
 std::map<uint16_t, std::vector<double>>
 Dect2020ExtChannelManager::GetRssiResults(void)
 {
+    NS_LOG_FUNCTION(this);
     return m_rssiResults;
 }
 
 void
 Dect2020ExtChannelManager::SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
+    NS_LOG_FUNCTION(self << channelId << analyzer << spectrumValue);
     self->SpectrumAnalyzerCallback(channelId, analyzer, spectrumValue);
 }
 
 void
 Dect2020ExtChannelManager::SpectrumAnalyzerCallback(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue)
 {
+    NS_LOG_FUNCTION(this << channelId << analyzer << spectrumValue);
     // NS_LOG_INFO("RSSI Measured at: " << Simulator::Now().GetNanoSeconds() << " ns");
     static int reportCount = 0;
     reportCount++;
@@ -397,6 +412,7 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallback(uint16_t channelId, Ptr<Spec
 void
 Dect2020ExtChannelManager::MeasureRssi(uint16_t channelId, TimeValue duration)
 {
+    NS_LOG_FUNCTION(this << channelId);
     if (m_spectrumChannel == nullptr)
     {
         NS_FATAL_ERROR("Spectrum channel is not set for Dect2020ExtChannelManager");
@@ -420,60 +436,70 @@ Dect2020ExtChannelManager::MeasureRssi(uint16_t channelId, TimeValue duration)
 void 
 Dect2020ExtChannelManager::SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel)
 {
+    NS_LOG_FUNCTION(this << spectrumChannel);
     m_spectrumChannel = spectrumChannel;
 }
 
 Ptr<SingleModelSpectrumChannel>
 Dect2020ExtChannelManager::GetSpectrumChannel(void)
 {
+    NS_LOG_FUNCTION(this);
     return m_spectrumChannel;
 }
 
 double
 Dect2020ExtChannelManager::DbmToW(double dBm)
 {
+    NS_LOG_FUNCTION(this << dBm);
     return std::pow(10.0, 0.1 * (dBm - 30.0));
 }
 
 double
 Dect2020ExtChannelManager::WToDbm(double w)
 {
+    NS_LOG_FUNCTION(this << w);
     return 10.0 * std::log10(w) + 30.0;
 }
 
 void
 Dect2020ExtChannelManager::SetBandNumber(uint8_t bandNumber)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     m_bandNumber = bandNumber;
 }
 
 uint8_t
 Dect2020ExtChannelManager::GetBandNumber(void) const
 {
+    NS_LOG_FUNCTION(this);
     return m_bandNumber;
 }   
 
 void
 Dect2020ExtChannelManager::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(subcarrierScalingFactor));
     m_subcarrierScalingFactor = subcarrierScalingFactor;
 }
 
 uint8_t
 Dect2020ExtChannelManager::GetSubcarrierScalingFactor(void) const
 {
+    NS_LOG_FUNCTION(this);
     return m_subcarrierScalingFactor;
 }
 
 void
 Dect2020ExtChannelManager::SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor)
 {
+    NS_LOG_FUNCTION(this << static_cast<uint32_t>(fourierTransformScalingFactor));
     m_fourierTransformScalingFactor = fourierTransformScalingFactor;
 }
 
 uint8_t
 Dect2020ExtChannelManager::GetFourierTransformScalingFactor(void) const
 {
+    NS_LOG_FUNCTION(this);
     return m_fourierTransformScalingFactor;
 }
 
@@ -484,6 +510,7 @@ Dect2020ExtChannelManager::GetFourierTransformScalingFactor(void) const
 void
 Dect2020ExtChannelManager::Configure(void)
 {
+    NS_LOG_FUNCTION(this);
     // Configure MAC attributes
     Config::SetDefault("ns3::Dect2020ExtMac::config_BandNumber", UintegerValue(m_bandNumber));
     Config::SetDefault("ns3::Dect2020ExtMac::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));

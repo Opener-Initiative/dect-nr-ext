@@ -332,6 +332,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
     NS_ASSERT_MSG(this->m_device, "m_device is null");
+    NS_ASSERT_MSG(this->m_mac, "m_mac is null");
+    NS_ASSERT_MSG(this->m_channelManager, "m_channelManager is null");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();

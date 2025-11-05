@@ -21,7 +21,6 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 Dect2020ExtMac::Dect2020ExtMac()
 {
     NS_LOG_FUNCTION(this);
-    // Dect2020ExtChannelManager::m_rssiMeasured.ConnectWithoutContext(MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
     InitializeDevice();
 }
 
@@ -68,6 +67,10 @@ void
 Dect2020ExtMac::InitializeDevice(void)
 {
     NS_LOG_FUNCTION(this);
+    if (m_channelManager == nullptr)
+    {
+        NS_LOG_ERROR("Channel manager is not set for MAC");
+    }
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
 }
