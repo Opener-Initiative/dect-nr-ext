@@ -37,15 +37,13 @@ struct Dect2020ExtChannelEvaluation
     }
 };
 
-// struct SubslotScanContext
-// {
-//     uint32_t channelId;
-//     uint32_t subslotCount; // Counter for how many Subslots have been measured
-//     ChannelEvaluation evaluation;
-//     std::function<void(const ChannelEvaluation&)>
-//         onComplete; // Callback to be called when the scan is complete (OperatingChannelSelection,
-//                     // LBT, ...)
-// };
+struct Dect2020ExtSubslotScanContext
+{
+    uint32_t channelId;
+    Dect2020ExtChannelEvaluation evaluation;
+    uint32_t subslotCount;
+    std::function<void(const Dect2020ExtChannelEvaluation&)> onComplete;
+};
 
 class Dect2020ExtMac : public Object
 {
@@ -134,7 +132,7 @@ class Dect2020ExtMac : public Object
         Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
         Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
 
-        uint8_t m_mcs = 0; // Modulation and Coding Scheme TODO: determine how MCS is adjusted during simulation
+        uint8_t m_mcs = 0; // Modulation and Coding Scheme
 
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 
