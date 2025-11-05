@@ -6,6 +6,7 @@
 #include "ns3/simulator.h"
 #include "ns3/double.h"
 #include "ns3/config.h"
+#include "ns3/pointer.h"
 
 #include <vector>
 #include <cmath>
@@ -483,12 +484,17 @@ Dect2020ExtChannelManager::GetFourierTransformScalingFactor(void) const
 void
 Dect2020ExtChannelManager::Configure(void)
 {
+    // Configure MAC attributes
     Config::SetDefault("ns3::Dect2020ExtMac::config_BandNumber", UintegerValue(m_bandNumber));
     Config::SetDefault("ns3::Dect2020ExtMac::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
     Config::SetDefault("ns3::Dect2020ExtMac::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtMac::config_ChannelManager", PointerValue(this));
+
+    // Configure PHY attributes
     Config::SetDefault("ns3::Dect2020ExtPhy::config_BandNumber", UintegerValue(m_bandNumber));
     Config::SetDefault("ns3::Dect2020ExtPhy::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
     Config::SetDefault("ns3::Dect2020ExtPhy::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtPhy::config_ChannelManager", PointerValue(this));
 }
 
 }; // namespace ns3

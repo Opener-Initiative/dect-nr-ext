@@ -4,6 +4,7 @@
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
 
 #include "ns3/simulator.h"
+#include "ns3/pointer.h"
 
 namespace ns3
 {
@@ -26,6 +27,17 @@ const std::vector<uint16_t> Dect2020ExtPhy::m_singleSlotSingleStreamTransportBlo
     2296, // MCS 10
     2552  // MCS 11
 };
+
+Dect2020ExtPhy::Dect2020ExtPhy()
+{
+    NS_LOG_FUNCTION(this);
+    m_SFN = 0;
+}
+
+Dect2020ExtPhy::~Dect2020ExtPhy()
+{
+    NS_LOG_FUNCTION(this);
+}
 
 TypeId
 Dect2020ExtPhy::GetTypeId(void)
@@ -56,19 +68,21 @@ Dect2020ExtPhy::GetTypeId(void)
                                               "DECT-2020 Fourier transform scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtPhy::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8));
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
+                                .AddAttribute("config_ChannelManager",
+                                              "Dect2020ExtChannelManager configuration",
+                                              PointerValue(nullptr),
+                                              MakePointerAccessor(&Dect2020ExtPhy::m_channelManager),
+                                              MakePointerChecker<Dect2020ExtChannelManager>());
     return tid;
 }
 
-Dect2020ExtPhy::Dect2020ExtPhy()
+void
+Dect2020ExtPhy::Start()
 {
     NS_LOG_FUNCTION(this);
-    m_SFN = 0;
-}
-
-Dect2020ExtPhy::~Dect2020ExtPhy()
-{
-    NS_LOG_FUNCTION(this);
+    StartFrameTimer();
 }
 
 void
@@ -324,10 +338,18 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     params->txPhy = this;
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
-    params->m_currentChannelId = this->m_mac->m_currentChannelId;
+    params->m_currentChannelId = this->m_mac->GetOperatingChannelId();
 
     // Calculate the TX duration based on the packet size and MCS
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
+    params->duration = duration;
+
+    Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
+    Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
+    params->psd = psd;
+
+    // Start the transmission
+    Simulator::Schedule(duration, &ns3::SpectrumChannel::StartTx, m_channel, params);
 }
 
 double

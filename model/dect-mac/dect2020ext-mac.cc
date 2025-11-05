@@ -10,6 +10,7 @@
 #include "ns3/nstime.h"
 #include "ns3/attribute.h"
 #include "ns3/callback.h"
+#include "ns3/pointer.h"
 
 namespace ns3
 {
@@ -53,7 +54,13 @@ Dect2020ExtMac::GetTypeId(void)
                                               "DECT-2020 Fourier transform scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8));
+                                              MakeUintegerChecker<uint8_t>(1, 8))
+
+                                .AddAttribute("config_ChannelManager",
+                                              "Dect2020ExtChannelManager configuration",
+                                              PointerValue(nullptr),
+                                              MakePointerAccessor(&Dect2020ExtMac::m_channelManager),
+                                              MakePointerChecker<Dect2020ExtChannelManager>());
     return tid;
 }
 
@@ -215,6 +222,7 @@ Dect2020ExtMac::SelectOperatingChannel(void)
 
     std::sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
     m_operatingChannelId = evaluations[0].channelId;
+    StartBeaconTransmission();
 }
 
 void
@@ -507,6 +515,12 @@ uint16_t
 Dect2020ExtMac::GetShortRadioDeviceId(void) const
 {
     return m_shortRadioDeviceId;
+}
+
+uint32_t
+Dect2020ExtMac::GetOperatingChannelId(void) const
+{
+    return m_operatingChannelId;
 }
 
 void

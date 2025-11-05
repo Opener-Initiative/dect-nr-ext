@@ -86,6 +86,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtPHYControlFieldType1 CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
         // Dect2020ExtMac Setters and Getters
+
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
         void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
@@ -99,8 +100,10 @@ class Dect2020ExtMac : public Object
         uint32_t GetLongRadioDeviceId(void) const;
         void SetShortRadioDeviceId(uint16_t rdId);
         uint16_t GetShortRadioDeviceId(void) const;
+        uint32_t GetOperatingChannelId(void) const;
 
         // Configuration
+
         void SetBandNumber(uint8_t bandNumber);
         uint8_t GetBandNumber(void) const;
         void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);

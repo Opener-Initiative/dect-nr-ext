@@ -34,6 +34,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		static TypeId GetTypeId();
 
+		void Start();
+
 		// Frame Timer and SFN
 
 		void StartFrameTimer();

@@ -4,15 +4,28 @@ config:
 ---
 
 flowchart TD
-    Dect2020ExtMac --> |"Dect2020ExtMac()"| InitializeDevice
-    Dect2020ExtMac --> Start
+    Dect2020ExtMac -->|"Dect2020ExtMac()"| Initialization
+    Initialization -->|"Start()"| MACSpectrumManagementProcedure   
 
-    subgraph InitializeDevice["InitializeDevice(void)"]
-        GenerateLongRadioDeviceId["GenerateLongRadioDeviceId(void)"] --> SetLongRadioDeviceId["SetLongRadioDeviceId(void)"]
-        GenerateShortRadioDeviceId["GenerateShortRadioDeviceId(void)"] --> SetShortRadioDeviceId["SetShortRadioDeviceId(void)"]
+    subgraph Initialization
+        GenerateLongRadioDeviceId --> SetLongRadioDeviceId
+        GenerateShortRadioDeviceId --> SetShortRadioDeviceId
     end
 
-    subgraph Start["Start(void)"]
-        InitializeNetwork["InitializeNetwork(void)"] --> GenerateValidNetworkId["GenerateValidNetworkId(void)"]
-        InitializeNetwork --> ScheduleBackgroundScan["ScheduleBackgroundScan(ns::Time delay)"]
+    subgraph MACSpectrumManagementProcedure["MAC Spectrum Management Procedure"]
+        FTorPT{"FT or PT?"} -->|"Yes"| InitializeNetwork
+        FTorPT -->|"No"| PT
+        InitializeNetwork --> GenerateValidNetworkId
+        GenerateValidNetworkId --> SetNetworkId
+        InitializeNetwork --> BackgroundScan
+        BackgroundScan --> EvaluateAllChannels
+        EvaluateAllChannels --> SelectOperatingChannel
+        SelectOperatingChannel -->|"StartBeaconTransmission(void)"| BeaconTransmission
+
+        subgraph BeaconTransmission["Beacon Transmission"]
+            StartNetworkBeaconTransmission --> SendNetworkBeaconOnChannel
+            StartNetworkBeaconTransmission -->|"Network Beacon Period"| StartNetworkBeaconTransmission
+            StartClusterBeaconTransmission --> SendClusterBeaconOnChannel
+            StartClusterBeaconTransmission -->|"Cluster Beacon Period"| StartClusterBeaconTransmission
+        end
     end
