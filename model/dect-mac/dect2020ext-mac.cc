@@ -252,21 +252,26 @@ Dect2020ExtMac::SelectOperatingChannel(void)
 {
     NS_LOG_FUNCTION(this);
     DisplayChannelEvaluations();
-    // // Sort by free subslots and select the best channel
-    // auto sortedEvaluations = m_channelEvaluations;
-    // auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
-    // {
-    //     return a.free > b.free;
-    // };
+
+    // Sort by free subslots and select the best channel
+    auto sortedEvaluations = m_channelEvaluations;
+    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
+    {
+        return a.free > b.free;
+    };
     
-    // std::sort(sortedEvaluations.begin(), sortedEvaluations.end(), SortByFreeSubslotsLambda);
+    std::stable_sort(sortedEvaluations.begin(), sortedEvaluations.end(), SortByFreeSubslotsLambda);
     
-    // if (!sortedEvaluations.empty())
-    // {
-    //     m_operatingChannelId = sortedEvaluations[0].channelId;
-    //     NS_LOG_INFO("Selected Operating Channel: " << m_operatingChannelId 
-    //                 << " with " << sortedEvaluations[0].free << " free subslots");
-    // }
+    if (!sortedEvaluations.empty())
+    {
+        m_operatingChannelId = sortedEvaluations[0].channelId;
+        NS_LOG_INFO("Selected Operating Channel: " << m_operatingChannelId 
+                    << " with " << sortedEvaluations[0].free << " free subslots");
+    }
+    else
+    {
+        NS_LOG_WARN("No channel evaluations available for selection");
+    }
 }
 
 /**
@@ -280,11 +285,6 @@ Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
 {
     NS_LOG_FUNCTION(this);
 
-    // Prepare for the background scan
-    // uint32_t numSubslots = m_channelManager->GetSubslotsPerSlot();
-    // auto validChannels = m_channelManager->GetValidChannels(1);
-    // uint16_t numOfValidChannels = validChannels.size();
-
     // Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback
     m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
@@ -297,10 +297,6 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::share
 {
     context->subslotCount++;
     NS_LOG_FUNCTION(this << channelId << rssiDbm << Simulator::Now().GetSeconds());
-    // NS_LOG_INFO("m_channelEvaluations size: " << m_channelEvaluations.size());
-    // NS_LOG_INFO("context->channelId: " << context->channelId);
-    // NS_LOG_INFO("context->subslotCount: " << context->subslotCount);
-    // NS_LOG_INFO("context->totalSubslots: " << context->totalSubslots);
 
     auto dectChannels = m_channelManager->GetChannels();
 
@@ -320,6 +316,7 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::share
     
     if (context->subslotCount == context->totalSubslots)
     {
+        NS_LOG_INFO("Adding channel evaluation for channel " << context->channelId);
         m_channelEvaluations.push_back(context->evaluation);
     }
 
