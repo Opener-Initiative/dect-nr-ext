@@ -83,7 +83,7 @@ class Dect2020ExtMac : public Object
         void SendNetworkBeaconOnChannel(uint16_t channelId);
         void SendClusterBeaconOnChannel(uint16_t channelId);
         Ptr<Packet> BuildNetworkBeacon(void);
-        Ptr<Packet> BuildClusterBeacon(void);
+        Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
         Dect2020ExtPHYControlFieldType1 CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
         // Dect2020ExtMac Setters and Getters
@@ -114,9 +114,8 @@ class Dect2020ExtMac : public Object
         uint8_t GetFourierTransformScalingFactor(void) const;
         void PrintConfiguration(void) const;
 
-        uint16_t m_currentChannelId;
-
     private:
+        uint16_t m_currentChannelId;
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
         Ptr<Dect2020ExtNetDevice> m_netDevice;

@@ -15,9 +15,9 @@ Dect2020ExtMacMultiplexingHeaderTypeA::~Dect2020ExtMacMultiplexingHeaderTypeA()
 }
 
 void
-Dect2020ExtMacMultiplexingHeaderTypeA::SetIEType(NoPayloadIEType IEType)
+Dect2020ExtMacMultiplexingHeaderTypeA::SetIEType(ExtendedIEType ieType)
 {
-    m_IEType = IEType;
+    m_IEType = ieType;
 }
 
 uint8_t

@@ -109,16 +109,14 @@ set(dect2020ext_mac_multiplexing_header_h
 
 # Information Elements
 set(dect2020ext_information_elements_src
-    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc)
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc
+    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
 
 set(dect2020ext_information_elements_h
-    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h)
-
-# set(cluster_beacon_message_ie_src
-#     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
-
-# set(cluster_beacon_message_ie_h
-#     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h)
+    model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h
+    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h)
 
 # set(route_info_ie_src
 #     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)

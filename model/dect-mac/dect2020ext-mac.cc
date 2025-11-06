@@ -5,6 +5,8 @@
 #include "ns3/dect2020ext-mac-pdu-helper.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
+#include "ns3/dect2020ext-cluster-beacon-message-ie.h"
+#include "ns3/dect2020ext-random-access-resource-ie.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -397,6 +399,7 @@ void
 Dect2020ExtMac::StartClusterBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
+    Ptr<Packet> clusterBeacon = BuildClusterBeacon(m_operatingChannelId);
 }
 
 void
@@ -428,6 +431,7 @@ Dect2020ExtMac::BuildNetworkBeacon(void)
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
     mxHeaderTypeA.SetMacExtension(0); // No length field included in the IE Header
     mxHeaderTypeA.SetLength(0); // No length field included in the IE Header
+    mxHeaderTypeA.SetIEType(Dect2020ExtMacMultiplexingHeader::ExtendedIEType::NetworkBeaconMessage);
 
     beacon->AddHeader(mxHeaderTypeA);
 
@@ -448,16 +452,25 @@ Dect2020ExtMac::BuildNetworkBeacon(void)
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildClusterBeacon(void)
+Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 {
     NS_LOG_FUNCTION(this);
 
     // MAC Header Type
     // MAC Common Header
-
     Ptr<Packet> beacon = Dect2020ExtMacPduHelper::BEACON(MacSecurityField::MAC_SECURITY_NOT_USED,
                                                          m_networkId,
                                                          m_longRadioDeviceId);
+
+    // MAC Multiplexing Header Type A
+    Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
+    mxHeaderTypeA.SetMacExtension(0); // No length field included in the IE Header
+    mxHeaderTypeA.SetLength(0); // No length field included in the IE Header'
+    
+    beacon->AddHeader(mxHeaderTypeA);
+
+    // Cluster Beacon Message IE
+    Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
 
     return beacon;
 }
