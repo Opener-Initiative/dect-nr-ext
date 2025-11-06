@@ -1,4 +1,5 @@
 #include "dect2020ext-scan-measurement-duration-test-case.h"
+#include "dect2020ext-rssi-measurement-test-case.h"
 
 #include "ns3/test.h"
 
@@ -16,6 +17,7 @@ Dect2020ExtSpectrumManagementProcedureTest::Dect2020ExtSpectrumManagementProcedu
     : TestSuite("dect2020ext-spectrum-management-procedure-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtScanMeasurementDurationTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtRssiMeasurementTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020ExtSpectrumManagementProcedureTest::~Dect2020ExtSpectrumManagementProcedureTest()

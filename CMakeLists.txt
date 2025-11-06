@@ -136,6 +136,12 @@ set(dect2020ext_information_elements_h
 ## TESTS ##
 ###########
 
+# Spectrum Management Procedure Test
+set(dect2020ext_spectrum_management_procedure_test_src
+    test/spectrum-management-procedure/dect2020ext-spectrum-management-procedure-test.cc
+    test/spectrum-management-procedure/dect2020ext-scan-measurement-duration-test-case.cc
+    test/spectrum-management-procedure/dect2020ext-rssi-measurement-test-case.cc)
+
 # Configuration Test
 set(dect2020ext_configuration_test_src
     test/configuration/dect2020ext-configuration-test.cc
@@ -222,6 +228,7 @@ build_lib(
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_network_beacon_message_ie_test_src}
         ${dect2020ext_configuration_test_src}
+        ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}

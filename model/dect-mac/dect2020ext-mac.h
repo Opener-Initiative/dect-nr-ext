@@ -42,7 +42,8 @@ struct Dect2020ExtSubslotScanContext
     uint32_t channelId;
     Dect2020ExtChannelEvaluation evaluation;
     uint32_t subslotCount;
-    std::function<void(const Dect2020ExtChannelEvaluation&)> onComplete;
+    uint32_t totalSubslots;
+    // std::function<void(const Dect2020ExtChannelEvaluation&)> onComplete;
 };
 
 class Dect2020ExtMac : public Object
@@ -66,11 +67,13 @@ class Dect2020ExtMac : public Object
         // Spectrum Management Procedure
 
         void EvaluateAllChannels(void);
+        SubslotStatus EvaluateSubslot(double rssiDbm);
+        void DisplayChannelEvaluations(void);
         void SelectOperatingChannel(void);
         void ScheduleBackgroundScan(Time delay);
-        void OnRssiMeasurement(uint16_t channelId, double rssiDbm);
-        void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots);
-        void BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels);
+        void OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
+        void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
+        void BackgroundScan(void);
 
         // Beacon Transmission
 
@@ -99,6 +102,7 @@ class Dect2020ExtMac : public Object
         void SetShortRadioDeviceId(uint16_t rdId);
         uint16_t GetShortRadioDeviceId(void) const;
         uint32_t GetOperatingChannelId(void) const;
+        std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
 
         // Configuration
 
@@ -113,6 +117,7 @@ class Dect2020ExtMac : public Object
         uint16_t m_currentChannelId;
 
     private:
+        std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
         Ptr<Dect2020ExtNetDevice> m_netDevice;
         Ptr<Dect2020ExtPhy> m_phy;

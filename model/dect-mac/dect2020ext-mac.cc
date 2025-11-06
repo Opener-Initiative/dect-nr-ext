@@ -12,6 +12,10 @@
 #include "ns3/callback.h"
 #include "ns3/pointer.h"
 
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
+
 namespace ns3
 {
 
@@ -67,16 +71,16 @@ void
 Dect2020ExtMac::InitializeDevice(void)
 {
     NS_LOG_FUNCTION(this);
-    if (m_channelManager == nullptr)
-    {
-        NS_LOG_ERROR("Channel manager is not set for MAC");
-    }
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
 }
 void
 Dect2020ExtMac::Start(void)
 {
+    if (m_channelManager == nullptr)
+    {
+        NS_LOG_ERROR("Channel manager is not set for MAC");
+    }
     if (m_netDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
         InitializeNetwork();
@@ -188,82 +192,149 @@ Dect2020ExtMac::EvaluateAllChannels(void)
     SelectOperatingChannel();
 }
 
+SubslotStatus
+Dect2020ExtMac::EvaluateSubslot(double rssiDbm)
+{
+    if (rssiDbm <= RSSI_THRESHOLD_MIN)
+    {
+        return SubslotStatus::FREE;
+    }
+    if (rssiDbm > RSSI_THRESHOLD_MIN && rssiDbm <= RSSI_THRESHOLD_MAX)
+    {
+        return SubslotStatus::POSSIBLE;
+    }
+    if (rssiDbm > RSSI_THRESHOLD_MAX)
+    {
+        return SubslotStatus::BUSY;
+    }
+    return SubslotStatus::BUSY;
+}
+
+void
+Dect2020ExtMac::DisplayChannelEvaluations(void)
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("============ Channel Evaluations Summary ============");
+    
+    // Display all channel evaluations
+    if (m_channelEvaluations.empty())
+    {
+        NS_LOG_INFO("No channel evaluations available yet.");
+        return;
+    }
+    
+    // Display header
+    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
+    NS_LOG_INFO("-----------------------------------------------------");
+    
+    // Display each channel evaluation
+    for (const auto& eval : m_channelEvaluations)
+    {
+        uint32_t total = eval.Total();
+        double freePercentage = (total > 0) ? (eval.free * 100.0 / total) : 0.0;
+        
+        std::ostringstream oss;
+        oss << std::setw(10) << eval.channelId << " | "
+            << std::setw(4) << eval.free << " | "
+            << std::setw(8) << eval.possible << " | "
+            << std::setw(4) << eval.busy << " | "
+            << std::setw(5) << total << " | "
+            << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
+        
+        NS_LOG_INFO(oss.str());
+    }
+    
+    NS_LOG_INFO("====================================================");
+}
+
 void
 Dect2020ExtMac::SelectOperatingChannel(void)
 {
-    std::vector<Dect2020ExtChannelEvaluation> evaluations;
-    for (auto& channel : m_channelManager->GetChannels())
-    {
-        Dect2020ExtChannelEvaluation evaluation;
-        evaluation.channelId = channel->m_channelId;
-
-        for (auto& slot : channel->m_slots)
-        {
-            for (auto& subslot : slot.subslots)
-            {
-                if (subslot.status == SubslotStatus::FREE)
-                {
-                    evaluation.free++;
-                }
-                else if (subslot.status == SubslotStatus::POSSIBLE)
-                {
-                    evaluation.possible++;
-                }
-                else if (subslot.status == SubslotStatus::BUSY)
-                {
-                    evaluation.busy++;
-                }
-            }
-        }
-        evaluations.push_back(evaluation);
-    }
-
-    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
-    {
-        return a.free > b.free;
-    };
-
-    std::sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
-    m_operatingChannelId = evaluations[0].channelId;
-    StartBeaconTransmission();
+    NS_LOG_FUNCTION(this);
+    DisplayChannelEvaluations();
+    // // Sort by free subslots and select the best channel
+    // auto sortedEvaluations = m_channelEvaluations;
+    // auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
+    // {
+    //     return a.free > b.free;
+    // };
+    
+    // std::sort(sortedEvaluations.begin(), sortedEvaluations.end(), SortByFreeSubslotsLambda);
+    
+    // if (!sortedEvaluations.empty())
+    // {
+    //     m_operatingChannelId = sortedEvaluations[0].channelId;
+    //     NS_LOG_INFO("Selected Operating Channel: " << m_operatingChannelId 
+    //                 << " with " << sortedEvaluations[0].free << " free subslots");
+    // }
 }
 
+/**
+ * @brief Schedule the background scan with the given delay.
+ * 
+ * Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback. 
+ * Then, schedule the background scan with the given delay.
+ */
 void
 Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
 {
     NS_LOG_FUNCTION(this);
 
     // Prepare for the background scan
-    uint32_t numSubslots = m_channelManager->GetSubslotsPerSlot();
-    auto validChannels = m_channelManager->GetValidChannels(1);
-    uint16_t numOfValidChannels = validChannels.size();
+    // uint32_t numSubslots = m_channelManager->GetSubslotsPerSlot();
+    // auto validChannels = m_channelManager->GetValidChannels(1);
+    // uint16_t numOfValidChannels = validChannels.size();
+
+    // Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback
     m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
     // Schedule the background scan
-    Simulator::Schedule(delay, &Dect2020ExtMac::BackgroundScan, this, numSubslots, validChannels, numOfValidChannels);
+    Simulator::Schedule(delay, &Dect2020ExtMac::BackgroundScan, this);
 }
 
 void
-Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm)
+Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context)
 {
-    NS_LOG_FUNCTION(this << channelId << rssiDbm);
-    m_rssiByChannel[channelId].push_back(rssiDbm);
-    auto validChannels = m_channelManager->GetValidChannels(1);
-    const uint32_t totalSubslotsPerChannel = m_channelManager->GetSubslotsPerSlot() * 24;
-    // TODO: Evaluate if the rssi by channel is complete based on the subslot scan contex
-    if (m_rssiByChannel.size() == validChannels.size() && 
-        std::all_of(m_rssiByChannel.begin(), m_rssiByChannel.end(), 
-                    [totalSubslotsPerChannel](const auto& kv) { return kv.second.size() == totalSubslotsPerChannel; }))
+    context->subslotCount++;
+    NS_LOG_FUNCTION(this << channelId << rssiDbm << Simulator::Now().GetSeconds());
+    // NS_LOG_INFO("m_channelEvaluations size: " << m_channelEvaluations.size());
+    // NS_LOG_INFO("context->channelId: " << context->channelId);
+    // NS_LOG_INFO("context->subslotCount: " << context->subslotCount);
+    // NS_LOG_INFO("context->totalSubslots: " << context->totalSubslots);
+
+    auto dectChannels = m_channelManager->GetChannels();
+
+    SubslotStatus currentSubslotStatus = EvaluateSubslot(rssiDbm);
+    if (currentSubslotStatus == SubslotStatus::FREE)
     {
-        EvaluateAllChannels();
+        context->evaluation.free++;
+    }
+    else if (currentSubslotStatus == SubslotStatus::POSSIBLE)
+    {
+        context->evaluation.possible++;
+    }
+    else if (currentSubslotStatus == SubslotStatus::BUSY)
+    {
+        context->evaluation.busy++;
+    }
+    
+    if (context->subslotCount == context->totalSubslots)
+    {
+        m_channelEvaluations.push_back(context->evaluation);
+    }
+
+    if (m_channelEvaluations.size() == dectChannels.size())
+    {
+        SelectOperatingChannel();
     }
 }
 
 void
-Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots)
+Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context)
 {
     NS_LOG_FUNCTION(this << channel->m_channelId);
     uint32_t subslotIndex = 0;
+
     for (auto& slot : channel->m_slots)
     {
         for (auto& _ : slot.subslots)
@@ -271,27 +342,35 @@ Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t fr
             // Calculate delay based on proportion of frame duration to avoid rounding accumulation
             int64_t subslotRssiMeasurementDelayNs = (frameDurationNs * subslotIndex) / numSubslots;
             int64_t subslotDurationNs = (frameDurationNs * (subslotIndex + 1)) / numSubslots - subslotRssiMeasurementDelayNs;
-            // TODO: Pass subslot scan context to the MeasureRssi method (create a new method for this in Dect2020ExtChannelManager)
-            Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), &Dect2020ExtChannelManager::MeasureRssi, m_channelManager, channel->m_channelId, TimeValue(NanoSeconds(subslotDurationNs)));
+
+            Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), 
+                              static_cast<void (Dect2020ExtChannelManager::*)(std::shared_ptr<Dect2020ExtSubslotScanContext>, TimeValue)>(&Dect2020ExtChannelManager::MeasureRssi), 
+                              m_channelManager, context, TimeValue(NanoSeconds(subslotDurationNs)));
             subslotIndex++;
         }
     }
 }
 
 void
-Dect2020ExtMac::BackgroundScan(uint32_t numSubslots, std::vector<Ptr<Dect2020ExtChannel>> validChannels, uint16_t numOfValidChannels)
+Dect2020ExtMac::BackgroundScan(void)
 {
+    NS_LOG_FUNCTION(this);
     const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
     const int64_t frameDurationNs = 10000000; // 10 milliseconds in nanoseconds
-    const uint32_t totalSubslotsPerFrame = slotsPerFrame * numSubslots;
-    NS_LOG_INFO("Total subslots per frame: " << totalSubslotsPerFrame);
+    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    const uint32_t totalSubslotsPerFrame = slotsPerFrame * subslotsPerSlot;
+    std::vector<Ptr<Dect2020ExtChannel>> dectChannels = m_channelManager->GetChannels();
     
     int64_t channelRssiMeasurementDelayNs = 0;
-    for (auto channel : validChannels)
+    for (auto channel : dectChannels)
     {
+        auto context = std::make_shared<Dect2020ExtSubslotScanContext>();
+        context->channelId = channel->m_channelId;
+        context->evaluation.channelId = channel->m_channelId;
+        context->totalSubslots = totalSubslotsPerFrame;
+
         // Schedule the RSSI measurement for each channel with 10ms period
-        // TODO: Schedule the RSSI measurement with subslot scan context
-        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, frameDurationNs, totalSubslotsPerFrame);
+        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, frameDurationNs, totalSubslotsPerFrame, context);
         channelRssiMeasurementDelayNs += frameDurationNs;
     }
 }
@@ -527,6 +606,12 @@ uint32_t
 Dect2020ExtMac::GetOperatingChannelId(void) const
 {
     return m_operatingChannelId;
+}
+
+std::vector<Dect2020ExtChannelEvaluation>
+Dect2020ExtMac::GetChannelEvaluations(void) const
+{
+    return m_channelEvaluations;
 }
 
 void

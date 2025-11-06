@@ -17,6 +17,9 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtSpectrumManagementProcedure");
 int
 main(int argc, char *argv[])
 {
+    LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_ALL);
+    // LogComponentEnable("Dect2020ExtMac", LOG_PREFIX_TIME);
+
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
     channel->AddPropagationLossModel(CreateObject<LogDistancePropagationLossModel>());
@@ -33,12 +36,12 @@ main(int argc, char *argv[])
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
-    ftPHY->SetChannelManager(channelManager);
+    // ftPHY->SetChannelManager(channelManager);
 
     // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
     ftMAC->SetPhy(ftPHY);
-    ftMAC->SetChannelManager(channelManager);
+    // ftMAC->SetChannelManager(channelManager);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
 
     ftPHY->SetMac(ftMAC);
@@ -53,7 +56,6 @@ main(int argc, char *argv[])
     Ptr<Node> ftNode = CreateObject<Node>();
     ftNode->AddDevice(ftNetDevice);
 
-    ftPHY->Start();
     ftMAC->Start();
 
     Simulator::Stop(Seconds(20));

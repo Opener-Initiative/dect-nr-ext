@@ -7,18 +7,6 @@ build_lib_example(
 )
 
 build_lib_example(
-    NAME dect2020ext-simulation1
-    SOURCE_FILES dect2020ext-simulation1.cc
-    LIBRARIES_TO_LINK
-        ${libdect-nr-ext}
-        ${libdect-nr}
-        ${libpoint-to-point}
-        ${libinternet}
-        ${libnetwork}
-        ${libapplications}
-)
-
-build_lib_example(
     NAME dect2020ext-frame-timer
     SOURCE_FILES dect2020ext-frame-timer.cc
     LIBRARIES_TO_LINK
