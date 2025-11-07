@@ -390,8 +390,8 @@ Dect2020ExtMac::StartNetworkBeaconTransmission(void)
     Simulator::Schedule(networkBeaconPeriod, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
 
     // Schedule the next network beacon transmission
-    static uint32_t sweepCount = 0;
-    Time dynamicOffset = MilliSeconds(25 + (sweepCount++ % 3) * 2);
+    static uint32_t networkBeaconSweepCount = 0;
+    Time dynamicOffset = MilliSeconds(25 + (networkBeaconSweepCount++ % 3) * 2);
     Simulator::Schedule(networkBeaconPeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
 }
 
@@ -399,7 +399,11 @@ void
 Dect2020ExtMac::StartClusterBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
-    Ptr<Packet> clusterBeacon = BuildClusterBeacon(m_operatingChannelId);
+    Time clusterBeaconPeriod = m_clusterBeaconPeriodTime; // gap between each transmission
+    Simulator::Schedule(Simulator::Now(), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
+
+    // Schedule the next cluster beacon transmission
+    Simulator::Schedule(clusterBeaconPeriod, &Dect2020ExtMac::StartClusterBeaconTransmission, this);
 }
 
 void
@@ -407,14 +411,15 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
 {
     NS_LOG_FUNCTION(this << channelId);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
-    m_phy->Send(networkBeacon, CreatePhysicalHeaderField(1, networkBeacon->GetSize()));
+    m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
 void
 Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
 {
     NS_LOG_FUNCTION(this << channelId);
-    Ptr<Packet> packet = Create<Packet>();
+    Ptr<Packet> packet = BuildClusterBeacon(channelId);
+    m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
 }
 
 Ptr<Packet>
@@ -469,14 +474,76 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
     
     beacon->AddHeader(mxHeaderTypeA);
 
+    // Cluster beacon message is always followed by the Random Access Ressource IE
+    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = BuildRandomAccessResourceIE();
+
+    beacon->AddHeader(randomAccessResourceIE);
+
     // Cluster Beacon Message IE
     Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
+    clusterBeaconMessageIE.SetSFN(m_phy->GetCurrentSFN());
+    clusterBeaconMessageIE.SetTxPowerIncluded(0);
+    clusterBeaconMessageIE.SetPowerConstraints(0);
+    clusterBeaconMessageIE.SetFrameOffsetIncluded(0);
+    clusterBeaconMessageIE.SetNextChannelIncluded(0);
+    clusterBeaconMessageIE.SetTimeToNextFieldPresent(0);
+    clusterBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
+    clusterBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
+    clusterBeaconMessageIE.SetCountToTrigger(15);
+    clusterBeaconMessageIE.SetRelQuality(0);
+    clusterBeaconMessageIE.SetMinQuality(0);
+
+    beacon->AddHeader(clusterBeaconMessageIE);
 
     return beacon;
 }
 
+Dect2020ExtRandomAccessResourceIE
+Dect2020ExtMac::BuildRandomAccessResourceIE(void)
+{
+    NS_LOG_FUNCTION(this);
+    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+    randomAccessResourceIE.SetRepeat(0);
+    randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(0);
+    randomAccessResourceIE.SetChannelFieldIncluded(0);
+    randomAccessResourceIE.SetSeparateChannelFieldIncluded(0);
+
+    uint8_t m_startSubslot = CalculateAbsoluteStartSubslot();
+    randomAccessResourceIE.SetStartSubslot(m_startSubslot);
+    randomAccessResourceIE.SetLengthType(0); // length in subslots
+    randomAccessResourceIE.SetRaraLength(m_netDevice->m_randomAccessResourceLength);
+    randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
+    randomAccessResourceIE.SetMaxRachLength(2);     // Max 2  subslots / transmission
+    randomAccessResourceIE.SetCwMinSig(0);          // CW min 0 --> backoff not yet implemented
+    randomAccessResourceIE.SetDectDelay(m_dectDelay);
+    randomAccessResourceIE.SetResponseWindow(5);
+    randomAccessResourceIE.SetCwMaxSig(0); // CW max 0 --> backoff not yet implemented
+
+    return randomAccessResourceIE;
+}
+
+uint8_t
+Dect2020ExtMac::CalculateAbsoluteStartSubslot(void)
+{
+    NS_LOG_FUNCTION(this);
+    uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
+    uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+
+    // If the next available subslot is greater than the number of subslots per frame,
+    // wrap around to the beginning of the frame
+    if (absoluteStartSubslot >= subslotsPerFrame)
+    {
+        absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
+        m_nextAvailableSubslot = absoluteStartSubslot;
+    }
+
+    m_nextAvailableSubslot += 2;
+
+    return absoluteStartSubslot;
+}
+
 Dect2020ExtPHYControlFieldType1
-Dect2020ExtMac::CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes)
+Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes)
 {
     Dect2020ExtPHYControlFieldType1 physicalHeaderField;
     physicalHeaderField.SetPacketLengthType(packetLengthType); // 0 = in Subslots, 1 = in Slots

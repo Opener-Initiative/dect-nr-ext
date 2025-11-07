@@ -23,6 +23,7 @@ class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
 class Dect2020ExtPHYControlFieldType1;
+class Dect2020ExtRandomAccessResourceIE;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -84,7 +85,9 @@ class Dect2020ExtMac : public Object
         void SendClusterBeaconOnChannel(uint16_t channelId);
         Ptr<Packet> BuildNetworkBeacon(void);
         Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
-        Dect2020ExtPHYControlFieldType1 CreatePhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+        Dect2020ExtRandomAccessResourceIE BuildRandomAccessResourceIE(void);
+        uint8_t CalculateAbsoluteStartSubslot(void);
+        Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
         // Dect2020ExtMac Setters and Getters
 
@@ -113,6 +116,10 @@ class Dect2020ExtMac : public Object
         void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
         uint8_t GetFourierTransformScalingFactor(void) const;
         void PrintConfiguration(void) const;
+
+        uint8_t m_nextAvailableSubslot = 2;
+
+        bool m_dectDelay = false;
 
     private:
         uint16_t m_currentChannelId;

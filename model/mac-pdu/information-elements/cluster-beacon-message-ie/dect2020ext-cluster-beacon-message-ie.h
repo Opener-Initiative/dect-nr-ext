@@ -4,14 +4,20 @@
 #ifndef DECT2020EXT_CLUSTER_BEACON_MESSAGE_IE_H
 #define DECT2020EXT_CLUSTER_BEACON_MESSAGE_IE_H
 
+#include "ns3/dect2020ext-network-beacon-message-ie.h"
+
 #include "ns3/header.h"
 
 namespace ns3
 {
 
+class Dect2020ExtNetworkBeaconPeriod;
+
 class Dect2020ExtClusterBeaconMessageIE : public Header
 {
+
     public:
+
         Dect2020ExtClusterBeaconMessageIE();
         virtual ~Dect2020ExtClusterBeaconMessageIE();
 
@@ -30,29 +36,33 @@ class Dect2020ExtClusterBeaconMessageIE : public Header
         void SetSFN(uint8_t sfn);
         uint8_t GetSFN() const;
 
+        // TxPower
+        void SetTxPowerIncluded(bool txPower);
+        bool GetTxPowerIncluded() const;
+
         // PowerConst
-        void SetPowerConst(uint8_t powerConst);
-        uint8_t GetPowerConst() const;
+        void SetPowerConstraints(bool powerConstraints);
+        bool GetPowerConstraints() const;
 
         // FO
-        void SetFO(uint8_t fo);
-        uint8_t GetFO() const;
+        void SetFrameOffsetIncluded(bool frameOffsetIncluded);
+        bool GetFrameOffsetIncluded() const;
 
         // NextChannel
-        void SetNextChannel(uint8_t nextChannel);
-        uint8_t GetNextChannel() const;
+        void SetNextChannelIncluded(bool nextChannel);
+        bool GetNextChannelIncluded() const;
 
         // TimeToNext (1-bit version)
-        void SetTimeToNextBit(uint8_t timeToNext);
-        uint8_t GetTimeToNextBit() const;
+        void SetTimeToNextFieldPresent(bool timeToNextFieldPresent);
+        bool GetTimeToNextFieldPresent() const;
 
         // NetworkBeaconPeriod
-        void SetNetworkBeaconPeriod(uint8_t period);
-        uint8_t GetNetworkBeaconPeriod() const;
+        void SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period);
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod GetNetworkBeaconPeriod() const;
 
         // ClusterBeaconPeriod
-        void SetClusterBeaconPeriod(uint8_t period);
-        uint8_t GetClusterBeaconPeriod() const;
+        void SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period);
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod GetClusterBeaconPeriod() const;
 
         // CountToTrigger
         void SetCountToTrigger(uint8_t count);
@@ -84,19 +94,20 @@ class Dect2020ExtClusterBeaconMessageIE : public Header
 
     private:
         uint8_t m_SFN; // 1-byte SFN
-        uint8_t m_powerConst; // 1 relevant bit;
-        uint8_t m_FO; // 1 relevant bit
-        uint8_t m_nextChannel; // 1 relevant bit;
-        uint8_t m_1BitTimeToNext; // 1 relevant bit;
-        uint8_t m_networkBeaconPeriod; // 4 relevant bits;
-        uint8_t m_clusterBeaconPeriod; // 4 relevant bits;
+        bool m_txPowerIncluded; // 1 relevant bit;
+        bool m_powerConstraints; // 1 relevant bit;
+        bool m_frameOffsetIncluded; // 1 relevant bit
+        bool m_nextChannelIncluded; // 1 relevant bit;
+        bool m_timeToNextFieldPresent; // 1 relevant bit;
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod m_networkBeaconPeriod; // 4 relevant bits;
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod m_clusterBeaconPeriod; // 4 relevant bits;
         uint8_t m_countToTrigger; // 4 relevant bits;
         uint8_t m_relQuality; // 2 relevant bits;
         uint8_t m_minQuality; // 2 relevant bits;
         uint8_t m_clusterMaxTXPower; // 4 relevant bits
-        uint8_t m_frameOffset; // 1-byte Frame Offset
+        uint8_t m_frameOffset; // 1-byte Frame Offset (if subcarrierscaling factor = <= 4 --> frameOffset 8 bit, otherwise 16 bit)
         uint16_t m_nextClusterChannel; // 13 relevant bits
-        uint32_t m_4BytesTimeToNext; // 4-byte Time To Next
+        uint32_t m_timeToNext; // 4-byte Time To Next
 };
 
 } // namespace ns3

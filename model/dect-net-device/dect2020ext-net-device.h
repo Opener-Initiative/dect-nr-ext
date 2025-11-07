@@ -70,6 +70,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		void SetPromiscReceiveCallback(PromiscReceiveCallback cb) override;
 		bool SupportsSendFrom() const override;
 
+		uint8_t m_randomAccessResourceLength = 10;
+
 	private:
 		Dect2020ExtTerminationPointType m_terminationPointType;
 
