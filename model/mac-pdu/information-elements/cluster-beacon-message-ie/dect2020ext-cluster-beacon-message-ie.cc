@@ -80,7 +80,9 @@ Dect2020ExtClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte3);
 
     // byte 4
-    start.WriteU8(m_frameOffset);
+    uint8_t byte4 = (m_clusterMaxTXPower << 4);
+    byte4 |= (m_frameOffset & 0x0F);
+    start.WriteU8(byte4);
 
     // byte 5
     // first 3 bits are reserved
@@ -88,7 +90,7 @@ Dect2020ExtClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte5);
 
     // byte 6
-    uint8_t byte6 = (m_nextClusterChannel && 0x00FF);
+    uint8_t byte6 = (m_nextClusterChannel & 0x00FF);
     start.WriteU8(byte6);
 
     // Time To Next
@@ -115,19 +117,21 @@ Dect2020ExtClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
 
     // byte 2
     uint8_t byte2 = start.ReadU8();
-    m_networkBeaconPeriod = static_cast<Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod>((byte2 & 0xF0));
+    m_networkBeaconPeriod = static_cast<Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod>((byte2 & 0xF0) >> 4);
     m_clusterBeaconPeriod = static_cast<Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod>((byte2 & 0x0F));
     bytesRead++;
 
     // byte 3
     uint8_t byte3 = start.ReadU8();
-    m_countToTrigger = (byte3 & 0xF0);
-    m_relQuality = (byte3 & 0x0C);
+    m_countToTrigger = (byte3 & 0xF0) >> 4;
+    m_relQuality = (byte3 & 0x0C) >> 2;
     m_minQuality = (byte3 & 0x03);
     bytesRead++;
 
     // byte 4
-    m_frameOffset = start.ReadU8();
+    uint8_t byte4 = start.ReadU8();
+    m_clusterMaxTXPower = (byte4 & 0xF0) >> 4;
+    m_frameOffset = (byte4 & 0x0F);
     bytesRead++;
 
     // Next Cluster Channel
@@ -137,7 +141,7 @@ Dect2020ExtClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
 
     uint8_t byte6 = start.ReadU8();
     m_nextClusterChannel = (m_nextClusterChannel << 8);
-    m_nextClusterChannel = (m_nextClusterChannel & byte6);
+    m_nextClusterChannel |= byte6;
     bytesRead++;
 
     // Time To Next

@@ -17,8 +17,9 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtSpectrumManagementProcedure");
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_INFO);
+    // LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_INFO);
 
+    // Spectrum Channel
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
     channel->AddPropagationLossModel(CreateObject<LogDistancePropagationLossModel>());
@@ -35,7 +36,6 @@ main(int argc, char *argv[])
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
-    // ftPHY->SetChannelManager(channelManager);
 
     // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();

@@ -150,6 +150,14 @@ set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/test.cc
     test/physical-header-field/type-1/serialization-test-case-1.cc)
 
+# Information Elements Tests
+
+set(dect2020ext_information_elements_test_src
+    test/information-elements/network-beacon-message-ie/test.cc
+    test/information-elements/network-beacon-message-ie/serialization-test-case.cc
+    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-test.cc
+    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-serialization-test-case.cc)
+
 # MAC Common Headers
 
 # # Unicast Header Test
@@ -183,11 +191,6 @@ set(dect2020ext_physical_header_field_test_src
 #     test/mac-multiplexing-header/mac-multiplexing-header-type-c/payload-insertion-test-case.cc
 #     test/mac-multiplexing-header/mac-multiplexing-header-type-c/serialization-test-case.cc)
 
-# Information Elements Tests
-
-set(dect2020ext_network_beacon_message_ie_test_src
-    test/information-elements/network-beacon-message-ie/test.cc
-    test/information-elements/network-beacon-message-ie/serialization-test-case.cc)
 
 # set(route_info_ie_test_src
 #     test/information-elements/route-info-ie/test.cc
@@ -223,8 +226,8 @@ build_lib(
         ${dect2020ext_mac_multiplexing_header_h}
         ${dect2020ext_spectrum_signal_parameters_h}
     TEST_SOURCES
+        ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}
-        ${dect2020ext_network_beacon_message_ie_test_src}
         ${dect2020ext_configuration_test_src}
         ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK

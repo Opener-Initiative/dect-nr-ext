@@ -40,6 +40,7 @@ void
 Dect2020ExtScanMeasurementDurationTestCase::DoRun()
 {
     LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_FUNCTION);
+    LogComponentEnable("Dect2020ExtMac", LOG_PREFIX_TIME);
 
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
@@ -100,7 +101,7 @@ Dect2020ExtScanMeasurementDurationTestCase::DoRun()
     Simulator::Schedule(Seconds(1), &WaveformGenerator::Start, waveformGenerator); // Start transmission when MAC backgound scan starts
     ftMac->Start();
 
-    Simulator::Stop(Seconds(5));
+    Simulator::Stop(Seconds(2));
     Simulator::Run();
     Simulator::Destroy();
 }
