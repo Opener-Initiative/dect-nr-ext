@@ -85,6 +85,7 @@ Dect2020ExtMac::Start(void)
     }
     if (m_netDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
+        NS_LOG_INFO("FT Device " << this << " starts the network initialization at: " << Simulator::Now().GetMilliSeconds());
         InitializeNetwork();
     }
 }
@@ -216,18 +217,18 @@ void
 Dect2020ExtMac::DisplayChannelEvaluations(void)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("============ Channel Evaluations Summary ============");
+    NS_LOG_DEBUG("============ Channel Evaluations Summary ============");
     
     // Display all channel evaluations
     if (m_channelEvaluations.empty())
     {
-        NS_LOG_INFO("No channel evaluations available yet.");
+        NS_FATAL_ERROR("No channel evaluations available yet at: " << Simulator::Now().GetMilliSeconds());
         return;
     }
     
     // Display header
-    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
-    NS_LOG_INFO("-----------------------------------------------------");
+    NS_LOG_DEBUG("Channel ID | Free | Possible | Busy | Total | Free %");
+    NS_LOG_DEBUG("-----------------------------------------------------");
     
     // Display each channel evaluation
     for (const auto& eval : m_channelEvaluations)
@@ -243,10 +244,10 @@ Dect2020ExtMac::DisplayChannelEvaluations(void)
             << std::setw(5) << total << " | "
             << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
         
-        NS_LOG_INFO(oss.str());
+        NS_LOG_DEBUG(oss.str());
     }
     
-    NS_LOG_INFO("====================================================");
+    NS_LOG_DEBUG("====================================================");
 }
 
 void
@@ -318,7 +319,7 @@ Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::share
     
     if (context->subslotCount == context->totalSubslots)
     {
-        NS_LOG_INFO("Adding channel evaluation for channel " << context->channelId);
+        NS_LOG_DEBUG("Adding channel evaluation for channel " << context->channelId);
         m_channelEvaluations.push_back(context->evaluation);
     }
 
@@ -638,9 +639,7 @@ Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
     {
         m_longRadioDeviceId = rdId;
 
-        NS_LOG_INFO(Simulator::Now().GetMilliSeconds()
-                    << ": Set Long Radio Device ID: 0x" << std::hex << rdId << " on Device "
-                    << this);
+        NS_LOG_INFO("Set Long Radio Device ID: 0x" << std::hex << rdId << " on Device " << this);
     }
     else
     {
@@ -663,6 +662,7 @@ Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
     if (!(rdId == 0x0000))
     {
         m_shortRadioDeviceId = rdId;
+        NS_LOG_INFO("Set Short Radio Device ID: 0x" << std::hex << rdId << " on Device " << this);
     }
     else
     {

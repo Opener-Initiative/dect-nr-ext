@@ -67,6 +67,8 @@ public:
     void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
     Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
 
+    // Calculation
+
     double DbmToW(double dBm);
     double WToDbm(double w);
     double CalculateRssiFromPower(double bandPower_W);
@@ -93,10 +95,8 @@ private:
     uint8_t m_subcarrierScalingFactor;
     uint8_t m_fourierTransformScalingFactor;
 
-    // These member variables are used for compatibility with the DECT-NR module.
-    // In the future, they should be changed to match the DECT-NR-EXT module.
     std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
-    std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels;
+    std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels; // uint8_t bandNumber -> Ptr<SpectrumModel>
 
 }; // class Dect2020ExtChannelManager
 

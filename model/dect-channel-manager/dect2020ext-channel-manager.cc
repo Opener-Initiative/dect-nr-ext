@@ -441,7 +441,6 @@ Dect2020ExtChannelManager::SpectrumAnalyzerCallback(std::shared_ptr<Dect2020ExtS
     
     // NS_LOG_INFO("Stopping SpectrumAnalyzer after first report...");
     analyzer->Stop();
-    // TODO: Implement subslot-specific RSSI measurement
 }
 
 void
@@ -588,6 +587,12 @@ void
 Dect2020ExtChannelManager::Configure(void)
 {
     NS_LOG_FUNCTION(this);
+
+    NS_LOG_INFO("Configuring DECT-2020 NR simulation with the following parameters:");
+    NS_LOG_INFO("Band Number: " << static_cast<uint32_t>(m_bandNumber));
+    NS_LOG_INFO("Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
+    NS_LOG_INFO("Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
+
     // Configure MAC attributes
     Config::SetDefault("ns3::Dect2020ExtMac::config_BandNumber", UintegerValue(m_bandNumber));
     Config::SetDefault("ns3::Dect2020ExtMac::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));

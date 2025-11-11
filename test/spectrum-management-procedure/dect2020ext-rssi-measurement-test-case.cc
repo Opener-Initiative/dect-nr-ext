@@ -39,7 +39,7 @@ Dect2020ExtRssiMeasurementTestCase::DoSetup()
 void
 Dect2020ExtRssiMeasurementTestCase::DoRun()
 {
-    LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_DEBUG);
     LogComponentEnable("Dect2020ExtMac", LOG_PREFIX_TIME);
 
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
