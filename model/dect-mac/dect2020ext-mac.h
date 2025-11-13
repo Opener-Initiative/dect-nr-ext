@@ -145,6 +145,9 @@ class Dect2020ExtMac : public Object
 
         uint8_t m_mcs = 0; // Modulation and Coding Scheme
 
+        uint32_t m_networkBeaconSweepCount;
+        Time m_nextNetworkBeaconTime;
+
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 
         // ####################

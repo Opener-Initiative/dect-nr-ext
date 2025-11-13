@@ -9,6 +9,7 @@
 #include "ns3/mobility-helper.h"
 #include "ns3/single-model-spectrum-channel.h"
 #include "ns3/propagation-module.h"
+#include "ns3/netanim-module.h"
 
 using namespace ns3;
 
@@ -21,7 +22,7 @@ main(int argc, char *argv[])
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     LogComponentEnable("Dect2020ExtChannelManager", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     LogComponentEnable("Dect2020ExtNetDevice", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-
+    
     // Spectrum Channel
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
@@ -35,6 +36,9 @@ main(int argc, char *argv[])
     channelManager->SetSpectrumChannel(channel);
     channelManager->Configure();
     channelManager->InitializeChannels();
+
+    // FT Node
+    Ptr<Node> ftNode = CreateObject<Node>();
 
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
@@ -52,10 +56,17 @@ main(int argc, char *argv[])
     ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftNetDevice->SetMac(ftMAC);
     ftNetDevice->SetPhy(ftPHY);
-
-    // FT Node
-    Ptr<Node> ftNode = CreateObject<Node>();
+    ftNetDevice->SetNode(ftNode);
+    
     ftNode->AddDevice(ftNetDevice);
+  
+    // Mobility Model
+    MobilityHelper mobility;
+    Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator>();
+    positionAlloc->Add(Vector(50.0, 50.0, 0.0));  // Position FT node at (50, 50)
+    mobility.SetPositionAllocator(positionAlloc);
+    mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+    mobility.Install(ftNode);
 
     ftMAC->Start();
 

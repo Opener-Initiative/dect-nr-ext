@@ -10,4 +10,5 @@ build_lib_example(
     SOURCE_FILES dect2020ext-spectrum-management-procedure.cc
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
+        ${libnetanim}
 )

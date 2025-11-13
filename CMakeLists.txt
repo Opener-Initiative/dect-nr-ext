@@ -140,7 +140,8 @@ set(dect2020ext_information_elements_h
 set(dect2020ext_spectrum_management_procedure_test_src
     test/spectrum-management-procedure/dect2020ext-spectrum-management-procedure-test.cc
     test/spectrum-management-procedure/dect2020ext-scan-measurement-duration-test-case.cc
-    test/spectrum-management-procedure/dect2020ext-rssi-measurement-test-case.cc)
+    test/spectrum-management-procedure/dect2020ext-rssi-measurement-test-case.cc
+    test/spectrum-management-procedure/dect2020ext-network-beacon-period-test-case.cc)
 
 # Configuration Test
 set(dect2020ext_configuration_test_src

@@ -19,4 +19,3 @@ class Dect2020ExtRssiMeasurementTestCase : public TestCase
 } // namespace ns3
 
 #endif // DECT2020_EXT_RSSI_MEASUREMENT_TEST_CASE_H
-

@@ -27,6 +27,8 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 Dect2020ExtMac::Dect2020ExtMac()
 {
     NS_LOG_FUNCTION(this);
+    m_networkBeaconSweepCount = 0;
+    m_nextNetworkBeaconTime = Seconds(0);
     InitializeDevice();
 }
 
@@ -275,6 +277,8 @@ Dect2020ExtMac::SelectOperatingChannel(void)
     {
         NS_LOG_WARN("No channel evaluations available for selection");
     }
+
+    StartBeaconTransmission();
 }
 
 /**
@@ -391,9 +395,17 @@ Dect2020ExtMac::StartNetworkBeaconTransmission(void)
     Simulator::Schedule(networkBeaconPeriod, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
 
     // Schedule the next network beacon transmission
-    static uint32_t networkBeaconSweepCount = 0;
-    Time dynamicOffset = MilliSeconds(25 + (networkBeaconSweepCount++ % 3) * 2);
+    // Calculate the dynamic offset for the next network beacon transmission
+    Time dynamicOffset = MilliSeconds(25 + (m_networkBeaconSweepCount % 3) * 2);
+    m_nextNetworkBeaconTime = Simulator::Now() + networkBeaconPeriod + dynamicOffset;
+
+    NS_LOG_DEBUG("Network beacon sweep count: " << m_networkBeaconSweepCount);
+    NS_LOG_DEBUG("Dynamic offset: " << dynamicOffset);
+    NS_LOG_DEBUG("Next network beacon transmission scheduled at: " << m_nextNetworkBeaconTime);
+
+    m_networkBeaconSweepCount++;
     Simulator::Schedule(networkBeaconPeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
+
 }
 
 void
@@ -450,7 +462,9 @@ Dect2020ExtMac::BuildNetworkBeacon(void)
     networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
     networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
     networkBeaconMessageIE.SetNextClusterChannel(m_operatingChannelId);
-    networkBeaconMessageIE.SetTimeToNext(0); // TODO: Time to next = Next send time - current sim time
+
+    Time timeToNext = m_nextNetworkBeaconTime - Simulator::Now();
+    networkBeaconMessageIE.SetTimeToNext(timeToNext.GetMilliSeconds());
 
     beacon->AddHeader(networkBeaconMessageIE);
 

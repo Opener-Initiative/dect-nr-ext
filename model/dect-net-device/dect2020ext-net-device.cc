@@ -16,7 +16,17 @@ Dect2020ExtNetDevice::GetTypeId()
     static TypeId tid = TypeId("ns3::Dect2020ExtNetDevice")
                             .SetParent<NetDevice>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtNetDevice>();
+                            .AddConstructor<Dect2020ExtNetDevice>()
+
+                            .AddTraceSource("Tx",
+                                            "Trace source for packets received by this device",
+                                            MakeTraceSourceAccessor(&Dect2020ExtNetDevice::m_txTrace),
+                                            "ns3::Packet::TracedCallback")
+
+                            .AddTraceSource("Rx",
+                                            "Trace source for packets received by this device",
+                                            MakeTraceSourceAccessor(&Dect2020ExtNetDevice::m_rxTrace),
+                                            "ns3::Packet::TracedCallback");
     return tid;
 }
 

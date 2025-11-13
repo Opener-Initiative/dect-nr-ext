@@ -72,6 +72,9 @@ class Dect2020ExtNetDevice : public NetDevice
 
 		uint8_t m_randomAccessResourceLength = 10;
 
+		TracedCallback<Ptr<const Packet>> m_txTrace;
+		TracedCallback<Ptr<const Packet>> m_rxTrace;
+
 	private:
 		Dect2020ExtTerminationPointType m_terminationPointType;
 

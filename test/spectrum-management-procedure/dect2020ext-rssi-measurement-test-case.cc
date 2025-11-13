@@ -36,12 +36,14 @@ Dect2020ExtRssiMeasurementTestCase::DoSetup()
 {
 }
 
+static void EnableLogging()
+{
+    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_DEBUG | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+}
+
 void
 Dect2020ExtRssiMeasurementTestCase::DoRun()
 {
-    LogComponentEnable("Dect2020ExtMac", LOG_LEVEL_DEBUG);
-    LogComponentEnable("Dect2020ExtMac", LOG_PREFIX_TIME);
-
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
     channel->AddPropagationLossModel(CreateObject<LogDistancePropagationLossModel>());
@@ -99,6 +101,7 @@ Dect2020ExtRssiMeasurementTestCase::DoRun()
     waveformGenerator->SetAttribute("DutyCycle", DoubleValue(0.8));         // 80% duty cycle
 
     Simulator::Schedule(Seconds(1), &WaveformGenerator::Start, waveformGenerator); // Start transmission when MAC backgound scan starts
+    Simulator::Schedule(Seconds(1.21), &EnableLogging);
     ftMac->Start();
 
     Simulator::Stop(Seconds(2));

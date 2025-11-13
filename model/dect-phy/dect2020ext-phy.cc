@@ -352,6 +352,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
 
     // Start the transmission
     Simulator::Schedule(duration, &ns3::SpectrumChannel::StartTx, m_channel, params);
+    DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
 }
 
 double
