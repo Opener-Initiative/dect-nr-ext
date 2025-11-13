@@ -254,4 +254,10 @@ Dect2020ExtNetDevice::SupportsSendFrom() const
     return true;
 }
 
+void
+Dect2020ExtNetDevice::Receive(Ptr<Packet> packet)
+{
+    NS_LOG_FUNCTION(this << packet);
+}
+
 } // namespace ns3

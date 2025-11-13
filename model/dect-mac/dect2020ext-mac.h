@@ -47,6 +47,27 @@ struct Dect2020ExtSubslotScanContext
     // std::function<void(const Dect2020ExtChannelEvaluation&)> onComplete;
 };
 
+struct Dect2020ExtFtCandidateInfo
+{
+    uint8_t shortNetworkId; // Short Network ID of the FT candidate
+    uint32_t networkId;     // Network ID of the FT candidate
+    uint32_t shortFtId;     // Short RD ID of the FT candidate
+    uint32_t longFtId;      // Long RD ID of the FT candidate
+
+    uint16_t clusterChannelId;
+    uint8_t sfn;
+    Time receptionTime;
+    double rssiDbm;
+
+    Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
+    // Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
+    // Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
+    // Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
+    // Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
+    // Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
+    //     ftRandomAccessResourceIE; // Last received Random Access Resource IE
+};
+
 class Dect2020ExtMac : public Object
 {
 
@@ -89,6 +110,13 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateAbsoluteStartSubslot(void);
         Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
+        // Beacon Handling
+
+        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);
+        void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
+        void HandleUnicastPacket(Ptr<Packet> packet);
+        Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
+
         // Dect2020ExtMac Setters and Getters
 
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
@@ -106,6 +134,7 @@ class Dect2020ExtMac : public Object
         uint16_t GetShortRadioDeviceId(void) const;
         uint32_t GetOperatingChannelId(void) const;
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
+        uint16_t GetCurrentChannelId(void) const;
 
         // Configuration
 
@@ -147,6 +176,8 @@ class Dect2020ExtMac : public Object
 
         uint32_t m_networkBeaconSweepCount;
         Time m_nextNetworkBeaconTime;
+
+        std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
 
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

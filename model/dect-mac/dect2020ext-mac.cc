@@ -405,7 +405,6 @@ Dect2020ExtMac::StartNetworkBeaconTransmission(void)
 
     m_networkBeaconSweepCount++;
     Simulator::Schedule(networkBeaconPeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
-
 }
 
 void
@@ -583,10 +582,85 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
 
     physicalHeaderField.SetShortNetworkID(m_networkId);
     physicalHeaderField.SetTransmitterIdentity(m_shortRadioDeviceId);
-    physicalHeaderField.SetTransmitPower(23); // TODO: How to determine the transmit power?
+    physicalHeaderField.SetTransmitPower(23); // Dbm -- device power class 1
     physicalHeaderField.SetDFMCS(m_mcs);
 
     return physicalHeaderField;
+}
+
+void
+Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
+{
+    NS_LOG_FUNCTION(this << packet);
+
+    // --- Physical Header Field ---
+    Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+    packet->RemoveHeader(physicalHeaderField);
+
+    // --- MAC Header Type ---
+    Dect2020ExtMacHeaderType macHeaderType;
+    packet->RemoveHeader(macHeaderType);
+
+    // --- Beacon Header ---
+    if (macHeaderType.GetMacHeaderTypeField() ==
+        Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER)
+    {
+        // If the candidate has sent a beacon message before, we can update its entry in the FT
+        // Candidate List
+        Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderField.GetTransmitterIdentity());
+        ft->rssiDbm = rssiDbm;
+        ft->receptionTime = Simulator::Now();
+        ft->ftPhyHeaderField = physicalHeaderField;
+        ft->shortFtId = physicalHeaderField.GetTransmitterIdentity();
+        ft->shortNetworkId = physicalHeaderField.GetShortNetworkID();
+        ft->clusterChannelId =
+            this->GetCurrentChannelId(); // ReceiveFromPhy can only be called if the sent Packet is
+                                         // on the current channel
+
+        HandleBeaconPacket(packet, ft);
+    }
+    // --- Unicast Header ---
+    else if (macHeaderType.GetMacHeaderTypeField() ==
+             Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER)
+    {
+        HandleUnicastPacket(packet);
+    }
+
+    // Forward the packet to the net device
+    m_netDevice->Receive(packet);
+
+    // m_rxPacketTrace(packet);
+}
+
+void
+Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft)
+{
+    NS_LOG_FUNCTION(this << packet);
+}
+
+void
+Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
+{
+    NS_LOG_FUNCTION(this << packet);
+}
+
+Dect2020ExtFtCandidateInfo*
+Dect2020ExtMac::FindOrCreateFtCandidate(uint16_t shortFtId)
+{
+    NS_LOG_FUNCTION(this << shortFtId);
+    for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
+    {
+        if (m_ftCandidates[idx].shortFtId == shortFtId)
+        {
+            return &m_ftCandidates[idx];
+        }
+    }
+
+    // No candidate found, create one
+    Dect2020ExtFtCandidateInfo newCandidate;
+    m_ftCandidates.push_back(newCandidate);
+
+    return &m_ftCandidates.back();
 }
 
 void
@@ -703,6 +777,12 @@ std::vector<Dect2020ExtChannelEvaluation>
 Dect2020ExtMac::GetChannelEvaluations(void) const
 {
     return m_channelEvaluations;
+}
+
+uint16_t
+Dect2020ExtMac::GetCurrentChannelId(void) const
+{
+    return m_currentChannelId;
 }
 
 void

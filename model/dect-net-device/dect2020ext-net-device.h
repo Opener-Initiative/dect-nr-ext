@@ -70,6 +70,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		void SetPromiscReceiveCallback(PromiscReceiveCallback cb) override;
 		bool SupportsSendFrom() const override;
 
+		void Receive(Ptr<Packet> packet);
+
 		uint8_t m_randomAccessResourceLength = 10;
 
 		TracedCallback<Ptr<const Packet>> m_txTrace;
