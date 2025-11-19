@@ -37,27 +37,40 @@ main(int argc, char *argv[])
     channelManager->Configure();
     channelManager->InitializeChannels();
 
-    // FT Node
+    // FT and PT Nodes
     Ptr<Node> ftNode = CreateObject<Node>();
+    Ptr<Node> ptNode = CreateObject<Node>();
 
-    // FT PHY
+    // FT and PT PHYs
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
+    Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
+    ptPHY->SetChannel(channel);
 
-    // FT MAC
+    // FT and PT MACs
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
     ftMAC->SetPhy(ftPHY);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
+    Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
+    ptMAC->SetPhy(ptPHY);
+    ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::PT);
 
     ftPHY->SetMac(ftMAC);
+    ptPHY->SetMac(ptMAC);
 
-    // FT Net Device
+    // FT and PT Net Devices
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
     ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftNetDevice->SetMac(ftMAC);
     ftNetDevice->SetPhy(ftPHY);
     ftNetDevice->SetNode(ftNode);
-    
+    Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
+    ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::PT);
+    ptNetDevice->SetMac(ptMAC);
+    ptNetDevice->SetPhy(ptPHY);
+    ptNetDevice->SetNode(ptNode);
+
+    ptNode->AddDevice(ptNetDevice);
     ftNode->AddDevice(ftNetDevice);
   
     // Mobility Model
@@ -66,7 +79,9 @@ main(int argc, char *argv[])
     positionAlloc->Add(Vector(50.0, 50.0, 0.0));  // Position FT node at (50, 50)
     mobility.SetPositionAllocator(positionAlloc);
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+
     mobility.Install(ftNode);
+    mobility.Install(ptNode);
 
     ftMAC->Start();
 

@@ -391,20 +391,22 @@ void
 Dect2020ExtMac::StartNetworkBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
-    Time networkBeaconPeriod = m_networkBeaconPeriodTime; // gap between each transmission
-    Simulator::Schedule(networkBeaconPeriod, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
 
-    // Schedule the next network beacon transmission
-    // Calculate the dynamic offset for the next network beacon transmission
-    Time dynamicOffset = MilliSeconds(25 + (m_networkBeaconSweepCount % 3) * 2);
-    m_nextNetworkBeaconTime = Simulator::Now() + networkBeaconPeriod + dynamicOffset;
+    // Schedule the network beacon transmission immediately (or with small offset)
+    Time initialOffset = MilliSeconds(0);
+    Simulator::Schedule(initialOffset, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
 
-    NS_LOG_DEBUG("Network beacon sweep count: " << m_networkBeaconSweepCount);
-    NS_LOG_DEBUG("Dynamic offset: " << dynamicOffset);
-    NS_LOG_DEBUG("Next network beacon transmission scheduled at: " << m_nextNetworkBeaconTime);
+    // Schedule the next transmission with dynamic offset
+    static uint32_t sweepCount = 0;
+    Time dynamicOffset = MilliSeconds(25 + (sweepCount++ % 3) * 2); // 25, 27, 29ms
+    Time basePeriod = MilliSeconds(80); // Base period to get 105, 107, 109ms total
 
-    m_networkBeaconSweepCount++;
-    Simulator::Schedule(networkBeaconPeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
+    NS_LOG_DEBUG("Dynamic offset: " << dynamicOffset.GetSeconds());
+    NS_LOG_DEBUG("Next network beacon transmission scheduled with delay: " << (basePeriod + dynamicOffset).GetSeconds());
+
+    // Schedule next transmission from when the actual beacon is sent (dynamicOffset + period)
+    // This ensures the gap between actual transmissions is always networkBeaconPeriod
+    Simulator::Schedule(basePeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
 }
 
 void
@@ -694,6 +696,7 @@ void
 Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
 {
     m_phy = phy;
+    m_phy->SetReceiveCallback(MakeCallback(&Dect2020ExtMac::ReceiveFromPhy, this));
 }
 
 Ptr<Dect2020ExtPhy>

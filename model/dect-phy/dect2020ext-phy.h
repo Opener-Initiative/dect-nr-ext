@@ -53,6 +53,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
+		void SetReceiveCallback(Callback<void, Ptr<Packet>, double> callback);
 
 		// Configuration
 
@@ -96,6 +97,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
 		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
+		Callback<void, Ptr<Packet>, double> m_receiveCallback;
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
 

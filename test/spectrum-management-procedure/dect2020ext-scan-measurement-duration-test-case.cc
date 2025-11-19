@@ -104,7 +104,7 @@ Dect2020ExtScanMeasurementDurationTestCase::DoRun()
 
     Simulator::Schedule(Seconds(1), &WaveformGenerator::Start, waveformGenerator); // Start transmission when MAC backgound scan starts
     Simulator::Schedule(Seconds(1.22), &DisableLogging);
-    ftMac->Start();
+    // ftMac->Start();
 
     Simulator::Stop(Seconds(2));
     Simulator::Run();

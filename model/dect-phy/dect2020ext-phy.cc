@@ -208,6 +208,12 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
 }
 
 void
+Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double> cb)
+{
+    m_receiveCallback = cb;
+}
+
+void
 Dect2020ExtPhy::SetBandNumber(uint8_t bandNumber)
 {
     NS_LOG_FUNCTION(this << bandNumber);
@@ -323,7 +329,45 @@ void
 Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
     NS_LOG_FUNCTION(this << params);
-    // TODO: Implement this method
+    // TODO: check if the device is in RX State (--> need to implement a TX/RX State Machine)
+
+    // Cast the generic SpectrumSignalParameters to our specific DECT-2020 parameters
+    Ptr<Dect2020ExtSpectrumSignalParameters> dectParams =
+        DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
+
+    // Check if this is a DECT-specific signal
+    if (!dectParams)
+    {
+        NS_LOG_DEBUG("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
+        return;
+    }
+
+    // Check if channel manager is initialized
+    if (!m_channelManager)
+    {
+        NS_LOG_ERROR("Channel manager not initialized, dropping packet");
+        return;
+    }
+
+    // Extract the channel index within the spectrum model
+    uint16_t channelIndex =
+        dectParams->m_currentChannelId -
+        m_channelManager->GetFirstValidChannelNumber(
+            m_channelManager->GetBandNumber(dectParams->m_currentChannelId));
+
+    // Extract the received signal strength (in Watt and dBm) from the PSD
+    double rssiPacket = (*params->psd)[channelIndex];
+    double rssiPacketDbm = m_channelManager->WToDbm(rssiPacket);
+
+    // Check if receive callback is set
+    if (m_receiveCallback.IsNull())
+    {
+        NS_LOG_WARN("Receive callback not set, dropping packet");
+        return;
+    }
+
+    // Receive packet successfully and pass it to the MAC
+    m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
 }
 
 void

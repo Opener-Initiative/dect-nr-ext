@@ -258,6 +258,7 @@ void
 Dect2020ExtNetDevice::Receive(Ptr<Packet> packet)
 {
     NS_LOG_FUNCTION(this << packet);
+    NS_LOG_INFO("Received packet from PHY on NetDevice " << this);
 }
 
 } // namespace ns3
