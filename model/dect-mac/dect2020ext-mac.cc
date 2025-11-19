@@ -393,7 +393,7 @@ Dect2020ExtMac::StartNetworkBeaconTransmission(void)
     NS_LOG_FUNCTION(this);
 
     // Schedule the network beacon transmission immediately (or with small offset)
-    Time initialOffset = MilliSeconds(0);
+    Time initialOffset = MilliSeconds(25);
     Simulator::Schedule(initialOffset, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelId);
 
     // Schedule the next transmission with dynamic offset
@@ -414,7 +414,7 @@ Dect2020ExtMac::StartClusterBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
     Time clusterBeaconPeriod = m_clusterBeaconPeriodTime; // gap between each transmission
-    Simulator::Schedule(Simulator::Now(), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
+    Simulator::Schedule(MilliSeconds(0), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
 
     // Schedule the next cluster beacon transmission
     Simulator::Schedule(clusterBeaconPeriod, &Dect2020ExtMac::StartClusterBeaconTransmission, this);
@@ -424,6 +424,7 @@ void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
 {
     NS_LOG_FUNCTION(this << channelId);
+    NS_LOG_DEBUG(this);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
     m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }

@@ -26,12 +26,12 @@ Return code =  0
 stderr =  
 Queue dect2020ext-network-beacon-period-test
 Launch utils/ns3.44-test-runner-default --test-name=dect2020ext-network-beacon-period-test --stop-on-failure --fullness=QUICK
-Synchronously execute /home/seele/ns-allinone-3.44/ns-3.44/build/utils/ns3.44-test-runner-default --test-name=dect2020ext-network-beacon-period-test --stop-on-failure --fullness=QUICK --xml --tempdir=testpy-output/2025-11-19-09-57-33-CUT --out=testpy-output/2025-11-19-09-57-33-CUT/dect2020ext-network-beacon-period-test.xml 
+Synchronously execute /home/seele/ns-allinone-3.44/ns-3.44/build/utils/ns3.44-test-runner-default --test-name=dect2020ext-network-beacon-period-test --stop-on-failure --fullness=QUICK --xml --tempdir=testpy-output/2025-11-19-10-04-51-CUT --out=testpy-output/2025-11-19-10-04-51-CUT/dect2020ext-network-beacon-period-test.xml 
 Return code =  0
-stderr =  +1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5daec0e49220, 1677, -173.83, 1.21)
+stderr =  +1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5a62aa1a6220, 1677, -173.83, 1.21)
 +1.210000000s Dect2020ExtMac:OnRssiMeasurement(): Adding channel evaluation for channel 1677
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5a62aa1a6220)
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ============ Channel Evaluations Summary ============
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): Channel ID | Free | Possible | Busy | Total | Free %
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): -----------------------------------------------------
@@ -58,64 +58,104 @@ stderr =  +1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5daec0e49220, 1677, -
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1677 |   48 |        0 |    0 |    48 | 100.0%
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ====================================================
 +1.210000000s Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
-+1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.210000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.310000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.410000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
 +1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.510000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.610000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.710000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
 +1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.810000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.910000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
++1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
 
 returncode = 0
 ---------- begin standard out ----------
 
 ---------- begin standard err ----------
-+1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5daec0e49220, 1677, -173.83, 1.21)
++1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5a62aa1a6220, 1677, -173.83, 1.21)
 +1.210000000s Dect2020ExtMac:OnRssiMeasurement(): Adding channel evaluation for channel 1677
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5a62aa1a6220)
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ============ Channel Evaluations Summary ============
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): Channel ID | Free | Possible | Busy | Total | Free %
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): -----------------------------------------------------
@@ -142,55 +182,95 @@ returncode = 0
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1677 |   48 |        0 |    0 |    48 | 100.0%
 +1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ====================================================
 +1.210000000s Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
-+1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.210000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.210000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.310000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.310000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.410000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.410000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
 +1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.510000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.510000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.636000000s Dect2020ExtMac:StartNetworkBaconTransmission(0x5daec0e49220)
++1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.610000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.610000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.710000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.710000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
 +1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.810000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.810000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
 +1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
-+1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5daec0e49220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5daec0e49220)
++1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.910000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
++1.910000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
++1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
 +1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
 +1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5daec0e49220, 1657)
-+1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5daec0e49220)
++1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
++1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
++1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
 
 ---------- end standard err ----------
 [0/1] [32mPASS[0m: TestSuite dect2020ext-network-beacon-period-test
