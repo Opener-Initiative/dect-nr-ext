@@ -14,7 +14,7 @@ class Dect2020ExtMacMultiplexingHeaderTypeA : public Dect2020ExtMacMultiplexingH
         virtual ~Dect2020ExtMacMultiplexingHeaderTypeA();
 
         void SetIEType(ExtendedIEType ieType);
-        uint8_t GetIEType() const;
+        ExtendedIEType GetIEType() const;
     
         // Virtual methods of header class
 

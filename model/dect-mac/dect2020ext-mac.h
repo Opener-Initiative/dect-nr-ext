@@ -6,6 +6,12 @@
 #include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-beacon-header.h"
+#include "ns3/dect2020ext-unicast-header.h"
+#include "ns3/dect2020ext-network-beacon-message-ie.h"
+#include "ns3/dect2020ext-cluster-beacon-message-ie.h"
+#include "ns3/dect2020ext-random-access-resource-ie.h"
+#include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -60,12 +66,29 @@ struct Dect2020ExtFtCandidateInfo
     double rssiDbm;
 
     Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
-    // Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
-    // Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
-    // Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
-    // Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
-    // Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
-    //     ftRandomAccessResourceIE; // Last received Random Access Resource IE
+    Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
+    Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
+    Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
+    Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
+    Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
+};
+
+struct Dect2020ExtAssociatedPtInfo
+{
+    Time associationEstablished;
+    uint32_t longRdId; // Long Radio Device ID of the PT
+    uint8_t numberOfFlows;
+    bool powerConstraints;
+    bool ftMode;
+    uint8_t harqProcessesTx;
+    uint8_t maxHarqReTxDelay;
+    uint8_t harqProcessesRx;
+    uint8_t maxHarqReRxDelay;
+    uint8_t flowId;
+    // bool cb_m;
+    // Dect2020RdCapabilityIE rdCapabilityIe;
+
+    double lastRssi;
 };
 
 class Dect2020ExtMac : public Object
@@ -77,10 +100,20 @@ class Dect2020ExtMac : public Object
 
         static TypeId GetTypeId(void);
 
+        enum Dect2020ExtAssociationStatus
+        {
+            NOT_ASSOCIATED,
+            ASSOCIATION_PREPARING,
+            WAITING_FOR_SELECTED_FT,
+            ASSOCIATION_PENDING,
+            ASSOCIATED
+        };
+
         // Initialization
 
         void InitializeDevice(void);
         void Start(void);
+        void DiscoverNetworks(void);
         void InitializeNetwork(void);
         uint32_t GenerateValidNetworkID(void);
         uint32_t GenerateLongRadioDeviceId(void);
@@ -110,12 +143,18 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateAbsoluteStartSubslot(void);
         Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
-        // Beacon Handling
+        // Association Procedure
 
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
+        void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
+        void SelectBestFtCandidate(void);
+        void VerifyWaitingForSelectedFtAssociationStatus(void);
+        void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
+        void VerifyPendingAssociationStatus(void);
+        void ProcessAssociationRequest(const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
 
         // Dect2020ExtMac Setters and Getters
 
@@ -134,6 +173,7 @@ class Dect2020ExtMac : public Object
         uint16_t GetShortRadioDeviceId(void) const;
         uint32_t GetOperatingChannelId(void) const;
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
+        void SetCurrentChannelId(uint16_t channelId);
         uint16_t GetCurrentChannelId(void) const;
 
         // Configuration
@@ -178,6 +218,18 @@ class Dect2020ExtMac : public Object
         Time m_nextNetworkBeaconTime;
 
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
+
+        Dect2020ExtMacMultiplexingHeaderTypeA m_lastFtMacMxHeader;
+
+        Dect2020ExtAssociationStatus m_associationStatus;
+        bool m_isWaitingForClusterBeacon;
+
+        uint8_t m_lastSfn;
+        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
+
+        uint8_t m_potentialShortNetworkId;
+
+        std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
 
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 

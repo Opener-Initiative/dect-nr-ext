@@ -40,11 +40,13 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		void StartFrameTimer();
 		void ProcessSlot(uint32_t slot, double slotStartTime);
-		void ProcessSubslot(uint32_t slotId, uint32_t subslotId, uint32_t absoluteSubslotId);
-		Slot* GetCurrentSlot();
+		void ProcessSubslot(uint32_t slotId, uint32_t subslotId);
+		Slot* GetCurrentSlot(void);
 		Subslot* GetCurrentSubslot();
 		void OnNewFrame(Callback<void, uint32_t, uint32_t> callback);
 		void DisconnectSFNCallback();
+		Time GetTimeToNextAbsoluteSubslot(uint8_t targetSfn, uint8_t targetSlot, uint8_t targetSubslot) const;
+		int GetAbsoluteSubslotIndex(uint8_t slot, uint8_t subslot) const;
 
 		// Dect2020ExtPhy Setters and Getters
 
@@ -90,13 +92,17 @@ class Dect2020ExtPhy : public SpectrumPhy
 	private:
 	    // Dect2020ExtPhy Private Members
 
+		uint32_t m_currentSlot;
+		uint32_t m_currentSubslot;
+		uint16_t m_currentAbsoluteSubslot;
+		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
+
 		Ptr<Dect2020ExtChannelManager> m_channelManager;
 	    Time m_frameStartTime;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
-		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
 		Callback<void, Ptr<Packet>, double> m_receiveCallback;
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;

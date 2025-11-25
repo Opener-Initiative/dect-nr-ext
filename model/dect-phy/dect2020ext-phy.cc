@@ -91,47 +91,58 @@ Dect2020ExtPhy::StartFrameTimer()
     NS_LOG_FUNCTION(this);
 
     m_frameStartTime = Simulator::Now();
-    m_currentSubslotId = 0;
-    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    m_totalSubslotsPerFrame = SLOTS_PER_FRAME * subslotsPerSlot;
-    double subslotDurationNs = SLOT_DURATION_NS / subslotsPerSlot;
 
     // Schedule all subslots for this frame
     for (uint32_t slot = 0; slot < SLOTS_PER_FRAME; slot++)
     {
-        for (uint32_t subslot = 0; subslot < subslotsPerSlot; subslot++)
-        {
-            double subslotStartTime = (slot * SLOT_DURATION_NS) + (subslot * subslotDurationNs);
+        double slotStartTime = slot * SLOT_DURATION_NS;
 
-            Simulator::Schedule(NanoSeconds(subslotStartTime),
-                                &Dect2020ExtPhy::ProcessSubslot,
-                                this,
-                                slot,
-                                subslot,
-                                slot * subslotsPerSlot + subslot);
-        }
+        Simulator::Schedule(NanoSeconds(slotStartTime),
+                            &Dect2020ExtPhy::ProcessSlot,
+                            this,
+                            slot,
+                            slotStartTime);
     }
 
-    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US),
-                        &Dect2020ExtPhy::StartFrameTimer,
-                        this);
+    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtPhy::StartFrameTimer, this);
 }
 
 void
 Dect2020ExtPhy::ProcessSlot(uint32_t slot, double slotStartTime)
 {
+    if (slot == 0)
+    {
+        // Increase the system frame number once per frame
+        m_SFN = (m_SFN + 1) % 256;
+    }
+    m_currentSlot = slot;
+
+    // Define number of subslots depending on subcarrier scaling
+    uint8_t subcarrierScalingFactor = 1;
+    uint32_t numSubslotsPerSlot = (subcarrierScalingFactor == 1)   ? 2
+                                  : (subcarrierScalingFactor == 2) ? 4
+                                  : (subcarrierScalingFactor == 4) ? 8
+                                                                   : 16;
+
+    // Subslot Duration in ns
+    double subslotDuration = 416666 / numSubslotsPerSlot;
+
+    // Schedule processing of each subslot in this slot
+    for (uint32_t subslot = 0; subslot < numSubslotsPerSlot; subslot++)
+    {
+        Simulator::Schedule(NanoSeconds(subslot * subslotDuration),
+                            &Dect2020ExtPhy::ProcessSubslot,
+                            this,
+                            slot,
+                            subslot);
+    }
 }
 
 void
-Dect2020ExtPhy::ProcessSubslot(uint32_t slotId, uint32_t subslotId, uint32_t absoluteSubslotId)
+Dect2020ExtPhy::ProcessSubslot(uint32_t slotId, uint32_t subslotId)
 {
-    if (slotId == 0 && subslotId == 0)
-    {
-        m_SFN++;
-    }
-    // uint32_t subslotsPerSlot = Dect2020ExtChannelManager::GetSubslotsPerSlot();
-    // m_currentSubslotId = slotId * subslotsPerSlot + subslotId;
-    // NS_LOG_INFO(slotId << " " << subslotId << " " << absoluteSubslotId);
+    m_currentSubslot = subslotId;
+    m_currentAbsoluteSubslot = (slotId * 2) + subslotId;
 }
 
 Slot*
@@ -161,6 +172,47 @@ void
 Dect2020ExtPhy::DisconnectSFNCallback()
 {
     TraceDisconnectWithoutContext("SFN", m_SFNCallback);
+}
+
+Time
+Dect2020ExtPhy::GetTimeToNextAbsoluteSubslot(uint8_t targetSfn, uint8_t targetSlot, uint8_t targetSubslot) const
+{
+
+    // uint8_t currentSfn = m_currentSfn;
+    uint8_t currentSlot = m_currentSlot;
+    uint8_t currentSubslot = m_currentSubslot;
+
+    // Calculate the absolute subslot index for the current and target subslot
+    int currentAbsoluteSubslotIndex = GetAbsoluteSubslotIndex(currentSlot, currentSubslot);
+    int targetAbsoluteSubslotIndex = GetAbsoluteSubslotIndex(targetSlot, targetSubslot);
+
+    // Calculate the difference in absolute subslot indices
+    int subslotDifference = targetAbsoluteSubslotIndex - currentAbsoluteSubslotIndex;
+
+    // If the target subslot is in the next frame, adjust the difference
+    if (subslotDifference < 0)
+    {
+        // If the target subslot is in the next frame, add the total number of subslots in a frame
+        uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24; // 24 slots per frame
+        subslotDifference += subslotsPerFrame;
+    }
+
+    // Calculate the time until the target subslot
+    Time subslotDuration =
+        NanoSeconds(416666 / m_channelManager->GetSubslotsPerSlot()); // Subslot Duration in ns
+    Time timeUntilNextSubslot = subslotDifference * subslotDuration;
+
+    return timeUntilNextSubslot;
+}
+
+int
+Dect2020ExtPhy::GetAbsoluteSubslotIndex(uint8_t slot, uint8_t subslot) const
+{
+    // Calculate the absolute subslot index
+    uint8_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    int absoluteSubslotIndex = (slot * subslotsPerSlot) + subslot;
+
+    return absoluteSubslotIndex;
 }
 
 /**

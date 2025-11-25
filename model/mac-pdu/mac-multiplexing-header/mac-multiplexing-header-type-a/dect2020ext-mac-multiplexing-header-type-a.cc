@@ -20,10 +20,10 @@ Dect2020ExtMacMultiplexingHeaderTypeA::SetIEType(ExtendedIEType ieType)
     m_IEType = ieType;
 }
 
-uint8_t
+Dect2020ExtMacMultiplexingHeader::ExtendedIEType
 Dect2020ExtMacMultiplexingHeaderTypeA::GetIEType() const
 {
-    return m_IEType;
+    return static_cast<ExtendedIEType>(m_IEType);
 }
 
 TypeId

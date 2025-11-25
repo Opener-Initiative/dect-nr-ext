@@ -9,26 +9,14 @@ namespace ns3
 
 class Dect2020ExtNetworkBeaconMessageIE;
 
-typedef Dect2020ExtNetworkBeaconMessageIE::NetworkBeaconPeriod NetworkBeaconPeriod;
-typedef Dect2020ExtNetworkBeaconMessageIE::ClusterBeaconPeriod ClusterBeaconPeriod;
+typedef Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod NetworkBeaconPeriod;
+typedef Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod ClusterBeaconPeriod;
 
 class Dect2020ExtAssociationRequestMessageIE : public Header
 {
     public:
         Dect2020ExtAssociationRequestMessageIE();
         virtual ~Dect2020ExtAssociationRequestMessageIE();
-
-        // ETSI TS 103 636-4 6.4.2.4-2
-        enum SetupCause
-        {
-            InitialAssociation = 0,
-            AssociationToRequestNewSetOfFlows = 1,
-            AssociationDueToMobility = 2,
-            ReassociationAfterError = 3,
-            ChangeOfOwnOperatingChannel = 4,
-            ChangeOperatingMode = 5,
-            PagingResponse = 6
-        };
 
         // Virtual Header base class methods
 
@@ -41,22 +29,68 @@ class Dect2020ExtAssociationRequestMessageIE : public Header
 
         // Setters and Getters
 
+        void SetSetupCause(uint8_t setupCause);
+        uint8_t GetSetupCause() const;
+
+        void SetNumberOfFlows(uint8_t numberOfFlows);
+        uint8_t GetNumberOfFlows() const;
+
+        void SetPowerConstraints(bool powerConstraints);
+        bool GetPowerConstraints() const;
+
+        void SetFtMode(bool ftMode);
+        bool GetFtMode() const;
+
+        void SetCurrent(bool current);
+        bool GetCurrent() const;
+
+        void SetHarqProcessesTx(uint8_t harqProcessesTx);
+        uint8_t GetHarqProcessesTx() const;
+
+        void SetMaxHarqReTxDelay(uint8_t maxHarqReTxDelay);
+        uint8_t GetMaxHarqReTxDelay() const;
+
+        void SetHarqProcessesRx(uint8_t harqProcessesRx);
+        uint8_t GetHarqProcessesRx() const;
+
+        void SetMaxHarqReRxDelay(uint8_t maxHarqReRxDelay);
+        uint8_t GetMaxHarqReRxDelay() const;
+
+        void SetFlowId(uint8_t flowId);
+        uint8_t GetFlowId() const;
+
+        void SetNetworkBeaconPeriod(NetworkBeaconPeriod networkBeaconPeriod);
+        NetworkBeaconPeriod GetNetworkBeaconPeriod() const;
+
+        void SetClusterBeaconPeriod(ClusterBeaconPeriod clusterBeaconPeriod);
+        ClusterBeaconPeriod GetClusterBeaconPeriod() const;
+
+        void SetNextClusterChannel(uint16_t nextClusterChannel);
+        uint16_t GetNextClusterChannel() const;
+
+        void SetTimeToNext(uint32_t timeToNext);
+        uint32_t GetTimeToNext() const;
+
+        void SetCurrentClusterChannel(uint16_t currentClusterChannel);
+        uint16_t GetCurrentClusterChannel() const;
+
     private:
-        SetupCause m_setupCause; // 3 bits relevant
-        uint8_t m_numberOfFlows; // 3 bits relevant
-        uint8_t m_powerConst; // 1 bit relevant
-        bool m_ftMode; // 1 bit relevant
-        bool m_current; // 1 bit relevant
-        uint8_t m_harqProcessesTX; // 3 bits relevant
-        uint8_t m_maxHarqReTX; // 5 bits relevant
-        uint8_t m_harqProcessesRX; // 3 bits relevant
-        uint8_t m_maxHarqReRX; // 5 bits relevant
-        uint8_t m_flowID; // 6 bits relevant
-        NetworkBeaconPeriod m_networkBeaconPeriod; // 4 bits relevant
-        ClusterBeaconPeriod m_clusterBeaconPeriod; // 4 bits relevant
-        uint16_t m_nextClusterChannel; // 13 bits relevant
-        uint32_t m_timeToNext;
-        uint16_t m_currentClusterChannel; // 13 bits relevant
+        uint8_t m_setupCause;    // 3 Bit
+        uint8_t m_numberOfFlows; // 3 Bit
+        bool m_powerConstraints; // 1 Bit
+        bool m_ftMode;           // 1 Bit
+        bool m_current; // 1 Bit. 0 = current cluster channel is the same as the next cluster channel.
+                        //        1 = not the same --> current cluster channel field included
+        uint8_t m_harqProcessesTx;                 // 3 Bit
+        uint8_t m_maxHarqReTxDelay;                // 5 Bit
+        uint8_t m_harqProcessesRx;                 // 3 Bit
+        uint8_t m_maxHarqReRxDelay;                // 5 Bit
+        uint8_t m_flowId;                          // 6 Bit
+        NetworkBeaconPeriod m_networkBeaconPeriod; // 4 Bit
+        ClusterBeaconPeriod m_clusterBeaconPeriod; // 4 Bit
+        uint16_t m_nextClusterChannel;             // 13 Bit
+        uint32_t m_timeToNext;                     // 32 Bit
+        uint16_t m_currentClusterChannel;          // 13 Bit
 };
 
 } // namespace ns3

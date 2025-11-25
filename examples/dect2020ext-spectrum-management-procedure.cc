@@ -85,6 +85,22 @@ main(int argc, char *argv[])
 
     ftMAC->Start();
 
+    // NetAnim Configuration
+    AnimationInterface anim("dect2020ext-spectrum-management.xml");
+    anim.EnablePacketMetadata(true);
+    
+    // Set node descriptions for easier identification
+    anim.UpdateNodeDescription(ftNode, "FT-Node");
+    anim.UpdateNodeDescription(ptNode, "PT-Node");
+    
+    // Set node colors (FT=Blue, PT=Red)
+    anim.UpdateNodeColor(ftNode, 0, 0, 255);    // Blue for FT
+    anim.UpdateNodeColor(ptNode, 255, 0, 0);    // Red for PT
+    
+    // Set node sizes for better visibility
+    anim.UpdateNodeSize(ftNode->GetId(), 5.0, 5.0);
+    anim.UpdateNodeSize(ptNode->GetId(), 5.0, 5.0);
+
     Simulator::Stop(Seconds(5));
     Simulator::Run();
     Simulator::Destroy();

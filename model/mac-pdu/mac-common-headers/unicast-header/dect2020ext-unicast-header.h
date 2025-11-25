@@ -12,6 +12,11 @@ class Dect2020ExtUnicastHeader : public Header
         Dect2020ExtUnicastHeader();
         virtual ~Dect2020ExtUnicastHeader();
 
+        // Set Reset
+        void SetReset(bool reset);
+        // Get Reset
+        bool GetReset() const;
+
         // Set MAC Sequence
         void SetMacSequence(uint8_t number);
         // Get MAC Sequence
@@ -41,6 +46,7 @@ class Dect2020ExtUnicastHeader : public Header
         virtual uint32_t Deserialize(Buffer::Iterator start);
 
     private:
+        bool m_reset; // 1 bit
         uint8_t m_macSequence; // 4 bits
         uint8_t m_sequenceNumber; // 8 bits
         uint32_t m_receiverAddress; // 32 bits
