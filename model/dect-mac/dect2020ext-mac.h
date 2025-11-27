@@ -12,12 +12,15 @@
 #include "ns3/dect2020ext-cluster-beacon-message-ie.h"
 #include "ns3/dect2020ext-random-access-resource-ie.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
+#include "ns3/dect2020ext-association-request-message-ie.h"
+#include "ns3/dect2020ext-association-response-message-ie.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
 #include "ns3/event-id.h"
 #include "ns3/packet.h"
 #include "ns3/uinteger.h"
+#include "ns3/node.h"
 
 #include <map>
 #include <vector>
@@ -55,19 +58,19 @@ struct Dect2020ExtSubslotScanContext
 
 struct Dect2020ExtFtCandidateInfo
 {
-    uint8_t shortNetworkId; // Short Network ID of the FT candidate
+    // uint8_t shortNetworkId; // Short Network ID of the FT candidate
     uint32_t networkId;     // Network ID of the FT candidate
-    uint32_t shortFtId;     // Short RD ID of the FT candidate
+    // uint32_t shortFtId;     // Short RD ID of the FT candidate
     uint32_t longFtId;      // Long RD ID of the FT candidate
 
     uint16_t clusterChannelId;
-    uint8_t sfn;
+    // uint8_t sfn;
     Time receptionTime;
-    double rssiDbm;
+    // double rssiDbm;
 
     Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
-    Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
+    // Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
     Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
     Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
     Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
@@ -77,18 +80,18 @@ struct Dect2020ExtAssociatedPtInfo
 {
     Time associationEstablished;
     uint32_t longRdId; // Long Radio Device ID of the PT
-    uint8_t numberOfFlows;
-    bool powerConstraints;
-    bool ftMode;
-    uint8_t harqProcessesTx;
-    uint8_t maxHarqReTxDelay;
-    uint8_t harqProcessesRx;
-    uint8_t maxHarqReRxDelay;
-    uint8_t flowId;
+    // uint8_t numberOfFlows;
+    // bool powerConstraints;
+    // bool ftMode;
+    // uint8_t harqProcessesTx;
+    // uint8_t maxHarqReTxDelay;
+    // uint8_t harqProcessesRx;
+    // uint8_t maxHarqReRxDelay;
+    // uint8_t flowId;
     // bool cb_m;
     // Dect2020RdCapabilityIE rdCapabilityIe;
 
-    double lastRssi;
+    // double lastRssi;
 };
 
 class Dect2020ExtMac : public Object
@@ -150,11 +153,15 @@ class Dect2020ExtMac : public Object
         void HandleUnicastPacket(Ptr<Packet> packet);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
-        void SelectBestFtCandidate(void);
+        // void SelectBestFtCandidate(void);
         void VerifyWaitingForSelectedFtAssociationStatus(void);
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         void VerifyPendingAssociationStatus(void);
         void ProcessAssociationRequest(const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
+        void SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
+        void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
+        void VerifyAssociatedStatus(void);
+        Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
 
         // Dect2020ExtMac Setters and Getters
 
@@ -162,6 +169,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
         void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
         Ptr<Dect2020ExtNetDevice> GetNetDevice(void) const;
+        Ptr<Node> GetNode(void) const;
         void SetPhy(Ptr<Dect2020ExtPhy> phy);
         Ptr<Dect2020ExtPhy> GetPhy(void) const;
         void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
@@ -190,11 +198,13 @@ class Dect2020ExtMac : public Object
 
         bool m_dectDelay = false;
 
-    private:
         uint16_t m_currentChannelId;
+
+        uint32_t m_associatedFTNetDeviceLongRdId = 0;
+    private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
-        Ptr<Dect2020ExtNetDevice> m_netDevice;
+        Ptr<Dect2020ExtNetDevice> m_device;
         Ptr<Dect2020ExtPhy> m_phy;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
         Ptr<Dect2020ExtChannelManager> m_channelManager;

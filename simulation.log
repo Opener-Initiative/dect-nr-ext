@@ -1,277 +1,436 @@
 [0/2] Re-checking globbed directories...
-[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-mac/dect2020ext-mac.cc.o
+[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-phy/dect2020ext-phy.cc.o
 [2/3] Linking CXX shared library /home/seele/ns-allinone-3.44/ns-3.44/build/lib/libns3.44-dect-nr-ext-default.so
-Finished executing the following commands:
-/usr/bin/cmake --build /home/seele/ns-allinone-3.44/ns-3.44/cmake-cache -j 5
-NS3_ENABLED_MODULES == ['ns3-zigbee', 'ns3-wimax', 'ns3-wifi', 'ns3-virtual-net-device', 'ns3-uan', 'ns3-traffic-control', 'ns3-topology-read', 'ns3-tap-bridge', 'ns3-stats', 'ns3-spectrum', 'ns3-sixlowpan', 'ns3-propagation', 'ns3-point-to-point-layout', 'ns3-point-to-point', 'ns3-olsr', 'ns3-nix-vector-routing', 'ns3-network', 'ns3-netanim', 'ns3-mobility', 'ns3-mesh', 'ns3-lte', 'ns3-lr-wpan', 'ns3-internet-apps', 'ns3-internet', 'ns3-flow-monitor', 'ns3-fd-net-device', 'ns3-energy', 'ns3-dsr', 'ns3-dsdv', 'ns3-csma-layout', 'ns3-csma', 'ns3-core', 'ns3-config-store', 'ns3-buildings', 'ns3-bridge', 'ns3-applications', 'ns3-aodv', 'ns3-antenna']
-NS3_ENABLED_CONTRIBUTED_MODULES == ['ns3-dect-nr-ext', 'ns3-dect-nr']
-NS3_MODULE_PATH == ['/home/seele/.pyenv/libexec', '/home/seele/.pyenv/plugins/python-build/bin', '/home/seele/.pyenv/plugins/pyenv-virtualenv/bin', '/home/seele/.pyenv/plugins/pyenv-update/bin', '/home/seele/.pyenv/plugins/pyenv-doctor/bin', '/home/seele/.pyenv/shims', '/home/seele/.pyenv/bin', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/bin/site_perl', '/usr/bin/vendor_perl', '/usr/bin/core_perl', '/home/seele/jupyter/bin/', '/home/seele/ns-allinone-3.44/ns-3.44', '/home/seele/ns-allinone-3.44/ns-3.44/build', '/home/seele/ns-allinone-3.44/ns-3.44/build/lib']
-ENABLE_EXAMPLES == True
-ENABLE_TESTS == True
-EXAMPLE_DIRECTORIES == ['wireless', 'udp-client-server', 'udp', 'tutorial', 'traffic-control', 'tcp', 'stats', 'socket', 'routing', 'realtime', 'naming', 'matrix-topology', 'ipv6', 'error-model', 'energy', 'channel-models']
-ENABLE_PYTHON_BINDINGS == False
-NSCLICK == False
-ENABLE_BRITE == False
-ENABLE_OPENFLOW == False
-APPNAME == ns
-BUILD_PROFILE == default
-VERSION == 3.44
-PYTHON == ['/usr/bin/python3']
-VALGRIND_FOUND == False
-Building: ./ns3
-os.environ["PYTHONPATH"] == /home/seele/ns-allinone-3.44/ns-3.44/build/bindings/python
-os.environ["LD_LIBRARY_PATH"] == :/home/seele/.pyenv/libexec:/home/seele/.pyenv/plugins/python-build/bin:/home/seele/.pyenv/plugins/pyenv-virtualenv/bin:/home/seele/.pyenv/plugins/pyenv-update/bin:/home/seele/.pyenv/plugins/pyenv-doctor/bin:/home/seele/.pyenv/shims:/home/seele/.pyenv/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/seele/jupyter/bin/:/home/seele/ns-allinone-3.44/ns-3.44:/home/seele/ns-allinone-3.44/ns-3.44/build:/home/seele/ns-allinone-3.44/ns-3.44/build/lib
-Synchronously execute /home/seele/ns-allinone-3.44/ns-3.44/build/utils/ns3.44-test-runner-default --print-test-name-list
-Return code =  0
-stderr =  
-Queue dect2020ext-network-beacon-period-test
-Launch utils/ns3.44-test-runner-default --test-name=dect2020ext-network-beacon-period-test --stop-on-failure --fullness=QUICK
-Synchronously execute /home/seele/ns-allinone-3.44/ns-3.44/build/utils/ns3.44-test-runner-default --test-name=dect2020ext-network-beacon-period-test --stop-on-failure --fullness=QUICK --xml --tempdir=testpy-output/2025-11-19-10-04-51-CUT --out=testpy-output/2025-11-19-10-04-51-CUT/dect2020ext-network-beacon-period-test.xml 
-Return code =  0
-stderr =  +1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5a62aa1a6220, 1677, -173.83, 1.21)
-+1.210000000s Dect2020ExtMac:OnRssiMeasurement(): Adding channel evaluation for channel 1677
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ============ Channel Evaluations Summary ============
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): Channel ID | Free | Possible | Busy | Total | Free %
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): -----------------------------------------------------
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1657 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1658 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1659 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1660 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1661 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1662 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1663 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1664 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1665 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1666 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1667 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1668 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1669 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1670 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1671 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1672 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1673 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1674 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1675 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1676 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1677 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ====================================================
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
-+1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.210000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.310000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.410000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.510000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.610000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.710000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.810000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.910000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-
-returncode = 0
----------- begin standard out ----------
-
----------- begin standard err ----------
-+1.210000000s Dect2020ExtMac:OnRssiMeasurement(0x5a62aa1a6220, 1677, -173.83, 1.21)
-+1.210000000s Dect2020ExtMac:OnRssiMeasurement(): Adding channel evaluation for channel 1677
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ============ Channel Evaluations Summary ============
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): Channel ID | Free | Possible | Busy | Total | Free %
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): -----------------------------------------------------
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1657 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1658 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1659 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1660 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1661 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1662 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1663 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1664 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1665 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1666 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1667 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1668 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1669 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1670 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1671 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1672 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1673 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1674 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1675 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1676 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations():       1677 |   48 |        0 |    0 |    48 | 100.0%
-+1.210000000s Dect2020ExtMac:DisplayChannelEvaluations(): ====================================================
-+1.210000000s Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
-+1.210000000s Dect2020ExtMac:StartBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.210000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.210000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.210000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.210000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.210000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.310000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.310000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.315000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.315000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.315000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.410000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.410000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
-+1.422000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.422000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.422000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.510000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.510000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.531000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.531000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.531000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.610000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.610000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.636000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.636000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.636000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.710000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.710000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.029
-+1.743000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.109
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.743000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.743000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.810000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.810000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.025
-+1.852000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.105
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.852000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.852000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:StartClusterBeaconTransmission(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:SendClusterBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.910000000s Dect2020ExtMac:BuildClusterBeacon(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x5a62aa1a6220)
-+1.910000000s Dect2020ExtMac:CalculateAbsoluteStartSubslot(0x5a62aa1a6220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(0x5a62aa1a6220)
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Dynamic offset: 0.027
-+1.957000000s Dect2020ExtMac:StartNetworkBeaconTransmission(): Next network beacon transmission scheduled with delay: 0.107
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(0x5a62aa1a6220, 1657)
-+1.957000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): 0x5a62aa1a6220
-+1.957000000s Dect2020ExtMac:BuildNetworkBeacon(0x5a62aa1a6220)
-
----------- end standard err ----------
-[0/1] [32mPASS[0m: TestSuite dect2020ext-network-beacon-period-test
-1 of 1 tests passed (1 passed, 0 skipped, 0 failed, 0 crashed, 0 valgrind errors)
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xa925e31c on FT Device 0x59d4ac2f0210
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xa68e on FT Device 0x59d4ac2f0210
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xb6270041 on PT Device 0x59d4ac44a300
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xe97 on PT Device 0x59d4ac44a300
++0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x59d4ac2f0210 starts the network initialization
++1.210000000s 0 Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
++1.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.210000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
++1.210000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.310000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
++1.310000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.315000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.315000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.315000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
++1.315000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.410000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1672
++1.410000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.422000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.422000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.422000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
++1.422000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.510000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1661
++1.510000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.531000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.531000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.531000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
++1.531000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.610000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1671
++1.610000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.636000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.636000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.636000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
++1.636000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.710000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1660
++1.710000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.743000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.743000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.743000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
++1.743000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.810000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1670
++1.810000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.852000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.852000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.852000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
++1.852000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++1.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.910000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1659
++1.910000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++1.957000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++1.957000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++1.957000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
++1.957000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.010000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1669
++2.010000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.064000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.064000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.064000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
++2.064000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.110000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
++2.110000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.173000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.173000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.173000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1664
++2.173000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.210000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1668
++2.210000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.278000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.278000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.278000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
++2.278000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.310000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.310000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.385000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.385000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.385000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.385000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.410000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.410000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.494000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.494000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.494000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.494000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.510000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.510000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.599000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.599000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.599000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.599000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.610000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.610000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.706000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.706000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.706000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.706000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.710000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.710000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.810000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.810000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.815000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.815000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.815000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.815000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++2.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++2.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++2.910000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++2.910000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++2.920000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++2.920000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++2.920000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++2.920000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.010000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.010000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.010000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.010000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.010000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.027000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.027000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.027000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.027000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.110000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.110000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.110000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.110000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.110000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.136000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.136000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.136000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.136000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.210000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.210000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.210000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.210000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.210000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.241000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.241000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.241000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.241000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.310000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.310000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.348000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.348000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.348000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.348000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.410000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.410000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.457000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.457000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.457000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.457000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.510000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.510000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.562000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.562000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.562000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.562000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.610000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.610000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.669000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.669000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.669000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.669000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.710000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.710000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.778000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.778000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.778000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.778000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.810000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.810000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.883000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.883000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.883000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.883000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++3.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++3.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++3.910000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++3.910000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++3.990000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++3.990000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++3.990000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++3.990000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.010000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.010000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.010000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.010000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.010000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.099000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.099000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.099000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.099000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.110000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.110000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.110000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.110000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.110000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.204000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.204000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.204000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.204000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.210000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.210000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.210000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.210000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.210000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.310000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.310000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.311000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.311000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.311000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.311000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.410000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.410000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.420000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.420000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.420000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.420000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.510000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.510000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.525000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.525000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.525000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.525000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.610000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.610000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.632000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.632000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.632000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.632000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.710000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.710000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.741000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.741000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.741000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.741000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.810000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.810000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.846000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.846000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.846000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.846000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
++4.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
++4.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
++4.910000000s 0 Dect2020ExtPhy:StartRx(): Current channel: 1657
++4.910000000s 0 Dect2020ExtPhy:StartRx(): Channel from dect params: 0
++4.953000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
++4.953000000s 1 Dect2020ExtPhy:StartRx(): Received packet successfully and passing it to the MAC
++4.953000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
++4.953000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message

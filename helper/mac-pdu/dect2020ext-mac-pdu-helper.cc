@@ -27,8 +27,8 @@ Dect2020ExtMacPduHelper::DATAMACPDU(MacSecurityField security,
     dataMacPduHeader.SetReset(reset);
     dataMacPduHeader.SetSequenceNumber(sequenceNumber);
 
-    packet->AddHeader(macHeaderType);
     packet->AddHeader(dataMacPduHeader);
+    packet->AddHeader(macHeaderType);
 
     return packet;
 }
@@ -48,8 +48,8 @@ Dect2020ExtMacPduHelper::BEACON(MacSecurityField security,
     beaconHeader.SetNetworkId(networkId);
     beaconHeader.SetTransmitterAddress(transmitterAddress);
 
-    packet->AddHeader(macHeaderType);
     packet->AddHeader(beaconHeader);
+    packet->AddHeader(macHeaderType);
 
     return packet;
 }
@@ -73,8 +73,8 @@ Dect2020ExtMacPduHelper::UNICAST(MacSecurityField security,
     unicastHeader.SetReceiverAddress(receiverAddress);
     unicastHeader.SetTransmitterAddress(transmitterAddress);
 
-    packet->AddHeader(macHeaderType);
     packet->AddHeader(unicastHeader);
+    packet->AddHeader(macHeaderType);
 
     return packet;
 }
@@ -96,8 +96,8 @@ Dect2020ExtMacPduHelper::RDBROADCASTING(MacSecurityField security,
     rdBroadcastingHeader.SetSequenceNumber(sequenceNumber);
     rdBroadcastingHeader.SetTransmitterAddress(transmitterAddress);
 
-    packet->AddHeader(macHeaderType);
     packet->AddHeader(rdBroadcastingHeader);
+    packet->AddHeader(macHeaderType);
 
     return packet;
 }

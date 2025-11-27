@@ -2,6 +2,7 @@
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
+#include "ns3/dect2020ext-mac-header-type.h"
 
 #include "ns3/simulator.h"
 #include "ns3/pointer.h"
@@ -390,16 +391,21 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Check if this is a DECT-specific signal
     if (!dectParams)
     {
-        NS_LOG_DEBUG("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
+        NS_LOG_WARN("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
         return;
     }
 
-    // Check if channel manager is initialized
-    if (!m_channelManager)
+
+    // Drop packet if the device is not currently tuned to the correct channel
+    if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
     {
-        NS_LOG_ERROR("Channel manager not initialized, dropping packet");
+        NS_LOG_WARN("Received packet on wrong channel");
+        NS_LOG_WARN("Current channel: " << this->m_mac->m_currentChannelId);
+        NS_LOG_WARN("Channel from dect params: " << dectParams->m_currentChannelId);
         return;
     }
+
+    NS_LOG_INFO("Received packet successfully and passing it to the MAC");
 
     // Extract the channel index within the spectrum model
     uint16_t channelIndex =
@@ -444,6 +450,22 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
 
     Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
     Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
+    params->psd = psd;
+
+    // Get the channel index --> this is the index of the channel used for PSD
+    uint16_t channelIndex = this->m_mac->m_currentChannelId - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
+
+    // Set the PSD value for hte current channel
+    Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
+    double txPowerWatt = m_channelManager->DbmToW(dectNetDevice->m_txPowerDbm);
+
+    for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
+    {
+        (*psd)[i] = 0.0; // Initialize all channels to 0.0
+    }
+
+    // Set power only on the current channel
+    (*psd)[channelIndex] = txPowerWatt;
     params->psd = psd;
 
     // Start the transmission

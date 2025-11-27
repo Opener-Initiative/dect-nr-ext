@@ -1,31 +1,26 @@
----
-config:
-    theme: dark
----
-
 flowchart TD
-    Dect2020ExtMac -->|"Dect2020ExtMac()"| Initialization
-    Initialization -->|"Start()"| MACSpectrumManagementProcedure   
 
-    subgraph Initialization
-        GenerateLongRadioDeviceId --> SetLongRadioDeviceId
-        GenerateShortRadioDeviceId --> SetShortRadioDeviceId
-    end
+    PT --> PT_InitializeDevice["InitializeDevice()"]
 
-    subgraph MACSpectrumManagementProcedure["MAC Spectrum Management Procedure"]
-        FTorPT{"FT or PT?"} -->|"Yes"| InitializeNetwork
-        FTorPT -->|"No"| PT
-        InitializeNetwork --> GenerateValidNetworkId
-        GenerateValidNetworkId --> SetNetworkId
-        InitializeNetwork --> BackgroundScan
-        BackgroundScan --> EvaluateAllChannels
-        EvaluateAllChannels --> SelectOperatingChannel
-        SelectOperatingChannel -->|"StartBeaconTransmission(void)"| BeaconTransmission
+    PT_InitializeDevice --> PT_SetLongRadioDeviceId["SetLongRadioDeviceId(GenerateLongRadioDeviceId())"]
+    PT_InitializeDevice --> PT_SetShortRadioDeviceId["SetShortRadioDeviceId(GenerateShortRadioDeviceId())"]
 
-        subgraph BeaconTransmission["Beacon Transmission"]
-            StartNetworkBeaconTransmission --> SendNetworkBeaconOnChannel
-            StartNetworkBeaconTransmission -->|"Network Beacon Period"| StartNetworkBeaconTransmission
-            StartClusterBeaconTransmission --> SendClusterBeaconOnChannel
-            StartClusterBeaconTransmission -->|"Cluster Beacon Period"| StartClusterBeaconTransmission
-        end
-    end
+    PT_SetLongRadioDeviceId --> PT_Start["Start()"]
+    PT_SetShortRadioDeviceId --> PT_Start
+
+    PT_Start --> PT_InitializeNetwork["InitializeNetwork()"]
+
+    -->PT_END["PT END"]
+
+
+    FT -->FT_InitializeDevice["InitializeDevice()"]
+
+    FT_InitializeDevice --> FT_SetLongRadioDeviceId["SetLongRadioDeviceId(GenerateLongRadioDeviceId())"]
+    FT_InitializeDevice --> FT_SetShortRadioDeviceId["SetShortRadioDeviceId(GenerateShortRadioDeviceId())"]
+
+    FT_SetLongRadioDeviceId --> FT_Start["Start()"]
+    FT_SetShortRadioDeviceId --> FT_Start
+
+    FT_Start --> FT_DiscoverNetworks["DiscoverNetworks()"]
+
+    --> FT_END["FT END"]

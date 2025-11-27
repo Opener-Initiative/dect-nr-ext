@@ -18,10 +18,9 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtSpectrumManagementProcedure");
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    LogComponentEnable("Dect2020ExtChannelManager", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    LogComponentEnable("Dect2020ExtNetDevice", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    // LogComponentEnable("Dect2020ExtSpectrumManagementProcedure", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     
     // Spectrum Channel
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
@@ -41,29 +40,37 @@ main(int argc, char *argv[])
     Ptr<Node> ftNode = CreateObject<Node>();
     Ptr<Node> ptNode = CreateObject<Node>();
 
-    // FT and PT PHYs
+    // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
+
+    // PT PHY
     Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
     ptPHY->SetChannel(channel);
 
-    // FT and PT MACs
+    // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
+    ftMAC->SetChannelManager(channelManager);
     ftMAC->SetPhy(ftPHY);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
+
+    // PT MAC
     Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
+    ptMAC->SetChannelManager(channelManager);
     ptMAC->SetPhy(ptPHY);
     ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::PT);
 
     ftPHY->SetMac(ftMAC);
     ptPHY->SetMac(ptMAC);
 
-    // FT and PT Net Devices
+    // FT Net Device
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
     ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftNetDevice->SetMac(ftMAC);
     ftNetDevice->SetPhy(ftPHY);
     ftNetDevice->SetNode(ftNode);
+   
+    // PT Net Device
     Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
     ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::PT);
     ptNetDevice->SetMac(ptMAC);
@@ -83,23 +90,12 @@ main(int argc, char *argv[])
     mobility.Install(ftNode);
     mobility.Install(ptNode);
 
-    ftMAC->Start();
+    ftMAC->InitializeDevice();
+    ptMAC->InitializeDevice();
 
-    // NetAnim Configuration
-    AnimationInterface anim("dect2020ext-spectrum-management.xml");
-    anim.EnablePacketMetadata(true);
-    
-    // Set node descriptions for easier identification
-    anim.UpdateNodeDescription(ftNode, "FT-Node");
-    anim.UpdateNodeDescription(ptNode, "PT-Node");
-    
-    // Set node colors (FT=Blue, PT=Red)
-    anim.UpdateNodeColor(ftNode, 0, 0, 255);    // Blue for FT
-    anim.UpdateNodeColor(ptNode, 255, 0, 0);    // Red for PT
-    
-    // Set node sizes for better visibility
-    anim.UpdateNodeSize(ftNode->GetId(), 5.0, 5.0);
-    anim.UpdateNodeSize(ptNode->GetId(), 5.0, 5.0);
+    // Schedule Start() in each node's context
+    Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
+    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
 
     Simulator::Stop(Seconds(5));
     Simulator::Run();

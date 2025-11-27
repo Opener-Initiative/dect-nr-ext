@@ -96,16 +96,10 @@ set(dect2020ext_mac_common_headers_h
 
 # Mac Multiplexing Header
 set(dect2020ext_mac_multiplexing_header_src
-    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.cc
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.cc)
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.cc)
 
 set(dect2020ext_mac_multiplexing_header_h
-    model/mac-pdu/mac-multiplexing-header/dect2020ext-mac-multiplexing-header.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-b/dect2020ext-mac-multiplexing-header-type-b.h
-    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-c/dect2020ext-mac-multiplexing-header-type-c.h)
+    model/mac-pdu/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a.h)
 
 # Information Elements
 set(dect2020ext_information_elements_src
@@ -113,26 +107,22 @@ set(dect2020ext_information_elements_src
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
-    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc)
+    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc
+    model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.cc)
 
 set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
     model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
-    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h)
+    model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h
+    model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.h)
 
 # set(route_info_ie_src
 #     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)
 
 # set(route_info_ie_h
 #     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.h)
-
-# set(association_request_message_ie_src
-#     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc)
-
-# set(association_request_message_ie_h
-#     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h)
 
 ###########
 ## TESTS ##
@@ -187,10 +177,10 @@ set(dect2020ext_information_elements_test_src
 #     test/mac-common-headers/beacon-header/test.cc
 #     test/mac-common-headers/beacon-header/serialization-test-case.cc)
 
-# # Mac Header Type Test
-# set(mac_header_type_test_src
-#     test/mac-header-type/test.cc
-#     test/mac-header-type/serialization-test-case.cc)
+# Mac Header Type Test
+set(dect2020ext_mac_header_type_test_src
+    test/mac-header-type/test.cc
+    test/mac-header-type/serialization-test-case.cc)
 
 # # Mac Multiplexing Header Test
 # set(mac_multiplexing_header_test_src
@@ -237,6 +227,7 @@ build_lib(
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_configuration_test_src}
         ${dect2020ext_spectrum_management_procedure_test_src}
+        ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}

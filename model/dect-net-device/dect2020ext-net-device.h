@@ -77,6 +77,8 @@ class Dect2020ExtNetDevice : public NetDevice
 		TracedCallback<Ptr<const Packet>> m_txTrace;
 		TracedCallback<Ptr<const Packet>> m_rxTrace;
 
+		double m_txPowerDbm = 10; // Default transmission power in dBm
+
 	private:
 		Dect2020ExtTerminationPointType m_terminationPointType;
 
