@@ -95,6 +95,7 @@ Dect2020ExtMac::Start(void)
     }
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
+        NS_LOG_INFO("PT Device " << this << " starts the network discovery");
         DiscoverNetworks();
     }
 }
@@ -111,10 +112,10 @@ Dect2020ExtMac::DiscoverNetworks(void)
 
     std::vector<Ptr<Dect2020ExtChannel>> channelList = m_channelManager->GetValidChannels(this->GetBandNumber());
 
-    // if (m_associatedFTNetDeviceLongRdId != 0)
-    // {
-    //     // return; // Device is already associated --> abort
-    // }
+    if (m_associatedFTNetDeviceLongRdId != 0)
+    {
+        return; // Device is already associated --> abort
+    }
 
     // Check if there are any valid channels
     if (channelList.empty())
@@ -1015,14 +1016,6 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 
     Ptr<Packet> packet = Create<Packet>();
 
-    // --- Association Control IE ---
-    // Dect2020AssociationControlIE associationControlIE;
-    // associationControlIE.SetClusterBeaconMonitoring(0);
-    // associationControlIE.SetDlDataReception(0);
-    // associationControlIE.SetUlPeriod(0);
-
-    // packet->AddHeader(associationControlIE);
-
     // --- RD Capability IE ---
     // Dect2020RdCapabilityIE rdCapabilityIE;
     // rdCapabilityIE.SetRelease(this->m_device->m_release);
@@ -1106,6 +1099,7 @@ void
 Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
 {
     NS_LOG_FUNCTION(this << associationRequestMessage << transmitterAddress);
+    NS_LOG_INFO("Processing Association Request");
 
     Dect2020ExtAssociatedPtInfo ptInfo;
     ptInfo.associationEstablished = Simulator::Now();
@@ -1158,7 +1152,9 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationRequestMes
 void
 Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
 {
+    // TODO: Add RD Capability IE
     NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Sending Association Response");
 
     Ptr<Packet> packet = Create<Packet>();
 
@@ -1228,7 +1224,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
         m_associatedFTNetDeviceLongRdId = transmitterAddress;
         NS_LOG_INFO(Simulator::Now().GetMicroSeconds()
                     << ": Dect2020Mac::HandleUnicastPacket: Association Response by 0x" << std::hex
-                    << this->GetLongRadioDeviceId() << " accepted. ");
+                    << this->GetLongRadioDeviceId() << " accepted");
     }
     else
     {

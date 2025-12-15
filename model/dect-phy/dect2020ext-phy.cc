@@ -405,7 +405,8 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         return;
     }
 
-    NS_LOG_INFO("Received packet successfully and passing it to the MAC");
+    NS_LOG_INFO("Received packet on channel " << dectParams->m_currentChannelId);
+    NS_LOG_INFO("Passing to the MAC");
 
     // Extract the channel index within the spectrum model
     uint16_t channelIndex =
@@ -442,7 +443,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     params->txPhy = this;
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
-    params->m_currentChannelId = this->m_mac->GetOperatingChannelId();
+    params->m_currentChannelId = this->m_mac->GetCurrentChannelId();
 
     // Calculate the TX duration based on the packet size and MCS
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
@@ -469,28 +470,26 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     params->psd = psd;
 
     // Start the transmission
-    Simulator::Schedule(duration, &ns3::SpectrumChannel::StartTx, m_channel, params);
+    Simulator::Schedule(MilliSeconds(0), &ns3::SpectrumChannel::StartTx, m_channel, params);
     DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
 }
 
 double
 Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader)
 {
-    // TODO: Implement this method
-
-    // if (physicalHeaderField.GetPacketLengthType() == 0) // Packet length is given in subslots
-    // {
-    //     // TBD
-    // }
-    // else if (physicalHeaderField.GetPacketLengthType() == 1) // Packet length is given in slots
-    // {
-    //     return physicalHeaderField.GetPacketLength() * 416670; // 416.67 ns per slot
-    // }
-    // else
-    // {
-    //     NS_LOG_WARN("Invalid packet length type");
-    //     return 0;
-    // }
+    if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
+    {
+        // TBD
+    }
+    else if (physicalHeader.GetPacketLengthType() == 1) // Packet length is given in slots
+    {
+        return physicalHeader.GetPacketLength() * 416670; // 416.67 ns per slot
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid packet length type");
+        return 0;
+    }
 
     return 0;
 }
