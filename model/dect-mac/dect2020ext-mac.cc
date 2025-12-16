@@ -747,27 +747,12 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
         NS_LOG_INFO("Next cluster channel in network beacon: " << ftBeaconNextClusterChannel);
         ft->clusterChannelId = ftBeaconNextClusterChannel;
-
-        // if this RD is not on the cluster channel, and the association status is not associated
-        // nor association pending, and the device is not currently waiting for a Cluster Beacon
-        // (has recently switched the channel because it received a network beacon), switch to the
-        // cluster channel.
-        // if (GetCurrentChannelId() != ftBeaconNextClusterChannel &&
-        //     m_associationStatus != ASSOCIATED && m_associationStatus != ASSOCIATION_PENDING &&
-        //     !m_isWaitingForClusterBeacon)
-        // {
-        //     m_isWaitingForClusterBeacon = true;
-
-        //     m_operatingChannelId = ftBeaconNextClusterChannel;
-        // }
     }
 
     // --- Cluster Beacon Message ---
     else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::CLUSTER_BEACON_MESSAGE)
     {
         NS_LOG_INFO("Received Cluster Beacon Message");
-        // Cluster Beacon received --> Reset the flag
-        // m_isWaitingForClusterBeacon = false;
 
         // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster Channel is the current Channel
