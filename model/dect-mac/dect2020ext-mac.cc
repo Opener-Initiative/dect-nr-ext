@@ -900,48 +900,53 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     //     // association status preparing means the device is scanning the network to find the best FT
     //     // candidate
         m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
+        Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
+
     //     DiscoverNetworks();
     //     Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
+    }
+    else if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
+    {
+        NS_LOG_INFO("Device is already associated");
     }
 
     // prepare association request --> The device is waiting fot the cluster Beacon of the selected
     // FT
-    if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)// &&
-        // m_selectedFtCandidate.longFtId == ft->longFtId)
-    {
-        // Calculate the time from the Random Access Resource IE to send the association request
-        // uint16_t txSubslot = 0;
-        // uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
-        // bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
-        // uint8_t length = randomAccessResourceIE.GetRaraLength();
+    // if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)// &&
+    //     // m_selectedFtCandidate.longFtId == ft->longFtId)
+    // {
+    //     // Calculate the time from the Random Access Resource IE to send the association request
+    //     // uint16_t txSubslot = 0;
+    //     // uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
+    //     // bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
+    //     // uint8_t length = randomAccessResourceIE.GetRaraLength();
 
-        // Select a random subslot to reduce the propability of collision
-        // std::random_device rd;
-        // std::mt19937 gen(rd());
-        // if (lengthInSubslots)
-        // {
-        //     std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
-        //     txSubslot = dis(gen);
+    //     // Select a random subslot to reduce the propability of collision
+    //     // std::random_device rd;
+    //     // std::mt19937 gen(rd());
+    //     // if (lengthInSubslots)
+    //     // {
+    //     //     std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
+    //     //     txSubslot = dis(gen);
 
-        //     if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
-        //     {
-        //         txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
-        //         m_lastSfn++;
-        //     }
-        // }
-        // else
-        // {
-        //     // tbd --> Length in Slots
-        // }
+    //     //     if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
+    //     //     {
+    //     //         txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
+    //     //         m_lastSfn++;
+    //     //     }
+    //     // }
+    //     // else
+    //     // {
+    //     //     // tbd --> Length in Slots
+    //     // }
 
-        // uint8_t slot = txSubslot / m_channelManager->GetSubslotsPerSlot();
-        // uint8_t subslot = txSubslot % m_channelManager->GetSubslotsPerSlot();
+    //     // uint8_t slot = txSubslot / m_channelManager->GetSubslotsPerSlot();
+    //     // uint8_t subslot = txSubslot % m_channelManager->GetSubslotsPerSlot();
 
-        // Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
+    //     // Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
 
-        // Schedule the Association Request to be sent in the next subslot
-    }
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
+    //     // Schedule the Association Request to be sent in the next subslot
+    // }
 }
 
 // void
@@ -1006,13 +1011,10 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 {
     NS_LOG_FUNCTION(this << ft);
     NS_LOG_INFO("Sending Association Request on channel " << m_currentChannelId);
-    // Set the Association Status to ASSOCIATION_PENDING
 
-    m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PENDING;
-
-    Simulator::Schedule(MilliSeconds(200),
-                        &Dect2020ExtMac::VerifyPendingAssociationStatus,
-                        this); // Verify the association status after 200 ms
+    // Simulator::Schedule(MilliSeconds(200),
+    //                     &Dect2020ExtMac::VerifyPendingAssociationStatus,
+    //                     this); // Verify the association status after 200 ms
 
     Ptr<Packet> packet = Create<Packet>();
 
@@ -1082,6 +1084,8 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     // --- Physical Header Field ---
     Dect2020ExtPHYControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
     physicalHeaderField.SetShortNetworkID(m_potentialShortNetworkId);
+
+    m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PENDING;
 
     m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
 }
@@ -1218,7 +1222,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
         m_associationStatus = ASSOCIATED;
 
         // If we dont receive a Cluster Beacon every 60 Seconds, we assume the FT is offline
-        Simulator::Schedule(Seconds(60), &Dect2020ExtMac::VerifyAssociatedStatus, this);
+        // Simulator::Schedule(Seconds(60), &Dect2020ExtMac::VerifyAssociatedStatus, this);
 
         // Store the associated FTs Long RD ID
         m_associatedFTNetDeviceLongRdId = transmitterAddress;
