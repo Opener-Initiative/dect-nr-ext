@@ -31,6 +31,15 @@ class Dect2020ExtInterference;
 class Dect2020ExtPhy : public SpectrumPhy
 {
 	public:
+
+	    enum Dect2020ExtPhyState
+		{
+			IDLE,
+			RX,
+			TX
+		};
+
+
 		Dect2020ExtPhy();
 		virtual ~Dect2020ExtPhy();
 
@@ -86,6 +95,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
+		void ChangeState(Dect2020ExtPhyState newState);
 
 		// Callbacks
 
@@ -116,6 +126,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<Object> m_antenna;
 
 		Ptr<Dect2020ExtInterference> m_interference;
+
+		Dect2020ExtPhyState m_currentState;
 
 		// Configuration Attributes
 

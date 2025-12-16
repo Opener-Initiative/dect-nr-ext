@@ -35,6 +35,7 @@ Dect2020ExtPhy::Dect2020ExtPhy()
     NS_LOG_FUNCTION(this);
     m_SFN = 0;
     m_interference = CreateObject<Dect2020ExtInterference>();
+    m_currentState = IDLE;
 }
 
 Dect2020ExtPhy::~Dect2020ExtPhy()
@@ -411,7 +412,6 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
     double minRxSensitivityDbm = -99.7 + this->m_mac->GetRxGainFromIndex(dectNetDevice->m_rxGain);
 
-
     // Add the received signal to the interference (signal will be removed after the duration)
     m_interference->AddSignal(params->psd, params->duration, channelIndex);
 
@@ -539,6 +539,12 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHe
     }
 
     return 0;
+}
+
+void
+Dect2020ExtPhy::ChangeState(Dect2020ExtPhyState newState)
+{
+    m_currentState = newState;
 }
 
 } // namespace ns3
