@@ -66,7 +66,7 @@ struct Dect2020ExtFtCandidateInfo
     uint16_t clusterChannelId;
     // uint8_t sfn;
     Time receptionTime;
-    // double rssiDbm;
+    double rssiDbm;
 
     Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
@@ -74,6 +74,21 @@ struct Dect2020ExtFtCandidateInfo
     Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
     Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
     Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
+
+    // Constructor to initialize all members to zero/default values
+    Dect2020ExtFtCandidateInfo()
+        : networkId(0),
+          longFtId(0),
+          clusterChannelId(0),
+          receptionTime(Seconds(0)),
+          rssiDbm(-150.0), 
+          ftPhyHeaderField(),
+          ftBeaconHeader(),
+          ftNetworkBeaconMessage(),
+          ftClusterBeaconMessage(),
+          ftRandomAccessResourceIE()
+    {
+    }
 };
 
 struct Dect2020ExtAssociatedPtInfo
@@ -153,7 +168,7 @@ class Dect2020ExtMac : public Object
         void HandleUnicastPacket(Ptr<Packet> packet);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
-        // void SelectBestFtCandidate(void);
+        void SelectBestFtCandidate(void);
         void VerifyWaitingForSelectedFtAssociationStatus(void);
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         void VerifyPendingAssociationStatus(void);

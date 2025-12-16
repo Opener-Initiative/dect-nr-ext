@@ -11,6 +11,7 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtNetworkBeaconMessageIE);
 
 Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconMessageIE()
 {
+    m_nextClusterChannel = 0;
 }
 
 Dect2020ExtNetworkBeaconMessageIE::~Dect2020ExtNetworkBeaconMessageIE()

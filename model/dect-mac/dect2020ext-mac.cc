@@ -691,11 +691,11 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
     Dect2020ExtMacHeaderType macHeaderType;
     packet->RemoveHeader(macHeaderType);
 
-    if (macHeaderType.GetMacHeaderTypeField() ==
-        Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER)
+    if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER)
     {
         // If the candidate has sent a beacon message before, we can update its entry in the FT candidate list
         Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderField.GetTransmitterIdentity());
+        ft->rssiDbm = rssiDbm;
         ft->ftPhyHeaderField = physicalHeaderField;
         ft->receptionTime = Simulator::Now();
 
@@ -730,12 +730,14 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
     packet->RemoveHeader(mxHeader);
     m_lastFtMacMxHeader = mxHeader;
+
     Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding ieType = mxHeader.GetIeTypeFieldEncoding();
 
     // --- Network Beacon Message ---
     if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::NETWORK_BEACON_MESSAGE)
     {
         NS_LOG_INFO("Received Network Beacon Message");
+
         // --- Network Beacon Message IE ---
         Dect2020ExtNetworkBeaconMessageIE networkBeaconMessage;
         packet->RemoveHeader(networkBeaconMessage);
@@ -743,34 +745,36 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
 
         // Get the cluster channel id from the network beacon message
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
+        NS_LOG_INFO("Next cluster channel in network beacon: " << ftBeaconNextClusterChannel);
         ft->clusterChannelId = ftBeaconNextClusterChannel;
 
         // if this RD is not on the cluster channel, and the association status is not associated
         // nor association pending, and the device is not currently waiting for a Cluster Beacon
         // (has recently switched the channel because it received a network beacon), switch to the
         // cluster channel.
-        if (GetCurrentChannelId() != ftBeaconNextClusterChannel &&
-            m_associationStatus != ASSOCIATED && m_associationStatus != ASSOCIATION_PENDING &&
-            !m_isWaitingForClusterBeacon)
-        {
-            m_isWaitingForClusterBeacon = true;
+        // if (GetCurrentChannelId() != ftBeaconNextClusterChannel &&
+        //     m_associationStatus != ASSOCIATED && m_associationStatus != ASSOCIATION_PENDING &&
+        //     !m_isWaitingForClusterBeacon)
+        // {
+        //     m_isWaitingForClusterBeacon = true;
 
-            m_operatingChannelId = ftBeaconNextClusterChannel;
-        }
+        //     m_operatingChannelId = ftBeaconNextClusterChannel;
+        // }
     }
+
     // --- Cluster Beacon Message ---
     else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::CLUSTER_BEACON_MESSAGE)
     {
         NS_LOG_INFO("Received Cluster Beacon Message");
         // Cluster Beacon received --> Reset the flag
-        m_isWaitingForClusterBeacon = false;
+        // m_isWaitingForClusterBeacon = false;
 
         // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster Channel is the current Channel
-        if (ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0 &&
-            !ft->ftClusterBeaconMessage.GetNextChannelIncluded())
+        if (!ft->ftClusterBeaconMessage.GetNextChannelIncluded() && ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
         {
             ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_currentChannelId);
+            ft->clusterChannelId = this->m_currentChannelId;
         }
 
         Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
@@ -889,32 +893,31 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     // ft->sfn = clusterBeaconMessage.GetSFN();
     // m_lastSfn = clusterBeaconMessage.GetSFN();
 
-    // if device is not associated, switch the status to preapring association and start the "select
-    // best FT" timer
-    if (m_associationStatus == Dect2020ExtAssociationStatus::NOT_ASSOCIATED)
-    {
-    //     // This is the time in seconds for the PT to listen to other channels to collect potential
-    //     // FT candidates
-    //     Time searchBestFtTimeSeconds = Seconds(2);
-
-    //     // association status preparing means the device is scanning the network to find the best FT
-    //     // candidate
-        m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
-        Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
-
-    //     DiscoverNetworks();
-    //     Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
-    }
-    else if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
+    if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
     {
         NS_LOG_INFO("Device is already associated");
     }
 
-    // prepare association request --> The device is waiting fot the cluster Beacon of the selected
-    // FT
-    // if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)// &&
-    //     // m_selectedFtCandidate.longFtId == ft->longFtId)
-    // {
+    // if device is not associated, switch the status to ASSOCIATION_PREPARING and start the "select
+    // best FT" timer
+    if (m_associationStatus == Dect2020ExtAssociationStatus::NOT_ASSOCIATED)
+    {
+        // This is the time in seconds for the PT to listen to other channels to collect potential FT candidates
+        Time searchBestFtTimeSeconds = Seconds(2);
+        
+        // ASSOCIATION_PREPARING means the device is scanning the network to find the best FT candidate
+        m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
+        NS_LOG_INFO("Switching to ASSOCIATION_PREPARING status");
+        NS_LOG_INFO("Discovering networks");
+        DiscoverNetworks();
+        Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
+    }
+
+
+    // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
+    if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)
+    {
+        Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
     //     // Calculate the time from the Random Access Resource IE to send the association request
     //     // uint16_t txSubslot = 0;
     //     // uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
@@ -946,56 +949,57 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     //     // Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
 
     //     // Schedule the Association Request to be sent in the next subslot
-    // }
+    }
 }
 
-// void
-// Dect2020ExtMac::SelectBestFtCandidate(void)
-// {
-//     NS_LOG_FUNCTION(this);
+void
+Dect2020ExtMac::SelectBestFtCandidate(void)
+{
+    NS_LOG_FUNCTION(this);
 
-//     // Step 1: Find the FT with the best (highest) RSSI-2
-//     double bestRssiDbm = -150.0; // start with very low RSSI
-//     Dect2020ExtFtCandidateInfo bestCandidate;
-//     bool found = false;
+    // Step 1: Find the FT with the best (highest) RSSI-2
+    double bestRssiDbm = -150.0; // start with very low RSSI
+    Dect2020ExtFtCandidateInfo bestCandidate;
+    bool found = false;
 
-//     for (const auto& ft : m_ftCandidates)
-//     {
-//         if (ft.rssiDbm > bestRssiDbm)
-//         {
-//             bestRssiDbm = ft.rssiDbm;
-//             NS_LOG_INFO("DEBUG: ft.clusterChannelId == " << ft.clusterChannelId);
-//             NS_LOG_INFO("DEBUG: ft.clusterChannelId == "
-//                         << ft.ftNetworkBeaconMessage.GetNextClusterChannel());
-//             bestCandidate = ft;
-//             found = true;
-//         }
-//     }
+    for (const auto& ft : m_ftCandidates)
+    {
+        if (ft.rssiDbm > bestRssiDbm)
+        {
+            bestRssiDbm = ft.rssiDbm;
+            NS_LOG_INFO("Best FT candidate found with RSSI " << bestRssiDbm << " dBm");
+            NS_LOG_INFO("Best FT candidate long ID: " << ft.longFtId);
+            NS_LOG_INFO("Best FT candidate network ID: " << ft.networkId);
+            NS_LOG_INFO("Best FT candidate cluster channel ID: " << ft.clusterChannelId);
+            bestCandidate = ft;
+            found = true;
+        }
+    }
 
-//     if (!found)
-//     {
-//         NS_LOG_WARN("No valid FT candidate found. Staying in NOT_ASSOCIATED state.");
-//         m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
-//         return;
-//     }
+    if (!found)
+    {
+        NS_LOG_WARN("No valid FT candidate found. Staying in NOT_ASSOCIATED state.");
+        m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
+        return;
+    }
 
-//     // Step 2: Save the best FT info
-//     m_selectedFtCandidate = bestCandidate;
+    // Step 2: Save the best FT info
+    m_selectedFtCandidate = bestCandidate;
 
-//     // Step 3: Switch to the FT's channel
-//     m_operatingChannelId = bestCandidate.clusterChannelId;
+    // Step 3: Switch to the FT's channel
+    m_operatingChannelId = bestCandidate.clusterChannelId;
 
-//     // Step 4: Set status and wait for next cluster beacon of selected FT
-//     m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
+    // Step 4: Set status and wait for next cluster beacon of selected FT
+    m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
 
-//     // Cluster Beacon triggers next step in EvaluateClusterBeacon
-//     // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
-//     // be the case because it should have received a Cluster Beacon and sent an Association Request
-//     // and the status is either associated or association pending.
-//     Simulator::Schedule(Seconds(2),
-//                         &Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus,
-//                         this);
-// }
+    // Cluster Beacon triggers next step in EvaluateClusterBeacon
+    // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
+    // be the case because it should have received a Cluster Beacon and sent an Association Request
+    // and the status is either associated or association pending.
+    // Simulator::Schedule(Seconds(2),
+    //                     &Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus,
+    //                     this);
+}
 
 void
 Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus()
