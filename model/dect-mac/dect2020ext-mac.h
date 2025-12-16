@@ -183,6 +183,7 @@ class Dect2020ExtMac : public Object
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
         void SetCurrentChannelId(uint16_t channelId);
         uint16_t GetCurrentChannelId(void) const;
+        double GetRxGainFromIndex(uint8_t index) const;
 
         // Configuration
 

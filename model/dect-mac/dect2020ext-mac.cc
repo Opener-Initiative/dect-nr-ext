@@ -681,7 +681,7 @@ void
 Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << packet);
-    NS_LOG_INFO("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
+    NS_LOG_DEBUG("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
 
     // --- Physical Header Field ---
     Dect2020ExtPHYControlFieldType1 physicalHeaderField;
@@ -1428,6 +1428,18 @@ uint16_t
 Dect2020ExtMac::GetCurrentChannelId(void) const
 {
     return m_currentChannelId;
+}
+
+double
+Dect2020ExtMac::GetRxGainFromIndex(uint8_t index) const
+{
+    if (index > 8)
+    {
+        NS_LOG_WARN("Invalid RX gain index: " << static_cast<int>(index));
+        return 0; // default fallback
+    }
+
+    return static_cast<int8_t>(-10 + index * 2);
 }
 
 void

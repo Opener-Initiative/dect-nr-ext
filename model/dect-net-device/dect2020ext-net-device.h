@@ -39,6 +39,7 @@ class Dect2020ExtNetDevice : public NetDevice
 		uint8_t GetBandNumber() const;
 		void SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType);
 		Dect2020ExtTerminationPointType GetTerminationPointType() const;
+		void SetBootstrappingVariables(bool isFT);
 
 		// NetDevice virtual methods
 
@@ -78,6 +79,7 @@ class Dect2020ExtNetDevice : public NetDevice
 		TracedCallback<Ptr<const Packet>> m_rxTrace;
 
 		double m_txPowerDbm = 10; // Default transmission power in dBm
+		uint8_t m_rxGain;
 
 	private:
 		Dect2020ExtTerminationPointType m_terminationPointType;

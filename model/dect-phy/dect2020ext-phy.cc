@@ -3,6 +3,7 @@
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
 #include "ns3/dect2020ext-mac-header-type.h"
+#include "ns3/dect2020ext-interference.h"
 
 #include "ns3/simulator.h"
 #include "ns3/pointer.h"
@@ -33,6 +34,7 @@ Dect2020ExtPhy::Dect2020ExtPhy()
 {
     NS_LOG_FUNCTION(this);
     m_SFN = 0;
+    m_interference = CreateObject<Dect2020ExtInterference>();
 }
 
 Dect2020ExtPhy::~Dect2020ExtPhy()
@@ -381,32 +383,20 @@ Dect2020ExtPhy::GetAntenna() const
 void
 Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
-    NS_LOG_FUNCTION(this << params);
     // TODO: check if the device is in RX State (--> need to implement a TX/RX State Machine)
+
+    // Print every frequency band in PSD
+    for (uint32_t i = 0; i < params->psd->GetSpectrumModel()->GetNumBands(); ++i)
+    {
+        NS_LOG_DEBUG("Frequency band " << i << " power: " << (*params->psd)[i] << " dBm");
+    }
+
+    NS_LOG_FUNCTION(this << params);
 
     // Cast the generic SpectrumSignalParameters to our specific DECT-2020 parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> dectParams =
         DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
 
-    // Check if this is a DECT-specific signal
-    if (!dectParams)
-    {
-        NS_LOG_WARN("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
-        return;
-    }
-
-
-    // Drop packet if the device is not currently tuned to the correct channel
-    if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
-    {
-        NS_LOG_WARN("Received packet on wrong channel");
-        NS_LOG_WARN("Current channel: " << this->m_mac->m_currentChannelId);
-        NS_LOG_WARN("Channel from dect params: " << dectParams->m_currentChannelId);
-        return;
-    }
-
-    NS_LOG_INFO("Received packet on channel " << dectParams->m_currentChannelId);
-    NS_LOG_INFO("Passing to the MAC");
 
     // Extract the channel index within the spectrum model
     uint16_t channelIndex =
@@ -414,9 +404,16 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         m_channelManager->GetFirstValidChannelNumber(
             m_channelManager->GetBandNumber(dectParams->m_currentChannelId));
 
+
     // Extract the received signal strength (in Watt and dBm) from the PSD
     double rssiPacket = (*params->psd)[channelIndex];
     double rssiPacketDbm = m_channelManager->WToDbm(rssiPacket);
+    Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
+    double minRxSensitivityDbm = -99.7 + this->m_mac->GetRxGainFromIndex(dectNetDevice->m_rxGain);
+
+
+    // Add the received signal to the interference (signal will be removed after the duration)
+    m_interference->AddSignal(params->psd, params->duration, channelIndex);
 
     // Check if receive callback is set
     if (m_receiveCallback.IsNull())
@@ -425,7 +422,57 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         return;
     }
 
-    // Receive packet successfully and pass it to the MAC
+    // Check if this is a DECT-specific signal
+    if (!dectParams)
+    {
+        NS_LOG_WARN("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
+        return;
+    }
+
+    // Drop packet if the device is not currently tuned to the correct channel
+    if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
+    {
+        NS_LOG_DEBUG("Received packet on wrong channel");
+        NS_LOG_DEBUG("Current channel: " << this->m_mac->m_currentChannelId);
+        NS_LOG_DEBUG("Channel from dect params: " << dectParams->m_currentChannelId);
+        return;
+    }
+
+    // Drop packet if below minimum RX sensitivity
+    if (rssiPacketDbm < minRxSensitivityDbm)
+    {
+        return;
+    }
+
+    // Estimate potential collisions based on total channel power (RSSI)
+    double rssiChannelWatt = (*m_interference->m_allSignals)[channelIndex];
+    double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
+    NS_LOG_INFO("Received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
+    NS_LOG_INFO("Total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
+
+    // if RSSI is in an ambiguous range, apply probabilistic drop
+    // if (rssiChannelDbm > 11.5 && rssiChannelDbm < 13.1)
+    // {
+    //     Ptr<UniformRandomVariable> randVar = CreateObject<UniformRandomVariable>();
+    //     double rand = randVar->GetValue(0.0, 1.0);
+    //     if (rand > 0.5)
+    //     {
+    //         NS_LOG_WARN("Received packet on channel with RSSI in ambiguous range");
+    //         NS_LOG_WARN("Dropping packet with probabilistic drop");
+    //         return;
+    //     }
+    // }
+
+    // if RSSI clearly indicates collision, drop packet
+    if (rssiChannelDbm > 13.1)
+    {
+        NS_LOG_WARN("Received packet on channel with RSSI clearly indicating collision");
+        NS_LOG_WARN("Dropping packet");
+        return;
+    }
+
+    // Otherwise, receive packet successfully and pass it to the MAC
+    NS_LOG_INFO("Passing to the MAC");
     m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
 }
 

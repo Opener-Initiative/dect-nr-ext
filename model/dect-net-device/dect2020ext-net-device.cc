@@ -96,12 +96,19 @@ void
 Dect2020ExtNetDevice::SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType)
 {
     m_terminationPointType = terminationPointType;
+    SetBootstrappingVariables((terminationPointType == FT) ? true : false);
 }
 
 Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
 Dect2020ExtNetDevice::GetTerminationPointType() const
 {
     return m_terminationPointType;
+}
+
+void
+Dect2020ExtNetDevice::SetBootstrappingVariables(bool isFT)
+{
+    m_rxGain = 5; // 0 dB
 }
 
 void

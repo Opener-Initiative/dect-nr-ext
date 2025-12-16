@@ -55,17 +55,14 @@ set(dect2020ext_mac_h
 
 # DECT-2020 EXT PHY
 set(dect2020ext_phy_src
-    model/dect-phy/dect2020ext-phy.cc)
+    model/dect-phy/dect2020ext-phy.cc
+    model/dect-phy/dect2020ext-interference.cc
+    model/dect-phy/dect2020ext-spectrum-signal-parameters.cc)
 
 set(dect2020ext_phy_h
-    model/dect-phy/dect2020ext-phy.h)
-
-# DECT-2020 EXT Spectrum Signal Parameters
-set(dect2020ext_spectrum_signal_parameters_src
-    model/spectrum-signal-parameters/dect2020ext-spectrum-signal-parameters.cc)
-
-set(dect2020ext_spectrum_signal_parameters_h
-    model/spectrum-signal-parameters/dect2020ext-spectrum-signal-parameters.h)
+    model/dect-phy/dect2020ext-phy.h
+    model/dect-phy/dect2020ext-interference.h
+    model/dect-phy/dect2020ext-spectrum-signal-parameters.h)
 
 # DECT-2020 EXT Physical Header Field
 set(dect2020ext_physical_header_field_src

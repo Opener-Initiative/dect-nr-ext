@@ -1,732 +1,669 @@
 [0/2] Re-checking globbed directories...
-[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-mac/dect2020ext-mac.cc.o
+[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-phy/dect2020ext-phy.cc.o
 [2/3] Linking CXX shared library /home/seele/ns-allinone-3.44/ns-3.44/build/lib/libns3.44-dect-nr-ext-default.so
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xa925e31c on FT Device 0x5bc7cd5a5210
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xa68e on FT Device 0x5bc7cd5a5210
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xb6270041 on PT Device 0x5bc7cd6ff300
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xe97 on PT Device 0x5bc7cd6ff300
-+0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x5bc7cd5a5210 starts the network initialization
-+0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x5bc7cd6ff300 starts the network discovery
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xa925e31c on FT Device 0x6055c51a5210
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xa68e on FT Device 0x6055c51a5210
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xb6270041 on PT Device 0x6055c52ff420
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xe97 on PT Device 0x6055c52ff420
++0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x6055c51a5210 starts the network initialization
++0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x6055c52ff420 starts the network discovery
 +1.210000000s 0 Dect2020ExtMac:SelectOperatingChannel(): Selected Operating Channel: 1657 with 48 free subslots
 +1.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.210000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
-+1.210000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.310000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
-+1.310000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.315000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.315000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.315000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
-+1.315000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.410000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1672
-+1.410000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.422000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.422000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.422000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
-+1.422000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.510000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1661
-+1.510000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.531000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.531000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.531000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
-+1.531000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.610000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1671
-+1.610000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.636000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.636000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.636000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
-+1.636000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.710000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1660
-+1.710000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.743000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.743000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.743000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
-+1.743000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.810000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1670
-+1.810000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.852000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.852000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.852000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
-+1.852000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+1.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.910000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1659
-+1.910000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +1.957000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+1.957000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+1.957000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
-+1.957000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.010000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1669
-+2.010000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.064000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.064000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.064000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
-+2.064000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.110000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.110000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.173000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.173000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.173000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1664
-+2.173000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.210000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1668
-+2.210000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.278000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.278000000s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.278000000s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
-+2.278000000s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
 +2.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.310000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.310000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.310000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.310000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.310000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.385000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.385000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.385000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.385000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.385000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.385000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.385000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +2.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.410000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.410000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.410000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.410000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.410000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.494000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.494000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.494000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.494000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.494000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.494000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.494000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +2.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.510000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.510000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.510000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.510000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.510000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.599000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.599000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.599000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.599000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.599000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.599000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.599000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +2.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.610000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.610000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.610000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.610000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.610000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.706000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.706000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.706000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.706000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.706000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.706000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.706000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +2.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.710000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.710000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.710000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.710000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.710000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.810000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.810000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.810000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.810000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.810000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.815000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.815000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.815000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.815000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.815000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.815000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.815000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +2.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+2.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +2.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +2.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+2.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.910000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.910000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +2.910000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +2.910000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +2.910000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+2.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +2.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+2.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++2.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.920000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+2.920000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++2.920000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.920000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +2.920000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+2.920000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.920000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.010000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.010000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.010000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.010000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.010000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.010000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.010000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.010000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.010000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.010000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.010000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.010000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.010000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.010000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.010000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3010000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.010000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3010000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.027000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.027000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.027000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.027000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.027000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.027000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.027000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.110000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.110000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.110000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.110000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.110000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.110000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.110000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.110000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.110000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.110000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.110000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.110000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.110000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.110000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.110000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3110000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.110000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3110000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.136000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.136000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.136000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.136000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.136000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.136000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.136000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.210000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.210000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.210000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.210000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.210000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.210000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.210000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.210000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.210000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.210000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.210000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.210000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.210000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.210000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.210000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3210000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.210000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3210000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.241000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.241000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.241000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.241000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.241000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.241000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.241000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.310000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.310000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.310000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.310000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.310000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.348000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.348000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.348000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.348000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.348000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.348000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.348000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.410000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.410000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.410000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.410000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.410000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.457000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.457000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.457000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.457000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.457000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.457000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.457000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.510000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.510000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.510000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.510000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.510000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.562000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.562000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.562000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.562000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.562000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.562000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.562000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.610000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.610000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.610000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.610000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.610000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.669000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.669000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.669000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.669000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.669000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.669000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.669000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.710000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.710000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.710000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.710000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.710000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.778000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.778000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.778000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.778000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.778000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.778000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.778000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.810000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.810000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.810000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.810000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.810000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.883000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.883000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.883000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.883000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.883000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.883000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.883000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +3.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+3.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +3.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +3.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+3.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.910000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.910000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +3.910000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +3.910000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +3.910000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+3.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +3.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+3.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++3.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 3910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +3.990000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+3.990000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++3.990000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.990000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +3.990000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+3.990000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +3.990000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.010000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.010000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.010000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.010000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.010000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.010000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.010000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.010000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.010000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.010000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.010000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.010000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.010000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.010000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.010000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.010000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.010000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.010000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.010000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4010000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.010000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4010000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.099000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.099000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.099000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.099000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.099000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.099000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.099000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.110000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.110000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.110000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.110000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.110000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.110000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.110000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.110000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.110000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.110000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.110000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.110000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.110000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.110000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.110000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.110000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.110000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.110000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.110000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4110000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.110000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4110000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.204000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.204000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.204000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.204000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.204000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.204000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.204000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.210000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.210000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.210000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.210000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.210000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.210000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.210000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.210000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.210000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.210000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.210000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.210000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.210000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.210000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.210000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.210000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.210000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.210000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.210000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4210000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.210000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4210000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.310000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.310000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.310000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.310000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.310000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.310000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.310000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.310000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.310000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.310000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.310000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.310000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.310000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.310000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.310000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.310000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4310000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.311000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.311000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.311000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.311000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.311000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.311000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.311000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.410000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.410000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.410000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.410000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.410000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.410000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.410000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.410000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.410000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.410000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.410000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.410000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.410000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.410000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.410000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.410000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4410000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.420000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.420000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.420000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.420000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.420000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.420000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.420000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.510000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.510000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.510000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.510000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.510000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.510000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.510000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.510000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.510000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.510000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.510000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.510000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.510000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.510000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.510000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.510000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4510000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.525000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.525000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.525000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.525000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.525000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.525000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.525000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.610000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.610000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.610000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.610000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.610000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.610000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.610000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.610000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.610000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.610000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.610000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.610000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.610000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.610000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.610000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.610000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4610000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.632000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.632000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.632000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.632000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.632000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.632000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.632000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.710000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.710000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.710000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.710000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.710000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.710000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.710000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.710000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.710000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.710000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.710000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.710000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.710000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.710000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.710000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.710000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4710000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.741000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.741000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.741000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.741000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.741000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.741000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.741000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.810000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.810000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.810000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.810000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.810000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.810000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.810000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.810000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.810000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.810000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.810000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.810000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.810000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.810000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.810000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.810000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4810000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.846000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.846000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.846000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.846000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.846000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.846000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.846000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
 +4.910000000s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657
-+4.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.910000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
 +4.910000000s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
 +4.910000000s 1 Dect2020ExtMac:SendAssociationRequest(): Sending Association Request on channel 1657
-+4.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.910000000s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.910000000s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.910000000s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.910000000s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
 +4.910000000s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
 +4.910000000s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
 +4.910000000s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
-+4.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.910000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.910000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 13.0103 dBm
 +4.910000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.910000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
-+4.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted. 
++4.910000000s 1 Dect2020ExtMac:ProcessAssociationResponse(): 4910000: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +4.953000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657
-+4.953000000s 1 Dect2020ExtPhy:StartRx(): Received packet on channel 1657
++4.953000000s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.953000000s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
 +4.953000000s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
-+4.953000000s 1 Dect2020ExtMac:ReceiveFromPhy(): Received packet from PHY with RSSI 10 dBm on channel 1657
 +4.953000000s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message

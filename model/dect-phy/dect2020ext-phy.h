@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-interference.h"
 
 #include "ns3/spectrum-phy.h"
 #include "ns3/object.h"
@@ -25,6 +26,7 @@ struct Slot;
 struct Subslot;
 class Dect2020ExtMac;
 class Dect2020ExtPHYControlFieldType1;
+class Dect2020ExtInterference;
 
 class Dect2020ExtPhy : public SpectrumPhy
 {
@@ -112,6 +114,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<SpectrumChannel> m_channel;
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
 		Ptr<Object> m_antenna;
+
+		Ptr<Dect2020ExtInterference> m_interference;
 
 		// Configuration Attributes
 
