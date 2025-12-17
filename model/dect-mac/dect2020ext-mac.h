@@ -64,7 +64,7 @@ struct Dect2020ExtFtCandidateInfo
     uint32_t longFtId;      // Long RD ID of the FT candidate
 
     uint16_t clusterChannelId;
-    // uint8_t sfn;
+    uint8_t sfn;
     Time receptionTime;
     double rssiDbm;
 

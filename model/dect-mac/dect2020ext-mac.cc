@@ -767,8 +767,8 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         ft->ftClusterBeaconMessage = clusterBeaconMessage;
 
         Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
-        // packet->RemoveHeader(randomAccessResourceIE);
-        // ft->ftRandomAccessResourceIE = randomAccessResourceIE;
+        packet->RemoveHeader(randomAccessResourceIE);
+        ft->ftRandomAccessResourceIE = randomAccessResourceIE;
 
         EvaluateClusterBeacon(clusterBeaconMessage, randomAccessResourceIE, ft);
     }
@@ -875,8 +875,8 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Evaluating Cluster Beacon");
-    // ft->sfn = clusterBeaconMessage.GetSFN();
-    // m_lastSfn = clusterBeaconMessage.GetSFN();
+    ft->sfn = clusterBeaconMessage.GetSFN();
+    m_lastSfn = clusterBeaconMessage.GetSFN();
 
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
     {
@@ -900,40 +900,40 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
 
 
     // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
-    if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)
+    if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT && m_selectedFtCandidate.longFtId == ft->longFtId)
     {
-        Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
-    //     // Calculate the time from the Random Access Resource IE to send the association request
-    //     // uint16_t txSubslot = 0;
-    //     // uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
-    //     // bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
-    //     // uint8_t length = randomAccessResourceIE.GetRaraLength();
+        // Calculate the time from the Random Access Resource IE to send the association request
+        uint16_t txSubslot = 0;
+        uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
+        bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
+        uint8_t length = randomAccessResourceIE.GetRaraLength();
 
-    //     // Select a random subslot to reduce the propability of collision
-    //     // std::random_device rd;
-    //     // std::mt19937 gen(rd());
-    //     // if (lengthInSubslots)
-    //     // {
-    //     //     std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
-    //     //     txSubslot = dis(gen);
+        // Select a random subslot to reduce the propability of collision
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        if (lengthInSubslots)
+        {
+            std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
+            txSubslot = dis(gen);
 
-    //     //     if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
-    //     //     {
-    //     //         txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
-    //     //         m_lastSfn++;
-    //     //     }
-    //     // }
-    //     // else
-    //     // {
-    //     //     // tbd --> Length in Slots
-    //     // }
+            if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
+            {
+                txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
+                m_lastSfn++;
+            }
+        }
+        else
+        {
+            // tbd --> Length in Slots
+        }
 
-    //     // uint8_t slot = txSubslot / m_channelManager->GetSubslotsPerSlot();
-    //     // uint8_t subslot = txSubslot % m_channelManager->GetSubslotsPerSlot();
+        uint8_t slot = txSubslot / m_channelManager->GetSubslotsPerSlot();
+        uint8_t subslot = txSubslot % m_channelManager->GetSubslotsPerSlot();
 
-    //     // Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
+        Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
 
-    //     // Schedule the Association Request to be sent in the next subslot
+        // Schedule the Association Request to be sent in the next subslot
+        Simulator::Schedule(t, &Dect2020ExtMac::SendAssociationRequest, this, ft);
     }
 }
 
