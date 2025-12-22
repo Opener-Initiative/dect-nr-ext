@@ -612,6 +612,7 @@ Dect2020ExtMac::BuildRandomAccessResourceIE(void)
     randomAccessResourceIE.SetSeparateChannelFieldIncluded(0);
 
     uint8_t m_startSubslot = CalculateAbsoluteStartSubslot();
+    NS_LOG_INFO("Start subslot: " << (int)m_startSubslot);
     randomAccessResourceIE.SetStartSubslot(m_startSubslot);
     randomAccessResourceIE.SetLengthType(0); // length in subslots
     randomAccessResourceIE.SetRaraLength(m_device->m_randomAccessResourceLength);
@@ -762,13 +763,13 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
             ft->clusterChannelId = this->m_currentChannelId;
         }
 
-        Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
-        packet->RemoveHeader(clusterBeaconMessage);
-        ft->ftClusterBeaconMessage = clusterBeaconMessage;
-
         Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
         packet->RemoveHeader(randomAccessResourceIE);
         ft->ftRandomAccessResourceIE = randomAccessResourceIE;
+
+        Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
+        packet->RemoveHeader(clusterBeaconMessage);
+        ft->ftClusterBeaconMessage = clusterBeaconMessage;
 
         EvaluateClusterBeacon(clusterBeaconMessage, randomAccessResourceIE, ft);
     }
