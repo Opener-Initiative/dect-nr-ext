@@ -1,4 +1,4 @@
-#include "ns3/dect2020-mac-header-type.h"
+#include "ns3/dect2020ext-mac-header-type.h"
 #include "ns3/packet.h"
 #include "serialization-test-case.h"
 

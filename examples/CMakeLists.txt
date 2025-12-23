@@ -6,8 +6,8 @@ build_lib_example(
 )
 
 build_lib_example(
-    NAME dect2020ext-spectrum-management-procedure
-    SOURCE_FILES dect2020ext-spectrum-management-procedure.cc
+    NAME dect2020ext
+    SOURCE_FILES dect2020ext.cc
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
         ${libnetanim}

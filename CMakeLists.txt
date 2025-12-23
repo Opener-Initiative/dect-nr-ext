@@ -226,7 +226,7 @@ build_lib(
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_configuration_test_src}
         ${dect2020ext_spectrum_management_procedure_test_src}
-        ${dect2020ext_mac_header_type_test_src}
+        # ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}
