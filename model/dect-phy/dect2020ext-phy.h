@@ -58,6 +58,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void DisconnectSFNCallback();
 		Time GetTimeToNextAbsoluteSubslot(uint8_t targetSfn, uint8_t targetSlot, uint8_t targetSubslot) const;
 		int GetAbsoluteSubslotIndex(uint8_t slot, uint8_t subslot) const;
+		uint16_t GetCurrentAbsoluteSubslot() const;
 
 		// Dect2020ExtPhy Setters and Getters
 

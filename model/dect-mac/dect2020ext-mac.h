@@ -14,6 +14,7 @@
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-association-request-message-ie.h"
 #include "ns3/dect2020ext-association-response-message-ie.h"
+#include "ns3/dect2020ext-rd-capability-ie.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -33,6 +34,7 @@ class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
 class Dect2020ExtPHYControlFieldType1;
 class Dect2020ExtRandomAccessResourceIE;
+class Dect2020ExtRdCapabilityIE;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -70,7 +72,7 @@ struct Dect2020ExtFtCandidateInfo
 
     Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
-    // Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
+    Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
     Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
     Dect2020ExtClusterBeaconMessageIE ftClusterBeaconMessage; // Last received Cluster Beacon Message
     Dect2020ExtRandomAccessResourceIE ftRandomAccessResourceIE; // Last received Random Access Resource IE
@@ -172,11 +174,12 @@ class Dect2020ExtMac : public Object
         void VerifyWaitingForSelectedFtAssociationStatus(void);
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         void VerifyPendingAssociationStatus(void);
-        void ProcessAssociationRequest(const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
+        void ProcessAssociationRequest(const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
         void SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
         void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
         void VerifyAssociatedStatus(void);
         Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
+        Time CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots);
 
         // Dect2020ExtMac Setters and Getters
 

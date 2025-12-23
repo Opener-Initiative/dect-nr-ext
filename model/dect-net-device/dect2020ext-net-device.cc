@@ -108,7 +108,25 @@ Dect2020ExtNetDevice::GetTerminationPointType() const
 void
 Dect2020ExtNetDevice::SetBootstrappingVariables(bool isFT)
 {
+    m_numOfPHYCapabilities = 0;
+    m_release = 2;
+    m_supportGroupAssignment = false;
+    m_supportPaging = false;
+    m_operatingModes = (isFT ? 1 : 0);
+    m_mesh = false;
+    m_scheduledAccessDataTransfer = false;
+    m_macSecurity = false;
+    m_dlcServiceType = 0;
+    m_rdPowerClass = 0;
+    m_maxNssFoRx = 0;
+    m_rxForTxDiversity = 0;
     m_rxGain = 5; // 0 dB
+    m_maxMcs = 11;
+    m_softBufferSize = 0;
+    m_numOfHarqProcesses = 2;
+    m_harqFeedbackDelay = 2;
+    m_dDelay = true;
+    m_halfDulp = false;
 }
 
 void

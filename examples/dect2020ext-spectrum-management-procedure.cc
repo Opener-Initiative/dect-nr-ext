@@ -95,7 +95,9 @@ main(int argc, char *argv[])
 
     // Schedule Start() in each node's context
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
+    Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
     Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
+    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
 
     Simulator::Stop(Seconds(5));
     Simulator::Run();

@@ -219,6 +219,12 @@ Dect2020ExtPhy::GetAbsoluteSubslotIndex(uint8_t slot, uint8_t subslot) const
     return absoluteSubslotIndex;
 }
 
+uint16_t
+Dect2020ExtPhy::GetCurrentAbsoluteSubslot() const
+{
+    return m_currentAbsoluteSubslot;
+}
+
 /**
  * Assigns the MAC to the PHY
  */
@@ -515,6 +521,51 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     // Set power only on the current channel
     (*psd)[channelIndex] = txPowerWatt;
     params->psd = psd;
+
+    // DEBUG
+
+    // Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+    // Dect2020ExtMacHeaderType macHeaderType;
+    // Dect2020ExtBeaconHeader beaconHeader;
+    // Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
+    // Dect2020ExtNetworkBeaconMessageIE networkBeaconMessage;
+    // Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
+    // Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+
+    // NS_LOG_INFO("=== DEBUG: Initial packet size: " << params->txPacket->GetSize());
+    
+    // params->txPacket->RemoveHeader(physicalHeaderField);
+    // NS_LOG_INFO("=== DEBUG: After removing PHY header: " << params->txPacket->GetSize() 
+    //             << " (removed " << physicalHeaderField.GetSerializedSize() << " bytes)");
+    
+    // params->txPacket->RemoveHeader(macHeaderType);
+    // NS_LOG_INFO("=== DEBUG: After removing MAC header: " << params->txPacket->GetSize()
+    //             << " (removed " << macHeaderType.GetSerializedSize() << " bytes)");
+    
+    // params->txPacket->RemoveHeader(beaconHeader);
+    // NS_LOG_INFO("=== DEBUG: After removing Beacon header: " << params->txPacket->GetSize()
+    //             << " (removed " << beaconHeader.GetSerializedSize() << " bytes)");
+    
+    // params->txPacket->RemoveHeader(mxHeader);
+    // NS_LOG_INFO("=== DEBUG: After removing MX header: " << params->txPacket->GetSize()
+    //             << " (removed " << mxHeader.GetSerializedSize() << " bytes)");
+    // NS_LOG_INFO("=== DEBUG: MX Header IE Type: " << (int)mxHeader.GetIeTypeFieldEncoding());
+
+    // if (mxHeader.GetIeTypeFieldEncoding() == Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::CLUSTER_BEACON_MESSAGE)
+    // {
+    //     NS_LOG_INFO("=== DEBUG: Removing Cluster Beacon Message from packet");
+    //     NS_LOG_INFO("=== DEBUG: Packet size before removing cluster beacon: " << params->txPacket->GetSize());
+
+    //     params->txPacket->RemoveHeader(clusterBeaconMessage);
+    //     NS_LOG_INFO("=== DEBUG: After removing cluster beacon: " << params->txPacket->GetSize()
+    //                 << " (removed " << clusterBeaconMessage.GetSerializedSize() << " bytes)");
+        
+    //     NS_LOG_INFO("=== DEBUG: Packet size before removing random access: " << params->txPacket->GetSize());
+        
+    //     params->txPacket->RemoveHeader(randomAccessResourceIE);
+    //     NS_LOG_INFO("=== DEBUG: After removing random access: " << params->txPacket->GetSize()
+    //                 << " (removed " << randomAccessResourceIE.GetSerializedSize() << " bytes)");
+    // }
 
     // Start the transmission
     Simulator::Schedule(MilliSeconds(0), &ns3::SpectrumChannel::StartTx, m_channel, params);

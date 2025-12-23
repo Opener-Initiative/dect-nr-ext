@@ -49,7 +49,7 @@ Dect2020ExtClusterBeaconMessageIE::GetInstanceTypeId() const
 uint32_t
 Dect2020ExtClusterBeaconMessageIE::GetSerializedSize() const
 {
-    return 12; // Size in bytes
+    return 11; // Size in bytes
 }
 
 void

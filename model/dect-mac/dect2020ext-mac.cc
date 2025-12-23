@@ -11,6 +11,7 @@
 #include "ns3/dect2020ext-association-request-message-ie.h"
 #include "ns3/dect2020ext-unicast-header.h"
 #include "ns3/dect2020ext-association-response-message-ie.h"
+#include "ns3/dect2020ext-rd-capability-ie.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -559,6 +560,8 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 {
     NS_LOG_FUNCTION(this);
     Ptr<Packet> beacon = Create<Packet>();
+    
+    // NS_LOG_INFO("=== BUILD DEBUG: Starting cluster beacon construction, size: " << beacon->GetSize());
 
     // MAC Multiplexing Header Type A
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
@@ -568,7 +571,9 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 
     // Cluster beacon message is always followed by the Random Access Ressource IE
     Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = BuildRandomAccessResourceIE();
+    // NS_LOG_INFO("=== BUILD DEBUG: RandomAccessResourceIE GetSerializedSize: " << randomAccessResourceIE.GetSerializedSize());
     beacon->AddHeader(randomAccessResourceIE);
+    // NS_LOG_INFO("=== BUILD DEBUG: After adding RandomAccessResourceIE, packet size: " << beacon->GetSize());
     
     // Cluster Beacon Message IE
     Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
@@ -584,19 +589,29 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
     clusterBeaconMessageIE.SetRelQuality(0);
     clusterBeaconMessageIE.SetMinQuality(0);
 
+    // NS_LOG_INFO("=== BUILD DEBUG: ClusterBeaconMessageIE GetSerializedSize: " << clusterBeaconMessageIE.GetSerializedSize());
     beacon->AddHeader(clusterBeaconMessageIE);
+    // NS_LOG_INFO("=== BUILD DEBUG: After adding ClusterBeaconMessageIE, packet size: " << beacon->GetSize());
 
+    // NS_LOG_INFO("=== BUILD DEBUG: MX header GetSerializedSize: " << mxHeaderTypeA.GetSerializedSize());
     beacon->AddHeader(mxHeaderTypeA);
+    // NS_LOG_INFO("=== BUILD DEBUG: After adding MX header, packet size: " << beacon->GetSize());
 
     // Beacon Header
     Dect2020ExtBeaconHeader beaconHeader;
     beaconHeader.SetNetworkId(m_networkId);
     beaconHeader.SetTransmitterAddress(m_longRadioDeviceId);
+    // NS_LOG_INFO("=== BUILD DEBUG: Beacon header GetSerializedSize: " << beaconHeader.GetSerializedSize());
     beacon->AddHeader(beaconHeader);
+    // NS_LOG_INFO("=== BUILD DEBUG: After adding Beacon header, packet size: " << beacon->GetSize());
 
     Dect2020ExtMacHeaderType macHeaderType;
     macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER);
+    // NS_LOG_INFO("=== BUILD DEBUG: MAC header GetSerializedSize: " << macHeaderType.GetSerializedSize());
     beacon->AddHeader(macHeaderType);
+    // NS_LOG_INFO("=== BUILD DEBUG: After adding MAC header, packet size: " << beacon->GetSize());
+    
+    // NS_LOG_INFO("=== BUILD DEBUG: Final cluster beacon packet size: " << beacon->GetSize());
 
     return beacon;
 }
@@ -612,7 +627,7 @@ Dect2020ExtMac::BuildRandomAccessResourceIE(void)
     randomAccessResourceIE.SetSeparateChannelFieldIncluded(0);
 
     uint8_t m_startSubslot = CalculateAbsoluteStartSubslot();
-    NS_LOG_INFO("Start subslot: " << (int)m_startSubslot);
+    // NS_LOG_INFO("Start subslot: " << (int)m_startSubslot);
     randomAccessResourceIE.SetStartSubslot(m_startSubslot);
     randomAccessResourceIE.SetLengthType(0); // length in subslots
     randomAccessResourceIE.SetRaraLength(m_device->m_randomAccessResourceLength);
@@ -759,17 +774,18 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         // cluster Channel is the current Channel
         if (!ft->ftClusterBeaconMessage.GetNextChannelIncluded() && ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
         {
+            NS_LOG_INFO("No Network Beacon Message received before, setting cluster channel to current channel");
             ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_currentChannelId);
             ft->clusterChannelId = this->m_currentChannelId;
         }
 
-        Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
-        packet->RemoveHeader(randomAccessResourceIE);
-        ft->ftRandomAccessResourceIE = randomAccessResourceIE;
-
         Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
         packet->RemoveHeader(clusterBeaconMessage);
         ft->ftClusterBeaconMessage = clusterBeaconMessage;
+
+        Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+        packet->RemoveHeader(randomAccessResourceIE);
+        ft->ftRandomAccessResourceIE = randomAccessResourceIE;
 
         EvaluateClusterBeacon(clusterBeaconMessage, randomAccessResourceIE, ft);
     }
@@ -811,24 +827,20 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
             return;
         }
 
+
         // Strip the message headers
         Dect2020ExtAssociationRequestMessageIE associationRequestMessage;
         packet->RemoveHeader(associationRequestMessage);
 
-        // Dect2020RdCapabilityIE rdCapabilityIE;
-        // packet->RemoveHeader(rdCapabilityIE);
+        Dect2020ExtRdCapabilityIE rdCapabilityIE;
+        packet->RemoveHeader(rdCapabilityIE);
 
         // Dect2020AssociationControlIE associationControlIE;
         // packet->RemoveHeader(associationControlIE);
 
-        // process the association request
-        // ProcessAssociationRequest(associationRequestMessage,
-        //                           rdCapabilityIE,
-        //                           associationControlIE,
-        //                           transmitterAddress);
-
-        ProcessAssociationRequest(associationRequestMessage, transmitterAddress);
+        ProcessAssociationRequest(rdCapabilityIE, associationRequestMessage, transmitterAddress);
     }
+
     // Message is an association response
     else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE)
     {
@@ -845,8 +857,8 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
         Dect2020ExtAssociationResponseMessageIE associationResponseMessage;
         packet->RemoveHeader(associationResponseMessage);
 
-    //     // Dect2020RdCapabilityIE rdCapabilityIE;
-    //     // packet->RemoveHeader(rdCapabilityIE);
+        // Dect2020RdCapabilityIE rdCapabilityIE;
+        // packet->RemoveHeader(rdCapabilityIE);
 
         ProcessAssociationResponse(associationResponseMessage, transmitterAddress);
     }
@@ -879,9 +891,11 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     ft->sfn = clusterBeaconMessage.GetSFN();
     m_lastSfn = clusterBeaconMessage.GetSFN();
 
+    // Abort if the device status is ASSOCIATED --> The device is already associated to an FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
     {
-        NS_LOG_INFO("Device is already associated");
+        NS_LOG_INFO("Device is already associated");\
+        return;
     }
 
     // if device is not associated, switch the status to ASSOCIATION_PREPARING and start the "select
@@ -903,6 +917,7 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT && m_selectedFtCandidate.longFtId == ft->longFtId)
     {
+        NS_LOG_INFO("Preparing association request");
         // Calculate the time from the Random Access Resource IE to send the association request
         uint16_t txSubslot = 0;
         uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
@@ -1009,27 +1024,27 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     Ptr<Packet> packet = Create<Packet>();
 
     // --- RD Capability IE ---
-    // Dect2020RdCapabilityIE rdCapabilityIE;
-    // rdCapabilityIE.SetRelease(this->m_device->m_release);
-    // rdCapabilityIE.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
-    // rdCapabilityIE.SetPaging(this->m_device->m_supportPaging);
-    // rdCapabilityIE.SetOperatingModes(this->m_device->m_operatingModes);
-    // rdCapabilityIE.SetMesh(this->m_device->m_mesh);
-    // rdCapabilityIE.SetScheduledAccessDataTransfer(this->m_device->m_scheduledAccessDataTransfer);
-    // rdCapabilityIE.SetMacSecurity(this->m_device->m_macSecurity);
-    // rdCapabilityIE.SetDlcServiceType(this->m_device->m_dlcServiceType);
-    // rdCapabilityIE.SetRdPowerClass(this->m_device->m_rdPowerClass);
-    // rdCapabilityIE.SetMaxNssFoRx(this->m_device->m_maxNssFoRx);
-    // rdCapabilityIE.SetRxForTxDiversity(this->m_device->m_rxForTxDiversity);
-    // rdCapabilityIE.SetRxGain(this->m_device->m_rxGain);
-    // rdCapabilityIE.SetMaxMcs(this->m_device->m_maxMcs);
-    // rdCapabilityIE.SetSoftBufferSize(this->m_device->m_softBufferSize);
-    // rdCapabilityIE.SetNumOfHarqProcesses(this->m_device->m_numOfHarqProcesses);
-    // rdCapabilityIE.SetHarqFeedbackDelay(this->m_device->m_harqFeedbackDelay);
-    // rdCapabilityIE.SetDDelay(this->m_device->m_dDelay);
-    // rdCapabilityIE.SetHalfDulp(this->m_device->m_halfDulp);
+    Dect2020ExtRdCapabilityIE rdCapabilityIE;
+    rdCapabilityIE.SetRelease(this->m_device->m_release);
+    rdCapabilityIE.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
+    rdCapabilityIE.SetPaging(this->m_device->m_supportPaging);
+    rdCapabilityIE.SetOperatingModes(this->m_device->m_operatingModes);
+    rdCapabilityIE.SetMesh(this->m_device->m_mesh);
+    rdCapabilityIE.SetScheduledAccessDataTransfer(this->m_device->m_scheduledAccessDataTransfer);
+    rdCapabilityIE.SetMacSecurity(this->m_device->m_macSecurity);
+    rdCapabilityIE.SetDlcServiceType(this->m_device->m_dlcServiceType);
+    rdCapabilityIE.SetRdPowerClass(this->m_device->m_rdPowerClass);
+    rdCapabilityIE.SetMaxNssFoRx(this->m_device->m_maxNssFoRx);
+    rdCapabilityIE.SetRxForTxDiversity(this->m_device->m_rxForTxDiversity);
+    rdCapabilityIE.SetRxGain(this->m_device->m_rxGain);
+    rdCapabilityIE.SetMaxMcs(this->m_device->m_maxMcs);
+    rdCapabilityIE.SetSoftBufferSize(this->m_device->m_softBufferSize);
+    rdCapabilityIE.SetNumOfHarqProcesses(this->m_device->m_numOfHarqProcesses);
+    rdCapabilityIE.SetHarqFeedbackDelay(this->m_device->m_harqFeedbackDelay);
+    rdCapabilityIE.SetDDelay(this->m_device->m_dDelay);
+    rdCapabilityIE.SetHalfDulp(this->m_device->m_halfDulp);
 
-    // packet->AddHeader(rdCapabilityIE);
+    packet->AddHeader(rdCapabilityIE);
 
     // --- Association Request Message ---
     Dect2020ExtAssociationRequestMessageIE associationRequestMessage;
@@ -1090,7 +1105,7 @@ Dect2020ExtMac::VerifyPendingAssociationStatus(void)
 }
 
 void
-Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
+Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
 {
     NS_LOG_FUNCTION(this << associationRequestMessage << transmitterAddress);
     NS_LOG_INFO("Processing Association Request");
@@ -1111,20 +1126,22 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationRequestMes
 
     m_associatedPtDevices.push_back(ptInfo);
 
-    // // TODO: implement logic to accept or reject device. Currently every device is accepted
+    // TODO: implement logic to accept or reject device. Currently every device is accepted
 
-    // // calculate the time to send the association response. DECT_Delay == 0 --> subslot n +
-    // // HARQ_feedback_delay +1
+    // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
     // uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
 
     // uint32_t currentAbsSubslot = m_phy->GetCurrentAbsoluteSubslot();
 
-    // uint8_t harqDelay = rdCapabilityIe.GetHarqFeedbackDelay();
+    // uint8_t harqDelay = rdCapabilityIE.GetHarqFeedbackDelay();
     // uint32_t responseAbsSubslot;
 
     // if (m_dectDelay == 0)
     // {
     //     responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
+    //     NS_LOG_INFO("harqDelay: " << harqDelay);
+    //     NS_LOG_INFO("responseAbsSubslot: " << responseAbsSubslot);
+    //     NS_LOG_INFO("currentAbsSubslot: " << currentAbsSubslot);
     // }
     // else
     // {
@@ -1132,15 +1149,9 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationRequestMes
     // }
 
     // Time t = CalculcateTimeOffsetFromCurrentSubslot(responseAbsSubslot - currentAbsSubslot);
+    // NS_LOG_INFO("t: " << t);
 
-    // NS_LOG_INFO(Simulator::Now().GetMicroSeconds()
-    //             << ": Dect2020Mac::ProcessAssociationRequest: Scheduling Association Response to 0x"
-    //             << std::hex << ptInfo.longRdId << std::dec << " in "
-    //             << (responseAbsSubslot - currentAbsSubslot) << " subslots and in "
-    //             << t.GetMicroSeconds() << " us. Current AbsSubslot == " << currentAbsSubslot
-    //             << " & response Subslot == " << responseAbsSubslot);
-
-    Simulator::Schedule(MilliSeconds(0), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
 }
 
 void
@@ -1269,6 +1280,32 @@ Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
     m_ftCandidates.push_back(newCandidate);
 
     return &m_ftCandidates.back();
+}
+
+Time
+Dect2020ExtMac::CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots)
+{
+    uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    
+    // Get consistent snapshot of PHY state to avoid timing issues
+    uint32_t currentSfn = m_phy->GetCurrentSFN();
+    uint32_t currentAbsSubslot = m_phy->GetCurrentAbsoluteSubslot();
+
+    // Calculate target position based on the delay
+    uint32_t targetAbsSubslot = currentAbsSubslot + delayInSubslots;
+
+    // Calculate target SFN (wraps at 256)
+    uint8_t targetSfn = (currentSfn + (targetAbsSubslot / subslotsPerFrame)) % 256;
+
+    // Calculate slot and subslot within the target frame
+    uint32_t subslotWithinFrame = targetAbsSubslot % subslotsPerFrame;
+    uint32_t slot = subslotWithinFrame / subslotsPerSlot;
+    uint32_t subslot = subslotWithinFrame % subslotsPerSlot;
+
+    Time t = m_phy->GetTimeToNextAbsoluteSubslot(targetSfn, slot, subslot);
+
+    return t;
 }
 
 void
