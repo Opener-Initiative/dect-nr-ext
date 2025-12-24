@@ -25,6 +25,13 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
+# DECT-2020 EXT Execution Grid
+set(dect2020ext_execution_grid_src
+    model/execution-grid/dect2020ext-execution-grid.cc)
+
+set(dect2020ext_execution_grid_h
+    model/execution-grid/dect2020ext-execution-grid.h)
+
 # DECT-2020 EXT NetDevice
 set(dect2020ext_net_device_src
     model/dect-net-device/dect2020ext-net-device.cc)
@@ -207,6 +214,7 @@ build_lib(
         ${dect2020ext_information_elements_src}
         ${dect2020ext_mac_multiplexing_header_src}
         ${dect2020ext_spectrum_signal_parameters_src}
+        ${dect2020ext_execution_grid_src}
     HEADER_FILES
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
@@ -221,6 +229,7 @@ build_lib(
         ${dect2020ext_information_elements_h}
         ${dect2020ext_mac_multiplexing_header_h}
         ${dect2020ext_spectrum_signal_parameters_h}
+        ${dect2020ext_execution_grid_h}
     TEST_SOURCES
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}

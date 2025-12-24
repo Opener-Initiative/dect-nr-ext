@@ -604,6 +604,12 @@ Dect2020ExtChannelManager::Configure(void)
     Config::SetDefault("ns3::Dect2020ExtPhy::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
     Config::SetDefault("ns3::Dect2020ExtPhy::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
     Config::SetDefault("ns3::Dect2020ExtPhy::config_ChannelManager", PointerValue(this));
+
+    // Configure Execution Grid attributes
+    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_BandNumber", UintegerValue(m_bandNumber));
+    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_ChannelManager", PointerValue(this));
 }
 
 }; // namespace ns3
