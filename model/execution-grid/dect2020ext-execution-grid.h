@@ -71,6 +71,10 @@ public:
      */
     void Initialize();
 
+    // Execution Grid Operations
+    void StartExecutionGrid();
+    void ProcessSubslot();
+
     // Setters and Getters
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> GetExecutionGrid() const;
 
@@ -85,10 +89,19 @@ private:
      * The key is the absolute channel number , the value is a vector with the size of the number of subslots consisting of ExecutionGridOperation objects.
      */
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_executionGrid;
+    Time m_frameStartTime;
+
+    // Configuration
+
     uint8_t m_bandNumber;
     uint8_t m_subcarrierScalingFactor;
     uint8_t m_fourierTransformScalingFactor;
     Ptr<Dect2020ExtChannelManager> m_channelManager;
+
+    // Constants
+    const uint32_t SLOTS_PER_FRAME = 24;
+    const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
+    const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 };
 
 } // namespace ns3

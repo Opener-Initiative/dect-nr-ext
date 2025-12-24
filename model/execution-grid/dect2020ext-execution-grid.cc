@@ -1,7 +1,11 @@
 #include "dect2020ext-execution-grid.h"
 
+#include "ns3/simulator.h"
+
 #include "ns3/uinteger.h"
 #include "ns3/pointer.h"
+
+#include <sstream>
 
 namespace ns3
 {
@@ -148,6 +152,29 @@ Dect2020ExtExecutionGrid::Initialize()
         }
         m_executionGrid[absoluteChannelNumber] = executionGridOperations;
     }
+}
+
+void
+Dect2020ExtExecutionGrid::StartExecutionGrid()
+{
+    NS_LOG_FUNCTION(this);
+
+    m_frameStartTime = Simulator::Now();
+    uint32_t numSubslotsPerChannel = m_channelManager->GetSubslotsPerSlot() * SLOTS_PER_FRAME;
+
+    // Schedule all subslots for this frame
+    for (uint32_t slot = 0; slot < numSubslotsPerChannel; slot++)
+    {
+        double slotStartTime = slot * SLOT_DURATION_NS;
+        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
+    }
+    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
+}
+
+void
+Dect2020ExtExecutionGrid::ProcessSubslot()
+{
+    NS_LOG_FUNCTION(this);
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>>
