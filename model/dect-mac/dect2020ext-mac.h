@@ -145,7 +145,7 @@ class Dect2020ExtMac : public Object
         SubslotStatus EvaluateSubslot(double rssiDbm);
         void DisplayChannelEvaluations(void);
         void SelectOperatingChannel(void);
-        void ScheduleBackgroundScan(Time delay);
+        void ScheduleBackgroundScan();
         void OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
         void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
         void BackgroundScan(void);

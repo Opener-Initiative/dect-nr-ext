@@ -161,7 +161,7 @@ Dect2020ExtMac::InitializeNetwork(void)
     uint32_t networkId = GenerateValidNetworkID();
     SetNetworkId(networkId);
 
-    Simulator::Schedule(Seconds(1), &Dect2020ExtMac::ScheduleBackgroundScan, this, Seconds(0));
+    Simulator::Schedule(Seconds(1), &Dect2020ExtMac::ScheduleBackgroundScan, this);
 }
 
 uint32_t
@@ -358,7 +358,7 @@ Dect2020ExtMac::SelectOperatingChannel(void)
  * Then, schedule the background scan with the given delay.
  */
 void
-Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
+Dect2020ExtMac::ScheduleBackgroundScan()
 {
     NS_LOG_FUNCTION(this);
 
@@ -366,7 +366,7 @@ Dect2020ExtMac::ScheduleBackgroundScan(Time delay)
     m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
     // Schedule the background scan
-    Simulator::Schedule(delay, &Dect2020ExtMac::BackgroundScan, this);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
 }
 
 void

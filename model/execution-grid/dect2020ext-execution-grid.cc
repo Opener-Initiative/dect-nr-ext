@@ -176,7 +176,6 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     }
     NS_LOG_INFO("Scheduled " << subslot << " subslots for this frame");
     ScheduleNextExecutionGrid();
-    // Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
 }
 
 void

@@ -66,9 +66,6 @@ public:
 
     // Initialization
 
-    /**
-     * Initialize the execution grid.
-     */
     void Initialize();
 
     // Execution Grid Operations
@@ -85,10 +82,6 @@ public:
     void PrintExecutionGrid() const;
 
 private:
-    /**
-     * The execution grid for variable number of subslots..
-     * The key is the absolute channel number , the value is a vector with the size of the number of subslots consisting of ExecutionGridOperation objects.
-     */
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_executionGrid;
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_nextExecutionGrid;
     Time m_frameStartTime;
