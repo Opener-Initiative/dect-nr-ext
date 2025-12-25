@@ -160,14 +160,18 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     NS_LOG_FUNCTION(this);
 
     m_frameStartTime = Simulator::Now();
-    uint32_t numSubslotsPerChannel = m_channelManager->GetSubslotsPerSlot() * SLOTS_PER_FRAME;
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t numSubslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
+
+    uint32_t subslot = 0;
 
     // Schedule all subslots for this frame
-    for (uint32_t slot = 0; slot < numSubslotsPerChannel; slot++)
+    for (; subslot < numSubslotsPerChannel; subslot++)
     {
-        double slotStartTime = slot * SLOT_DURATION_NS;
+        double slotStartTime = subslot * (SLOT_DURATION_NS / numSubslotsPerSlot);
         Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
     }
+    NS_LOG_INFO("Scheduled " << subslot << " subslots for this frame");
     Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
 }
 
@@ -175,6 +179,7 @@ void
 Dect2020ExtExecutionGrid::ProcessSubslot()
 {
     NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>>

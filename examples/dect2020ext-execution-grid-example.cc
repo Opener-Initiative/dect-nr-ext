@@ -10,7 +10,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtExecutionGridExample");
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtExecutionGrid", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_FUNC | LOG_PREFIX_TIME));
 
     // Channel Manager
     Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
@@ -23,7 +23,7 @@ main(int argc, char *argv[])
     executionGrid->Initialize();
     executionGrid->StartExecutionGrid();
 
-    Simulator::Stop(Seconds(10));
+    Simulator::Stop(MilliSeconds(10));
     Simulator::Run();
     Simulator::Destroy();
     return 0;
