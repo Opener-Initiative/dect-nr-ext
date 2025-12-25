@@ -73,6 +73,7 @@ public:
 
     // Execution Grid Operations
     void StartExecutionGrid();
+    void ScheduleNextExecutionGrid();
     void ProcessSubslot();
 
     // Setters and Getters
@@ -89,6 +90,7 @@ private:
      * The key is the absolute channel number , the value is a vector with the size of the number of subslots consisting of ExecutionGridOperation objects.
      */
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_executionGrid;
+    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_nextExecutionGrid;
     Time m_frameStartTime;
 
     // Configuration

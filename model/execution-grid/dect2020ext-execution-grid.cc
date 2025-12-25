@@ -152,6 +152,9 @@ Dect2020ExtExecutionGrid::Initialize()
         }
         m_executionGrid[absoluteChannelNumber] = executionGridOperations;
     }
+
+    // Initialize the next execution grid with IDLE operations for all subslots and all channels
+    m_nextExecutionGrid = m_executionGrid;
 }
 
 void
@@ -172,6 +175,15 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
         Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
     }
     NS_LOG_INFO("Scheduled " << subslot << " subslots for this frame");
+    ScheduleNextExecutionGrid();
+    // Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
+}
+
+void
+Dect2020ExtExecutionGrid::ScheduleNextExecutionGrid()
+{
+    NS_LOG_FUNCTION(this);
+    m_executionGrid = m_nextExecutionGrid;
     Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
 }
 
