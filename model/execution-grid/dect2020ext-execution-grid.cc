@@ -198,7 +198,7 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
 {
     NS_LOG_FUNCTION(this);
 
-    m_frameStartTime = Simulator::Now();
+    m_currentFrameStartTime = Simulator::Now();
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t numSubslotsPerFrame = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
@@ -221,7 +221,7 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
         subslot++;
     }
 
-    NS_LOG_INFO("Processed " << slot << " slots and " << subslot << " subslots");
+    // NS_LOG_INFO("Processed " << slot << " slots and " << subslot << " subslots");
     ScheduleNextExecutionGrid();
 }
 
@@ -237,14 +237,37 @@ void
 Dect2020ExtExecutionGrid::ProcessSlot()
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
+    // NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
 }
 
 void
 Dect2020ExtExecutionGrid::ProcessSubslot()
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
+    // NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
+}
+
+double
+Dect2020ExtExecutionGrid::GetTimeToNextFrameNs() const
+{
+    Time currentTime = Simulator::Now();
+    Time elapsedSinceCurrentFrameStartTime = currentTime - m_currentFrameStartTime;
+    Time frameDuration = MicroSeconds(FRAME_DURATION_US);
+
+    // Get elapsed time in nanoseconds and calculate position within the current frame
+    int64_t elapsedNs = elapsedSinceCurrentFrameStartTime.GetNanoSeconds();
+    int64_t frameDurationNs = frameDuration.GetNanoSeconds();
+
+    // Handle case where multiple frames have passed (module operation)
+    int64_t elapsedInCurrentFrameNs = elapsedNs % frameDurationNs;
+    NS_LOG_INFO("Elapsed in current frame: " << elapsedInCurrentFrameNs << "ns");
+
+    // Calculate remaining time until next frame boundary
+    int64_t timeToNextFrameNs = frameDurationNs - elapsedInCurrentFrameNs;
+    NS_LOG_INFO("Current time: " << currentTime.GetNanoSeconds() << "ns, "
+                        << "ns, Time to next frame: " << timeToNextFrameNs << "ns. " << "Current frame start time: " << m_currentFrameStartTime.GetNanoSeconds() << "ns");
+
+    return static_cast<double>(timeToNextFrameNs);
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>

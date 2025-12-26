@@ -106,6 +106,7 @@ public:
     void ScheduleNextExecutionGrid();
     void ProcessSlot();
     void ProcessSubslot();
+    double GetTimeToNextFrameNs() const;
 
     // Setters and Getters
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;
@@ -118,7 +119,7 @@ public:
 private:
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
-    Time m_frameStartTime;
+    Time m_currentFrameStartTime;
 
     // Configuration
 
