@@ -106,9 +106,11 @@ public:
     void ScheduleNextExecutionGrid();
     void ProcessSlot();
     void ProcessSubslot();
-    double GetTimeToNextFrameNs() const;
+    double GetTimeTillNextFrameNs() const;
     double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
+    double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+    double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
 
     // Setters and Getters
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;

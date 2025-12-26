@@ -16,6 +16,8 @@
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
 
+#include "ns3/dect2020ext-execution-grid.h"
+
 #include "ns3/object.h"
 #include "ns3/nstime.h"
 #include "ns3/event-id.h"
@@ -24,6 +26,7 @@
 #include "ns3/node.h"
 
 #include <map>
+#include <memory>
 #include <vector>
 
 namespace ns3
@@ -35,6 +38,7 @@ class Dect2020ExtPhy;
 class Dect2020ExtPHYControlFieldType1;
 class Dect2020ExtRandomAccessResourceIE;
 class Dect2020ExtRdCapabilityIE;
+class Dect2020ExtExecutionGrid;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -49,9 +53,14 @@ struct Dect2020ExtChannelEvaluation
     }
 };
 
+struct Dect2020ExtRSSI1OnChannelContext
+{
+    uint16_t channelNumber;
+};
+
 struct Dect2020ExtSubslotScanContext
 {
-    uint32_t channelId;
+    uint16_t channelId;
     Dect2020ExtChannelEvaluation evaluation;
     uint32_t subslotCount;
     uint32_t totalSubslots;
@@ -148,7 +157,10 @@ class Dect2020ExtMac : public Object
         void ScheduleBackgroundScan();
         void OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
         void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
-        void BackgroundScan(void);
+        // void StartSlotScan();
+        // void EndSlotScan();
+        void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context);
+        void BackgroundScan();
 
         // Beacon Transmission
 
@@ -203,6 +215,8 @@ class Dect2020ExtMac : public Object
         uint16_t GetCurrentChannelId(void) const;
         double GetRxGainFromIndex(uint8_t index) const;
 
+        void SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid);
+
         // Configuration
 
         void SetBandNumber(uint8_t bandNumber);
@@ -220,6 +234,7 @@ class Dect2020ExtMac : public Object
         uint16_t m_currentChannelId;
 
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
+
     private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
@@ -232,6 +247,7 @@ class Dect2020ExtMac : public Object
         uint32_t m_networkId;
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
+        Ptr<Dect2020ExtExecutionGrid> m_executionGrid;
 
         // Configuration Attributes
         uint8_t m_bandNumber;

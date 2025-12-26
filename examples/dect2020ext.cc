@@ -1,27 +1,24 @@
-#include "ns3/dect2020ext-types.h"
-#include "ns3/dect2020ext-net-device.h"
+#include "ns3/dect2020ext-execution-grid.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-phy.h"
 
 #include "ns3/simulator.h"
-#include "ns3/node.h"
-#include "ns3/mobility-helper.h"
 #include "ns3/single-model-spectrum-channel.h"
-#include "ns3/propagation-module.h"
-#include "ns3/netanim-module.h"
+#include "ns3/node.h"
+#include "ns3/mobility-module.h"
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtSpectrumManagementProcedure");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
 int
 main(int argc, char *argv[])
 {
-    // LogComponentEnable("Dect2020ExtSpectrumManagementProcedure", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    
+
     // Spectrum Channel
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
     channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
@@ -36,32 +33,25 @@ main(int argc, char *argv[])
     channelManager->Configure();
     channelManager->InitializeChannels();
 
-    // FT and PT Nodes
-    Ptr<Node> ftNode = CreateObject<Node>();
-    Ptr<Node> ptNode = CreateObject<Node>();
+    // Execution Grid
+    Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
+    executionGrid->Initialize();
+    // executionGrid->StartExecutionGrid();
 
+    // FT Node
+    Ptr<Node> ftNode = CreateObject<Node>();
+    
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
 
-    // PT PHY
-    Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
-    ptPHY->SetChannel(channel);
-
-    // FT MAC
+    // MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
     ftMAC->SetChannelManager(channelManager);
     ftMAC->SetPhy(ftPHY);
-    ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::FT);
-
-    // PT MAC
-    Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
-    ptMAC->SetChannelManager(channelManager);
-    ptMAC->SetPhy(ptPHY);
-    ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::PT);
-
+    ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
+    ftMAC->SetExecutionGrid(executionGrid);
     ftPHY->SetMac(ftMAC);
-    ptPHY->SetMac(ptMAC);
 
     // FT Net Device
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
@@ -69,17 +59,9 @@ main(int argc, char *argv[])
     ftNetDevice->SetMac(ftMAC);
     ftNetDevice->SetPhy(ftPHY);
     ftNetDevice->SetNode(ftNode);
-   
-    // PT Net Device
-    Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
-    ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::PT);
-    ptNetDevice->SetMac(ptMAC);
-    ptNetDevice->SetPhy(ptPHY);
-    ptNetDevice->SetNode(ptNode);
 
-    ptNode->AddDevice(ptNetDevice);
     ftNode->AddDevice(ftNetDevice);
-  
+
     // Mobility Model
     MobilityHelper mobility;
     Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator>();
@@ -88,16 +70,12 @@ main(int argc, char *argv[])
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
     mobility.Install(ftNode);
-    mobility.Install(ptNode);
 
     ftMAC->InitializeDevice();
-    ptMAC->InitializeDevice();
 
-    // Schedule Start() in each node's context
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
-    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
-    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
+    Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, executionGrid);
 
     Simulator::Stop(Seconds(5));
     Simulator::Run();

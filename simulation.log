@@ -1,7 +1,4 @@
 [0/2] Re-checking globbed directories...
-[1/5] Building CXX object contrib/dect-nr-ext/examples/CMakeFiles/dect2020ext-execution-grid-example.dir/dect2020ext-execution-grid-example.cc.o
-[2/5] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/execution-grid/dect2020ext-execution-grid.cc.o
-[3/5] Linking CXX shared library lib/libns3.44-dect-nr-ext-debug.so
-[4/5] Linking CXX executable contrib/dect-nr-ext/examples/ns3.44-dect2020ext-execution-grid-example-debug
-+0.000143000s Dect2020ExtExecutionGrid:GetTimeToNextFrameNs(): Elapsed in current frame: 143000ns
-+0.000143000s Dect2020ExtExecutionGrid:GetTimeToNextFrameNs(): Current time: 143000ns, ns, Time to next frame: 9857000ns. Current frame start time: 0ns
+[1/3] Building CXX object contrib/dect-nr-ext/examples/CMakeFiles/dect2020ext-execution-grid-example.dir/dect2020ext-execution-grid-example.cc.o
+[2/3] Linking CXX executable contrib/dect-nr-ext/examples/ns3.44-dect2020ext-execution-grid-example-debug
+Subslot start time: 208333 ns, end time: 416666 ns

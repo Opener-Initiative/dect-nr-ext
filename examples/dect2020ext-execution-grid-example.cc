@@ -10,7 +10,8 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtExecutionGridExample");
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_FUNC | LOG_PREFIX_TIME));
+    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtExecutionGridExample", LOG_LEVEL_INFO);
 
     // Channel Manager
     Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
@@ -19,13 +20,14 @@ main(int argc, char *argv[])
     channelManager->SetFourierTransformScalingFactor(1);
     channelManager->Configure();
 
+    // Execution Grid
     Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
     executionGrid->Initialize();
-    // executionGrid->PrintExecutionGrid();
     executionGrid->StartExecutionGrid();
+    double s = executionGrid->GetSubslotStartTimeOffsetNs(1);
+    double e = executionGrid->GetSubslotEndTimeOffsetNs(1);
 
-    Simulator::Schedule(MilliSeconds(7), &Dect2020ExtExecutionGrid::GetTimeToNextFrameNs, executionGrid);
-    Simulator::Schedule(MilliSeconds(7), &Dect2020ExtExecutionGrid::GetSlotStartTimeOffsetNs, executionGrid, 1);
+    NS_LOG_INFO("Subslot start time: " << s << " ns, end time: " << e << " ns");
 
     Simulator::Stop(Seconds(10));
     Simulator::Run();

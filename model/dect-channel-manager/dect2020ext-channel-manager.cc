@@ -11,7 +11,6 @@
 
 #include <vector>
 #include <cmath>
-#include <iomanip>
 #include <limits>
 
 namespace ns3

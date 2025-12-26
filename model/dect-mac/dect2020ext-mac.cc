@@ -1,7 +1,7 @@
 #include "dect2020ext-mac.h" 
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-net-device.h"
-
+#include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-mac-pdu-helper.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
@@ -161,7 +161,7 @@ Dect2020ExtMac::InitializeNetwork(void)
     uint32_t networkId = GenerateValidNetworkID();
     SetNetworkId(networkId);
 
-    Simulator::Schedule(Seconds(1), &Dect2020ExtMac::ScheduleBackgroundScan, this);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::ScheduleBackgroundScan, this);
 }
 
 uint32_t
@@ -363,7 +363,7 @@ Dect2020ExtMac::ScheduleBackgroundScan()
     NS_LOG_FUNCTION(this);
 
     // Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback
-    m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
+    // m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
     // Schedule the background scan
     Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
@@ -426,27 +426,37 @@ Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t fr
 }
 
 void
-Dect2020ExtMac::BackgroundScan(void)
+Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context)
+{
+    NS_LOG_FUNCTION(this << context->channelNumber);
+    // double timeTillNextFrameNs = m_executionGrid->GetTimeTillNextFrameNs();
+    uint32_t slotsPerChannel = 24;
+
+    // Schedule StartSlotScan at the start of all slots inside the channel
+    // Schedule EndSlotScan at the end of all slots inside the channel
+    for (uint32_t slotNumber = 0; slotNumber < slotsPerChannel; slotNumber++)
+    {
+        // double slotStartTimeNs = m_executionGrid->GetSlotStartTimeOffsetNs(slotNumber);
+        // double slotEndTimeNs = m_executionGrid->GetSlotEndTimeOffsetNs(slotNumber);
+
+        // Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + slotStartTimeNs), &Dect2020ExtMac::StartSlotScan, this);
+        // Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + slotEndTimeNs), &Dect2020ExtMac::EndSlotScan, this);
+    }
+
+    // Schedule MeasureRSSIOnChannel for the next channel (tune to the next channel and scan all slots)
+}
+
+void
+Dect2020ExtMac::BackgroundScan()
 {
     NS_LOG_FUNCTION(this);
-    const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
-    const int64_t frameDurationNs = 10000000; // 10 milliseconds in nanoseconds
-    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    const uint32_t totalSubslotsPerFrame = slotsPerFrame * subslotsPerSlot;
-    std::vector<Ptr<Dect2020ExtChannel>> dectChannels = m_channelManager->GetChannels();
-    
-    int64_t channelRssiMeasurementDelayNs = 0;
-    for (auto channel : dectChannels)
-    {
-        auto context = std::make_shared<Dect2020ExtSubslotScanContext>();
-        context->channelId = channel->m_channelId;
-        context->evaluation.channelId = channel->m_channelId;
-        context->totalSubslots = totalSubslotsPerFrame;
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
 
-        // Schedule the RSSI measurement for each channel with 10ms period
-        Simulator::Schedule(NanoSeconds(channelRssiMeasurementDelayNs), &Dect2020ExtMac::MeasureRSSIOnChannel, this, channel, frameDurationNs, totalSubslotsPerFrame, context);
-        channelRssiMeasurementDelayNs += frameDurationNs;
-    }
+    std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
+    context->channelNumber = bandParams.nStart;
+
+    // Schedule MeasureRSSI1OnChannel for the first channel
+    // Simulator::Schedule(Seconds(0), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, bandParams.nStart);
 }
 
 void
@@ -1471,6 +1481,12 @@ Dect2020ExtMac::GetRxGainFromIndex(uint8_t index) const
     }
 
     return static_cast<int8_t>(-10 + index * 2);
+}
+
+void
+Dect2020ExtMac::SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid)
+{
+    m_executionGrid = executionGrid;
 }
 
 void

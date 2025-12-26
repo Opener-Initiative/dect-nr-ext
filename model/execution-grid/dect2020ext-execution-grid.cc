@@ -155,10 +155,10 @@ Dect2020ExtExecutionGrid::Initialize()
 
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot(); // Get the number of subslots per slot based on the subcarrier scaling factor
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber); // Get current band parameters
-    uint32_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of channels
+    uint16_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of channels
 
     // Initialize the execution grid with slots and subslot for each channel
-    for (uint32_t ch = 0; ch < numChannels; ch++)
+    for (uint16_t ch = 0; ch < numChannels; ch++)
     {
 
         uint16_t absoluteChannelNumber = bandParams.nStart + ch;
@@ -246,7 +246,7 @@ Dect2020ExtExecutionGrid::ProcessSubslot()
 }
 
 double
-Dect2020ExtExecutionGrid::GetTimeToNextFrameNs() const
+Dect2020ExtExecutionGrid::GetTimeTillNextFrameNs() const
 {
     Time currentTime = Simulator::Now();
     Time elapsedSinceCurrentFrameStartTime = currentTime - m_currentFrameStartTime;
@@ -273,7 +273,7 @@ Dect2020ExtExecutionGrid::GetSlotStartTimeOffsetNs(uint32_t slotNumber) const
 {
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
     double slotStartTimeNs = m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotStartTimeNs;
-    NS_LOG_INFO("Slot start time: " << slotStartTimeNs << "ns");
+    // NS_LOG_INFO("Slot start time: " << slotStartTimeNs << "ns");
     return slotStartTimeNs; 
 }
 
@@ -282,6 +282,26 @@ Dect2020ExtExecutionGrid::GetSlotEndTimeOffsetNs(uint32_t slotNumber) const
 {
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
     return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotEndTimeNs;
+}
+
+double
+Dect2020ExtExecutionGrid::GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const
+{
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
+    uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
+    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotStartTimeNs;
+}
+
+double
+Dect2020ExtExecutionGrid::GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const
+{
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
+    uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
+    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotEndTimeNs;
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>
