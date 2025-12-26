@@ -107,6 +107,8 @@ public:
     void ProcessSlot();
     void ProcessSubslot();
     double GetTimeToNextFrameNs() const;
+    double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
+    double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
 
     // Setters and Getters
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;
@@ -120,6 +122,7 @@ private:
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
     Time m_currentFrameStartTime;
+    uint32_t m_SFN; // System Frame Number
 
     // Configuration
 

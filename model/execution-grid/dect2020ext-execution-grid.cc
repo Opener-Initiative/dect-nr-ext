@@ -202,26 +202,24 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t numSubslotsPerFrame = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
-    int slot = 0;
-    int subslot = 0;
+    // Update SFN if m_currentFrameStartTime is not equal to 0
+    if (m_currentFrameStartTime != Seconds(0))
+    {
+        m_SFN++;
+    }
 
     for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
         double slotStartTime = slotNumber * SLOT_DURATION_NS;
         Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
-
-        slot++;
-
     }
 
     for (uint32_t subslotNumber = 0; subslotNumber < numSubslotsPerFrame; subslotNumber++)
     {
         double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerFrame);
         Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
-        subslot++;
     }
 
-    // NS_LOG_INFO("Processed " << slot << " slots and " << subslot << " subslots");
     ScheduleNextExecutionGrid();
 }
 
@@ -268,6 +266,22 @@ Dect2020ExtExecutionGrid::GetTimeToNextFrameNs() const
                         << "ns, Time to next frame: " << timeToNextFrameNs << "ns. " << "Current frame start time: " << m_currentFrameStartTime.GetNanoSeconds() << "ns");
 
     return static_cast<double>(timeToNextFrameNs);
+}
+
+double
+Dect2020ExtExecutionGrid::GetSlotStartTimeOffsetNs(uint32_t slotNumber) const
+{
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    double slotStartTimeNs = m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotStartTimeNs;
+    NS_LOG_INFO("Slot start time: " << slotStartTimeNs << "ns");
+    return slotStartTimeNs; 
+}
+
+double
+Dect2020ExtExecutionGrid::GetSlotEndTimeOffsetNs(uint32_t slotNumber) const
+{
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotEndTimeNs;
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>

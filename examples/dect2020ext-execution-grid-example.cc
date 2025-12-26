@@ -24,7 +24,8 @@ main(int argc, char *argv[])
     // executionGrid->PrintExecutionGrid();
     executionGrid->StartExecutionGrid();
 
-    Simulator::Schedule(MicroSeconds(143), &Dect2020ExtExecutionGrid::GetTimeToNextFrameNs, executionGrid);
+    Simulator::Schedule(MilliSeconds(7), &Dect2020ExtExecutionGrid::GetTimeToNextFrameNs, executionGrid);
+    Simulator::Schedule(MilliSeconds(7), &Dect2020ExtExecutionGrid::GetSlotStartTimeNs, executionGrid, 1);
 
     Simulator::Stop(Seconds(10));
     Simulator::Run();
