@@ -87,6 +87,7 @@ Dect2020ExtPhy::Start()
 {
     NS_LOG_FUNCTION(this);
     StartFrameTimer();
+    m_interference->Initialize(m_channelManager->GetSpectrumModel(m_bandNumber));
 }
 
 void

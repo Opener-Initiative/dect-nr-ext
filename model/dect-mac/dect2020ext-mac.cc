@@ -426,21 +426,85 @@ Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t fr
 }
 
 void
-Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context)
+Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber)
 {
-    NS_LOG_FUNCTION(this << context->channelNumber);
-    // double timeTillNextFrameNs = m_executionGrid->GetTimeTillNextFrameNs();
-    uint32_t slotsPerChannel = 24;
+    NS_LOG_FUNCTION(this);
 
-    // Schedule StartSlotScan at the start of all slots inside the channel
-    // Schedule EndSlotScan at the end of all slots inside the channel
-    for (uint32_t slotNumber = 0; slotNumber < slotsPerChannel; slotNumber++)
+    // Calculate channel index from the channel number
+    uint16_t channelIndex = context->channelNumber - m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(context->channelNumber));
+
+    // Get RSSI from interference
+    double rssiChannelWatt = (*m_phy->m_interference->m_allSignals)[channelIndex];
+    double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
+
+    // Store the RSSI sample
+    context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
+    
+    NS_LOG_INFO("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
+}
+
+void
+Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber)
+{
+    NS_LOG_FUNCTION(this);
+
+    // 1. Tune to the correct channel
+    SetCurrentChannelId(channelContext->channelNumber);
+
+    // 2. Get power from the subslot with sampling rate
+    double slotDurationNs = 416666; // 0,41667 milliseconds in nanoseconds
+    double subslotDurationNs = slotDurationNs / m_channelManager->GetSubslotsPerSlot();
+    double baseSamplingOffsetNs = subslotDurationNs / 5;
+
+    for (uint32_t sampleIndex = 0; sampleIndex < 5; sampleIndex++)
     {
-        // double slotStartTimeNs = m_executionGrid->GetSlotStartTimeOffsetNs(slotNumber);
-        // double slotEndTimeNs = m_executionGrid->GetSlotEndTimeOffsetNs(slotNumber);
+        double samplingOffsetNs = baseSamplingOffsetNs * sampleIndex;
 
-        // Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + slotStartTimeNs), &Dect2020ExtMac::StartSlotScan, this);
-        // Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + slotEndTimeNs), &Dect2020ExtMac::EndSlotScan, this);
+        NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
+        Simulator::Schedule(NanoSeconds(samplingOffsetNs), &Dect2020ExtMac::SampleRSSIFromInterference, this, channelContext, subslotNumber);
+    }
+
+    // 3. Store the result of average RSSI on the subslot
+}
+
+void
+Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber)
+{
+    NS_LOG_FUNCTION(this);
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
+    if (channelContext->channelNumber == bandParams.nEnd)
+    {
+        NS_LOG_INFO("Finished scanning all channels");
+    }
+    {
+        NS_LOG_INFO("Finished scanning channel " << channelContext->channelNumber);
+        uint32_t totalSubslotsScanned = backgroundScanContext->channelContexts[channelContext->channelNumber]->rssiAverages.size();
+        NS_LOG_INFO("Total subslots scanned: " << totalSubslotsScanned);
+    }
+}
+
+void
+Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext)
+{
+    NS_LOG_FUNCTION(this << channelContext->channelNumber);
+    double timeTillNextFrameNs = m_executionGrid->GetTimeTillNextFrameNs();
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t slotsPerChannel = 24;
+    uint32_t subslotsPerChannel = numSubslotsPerSlot * slotsPerChannel;
+
+    // Initialize the RSSI average vector for the channel
+    channelContext->rssiAverages.resize(subslotsPerChannel);
+
+    // Schedule StartSlotScan at the start of all subslots inside the channel
+    // Schedule EndSlotScan at the end of all subslots inside the channel
+    for (uint32_t subslotNumber = 0; subslotNumber < subslotsPerChannel; subslotNumber++)
+    {
+        double subslotStartTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(subslotNumber);
+        double subslotEndTimeNs = m_executionGrid->GetSubslotEndTimeOffsetNs(subslotNumber);
+
+        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
+        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
     }
 
     // Schedule MeasureRSSIOnChannel for the next channel (tune to the next channel and scan all slots)
@@ -452,11 +516,14 @@ Dect2020ExtMac::BackgroundScan()
     NS_LOG_FUNCTION(this);
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
 
-    std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
-    context->channelNumber = bandParams.nStart;
+    // Create parent context for background scan
+    std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
+
+    std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
+    channelContext->channelNumber = bandParams.nStart;
 
     // Schedule MeasureRSSI1OnChannel for the first channel
-    // Simulator::Schedule(Seconds(0), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, bandParams.nStart);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
 }
 
 void

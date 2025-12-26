@@ -56,6 +56,13 @@ struct Dect2020ExtChannelEvaluation
 struct Dect2020ExtRSSI1OnChannelContext
 {
     uint16_t channelNumber;
+    std::vector<std::vector<double>> rssiAverages; // [subslotNumber][RSSI samples]
+};
+
+struct Dect2020ExtBackgroundScanContext
+{
+    // Store per-channel contexts (keyed by channel number)
+    std::map<uint16_t, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext>> channelContexts; // [channelNumber][RSSI averages]
 };
 
 struct Dect2020ExtSubslotScanContext
@@ -157,9 +164,10 @@ class Dect2020ExtMac : public Object
         void ScheduleBackgroundScan();
         void OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
         void MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context);
-        // void StartSlotScan();
-        // void EndSlotScan();
-        void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context);
+        void SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber);
+        void StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber);
+        void EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber);
+        void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext);
         void BackgroundScan();
 
         // Beacon Transmission

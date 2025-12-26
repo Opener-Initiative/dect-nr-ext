@@ -23,11 +23,7 @@ main(int argc, char *argv[])
     // Execution Grid
     Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
     executionGrid->Initialize();
-    executionGrid->StartExecutionGrid();
-    double s = executionGrid->GetSubslotStartTimeOffsetNs(1);
-    double e = executionGrid->GetSubslotEndTimeOffsetNs(1);
-
-    NS_LOG_INFO("Subslot start time: " << s << " ns, end time: " << e << " ns");
+    executionGrid->PrintExecutionGrid();
 
     Simulator::Stop(Seconds(10));
     Simulator::Run();

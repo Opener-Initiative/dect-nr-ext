@@ -102,6 +102,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		Callback<void, uint32_t, uint32_t> m_SFNCallback;
 
+		Ptr<Dect2020ExtInterference> m_interference;
+
 	private:
 	    // Dect2020ExtPhy Private Members
 
@@ -126,7 +128,6 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
 		Ptr<Object> m_antenna;
 
-		Ptr<Dect2020ExtInterference> m_interference;
 
 		Dect2020ExtPhyState m_currentState;
 

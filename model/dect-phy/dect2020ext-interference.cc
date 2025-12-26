@@ -21,6 +21,12 @@ Dect2020ExtInterference::GetTypeId()
 }
 
 void
+Dect2020ExtInterference::Initialize(Ptr<const SpectrumModel> spectrumModel)
+{
+    m_allSignals = Create<SpectrumValue>(spectrumModel);
+}
+
+void
 Dect2020ExtInterference::AddSignal(Ptr<const SpectrumValue> psd, const Time duration, uint16_t channelIndex)
 {
     double powerToAdd = (*psd)[channelIndex];

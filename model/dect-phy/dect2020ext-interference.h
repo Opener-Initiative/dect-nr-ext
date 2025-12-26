@@ -16,6 +16,7 @@ class Dect2020ExtInterference : public Object
 
         static TypeId GetTypeId();
 
+        void Initialize(Ptr<const SpectrumModel> spectrumModel);
         void AddSignal(Ptr<const SpectrumValue> psd, const Time duration, uint16_t channelIndex);
         void DoAddSignal(Ptr<const SpectrumValue> psd, uint16_t channelIndex);
         void DoSubtractSignal(double powerToSubtract, uint16_t channelIndex);
