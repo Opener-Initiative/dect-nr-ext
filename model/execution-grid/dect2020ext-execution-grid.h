@@ -52,6 +52,39 @@ private:
     //std::function m_operation;
 };
 
+// #########################################
+// #### Dect2020ExtExecutionGridSubslot ####
+// #########################################
+
+class Dect2020ExtExecutionGridSubslot
+{
+public:
+    Dect2020ExtExecutionGridSubslot();
+    virtual ~Dect2020ExtExecutionGridSubslot();
+
+    double m_subslotStartTimeNs; // Start time of the subslot in nanoseconds
+    double m_subslotEndTimeNs; // End time of the subslot in nanoseconds
+    uint32_t m_subslotIndex; // Index of the subslot in the slot
+    uint32_t m_subslotNumber; // Number of the subslot in the channel
+};
+
+// ######################################
+// #### Dect2020ExtExecutionGridSlot ####
+// ######################################
+
+class Dect2020ExtExecutionGridSlot
+{
+public:
+    Dect2020ExtExecutionGridSlot();
+    virtual ~Dect2020ExtExecutionGridSlot();
+    
+    std::vector<Dect2020ExtExecutionGridSubslot> m_subslots;
+    double m_slotStartTimeNs; // Start time of the slot in nanoseconds
+    double m_slotEndTimeNs; // End time of the slot in nanoseconds
+    uint32_t m_slotNumber; // Number of the slot in the channel
+};
+
+
 // ########################
 // #### Execution Grid ####
 // ########################
@@ -74,7 +107,7 @@ public:
     void ProcessSubslot();
 
     // Setters and Getters
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> GetExecutionGrid() const;
+    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;
 
     // Configuration
     void PrintConfiguration() const;
@@ -82,8 +115,8 @@ public:
     void PrintExecutionGrid() const;
 
 private:
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_executionGrid;
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>> m_nextExecutionGrid;
+    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
+    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
     Time m_frameStartTime;
 
     // Configuration

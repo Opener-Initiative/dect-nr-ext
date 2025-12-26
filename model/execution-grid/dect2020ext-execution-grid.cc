@@ -78,6 +78,30 @@ Dect2020ExtExecutionGridOperation::GetResource() const
     return m_resource;
 }
 
+// #########################################
+// #### Dect2020ExtExecutionGridSubslot ####
+// #########################################
+
+Dect2020ExtExecutionGridSubslot::Dect2020ExtExecutionGridSubslot()
+{
+}
+
+Dect2020ExtExecutionGridSubslot::~Dect2020ExtExecutionGridSubslot()
+{
+}
+
+// ######################################
+// #### Dect2020ExtExecutionGridSlot ####
+// ######################################
+
+Dect2020ExtExecutionGridSlot::Dect2020ExtExecutionGridSlot()
+{
+}
+
+Dect2020ExtExecutionGridSlot::~Dect2020ExtExecutionGridSlot()
+{
+}
+
 // ########################
 // #### Execution Grid ####
 // ########################
@@ -129,32 +153,44 @@ Dect2020ExtExecutionGrid::Initialize()
 {
     NS_LOG_FUNCTION(this);
 
-    // Initialize the execution grid with IDLE operations for all subslots and all channels
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot(); // Get the number of subslots per slot based on the subcarrier scaling factor
-    uint32_t numSubslotsPerChannel = numSubslotsPerSlot * 24; // Get the number of subslots per channel TS 103 636-3 Section 4.4
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber); // Get current band parameters
     uint32_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of channels
 
-    // Initialize the execution grid with IDLE operations for all subslots and all channels
+    // Initialize the execution grid with slots and subslot for each channel
     for (uint32_t ch = 0; ch < numChannels; ch++)
     {
 
         uint16_t absoluteChannelNumber = bandParams.nStart + ch;
-        std::vector<Dect2020ExtExecutionGridOperation> executionGridOperations;
+        uint32_t subslotNumber = 0;
+        std::vector<Dect2020ExtExecutionGridSlot> slots;
 
-        for (uint32_t subslot = 0; subslot < numSubslotsPerChannel; subslot++)
+        for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
         {
-            Dect2020ExtExecutionGridOperation operation;
-            operation.SetOperationType(Dect2020ExtExecutionGridOperation::OperationType::IDLE);
-            operation.SetStartSubslot(subslot);
-            operation.SetEndSubslot(subslot);
-            executionGridOperations.push_back(operation);
-        }
-        m_executionGrid[absoluteChannelNumber] = executionGridOperations;
-    }
+            double slotStartTime = slotNumber * SLOT_DURATION_NS;
+            double slotEndTime = (slotNumber + 1) * SLOT_DURATION_NS;
+            Dect2020ExtExecutionGridSlot slot;
+            slot.m_slotNumber = slotNumber;
+            slot.m_slotStartTimeNs = slotStartTime;
+            slot.m_slotEndTimeNs = slotEndTime;
 
-    // Initialize the next execution grid with IDLE operations for all subslots and all channels
-    m_nextExecutionGrid = m_executionGrid;
+            for (uint32_t subslotIndex = 0; subslotIndex < numSubslotsPerSlot; subslotIndex++, subslotNumber++)
+            {
+                double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
+                double subslotEndTime = (subslotNumber + 1) * (SLOT_DURATION_NS / numSubslotsPerSlot);
+                Dect2020ExtExecutionGridSubslot subslot;
+                subslot.m_subslotIndex = subslotIndex;
+                subslot.m_subslotNumber = subslotNumber;
+                subslot.m_subslotStartTimeNs = subslotStartTime;
+                subslot.m_subslotEndTimeNs = subslotEndTime;
+
+                slot.m_subslots.push_back(subslot);
+            }
+            slots.push_back(slot);
+        }
+        m_executionGrid[absoluteChannelNumber] = slots;
+    }
+    // TODO: Initialize the next execution grid
 }
 
 void
@@ -193,7 +229,7 @@ Dect2020ExtExecutionGrid::ProcessSubslot()
     NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
 }
 
-std::map<uint16_t, std::vector<Dect2020ExtExecutionGridOperation>>
+std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>
 Dect2020ExtExecutionGrid::GetExecutionGrid() const
 {
     return m_executionGrid;
@@ -215,11 +251,21 @@ Dect2020ExtExecutionGrid::PrintExecutionGrid() const
     for (auto it = m_executionGrid.begin(); it != m_executionGrid.end(); it++)
     {
         std::stringstream ss;
-        ss << "Ch: " << it->first << " | ";
-        size_t index = 0;
-        for (auto it2 = it->second.begin(); it2 != it->second.end(); it2++, index++)
+        ss << "Ch: " << it->first << " | Slots: " << it->second.size() << " | ";
+        
+        for (size_t slotIdx = 0; slotIdx < it->second.size(); slotIdx++)
         {
-            ss << index << ": [" << it2->GetStartSubslot() << "-" << it2->GetEndSubslot() << " : " << it2->GetOperationType() << "] ";
+            const Dect2020ExtExecutionGridSlot& slot = it->second[slotIdx];
+            ss << "Slot[" << slot.m_slotNumber << ": " << slot.m_slotStartTimeNs << "-" 
+               << slot.m_slotEndTimeNs << "ns, Subslots: " << slot.m_subslots.size() << "] { ";
+            
+            for (size_t subslotIdx = 0; subslotIdx < slot.m_subslots.size(); subslotIdx++)
+            {
+                const Dect2020ExtExecutionGridSubslot& subslot = slot.m_subslots[subslotIdx];
+                ss << "SS[idx:" << subslot.m_subslotIndex << " num:" << subslot.m_subslotNumber 
+                   << " " << subslot.m_subslotStartTimeNs << "-" << subslot.m_subslotEndTimeNs << "ns] ";
+            }
+            ss << "} ";
         }
         NS_LOG_INFO(ss.str());
     }
