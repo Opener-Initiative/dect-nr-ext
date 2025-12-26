@@ -190,7 +190,7 @@ Dect2020ExtExecutionGrid::Initialize()
         }
         m_executionGrid[absoluteChannelNumber] = slots;
     }
-    // TODO: Initialize the next execution grid
+    m_nextExecutionGrid = m_executionGrid;
 }
 
 void
@@ -200,17 +200,28 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
 
     m_frameStartTime = Simulator::Now();
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    uint32_t numSubslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
+    uint32_t numSubslotsPerFrame = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
-    uint32_t subslot = 0;
+    int slot = 0;
+    int subslot = 0;
 
-    // Schedule all subslots for this frame
-    for (; subslot < numSubslotsPerChannel; subslot++)
+    for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
-        double slotStartTime = subslot * (SLOT_DURATION_NS / numSubslotsPerSlot);
+        double slotStartTime = slotNumber * SLOT_DURATION_NS;
         Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
+
+        slot++;
+
     }
-    NS_LOG_INFO("Scheduled " << subslot << " subslots for this frame");
+
+    for (uint32_t subslotNumber = 0; subslotNumber < numSubslotsPerFrame; subslotNumber++)
+    {
+        double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerFrame);
+        Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
+        subslot++;
+    }
+
+    NS_LOG_INFO("Processed " << slot << " slots and " << subslot << " subslots");
     ScheduleNextExecutionGrid();
 }
 
@@ -220,6 +231,13 @@ Dect2020ExtExecutionGrid::ScheduleNextExecutionGrid()
     NS_LOG_FUNCTION(this);
     m_executionGrid = m_nextExecutionGrid;
     Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
+}
+
+void
+Dect2020ExtExecutionGrid::ProcessSlot()
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
 }
 
 void

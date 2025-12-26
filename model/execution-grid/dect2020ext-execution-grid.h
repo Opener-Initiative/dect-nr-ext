@@ -104,6 +104,7 @@ public:
     // Execution Grid Operations
     void StartExecutionGrid();
     void ScheduleNextExecutionGrid();
+    void ProcessSlot();
     void ProcessSubslot();
 
     // Setters and Getters

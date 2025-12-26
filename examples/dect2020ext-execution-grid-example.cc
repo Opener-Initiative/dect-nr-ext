@@ -21,7 +21,8 @@ main(int argc, char *argv[])
 
     Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
     executionGrid->Initialize();
-    executionGrid->PrintExecutionGrid();
+    // executionGrid->PrintExecutionGrid();
+    executionGrid->StartExecutionGrid();
 
     Simulator::Stop(MilliSeconds(10));
     Simulator::Run();
