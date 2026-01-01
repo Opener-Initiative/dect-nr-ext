@@ -473,14 +473,18 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
     NS_LOG_FUNCTION(this);
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
     backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
-    if (channelContext->channelNumber == bandParams.nEnd)
+    if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
         NS_LOG_INFO("Finished scanning all channels");
     }
+    else
     {
-        NS_LOG_INFO("Finished scanning channel " << channelContext->channelNumber);
         uint32_t totalSubslotsScanned = backgroundScanContext->channelContexts[channelContext->channelNumber]->rssiAverages.size();
+        uint32_t samplesPerSubslot = backgroundScanContext->channelContexts[channelContext->channelNumber]->rssiAverages[0].size();
+        NS_LOG_INFO("Finished scanning channel " << channelContext->channelNumber);
         NS_LOG_INFO("Total subslots scanned: " << totalSubslotsScanned);
+        NS_LOG_INFO("Samples per subslot: " << samplesPerSubslot);
+        NS_LOG_INFO("Subslot number: " << subslotNumber);
     }
 }
 
@@ -488,7 +492,6 @@ void
 Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext)
 {
     NS_LOG_FUNCTION(this << channelContext->channelNumber);
-    double timeTillNextFrameNs = m_executionGrid->GetTimeTillNextFrameNs();
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t slotsPerChannel = 24;
     uint32_t subslotsPerChannel = numSubslotsPerSlot * slotsPerChannel;
@@ -503,11 +506,9 @@ Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanC
         double subslotStartTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(subslotNumber);
         double subslotEndTimeNs = m_executionGrid->GetSubslotEndTimeOffsetNs(subslotNumber);
 
-        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
-        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
+        Simulator::Schedule(NanoSeconds(subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
+        Simulator::Schedule(NanoSeconds(subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
     }
-
-    // Schedule MeasureRSSIOnChannel for the next channel (tune to the next channel and scan all slots)
 }
 
 void
@@ -515,15 +516,20 @@ Dect2020ExtMac::BackgroundScan()
 {
     NS_LOG_FUNCTION(this);
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    double baseScanDelayMs = 0;
 
-    // Create parent context for background scan
-    std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
+    for (uint32_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
+    {
+        // Create parent context for background scan
+        std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
 
-    std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
-    channelContext->channelNumber = bandParams.nStart;
+        std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
+        channelContext->channelNumber = channelNumber;
 
-    // Schedule MeasureRSSI1OnChannel for the first channel
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
+        // Schedule MeasureRSSI1OnChannel for the channel
+        Simulator::Schedule(MilliSeconds(baseScanDelayMs), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
+        baseScanDelayMs += 10; // 10ms delay between channels (frame duration)
+    }
 }
 
 void
