@@ -296,6 +296,7 @@ Ptr<SpectrumModel>
 Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 {
     NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandId));
+
     // Check if a SpectrumModel for this band already exists
     auto iterator = m_bandModels.find(bandId);
     if (iterator != m_bandModels.end())

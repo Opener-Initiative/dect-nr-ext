@@ -426,6 +426,47 @@ Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t fr
 }
 
 void
+Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext)
+{
+    NS_LOG_FUNCTION(this);
+    
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    
+    // First, check if all channels are present in the background scan context
+    bool allChannelsPresent = true;
+    std::vector<uint16_t> missingChannels;
+    
+    for (uint16_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; ++channelNumber)
+    {
+        auto channelIt = backgroundScanContext->channelContexts.find(channelNumber);
+        if (channelIt != backgroundScanContext->channelContexts.end())
+        {
+            NS_LOG_INFO("Channel " << channelNumber << " exists in the background scan context");
+        }
+        else
+        {
+            NS_LOG_WARN("Channel " << channelNumber << " is MISSING from the background scan context");
+            allChannelsPresent = false;
+            missingChannels.push_back(channelNumber);
+        }
+    }
+    
+    if (!allChannelsPresent)
+    {
+        NS_LOG_ERROR("Not all channels are present. Missing " << missingChannels.size() << " channels:");
+        for (uint16_t ch : missingChannels)
+        {
+            NS_LOG_ERROR("  - Channel " << ch);
+        }
+        return;
+    }
+    
+    NS_LOG_INFO("All channels present. Proceeding with RSSI processing...");
+    
+    // TODO: Use channelRssiMap to select the best operating channel
+}
+
+void
 Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
@@ -476,6 +517,7 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
     if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
         NS_LOG_INFO("Finished scanning all channels");
+        OperatingChannelSelection(backgroundScanContext);
     }
     else
     {
