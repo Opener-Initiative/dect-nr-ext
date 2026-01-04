@@ -216,70 +216,6 @@ Dect2020ExtMac::GenerateShortRadioDeviceId(void)
     return rdId;
 }
 
-void
-Dect2020ExtMac::EvaluateAllChannels(void)
-{
-    // TODO: Review this function and ensure that types are correct and that the logic is correct.
-    NS_LOG_FUNCTION(this);
-    const auto rssiResults = m_rssiByChannel;
-    auto channels = m_channelManager->GetValidChannels(1);
-    
-    for (auto channel : channels)  // channel is Ptr<Dect2020ExtChannel>, so this is OK
-    {
-        auto rssiIt = rssiResults.find(channel->m_channelId);
-        if (rssiIt != rssiResults.end())
-        {
-            auto rssiResultsIt = rssiIt->second.begin();
-            
-            for (auto& slot : channel->m_slots)  // REFERENCE to slot
-            {
-                for (auto& subslot : slot.subslots)  // REFERENCE to subslot
-                {
-                    if (rssiResultsIt != rssiIt->second.end())
-                    {
-                        if (*rssiResultsIt <= RSSI_THRESHOLD_MIN)
-                        {
-                            subslot.status = SubslotStatus::FREE;
-                        }
-                        if (*rssiResultsIt > RSSI_THRESHOLD_MIN && *rssiResultsIt <= RSSI_THRESHOLD_MAX)
-                        {
-                            subslot.status = SubslotStatus::POSSIBLE;
-                        }
-                        if (*rssiResultsIt > RSSI_THRESHOLD_MAX)
-                        {
-                            subslot.status = SubslotStatus::BUSY;
-                        }
-                        subslot.rssi = *rssiResultsIt;  // Now modifying the ORIGINAL
-                        rssiResultsIt++;
-                    }
-                }
-            }
-        }
-        else
-        {
-            NS_LOG_WARN("No RSSI results found for channel " << channel->m_channelId);
-        }
-    }
-    SelectOperatingChannel();
-}
-
-SubslotStatus
-Dect2020ExtMac::EvaluateSubslot(double rssiDbm)
-{
-    if (rssiDbm <= RSSI_THRESHOLD_MIN)
-    {
-        return SubslotStatus::FREE;
-    }
-    if (rssiDbm > RSSI_THRESHOLD_MIN && rssiDbm <= RSSI_THRESHOLD_MAX)
-    {
-        return SubslotStatus::POSSIBLE;
-    }
-    if (rssiDbm > RSSI_THRESHOLD_MAX)
-    {
-        return SubslotStatus::BUSY;
-    }
-    return SubslotStatus::BUSY;
-}
 
 void
 Dect2020ExtMac::DisplayChannelEvaluations(void)
@@ -318,39 +254,6 @@ Dect2020ExtMac::DisplayChannelEvaluations(void)
     NS_LOG_DEBUG("====================================================");
 }
 
-void
-Dect2020ExtMac::SelectOperatingChannel(void)
-{
-    NS_LOG_FUNCTION(this);
-    DisplayChannelEvaluations();
-
-    // Sort by free subslots and select the best channel
-    auto sortedEvaluations = m_channelEvaluations;
-    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
-    {
-        return a.free > b.free;
-    };
-    
-    std::stable_sort(sortedEvaluations.begin(), sortedEvaluations.end(), SortByFreeSubslotsLambda);
-    
-    if (!sortedEvaluations.empty())
-    {
-        m_operatingChannelId = sortedEvaluations[0].channelId;
-        NS_LOG_INFO("Selected Operating Channel: " << m_operatingChannelId 
-                    << " with " << sortedEvaluations[0].free << " free subslots");
-
-        NS_LOG_LOGIC("Selected Operating Channel: " << m_operatingChannelId 
-                    << " with " << sortedEvaluations[0].free << " free subslots");
-    }
-    else
-    {
-        NS_LOG_WARN("No channel evaluations available for selection");
-    }
-    m_operatingChannelId = sortedEvaluations[0].channelId;
-    m_currentChannelId = m_operatingChannelId;
-    StartBeaconTransmission();
-}
-
 /**
  * @brief Schedule the background scan with the given delay.
  * 
@@ -367,62 +270,6 @@ Dect2020ExtMac::ScheduleBackgroundScan()
 
     // Schedule the background scan
     Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
-}
-
-void
-Dect2020ExtMac::OnRssiMeasurement(uint16_t channelId, double rssiDbm, std::shared_ptr<Dect2020ExtSubslotScanContext> context)
-{
-    context->subslotCount++;
-    NS_LOG_FUNCTION(this << channelId << rssiDbm << Simulator::Now().GetSeconds());
-
-    auto dectChannels = m_channelManager->GetChannels();
-
-    SubslotStatus currentSubslotStatus = EvaluateSubslot(rssiDbm);
-    if (currentSubslotStatus == SubslotStatus::FREE)
-    {
-        context->evaluation.free++;
-    }
-    else if (currentSubslotStatus == SubslotStatus::POSSIBLE)
-    {
-        context->evaluation.possible++;
-    }
-    else if (currentSubslotStatus == SubslotStatus::BUSY)
-    {
-        context->evaluation.busy++;
-    }
-    
-    if (context->subslotCount == context->totalSubslots)
-    {
-        NS_LOG_DEBUG("Adding channel evaluation for channel " << context->channelId);
-        m_channelEvaluations.push_back(context->evaluation);
-    }
-
-    if (m_channelEvaluations.size() == dectChannels.size())
-    {
-        SelectOperatingChannel();
-    }
-}
-
-void
-Dect2020ExtMac::MeasureRSSIOnChannel(Ptr<Dect2020ExtChannel> channel, int64_t frameDurationNs, uint32_t numSubslots, std::shared_ptr<Dect2020ExtSubslotScanContext> context)
-{
-    NS_LOG_FUNCTION(this << channel->m_channelId);
-    uint32_t subslotIndex = 0;
-
-    for (auto& slot : channel->m_slots)
-    {
-        for (auto& _ : slot.subslots)
-        {
-            // Calculate delay based on proportion of frame duration to avoid rounding accumulation
-            int64_t subslotRssiMeasurementDelayNs = (frameDurationNs * subslotIndex) / numSubslots;
-            int64_t subslotDurationNs = (frameDurationNs * (subslotIndex + 1)) / numSubslots - subslotRssiMeasurementDelayNs;
-
-            Simulator::Schedule(NanoSeconds(subslotRssiMeasurementDelayNs), 
-                              static_cast<void (Dect2020ExtChannelManager::*)(std::shared_ptr<Dect2020ExtSubslotScanContext>, TimeValue)>(&Dect2020ExtChannelManager::MeasureRssi), 
-                              m_channelManager, context, TimeValue(NanoSeconds(subslotDurationNs)));
-            subslotIndex++;
-        }
-    }
 }
 
 void
