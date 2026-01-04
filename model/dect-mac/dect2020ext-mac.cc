@@ -429,41 +429,6 @@ void
 Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext)
 {
     NS_LOG_FUNCTION(this);
-    
-    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    
-    // First, check if all channels are present in the background scan context
-    bool allChannelsPresent = true;
-    std::vector<uint16_t> missingChannels;
-    
-    for (uint16_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; ++channelNumber)
-    {
-        auto channelIt = backgroundScanContext->channelContexts.find(channelNumber);
-        if (channelIt != backgroundScanContext->channelContexts.end())
-        {
-            NS_LOG_INFO("Channel " << channelNumber << " exists in the background scan context");
-        }
-        else
-        {
-            NS_LOG_WARN("Channel " << channelNumber << " is MISSING from the background scan context");
-            allChannelsPresent = false;
-            missingChannels.push_back(channelNumber);
-        }
-    }
-    
-    if (!allChannelsPresent)
-    {
-        NS_LOG_ERROR("Not all channels are present. Missing " << missingChannels.size() << " channels:");
-        for (uint16_t ch : missingChannels)
-        {
-            NS_LOG_ERROR("  - Channel " << ch);
-        }
-        return;
-    }
-    
-    NS_LOG_INFO("All channels present. Proceeding with RSSI processing...");
-    
-    // TODO: Use channelRssiMap to select the best operating channel
 }
 
 void
@@ -481,7 +446,7 @@ Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnCha
     // Store the RSSI sample
     context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
     
-    NS_LOG_INFO("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
+    // NS_LOG_INFO("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
 }
 
 void
@@ -501,7 +466,7 @@ Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContex
     {
         double samplingOffsetNs = baseSamplingOffsetNs * sampleIndex;
 
-        NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
+        // NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
         Simulator::Schedule(NanoSeconds(samplingOffsetNs), &Dect2020ExtMac::SampleRSSIFromInterference, this, channelContext, subslotNumber);
     }
 
@@ -516,17 +481,14 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
     backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
     if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
+        NS_LOG_INFO("Finished scanning all subslots on channel " << channelContext->channelNumber);
         NS_LOG_INFO("Finished scanning all channels");
         OperatingChannelSelection(backgroundScanContext);
     }
-    else
+
+    else if (subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
-        uint32_t totalSubslotsScanned = backgroundScanContext->channelContexts[channelContext->channelNumber]->rssiAverages.size();
-        uint32_t samplesPerSubslot = backgroundScanContext->channelContexts[channelContext->channelNumber]->rssiAverages[0].size();
-        NS_LOG_INFO("Finished scanning channel " << channelContext->channelNumber);
-        NS_LOG_INFO("Total subslots scanned: " << totalSubslotsScanned);
-        NS_LOG_INFO("Samples per subslot: " << samplesPerSubslot);
-        NS_LOG_INFO("Subslot number: " << subslotNumber);
+        NS_LOG_INFO("Finished scanning all subslots on channel " << channelContext->channelNumber);
     }
 }
 
@@ -560,15 +522,17 @@ Dect2020ExtMac::BackgroundScan()
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
     double baseScanDelayMs = 0;
 
+    // Create context for background scan
+    std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
+
     for (uint32_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
     {
-        // Create parent context for background scan
-        std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
-
+        // Create context for each channel scan
         std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
         channelContext->channelNumber = channelNumber;
 
         // Schedule MeasureRSSI1OnChannel for the channel
+        // Use one background scan context for all channels
         Simulator::Schedule(MilliSeconds(baseScanDelayMs), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
         baseScanDelayMs += 10; // 10ms delay between channels (frame duration)
     }
