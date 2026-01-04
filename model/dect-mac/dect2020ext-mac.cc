@@ -429,6 +429,71 @@ void
 Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext)
 {
     NS_LOG_FUNCTION(this);
+    std::map<uint16_t, std::vector<double>> channelRssiAverages; // [channelNumber][vector of RSSI1 averages per subslots]
+    std::vector<Dect2020ExtChannelEvaluation> evaluations;
+
+    for (auto it = backgroundScanContext->channelContexts.begin(); it != backgroundScanContext->channelContexts.end(); ++it)
+    {
+        // each subslot
+        for (auto &subslot : it->second->rssiAverages)
+        {
+            double averageRssi = 0; // average RSSI1 of the subslot
+            // each rssi sample
+            for (auto rssiSample : subslot)
+            {
+                averageRssi += rssiSample;
+            }
+            averageRssi /= subslot.size();
+            channelRssiAverages[it->first].push_back(averageRssi);
+        }
+    }
+    for (auto it = channelRssiAverages.begin(); it != channelRssiAverages.end(); ++it)
+    {
+        // Create an evaluation for each channel
+        Dect2020ExtChannelEvaluation evaluation;
+        evaluation.channelId = it->first;
+
+        for (uint32_t subslotNumber = 0; subslotNumber < it->second.size(); ++subslotNumber)
+        {
+            // NS_LOG_INFO("Subslot " << subslotNumber << " RSSI: " << it->second[subslotNumber]);
+            double rssi = it->second[subslotNumber];
+            if (rssi <= RSSI_THRESHOLD_MIN)
+            {
+                evaluation.free++;
+            }
+            else if (rssi > RSSI_THRESHOLD_MIN && rssi <= RSSI_THRESHOLD_MAX)
+            {
+                evaluation.possible++;
+            }
+            else if (rssi > RSSI_THRESHOLD_MAX)
+            {
+                evaluation.busy++;
+            }
+        }
+        evaluations.push_back(evaluation);
+    }
+
+    // Sort by free subslots
+    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
+    {
+        return a.free > b.free;
+    };
+    
+    std::stable_sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
+    
+    if (!evaluations.empty())
+    {
+        m_operatingChannelId = evaluations[0].channelId;
+        NS_LOG_INFO("Selected Operating Channel: " << m_operatingChannelId 
+                    << " with " << evaluations[0].free << " free subslots");
+
+        NS_LOG_LOGIC("Selected Operating Channel: " << m_operatingChannelId 
+                    << " with " << evaluations[0].free << " free subslots");
+    }
+    else
+    {
+        NS_LOG_WARN("No channel evaluations available for selection");
+    }
 }
 
 void
