@@ -193,12 +193,10 @@ set(dect2020ext_mac_header_type_test_src
     test/mac-header-type/test.cc
     test/mac-header-type/serialization-test-case.cc)
 
-# # Mac Multiplexing Header Test
-# set(mac_multiplexing_header_test_src
-#     test/mac-multiplexing-header/mac-multiplexing-header-type-c/test.cc
-#     test/mac-multiplexing-header/mac-multiplexing-header-type-c/payload-insertion-test-case.cc
-#     test/mac-multiplexing-header/mac-multiplexing-header-type-c/serialization-test-case.cc)
-
+# Mac Multiplexing Header Test
+set(mac_multiplexing_header_test_src
+    test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-test.cc
+    test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-serialization-test-case.cc)
 
 # set(route_info_ie_test_src
 #     test/information-elements/route-info-ie/test.cc
@@ -240,6 +238,7 @@ build_lib(
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_configuration_test_src}
         ${dect2020ext_message_test_src}
+        ${mac_multiplexing_header_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
         # ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
