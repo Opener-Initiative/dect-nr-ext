@@ -29,8 +29,7 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoSetup()
 void
 Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
 {
-    // 1. Build a Network Beacon Message
-    Ptr<Packet> networkBeacon = Create<Packet>();
+    Ptr<Packet> packet = Create<Packet>();
 
     // Network Beacon Message IE
     Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
@@ -43,28 +42,36 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
     networkBeaconMessageIE.SetNextClusterChannel(1657);
     networkBeaconMessageIE.SetTimeToNext(0);
 
-    // Time timeToNext = m_nextNetworkBeaconTime - Simulator::Now();
-    // networkBeaconMessageIE.SetTimeToNext(timeToNext.GetMilliSeconds());
+    // Packet size should be 0
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 0, "Should be 0");
 
-    networkBeacon->AddHeader(networkBeaconMessageIE);
+    packet->AddHeader(networkBeaconMessageIE);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 8, "Should be 8");
 
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
     mxHeaderTypeA.SetMacExtensionFieldEncoding(0); // No length field included in the IE Header
     mxHeaderTypeA.SetLengthField(0); // No length field included in the IE Header
     mxHeaderTypeA.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::NETWORK_BEACON_MESSAGE);
 
-    networkBeacon->AddHeader(mxHeaderTypeA);
+    packet->AddHeader(mxHeaderTypeA);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 9, "Should be 9");
 
     Dect2020ExtBeaconHeader beaconHeader;
     beaconHeader.SetNetworkId(24);
     beaconHeader.SetTransmitterAddress(25);
 
-    networkBeacon->AddHeader(beaconHeader);
+    packet->AddHeader(beaconHeader);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 16, "Should be 16");
 
     Dect2020ExtMacHeaderType macHeaderType;
     macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER);
 
-    networkBeacon->AddHeader(macHeaderType);
+    packet->AddHeader(macHeaderType);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 17, "Should be 17");
 }
 
 } // namespace ns3
