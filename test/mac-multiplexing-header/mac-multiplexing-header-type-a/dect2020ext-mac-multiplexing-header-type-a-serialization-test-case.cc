@@ -53,9 +53,7 @@ Dect2020ExtMacMultiplexingHeaderTypeASerializationTestCase::DoRun()
 
     NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 0, "After removing header packet size should be 0");
 
-    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetMacExtensionFieldEncoding(), 
-                          originalHeader.GetMacExtensionFieldEncoding(),
-                          "Mac extension field encoding should be the same as the original header");
+    NS_TEST_ASSERT_MSG_EQ(originalHeader.GetIeTypeFieldEncoding(), deserializedHeader.GetIeTypeFieldEncoding(), "");
 }
 
 } // namespace ns3
