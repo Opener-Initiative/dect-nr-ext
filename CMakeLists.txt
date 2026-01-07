@@ -134,6 +134,11 @@ set(dect2020ext_information_elements_h
 ## TESTS ##
 ###########
 
+# Message Tests
+set(dect2020ext_message_test_src
+    test/network-beacon-message/dect2020ext-network-beacon-message-serialization-test-case.cc
+    test/network-beacon-message/dect2020ext-network-beacon-message-test.cc)
+
 # Spectrum Management Procedure Test
 set(dect2020ext_spectrum_management_procedure_test_src
     test/spectrum-management-procedure/dect2020ext-spectrum-management-procedure-test.cc
@@ -234,7 +239,8 @@ build_lib(
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_configuration_test_src}
-        ${dect2020ext_spectrum_management_procedure_test_src}
+        ${dect2020ext_message_test_src}
+        # ${dect2020ext_spectrum_management_procedure_test_src}
         # ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}

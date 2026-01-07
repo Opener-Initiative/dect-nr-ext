@@ -11,7 +11,7 @@ class Dect2020ExtNetworkBeaconMessageIESerializationTest : public TestSuite
 };
 
 Dect2020ExtNetworkBeaconMessageIESerializationTest::Dect2020ExtNetworkBeaconMessageIESerializationTest() 
-    : TestSuite("dect2020ext-network-beacon-message-ie-serialization-test", Type::UNIT)
+    : TestSuite("dect2020ext-network-beacon-message-ie-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtNetworkBeaconMessageIESerializationTestCase(), TestCase::Duration::QUICK);
 }

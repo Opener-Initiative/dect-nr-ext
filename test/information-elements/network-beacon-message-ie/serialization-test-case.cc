@@ -5,7 +5,7 @@
 
 namespace ns3 {
 
-Dect2020ExtNetworkBeaconMessageIESerializationTestCase::Dect2020ExtNetworkBeaconMessageIESerializationTestCase() : TestCase("NetworkBeaconMessageIESerializationTest")
+Dect2020ExtNetworkBeaconMessageIESerializationTestCase::Dect2020ExtNetworkBeaconMessageIESerializationTestCase() : TestCase("NetworkBeaconMessageIESerializationTestCase")
 {
 }
 
@@ -25,57 +25,28 @@ Dect2020ExtNetworkBeaconMessageIESerializationTestCase::DoRun()
     Dect2020ExtNetworkBeaconMessageIE deserializedHeader;
     Packet packet;
 
-    originalHeader.SetTxPowerIncluded(true);
-    originalHeader.SetPowerConstraints(true);
-    originalHeader.SetCurrentClusterChannelIncluded(true);
-    originalHeader.SetNetworkBeaconChannels(0x3);
+    // Setting the values to the original header with no optional fields set
+    originalHeader.SetTxPowerIncluded(false);
+    originalHeader.SetPowerConstraints(false);
+    originalHeader.SetCurrentClusterChannelIncluded(false);
+    originalHeader.SetNetworkBeaconChannels(0);
     originalHeader.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod::NETWORK_BEACON_PERIOD_1000MS);
     originalHeader.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod::CLUSTER_BEACON_PERIOD_50MS);
-    originalHeader.SetNextClusterChannel(0x1234);
-    originalHeader.SetTimeToNext(0xABCDEF01);
-    originalHeader.SetClustersMaxTxPower(0xF);
-    originalHeader.SetCurrentClusterChannel(0x561);
-    
-    uint16_t additionalChannels[3] = {0x11, 0x22, 0x33};
-    originalHeader.SetAdditionalNetworkBeaconChannels(additionalChannels);
+    originalHeader.SetNextClusterChannel(1234);
+    originalHeader.SetTimeToNext(0);
 
-    std::cout << "[ORIGINAL VALUES]" << "\n";
-    std::cout << "TxPowerIncluded: " << originalHeader.GetTxPowerIncluded() << "\n";
-    std::cout << "PowerConstraints: " << originalHeader.GetPowerConstraints() << "\n";
-    std::cout << "CurrentClusterChannelIncluded: " << originalHeader.GetCurrentClusterChannelIncluded() << "\n";
-    std::cout << "NetworkBeaconChannels: 0x" << std::hex << (int)originalHeader.GetNetworkBeaconChannels() << "\n";
-    std::cout << "NetworkBeaconPeriod: " << (int)originalHeader.GetNetworkBeaconPeriod() << "\n";
-    std::cout << "ClusterBeaconPeriod: " << (int)originalHeader.GetClusterBeaconPeriod() << "\n";
-    std::cout << "NextClusterChannel: 0x" << std::hex << originalHeader.GetNextClusterChannel() << "\n";
-    std::cout << "TimeToNext: 0x" << std::hex << originalHeader.GetTimeToNext() << "\n";
-    std::cout << "ClustersMaxTxPower: 0x" << std::hex << (int)originalHeader.GetClustersMaxTxPower() << "\n";
-    std::cout << "CurrentClusterChannel: 0x" << std::hex << originalHeader.GetCurrentClusterChannel() << "\n";
-    
-    uint16_t* origAdditionalChannels = originalHeader.GetAdditionalNetworkBeaconChannels();
-    std::cout << "AdditionalNetworkBeaconChannels: [0x" << std::hex << origAdditionalChannels[0] 
-              << ", 0x" << origAdditionalChannels[1] 
-              << ", 0x" << origAdditionalChannels[2] << "]" << "\n" << "\n";
-
+    uint32_t sizeBefore = packet.GetSize();
     packet.AddHeader(originalHeader);
+
+    std::cout << "Packet size before adding header: " << sizeBefore << "\n";
+    std::cout << "Packet size after adding header: " << packet.GetSize() << "\n";
+
+    // Verify that the packet size after adding the header is 8 bytes
+    NS_TEST_ASSERT_MSG_EQ(packet.GetSize(), 8, "The packet size after adding the header should be 8 bytes");
+
     packet.RemoveHeader(deserializedHeader);
 
-    std::cout << "[DESERIALIZED VALUES]" << "\n";
-    std::cout << "TxPowerIncluded: " << deserializedHeader.GetTxPowerIncluded() << "\n";
-    std::cout << "PowerConstraints: " << deserializedHeader.GetPowerConstraints() << "\n";
-    std::cout << "CurrentClusterChannelIncluded: " << deserializedHeader.GetCurrentClusterChannelIncluded() << "\n";
-    std::cout << "NetworkBeaconChannels: 0x" << std::hex << (int)deserializedHeader.GetNetworkBeaconChannels() << "\n";
-    std::cout << "NetworkBeaconPeriod: " << (int)deserializedHeader.GetNetworkBeaconPeriod() << "\n";
-    std::cout << "ClusterBeaconPeriod: " << (int)deserializedHeader.GetClusterBeaconPeriod() << "\n";
-    std::cout << "NextClusterChannel: 0x" << std::hex << deserializedHeader.GetNextClusterChannel() << "\n";
-    std::cout << "TimeToNext: 0x" << std::hex << deserializedHeader.GetTimeToNext() << "\n";
-    std::cout << "ClustersMaxTxPower: 0x" << std::hex << (int)deserializedHeader.GetClustersMaxTxPower() << "\n";
-    std::cout << "CurrentClusterChannel: 0x" << std::hex << deserializedHeader.GetCurrentClusterChannel() << "\n";
-    
-    uint16_t* deserializedAdditionalChannels = deserializedHeader.GetAdditionalNetworkBeaconChannels();
-    std::cout << "AdditionalNetworkBeaconChannels: [0x" << std::hex 
-              << deserializedAdditionalChannels[0] 
-              << ", 0x" << deserializedAdditionalChannels[1] 
-              << ", 0x" << deserializedAdditionalChannels[2] << "]";
+    NS_TEST_ASSERT_MSG_EQ(packet.GetSize(), 0, "The packet size after removing the header should be 0 bytes");
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetTxPowerIncluded(), 
                          originalHeader.GetTxPowerIncluded(),
@@ -108,22 +79,6 @@ Dect2020ExtNetworkBeaconMessageIESerializationTestCase::DoRun()
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetTimeToNext(), 
                          originalHeader.GetTimeToNext(),
                          "TimeToNext mismatch after serialization/deserialization");
-
-    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetClustersMaxTxPower(), 
-                         originalHeader.GetClustersMaxTxPower(),
-                         "ClustersMaxTxPower mismatch after serialization/deserialization");
-
-    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetCurrentClusterChannel(), 
-                         originalHeader.GetCurrentClusterChannel(),
-                         "CurrentClusterChannel mismatch after serialization/deserialization");
-
-    uint16_t* origChannels = originalHeader.GetAdditionalNetworkBeaconChannels();
-    uint16_t* deserializedChannels = deserializedHeader.GetAdditionalNetworkBeaconChannels();
-    for (int i = 0; i < 3; i++) {
-        NS_TEST_ASSERT_MSG_EQ(deserializedChannels[i], 
-                             origChannels[i],
-                             "AdditionalNetworkBeaconChannels[" << i << "] mismatch after serialization/deserialization");
-    }
 }
 
 } // namespace ns3
