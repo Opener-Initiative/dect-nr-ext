@@ -168,25 +168,9 @@ set(dect2020ext_information_elements_test_src
 
 # MAC Common Headers
 
-# # Unicast Header Test
-# set(unicast_header_test_src
-#     test/mac-common-headers/unicast-header/test.cc
-#     test/mac-common-headers/unicast-header/serialization-test-case.cc)
-
-# # Rd Broadcasting Header Test
-# set(rd_broadcasting_header_test_src
-#     test/mac-common-headers/rd-broadcasting-header/test.cc
-#     test/mac-common-headers/rd-broadcasting-header/serialization-test-case.cc)
-
-# # Data Mac PDU Test
-# set(data_mac_pdu_test_src
-#     test/mac-common-headers/data-mac-pdu/test.cc
-#     test/mac-common-headers/data-mac-pdu/serialization-test-case.cc)
-
-# # Beacon Header Test
-# set(beacon_header_test_src
-#     test/mac-common-headers/beacon-header/test.cc
-#     test/mac-common-headers/beacon-header/serialization-test-case.cc)
+set(dect2020ext_mac_common_headers_test_src
+    test/mac-common-headers/beacon-header/dect2020ext-beacon-header-test.cc
+    test/mac-common-headers/beacon-header/dect2020ext-beacon-header-serialization-test-case.cc)
 
 # Mac Header Type Test
 set(dect2020ext_mac_header_type_test_src
@@ -239,6 +223,7 @@ build_lib(
         ${dect2020ext_configuration_test_src}
         ${dect2020ext_message_test_src}
         ${mac_multiplexing_header_test_src}
+        ${dect2020ext_mac_common_headers_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
         # ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
