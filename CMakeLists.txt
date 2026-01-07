@@ -174,8 +174,8 @@ set(dect2020ext_mac_common_headers_test_src
 
 # Mac Header Type Test
 set(dect2020ext_mac_header_type_test_src
-    test/mac-header-type/test.cc
-    test/mac-header-type/serialization-test-case.cc)
+    test/mac-header-type/dect2020ext-mac-header-type-test.cc
+    test/mac-header-type/dect2020ext-mac-header-type-serialization-test-case.cc)
 
 # Mac Multiplexing Header Test
 set(mac_multiplexing_header_test_src
@@ -224,8 +224,8 @@ build_lib(
         ${dect2020ext_message_test_src}
         ${mac_multiplexing_header_test_src}
         ${dect2020ext_mac_common_headers_test_src}
+        ${dect2020ext_mac_header_type_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
-        # ${dect2020ext_mac_header_type_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}
