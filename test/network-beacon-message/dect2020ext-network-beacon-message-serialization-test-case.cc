@@ -34,13 +34,14 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
 
     // Network Beacon Message IE
     Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
-    networkBeaconMessageIE.SetTxPowerIncluded(1);
-    networkBeaconMessageIE.SetPowerConstraints(0);
-    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(0);
+    networkBeaconMessageIE.SetTxPowerIncluded(false);
+    networkBeaconMessageIE.SetPowerConstraints(false);
+    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(false);
     networkBeaconMessageIE.SetNetworkBeaconChannels(0);
     networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
     networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
     networkBeaconMessageIE.SetNextClusterChannel(1657);
+    networkBeaconMessageIE.SetTimeToNext(0);
 
     // Time timeToNext = m_nextNetworkBeaconTime - Simulator::Now();
     // networkBeaconMessageIE.SetTimeToNext(timeToNext.GetMilliSeconds());

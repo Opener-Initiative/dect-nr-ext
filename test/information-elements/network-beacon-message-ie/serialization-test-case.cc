@@ -32,7 +32,7 @@ Dect2020ExtNetworkBeaconMessageIESerializationTestCase::DoRun()
     originalHeader.SetNetworkBeaconChannels(0);
     originalHeader.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod::NETWORK_BEACON_PERIOD_1000MS);
     originalHeader.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod::CLUSTER_BEACON_PERIOD_50MS);
-    originalHeader.SetNextClusterChannel(1234);
+    originalHeader.SetNextClusterChannel(1657);
     originalHeader.SetTimeToNext(0);
 
     uint32_t sizeBefore = packet.GetSize();
