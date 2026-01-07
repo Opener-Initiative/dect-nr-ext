@@ -153,8 +153,8 @@ set(dect2020ext_configuration_test_src
 
 # Physical Header Field
 set(dect2020ext_physical_header_field_test_src
-    test/physical-header-field/test.cc
-    test/physical-header-field/type-1/serialization-test-case-1.cc)
+    test/physical-header-field/dect2020ext-physical-header-field-test.cc
+    test/physical-header-field/dect2020ext-physical-header-field-serialization-test-case.cc)
 
 # Information Elements Tests
 

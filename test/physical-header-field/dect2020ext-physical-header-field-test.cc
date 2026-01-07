@@ -1,4 +1,4 @@
-#include "type-1/serialization-test-case-1.h"
+#include "dect2020ext-physical-header-field-serialization-test-case.h"
 
 #include "ns3/test.h"
 
@@ -13,9 +13,9 @@ class Dect2020ExtPhysicalHeaderFieldTest : public TestSuite
 };
 
 Dect2020ExtPhysicalHeaderFieldTest::Dect2020ExtPhysicalHeaderFieldTest() 
-    : TestSuite("dect2020ext-physical-header-field-serialization-test", Type::UNIT)
+    : TestSuite("dect2020ext-physical-header-field-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020ExtPhysicalHeaderFieldSerializationTestCase1(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtPhysicalHeaderFieldSerializationTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020ExtPhysicalHeaderFieldTest::~Dect2020ExtPhysicalHeaderFieldTest()

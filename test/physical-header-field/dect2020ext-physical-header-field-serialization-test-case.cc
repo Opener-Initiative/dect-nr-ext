@@ -1,25 +1,25 @@
-#include "serialization-test-case-1.h"
+#include "dect2020ext-physical-header-field-serialization-test-case.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::Dect2020ExtPhysicalHeaderFieldSerializationTestCase1() 
-    : TestCase("PhysicalHeaderFieldSerializationTestCase1")
+Dect2020ExtPhysicalHeaderFieldSerializationTestCase::Dect2020ExtPhysicalHeaderFieldSerializationTestCase() 
+    : TestCase("Dect2020ExtPhysicalHeaderFieldSerializationTestCase")
 {
 }
 
-Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::~Dect2020ExtPhysicalHeaderFieldSerializationTestCase1()
-{
-}
-
-void
-Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoSetup()
+Dect2020ExtPhysicalHeaderFieldSerializationTestCase::~Dect2020ExtPhysicalHeaderFieldSerializationTestCase()
 {
 }
 
 void
-Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoRun()
+Dect2020ExtPhysicalHeaderFieldSerializationTestCase::DoSetup()
+{
+}
+
+void
+Dect2020ExtPhysicalHeaderFieldSerializationTestCase::DoRun()
 {
     Dect2020ExtPHYControlFieldType1 originalHeader;
     Dect2020ExtPHYControlFieldType1 deserializedHeader;
@@ -29,7 +29,7 @@ Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoRun()
     uint8_t packetLengthType = 1;
     uint8_t packetLength = 0x5; // 0101 -> 5
     uint8_t shortNetworkID = 0xAF; // 1010 1111 -> 175
-    uint16_t transmitterIdentity = 0xF2AF; // 1111 0010 1010 1111 -> 61615
+    uint16_t transmitterIdentity = 65535;
     uint8_t transmitPower = 0xC; // 1100 -> 12
     uint8_t DFMCS = 0x7; // 0011 -> 7
 
@@ -40,8 +40,15 @@ Dect2020ExtPhysicalHeaderFieldSerializationTestCase1::DoRun()
     originalHeader.SetTransmitPower(transmitPower);
     originalHeader.SetDFMCS(DFMCS);
 
+    NS_TEST_ASSERT_MSG_EQ(packet.GetSize(), 0, "Should be 0");
+
     packet.AddHeader(originalHeader);
+
+    NS_TEST_ASSERT_MSG_EQ(packet.GetSize(), 5, "Should be 5");
+
     packet.RemoveHeader(deserializedHeader);
+
+    NS_TEST_ASSERT_MSG_EQ(packet.GetSize(), 0, "Should be 0");
 
     std::cout << "[DESERIALIZED VALUES]" << "\n";
     std::cout << "Header format: " << (int)deserializedHeader.GetHeaderFormat() << "\n";
