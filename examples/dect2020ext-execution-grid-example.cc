@@ -25,7 +25,7 @@ main(int argc, char *argv[])
     executionGrid->Initialize();
     executionGrid->StartExecutionGrid();
 
-    Simulator::Stop(MilliSeconds(10));
+    Simulator::Stop(MilliSeconds(20));
     Simulator::Run();
     Simulator::Destroy();
     return 0;

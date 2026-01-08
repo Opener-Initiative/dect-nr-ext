@@ -106,13 +106,14 @@ public:
 
     void StartExecutionGrid();
     void ScheduleNextExecutionGrid();
-    void ProcessSlot();
-    void ProcessSubslot();
+    void ProcessSlot(uint32_t slotNumber);
+    void ProcessSubslot(uint32_t subslotNumber);
     double GetTimeTillNextFrameNs() const;
     double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+    void ScheduleOperation(Dect2020ExtExecutionGridOperation operation);
 
     // Setters and Getters
 
@@ -120,6 +121,7 @@ public:
     void SetMac(Ptr<Dect2020ExtMac> mac);
 
     // Configuration
+
     void PrintConfiguration() const;
 
     void PrintExecutionGrid() const;
@@ -130,6 +132,8 @@ private:
     Time m_currentFrameStartTime;
     uint32_t m_SFN; // System Frame Number
     Ptr<Dect2020ExtMac> m_mac;
+    uint32_t m_currentSlotNumber;
+    uint32_t m_currentSubslotNumber;
 
     // Configuration
 

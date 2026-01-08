@@ -212,16 +212,16 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
         double slotStartTime = slotNumber * SLOT_DURATION_NS;
-        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSlot, this);
+        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSlot, this, slotNumber);
     }
 
     for (uint32_t subslotNumber = 0; subslotNumber < numSubslotsPerFrame; subslotNumber++)
     {
         double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
-        Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
+        Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this, subslotNumber);
     }
 
-    // ScheduleNextExecutionGrid();
+    ScheduleNextExecutionGrid();
 }
 
 void
@@ -233,17 +233,19 @@ Dect2020ExtExecutionGrid::ScheduleNextExecutionGrid()
 }
 
 void
-Dect2020ExtExecutionGrid::ProcessSlot()
+Dect2020ExtExecutionGrid::ProcessSlot(uint32_t slotNumber)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
+    NS_LOG_INFO("Processing slot " << slotNumber << " at time: " << Simulator::Now());
+    m_currentSlotNumber = slotNumber;
 }
 
 void
-Dect2020ExtExecutionGrid::ProcessSubslot()
+Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
+    NS_LOG_INFO("Processing subslot " << subslotNumber << " at time: " << Simulator::Now());
+    m_currentSubslotNumber = subslotNumber;
 }
 
 double
@@ -303,6 +305,12 @@ Dect2020ExtExecutionGrid::GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) cons
     uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
     uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
     return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotEndTimeNs;
+}
+
+void
+Dect2020ExtExecutionGrid::ScheduleOperation(Dect2020ExtExecutionGridOperation operation)
+{
+
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>
