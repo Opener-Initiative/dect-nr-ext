@@ -6,6 +6,7 @@
 #include "ns3/uinteger.h"
 #include "ns3/pointer.h"
 
+#include <cstdint>
 #include <sstream>
 
 namespace ns3
@@ -30,54 +31,6 @@ Dect2020ExtExecutionGridOperation::~Dect2020ExtExecutionGridOperation()
 {
 }
 
-
-void
-Dect2020ExtExecutionGridOperation::SetOperationType(OperationType operationType)
-{
-    m_operationType = operationType;
-}
-
-Dect2020ExtExecutionGridOperation::OperationType
-Dect2020ExtExecutionGridOperation::GetOperationType() const
-{
-    return m_operationType;
-}
-
-void
-Dect2020ExtExecutionGridOperation::SetStartSubslot(uint32_t startSubslot)
-{
-    m_startSubslot = startSubslot;
-}
-
-uint32_t
-Dect2020ExtExecutionGridOperation::GetStartSubslot() const
-{
-    return m_startSubslot;
-}
-
-void
-Dect2020ExtExecutionGridOperation::SetEndSubslot(uint32_t endSubslot)
-{
-    m_endSubslot = endSubslot;
-}
-
-uint32_t
-Dect2020ExtExecutionGridOperation::GetEndSubslot() const
-{
-    return m_endSubslot;
-}
-
-void
-Dect2020ExtExecutionGridOperation::SetResource(Ptr<Packet> resource)
-{
-    m_resource = resource;
-}
-
-Ptr<Packet>
-Dect2020ExtExecutionGridOperation::GetResource() const
-{
-    return m_resource;
-}
 
 // #########################################
 // #### Dect2020ExtExecutionGridSubslot ####
@@ -179,11 +132,19 @@ Dect2020ExtExecutionGrid::Initialize()
             {
                 double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
                 double subslotEndTime = (subslotNumber + 1) * (SLOT_DURATION_NS / numSubslotsPerSlot);
+
+                Dect2020ExtExecutionGridOperation operation;
+                operation.m_operationType = Dect2020ExtExecutionGridOperation::IDLE;
+                operation.m_channelNumber = absoluteChannelNumber;
+                operation.m_startSubslot = subslotNumber;
+                operation.m_endSubslot = subslotNumber;
+
                 Dect2020ExtExecutionGridSubslot subslot;
                 subslot.m_subslotIndex = subslotIndex;
                 subslot.m_subslotNumber = subslotNumber;
                 subslot.m_subslotStartTimeNs = subslotStartTime;
                 subslot.m_subslotEndTimeNs = subslotEndTime;
+                subslot.operation = operation;
 
                 slot.m_subslots.push_back(subslot);
             }
@@ -246,6 +207,15 @@ Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Processing subslot " << subslotNumber << " at time: " << Simulator::Now());
     m_currentSubslotNumber = subslotNumber;
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+
+    for (uint16_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
+    {
+        if (GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operationType == Dect2020ExtExecutionGridOperation::TEST)
+        {
+            NS_LOG_INFO("Detected TEST operation");
+        }
+    }
 }
 
 double
@@ -307,10 +277,29 @@ Dect2020ExtExecutionGrid::GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) cons
     return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotEndTimeNs;
 }
 
+Dect2020ExtExecutionGridSubslot
+Dect2020ExtExecutionGrid::GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const
+{
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
+    uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
+    return m_executionGrid.at(channelNumber).at(slotNumber).m_subslots.at(subslotIndex);
+}
+
 void
 Dect2020ExtExecutionGrid::ScheduleOperation(Dect2020ExtExecutionGridOperation operation)
 {
-
+    if (operation.m_startSubslot == operation.m_endSubslot)
+    {
+        uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+        uint32_t subslotIndex = operation.m_startSubslot % numSubslotsPerSlot;
+        uint32_t slotNumber = operation.m_startSubslot / numSubslotsPerSlot;
+        m_executionGrid.at(operation.m_channelNumber).at(slotNumber).m_subslots.at(subslotIndex).operation = operation;
+    }
+    else
+    {
+        // TBD
+    }
 }
 
 std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>

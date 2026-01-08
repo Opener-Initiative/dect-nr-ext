@@ -25,6 +25,13 @@ main(int argc, char *argv[])
     executionGrid->Initialize();
     executionGrid->StartExecutionGrid();
 
+    Dect2020ExtExecutionGridOperation operation;
+    operation.m_operationType = ns3::Dect2020ExtExecutionGridOperation::TEST;
+    operation.m_channelNumber = 1657;
+    operation.m_startSubslot = 0;
+    operation.m_endSubslot = 0;
+    executionGrid->ScheduleOperation(operation);
+
     Simulator::Stop(MilliSeconds(20));
     Simulator::Run();
     Simulator::Destroy();

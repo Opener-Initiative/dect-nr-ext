@@ -29,24 +29,15 @@ class Dect2020ExtExecutionGridOperation
 public:
     enum OperationType
     {
+        TEST, // Only for testing !!!
         IDLE
     };
 
     Dect2020ExtExecutionGridOperation();
     virtual ~Dect2020ExtExecutionGridOperation();
 
-    // Setters and Getters
-    void SetOperationType(OperationType operationType);
-    OperationType GetOperationType() const;
-    void SetStartSubslot(uint32_t startSubslot);
-    uint32_t GetStartSubslot() const;
-    void SetEndSubslot(uint32_t endSubslot);
-    uint32_t GetEndSubslot() const;
-    void SetResource(Ptr<Packet> resource);
-    Ptr<Packet> GetResource() const;
-
-private:
     OperationType m_operationType;
+    uint16_t m_channelNumber;
     uint32_t m_startSubslot;
     uint32_t m_endSubslot;
     Ptr<Packet> m_resource;
@@ -67,6 +58,7 @@ public:
     double m_subslotEndTimeNs; // End time of the subslot in nanoseconds
     uint32_t m_subslotIndex; // Index of the subslot in the slot
     uint32_t m_subslotNumber; // Number of the subslot in the channel
+    Dect2020ExtExecutionGridOperation operation;
 };
 
 // ######################################
@@ -113,6 +105,7 @@ public:
     double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+    Dect2020ExtExecutionGridSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
     void ScheduleOperation(Dect2020ExtExecutionGridOperation operation);
 
     // Setters and Getters
