@@ -137,7 +137,9 @@ set(dect2020ext_information_elements_h
 # Message Tests
 set(dect2020ext_message_test_src
     test/network-beacon-message/dect2020ext-network-beacon-message-serialization-test-case.cc
-    test/network-beacon-message/dect2020ext-network-beacon-message-test.cc)
+    test/network-beacon-message/dect2020ext-network-beacon-message-test.cc
+    test/cluster-beacon-message/dect2020ext-cluster-beacon-message-serialization-test-case.cc
+    test/cluster-beacon-message/dect2020ext-cluster-beacon-message-test.cc)
 
 # Spectrum Management Procedure Test
 set(dect2020ext_spectrum_management_procedure_test_src
