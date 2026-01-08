@@ -49,7 +49,8 @@ Dect2020ExtClusterBeaconMessageIE::GetInstanceTypeId() const
 uint32_t
 Dect2020ExtClusterBeaconMessageIE::GetSerializedSize() const
 {
-    return 11; // Size in bytes
+    // Note, this size corresponds to the cluster beacon message ie with no additional fields
+    return 4; // Size in bytes
 }
 
 void
@@ -79,22 +80,22 @@ Dect2020ExtClusterBeaconMessageIE::Serialize(Buffer::Iterator start) const
     byte3 |= m_minQuality;
     start.WriteU8(byte3);
 
-    // byte 4
-    uint8_t byte4 = (m_clusterMaxTXPower << 4);
-    byte4 |= (m_frameOffset & 0x0F);
-    start.WriteU8(byte4);
+    // // byte 4
+    // uint8_t byte4 = (m_clusterMaxTXPower << 4);
+    // byte4 |= (m_frameOffset & 0x0F);
+    // start.WriteU8(byte4);
 
-    // byte 5
-    // first 3 bits are reserved
-    uint8_t byte5 = (m_nextClusterChannel >> 8);
-    start.WriteU8(byte5);
+    // // byte 5
+    // // first 3 bits are reserved
+    // uint8_t byte5 = (m_nextClusterChannel >> 8);
+    // start.WriteU8(byte5);
 
-    // byte 6
-    uint8_t byte6 = (m_nextClusterChannel & 0x00FF);
-    start.WriteU8(byte6);
+    // // byte 6
+    // uint8_t byte6 = (m_nextClusterChannel & 0x00FF);
+    // start.WriteU8(byte6);
 
-    // Time To Next
-    start.WriteU32(m_timeToNext);
+    // // Time To Next
+    // start.WriteU32(m_timeToNext);
 }
 
 uint32_t
@@ -128,25 +129,25 @@ Dect2020ExtClusterBeaconMessageIE::Deserialize(Buffer::Iterator start)
     m_minQuality = (byte3 & 0x03);
     bytesRead++;
 
-    // byte 4
-    uint8_t byte4 = start.ReadU8();
-    m_clusterMaxTXPower = (byte4 & 0xF0) >> 4;
-    m_frameOffset = (byte4 & 0x0F);
-    bytesRead++;
+    // // byte 4
+    // uint8_t byte4 = start.ReadU8();
+    // m_clusterMaxTXPower = (byte4 & 0xF0) >> 4;
+    // m_frameOffset = (byte4 & 0x0F);
+    // bytesRead++;
 
-    // Next Cluster Channel
-    uint8_t byte5 = start.ReadU8();
-    m_nextClusterChannel = byte5;
-    bytesRead++;
+    // // Next Cluster Channel
+    // uint8_t byte5 = start.ReadU8();
+    // m_nextClusterChannel = byte5;
+    // bytesRead++;
 
-    uint8_t byte6 = start.ReadU8();
-    m_nextClusterChannel = (m_nextClusterChannel << 8);
-    m_nextClusterChannel |= byte6;
-    bytesRead++;
+    // uint8_t byte6 = start.ReadU8();
+    // m_nextClusterChannel = (m_nextClusterChannel << 8);
+    // m_nextClusterChannel |= byte6;
+    // bytesRead++;
 
-    // Time To Next
-    m_timeToNext = start.ReadU32();
-    bytesRead += 4;
+    // // Time To Next
+    // m_timeToNext = start.ReadU32();
+    // bytesRead += 4;
 
     return bytesRead; // Number of bytes consumed
 }
