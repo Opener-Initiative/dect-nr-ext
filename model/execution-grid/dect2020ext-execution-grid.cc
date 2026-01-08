@@ -1,7 +1,8 @@
 #include "dect2020ext-execution-grid.h"
 
-#include "ns3/simulator.h"
+#include "ns3/dect2020ext-mac.h"
 
+#include "ns3/simulator.h"
 #include "ns3/uinteger.h"
 #include "ns3/pointer.h"
 
@@ -308,6 +309,12 @@ std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>
 Dect2020ExtExecutionGrid::GetExecutionGrid() const
 {
     return m_executionGrid;
+}
+
+void
+Dect2020ExtExecutionGrid::SetMac(Ptr<Dect2020ExtMac> mac)
+{
+    m_mac = mac;
 }
 
 void

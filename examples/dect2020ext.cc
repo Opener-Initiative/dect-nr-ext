@@ -53,6 +53,8 @@ main(int argc, char *argv[])
     ftMAC->SetExecutionGrid(executionGrid);
     ftPHY->SetMac(ftMAC);
 
+    executionGrid->SetMac(ftMAC);
+
     // FT Net Device
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
     ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);

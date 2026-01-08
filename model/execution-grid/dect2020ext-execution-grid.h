@@ -18,6 +18,7 @@ namespace ns3
 // ##############################
 
 class Dect2020ExtChannelManager;
+class Dect2020ExtMac;
 
 // ##################################
 // #### Execution Grid Operation ####
@@ -102,6 +103,7 @@ public:
     void Initialize();
 
     // Execution Grid Operations
+
     void StartExecutionGrid();
     void ScheduleNextExecutionGrid();
     void ProcessSlot();
@@ -113,7 +115,9 @@ public:
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
 
     // Setters and Getters
+
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;
+    void SetMac(Ptr<Dect2020ExtMac> mac);
 
     // Configuration
     void PrintConfiguration() const;
@@ -125,6 +129,7 @@ private:
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
     Time m_currentFrameStartTime;
     uint32_t m_SFN; // System Frame Number
+    Ptr<Dect2020ExtMac> m_mac;
 
     // Configuration
 
@@ -134,6 +139,7 @@ private:
     Ptr<Dect2020ExtChannelManager> m_channelManager;
 
     // Constants
+
     const uint32_t SLOTS_PER_FRAME = 24;
     const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
     const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
