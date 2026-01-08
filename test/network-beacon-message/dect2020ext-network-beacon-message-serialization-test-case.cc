@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-beacon-header.h"
 #include "ns3/dect2020ext-mac-header-type.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-mac.h"
 
 #include "ns3/ptr.h"
 #include "ns3/packet.h"
@@ -29,6 +30,8 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoSetup()
 void
 Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
 {
+    // 1. Build Network Beacon Message
+
     Ptr<Packet> packet = Create<Packet>();
 
     // Network Beacon Message IE
@@ -66,12 +69,58 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
 
     NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 16, "Should be 16");
 
+    // MAC Header Type
     Dect2020ExtMacHeaderType macHeaderType;
     macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER);
 
     packet->AddHeader(macHeaderType);
 
     NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 17, "Should be 17");
+
+    // Physical Header Field
+    Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+
+    packet->AddHeader(physicalHeaderField);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 22, "Should be 22");
+
+    // 2. Here transmission happens
+
+    // 3. Extract all headers from the packet according to the MAC layer's functionality
+
+    // Physical Header Field
+    Dect2020ExtPHYControlFieldType1 r_physicalHeaderField;
+    packet->RemoveHeader(r_physicalHeaderField);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 17, "Should be 17");
+
+    // MAC Header Type
+
+    Dect2020ExtMacHeaderType r_macHeaderType;
+    packet->RemoveHeader(r_macHeaderType);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 16, "Should be 16");
+
+    // Beacon Header
+    
+    Dect2020ExtBeaconHeader r_beaconHeader;
+    packet->RemoveHeader(r_beaconHeader);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 9, "Should be 9");
+
+    // MAC Multiplexing Header
+
+    Dect2020ExtMacMultiplexingHeaderTypeA r_macMxHeader;
+    packet->RemoveHeader(r_macMxHeader);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 8, "Should be 8");
+
+    // Network Beacon Message IE
+
+    Dect2020ExtNetworkBeaconMessageIE r_networkBeaconMessageIE;
+    packet->RemoveHeader(r_networkBeaconMessageIE);
+
+    NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 0, "Should be 0");
 }
 
 } // namespace ns3
