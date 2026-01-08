@@ -212,16 +212,16 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
         double slotStartTime = slotNumber * SLOT_DURATION_NS;
-        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
+        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSlot, this);
     }
 
     for (uint32_t subslotNumber = 0; subslotNumber < numSubslotsPerFrame; subslotNumber++)
     {
-        double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerFrame);
+        double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
         Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this);
     }
 
-    ScheduleNextExecutionGrid();
+    // ScheduleNextExecutionGrid();
 }
 
 void
@@ -236,14 +236,14 @@ void
 Dect2020ExtExecutionGrid::ProcessSlot()
 {
     NS_LOG_FUNCTION(this);
-    // NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
+    NS_LOG_INFO("Processing slot at time: " << Simulator::Now());
 }
 
 void
 Dect2020ExtExecutionGrid::ProcessSubslot()
 {
     NS_LOG_FUNCTION(this);
-    // NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
+    NS_LOG_INFO("Processing subslot at time: " << Simulator::Now());
 }
 
 double
