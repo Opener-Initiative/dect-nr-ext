@@ -211,9 +211,10 @@ Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
 
     for (uint16_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
     {
-        if (GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operationType == Dect2020ExtExecutionGridOperation::TEST)
+        // Execute the operation if its type is not IDLE
+        if (GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operationType != Dect2020ExtExecutionGridOperation::IDLE)
         {
-            NS_LOG_INFO("Detected TEST operation");
+            GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operation();
         }
     }
 }

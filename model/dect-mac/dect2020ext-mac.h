@@ -145,6 +145,9 @@ class Dect2020ExtMac : public Object
             ASSOCIATED
         };
 
+        // Test
+        void TestFunction();
+
         // Initialization
 
         void InitializeDevice(void);

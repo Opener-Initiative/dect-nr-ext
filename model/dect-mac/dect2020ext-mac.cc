@@ -76,6 +76,19 @@ Dect2020ExtMac::GetTypeId(void)
 }
 
 void
+Dect2020ExtMac::TestFunction()
+{
+    if (m_terminationPointType == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    {
+        NS_LOG_INFO("Hi, I am FT!");
+    }
+    else
+    {
+        NS_LOG_INFO("Hi, I am PT!");
+    }
+}
+
+void
 Dect2020ExtMac::InitializeDevice(void)
 {
     NS_LOG_FUNCTION(this);

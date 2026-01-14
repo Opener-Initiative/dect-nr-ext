@@ -41,7 +41,7 @@ public:
     uint32_t m_startSubslot;
     uint32_t m_endSubslot;
     Ptr<Packet> m_resource;
-    //std::function m_operation;
+    std::function<void()> m_operation;
 };
 
 // #########################################
