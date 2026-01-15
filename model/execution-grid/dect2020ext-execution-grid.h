@@ -30,7 +30,9 @@ public:
     enum OperationType
     {
         TEST, // Only for testing !!!
-        IDLE
+        IDLE,
+        TX_NETWORK_BEACON,
+        TX_CLUSTER_BEACON
     };
 
     Dect2020ExtExecutionGridOperation();
@@ -100,13 +102,19 @@ public:
     void ScheduleNextExecutionGrid();
     void ProcessSlot(uint32_t slotNumber);
     void ProcessSubslot(uint32_t subslotNumber);
+
+    // Time and Slot/Subslot Getters
+
     double GetTimeTillNextFrameNs() const;
     double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     Dect2020ExtExecutionGridSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
-    void ScheduleOperation(Dect2020ExtExecutionGridOperation operation);
+
+    // Scheduling
+
+    void ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridOperation operation);
 
     // Setters and Getters
 
@@ -118,6 +126,12 @@ public:
     void PrintConfiguration() const;
 
     void PrintExecutionGrid() const;
+
+    // Constants
+
+    const uint32_t SLOTS_PER_FRAME = 24;
+    const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
+    const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 
 private:
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
@@ -134,12 +148,6 @@ private:
     uint8_t m_subcarrierScalingFactor;
     uint8_t m_fourierTransformScalingFactor;
     Ptr<Dect2020ExtChannelManager> m_channelManager;
-
-    // Constants
-
-    const uint32_t SLOTS_PER_FRAME = 24;
-    const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
-    const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 };
 
 } // namespace ns3

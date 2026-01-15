@@ -288,14 +288,14 @@ Dect2020ExtExecutionGrid::GetSubslotBySubslotNumber(uint16_t channelNumber, uint
 }
 
 void
-Dect2020ExtExecutionGrid::ScheduleOperation(Dect2020ExtExecutionGridOperation operation)
+Dect2020ExtExecutionGrid::ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridOperation operation)
 {
     if (operation.m_startSubslot == operation.m_endSubslot)
     {
         uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
         uint32_t subslotIndex = operation.m_startSubslot % numSubslotsPerSlot;
         uint32_t slotNumber = operation.m_startSubslot / numSubslotsPerSlot;
-        m_executionGrid.at(operation.m_channelNumber).at(slotNumber).m_subslots.at(subslotIndex).operation = operation;
+        m_nextExecutionGrid.at(operation.m_channelNumber).at(slotNumber).m_subslots.at(subslotIndex).operation = operation;
     }
     else
     {

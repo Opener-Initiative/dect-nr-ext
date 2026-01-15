@@ -15,7 +15,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    // LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
 
@@ -33,11 +33,6 @@ main(int argc, char *argv[])
     channelManager->Configure();
     channelManager->InitializeChannels();
 
-    // Execution Grid
-    Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
-    executionGrid->Initialize();
-    // executionGrid->StartExecutionGrid();
-
     // FT Node
     Ptr<Node> ftNode = CreateObject<Node>();
     
@@ -45,7 +40,11 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
 
-    // MAC
+    // Execution Grid
+    Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
+    executionGrid->Initialize();
+
+    // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
     ftMAC->SetChannelManager(channelManager);
     ftMAC->SetPhy(ftPHY);
@@ -79,7 +78,7 @@ main(int argc, char *argv[])
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, executionGrid);
 
-    Simulator::Stop(Seconds(5));
+    Simulator::Stop(Seconds(3));
     Simulator::Run();
     Simulator::Destroy();
     return 0;

@@ -134,7 +134,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtMac();
         virtual ~Dect2020ExtMac();
 
-        static TypeId GetTypeId(void);
+        static TypeId GetTypeId();
 
         enum Dect2020ExtAssociationStatus
         {
@@ -150,13 +150,13 @@ class Dect2020ExtMac : public Object
 
         // Initialization
 
-        void InitializeDevice(void);
-        void Start(void);
-        void DiscoverNetworks(void);
-        void InitializeNetwork(void);
-        uint32_t GenerateValidNetworkID(void);
-        uint32_t GenerateLongRadioDeviceId(void);
-        uint16_t GenerateShortRadioDeviceId(void);
+        void InitializeDevice();
+        void Start();
+        void DiscoverNetworks();
+        void InitializeNetwork();
+        uint32_t GenerateValidNetworkID();
+        uint32_t GenerateLongRadioDeviceId();
+        uint16_t GenerateShortRadioDeviceId();
 
         // Spectrum Management Procedure
 

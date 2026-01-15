@@ -42,7 +42,7 @@ main(int argc, char *argv[])
         mac->TestFunction();
     };
 
-    executionGrid->ScheduleOperation(operation);
+    // executionGrid->ScheduleOperation(operation);
 
     Simulator::Stop(MilliSeconds(20));
     Simulator::Run();
