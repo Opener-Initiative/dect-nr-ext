@@ -182,6 +182,9 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateAbsoluteStartSubslot(void);
         Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
+        // Random Access Procedure
+        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
+
         // Association Procedure
 
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);

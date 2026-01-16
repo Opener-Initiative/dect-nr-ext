@@ -770,6 +770,40 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
 }
 
 void
+Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE)
+{
+    // Select a random subslot within the announced random access resource window
+    uint16_t txSubslot = 0;
+    uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
+    bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
+    uint8_t length = randomAccessResourceIE.GetRaraLength();
+
+    // Select a random subslot to reduce the propability of collision
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    bool waitTillNextFrame = false;
+    if (lengthInSubslots)
+    {
+        std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
+        txSubslot = dis(gen);
+
+        NS_LOG_INFO("Absolute Tx subslot: " << txSubslot);
+
+        if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
+        {
+            txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
+            NS_LOG_INFO("Tx subslot: " << txSubslot);
+            waitTillNextFrame = true;
+            // m_lastSfn++;
+        }
+    }
+    else
+    {
+        // tbd --> Length in Slots
+    }
+}
+
+void
 Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << packet);
@@ -1025,7 +1059,9 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
         Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
 
         // Schedule the Association Request to be sent in the next subslot
-        Simulator::Schedule(t, &Dect2020ExtMac::SendAssociationRequest, this, ft);
+        // Simulator::Schedule(t, &Dect2020ExtMac::SendAssociationRequest, this, ft);
+
+        InitiateRandomAccess(randomAccessResourceIE);
     }
 }
 
