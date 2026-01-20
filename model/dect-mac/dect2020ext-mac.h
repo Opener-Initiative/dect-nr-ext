@@ -160,7 +160,7 @@ class Dect2020ExtMac : public Object
 
         // Spectrum Management Procedure
 
-        void DisplayChannelEvaluations(void);
+        void DisplayChannelEvaluations();
         void ScheduleBackgroundScan();
         void OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext);
         void SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber);
@@ -171,16 +171,18 @@ class Dect2020ExtMac : public Object
 
         // Beacon Transmission
 
-        void StartBeaconTransmission(void);
-        void StartNetworkBeaconTransmission(void);
-        void StartClusterBeaconTransmission(void);
+        void StartBeaconTransmission();
+        void StartNetworkBeaconTransmission();
+        void StartClusterBeaconTransmission();
         void SendNetworkBeaconOnChannel(uint16_t channelId);
         void SendClusterBeaconOnChannel(uint16_t channelId);
-        Ptr<Packet> BuildNetworkBeacon(void);
+        Ptr<Packet> BuildNetworkBeacon();
         Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
-        Dect2020ExtRandomAccessResourceIE BuildRandomAccessResourceIE(void);
-        uint8_t CalculateAbsoluteStartSubslot(void);
+        Dect2020ExtRandomAccessResourceIE BuildRandomAccessResourceIE();
+        uint8_t CalculateAbsoluteStartSubslot();
         Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+        uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period);
+        uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period);
 
         // Random Access Procedure
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
@@ -252,8 +254,8 @@ class Dect2020ExtMac : public Object
         Ptr<Dect2020ExtPhy> m_phy;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
         Ptr<Dect2020ExtChannelManager> m_channelManager;
-        uint32_t m_operatingChannelId;
-        uint32_t m_networkBeaconChannelId;
+        uint16_t m_operatingChannelId;
+        uint16_t m_networkBeaconChannelId;
         uint32_t m_networkId;
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
@@ -265,7 +267,9 @@ class Dect2020ExtMac : public Object
         uint8_t m_fourierTransformScalingFactor;
 
         Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
-        Time m_clusterBeaconPeriodTime = MilliSeconds(100); // Cluster Beacon Period
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod m_networkBeaconPeriod = Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod::NETWORK_BEACON_PERIOD_100MS;
+        Time m_clusterBeaconPeriodTime = MilliSeconds(50); // Cluster Beacon Period
+        Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod m_clusterBeaconPeriod = Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod::CLUSTER_BEACON_PERIOD_50MS;
 
         uint8_t m_mcs = 0; // Modulation and Coding Scheme
 

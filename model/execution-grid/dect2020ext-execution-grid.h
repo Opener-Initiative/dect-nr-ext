@@ -44,6 +44,8 @@ public:
     uint32_t m_endSubslot;
     Ptr<Packet> m_resource;
     std::function<void()> m_operation;
+    uint32_t m_periodFrames;
+    uint32_t m_frameOffset;
 };
 
 // #########################################
@@ -112,6 +114,9 @@ public:
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     Dect2020ExtExecutionGridSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
 
+    // Setters and Getters
+    uint32_t GetSFN() const;
+
     // Scheduling
 
     void ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridOperation operation);
@@ -137,7 +142,7 @@ private:
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
     std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
     Time m_currentFrameStartTime;
-    uint32_t m_SFN; // System Frame Number
+    uint32_t m_SFN = 0; // System Frame Number
     Ptr<Dect2020ExtMac> m_mac;
     uint32_t m_currentSlotNumber;
     uint32_t m_currentSubslotNumber;

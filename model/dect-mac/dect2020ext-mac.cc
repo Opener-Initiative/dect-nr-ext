@@ -19,6 +19,7 @@
 #include "ns3/callback.h"
 #include "ns3/pointer.h"
 
+#include <cstdint>
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
@@ -479,38 +480,36 @@ Dect2020ExtMac::StartBeaconTransmission(void)
     // Tune the device to the selected operating channel
     m_currentChannelId = m_operatingChannelId;
 
-    double timeTillNextFrame = m_executionGrid->GetTimeTillNextFrameNs();
+    // Network Beacon Transmission - subslot 0 (start of the first slot)
+    Dect2020ExtExecutionGridOperation networkBeaconOperation;
+    networkBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_NETWORK_BEACON;
+    networkBeaconOperation.m_channelNumber = m_currentChannelId;
+    networkBeaconOperation.m_startSubslot = 0;
+    networkBeaconOperation.m_endSubslot = 0;
 
-    Simulator::Schedule(NanoSeconds(timeTillNextFrame), &Dect2020ExtMac::StartNetworkBeaconTransmission, this);
-    Simulator::Schedule(NanoSeconds(timeTillNextFrame), &Dect2020ExtMac::StartClusterBeaconTransmission, this);
+    networkBeaconOperation.m_operation = [this](){
+        this->StartNetworkBeaconTransmission();
+    };
+    networkBeaconOperation.m_periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
+    networkBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
-    // TODO: Implement this idea
+    m_executionGrid->ScheduleOperationOnNextFrame(networkBeaconOperation);
 
-    // // Network Beacon Transmission - subslot 0
-    // Dect2020ExtExecutionGridOperation networkBeaconOperation;
-    // networkBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_NETWORK_BEACON;
-    // networkBeaconOperation.m_channelNumber = m_currentChannelId;
-    // networkBeaconOperation.m_startSubslot = 0;
-    // networkBeaconOperation.m_endSubslot = 0;
+    // Cluster Beacon Transmission - subslot 3 (start of the second slot)
+    Dect2020ExtExecutionGridOperation clusterBeaconOperation;
+    clusterBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON;
+    clusterBeaconOperation.m_channelNumber = m_currentChannelId;
+    clusterBeaconOperation.m_startSubslot = 2;
+    clusterBeaconOperation.m_endSubslot = 2;
 
-    // networkBeaconOperation.m_operation = [this](){
-    //     this->StartNetworkBeaconTransmission();
-    // };
+    clusterBeaconOperation.m_operation = [this](){
+        this->StartClusterBeaconTransmission();
+    };
 
-    // m_executionGrid->ScheduleOperationOnNextFrame(networkBeaconOperation);
+    clusterBeaconOperation.m_periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
+    clusterBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
-    // // Cluster Beacon Transmission - subslot 1
-    // Dect2020ExtExecutionGridOperation clusterBeaconOperation;
-    // clusterBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON;
-    // clusterBeaconOperation.m_channelNumber = m_currentChannelId;
-    // clusterBeaconOperation.m_startSubslot = 1;
-    // clusterBeaconOperation.m_endSubslot = 1;
-
-    // clusterBeaconOperation.m_operation = [this](){
-    //     this->StartClusterBeaconTransmission();
-    // };
-
-    // m_executionGrid->ScheduleOperationOnNextFrame(clusterBeaconOperation);
+    m_executionGrid->ScheduleOperationOnNextFrame(clusterBeaconOperation);
 }
 
 void
@@ -518,31 +517,31 @@ Dect2020ExtMac::StartNetworkBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
 
-    // Schedule the network beacon transmission immediately (or with small offset)
-    Time initialOffset = MilliSeconds(0);
-    Simulator::Schedule(initialOffset, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
+    // // Schedule the network beacon transmission immediately (or with small offset)
+    // Time initialOffset = MilliSeconds(0);
+    // Simulator::Schedule(initialOffset, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
 
-    // Schedule the next transmission with dynamic offset
-    static uint32_t sweepCount = 0;
-    Time dynamicOffset = MilliSeconds(25 + (sweepCount++ % 3) * 2); // 25, 27, 29ms
-    Time basePeriod = MilliSeconds(80); // Base period to get 105, 107, 109ms total
+    // // Schedule the next transmission with dynamic offset
+    // static uint32_t sweepCount = 0;
+    // Time dynamicOffset = MilliSeconds(25 + (sweepCount++ % 3) * 2); // 25, 27, 29ms
+    // Time basePeriod = MilliSeconds(80); // Base period to get 105, 107, 109ms total
 
-    NS_LOG_DEBUG("Dynamic offset: " << dynamicOffset.GetSeconds());
-    NS_LOG_DEBUG("Next network beacon transmission scheduled with delay: " << (basePeriod + dynamicOffset).GetSeconds());
+    // NS_LOG_DEBUG("Dynamic offset: " << dynamicOffset.GetSeconds());
+    // NS_LOG_DEBUG("Next network beacon transmission scheduled with delay: " << (basePeriod + dynamicOffset).GetSeconds());
 
-    // Schedule next transmission from when the actual beacon is sent (dynamicOffset + period)
-    // This ensures the gap between actual transmissions is always networkBeaconPeriod
-    Simulator::Schedule(basePeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);   NS_LOG_FUNCTION(this);
+    // // Schedule next transmission from when the actual beacon is sent (dynamicOffset + period)
+    // // This ensures the gap between actual transmissions is always networkBeaconPeriod
+    // Simulator::Schedule(basePeriod + dynamicOffset, &Dect2020ExtMac::StartNetworkBeaconTransmission, this);   NS_LOG_FUNCTION(this);
 
     // TODO: Implement this idea
 
-    // double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+    double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
 
-    // Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
-    // double randomOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-    // Time delay = NanoSeconds(randomOffsetNs);
+    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
+    double randomOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
+    Time delay = NanoSeconds(randomOffsetNs);
 
-    // Simulator::Schedule(delay, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
+    Simulator::Schedule(delay, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
 }
 
 void
@@ -550,21 +549,21 @@ Dect2020ExtMac::StartClusterBeaconTransmission(void)
 {
     NS_LOG_FUNCTION(this);
 
-    Time clusterBeaconPeriod = m_clusterBeaconPeriodTime; // gap between each transmission
-    Simulator::Schedule(m_clusterBeaconPeriodTime, &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
+    // Time clusterBeaconPeriod = m_clusterBeaconPeriodTime; // gap between each transmission
+    // Simulator::Schedule(m_clusterBeaconPeriodTime, &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
 
-    // Schedule the next cluster beacon transmission
-    Simulator::Schedule(clusterBeaconPeriod, &Dect2020ExtMac::StartClusterBeaconTransmission, this);
+    // // Schedule the next cluster beacon transmission
+    // Simulator::Schedule(clusterBeaconPeriod, &Dect2020ExtMac::StartClusterBeaconTransmission, this);
 
     // TODO: Implement this idea
 
-    // double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+    double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
 
-    // Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
-    // double randomOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-    // Time delay = NanoSeconds(randomOffsetNs);
+    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
+    double randomOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
+    Time delay = NanoSeconds(randomOffsetNs);
 
-    // Simulator::Schedule(delay, &Dect2020ExtMac::StartClusterBeaconTransmission, this);
+    Simulator::Schedule(delay, &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
 }
 
 void
@@ -597,16 +596,17 @@ Dect2020ExtMac::BuildNetworkBeacon(void)
     
     // Network Beacon Message IE
     Dect2020ExtNetworkBeaconMessageIE networkBeaconMessageIE;
-    networkBeaconMessageIE.SetTxPowerIncluded(1);
-    networkBeaconMessageIE.SetPowerConstraints(0);
-    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(0);
+    networkBeaconMessageIE.SetTxPowerIncluded(false);
+    networkBeaconMessageIE.SetPowerConstraints(false);
+    networkBeaconMessageIE.SetCurrentClusterChannelIncluded(false);
     networkBeaconMessageIE.SetNetworkBeaconChannels(0);
-    networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
-    networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
+    networkBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_100MS);
+    networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_50MS);
     networkBeaconMessageIE.SetNextClusterChannel(m_operatingChannelId);
 
-    Time timeToNext = m_nextNetworkBeaconTime - Simulator::Now();
-    networkBeaconMessageIE.SetTimeToNext(timeToNext.GetMilliSeconds());
+    // TODO: Implement timeToNext
+    // Time timeToNext = m_nextNetworkBeaconTime - Simulator::Now();
+    networkBeaconMessageIE.SetTimeToNext(0);
 
     beacon->AddHeader(networkBeaconMessageIE);
 
@@ -757,50 +757,89 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
         uint16_t packetLengthInSlots = 0;
         packetLengthInSlots = std::ceil(packetLengthBits / mcsTransportBlockSizeBits);
 
-        physicalHeaderField.SetPacketLength(
-            packetLengthInSlots); // Size of packet in slots/subslots
+        physicalHeaderField.SetPacketLength(packetLengthInSlots); // Size of packet in slots
     }
 
     physicalHeaderField.SetShortNetworkID(m_networkId);
     physicalHeaderField.SetTransmitterIdentity(m_shortRadioDeviceId);
-    physicalHeaderField.SetTransmitPower(23); // Dbm -- device power class 1
+    physicalHeaderField.SetTransmitPower(23); // dBm -- device power class 1
     physicalHeaderField.SetDFMCS(m_mcs);
 
     return physicalHeaderField;
+}
+
+uint32_t
+Dect2020ExtMac::ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period)
+{
+    switch (period)
+    {
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS: return 5; // 50ms / 10ms = 5 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_100MS: return 10; // 100ms / 10ms = 10 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_500MS: return 50; // 500ms / 10ms = 50 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_1000MS: return 100; // 1000ms / 10ms = 100 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_1500MS: return 150; // 1500ms / 10ms = 150 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_2000MS: return 200; // 2000ms / 10ms = 200 frames
+        case Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_4000MS: return 400; // 4000ms / 10ms = 400 frames
+        default:
+            NS_FATAL_ERROR("Invalid network beacon period");
+            return 10; // fallback
+    }
+}
+
+uint32_t
+Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period)
+{
+    switch (period)
+    {
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_10MS: return 1; // 10ms / 10ms = 1 frame
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_50MS: return 5; // 50ms / 10ms = 5 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS: return 10; // 100ms / 10ms = 10 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_500MS: return 50; // 500ms / 10ms = 50 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_1000MS: return 100; // 1000ms / 10ms = 100 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_1500MS: return 150; // 1500ms / 10ms = 150 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_2000MS: return 200; // 2000ms / 10ms = 200 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_4000MS: return 400; // 4000ms / 10ms = 400 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_8000MS: return 800; // 8000ms / 10ms = 800 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_16000MS: return 1600; // 16000ms / 10ms = 1600 frames
+        case Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_32000MS: return 3200; // 32000ms / 10ms = 3200 frames
+        default:
+            NS_FATAL_ERROR("Invalid cluster beacon period");
+            return 1; // fallback
+    }
 }
 
 void
 Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE)
 {
     // Select a random subslot within the announced random access resource window
-    uint16_t txSubslot = 0;
-    uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
-    bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
-    uint8_t length = randomAccessResourceIE.GetRaraLength();
+    // uint16_t txSubslot = 0;
+    // uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
+    // bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
+    // uint8_t length = randomAccessResourceIE.GetRaraLength();
 
-    // Select a random subslot to reduce the propability of collision
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    bool waitTillNextFrame = false;
-    if (lengthInSubslots)
-    {
-        std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
-        txSubslot = dis(gen);
+    // // Select a random subslot to reduce the propability of collision
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // bool waitTillNextFrame = false;
+    // if (lengthInSubslots)
+    // {
+    //     std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
+    //     txSubslot = dis(gen);
 
-        NS_LOG_INFO("Absolute Tx subslot: " << txSubslot);
+    //     NS_LOG_INFO("Absolute Tx subslot: " << txSubslot);
 
-        if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
-        {
-            txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
-            NS_LOG_INFO("Tx subslot: " << txSubslot);
-            waitTillNextFrame = true;
-            // m_lastSfn++;
-        }
-    }
-    else
-    {
-        // tbd --> Length in Slots
-    }
+    //     if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
+    //     {
+    //         txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
+    //         NS_LOG_INFO("Tx subslot: " << txSubslot);
+    //         waitTillNextFrame = true;
+    //         // m_lastSfn++;
+    //     }
+    // }
+    // else
+    // {
+    //     // tbd --> Length in Slots
+    // }
 }
 
 void

@@ -22,9 +22,8 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtExecutionGrid);
 Dect2020ExtExecutionGridOperation::Dect2020ExtExecutionGridOperation()
 {
     m_operationType = OperationType::IDLE;
-    m_startSubslot = 0;
-    m_endSubslot = 0;
     m_resource = nullptr;
+    m_periodFrames = 0;
 }
 
 Dect2020ExtExecutionGridOperation::~Dect2020ExtExecutionGridOperation()
@@ -211,10 +210,25 @@ Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
 
     for (uint16_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
     {
+        const auto& subslot = GetSubslotBySubslotNumber(channelNumber, subslotNumber);
+        const auto& operation = subslot.operation;
+
         // Execute the operation if its type is not IDLE
-        if (GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operationType != Dect2020ExtExecutionGridOperation::IDLE)
+        if (operation.m_operationType != Dect2020ExtExecutionGridOperation::IDLE)
         {
-            GetSubslotBySubslotNumber(channelNumber, subslotNumber).operation.m_operation();
+            // Execute the operation periodically if its type is TX_NETWORK_BEACON or TX_CLUSTER_BEACON
+            if (operation.m_operationType == Dect2020ExtExecutionGridOperation::TX_NETWORK_BEACON
+                || operation.m_operationType == Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON)
+            {
+                if ((m_SFN - operation.m_frameOffset) % operation.m_periodFrames == 0)
+                {
+                    operation.m_operation();
+                }
+            }
+            else
+            {
+                operation.m_operation();
+            }
         }
     }
 }
@@ -285,6 +299,12 @@ Dect2020ExtExecutionGrid::GetSubslotBySubslotNumber(uint16_t channelNumber, uint
     uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
     uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
     return m_executionGrid.at(channelNumber).at(slotNumber).m_subslots.at(subslotIndex);
+}
+
+uint32_t
+Dect2020ExtExecutionGrid::GetSFN() const
+{
+    return m_SFN;
 }
 
 void
