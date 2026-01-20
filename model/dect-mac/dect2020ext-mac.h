@@ -309,6 +309,10 @@ class Dect2020ExtMac : public Object
         const double SCAN_SUITABLE = 0.75;     // Threshold when an operating channel can be considered
                                             // fulfilling the operating conditions.
         const int SCAN_STATUS_VALID = 300;     // seconds
+
+        // CONSTANTS SPECIFICALLY FOR SUBCARRIER SCALING FACTOR 1
+        const double GI_US = 18.52; // GI in microseconds GI = (4/9) * T_u_symb
+        const double STF_US = 64.815; // STF = (14/9) * T_u_symb
 };
 
 } // namespace ns3

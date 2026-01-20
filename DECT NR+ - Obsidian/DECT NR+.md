@@ -14,6 +14,11 @@ After the background scan and operating channel selection (Spectrum Management P
 Network Beacon - transmitted in the first subslot
 Cluster Beacon - transmitted in the second subslot
 
+# Association Procedure
+
+# Random Access Procedure
+
+
 
 
 
