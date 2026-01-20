@@ -14,12 +14,12 @@ class Dect2020ExtRandomAccessResourceIE : public Header
 
         // Virtual Header base class methods
 
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId() const override;
-        virtual uint32_t GetSerializedSize() const override;
-        virtual void Serialize(Buffer::Iterator start) const override;
-        virtual uint32_t Deserialize(Buffer::Iterator start) override;
-        virtual void Print(std::ostream &os) const override;
+        static TypeId GetTypeId();
+        TypeId GetInstanceTypeId() const override;
+        uint32_t GetSerializedSize() const override;
+        void Serialize(Buffer::Iterator start) const override;
+        uint32_t Deserialize(Buffer::Iterator start) override;
+        void Print(std::ostream &os) const override;
 
         // Setters and Getters
         void SetRepeat(uint8_t repeat);

@@ -639,8 +639,26 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 {
     NS_LOG_FUNCTION(this);
     Ptr<Packet> beacon = Create<Packet>();
-    
-    // NS_LOG_INFO("=== BUILD DEBUG: Starting cluster beacon construction, size: " << beacon->GetSize());
+
+    // Cluster Beacon Message IE
+    Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
+    clusterBeaconMessageIE.SetSFN(m_executionGrid->GetSFN());
+    clusterBeaconMessageIE.SetTxPowerIncluded(false);
+    clusterBeaconMessageIE.SetPowerConstraints(false);
+    clusterBeaconMessageIE.SetFrameOffsetIncluded(false);
+    clusterBeaconMessageIE.SetNextChannelIncluded(false);
+    clusterBeaconMessageIE.SetTimeToNextFieldPresent(false);
+    clusterBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
+    clusterBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
+    clusterBeaconMessageIE.SetCountToTrigger(15);
+    clusterBeaconMessageIE.SetRelQuality(0);
+    clusterBeaconMessageIE.SetMinQuality(0);
+
+    beacon->AddHeader(clusterBeaconMessageIE);
+
+    // Cluster beacon message is always followed by the Random Access Ressource IE
+    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = BuildRandomAccessResourceIE();
+    beacon->AddHeader(randomAccessResourceIE);
 
     // MAC Multiplexing Header Type A
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA; // Short SDU, no payload
@@ -648,96 +666,64 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
     mxHeaderTypeA.SetLengthField(0); // No length field included in the IE Header
     mxHeaderTypeA.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding::CLUSTER_BEACON_MESSAGE);
 
-    // Cluster beacon message is always followed by the Random Access Ressource IE
-    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = BuildRandomAccessResourceIE();
-    // NS_LOG_INFO("=== BUILD DEBUG: RandomAccessResourceIE GetSerializedSize: " << randomAccessResourceIE.GetSerializedSize());
-    beacon->AddHeader(randomAccessResourceIE);
-    // NS_LOG_INFO("=== BUILD DEBUG: After adding RandomAccessResourceIE, packet size: " << beacon->GetSize());
-    
-    // Cluster Beacon Message IE
-    Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
-    clusterBeaconMessageIE.SetSFN(m_phy->GetCurrentSFN());
-    clusterBeaconMessageIE.SetTxPowerIncluded(0);
-    clusterBeaconMessageIE.SetPowerConstraints(0);
-    clusterBeaconMessageIE.SetFrameOffsetIncluded(0);
-    clusterBeaconMessageIE.SetNextChannelIncluded(0);
-    clusterBeaconMessageIE.SetTimeToNextFieldPresent(0);
-    clusterBeaconMessageIE.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::NETWORK_BEACON_PERIOD_50MS);
-    clusterBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_100MS);
-    clusterBeaconMessageIE.SetCountToTrigger(15);
-    clusterBeaconMessageIE.SetRelQuality(0);
-    clusterBeaconMessageIE.SetMinQuality(0);
-
-    // NS_LOG_INFO("=== BUILD DEBUG: ClusterBeaconMessageIE GetSerializedSize: " << clusterBeaconMessageIE.GetSerializedSize());
-    beacon->AddHeader(clusterBeaconMessageIE);
-    // NS_LOG_INFO("=== BUILD DEBUG: After adding ClusterBeaconMessageIE, packet size: " << beacon->GetSize());
-
-    // NS_LOG_INFO("=== BUILD DEBUG: MX header GetSerializedSize: " << mxHeaderTypeA.GetSerializedSize());
     beacon->AddHeader(mxHeaderTypeA);
-    // NS_LOG_INFO("=== BUILD DEBUG: After adding MX header, packet size: " << beacon->GetSize());
 
     // Beacon Header
     Dect2020ExtBeaconHeader beaconHeader;
     beaconHeader.SetNetworkId(m_networkId);
     beaconHeader.SetTransmitterAddress(m_longRadioDeviceId);
-    // NS_LOG_INFO("=== BUILD DEBUG: Beacon header GetSerializedSize: " << beaconHeader.GetSerializedSize());
     beacon->AddHeader(beaconHeader);
-    // NS_LOG_INFO("=== BUILD DEBUG: After adding Beacon header, packet size: " << beacon->GetSize());
 
     Dect2020ExtMacHeaderType macHeaderType;
     macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER);
-    // NS_LOG_INFO("=== BUILD DEBUG: MAC header GetSerializedSize: " << macHeaderType.GetSerializedSize());
     beacon->AddHeader(macHeaderType);
-    // NS_LOG_INFO("=== BUILD DEBUG: After adding MAC header, packet size: " << beacon->GetSize());
-    
-    // NS_LOG_INFO("=== BUILD DEBUG: Final cluster beacon packet size: " << beacon->GetSize());
 
     return beacon;
 }
 
 Dect2020ExtRandomAccessResourceIE
-Dect2020ExtMac::BuildRandomAccessResourceIE(void)
+Dect2020ExtMac::BuildRandomAccessResourceIE()
 {
     NS_LOG_FUNCTION(this);
     Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
     randomAccessResourceIE.SetRepeat(0);
-    randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(0);
-    randomAccessResourceIE.SetChannelFieldIncluded(0);
-    randomAccessResourceIE.SetSeparateChannelFieldIncluded(0);
+    randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
+    randomAccessResourceIE.SetChannelFieldIncluded(false);
+    randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
 
-    uint8_t m_startSubslot = CalculateAbsoluteStartSubslot();
-    // NS_LOG_INFO("Start subslot: " << (int)m_startSubslot);
-    randomAccessResourceIE.SetStartSubslot(m_startSubslot);
+    uint8_t startSubslot = CalculateAbsoluteStartSubslot();
+    randomAccessResourceIE.SetStartSubslot(startSubslot);
     randomAccessResourceIE.SetLengthType(0); // length in subslots
-    randomAccessResourceIE.SetRaraLength(m_device->m_randomAccessResourceLength);
-    randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
+    randomAccessResourceIE.SetRaraLength(10);
+    randomAccessResourceIE.SetMaxRachLengthType(false); // length in subslots
     randomAccessResourceIE.SetMaxRachLength(2);     // Max 2  subslots / transmission
-    randomAccessResourceIE.SetCwMinSig(0);          // CW min 0 --> backoff not yet implemented
+    randomAccessResourceIE.SetCwMinSig(1);          // CW min 0 --> backoff not yet implemented
     randomAccessResourceIE.SetDectDelay(m_dectDelay);
     randomAccessResourceIE.SetResponseWindow(5);
-    randomAccessResourceIE.SetCwMaxSig(0); // CW max 0 --> backoff not yet implemented
+    randomAccessResourceIE.SetCwMaxSig(5); // CW max 0 --> backoff not yet implemented
 
     return randomAccessResourceIE;
 }
 
 uint8_t
-Dect2020ExtMac::CalculateAbsoluteStartSubslot(void)
+Dect2020ExtMac::CalculateAbsoluteStartSubslot()
 {
     NS_LOG_FUNCTION(this);
-    uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
-    uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+    // uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
+    // uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
 
-    // If the next available subslot is greater than the number of subslots per frame,
-    // wrap around to the beginning of the frame
-    if (absoluteStartSubslot >= subslotsPerFrame)
-    {
-        absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
-        m_nextAvailableSubslot = absoluteStartSubslot;
-    }
+    // // If the next available subslot is greater than the number of subslots per frame,
+    // // wrap around to the beginning of the frame
+    // if (absoluteStartSubslot >= subslotsPerFrame)
+    // {
+    //     absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
+    //     m_nextAvailableSubslot = absoluteStartSubslot;
+    // }
 
-    m_nextAvailableSubslot += 2;
+    // m_nextAvailableSubslot += 2;
 
-    return absoluteStartSubslot;
+    // return absoluteStartSubslot;
+    return 6; // start of slot 3
 }
 
 Dect2020ExtPHYControlFieldType1
@@ -931,13 +917,13 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
             ft->clusterChannelId = this->m_currentChannelId;
         }
 
-        Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
-        packet->RemoveHeader(clusterBeaconMessage);
-        ft->ftClusterBeaconMessage = clusterBeaconMessage;
-
         Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
         packet->RemoveHeader(randomAccessResourceIE);
         ft->ftRandomAccessResourceIE = randomAccessResourceIE;
+
+        Dect2020ExtClusterBeaconMessageIE clusterBeaconMessage;
+        packet->RemoveHeader(clusterBeaconMessage);
+        ft->ftClusterBeaconMessage = clusterBeaconMessage;
 
         EvaluateClusterBeacon(clusterBeaconMessage, randomAccessResourceIE, ft);
     }
