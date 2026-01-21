@@ -60,6 +60,9 @@ struct Dect2020ExtRandomAccessContext
     uint32_t m_CW_MIN;
     uint32_t m_CW_MAX;
     uint32_t m_CW_CURRENT;
+    Ptr<Packet> m_packet;
+    Dect2020ExtPHYControlFieldType1 m_physicalHeaderField;
+
 };
 
 struct Dect2020ExtRSSI1OnChannelContext
@@ -185,18 +188,25 @@ class Dect2020ExtMac : public Object
         void StartClusterBeaconTransmission();
         void SendNetworkBeaconOnChannel(uint16_t channelId);
         void SendClusterBeaconOnChannel(uint16_t channelId);
+
+        // Building MAC PDU
+
         Ptr<Packet> BuildNetworkBeacon();
         Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
         Dect2020ExtRandomAccessResourceIE BuildRandomAccessResourceIE();
-        uint8_t CalculateAbsoluteStartSubslot();
         Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+
+        // Beacon Transmission Helper Functions
+
+        uint8_t CalculateAbsoluteStartSubslot();
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period);
+        uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const;
 
         // Random Access Procedure
 
-        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
-        void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
+        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
+        void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
 

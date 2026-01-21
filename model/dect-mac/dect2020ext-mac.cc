@@ -20,6 +20,7 @@
 #include "ns3/pointer.h"
 
 #include <cstdint>
+#include <cstdlib>
 #include <memory>
 #include <sstream>
 #include <iomanip>
@@ -706,27 +707,6 @@ Dect2020ExtMac::BuildRandomAccessResourceIE()
     return randomAccessResourceIE;
 }
 
-uint8_t
-Dect2020ExtMac::CalculateAbsoluteStartSubslot()
-{
-    NS_LOG_FUNCTION(this);
-    // uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
-    // uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
-
-    // // If the next available subslot is greater than the number of subslots per frame,
-    // // wrap around to the beginning of the frame
-    // if (absoluteStartSubslot >= subslotsPerFrame)
-    // {
-    //     absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
-    //     m_nextAvailableSubslot = absoluteStartSubslot;
-    // }
-
-    // m_nextAvailableSubslot += 2;
-
-    // return absoluteStartSubslot;
-    return 6; // start of slot 3
-}
-
 Dect2020ExtPHYControlFieldType1
 Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes)
 {
@@ -756,6 +736,27 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
     physicalHeaderField.SetDFMCS(m_mcs);
 
     return physicalHeaderField;
+}
+
+uint8_t
+Dect2020ExtMac::CalculateAbsoluteStartSubslot()
+{
+    NS_LOG_FUNCTION(this);
+    // uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
+    // uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+
+    // // If the next available subslot is greater than the number of subslots per frame,
+    // // wrap around to the beginning of the frame
+    // if (absoluteStartSubslot >= subslotsPerFrame)
+    // {
+    //     absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
+    //     m_nextAvailableSubslot = absoluteStartSubslot;
+    // }
+
+    // m_nextAvailableSubslot += 2;
+
+    // return absoluteStartSubslot;
+    return 6; // start of slot 3
 }
 
 uint32_t
@@ -798,8 +799,25 @@ Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessa
     }
 }
 
+uint8_t
+Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const
+{
+    double packetLengthBits = packetLengthBytes * 8;
+    double mcsTransportBlockSizeBitsPerSlot = m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor, m_fourierTransformScalingFactor, m_mcs);
+
+    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+
+    // Calculate transport block size per subslot
+    double mcsTransportBlockSizeBitsPerSubslot = mcsTransportBlockSizeBitsPerSlot / subslotsPerSlot;
+
+    // Calculate packet length in subslots (round up)
+    uint8_t packetLengthInSubslots = std::ceil(packetLengthBits / mcsTransportBlockSizeBitsPerSubslot);
+
+    return packetLengthInSubslots;
+}
+
 void
-Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE)
+Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField)
 {
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
     bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
@@ -853,13 +871,15 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
     randomAccessContext->m_CW_MAX = CW_MAX;
     randomAccessContext->m_CW_MIN = CW_MIN;
     randomAccessContext->m_CW_CURRENT = CW_CURRENT;
+    randomAccessContext->m_packet = packet;
+    randomAccessContext->m_physicalHeaderField = physicalHeaderField;
 
     // Schedule the backoff initialization to start when RACH resources begin
     Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
 }
 
 void
-Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
+Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     // Create ns3 random variable for reproducible simulations
     Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
@@ -901,41 +921,50 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
         bool fitsInRachResources = CheckIfMacPduFitsInRachResources(randomAccessContext);
         if (fitsInRachResources)
         {
-            // TransmitRandomAccessPacket
+            // Transmit packet
+            m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderField);
         }
         else
         {
-            // DeferToNextRandomAccessResources
+            // Defer to next random access resources
+            // Reset to WAITING_FOR_SELECTED_FT so next cluster beacon re-triggers association
+            m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
+            return;
         }
     }
     else if (channelIsBusy)
     {
         // Exponential backoff: double CW_CURRENT, cap at CW_MAX
+        uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
+        randomAccessContext->m_CW_CURRENT = newCW;
+
+        // Re-initiate backoff with increased CW
+        InitiateBackoff(randomAccessContext);
     }
 }
 
 bool
 Dect2020ExtMac::CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    // Get max RACH length (maximum length of a single transmission)
-    // uint8_t maxRachLength = randomAccessResourceIE.GetMaxRachLength();
-    // bool maxRachLengthInSubslots = !randomAccessResourceIE.GetMaxRachLengthType();
+    bool lengthInSubslots = !randomAccessContext->m_randomAccessResourceIE.GetMaxRachLengthType();
 
-    // TODO: Calculate actual MAC PDU transmission duration
-    // In a complete implementation, you would:
-    // 1. Get the size of your association request packet
-    // 2. Calculate how many subslots/slots it needs based on MCS
-    // 3. Compare with maxRachLength
+    if (lengthInSubslots)
+    {
+        uint8_t packetLengthSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->m_packet->GetSize());
+        return packetLengthSubslots <= randomAccessContext->m_randomAccessResourceIE.GetMaxRachLength();
+    }
 
-    // Placeholder: assume packet always fits
-    return true;
+    NS_LOG_WARN("WARNING: Max RACH Length is in slots (not yet implemented)");
+
+    // Handle slots case (currently not implemented);
+    return false;
 }
 
 void
 Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << packet);
-    NS_LOG_DEBUG("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
+    NS_LOG_INFO("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
 
     // --- Physical Header Field ---
     Dect2020ExtPHYControlFieldType1 physicalHeaderField;
@@ -947,7 +976,8 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 
     if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER)
     {
-        // If the candidate has sent a beacon message before, we can update its entry in the FT candidate list
+        // Create FT Candidate Info
+        // FT Candidate Info can be updated if the candidate has sent a beacon message before
         Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderField.GetTransmitterIdentity());
         ft->rssiDbm = rssiDbm;
         ft->ftPhyHeaderField = physicalHeaderField;
@@ -964,8 +994,6 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 
     // Forward the packet to the net device for minimal implementation
     m_device->Receive(packet);
-
-    // m_rxPacketTrace(packet);
 }
 
 void
@@ -976,6 +1004,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
     // --- Beacon Header ---
     Dect2020ExtBeaconHeader beaconHeader;
     packet->RemoveHeader(beaconHeader);
+
     ft->ftBeaconHeader = beaconHeader;
     ft->networkId = beaconHeader.GetNetworkId();
     ft->longFtId = beaconHeader.GetTransmitterAddress();
@@ -1009,7 +1038,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         NS_LOG_INFO("Received Cluster Beacon Message");
 
         // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
-        // cluster Channel is the current Channel
+        // cluster channel is the current channel
         if (!ft->ftClusterBeaconMessage.GetNextChannelIncluded() && ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
         {
             NS_LOG_INFO("No Network Beacon Message received before, setting cluster channel to current channel");
@@ -1132,7 +1161,7 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     // Abort if the device status is ASSOCIATED --> The device is already associated to an FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
     {
-        NS_LOG_INFO("Device is already associated");\
+        NS_LOG_INFO("Device is already associated");
         return;
     }
 
@@ -1151,45 +1180,13 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
         Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
     }
 
-
     // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT && m_selectedFtCandidate.longFtId == ft->longFtId)
     {
         NS_LOG_INFO("Preparing association request");
-        // Calculate the time from the Random Access Resource IE to send the association request
-        uint16_t txSubslot = 0;
-        uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
-        bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
-        uint8_t length = randomAccessResourceIE.GetRaraLength();
 
-        // Select a random subslot to reduce the propability of collision
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        if (lengthInSubslots)
-        {
-            std::uniform_int_distribution<> dis(startSubslot, startSubslot + length - 1);
-            txSubslot = dis(gen);
-
-            if (txSubslot >= m_channelManager->GetSubslotsPerSlot() * 24)
-            {
-                txSubslot = txSubslot % (m_channelManager->GetSubslotsPerSlot() * 24);
-                m_lastSfn++;
-            }
-        }
-        else
-        {
-            // tbd --> Length in Slots
-        }
-
-        uint8_t slot = txSubslot / m_channelManager->GetSubslotsPerSlot();
-        uint8_t subslot = txSubslot % m_channelManager->GetSubslotsPerSlot();
-
-        Time t = m_phy->GetTimeToNextAbsoluteSubslot(m_lastSfn, slot, subslot);
-
-        // Schedule the Association Request to be sent in the next subslot
-        // Simulator::Schedule(t, &Dect2020ExtMac::SendAssociationRequest, this, ft);
-
-        InitiateRandomAccess(randomAccessResourceIE);
+        // Schedule the Association Request
+        Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
     }
 }
 
@@ -1332,7 +1329,10 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 
     m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PENDING;
 
-    m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
+    // Initiate Random Access Procedure with the selected FT
+    InitiateRandomAccess(ft->ftRandomAccessResourceIE, packet, physicalHeaderField);
+
+    // m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
 }
 
 void
