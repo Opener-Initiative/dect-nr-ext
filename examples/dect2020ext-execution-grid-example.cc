@@ -1,6 +1,5 @@
 #include "ns3/dect2020ext-execution-grid.h"
 #include "ns3/dect2020ext-channel-manager.h"
-#include "ns3/dect2020ext-mac.h"
 
 #include "ns3/simulator.h"
 
@@ -27,22 +26,7 @@ main(int argc, char *argv[])
     executionGrid->Initialize();
     executionGrid->StartExecutionGrid();
 
-    // MAC
-    Ptr<Dect2020ExtMac> mac = CreateObject<Dect2020ExtMac>();
-    mac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
-
-    Dect2020ExtExecutionGridOperation operation;
-    operation.m_operationType = ns3::Dect2020ExtExecutionGridOperation::TEST;
-    operation.m_channelNumber = 1657;
-    operation.m_startSubslot = 10;
-    operation.m_endSubslot = 10;
-
-    // Using lambda function
-    operation.m_operation = [mac](){
-        mac->TestFunction();
-    };
-
-    // executionGrid->ScheduleOperation(operation);
+    Simulator::Schedule(MilliSeconds(1), &Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs, executionGrid, 4);
 
     Simulator::Stop(MilliSeconds(20));
     Simulator::Run();

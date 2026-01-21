@@ -301,6 +301,45 @@ Dect2020ExtExecutionGrid::GetSubslotBySubslotNumber(uint16_t channelNumber, uint
     return m_executionGrid.at(channelNumber).at(slotNumber).m_subslots.at(subslotIndex);
 }
 
+double
+Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
+{
+    Time currentTime = Simulator::Now();
+    Time frameDuration = MicroSeconds(FRAME_DURATION_US);
+
+    // Get the offset of the target subslot within a frame
+    double targetSubslotOffsetNs = GetSubslotStartTimeOffsetNs(subslotNumber);
+
+    // Calculate elapsed time since current frame started
+    Time elapsedSinceFrameStart = currentTime - m_currentFrameStartTime;
+
+    int64_t elapsedNs = elapsedSinceFrameStart.GetNanoSeconds();
+    int64_t frameDurationNs = frameDuration.GetNanoSeconds();
+
+    // Handle case where multiple frames have passed (modulo operation)
+    int64_t elapsedInCurrentFrameNs = elapsedNs % frameDurationNs;
+
+    // Calculate the absolute time of the target subslot start within current frame
+    auto targetSubslotAbsoluteTimeNs = static_cast<int64_t>(targetSubslotOffsetNs);
+
+    // Check if target subslot is in the future within current frame
+    if (targetSubslotAbsoluteTimeNs > elapsedInCurrentFrameNs)
+    {
+        // Target subslot hasn't happened yet in current frame
+        double timeToSubslotNs = targetSubslotAbsoluteTimeNs - elapsedInCurrentFrameNs;
+        NS_LOG_INFO(timeToSubslotNs / 1000000000);
+        return timeToSubslotNs;
+    }
+    else
+    {
+        // Target subslot has already passed in current frame, calculate for next frame
+        double timeToNextFrameNe = frameDurationNs - elapsedInCurrentFrameNs;
+        double timeToSubslotNs = timeToNextFrameNe + targetSubslotOffsetNs;
+        NS_LOG_INFO(timeToSubslotNs / 1000000000);
+        return timeToSubslotNs;
+    }
+}
+
 uint32_t
 Dect2020ExtExecutionGrid::GetSFN() const
 {
