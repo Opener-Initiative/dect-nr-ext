@@ -201,14 +201,15 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateAbsoluteStartSubslot();
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period);
-        uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const;
+        uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const;
+        uint8_t CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const;
 
         // Random Access Procedure
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
-        bool CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
+        bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
         // Association Procedure
 
@@ -336,7 +337,7 @@ class Dect2020ExtMac : public Object
         // CONSTANTS SPECIFICALLY FOR SUBCARRIER SCALING FACTOR 1
         const double GI_US = 18.52; // GI in microseconds GI = (4/9) * T_u_symb
         const double STF_US = 64.815; // STF = (14/9) * T_u_symb
-        const double MINIMUM_LBT_PERIOD = STF_US + GI_US;
+        const double MINIMUM_LBT_PERIOD_US = STF_US + GI_US;
 };
 
 } // namespace ns3

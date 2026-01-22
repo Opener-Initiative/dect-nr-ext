@@ -1,12 +1,12 @@
 [0/2] Re-checking globbed directories...
-[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-phy/dect2020ext-phy.cc.o
+[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-mac/dect2020ext-mac.cc.o
 [2/3] Linking CXX shared library lib/libns3.44-dect-nr-ext-debug.so
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xa925e31c on FT Device 0x603baa5f92d0
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xa68e on FT Device 0x603baa5f92d0
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xb6270041 on PT Device 0x603baa5f95f0
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xe97 on PT Device 0x603baa5f95f0
-+0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x603baa5f92d0 starts the network initialization
-+0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x603baa5f95f0 starts the network discovery
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xa925e31c on FT Device 0x5c39c848b2d0
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xa68e on FT Device 0x5c39c848b2d0
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0xb6270041 on PT Device 0x5c39c848b5f0
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xe97 on PT Device 0x5c39c848b5f0
++0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x5c39c848b2d0 starts the network initialization
++0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x5c39c848b5f0 starts the network discovery
 +0.000000000s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1657
 +0.009999984s 0 Dect2020ExtMac:EndSubslotScan(): Finished scanning all subslots on channel 1657
 +0.010000000s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1658
@@ -773,416 +773,659 @@
 +2.210898712s 1 Dect2020ExtMac:SelectBestFtCandidate(): Swithing to WAITING_FOR_SELECTED_FT status
 +2.210900514s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.210900514s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.210900514s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.210900514s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.210900514s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.210900514s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.210900514s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.210900514s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.210900514s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.210900514s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.210900514s 1 Dect2020ExtMac:SendAssociationRequest(): Preparing to send association request
++2.210900514s 1 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.210900514s 1 Dect2020ExtMac:InitiateRandomAccess(): Initiating Random Access Procedure
++2.210900514s 1 Dect2020ExtMac:InitiateRandomAccess(): RACH subslots duration μs: 10416.6
++2.212083330s 1 Dect2020ExtMac:InitiateBackoff(): Initiating backoff at subslot - 10
++2.212666330s 1 Dect2020ExtMac:PerformLBT(): Performing LBT at subslot 12
++2.212666330s 1 Dect2020ExtMac:PerformLBT(): SFN: 221
++2.212666330s 1 Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): MAC PDU size: 4 subslots
++2.212666330s 1 Dect2020ExtMac:PerformLBT(): Transmitting -> power on channel is -111 dBm
++2.212666330s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.212666330s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.212666330s 0 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.212666330s 0 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
++2.212666330s 0 Dect2020ExtMac:HandleUnicastPacket(): Received Association Request
++2.212666330s 0 Dect2020ExtMac:ProcessAssociationRequest(): Processing Association Request
++2.212666330s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
++2.212666330s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.212666330s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.212666330s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.212666330s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.212666330s 1 Dect2020ExtMac:ReceiveFromPhy(): Received Unicast Packet
++2.212666330s 1 Dect2020ExtMac:ProcessAssociationResponse(): 2212666: Dect2020Mac::HandleUnicastPacket: Association Response by 0xb6270041 accepted
 +2.261035022s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.261035022s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.261035022s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.261035022s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.261035022s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.261035022s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.261035022s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.261035022s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.261035022s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.261035022s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.261035022s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
 +2.310051546s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.310051546s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.310051546s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.310051546s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.310051546s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.310992015s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.310992015s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.310992015s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.310992015s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.310992015s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.360915726s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.360915726s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.360915726s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.360915726s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.360915726s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.410119099s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.410119099s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.410119099s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.410119099s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.410119099s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.410891679s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.410891679s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.410891679s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.410891679s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.410891679s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.460985227s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.460985227s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.460985227s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.460985227s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.460985227s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.510081232s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.510081232s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.510081232s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.510081232s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.510081232s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.511018167s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.511018167s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.511018167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.511018167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.511018167s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.560890929s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.560890929s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.560890929s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.560890929s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.560890929s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.610046566s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.610046566s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.610046566s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.610046566s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.610046566s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.610987523s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.610987523s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.610987523s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.610987523s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.610987523s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.660997109s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.660997109s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.660997109s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.660997109s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.660997109s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.710153948s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.710153948s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.710153948s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.710153948s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.710153948s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.710928822s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.710928822s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.710928822s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.710928822s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.710928822s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.760879384s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.760879384s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.760879384s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.760879384s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.760879384s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.810050681s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.810050681s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.810050681s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.810050681s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.810050681s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.810926179s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.810926179s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.810926179s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.810926179s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.810926179s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.860909433s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.860909433s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.860909433s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.860909433s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.860909433s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.910091523s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.910091523s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+2.910091523s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.910091523s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.910091523s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.910892953s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.910892953s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.910892953s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.910892953s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.910892953s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+2.960997542s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.960997542s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+2.960997542s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+2.960997542s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+2.960997542s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.010155997s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.010155997s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.010155997s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.010155997s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.010155997s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.010950651s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.010950651s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.010950651s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.010950651s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.010950651s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.060848158s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.060848158s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.060848158s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.060848158s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.060848158s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.110118628s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.110118628s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.110118628s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.110118628s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.110118628s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.110950957s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.110950957s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.110950957s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.110950957s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.110950957s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.160962963s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.160962963s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.160962963s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.160962963s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.160962963s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.210135345s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.210135345s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.210135345s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.210135345s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.210135345s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.210872712s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.210872712s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.210872712s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.210872712s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.210872712s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.260902576s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.260902576s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.260902576s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.260902576s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.260902576s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.310076653s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.310076653s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.310076653s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.310076653s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.310076653s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.310968445s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.310968445s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.310968445s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.310968445s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.310968445s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.360860665s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.360860665s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.360860665s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.360860665s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.360860665s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.410121050s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.410121050s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.410121050s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.410121050s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.410121050s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.410989995s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.410989995s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.410989995s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.410989995s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.410989995s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.460896388s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.460896388s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.460896388s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.460896388s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.460896388s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.510087435s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.510087435s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.510087435s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.510087435s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.510087435s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.510884588s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.510884588s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.510884588s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.510884588s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.510884588s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.560902353s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.560902353s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.560902353s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.560902353s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.560902353s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.610155629s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.610155629s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.610155629s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.610155629s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.610155629s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.610876735s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.610876735s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.610876735s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.610876735s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.610876735s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.660856030s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.660856030s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.660856030s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.660856030s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.660856030s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.710197195s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.710197195s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.710197195s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.710197195s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.710197195s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.710992379s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.710992379s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.710992379s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.710992379s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.710992379s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.760912399s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.760912399s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.760912399s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.760912399s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.760912399s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.810173270s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.810173270s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.810173270s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.810173270s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.810173270s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.810909110s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.810909110s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.810909110s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.810909110s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.810909110s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.861023928s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.861023928s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.861023928s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.861023928s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.861023928s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.910008967s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.910008967s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+3.910008967s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.910008967s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.910008967s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.910904736s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.910904736s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.910904736s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.910904736s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.910904736s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+3.961022945s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.961022945s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+3.961022945s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+3.961022945s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+3.961022945s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.010128120s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.010128120s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.010128120s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.010128120s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.010128120s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.010951746s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.010951746s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.010951746s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.010951746s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.010951746s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.060835671s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.060835671s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.060835671s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.060835671s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.060835671s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.110169673s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.110169673s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.110169673s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.110169673s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.110169673s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.110928804s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.110928804s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.110928804s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.110928804s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.110928804s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.160909005s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.160909005s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.160909005s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.160909005s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.160909005s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.210071439s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.210071439s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.210071439s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.210071439s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.210071439s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.210957434s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.210957434s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.210957434s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.210957434s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.210957434s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.261036573s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.261036573s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.261036573s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.261036573s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.261036573s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.310208212s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.310208212s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.310208212s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.310208212s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.310208212s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.310884343s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.310884343s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.310884343s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.310884343s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.310884343s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.360991296s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.360991296s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.360991296s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.360991296s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.360991296s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.410047936s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.410047936s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.410047936s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.410047936s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.410047936s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.410972070s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.410972070s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.410972070s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.410972070s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.410972070s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.461033106s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.461033106s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.461033106s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.461033106s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.461033106s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.510089531s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.510089531s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.510089531s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.510089531s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.510089531s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.510930753s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.510930753s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.510930753s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.510930753s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.510930753s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.560923959s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.560923959s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.560923959s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.560923959s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.560923959s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.610145933s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.610145933s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.610145933s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.610145933s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.610145933s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.610972953s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.610972953s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.610972953s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.610972953s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.610972953s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.660995700s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.660995700s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.660995700s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.660995700s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.660995700s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.710024522s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.710024522s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.710024522s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.710024522s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.710024522s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.711018003s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.711018003s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.711018003s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.711018003s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.711018003s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.760944211s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.760944211s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.760944211s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.760944211s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.760944211s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.810077823s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.810077823s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.810077823s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.810077823s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.810077823s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.810960410s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.810960410s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.810960410s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.810960410s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.810960410s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.861013340s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.861013340s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.861013340s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.861013340s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.861013340s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.910197623s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.910197623s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
-+4.910197623s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.910197623s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.910197623s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.910912609s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.910912609s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.910912609s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.910912609s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.910912609s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
-+4.961039549s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.961039549s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
-+4.961039549s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
-+4.961039549s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
-+4.961039549s 1 Dect2020ExtPhy:StartRx(): Channel from dect params: 1657
++2.310051546s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.310051546s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.310051546s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.310051546s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.310051546s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.310952431s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.310952431s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.310952431s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.310952431s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.310952431s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.310952431s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.310952431s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.310952431s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.360891679s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.360891679s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.360891679s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.360891679s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.360891679s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.360891679s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.360891679s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.360891679s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.410082394s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.410082394s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.410082394s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.410082394s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.410082394s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.410082394s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.410082394s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.410914564s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.410914564s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.410914564s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.410914564s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.410914564s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.410914564s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.410914564s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.410914564s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.461018167s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.461018167s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.461018167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.461018167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.461018167s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.461018167s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.461018167s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.461018167s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.510151895s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.510151895s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.510151895s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.510151895s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.510151895s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.510151895s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.510151895s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.510879898s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.510879898s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.510879898s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.510879898s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.510879898s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.510879898s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.510879898s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.510879898s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.560987523s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.560987523s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.560987523s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.560987523s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.560987523s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.560987523s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.560987523s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.560987523s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.610057597s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.610057597s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.610057597s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.610057597s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.610057597s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.610057597s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.610057597s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.610987280s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.610987280s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.610987280s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.610987280s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.610987280s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.610987280s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.610987280s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.610987280s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.660928822s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.660928822s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.660928822s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.660928822s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.660928822s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.660928822s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.660928822s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.660928822s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.710163777s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.710163777s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.710163777s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.710163777s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.710163777s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.710163777s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.710163777s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.710884013s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.710884013s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.710884013s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.710884013s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.710884013s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.710884013s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.710884013s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.710884013s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.760926179s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.760926179s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.760926179s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.760926179s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.760926179s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.760926179s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.760926179s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.760926179s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.810046052s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.810046052s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.810046052s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.810046052s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.810046052s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.810046052s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.810046052s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.810924855s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.810924855s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.810924855s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.810924855s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.810924855s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.810924855s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.810924855s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.810924855s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.860892953s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.860892953s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.860892953s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.860892953s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.860892953s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.860892953s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.860892953s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.860892953s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.910076101s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++2.910076101s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++2.910076101s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.910076101s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.910076101s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.910076101s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++2.910076101s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++2.910989329s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.910989329s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.910989329s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.910989329s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.910989329s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.910989329s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.910989329s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.910989329s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++2.960950651s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++2.960950651s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++2.960950651s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++2.960950651s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++2.960950651s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++2.960950651s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++2.960950651s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++2.960950651s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.010164210s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.010164210s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.010164210s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.010164210s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.010164210s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.010164210s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.010164210s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.010951960s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.010951960s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.010951960s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.010951960s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.010951960s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.010951960s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.010951960s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.010951960s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.060950957s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.060950957s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.060950957s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.060950957s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.060950957s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.060950957s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.060950957s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.060950957s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.110014826s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.110014826s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.110014826s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.110014826s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.110014826s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.110014826s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.110014826s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.110968677s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.110968677s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.110968677s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.110968677s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.110968677s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.110968677s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.110968677s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.110968677s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.160872712s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.160872712s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.160872712s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.160872712s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.160872712s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.160872712s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.160872712s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.160872712s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.210129631s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.210129631s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.210129631s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.210129631s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.210129631s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.210129631s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.210129631s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.210909985s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.210909985s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.210909985s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.210909985s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.210909985s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.210909985s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.210909985s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.210909985s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.260968445s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.260968445s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.260968445s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.260968445s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.260968445s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.260968445s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.260968445s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.260968445s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.310069244s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.310069244s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.310069244s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.310069244s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.310069244s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.310069244s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.310069244s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.310954382s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.310954382s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.310954382s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.310954382s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.310954382s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.310954382s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.310954382s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.310954382s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.360989995s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.360989995s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.360989995s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.360989995s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.360989995s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.360989995s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.360989995s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.360989995s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.410027333s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.410027333s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.410027333s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.410027333s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.410027333s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.410027333s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.410027333s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.410920767s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.410920767s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.410920767s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.410920767s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.410920767s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.410920767s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.410920767s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.410920767s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.460884588s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.460884588s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.460884588s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.460884588s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.460884588s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.460884588s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.460884588s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.460884588s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.510063056s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.510063056s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.510063056s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.510063056s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.510063056s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.510063056s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.510063056s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.510988961s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.510988961s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.510988961s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.510988961s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.510988961s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.510988961s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.510988961s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.510988961s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.560876735s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.560876735s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.560876735s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.560876735s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.560876735s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.560876735s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.560876735s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.560876735s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.610069021s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.610069021s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.610069021s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.610069021s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.610069021s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.610069021s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.610069021s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.611030527s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.611030527s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.611030527s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.611030527s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.611030527s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.611030527s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.611030527s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.611030527s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.660992379s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.660992379s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.660992379s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.660992379s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.660992379s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.660992379s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.660992379s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.660992379s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.710022698s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.710022698s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.710022698s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.710022698s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.710022698s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.710022698s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.710022698s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.711006602s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.711006602s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.711006602s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.711006602s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.711006602s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.711006602s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.711006602s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.711006602s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.760909110s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.760909110s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.760909110s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.760909110s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.760909110s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.760909110s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.760909110s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.760909110s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.810079067s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.810079067s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.810079067s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.810079067s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.810079067s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.810079067s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.810079067s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.810842299s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.810842299s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.810842299s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.810842299s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.810842299s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.810842299s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.810842299s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.810842299s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.860904736s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.860904736s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.860904736s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.860904736s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.860904736s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.860904736s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.860904736s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.860904736s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.910190596s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++3.910190596s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++3.910190596s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.910190596s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.910190596s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.910190596s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++3.910190596s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++3.910961452s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.910961452s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.910961452s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.910961452s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.910961452s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.910961452s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.910961452s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.910961452s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++3.960951746s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++3.960951746s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++3.960951746s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++3.960951746s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++3.960951746s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++3.960951746s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++3.960951746s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++3.960951746s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.010189613s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.010189613s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.010189613s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.010189613s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.010189613s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.010189613s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.010189613s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.011003005s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.011003005s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.011003005s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.011003005s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.011003005s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.011003005s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.011003005s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.011003005s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.060928804s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.060928804s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.060928804s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.060928804s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.060928804s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.060928804s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.060928804s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.060928804s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.110002339s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.110002339s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.110002339s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.110002339s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.110002339s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.110002339s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.110002339s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.110904771s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.110904771s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.110904771s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.110904771s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.110904771s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.110904771s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.110904771s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.110904771s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.160957434s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.160957434s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.160957434s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.160957434s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.160957434s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.160957434s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.160957434s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.160957434s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.210075673s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.210075673s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.210075673s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.210075673s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.210075673s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.210075673s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.210075673s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.211041544s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.211041544s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.211041544s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.211041544s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.211041544s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.211041544s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.211041544s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.211041544s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.260884343s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.260884343s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.260884343s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.260884343s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.260884343s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.260884343s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.260884343s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.260884343s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.310203241s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.310203241s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.310203241s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.310203241s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.310203241s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.310203241s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.310203241s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.310881268s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.310881268s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.310881268s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.310881268s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.310881268s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.310881268s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.310881268s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.310881268s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.360972070s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.360972070s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.360972070s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.360972070s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.360972070s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.360972070s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.360972070s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.360972070s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.410157964s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.410157964s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.410157964s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.410157964s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.410157964s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.410157964s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.410157964s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.410922863s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.410922863s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.410922863s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.410922863s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.410922863s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.410922863s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.410922863s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.410922863s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.460930753s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.460930753s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.460930753s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.460930753s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.460930753s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.460930753s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.460930753s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.460930753s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.510199774s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.510199774s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.510199774s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.510199774s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.510199774s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.510199774s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.510199774s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.510979265s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.510979265s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.510979265s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.510979265s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.510979265s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.510979265s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.510979265s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.510979265s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.560972953s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.560972953s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.560972953s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.560972953s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.560972953s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.560972953s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.560972953s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.560972953s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.610090627s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.610090627s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.610090627s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.610090627s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.610090627s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.610090627s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.610090627s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.610857854s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.610857854s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.610857854s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.610857854s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.610857854s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.610857854s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.610857854s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.610857854s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.661018003s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.661018003s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.661018003s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.661018003s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.661018003s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.661018003s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.661018003s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.661018003s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.710162368s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.710162368s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.710162368s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.710162368s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.710162368s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.710162368s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.710162368s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.710911155s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.710911155s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.710911155s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.710911155s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.710911155s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.710911155s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.710911155s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.710911155s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.760960410s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.760960410s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.760960410s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.760960410s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.760960410s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.760960410s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.760960410s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.760960410s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.810110879s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.810110879s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.810110879s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.810110879s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.810110879s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.810110879s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.810110879s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.811030955s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.811030955s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.811030955s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.811030955s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.811030955s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.811030955s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.811030955s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.811030955s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.860912609s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.860912609s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.860912609s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.860912609s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.860912609s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.860912609s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.860912609s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.860912609s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.910180008s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
++4.910180008s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
++4.910180008s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.910180008s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.910180008s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.910180008s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Network Beacon Message
++4.910180008s 1 Dect2020ExtMac:HandleBeaconPacket(): Next cluster channel in network beacon: 1657
++4.910969568s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.910969568s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.910969568s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.910969568s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.910969568s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.910969568s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.910969568s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.910969568s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated
++4.960861841s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
++4.960861841s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
++4.960861841s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI 10 dBm
++4.960861841s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: 10 dBm
++4.960861841s 1 Dect2020ExtPhy:StartRx(): Passing to the MAC
++4.960861841s 1 Dect2020ExtMac:HandleBeaconPacket(): Received Cluster Beacon Message
++4.960861841s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Evaluating Cluster Beacon
++4.960861841s 1 Dect2020ExtMac:EvaluateClusterBeacon(): Device is already associated

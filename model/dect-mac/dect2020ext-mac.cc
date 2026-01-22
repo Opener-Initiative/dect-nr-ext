@@ -122,7 +122,8 @@ Dect2020ExtMac::DiscoverNetworks(void)
 {
     NS_LOG_FUNCTION(this);
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
-        m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)
+        m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
+        m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
     {
         return; // Device is in association process --> abort discovering networks
     }
@@ -696,9 +697,9 @@ Dect2020ExtMac::BuildRandomAccessResourceIE()
     // uint8_t startSubslot = CalculateAbsoluteStartSubslot();
     randomAccessResourceIE.SetStartSubslot(10); // where RACH resources start
     randomAccessResourceIE.SetLengthType(0); // length in subslots
-    randomAccessResourceIE.SetRaraLength(10);
+    randomAccessResourceIE.SetRaraLength(50);
     randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
-    randomAccessResourceIE.SetMaxRachLength(2);     // Max 2  subslots (1 slot) / transmission
+    randomAccessResourceIE.SetMaxRachLength(4);     // Max 4 subslots (2 slots) / transmission
     randomAccessResourceIE.SetCwMinSig(1);
     randomAccessResourceIE.SetDectDelay(m_dectDelay);
     randomAccessResourceIE.SetResponseWindow(5);
@@ -802,9 +803,9 @@ Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessa
 }
 
 uint8_t
-Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const
+Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const
 {
-    double packetLengthBits = packetLengthBytes * 8;
+    double packetLengthInBits = packetLengthInBytes * 8;
     double mcsTransportBlockSizeBitsPerSlot = m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor, m_fourierTransformScalingFactor, m_mcs);
 
     uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
@@ -813,9 +814,21 @@ Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const
     double mcsTransportBlockSizeBitsPerSubslot = mcsTransportBlockSizeBitsPerSlot / subslotsPerSlot;
 
     // Calculate packet length in subslots (round up)
-    uint8_t packetLengthInSubslots = std::ceil(packetLengthBits / mcsTransportBlockSizeBitsPerSubslot);
+    uint8_t packetLengthInSubslots = std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot);
 
     return packetLengthInSubslots;
+}
+
+uint8_t
+Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
+{
+    double packetLengthInBits = packetLengthInBytes * 8;
+    double mcsTransportBlockSizeBitsPerSlot = m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor, m_fourierTransformScalingFactor, m_mcs);
+
+    // Calculate packet length in slots (round up)
+    uint8_t packetLengthInSlots = std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSlot);
+
+    return packetLengthInSlots;
 }
 
 void
@@ -900,7 +913,7 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us
     double backoffDurationUs = backoffValue * START_POSITION_INTERVAL_US;
 
-    double totalDelayUs = backoffDurationUs + MINIMUM_LBT_PERIOD;
+    double totalDelayUs = backoffDurationUs + MINIMUM_LBT_PERIOD_US;
     Time totalDelay = MicroSeconds(totalDelayUs);
 
     // Schedule the LBT (Listen Before Talk) check after backoff + MINIMUM_LBT_PERIOD expires
@@ -911,7 +924,8 @@ void
 Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Performing LBT");
+    NS_LOG_INFO("Performing LBT at subslot " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("SFN: " << m_executionGrid->GetSFN());
 
     // Get current channel number and calculate channel index
     uint16_t currentChannelNumber = m_currentChannelId;
@@ -929,11 +943,12 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
 
     if (channelIsFree || channelIsPossible)
     {
-        bool fitsInRachResources = CheckIfMacPduFitsInRachResources(randomAccessContext);
+        // Determine if MAC PDU fits into the remaining RACH resource subslots/slots
+        bool fitsInRachResources = CheckIfMacPduFitsInMaxRandomAccessTxTime(randomAccessContext);
         if (fitsInRachResources)
         {
             // Transmit packet
-            NS_LOG_INFO("Transmitting -> the channel is free or possible");
+            NS_LOG_INFO("Transmitting -> power on channel is " << rssiChannelDbm << " dBm");
             m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderField);
         }
         else
@@ -958,20 +973,22 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
 }
 
 bool
-Dect2020ExtMac::CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
+Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
     bool lengthInSubslots = !randomAccessContext->m_randomAccessResourceIE.GetMaxRachLengthType();
 
     if (lengthInSubslots)
     {
-        uint8_t packetLengthSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->m_packet->GetSize());
-        return packetLengthSubslots <= randomAccessContext->m_randomAccessResourceIE.GetMaxRachLength();
+        uint8_t packetLengthInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->m_packet->GetSize());
+        NS_LOG_INFO("MAC PDU size: " << (uint32_t)packetLengthInSubslots << " subslots");
+        return packetLengthInSubslots <= randomAccessContext->m_randomAccessResourceIE.GetMaxRachLength();
     }
-
-    NS_LOG_WARN("WARNING: Max RACH Length is in slots (not yet implemented)");
-
-    // Handle slots case (currently not implemented);
-    return false;
+    else
+    {
+        uint8_t packetLengthInSlots = CalculateMacPduSizeInSlots(randomAccessContext->m_packet->GetSize());
+        NS_LOG_INFO("MAC PDU size: " << (uint32_t)packetLengthInSlots << " slots");
+        return packetLengthInSlots <= randomAccessContext->m_randomAccessResourceIE.GetMaxRachLength();
+    }
 }
 
 void
@@ -1198,8 +1215,6 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
     // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT && m_selectedFtCandidate.longFtId == ft->longFtId)
     {
-        NS_LOG_INFO("Preparing association request");
-
         // Schedule the Association Request
         Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationRequest, this, ft);
     }
