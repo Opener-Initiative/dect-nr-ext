@@ -127,12 +127,12 @@ Dect2020ExtMac::DiscoverNetworks(void)
         return; // Device is in association process --> abort discovering networks
     }
 
-    std::vector<Ptr<Dect2020ExtChannel>> channelList = m_channelManager->GetValidChannels(this->GetBandNumber());
+    // if (m_associatedFTNetDeviceLongRdId != 0)
+    // {
+    //     return; // Device is already associated --> abort
+    // }
 
-    if (m_associatedFTNetDeviceLongRdId != 0)
-    {
-        return; // Device is already associated --> abort
-    }
+    std::vector<Ptr<Dect2020ExtChannel>> channelList = m_channelManager->GetValidChannels(this->GetBandNumber());
 
     // Check if there are any valid channels
     if (channelList.empty())
@@ -164,7 +164,7 @@ Dect2020ExtMac::DiscoverNetworks(void)
     }
 
     // Switch to the next channel
-    NS_LOG_LOGIC("Switching to channel " << nextChannelId);
+    NS_LOG_INFO("Switching to channel " << nextChannelId);
     SetCurrentChannelId(nextChannelId);
 
     Time t = MilliSeconds(10); // Discover Network wait time
@@ -501,8 +501,8 @@ Dect2020ExtMac::StartBeaconTransmission(void)
     Dect2020ExtExecutionGridOperation clusterBeaconOperation;
     clusterBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON;
     clusterBeaconOperation.m_channelNumber = m_currentChannelId;
-    clusterBeaconOperation.m_startSubslot = 2;
-    clusterBeaconOperation.m_endSubslot = 2;
+    clusterBeaconOperation.m_startSubslot = 4;
+    clusterBeaconOperation.m_endSubslot = 4;
 
     clusterBeaconOperation.m_operation = [this](){
         this->StartClusterBeaconTransmission();
@@ -575,7 +575,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
     NS_LOG_DEBUG(this);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
 
-    NS_LOG_INFO("Sending Network Beacon on channel " << m_currentChannelId);
+    NS_LOG_INFO("Sending Network Beacon on channel " << m_currentChannelId << " at slot - " << m_executionGrid->GetCurrentSlotNumber() << " subslot - " << m_executionGrid->GetCurrentSubslotNumber());
     m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
@@ -585,7 +585,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
     NS_LOG_FUNCTION(this << channelId);
     Ptr<Packet> packet = BuildClusterBeacon(channelId);
 
-    NS_LOG_INFO("Sending Cluster Beacon on channel " << m_currentChannelId);
+    NS_LOG_INFO("Sending Cluster Beacon on channel " << m_currentChannelId << " at slot - " << m_executionGrid->GetCurrentSlotNumber() << " subslot - " << m_executionGrid->GetCurrentSubslotNumber());
     m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
 }
 
@@ -693,16 +693,16 @@ Dect2020ExtMac::BuildRandomAccessResourceIE()
     randomAccessResourceIE.SetChannelFieldIncluded(false);
     randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
 
-    uint8_t startSubslot = CalculateAbsoluteStartSubslot();
-    randomAccessResourceIE.SetStartSubslot(startSubslot);
+    // uint8_t startSubslot = CalculateAbsoluteStartSubslot();
+    randomAccessResourceIE.SetStartSubslot(10); // where RACH resources start
     randomAccessResourceIE.SetLengthType(0); // length in subslots
     randomAccessResourceIE.SetRaraLength(10);
-    randomAccessResourceIE.SetMaxRachLengthType(false); // length in subslots
-    randomAccessResourceIE.SetMaxRachLength(2);     // Max 2  subslots / transmission
-    randomAccessResourceIE.SetCwMinSig(1);          // CW min 0 --> backoff not yet implemented
+    randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
+    randomAccessResourceIE.SetMaxRachLength(2);     // Max 2  subslots (1 slot) / transmission
+    randomAccessResourceIE.SetCwMinSig(1);
     randomAccessResourceIE.SetDectDelay(m_dectDelay);
     randomAccessResourceIE.SetResponseWindow(5);
-    randomAccessResourceIE.SetCwMaxSig(5); // CW max 0 --> backoff not yet implemented
+    randomAccessResourceIE.SetCwMaxSig(5);
 
     return randomAccessResourceIE;
 }
@@ -726,6 +726,8 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
                                                   m_mcs);
         uint16_t packetLengthInSlots = 0;
         packetLengthInSlots = std::ceil(packetLengthBits / mcsTransportBlockSizeBits);
+
+        NS_LOG_INFO("MAC PDU length in slots: " << packetLengthInSlots);
 
         physicalHeaderField.SetPacketLength(packetLengthInSlots); // Size of packet in slots
     }
@@ -819,9 +821,11 @@ Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthBytes) const
 void
 Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField)
 {
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Initiating Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
     bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
-    uint8_t length = randomAccessResourceIE.GetRaraLength();
+    uint8_t length = randomAccessResourceIE.GetRaraLength(); // RACH resources length
 
     // Calculate the total RACH resource duration in microseconds
     double rachDurationUs;
@@ -834,6 +838,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
     else
     {
         // tbd --> Length in slots
+        NS_LOG_WARN("WARNING: RACH resources length is in slots (not yet implemented)");
         return;
     }
 
@@ -881,6 +886,9 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Initiating backoff at subslot - " << m_executionGrid->GetCurrentSubslotNumber());
+
     // Create ns3 random variable for reproducible simulations
     Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
 
@@ -902,6 +910,9 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
 void
 Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Performing LBT");
+
     // Get current channel number and calculate channel index
     uint16_t currentChannelNumber = m_currentChannelId;
     uint16_t firstValidChannelNumber = m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
@@ -922,18 +933,21 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
         if (fitsInRachResources)
         {
             // Transmit packet
+            NS_LOG_INFO("Transmitting -> the channel is free or possible");
             m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderField);
         }
         else
         {
             // Defer to next random access resources
             // Reset to WAITING_FOR_SELECTED_FT so next cluster beacon re-triggers association
+            NS_LOG_INFO("Deferring to next random access resources -> the MAC PDU doesn't fit into RACH resources");
             m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
             return;
         }
     }
     else if (channelIsBusy)
     {
+        NS_LOG_INFO("Re-initiating backoff with doubled CW_CURRENT -> the channel is busy");
         // Exponential backoff: double CW_CURRENT, cap at CW_MAX
         uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
         randomAccessContext->m_CW_CURRENT = newCW;
@@ -944,7 +958,7 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
 }
 
 bool
-Dect2020ExtMac::CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+Dect2020ExtMac::CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
     bool lengthInSubslots = !randomAccessContext->m_randomAccessResourceIE.GetMaxRachLengthType();
 
@@ -964,7 +978,7 @@ void
 Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
 {
     NS_LOG_FUNCTION(this << packet);
-    NS_LOG_INFO("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
+    // NS_LOG_INFO("Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
 
     // --- Physical Header Field ---
     Dect2020ExtPHYControlFieldType1 physicalHeaderField;
@@ -982,6 +996,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
         ft->rssiDbm = rssiDbm;
         ft->ftPhyHeaderField = physicalHeaderField;
         ft->receptionTime = Simulator::Now();
+        ft->shortFtId = physicalHeaderField.GetTransmitterIdentity();
 
         HandleBeaconPacket(packet, ft);
     }
@@ -1039,7 +1054,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
 
         // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster channel is the current channel
-        if (!ft->ftClusterBeaconMessage.GetNextChannelIncluded() && ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
+        if (ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
         {
             NS_LOG_INFO("No Network Beacon Message received before, setting cluster channel to current channel");
             ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_currentChannelId);
@@ -1135,13 +1150,13 @@ Dect2020ExtFtCandidateInfo*
 Dect2020ExtMac::FindOrCreateFtCandidate(uint16_t shortFtId)
 {
     NS_LOG_FUNCTION(this << shortFtId);
-    // for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
-    // {
-    //     if (m_ftCandidates[idx].shortFtId == shortFtId)
-    //     {
-    //         return &m_ftCandidates[idx];
-    //     }
-    // }
+    for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
+    {
+        if (m_ftCandidates[idx].shortFtId == shortFtId)
+        {
+            return &m_ftCandidates[idx];
+        }
+    }
 
     // No candidate found, create one
     Dect2020ExtFtCandidateInfo newCandidate;
@@ -1225,10 +1240,13 @@ Dect2020ExtMac::SelectBestFtCandidate(void)
     m_selectedFtCandidate = bestCandidate;
 
     // Step 3: Switch to the FT's channel
+    NS_LOG_INFO("Switching to best FT's channel: " << bestCandidate.clusterChannelId);
     m_operatingChannelId = bestCandidate.clusterChannelId;
+    m_currentChannelId = bestCandidate.clusterChannelId;
 
     // Step 4: Set status and wait for next cluster beacon of selected FT
     m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
+    NS_LOG_INFO("Swithing to WAITING_FOR_SELECTED_FT status");
 
     // Cluster Beacon triggers next step in EvaluateClusterBeacon
     // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
@@ -1252,7 +1270,7 @@ void
 Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 {
     NS_LOG_FUNCTION(this << ft);
-    NS_LOG_INFO("Sending Association Request on channel " << m_currentChannelId);
+    NS_LOG_INFO("Preparing to send association request");
 
     // Simulator::Schedule(MilliSeconds(200),
     //                     &Dect2020ExtMac::VerifyPendingAssociationStatus,

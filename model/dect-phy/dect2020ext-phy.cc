@@ -391,20 +391,12 @@ Dect2020ExtPhy::GetAntenna() const
 void
 Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
+    NS_LOG_FUNCTION(this);
     // TODO: check if the device is in RX State (--> need to implement a TX/RX State Machine)
-
-    // Print every frequency band in PSD
-    for (uint32_t i = 0; i < params->psd->GetSpectrumModel()->GetNumBands(); ++i)
-    {
-        NS_LOG_DEBUG("Frequency band " << i << " power: " << (*params->psd)[i] << " dBm");
-    }
-
-    NS_LOG_FUNCTION(this << params);
 
     // Cast the generic SpectrumSignalParameters to our specific DECT-2020 parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> dectParams =
         DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
-
 
     // Extract the channel index within the spectrum model
     uint16_t channelIndex =
@@ -439,9 +431,9 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Drop packet if the device is not currently tuned to the correct channel
     if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
     {
-        NS_LOG_DEBUG("Received packet on wrong channel");
-        NS_LOG_DEBUG("Current channel: " << this->m_mac->m_currentChannelId);
-        NS_LOG_DEBUG("Channel from dect params: " << dectParams->m_currentChannelId);
+        NS_LOG_INFO("Received packet on wrong channel");
+        NS_LOG_INFO("Current channel: " << this->m_mac->m_currentChannelId);
+        NS_LOG_INFO("Channel from dect params: " << dectParams->m_currentChannelId);
         return;
     }
 

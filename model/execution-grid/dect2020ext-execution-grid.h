@@ -114,6 +114,8 @@ public:
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     Dect2020ExtExecutionGridSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
     double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
+    uint32_t GetCurrentSlotNumber() const;
+    uint32_t GetCurrentSubslotNumber() const;
 
     // Setters and Getters
     uint32_t GetSFN() const;

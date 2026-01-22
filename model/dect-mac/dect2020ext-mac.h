@@ -90,7 +90,7 @@ struct Dect2020ExtFtCandidateInfo
 {
     // uint8_t shortNetworkId; // Short Network ID of the FT candidate
     uint32_t networkId;     // Network ID of the FT candidate
-    // uint32_t shortFtId;     // Short RD ID of the FT candidate
+    uint32_t shortFtId;     // Short RD ID of the FT candidate
     uint32_t longFtId;      // Long RD ID of the FT candidate
 
     uint16_t clusterChannelId;
@@ -208,7 +208,7 @@ class Dect2020ExtMac : public Object
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
-        bool CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        bool CheckIfMacPduFitsInRachResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
         // Association Procedure
 

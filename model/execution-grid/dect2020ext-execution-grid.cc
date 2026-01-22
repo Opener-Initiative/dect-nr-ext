@@ -341,6 +341,18 @@ Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs(uint32_t subslotNumber) cons
 }
 
 uint32_t
+Dect2020ExtExecutionGrid::GetCurrentSlotNumber() const
+{
+    return m_currentSlotNumber;
+}
+
+uint32_t
+Dect2020ExtExecutionGrid::GetCurrentSubslotNumber() const
+{
+    return m_currentSubslotNumber;
+}
+
+uint32_t
 Dect2020ExtExecutionGrid::GetSFN() const
 {
     return m_SFN;
