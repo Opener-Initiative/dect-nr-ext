@@ -310,11 +310,8 @@ class Dect2020ExtMac : public Object
         uint32_t m_networkBeaconSweepCount;
         Time m_nextNetworkBeaconTime;
 
-        double m_nextNetworkBeaconOffsetNs = 0;
-        bool m_networkBeaconOffsetInitialized = false;
-
-        double m_nextClusterBeaconOffsetNs = 0;
-        bool m_clusterBeaconOffsetInitialized = false;
+        uint32_t m_networkBeaconSubslot = 0;
+        uint32_t m_clusterBeaconSubslot = 4;
 
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
 

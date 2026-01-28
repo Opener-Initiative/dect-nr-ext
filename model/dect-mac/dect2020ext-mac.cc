@@ -477,7 +477,7 @@ Dect2020ExtMac::BackgroundScan()
 }
 
 void
-Dect2020ExtMac::StartBeaconTransmission(void)
+Dect2020ExtMac::StartBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
 
@@ -497,6 +497,8 @@ Dect2020ExtMac::StartBeaconTransmission(void)
     networkBeaconOperation.m_periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
     networkBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
+    m_networkBeaconSubslot = 0;
+
     m_executionGrid->ScheduleOperationOnNextFrame(networkBeaconOperation);
 
     // Cluster Beacon Transmission - subslot 3 (start of the second slot)
@@ -513,6 +515,8 @@ Dect2020ExtMac::StartBeaconTransmission(void)
     clusterBeaconOperation.m_periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
     clusterBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
+    m_clusterBeaconSubslot = 4;
+
     m_executionGrid->ScheduleOperationOnNextFrame(clusterBeaconOperation);
 }
 
@@ -520,54 +524,14 @@ void
 Dect2020ExtMac::StartNetworkBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
-
-    double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
-
-    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
-
-    // Use stored offset for current transmission, or generate it first time
-    double currentOffsetNs;
-    if (!m_networkBeaconOffsetInitialized)
-    {
-        currentOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-        m_networkBeaconOffsetInitialized = true;
-    }
-    else
-    {
-        currentOffsetNs = m_nextNetworkBeaconOffsetNs;
-    }
-
-    m_nextNetworkBeaconOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-
-    Time delay = NanoSeconds(currentOffsetNs);
-    Simulator::Schedule(delay, &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
 }
 
 void
 Dect2020ExtMac::StartClusterBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
-
-    double subslotDurationNs = m_executionGrid->SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
-
-    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
-
-    // Use stored offset for current transmission, or generate it first time
-    double currentOffsetNs;
-    if (!m_clusterBeaconOffsetInitialized)
-    {
-        currentOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-        m_clusterBeaconOffsetInitialized = true;
-    }
-    else
-    {
-        currentOffsetNs = m_nextClusterBeaconOffsetNs;
-    }
-
-    m_nextClusterBeaconOffsetNs = randomVar->GetValue(0.0, subslotDurationNs);
-
-    Time delay = NanoSeconds(currentOffsetNs);
-    Simulator::Schedule(delay, &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
 }
 
 void
@@ -592,7 +556,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildNetworkBeacon(void)
+Dect2020ExtMac::BuildNetworkBeacon()
 {
     NS_LOG_FUNCTION(this);
 
@@ -608,12 +572,19 @@ Dect2020ExtMac::BuildNetworkBeacon(void)
     networkBeaconMessageIE.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIE::CLUSTER_BEACON_PERIOD_50MS);
     networkBeaconMessageIE.SetNextClusterChannel(m_operatingChannelId);
 
-    uint32_t networkBeaconPeriodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
-    Time nextBeaconTime = Simulator::Now()
-                        + MicroSeconds(networkBeaconPeriodFrames * 10000) // Period in frames
-                        + NanoSeconds(m_nextNetworkBeaconOffsetNs); // Random offset
+    // Calculate time to next Cluster Beacon
+    // Get absolute time offsets for each beacon within a frame
+    double networkBeaconTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(m_networkBeaconSubslot);
+    double clusterBeaconTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(m_clusterBeaconSubslot);
 
-    networkBeaconMessageIE.SetTimeToNext(nextBeaconTime.GetMicroSeconds());
+    // Calculate the offset between them
+    double offsetTimeNs = clusterBeaconTimeNs - networkBeaconTimeNs;
+
+    auto timeToNextClusterBeaconUs = static_cast<uint32_t>(offsetTimeNs / 1000.0);
+
+    NS_LOG_INFO("Time to next cluster beacon " << timeToNextClusterBeaconUs << "us");
+
+    networkBeaconMessageIE.SetTimeToNext(timeToNextClusterBeaconUs);
 
     beacon->AddHeader(networkBeaconMessageIE);
 
