@@ -67,6 +67,10 @@ struct Dect2020ExtRandomAccessContext
     std::vector<double> m_lbtRssiSamples; // Store RSSI samples during LBT
     uint32_t m_lbtSampleCount = 0; // Counter for collected samples
     uint32_t m_lbtTotalSamples = 5; // Total samples to collect
+
+    // Timing reference
+    Time m_rachStartTime; // Absolute time when RACH resources start
+    uint32_t m_currentPositionIndex = 0; // Track which start positiion we are at
 };
 
 struct Dect2020ExtRSSI1OnChannelContext

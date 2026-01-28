@@ -893,6 +893,10 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
     randomAccessContext->m_packet = packet;
     randomAccessContext->m_physicalHeaderField = physicalHeaderField;
 
+    // Store RACH start time for precise timing calculations
+    randomAccessContext->m_rachStartTime = Simulator::Now() + delay;
+    randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
+
     // Schedule the backoff initialization to start when RACH resources begin
     Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
 }
@@ -909,16 +913,35 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = randomVar->GetInteger(0, randomAccessContext->m_CW_CURRENT);
 
+    // Calculate target position: current position + backoff
+    uint32_t targetPositionIndex = randomAccessContext->m_currentPositionIndex + backoffValue;
+
+    // Ensure we don't exceed available positions
+    if (targetPositionIndex >= randomAccessContext->m_startPositions.size())
+    {        
+        NS_LOG_WARN("Backoff target position " << targetPositionIndex 
+                    << " exceeds available positions (" 
+                    << randomAccessContext->m_startPositions.size() << ")");
+        // Defer to next RACH opportunity
+        m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
+        return;
+    }
+
     // Calculate backoff duration in microseconds
-    // Backoff is measured in multiples of (STF + GI)
-    const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us
-    double backoffDurationUs = backoffValue * START_POSITION_INTERVAL_US;
+    double targetPositionTimeUs = randomAccessContext->m_startPositions[targetPositionIndex];
+    double currentPositionTimeUs = randomAccessContext->m_startPositions[randomAccessContext->m_currentPositionIndex];
+    double backoffDurationUs = targetPositionTimeUs - currentPositionTimeUs;
+
+    NS_LOG_INFO("Random backoff value: " << backoffValue);
+    
+    // Update current position to target position
+    randomAccessContext->m_currentPositionIndex = targetPositionIndex;
 
     // Set rachBackOff
     double totalDelayUs = backoffDurationUs;
     Time totalDelay = MicroSeconds(totalDelayUs);
 
-    // Schedule the LBT (Listen Before Talk) check after rachBackOff expires
+    // Schedule the LBT (Listen Before Talk) after rachBackOff expires
     Simulator::Schedule(totalDelay, &Dect2020ExtMac::PerformLBT, this, randomAccessContext);
 }
 
@@ -932,6 +955,18 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     randomAccessContext->m_lbtSampleCount = 0;
     randomAccessContext->m_lbtRssiSamples.clear();
     randomAccessContext->m_lbtRssiSamples.reserve(5); // Reserve space for 5 samples
+
+    // Calculate our current position relative to RACH start
+    Time currentTime = Simulator::Now();
+    Time elapsedSinceRachStart = currentTime - randomAccessContext->m_rachStartTime;
+    double elapsedUs = elapsedSinceRachStart.GetMicroSeconds();
+
+    // Find which start position we are closest to
+    const double START_POSITION_INTERVAL_US = STF_US + GI_US;
+    auto currentPositionIndex = static_cast<uint32_t>(std::round(elapsedUs / START_POSITION_INTERVAL_US));
+
+    NS_LOG_INFO("LBT at position " << currentPositionIndex 
+                 << " (elapsed: " << elapsedUs << " us)");
 
     // Define sampling points within START_POSITION_INTERVAL_US (STF + GI)
     std::vector<double> samplingOffsetsUs = {
@@ -1023,6 +1058,10 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
     else if (channelIsBusy)
     {
         NS_LOG_INFO("Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
+
+        // After LBT completes, we are at the next position (LBT duration = 1 interval)
+        randomAccessContext->m_currentPositionIndex += 1;
+
         // Exponential backoff: double CW_CURRENT, cap at CW_MAX
         uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
         randomAccessContext->m_CW_CURRENT = newCW;
