@@ -21,7 +21,7 @@ Cluster Beacon - transmitted in the second subslot
 
 Initiate the backoff process:
 - Extract data from Random Access Resource IE
-- Based on RACH resources subslots, STF, and GI - calculate all possible start positions within RACH resources subslots
+- Based on RACH resources subslots, STF, and GI - calculate all possible start positions within RACH resource subslots
 - Calculate CW_MIN and CW_MAX based on CWmin_sig and CWmax_sig
 - Set CW_CURRENT to CW_MIN
 - Wait till the start of RACH resources subslots

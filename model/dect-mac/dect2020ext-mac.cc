@@ -21,6 +21,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <limits>
 #include <memory>
 #include <sstream>
 #include <iomanip>
@@ -913,10 +914,11 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us
     double backoffDurationUs = backoffValue * START_POSITION_INTERVAL_US;
 
-    double totalDelayUs = backoffDurationUs + MINIMUM_LBT_PERIOD_US;
+    // Set rachBackOff
+    double totalDelayUs = backoffDurationUs;
     Time totalDelay = MicroSeconds(totalDelayUs);
 
-    // Schedule the LBT (Listen Before Talk) check after backoff + MINIMUM_LBT_PERIOD expires
+    // Schedule the LBT (Listen Before Talk) check after rachBackOff expires
     Simulator::Schedule(totalDelay, &Dect2020ExtMac::PerformLBT, this, randomAccessContext);
 }
 
@@ -925,7 +927,33 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Performing LBT at subslot " << m_executionGrid->GetCurrentSubslotNumber());
-    NS_LOG_INFO("SFN: " << m_executionGrid->GetSFN());
+
+    // Reset sampling context
+    randomAccessContext->m_lbtSampleCount = 0;
+    randomAccessContext->m_lbtRssiSamples.clear();
+    randomAccessContext->m_lbtRssiSamples.reserve(5); // Reserve space for 5 samples
+
+    // Define sampling points within START_POSITION_INTERVAL_US (STF + GI)
+    std::vector<double> samplingOffsetsUs = {
+        0.0, // Start of STF
+        STF_US / 2.0, // Middle of STF
+        STF_US, // Start of GI
+        STF_US + (GI_US / 2.0), // Middle of GI
+        STF_US + GI_US // End of GI
+    };
+
+    // Schedule RSSI sampling at each offset
+    for (double offsetUs : samplingOffsetsUs)
+    {
+        Simulator::Schedule(MicroSeconds(offsetUs), &Dect2020ExtMac::SampleLBTRSSI, this, randomAccessContext);
+    }
+}
+
+void
+Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Sampling LBT RSSI");
 
     // Get current channel number and calculate channel index
     uint16_t currentChannelNumber = m_currentChannelId;
@@ -936,10 +964,42 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     double rssiChannelWatt = (*m_phy->m_interference->m_allSignals)[channelIndex];
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
 
+    // Store the sample
+    randomAccessContext->m_lbtRssiSamples.push_back(rssiChannelDbm);
+    randomAccessContext->m_lbtSampleCount++;
+
+    // If all samples collected, evaluate the channel
+    if (randomAccessContext->m_lbtSampleCount >= randomAccessContext->m_lbtTotalSamples)
+    {
+        EvaluateLBTChannel(randomAccessContext);
+    }
+}
+
+void
+Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+{
+    NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("Evaluating LBT channel at subslot " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("SFN: " << m_executionGrid->GetSFN());
+
+    // Calculate average RSSI from all samples
+    double totalRssi = 0.0;
+    double maxRssi = -std::numeric_limits<double>::infinity();
+
+    for (double rssi : randomAccessContext->m_lbtRssiSamples)
+    {
+        totalRssi += rssi;
+        maxRssi = std::max(maxRssi, rssi);
+    }
+
+    double avgRssiDbm = totalRssi / randomAccessContext->m_lbtRssiSamples.size();
+
+    NS_LOG_INFO("LBT RSSI - Average: " << avgRssiDbm << " dBm, Max: " << maxRssi << " dBm");
+
     // Determine channel state based on RSSI threshlods
-    bool channelIsFree = (rssiChannelDbm <= RSSI_THRESHOLD_MIN);
-    bool channelIsPossible = (rssiChannelDbm > RSSI_THRESHOLD_MIN && rssiChannelDbm <= RSSI_THRESHOLD_MAX);
-    bool channelIsBusy = (rssiChannelDbm > RSSI_THRESHOLD_MAX);
+    bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
+    bool channelIsPossible = (avgRssiDbm > RSSI_THRESHOLD_MIN && avgRssiDbm <= RSSI_THRESHOLD_MAX);
+    bool channelIsBusy = (avgRssiDbm > RSSI_THRESHOLD_MAX);
 
     if (channelIsFree || channelIsPossible)
     {
@@ -948,7 +1008,7 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
         if (fitsInRachResources)
         {
             // Transmit packet
-            NS_LOG_INFO("Transmitting -> power on channel is " << rssiChannelDbm << " dBm");
+            NS_LOG_INFO("Transmitting -> power on channel is " << avgRssiDbm << " dBm");
             m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderField);
         }
         else
@@ -962,10 +1022,14 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     }
     else if (channelIsBusy)
     {
-        NS_LOG_INFO("Re-initiating backoff with doubled CW_CURRENT -> the channel is busy");
+        NS_LOG_INFO("Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
         // Exponential backoff: double CW_CURRENT, cap at CW_MAX
         uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
         randomAccessContext->m_CW_CURRENT = newCW;
+
+        // Reset sample counter and vector for next attempt
+        randomAccessContext->m_lbtSampleCount = 0;
+        randomAccessContext->m_lbtRssiSamples.clear();
 
         // Re-initiate backoff with increased CW
         InitiateBackoff(randomAccessContext);

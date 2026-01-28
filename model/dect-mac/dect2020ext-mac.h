@@ -63,6 +63,10 @@ struct Dect2020ExtRandomAccessContext
     Ptr<Packet> m_packet;
     Dect2020ExtPHYControlFieldType1 m_physicalHeaderField;
 
+    // LBT sampling
+    std::vector<double> m_lbtRssiSamples; // Store RSSI samples during LBT
+    uint32_t m_lbtSampleCount = 0; // Counter for collected samples
+    uint32_t m_lbtTotalSamples = 5; // Total samples to collect
 };
 
 struct Dect2020ExtRSSI1OnChannelContext
@@ -209,6 +213,8 @@ class Dect2020ExtMac : public Object
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        void EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
         // Association Procedure
