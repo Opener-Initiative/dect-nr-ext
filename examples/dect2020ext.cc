@@ -7,10 +7,42 @@
 #include "ns3/single-model-spectrum-channel.h"
 #include "ns3/node.h"
 #include "ns3/mobility-module.h"
+#include "ns3/net-device-container.h"
+
+#include <fstream>
 
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
+
+void
+CreatePythonConnectionGraph(Ptr<NetDeviceContainer> devices)
+{
+    // int ftCounter = 0;
+    // int ptCounter = 0;
+
+    // for (auto device = devices->Begin(); device != devices->End(); device++)
+    // {
+    //     Ptr<Dect2020ExtNetDevice> dectDevice = DynamicCast<Dect2020ExtNetDevice>(*device);
+    //     if (dectDevice->GetTerminationPointType() == Dect2020ExtNetDevice::FT)
+    //     {
+    //         ftCounter++;
+    //     }
+    //     else
+    //     {
+    //         ptCounter++;
+    //     }
+    // }
+
+    std::ofstream topo("./dect2020ext_topology.py");
+
+    topo << "import networkx as nx\n";
+    topo << "import matplotlib.pyplot as plt\n";
+    topo << "nodes = []\n";
+    topo << "edges = []\n";
+
+    topo.close();
+}
 
 int
 main(int argc, char *argv[])
@@ -32,6 +64,8 @@ main(int argc, char *argv[])
     channelManager->SetSpectrumChannel(channel);
     channelManager->Configure();
     channelManager->InitializeChannels();
+
+    Ptr<NetDeviceContainer> devices = CreateObject<NetDeviceContainer>();
 
     // FT Node
     Ptr<Node> ftNode = CreateObject<Node>();
@@ -95,18 +129,29 @@ main(int argc, char *argv[])
 
     ptNode->AddDevice(ptNetDevice);
 
-    // Mobility Model
-    MobilityHelper mobility;
-    Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator>();
-    positionAlloc->Add(Vector(50.0, 50.0, 0.0));  // Position FT node at (50, 50)
-    mobility.SetPositionAllocator(positionAlloc);
-    mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+    // FT Mobility Model
+    MobilityHelper ftMobility;
+    Ptr<ListPositionAllocator> ftPositionAlloc = CreateObject<ListPositionAllocator>();
+    ftPositionAlloc->Add(Vector(0.0, 0.0, 0.0));  // Position FT node at (0, 0, 0)
+    ftMobility.SetPositionAllocator(ftPositionAlloc);
+    ftMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
-    mobility.Install(ftNode);
-    mobility.Install(ptNode);
+    ftMobility.Install(ftNode);
+
+    // PT Mobility Model
+    MobilityHelper ptMobility;
+    Ptr<ListPositionAllocator> ptPositionAlloc = CreateObject<ListPositionAllocator>();
+    ptPositionAlloc->Add(Vector(0.0, 50.0, 0.0));  // Position PT node at (0, 50, 0)
+    ptMobility.SetPositionAllocator(ptPositionAlloc);
+    ptMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+
+    ptMobility.Install(ptNode);
 
     ftMAC->InitializeDevice();
     ptMAC->InitializeDevice();
+
+    devices->Add(ftNetDevice);
+    devices->Add(ptNetDevice);
 
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
@@ -116,7 +161,10 @@ main(int argc, char *argv[])
     Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
     Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ptExecutionGrid);
 
-    Simulator::Stop(Seconds(5));
+    // Simulator::Schedule(Seconds(0), &CreatePythonConnectionGraph, devices);
+    CreatePythonConnectionGraph(devices);
+
+    Simulator::Stop(Seconds(6));
     Simulator::Run();
     Simulator::Destroy();
     return 0;
