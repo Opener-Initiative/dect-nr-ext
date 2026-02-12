@@ -98,6 +98,8 @@ Dect2020ExtMac::InitializeDevice(void)
     NS_LOG_FUNCTION(this);
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
+    m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
+    m_backoffRandomVariable->SetStream(GetNode()->GetId());
 }
 void
 Dect2020ExtMac::Start(void)
@@ -878,11 +880,8 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Initiating backoff at subslot - " << m_executionGrid->GetCurrentSubslotNumber());
 
-    // Create ns3 random variable for reproducible simulations
-    Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
-
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
-    uint32_t backoffValue = randomVar->GetInteger(0, randomAccessContext->m_CW_CURRENT);
+    uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
 
     // Calculate target position: current position + backoff
     uint32_t targetPositionIndex = randomAccessContext->m_currentPositionIndex + backoffValue;

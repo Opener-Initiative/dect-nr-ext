@@ -329,6 +329,8 @@ class Dect2020ExtMac : public Object
 
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
 
+        Ptr<UniformRandomVariable> m_backoffRandomVariable;
+
         // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
 
         // ####################

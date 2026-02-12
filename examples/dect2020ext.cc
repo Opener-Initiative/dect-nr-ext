@@ -118,9 +118,9 @@ int
 main(int argc, char *argv[])
 {
     // LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    // LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
 
     // Spectrum Channel
@@ -202,7 +202,10 @@ main(int argc, char *argv[])
     // #################
 
     NodeContainer ptNodes;
-    ptNodes.Create(2);
+    ptNodes.Create(100);
+    Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
+    randomRadius->SetAttribute("Min", DoubleValue(50.0));
+    randomRadius->SetAttribute("Max", DoubleValue(150.0));
 
     for (uint32_t i = 0; i < ptNodes.GetN(); ++i)
     {
@@ -240,18 +243,17 @@ main(int argc, char *argv[])
         ptAntenna->SetAttribute("Gain", ptRxGain);
         ptPHY->SetAntenna(ptAntenna);
 
-        // PT Mobility Model
+        // PT Mobility Model - CIRCULAR PLACEMENT
         MobilityHelper ptMobility;
         Ptr<ListPositionAllocator> ptPositionAlloc = CreateObject<ListPositionAllocator>();
 
-        if (i == 0)
-        {
-            ptPositionAlloc->Add(Vector(2.0, 50.0, 0.0));
-        }
-        else if (i == 1)
-        {
-            ptPositionAlloc->Add(Vector(-5.0, 100.0, 0.0));
-        }
+        // Calculate angle for this PT (evenly distributed around circle)
+        double angle = (2.0 * M_PI * i) / ptNodes.GetN(); // radians
+        double radius = randomRadius->GetValue();
+        double x = radius * std::cos(angle);
+        double y = radius * std::sin(angle);
+
+        ptPositionAlloc->Add(Vector(x, y, 0.0));
 
         ptMobility.SetPositionAllocator(ptPositionAlloc);
         ptMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
