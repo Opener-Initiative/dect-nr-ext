@@ -1,17 +1,16 @@
 [0/2] Re-checking globbed directories...
-[1/3] Building CXX object contrib/dect-nr-ext/examples/CMakeFiles/dect2020ext.dir/dect2020ext.cc.o
-[2/3] Linking CXX executable contrib/dect-nr-ext/examples/ns3.46.1-dect2020ext-debug
+ninja: no work to do.
 [0/2] Re-checking globbed directories...
 ninja: no work to do.
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0x2ccd7c2e on FT Device 0x55d7a45e6f70
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0x97e0 on FT Device 0x55d7a45e6f70
-+0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0x50570f3d on PT Device 0x55d7a45e7270
-+0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xc9ed on PT Device 0x55d7a45e7270
-+0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x55d7a45e6f70 starts the network initialization
-+0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x55d7a45e7270 starts the network discovery
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0x2ccd7c2e on FT Device 0x558d3f11ff70
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0x97e0 on FT Device 0x558d3f11ff70
++0.000000000s -1 Dect2020ExtMac:SetLongRadioDeviceId(): Set Long Radio Device ID: 0x50570f3d on PT Device 0x558d3f120270
++0.000000000s -1 Dect2020ExtMac:SetShortRadioDeviceId(): Set Short Radio Device ID: 0xc9ed on PT Device 0x558d3f120270
++0.000000000s 0 Dect2020ExtMac:Start(): FT Device 0x558d3f11ff70 starts the network initialization
++0.000000000s 1 Dect2020ExtMac:Start(): PT Device 0x558d3f120270 starts the network discovery
 +0.000000000s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1657
-+0.000000000s Dect2020ExtInterference:Initialize(): Initialized interference model with 21 channels, noise floor: -111 dBm for 0x55d7a45e6f70
-+0.000000000s Dect2020ExtInterference:Initialize(): Initialized interference model with 21 channels, noise floor: -111 dBm for 0x55d7a45e7270
++0.000000000s Dect2020ExtInterference:Initialize(): Initialized interference model with 21 channels, noise floor: -111 dBm for 0x558d3f11ff70
++0.000000000s Dect2020ExtInterference:Initialize(): Initialized interference model with 21 channels, noise floor: -111 dBm for 0x558d3f120270
 +0.009999984s 0 Dect2020ExtMac:EndSubslotScan(): Finished scanning all subslots on channel 1657
 +0.010000000s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1658
 +0.019999984s 0 Dect2020ExtMac:EndSubslotScan(): Finished scanning all subslots on channel 1658
@@ -60,7 +59,7 @@ ninja: no work to do.
 +0.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +0.210000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -71,7 +70,7 @@ ninja: no work to do.
 +0.210833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +0.210833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.210833332s 0 Dect2020ExtPhy:Send(): Sending
-+0.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +0.210833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -95,7 +94,7 @@ ninja: no work to do.
 +0.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.260833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.260833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1668
-+0.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.260833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1668
@@ -114,7 +113,7 @@ ninja: no work to do.
 +0.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.310000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1677
@@ -124,7 +123,7 @@ ninja: no work to do.
 +0.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.310833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.310833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1657
-+0.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +0.310833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -145,7 +144,7 @@ ninja: no work to do.
 +0.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.360833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.360833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1667
-+0.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.360833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1667
@@ -164,7 +163,7 @@ ninja: no work to do.
 +0.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.410000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1676
@@ -174,7 +173,7 @@ ninja: no work to do.
 +0.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.410833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.410833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1677
-+0.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.410833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1677
@@ -193,7 +192,7 @@ ninja: no work to do.
 +0.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.460833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.460833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1666
-+0.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.460833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1666
@@ -212,7 +211,7 @@ ninja: no work to do.
 +0.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.510000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1675
@@ -222,7 +221,7 @@ ninja: no work to do.
 +0.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.510833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.510833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1676
-+0.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.510833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1676
@@ -241,7 +240,7 @@ ninja: no work to do.
 +0.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.560833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.560833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1665
-+0.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.560833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1665
@@ -260,7 +259,7 @@ ninja: no work to do.
 +0.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.610000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
@@ -270,7 +269,7 @@ ninja: no work to do.
 +0.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.610833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.610833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1675
-+0.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.610833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1675
@@ -289,7 +288,7 @@ ninja: no work to do.
 +0.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.660833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.660833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1664
-+0.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.660833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1664
@@ -308,7 +307,7 @@ ninja: no work to do.
 +0.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.710000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
@@ -318,7 +317,7 @@ ninja: no work to do.
 +0.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.710833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.710833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1674
-+0.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.710833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
@@ -337,7 +336,7 @@ ninja: no work to do.
 +0.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.760833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.760833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1663
-+0.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.760833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
@@ -356,7 +355,7 @@ ninja: no work to do.
 +0.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.810000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1672
@@ -366,7 +365,7 @@ ninja: no work to do.
 +0.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.810833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.810833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1673
-+0.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.810833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
@@ -385,7 +384,7 @@ ninja: no work to do.
 +0.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.860833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.860833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1662
-+0.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.860833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
@@ -404,7 +403,7 @@ ninja: no work to do.
 +0.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +0.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +0.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+0.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++0.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +0.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.910000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1671
@@ -414,7 +413,7 @@ ninja: no work to do.
 +0.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.910833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.910833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1672
-+0.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.910833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1672
@@ -433,7 +432,7 @@ ninja: no work to do.
 +0.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +0.960833332s 0 Dect2020ExtPhy:Send(): Sending
 +0.960833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1661
-+0.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++0.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +0.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +0.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +0.960833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1661
@@ -452,7 +451,7 @@ ninja: no work to do.
 +1.010000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.010000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.010000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.010000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.010000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.010000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.010000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.010000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1670
@@ -462,7 +461,7 @@ ninja: no work to do.
 +1.010833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.010833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.010833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1671
-+1.010833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.010833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.010833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.010833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.010833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1671
@@ -481,7 +480,7 @@ ninja: no work to do.
 +1.060833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.060833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.060833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1660
-+1.060833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.060833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.060833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.060833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.060833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1660
@@ -500,7 +499,7 @@ ninja: no work to do.
 +1.110000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.110000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.110000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.110000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.110000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.110000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.110000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.110000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1669
@@ -510,7 +509,7 @@ ninja: no work to do.
 +1.110833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.110833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.110833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1670
-+1.110833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.110833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.110833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.110833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.110833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1670
@@ -529,7 +528,7 @@ ninja: no work to do.
 +1.160833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.160833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.160833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1659
-+1.160833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.160833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.160833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.160833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.160833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1659
@@ -548,7 +547,7 @@ ninja: no work to do.
 +1.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.210000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1668
@@ -558,7 +557,7 @@ ninja: no work to do.
 +1.210833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.210833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.210833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1669
-+1.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.210833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1669
@@ -577,7 +576,7 @@ ninja: no work to do.
 +1.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.260833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.260833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1658
-+1.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.260833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
@@ -596,7 +595,7 @@ ninja: no work to do.
 +1.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.310000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1667
@@ -606,7 +605,7 @@ ninja: no work to do.
 +1.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.310833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.310833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1668
-+1.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.310833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1668
@@ -625,7 +624,7 @@ ninja: no work to do.
 +1.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.360833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.360833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1657
-+1.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +1.360833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -646,7 +645,7 @@ ninja: no work to do.
 +1.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.410000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1666
@@ -656,7 +655,7 @@ ninja: no work to do.
 +1.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.410833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.410833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1667
-+1.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.410833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1667
@@ -675,7 +674,7 @@ ninja: no work to do.
 +1.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.460833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.460833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1677
-+1.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.460833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1677
@@ -694,7 +693,7 @@ ninja: no work to do.
 +1.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.510000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1665
@@ -704,7 +703,7 @@ ninja: no work to do.
 +1.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.510833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.510833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1666
-+1.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.510833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1666
@@ -723,7 +722,7 @@ ninja: no work to do.
 +1.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.560833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.560833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1676
-+1.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.560833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1676
@@ -742,7 +741,7 @@ ninja: no work to do.
 +1.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.610000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1664
@@ -752,7 +751,7 @@ ninja: no work to do.
 +1.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.610833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.610833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1665
-+1.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.610833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1665
@@ -771,7 +770,7 @@ ninja: no work to do.
 +1.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.660833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.660833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1675
-+1.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.660833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1675
@@ -790,7 +789,7 @@ ninja: no work to do.
 +1.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.710000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
@@ -800,7 +799,7 @@ ninja: no work to do.
 +1.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.710833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.710833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1664
-+1.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.710833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1664
@@ -819,7 +818,7 @@ ninja: no work to do.
 +1.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.760833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.760833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1674
-+1.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.760833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1674
@@ -838,7 +837,7 @@ ninja: no work to do.
 +1.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.810000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
@@ -848,7 +847,7 @@ ninja: no work to do.
 +1.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.810833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.810833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1663
-+1.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.810833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1663
@@ -867,7 +866,7 @@ ninja: no work to do.
 +1.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.860833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.860833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1673
-+1.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.860833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1673
@@ -886,7 +885,7 @@ ninja: no work to do.
 +1.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +1.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +1.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+1.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++1.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +1.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.910000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1661
@@ -896,7 +895,7 @@ ninja: no work to do.
 +1.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.910833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.910833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1662
-+1.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.910833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1662
@@ -915,7 +914,7 @@ ninja: no work to do.
 +1.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +1.960833332s 0 Dect2020ExtPhy:Send(): Sending
 +1.960833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1672
-+1.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++1.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +1.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +1.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +1.960833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1672
@@ -934,7 +933,7 @@ ninja: no work to do.
 +2.010000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.010000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.010000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.010000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.010000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.010000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.010000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.010000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1660
@@ -944,7 +943,7 @@ ninja: no work to do.
 +2.010833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.010833332s 0 Dect2020ExtPhy:Send(): Sending
 +2.010833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1661
-+2.010833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.010833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.010833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.010833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.010833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1661
@@ -963,7 +962,7 @@ ninja: no work to do.
 +2.060833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.060833332s 0 Dect2020ExtPhy:Send(): Sending
 +2.060833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1671
-+2.060833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.060833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.060833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.060833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.060833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1671
@@ -982,7 +981,7 @@ ninja: no work to do.
 +2.110000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.110000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.110000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.110000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.110000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.110000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.110000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.110000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1659
@@ -992,7 +991,7 @@ ninja: no work to do.
 +2.110833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.110833332s 0 Dect2020ExtPhy:Send(): Sending
 +2.110833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1660
-+2.110833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.110833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.110833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.110833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.110833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1660
@@ -1011,7 +1010,7 @@ ninja: no work to do.
 +2.160833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.160833332s 0 Dect2020ExtPhy:Send(): Sending
 +2.160833499s 1 Dect2020ExtMac:DiscoverNetworks(): Switching to channel 1670
-+2.160833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.160833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.160833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.160833499s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.160833499s 1 Dect2020ExtPhy:StartRx(): Current channel: 1670
@@ -1030,7 +1029,7 @@ ninja: no work to do.
 +2.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on wrong channel
 +2.210000167s 1 Dect2020ExtPhy:StartRx(): Current channel: 1658
@@ -1045,7 +1044,7 @@ ninja: no work to do.
 +2.210833499s 1 Dect2020ExtMac:SelectBestFtCandidate(): Best FT candidate cluster channel ID: 1657
 +2.210833499s 1 Dect2020ExtMac:SelectBestFtCandidate(): Switching to best FT's channel: 1657
 +2.210833499s 1 Dect2020ExtMac:SelectBestFtCandidate(): Swithing to WAITING_FOR_SELECTED_FT status
-+2.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.210833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1071,7 +1070,7 @@ ninja: no work to do.
 +2.212749330s 1 Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): MAC PDU size: 4 subslots
 +2.212749330s 1 Dect2020ExtMac:EvaluateLBTChannel(): Transmitting -> power on channel is -111 dBm
 +2.212749330s 1 Dect2020ExtPhy:Send(): Sending
-+2.212749497s Dect2020ExtInterference:AddSignal(): 0x55d7a45e6f70: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.212749497s Dect2020ExtInterference:AddSignal(): 0x558d3f11ff70: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.212749497s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.212749497s 0 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.212749497s 0 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1082,7 +1081,7 @@ ninja: no work to do.
 +2.212749497s 0 Dect2020ExtMac:SendAssociationResponse(): Sending Association Response
 +2.212749497s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.212749497s 0 Dect2020ExtPhy:Send(): Sending
-+2.212749664s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.212749664s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.212749664s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.212749664s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.212749664s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1094,7 +1093,7 @@ ninja: no work to do.
 +2.260833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.260833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.260833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1107,7 +1106,7 @@ ninja: no work to do.
 +2.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.310000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1118,7 +1117,7 @@ ninja: no work to do.
 +2.310833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.310833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.310833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1130,7 +1129,7 @@ ninja: no work to do.
 +2.360833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.360833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.360833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1143,7 +1142,7 @@ ninja: no work to do.
 +2.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.410000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1154,7 +1153,7 @@ ninja: no work to do.
 +2.410833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.410833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.410833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1166,7 +1165,7 @@ ninja: no work to do.
 +2.460833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.460833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.460833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1179,7 +1178,7 @@ ninja: no work to do.
 +2.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.510000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1190,7 +1189,7 @@ ninja: no work to do.
 +2.510833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.510833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.510833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1202,7 +1201,7 @@ ninja: no work to do.
 +2.560833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.560833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.560833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1215,7 +1214,7 @@ ninja: no work to do.
 +2.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.610000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1226,7 +1225,7 @@ ninja: no work to do.
 +2.610833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.610833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.610833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1238,7 +1237,7 @@ ninja: no work to do.
 +2.660833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.660833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.660833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1251,7 +1250,7 @@ ninja: no work to do.
 +2.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.710000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1262,7 +1261,7 @@ ninja: no work to do.
 +2.710833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.710833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.710833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1274,7 +1273,7 @@ ninja: no work to do.
 +2.760833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.760833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.760833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1287,7 +1286,7 @@ ninja: no work to do.
 +2.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.810000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1298,7 +1297,7 @@ ninja: no work to do.
 +2.810833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.810833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.810833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1310,7 +1309,7 @@ ninja: no work to do.
 +2.860833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.860833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.860833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1323,7 +1322,7 @@ ninja: no work to do.
 +2.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +2.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +2.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+2.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++2.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +2.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.910000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1334,7 +1333,7 @@ ninja: no work to do.
 +2.910833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.910833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.910833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1346,7 +1345,7 @@ ninja: no work to do.
 +2.960833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +2.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +2.960833332s 0 Dect2020ExtPhy:Send(): Sending
-+2.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++2.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +2.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +2.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +2.960833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1359,7 +1358,7 @@ ninja: no work to do.
 +3.010000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.010000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.010000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.010000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.010000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.010000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.010000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.010000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1370,7 +1369,7 @@ ninja: no work to do.
 +3.010833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.010833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.010833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.010833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.010833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.010833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.010833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.010833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1382,7 +1381,7 @@ ninja: no work to do.
 +3.060833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.060833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.060833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.060833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.060833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.060833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.060833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.060833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1395,7 +1394,7 @@ ninja: no work to do.
 +3.110000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.110000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.110000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.110000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.110000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.110000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.110000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.110000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1406,7 +1405,7 @@ ninja: no work to do.
 +3.110833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.110833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.110833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.110833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.110833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.110833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.110833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.110833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1418,7 +1417,7 @@ ninja: no work to do.
 +3.160833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.160833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.160833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.160833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.160833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.160833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.160833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.160833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1431,7 +1430,7 @@ ninja: no work to do.
 +3.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.210000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1442,7 +1441,7 @@ ninja: no work to do.
 +3.210833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.210833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.210833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.210833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1454,7 +1453,7 @@ ninja: no work to do.
 +3.260833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.260833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.260833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1467,7 +1466,7 @@ ninja: no work to do.
 +3.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.310000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1478,7 +1477,7 @@ ninja: no work to do.
 +3.310833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.310833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.310833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1490,7 +1489,7 @@ ninja: no work to do.
 +3.360833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.360833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.360833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1503,7 +1502,7 @@ ninja: no work to do.
 +3.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.410000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1514,7 +1513,7 @@ ninja: no work to do.
 +3.410833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.410833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.410833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1526,7 +1525,7 @@ ninja: no work to do.
 +3.460833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.460833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.460833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1539,7 +1538,7 @@ ninja: no work to do.
 +3.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.510000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1550,7 +1549,7 @@ ninja: no work to do.
 +3.510833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.510833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.510833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1562,7 +1561,7 @@ ninja: no work to do.
 +3.560833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.560833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.560833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1575,7 +1574,7 @@ ninja: no work to do.
 +3.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.610000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1586,7 +1585,7 @@ ninja: no work to do.
 +3.610833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.610833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.610833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1598,7 +1597,7 @@ ninja: no work to do.
 +3.660833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.660833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.660833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1611,7 +1610,7 @@ ninja: no work to do.
 +3.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.710000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1622,7 +1621,7 @@ ninja: no work to do.
 +3.710833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.710833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.710833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1634,7 +1633,7 @@ ninja: no work to do.
 +3.760833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.760833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.760833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1647,7 +1646,7 @@ ninja: no work to do.
 +3.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.810000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1658,7 +1657,7 @@ ninja: no work to do.
 +3.810833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.810833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.810833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1670,7 +1669,7 @@ ninja: no work to do.
 +3.860833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.860833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.860833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1683,7 +1682,7 @@ ninja: no work to do.
 +3.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +3.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +3.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+3.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++3.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +3.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.910000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1694,7 +1693,7 @@ ninja: no work to do.
 +3.910833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.910833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.910833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1706,7 +1705,7 @@ ninja: no work to do.
 +3.960833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +3.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +3.960833332s 0 Dect2020ExtPhy:Send(): Sending
-+3.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++3.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +3.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +3.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +3.960833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1719,7 +1718,7 @@ ninja: no work to do.
 +4.010000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.010000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.010000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.010000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.010000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.010000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.010000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.010000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1730,7 +1729,7 @@ ninja: no work to do.
 +4.010833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.010833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.010833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.010833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.010833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.010833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.010833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.010833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1742,7 +1741,7 @@ ninja: no work to do.
 +4.060833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.060833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.060833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.060833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.060833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.060833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.060833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.060833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1755,7 +1754,7 @@ ninja: no work to do.
 +4.110000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.110000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.110000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.110000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.110000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.110000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.110000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.110000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1766,7 +1765,7 @@ ninja: no work to do.
 +4.110833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.110833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.110833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.110833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.110833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.110833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.110833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.110833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1778,7 +1777,7 @@ ninja: no work to do.
 +4.160833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.160833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.160833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.160833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.160833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.160833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.160833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.160833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1791,7 +1790,7 @@ ninja: no work to do.
 +4.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.210000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1802,7 +1801,7 @@ ninja: no work to do.
 +4.210833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.210833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.210833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.210833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1814,7 +1813,7 @@ ninja: no work to do.
 +4.260833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.260833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.260833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1827,7 +1826,7 @@ ninja: no work to do.
 +4.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.310000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1838,7 +1837,7 @@ ninja: no work to do.
 +4.310833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.310833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.310833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1850,7 +1849,7 @@ ninja: no work to do.
 +4.360833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.360833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.360833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1863,7 +1862,7 @@ ninja: no work to do.
 +4.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.410000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1874,7 +1873,7 @@ ninja: no work to do.
 +4.410833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.410833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.410833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1886,7 +1885,7 @@ ninja: no work to do.
 +4.460833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.460833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.460833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1899,7 +1898,7 @@ ninja: no work to do.
 +4.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.510000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1910,7 +1909,7 @@ ninja: no work to do.
 +4.510833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.510833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.510833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1922,7 +1921,7 @@ ninja: no work to do.
 +4.560833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.560833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.560833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1935,7 +1934,7 @@ ninja: no work to do.
 +4.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.610000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1946,7 +1945,7 @@ ninja: no work to do.
 +4.610833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.610833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.610833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1958,7 +1957,7 @@ ninja: no work to do.
 +4.660833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.660833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.660833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1971,7 +1970,7 @@ ninja: no work to do.
 +4.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.710000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1982,7 +1981,7 @@ ninja: no work to do.
 +4.710833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.710833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.710833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -1994,7 +1993,7 @@ ninja: no work to do.
 +4.760833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.760833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.760833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2007,7 +2006,7 @@ ninja: no work to do.
 +4.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.810000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2018,7 +2017,7 @@ ninja: no work to do.
 +4.810833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.810833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.810833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2030,7 +2029,7 @@ ninja: no work to do.
 +4.860833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.860833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.860833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2043,7 +2042,7 @@ ninja: no work to do.
 +4.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +4.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +4.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+4.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++4.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +4.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.910000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2054,7 +2053,7 @@ ninja: no work to do.
 +4.910833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.910833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.910833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2066,7 +2065,7 @@ ninja: no work to do.
 +4.960833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +4.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +4.960833332s 0 Dect2020ExtPhy:Send(): Sending
-+4.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++4.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +4.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +4.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +4.960833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2079,7 +2078,7 @@ ninja: no work to do.
 +5.010000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.010000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.010000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.010000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.010000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.010000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.010000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.010000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2090,7 +2089,7 @@ ninja: no work to do.
 +5.010833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.010833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.010833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.010833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.010833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.010833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.010833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.010833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2102,7 +2101,7 @@ ninja: no work to do.
 +5.060833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.060833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.060833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.060833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.060833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.060833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.060833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.060833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2115,7 +2114,7 @@ ninja: no work to do.
 +5.110000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.110000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.110000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.110000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.110000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.110000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.110000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.110000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2126,7 +2125,7 @@ ninja: no work to do.
 +5.110833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.110833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.110833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.110833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.110833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.110833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.110833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.110833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2138,7 +2137,7 @@ ninja: no work to do.
 +5.160833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.160833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.160833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.160833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.160833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.160833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.160833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.160833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2151,7 +2150,7 @@ ninja: no work to do.
 +5.210000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.210000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.210000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.210000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.210000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.210000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.210000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.210000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2162,7 +2161,7 @@ ninja: no work to do.
 +5.210833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.210833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.210833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.210833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.210833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.210833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.210833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.210833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2174,7 +2173,7 @@ ninja: no work to do.
 +5.260833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.260833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.260833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.260833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.260833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.260833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.260833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.260833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2187,7 +2186,7 @@ ninja: no work to do.
 +5.310000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.310000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.310000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.310000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.310000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.310000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.310000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.310000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2198,7 +2197,7 @@ ninja: no work to do.
 +5.310833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.310833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.310833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.310833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.310833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.310833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.310833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.310833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2210,7 +2209,7 @@ ninja: no work to do.
 +5.360833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.360833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.360833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.360833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.360833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.360833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.360833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.360833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2223,7 +2222,7 @@ ninja: no work to do.
 +5.410000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.410000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.410000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.410000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.410000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.410000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.410000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.410000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2234,7 +2233,7 @@ ninja: no work to do.
 +5.410833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.410833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.410833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.410833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.410833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.410833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.410833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.410833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2246,7 +2245,7 @@ ninja: no work to do.
 +5.460833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.460833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.460833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.460833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.460833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.460833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.460833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.460833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2259,7 +2258,7 @@ ninja: no work to do.
 +5.510000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.510000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.510000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.510000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.510000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.510000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.510000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.510000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2270,7 +2269,7 @@ ninja: no work to do.
 +5.510833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.510833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.510833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.510833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.510833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.510833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.510833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.510833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2282,7 +2281,7 @@ ninja: no work to do.
 +5.560833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.560833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.560833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.560833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.560833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.560833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.560833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.560833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2295,7 +2294,7 @@ ninja: no work to do.
 +5.610000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.610000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.610000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.610000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.610000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.610000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.610000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.610000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2306,7 +2305,7 @@ ninja: no work to do.
 +5.610833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.610833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.610833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.610833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.610833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.610833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.610833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.610833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2318,7 +2317,7 @@ ninja: no work to do.
 +5.660833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.660833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.660833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.660833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.660833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.660833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.660833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.660833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2331,7 +2330,7 @@ ninja: no work to do.
 +5.710000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.710000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.710000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.710000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.710000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.710000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.710000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.710000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2342,7 +2341,7 @@ ninja: no work to do.
 +5.710833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.710833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.710833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.710833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.710833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.710833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.710833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.710833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2354,7 +2353,7 @@ ninja: no work to do.
 +5.760833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.760833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.760833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.760833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.760833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.760833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.760833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.760833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2367,7 +2366,7 @@ ninja: no work to do.
 +5.810000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.810000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.810000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.810000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.810000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.810000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.810000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.810000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2378,7 +2377,7 @@ ninja: no work to do.
 +5.810833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.810833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.810833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.810833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.810833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.810833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.810833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.810833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2390,7 +2389,7 @@ ninja: no work to do.
 +5.860833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.860833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.860833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.860833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.860833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.860833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.860833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.860833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2403,7 +2402,7 @@ ninja: no work to do.
 +5.910000000s 0 Dect2020ExtMac:SendNetworkBeaconOnChannel(): Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
 +5.910000000s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 1
 +5.910000000s 0 Dect2020ExtPhy:Send(): Sending
-+5.910000167s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
++5.910000167s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.41667ms
 +5.910000167s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.910000167s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.910000167s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2414,7 +2413,7 @@ ninja: no work to do.
 +5.910833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.910833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.910833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.910833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.910833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.910833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.910833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.910833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm
@@ -2426,7 +2425,7 @@ ninja: no work to do.
 +5.960833332s 0 Dect2020ExtMac:SendClusterBeaconOnChannel(): Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
 +5.960833332s 0 Dect2020ExtMac:BuildPhysicalHeaderField(): MAC PDU length in slots: 2
 +5.960833332s 0 Dect2020ExtPhy:Send(): Sending
-+5.960833499s Dect2020ExtInterference:AddSignal(): 0x55d7a45e7270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
++5.960833499s Dect2020ExtInterference:AddSignal(): 0x558d3f120270: channelIndex=0, power=-87.6468 dBm (1.71917e-12 W), duration=+0.83334ms
 +5.960833499s Dect2020ExtInterference:DoAddSignal(): DoAddSignal: channelIndex=0, powerBefore=-111 dBm, powerAfter=-87.6268 dBm (added 1.71917e-12 W)
 +5.960833499s 1 Dect2020ExtPhy:StartRx(): Received packet on the current channel 1657 with RSSI -87.6468 dBm
 +5.960833499s 1 Dect2020ExtPhy:StartRx(): Total channel 1657 power: -87.6268 dBm

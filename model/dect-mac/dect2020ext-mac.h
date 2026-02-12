@@ -282,6 +282,7 @@ class Dect2020ExtMac : public Object
         uint16_t m_currentChannelId;
 
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
+        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
 
     private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
@@ -323,7 +324,6 @@ class Dect2020ExtMac : public Object
         bool m_isWaitingForClusterBeacon;
 
         uint8_t m_lastSfn;
-        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
 
         uint8_t m_potentialShortNetworkId;
 
