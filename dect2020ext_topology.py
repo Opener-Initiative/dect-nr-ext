@@ -5,8 +5,10 @@ nodes = []
 edges = []
 
 nodes.append(('FT0', 'FT', 'NOT_ASSOCIATED', 0, 0))
-nodes.append(('PT0', 'PT', 'ASSOCIATED', 0, 50))
-edges.append(('FT0', 'PT0', {'power': -87.6468}))
+nodes.append(('PT0', 'PT', 'ASSOCIATED', 2, 50))
+edges.append(('FT0', 'PT0', {'power': -87.6572}))
+nodes.append(('PT1', 'PT', 'ASSOCIATED', -5, 100))
+edges.append(('FT0', 'PT1', {'power': -96.694}))
 
 graph = nx.Graph()
 
@@ -18,7 +20,7 @@ graph.add_edges_from(edges)
 position = {name: (x, y) for name, type, status, x, y in nodes}
 
 plt.figure(figsize=(10, 6))
-nx.draw(graph, position, with_labels=True, node_size=700)
+nx.draw(graph, position, with_labels=True, node_size=700, edge_color='red')
 
 edge_labels = nx.get_edge_attributes(graph, 'power')
 edge_labels = {k: f'{v:.1f} dBm' for k, v in edge_labels.items()}

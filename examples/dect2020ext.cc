@@ -99,7 +99,7 @@ graph.add_edges_from(edges)
 position = {name: (x, y) for name, type, status, x, y in nodes}
 
 plt.figure(figsize=(10, 6))
-nx.draw(graph, position, with_labels=True, node_size=700)
+nx.draw(graph, position, with_labels=True, node_size=700, edge_color='red')
 
 edge_labels = nx.get_edge_attributes(graph, 'power')
 edge_labels = {k: f'{v:.1f} dBm' for k, v in edge_labels.items()}
@@ -139,48 +139,29 @@ main(int argc, char *argv[])
 
     NetDeviceContainer devices;
 
-    // FT Node
+    // ################
+    // ###### FT ######
+    // ################
+
     Ptr<Node> ftNode = CreateObject<Node>();
 
-    // PT Node
-    Ptr<Node> ptNode = CreateObject<Node>();
-    
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
     ftPHY->SetChannel(channel);
-
-    // PT PHY
-    Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
-    ptPHY->SetChannel(channel);
+    channel->AddRx(ftPHY);
 
     // FT Execution Grid
     Ptr<Dect2020ExtExecutionGrid> ftExecutionGrid = CreateObject<Dect2020ExtExecutionGrid>();
     ftExecutionGrid->Initialize();
 
-    // PT Execution Grid
-    Ptr<Dect2020ExtExecutionGrid> ptExecutionGrid = CreateObject<Dect2020ExtExecutionGrid>();
-    ptExecutionGrid->Initialize();
-
     // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
-    ftMAC->SetChannelManager(channelManager);
-    ftMAC->SetPhy(ftPHY);
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
+    ftMAC->SetPhy(ftPHY);
     ftMAC->SetExecutionGrid(ftExecutionGrid);
 
     ftPHY->SetMac(ftMAC);
-
     ftExecutionGrid->SetMac(ftMAC);
-
-    // PT MAC
-    Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
-    ptMAC->SetChannelManager(channelManager);
-    ptMAC->SetPhy(ptPHY);
-    ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
-    ptMAC->SetExecutionGrid(ptExecutionGrid);
-
-    ptPHY->SetMac(ptMAC);
-    ptExecutionGrid->SetMac(ptMAC);
 
     // FT Net Device
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
@@ -191,7 +172,6 @@ main(int argc, char *argv[])
 
     ftNode->AddDevice(ftNetDevice);
     ftPHY->SetDevice(ftNetDevice);
-    channel->AddRx(ftPHY);  // Register FT PHY as receiver
 
     // FT Antenna
     Ptr<IsotropicAntennaModel> ftAntenna = CreateObject<IsotropicAntennaModel>();
@@ -199,56 +179,94 @@ main(int argc, char *argv[])
     ftAntenna->SetAttribute("Gain", ftRxGain);
     ftPHY->SetAntenna(ftAntenna);
 
-    // PT Net Device
-    Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
-    ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::PT);
-    ptNetDevice->SetMac(ptMAC);
-    ptNetDevice->SetPhy(ptPHY);
-    ptNetDevice->SetNode(ptNode);
-
-    ptNode->AddDevice(ptNetDevice);
-    ptPHY->SetDevice(ptNetDevice);
-    channel->AddRx(ptPHY);  // Register PT PHY as receiver
-
-    // PT Antenna
-    Ptr<IsotropicAntennaModel> ptAntenna = CreateObject<IsotropicAntennaModel>();
-    DoubleValue ptRxGain = ptMAC->GetRxGainFromIndex(ptNetDevice->m_rxGain);
-    ptAntenna->SetAttribute("Gain", ptRxGain);
-    ptPHY->SetAntenna(ptAntenna);
-
     // FT Mobility Model
     MobilityHelper ftMobility;
     Ptr<ListPositionAllocator> ftPositionAlloc = CreateObject<ListPositionAllocator>();
-    ftPositionAlloc->Add(Vector(0.0, 0.0, 0.0));  // Position FT node at (0, 0, 0)
+    ftPositionAlloc->Add(Vector(0.0, 0.0, 0.0));
     ftMobility.SetPositionAllocator(ftPositionAlloc);
     ftMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
     ftMobility.Install(ftNode);
     ftPHY->SetMobility(ftNode->GetObject<MobilityModel>());
 
-    // PT Mobility Model
-    MobilityHelper ptMobility;
-    Ptr<ListPositionAllocator> ptPositionAlloc = CreateObject<ListPositionAllocator>();
-    ptPositionAlloc->Add(Vector(0.0, 50.0, 0.0));  // Position PT node at (0, 50, 0)
-    ptMobility.SetPositionAllocator(ptPositionAlloc);
-    ptMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
-
-    ptMobility.Install(ptNode);
-    ptPHY->SetMobility(ptNode->GetObject<MobilityModel>());
-
     ftMAC->InitializeDevice();
-    ptMAC->InitializeDevice();
 
     devices.Add(ftNetDevice);
-    devices.Add(ptNetDevice);
 
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ftExecutionGrid);
 
-    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
-    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
-    Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ptExecutionGrid);
+    // #################
+    // ###### PTs ######
+    // #################
+
+    NodeContainer ptNodes;
+    ptNodes.Create(2);
+
+    for (uint32_t i = 0; i < ptNodes.GetN(); ++i)
+    {
+        // PT PHY
+        Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
+        ptPHY->SetChannel(channel);
+
+        // PT Execution Grid
+        Ptr<Dect2020ExtExecutionGrid> ptExecutionGrid = CreateObject<Dect2020ExtExecutionGrid>();
+        ptExecutionGrid->Initialize();
+
+        // PT MAC
+        Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
+        ptMAC->SetPhy(ptPHY);
+        ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+        ptMAC->SetExecutionGrid(ptExecutionGrid);
+
+        ptPHY->SetMac(ptMAC);
+        ptExecutionGrid->SetMac(ptMAC);
+
+        // PT Net Device
+        Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
+        ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::PT);
+        ptNetDevice->SetMac(ptMAC);
+        ptNetDevice->SetPhy(ptPHY);
+        ptNetDevice->SetNode(ptNodes.Get(i));
+
+        ptNodes.Get(i)->AddDevice(ptNetDevice);
+        ptPHY->SetDevice(ptNetDevice);
+        channel->AddRx(ptPHY);
+
+        // PT Antenna
+        Ptr<IsotropicAntennaModel> ptAntenna = CreateObject<IsotropicAntennaModel>();
+        DoubleValue ptRxGain = ptMAC->GetRxGainFromIndex(ptNetDevice->m_rxGain);
+        ptAntenna->SetAttribute("Gain", ptRxGain);
+        ptPHY->SetAntenna(ptAntenna);
+
+        // PT Mobility Model
+        MobilityHelper ptMobility;
+        Ptr<ListPositionAllocator> ptPositionAlloc = CreateObject<ListPositionAllocator>();
+
+        if (i == 0)
+        {
+            ptPositionAlloc->Add(Vector(2.0, 50.0, 0.0));
+        }
+        else if (i == 1)
+        {
+            ptPositionAlloc->Add(Vector(-5.0, 100.0, 0.0));
+        }
+
+        ptMobility.SetPositionAllocator(ptPositionAlloc);
+        ptMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+
+        ptMobility.Install(ptNodes.Get(i));
+        ptPHY->SetMobility(ptNodes.Get(i)->GetObject<MobilityModel>());
+
+        ptMAC->InitializeDevice();
+
+        devices.Add(ptNetDevice);
+
+        Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
+        Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
+        Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ptExecutionGrid);
+    }
 
     Simulator::Schedule(Seconds(5.9), &CreatePythonConnectionGraph, devices);
 
