@@ -1826,6 +1826,12 @@ Dect2020ExtMac::SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid)
     m_executionGrid = executionGrid;
 }
 
+Dect2020ExtMac::Dect2020ExtAssociationStatus
+Dect2020ExtMac::GetAssociationStatus()
+{
+    return m_associationStatus;
+}
+
 void
 Dect2020ExtMac::SetBandNumber(uint8_t bandNumber)
 {

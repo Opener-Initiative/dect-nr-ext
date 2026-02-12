@@ -8,38 +8,108 @@
 #include "ns3/node.h"
 #include "ns3/mobility-module.h"
 #include "ns3/net-device-container.h"
+#include "ns3/isotropic-antenna-model.h"
 
 #include <fstream>
+#include <string>
 
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
 void
-CreatePythonConnectionGraph(Ptr<NetDeviceContainer> devices)
+CreatePythonConnectionGraph(NetDeviceContainer devices)
 {
-    // int ftCounter = 0;
-    // int ptCounter = 0;
+    int ftCounter = 0;
+    int ptCounter = 0;
+    std::map<uint64_t, std::string> longRdIdToName;
 
-    // for (auto device = devices->Begin(); device != devices->End(); device++)
-    // {
-    //     Ptr<Dect2020ExtNetDevice> dectDevice = DynamicCast<Dect2020ExtNetDevice>(*device);
-    //     if (dectDevice->GetTerminationPointType() == Dect2020ExtNetDevice::FT)
-    //     {
-    //         ftCounter++;
-    //     }
-    //     else
-    //     {
-    //         ptCounter++;
-    //     }
-    // }
-
-    std::ofstream topo("./dect2020ext_topology.py");
+    std::ofstream topo("./contrib/dect-nr-ext/dect2020ext_topology.py");
 
     topo << "import networkx as nx\n";
-    topo << "import matplotlib.pyplot as plt\n";
+    topo << "import matplotlib.pyplot as plt\n" << "\n";
     topo << "nodes = []\n";
-    topo << "edges = []\n";
+    topo << "edges = []\n" << "\n";
+
+    for (auto device = devices.Begin(); device != devices.End(); device++)
+    {
+        Ptr<Dect2020ExtNetDevice> dectDevice = DynamicCast<Dect2020ExtNetDevice>(*device);
+        Ptr<Dect2020ExtMac> mac = dectDevice->GetMac();
+        Ptr<MobilityModel> mobility = dectDevice->GetNode()->GetObject<MobilityModel>();
+        Vector position = mobility->GetPosition();
+        auto status = mac->GetAssociationStatus();
+        std::string statusStr;
+
+        switch (status)
+        {
+        case 0:
+            statusStr = "NOT_ASSOCIATED";
+            break;
+        case 1:
+            statusStr = "ASSOCIATION_PREPARING";
+            break;
+        case 2:
+            statusStr = "WAITING_FOR_SELECTED_FT";
+            break;
+        case 3:
+            statusStr = "ASSOCIATION_PENDING";
+            break;
+        case 4:
+            statusStr = "ASSOCIATED";
+            break;
+        default:
+            statusStr = "UNKNOWN";
+            break;
+        }
+
+        std::string type = dectDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT ? "FT" : "PT";
+        std::string name;
+        if (type == "FT")
+        {
+            name = "FT" + std::to_string(ftCounter);
+            ftCounter++;
+        }
+        else
+        {
+            name = "PT" + std::to_string(ptCounter);
+            ptCounter++;
+        }
+
+        longRdIdToName[mac->GetLongRadioDeviceId()] = name;
+
+        topo << "nodes.append(('" << name << "', '" << type << "', '"
+                << statusStr << "', " << position.x << ", " << position.y << "))\n";
+            
+        if (statusStr == "ASSOCIATED")
+        {
+            uint64_t ftId = mac->m_associatedFTNetDeviceLongRdId;
+            std::string ftName = longRdIdToName[ftId];
+            topo << "edges.append(('" << ftName << "', '" << name << "'))\n";
+        }
+    }
+
+    topo << R"(
+graph = nx.Graph()
+
+for name, type, status, x, y in nodes:
+    graph.add_node(name, type=type, status=status, position=(x, y))
+
+graph.add_edges_from(edges)
+
+position = {name: (x, y) for name, type, status, x, y in nodes}
+
+plt.figure(figsize=(10, 6))
+nx.draw(graph, position, with_labels=True, node_size=700)
+
+edge_labels = nx.get_edge_attributes(graph, 'power')
+edge_labels = {k: f'{v:.1f} dBm' for k, v in edge_labels.items()}
+
+nx.draw_networkx_edge_labels(graph, position, edge_labels)
+
+plt.axis('on')
+plt.grid(True)
+plt.show()
+)";
 
     topo.close();
 }
@@ -50,6 +120,8 @@ main(int argc, char *argv[])
     // LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
 
     // Spectrum Channel
     Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
@@ -65,7 +137,7 @@ main(int argc, char *argv[])
     channelManager->Configure();
     channelManager->InitializeChannels();
 
-    Ptr<NetDeviceContainer> devices = CreateObject<NetDeviceContainer>();
+    NetDeviceContainer devices;
 
     // FT Node
     Ptr<Node> ftNode = CreateObject<Node>();
@@ -108,7 +180,6 @@ main(int argc, char *argv[])
     ptMAC->SetExecutionGrid(ptExecutionGrid);
 
     ptPHY->SetMac(ptMAC);
-
     ptExecutionGrid->SetMac(ptMAC);
 
     // FT Net Device
@@ -119,6 +190,14 @@ main(int argc, char *argv[])
     ftNetDevice->SetNode(ftNode);
 
     ftNode->AddDevice(ftNetDevice);
+    ftPHY->SetDevice(ftNetDevice);
+    channel->AddRx(ftPHY);  // Register FT PHY as receiver
+
+    // FT Antenna
+    Ptr<IsotropicAntennaModel> ftAntenna = CreateObject<IsotropicAntennaModel>();
+    DoubleValue ftRxGain = ftMAC->GetRxGainFromIndex(ftNetDevice->m_rxGain);
+    ftAntenna->SetAttribute("Gain", ftRxGain);
+    ftPHY->SetAntenna(ftAntenna);
 
     // PT Net Device
     Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
@@ -128,6 +207,14 @@ main(int argc, char *argv[])
     ptNetDevice->SetNode(ptNode);
 
     ptNode->AddDevice(ptNetDevice);
+    ptPHY->SetDevice(ptNetDevice);
+    channel->AddRx(ptPHY);  // Register PT PHY as receiver
+
+    // PT Antenna
+    Ptr<IsotropicAntennaModel> ptAntenna = CreateObject<IsotropicAntennaModel>();
+    DoubleValue ptRxGain = ptMAC->GetRxGainFromIndex(ptNetDevice->m_rxGain);
+    ptAntenna->SetAttribute("Gain", ptRxGain);
+    ptPHY->SetAntenna(ptAntenna);
 
     // FT Mobility Model
     MobilityHelper ftMobility;
@@ -137,6 +224,7 @@ main(int argc, char *argv[])
     ftMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
     ftMobility.Install(ftNode);
+    ftPHY->SetMobility(ftNode->GetObject<MobilityModel>());
 
     // PT Mobility Model
     MobilityHelper ptMobility;
@@ -146,12 +234,13 @@ main(int argc, char *argv[])
     ptMobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
     ptMobility.Install(ptNode);
+    ptPHY->SetMobility(ptNode->GetObject<MobilityModel>());
 
     ftMAC->InitializeDevice();
     ptMAC->InitializeDevice();
 
-    devices->Add(ftNetDevice);
-    devices->Add(ptNetDevice);
+    devices.Add(ftNetDevice);
+    devices.Add(ptNetDevice);
 
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
@@ -161,8 +250,7 @@ main(int argc, char *argv[])
     Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
     Simulator::ScheduleWithContext(ptNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ptExecutionGrid);
 
-    // Simulator::Schedule(Seconds(0), &CreatePythonConnectionGraph, devices);
-    CreatePythonConnectionGraph(devices);
+    Simulator::Schedule(Seconds(5.9), &CreatePythonConnectionGraph, devices);
 
     Simulator::Stop(Seconds(6));
     Simulator::Run();

@@ -1,4 +1,5 @@
 #include "dect2020ext-phy.h"
+#include "dect2020ext-interference.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
@@ -87,7 +88,8 @@ Dect2020ExtPhy::Start()
 {
     NS_LOG_FUNCTION(this);
     StartFrameTimer();
-    m_interference->Initialize(m_channelManager->GetSpectrumModel(m_bandNumber));
+    m_interference->m_mac = this->m_mac;
+    Simulator::ScheduleWithContext(m_device->GetNode()->GetId(), Seconds(0), &Dect2020ExtInterference::Initialize, m_interference, m_channelManager->GetSpectrumModel(m_bandNumber));
 }
 
 void
@@ -483,6 +485,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     NS_ASSERT_MSG(this->m_device, "m_device is null");
     NS_ASSERT_MSG(this->m_mac, "m_mac is null");
     NS_ASSERT_MSG(this->m_channelManager, "m_channelManager is null");
+    NS_LOG_INFO("Sending");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
@@ -495,17 +498,17 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
     params->duration = duration;
 
-    Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
-    Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
-    params->psd = psd;
-
     // Get the channel index --> this is the index of the channel used for PSD
     uint16_t channelIndex = this->m_mac->m_currentChannelId - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
 
-    // Set the PSD value for hte current channel
+    // Set the PSD value for the current channel
     Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
     double txPowerWatt = m_channelManager->DbmToW(dectNetDevice->m_txPowerDbm);
 
+    // Create PSD and initialize
+    Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
+    Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
+    
     for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
     {
         (*psd)[i] = 0.0; // Initialize all channels to 0.0
@@ -515,8 +518,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     (*psd)[channelIndex] = txPowerWatt;
     params->psd = psd;
 
-    // Start the transmission
-    Simulator::Schedule(MilliSeconds(0), &ns3::SpectrumChannel::StartTx, m_channel, params);
+    // Start the transmission immediately
+    m_channel->StartTx(params);
     DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
 }
 

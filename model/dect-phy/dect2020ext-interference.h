@@ -8,6 +8,8 @@
 namespace ns3
 {
 
+class Dect2020ExtMac;
+
 class Dect2020ExtInterference : public Object
 {
     public:
@@ -24,6 +26,8 @@ class Dect2020ExtInterference : public Object
         Ptr<SpectrumValue> m_rxSignal{nullptr};
         Ptr<SpectrumValue> m_allSignals{nullptr};
         Ptr<const SpectrumValue> m_noise{nullptr};
+
+        Ptr<Dect2020ExtMac> m_mac;
 };
 
 } // namespace ns3

@@ -1,9 +1,9 @@
 # Check if stdint library is available
-include(CheckIncludeFile)
-check_include_file(stdint.h HAVE_STDINT_H)
-if(NOT HAVE_STDINT_H)
-    message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
-endif()
+# include(CheckIncludeFile)
+# check_include_file(stdint.h HAVE_STDINT_H)
+# if(NOT HAVE_STDINT_H)
+#     message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
+# endif()
 ###########
 ## TYPES ##
 ###########

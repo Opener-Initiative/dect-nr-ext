@@ -102,7 +102,7 @@ Dect2020ExtChannelManager::InitializeChannels()
     {
         int channelFrequencyNumbering = bandParams.nStart + ch;
 
-        Ptr<Dect2020ExtChannel> dect2020ExtChannel = Create<Dect2020ExtChannel>();
+        Ptr<Dect2020ExtChannel> dect2020ExtChannel = CreateObject<Dect2020ExtChannel>();
         dect2020ExtChannel->m_channelId = channelFrequencyNumbering;
         dect2020ExtChannel->m_centerFrequency =
             CalculateCenterFrequency(m_bandNumber, channelFrequencyNumbering);

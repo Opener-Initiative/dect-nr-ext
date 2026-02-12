@@ -263,6 +263,8 @@ class Dect2020ExtMac : public Object
 
         void SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid);
 
+        Dect2020ExtAssociationStatus GetAssociationStatus();
+
         // Configuration
 
         void SetBandNumber(uint8_t bandNumber);
