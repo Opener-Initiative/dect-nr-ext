@@ -14,8 +14,8 @@ build_lib_example(
 )
 
 build_lib_example(
-    NAME dect2020ext-execution-grid-example
-    SOURCE_FILES dect2020ext-execution-grid-example.cc
+    NAME dect2020ext-mac-scheduler-example
+    SOURCE_FILES dect2020ext-mac-scheduler-example.cc
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
 )

@@ -1,18 +1,18 @@
-#include "ns3/dect2020ext-execution-grid.h"
+#include "ns3/dect2020ext-mac-scheduler.h"
 #include "ns3/dect2020ext-channel-manager.h"
 
 #include "ns3/simulator.h"
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtExecutionGridExample");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacSchedulerExample");
 
 int
 main(int argc, char *argv[])
 {
-    LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    LogComponentEnable("Dect2020ExtExecutionGridExample", LOG_LEVEL_INFO);
+    LogComponentEnable("Dect2020ExtMacSchedulerExample", LOG_LEVEL_INFO);
 
     // Channel Manager
     Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
@@ -21,12 +21,12 @@ main(int argc, char *argv[])
     channelManager->SetFourierTransformScalingFactor(1);
     channelManager->Configure();
 
-    // Execution Grid
-    Ptr<Dect2020ExtExecutionGrid> executionGrid = CreateObject<Dect2020ExtExecutionGrid>();
-    executionGrid->Initialize();
-    executionGrid->StartExecutionGrid();
+    // Mac Scheduler
+    Ptr<Dect2020ExtMacScheduler> macScheduler = CreateObject<Dect2020ExtMacScheduler>();
+    macScheduler->Initialize();
+    macScheduler->StartMacScheduler();
 
-    Simulator::Schedule(MilliSeconds(1), &Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs, executionGrid, 4);
+    Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs, macScheduler, 4);
 
     Simulator::Stop(MilliSeconds(20));
     Simulator::Run();

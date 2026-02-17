@@ -2,6 +2,8 @@
 
 # FT Device
 ---
+# Configuration
+
 # Initialization
 
 # Initializing Network

@@ -491,18 +491,18 @@ Dect2020ExtChannelManager::MeasureRssi(std::shared_ptr<Dect2020ExtSubslotScanCon
 }
 
 void 
-Dect2020ExtChannelManager::SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel)
+Dect2020ExtChannelManager::SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel)
 {
     NS_LOG_FUNCTION(this << spectrumChannel);
     m_spectrumChannel = spectrumChannel;
 }
 
-Ptr<SingleModelSpectrumChannel>
-Dect2020ExtChannelManager::GetSpectrumChannel(void)
-{
-    NS_LOG_FUNCTION(this);
-    return m_spectrumChannel;
-}
+// Ptr<SingleModelSpectrumChannel>
+// Dect2020ExtChannelManager::GetSpectrumChannel(void)
+// {
+//     NS_LOG_FUNCTION(this);
+//     return m_spectrumChannel;
+// }
 
 double
 Dect2020ExtChannelManager::DbmToW(double dBm)
@@ -605,11 +605,11 @@ Dect2020ExtChannelManager::Configure(void)
     Config::SetDefault("ns3::Dect2020ExtPhy::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
     Config::SetDefault("ns3::Dect2020ExtPhy::config_ChannelManager", PointerValue(this));
 
-    // Configure Execution Grid attributes
-    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_BandNumber", UintegerValue(m_bandNumber));
-    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtExecutionGrid::config_ChannelManager", PointerValue(this));
+    // Configure Mac Scheduler attributes
+    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_BandNumber", UintegerValue(m_bandNumber));
+    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_ChannelManager", PointerValue(this));
 }
 
 }; // namespace ns3

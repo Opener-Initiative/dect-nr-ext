@@ -1,4 +1,4 @@
-#include "dect2020ext-execution-grid.h"
+#include "dect2020ext-mac-scheduler.h"
 
 #include "ns3/dect2020ext-mac.h"
 
@@ -12,97 +12,97 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtExecutionGrid");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtExecutionGrid);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacScheduler");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacScheduler);
 
 // ##################################
-// #### Execution Grid Operation ####
+// #### Mac Scheduler Operation ####
 // ##################################
 
-Dect2020ExtExecutionGridOperation::Dect2020ExtExecutionGridOperation()
+Dect2020ExtMacSchedulerOperation::Dect2020ExtMacSchedulerOperation()
 {
     m_operationType = OperationType::IDLE;
     m_resource = nullptr;
     m_periodFrames = 0;
 }
 
-Dect2020ExtExecutionGridOperation::~Dect2020ExtExecutionGridOperation()
+Dect2020ExtMacSchedulerOperation::~Dect2020ExtMacSchedulerOperation()
 {
 }
 
 
-// #########################################
-// #### Dect2020ExtExecutionGridSubslot ####
-// #########################################
+// ###############################
+// #### Mac Scheduler Subslot ####
+// ###############################
 
-Dect2020ExtExecutionGridSubslot::Dect2020ExtExecutionGridSubslot()
+Dect2020ExtMacSchedulerSubslot::Dect2020ExtMacSchedulerSubslot()
 {
 }
 
-Dect2020ExtExecutionGridSubslot::~Dect2020ExtExecutionGridSubslot()
+Dect2020ExtMacSchedulerSubslot::~Dect2020ExtMacSchedulerSubslot()
 {
 }
 
-// ######################################
-// #### Dect2020ExtExecutionGridSlot ####
-// ######################################
+// ############################
+// #### Mac Scheduler Slot ####
+// ############################
 
-Dect2020ExtExecutionGridSlot::Dect2020ExtExecutionGridSlot()
+Dect2020ExtMacSchedulerSlot::Dect2020ExtMacSchedulerSlot()
 {
 }
 
-Dect2020ExtExecutionGridSlot::~Dect2020ExtExecutionGridSlot()
+Dect2020ExtMacSchedulerSlot::~Dect2020ExtMacSchedulerSlot()
 {
 }
 
 // ########################
-// #### Execution Grid ####
+// #### Mac Scheduler ####
 // ########################
 
-Dect2020ExtExecutionGrid::Dect2020ExtExecutionGrid()
+Dect2020ExtMacScheduler::Dect2020ExtMacScheduler()
 {
 }
 
-Dect2020ExtExecutionGrid::~Dect2020ExtExecutionGrid()
+Dect2020ExtMacScheduler::~Dect2020ExtMacScheduler()
 {
 }
 
 TypeId
-Dect2020ExtExecutionGrid::GetTypeId()
+Dect2020ExtMacScheduler::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtExecutionGrid")
+    static TypeId tid = TypeId("ns3::Dect2020ExtMacScheduler")
         .SetParent<Object>()
-        .AddConstructor<Dect2020ExtExecutionGrid>()
+        .AddConstructor<Dect2020ExtMacScheduler>()
         .SetGroupName("Dect2020Ext")
 
         .AddAttribute("config_BandNumber",
                         "DECT-2020 band number configuration",
                         UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtExecutionGrid::m_bandNumber),
+                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_bandNumber),
                         MakeUintegerChecker<uint8_t>(1, 21))
 
         .AddAttribute("config_SubcarrierScalingFactor",
                         "DECT-2020 subcarrier scaling factor configuration",
                         UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtExecutionGrid::m_subcarrierScalingFactor),
+                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_subcarrierScalingFactor),
                         MakeUintegerChecker<uint8_t>(1, 8))
 
         .AddAttribute("config_FourierTransformScalingFactor",
                         "DECT-2020 Fourier transform scaling factor configuration",
                         UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtExecutionGrid::m_fourierTransformScalingFactor),
+                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_fourierTransformScalingFactor),
                         MakeUintegerChecker<uint8_t>(1, 8))
 
         .AddAttribute("config_ChannelManager",
                         "Dect2020ExtChannelManager configuration",
                         PointerValue(nullptr),
-                        MakePointerAccessor(&Dect2020ExtExecutionGrid::m_channelManager),
+                        MakePointerAccessor(&Dect2020ExtMacScheduler::m_channelManager),
                         MakePointerChecker<Dect2020ExtChannelManager>());
     return tid;
 }
 
 void
-Dect2020ExtExecutionGrid::Initialize()
+Dect2020ExtMacScheduler::Initialize()
 {
     NS_LOG_FUNCTION(this);
 
@@ -110,19 +110,19 @@ Dect2020ExtExecutionGrid::Initialize()
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber); // Get current band parameters
     uint16_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of channels
 
-    // Initialize the execution grid with slots and subslot for each channel
+    // Initialize the mac scheduler with slots and subslots for each channel
     for (uint16_t ch = 0; ch < numChannels; ch++)
     {
 
         uint16_t absoluteChannelNumber = bandParams.nStart + ch;
         uint32_t subslotNumber = 0;
-        std::vector<Dect2020ExtExecutionGridSlot> slots;
+        std::vector<Dect2020ExtMacSchedulerSlot> slots;
 
         for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
         {
             double slotStartTime = slotNumber * SLOT_DURATION_NS;
             double slotEndTime = (slotNumber + 1) * SLOT_DURATION_NS;
-            Dect2020ExtExecutionGridSlot slot;
+            Dect2020ExtMacSchedulerSlot slot;
             slot.m_slotNumber = slotNumber;
             slot.m_slotStartTimeNs = slotStartTime;
             slot.m_slotEndTimeNs = slotEndTime;
@@ -132,13 +132,13 @@ Dect2020ExtExecutionGrid::Initialize()
                 double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
                 double subslotEndTime = (subslotNumber + 1) * (SLOT_DURATION_NS / numSubslotsPerSlot);
 
-                Dect2020ExtExecutionGridOperation operation;
-                operation.m_operationType = Dect2020ExtExecutionGridOperation::IDLE;
+                Dect2020ExtMacSchedulerOperation operation;
+                operation.m_operationType = Dect2020ExtMacSchedulerOperation::IDLE;
                 operation.m_channelNumber = absoluteChannelNumber;
                 operation.m_startSubslot = subslotNumber;
                 operation.m_endSubslot = subslotNumber;
 
-                Dect2020ExtExecutionGridSubslot subslot;
+                Dect2020ExtMacSchedulerSubslot subslot;
                 subslot.m_subslotIndex = subslotIndex;
                 subslot.m_subslotNumber = subslotNumber;
                 subslot.m_subslotStartTimeNs = subslotStartTime;
@@ -149,13 +149,13 @@ Dect2020ExtExecutionGrid::Initialize()
             }
             slots.push_back(slot);
         }
-        m_executionGrid[absoluteChannelNumber] = slots;
+        m_macScheduler[absoluteChannelNumber] = slots;
     }
-    m_nextExecutionGrid = m_executionGrid;
+    m_nextMacScheduler = m_macScheduler;
 }
 
 void
-Dect2020ExtExecutionGrid::StartExecutionGrid()
+Dect2020ExtMacScheduler::StartMacScheduler()
 {
     NS_LOG_FUNCTION(this);
 
@@ -172,28 +172,28 @@ Dect2020ExtExecutionGrid::StartExecutionGrid()
     for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
         double slotStartTime = slotNumber * SLOT_DURATION_NS;
-        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtExecutionGrid::ProcessSlot, this, slotNumber);
+        Simulator::Schedule(NanoSeconds(slotStartTime), &Dect2020ExtMacScheduler::ProcessSlot, this, slotNumber);
     }
 
     for (uint32_t subslotNumber = 0; subslotNumber < numSubslotsPerFrame; subslotNumber++)
     {
         double subslotStartTime = subslotNumber * (SLOT_DURATION_NS / numSubslotsPerSlot);
-        Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtExecutionGrid::ProcessSubslot, this, subslotNumber);
+        Simulator::Schedule(NanoSeconds(subslotStartTime), &Dect2020ExtMacScheduler::ProcessSubslot, this, subslotNumber);
     }
 
-    ScheduleNextExecutionGrid();
+    ScheduleNextMacScheduler();
 }
 
 void
-Dect2020ExtExecutionGrid::ScheduleNextExecutionGrid()
+Dect2020ExtMacScheduler::ScheduleNextMacScheduler()
 {
     NS_LOG_FUNCTION(this);
-    m_executionGrid = m_nextExecutionGrid;
-    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtExecutionGrid::StartExecutionGrid, this);
+    m_macScheduler = m_nextMacScheduler;
+    Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtMacScheduler::StartMacScheduler, this);
 }
 
 void
-Dect2020ExtExecutionGrid::ProcessSlot(uint32_t slotNumber)
+Dect2020ExtMacScheduler::ProcessSlot(uint32_t slotNumber)
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Processing slot " << slotNumber << " at time: " << Simulator::Now());
@@ -201,7 +201,7 @@ Dect2020ExtExecutionGrid::ProcessSlot(uint32_t slotNumber)
 }
 
 void
-Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
+Dect2020ExtMacScheduler::ProcessSubslot(uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO("Processing subslot " << subslotNumber << " at time: " << Simulator::Now());
@@ -214,11 +214,11 @@ Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
         const auto& operation = subslot.operation;
 
         // Execute the operation if its type is not IDLE
-        if (operation.m_operationType != Dect2020ExtExecutionGridOperation::IDLE)
+        if (operation.m_operationType != Dect2020ExtMacSchedulerOperation::IDLE)
         {
             // Execute the operation periodically if its type is TX_NETWORK_BEACON or TX_CLUSTER_BEACON
-            if (operation.m_operationType == Dect2020ExtExecutionGridOperation::TX_NETWORK_BEACON
-                || operation.m_operationType == Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON)
+            if (operation.m_operationType == Dect2020ExtMacSchedulerOperation::TX_NETWORK_BEACON
+                || operation.m_operationType == Dect2020ExtMacSchedulerOperation::TX_CLUSTER_BEACON)
             {
                 if ((m_SFN - operation.m_frameOffset) % operation.m_periodFrames == 0)
                 {
@@ -234,7 +234,7 @@ Dect2020ExtExecutionGrid::ProcessSubslot(uint32_t subslotNumber)
 }
 
 double
-Dect2020ExtExecutionGrid::GetTimeTillNextFrameNs() const
+Dect2020ExtMacScheduler::GetTimeTillNextFrameNs() const
 {
     Time currentTime = Simulator::Now();
     Time elapsedSinceCurrentFrameStartTime = currentTime - m_currentFrameStartTime;
@@ -257,52 +257,52 @@ Dect2020ExtExecutionGrid::GetTimeTillNextFrameNs() const
 }
 
 double
-Dect2020ExtExecutionGrid::GetSlotStartTimeOffsetNs(uint32_t slotNumber) const
+Dect2020ExtMacScheduler::GetSlotStartTimeOffsetNs(uint32_t slotNumber) const
 {
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    double slotStartTimeNs = m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotStartTimeNs;
+    double slotStartTimeNs = m_macScheduler.at(bandParams.nStart).at(slotNumber).m_slotStartTimeNs;
     // NS_LOG_INFO("Slot start time: " << slotStartTimeNs << "ns");
     return slotStartTimeNs; 
 }
 
 double
-Dect2020ExtExecutionGrid::GetSlotEndTimeOffsetNs(uint32_t slotNumber) const
+Dect2020ExtMacScheduler::GetSlotEndTimeOffsetNs(uint32_t slotNumber) const
 {
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_slotEndTimeNs;
+    return m_macScheduler.at(bandParams.nStart).at(slotNumber).m_slotEndTimeNs;
 }
 
 double
-Dect2020ExtExecutionGrid::GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const
-{
-    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
-    uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
-    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotStartTimeNs;
-}
-
-double
-Dect2020ExtExecutionGrid::GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const
+Dect2020ExtMacScheduler::GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const
 {
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
     uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
-    return m_executionGrid.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotEndTimeNs;
+    return m_macScheduler.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotStartTimeNs;
 }
 
-Dect2020ExtExecutionGridSubslot
-Dect2020ExtExecutionGrid::GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const
+double
+Dect2020ExtMacScheduler::GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const
+{
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
+    uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
+    return m_macScheduler.at(bandParams.nStart).at(slotNumber).m_subslots.at(subslotIndex).m_subslotEndTimeNs;
+}
+
+Dect2020ExtMacSchedulerSubslot
+Dect2020ExtMacScheduler::GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const
 {
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t subslotIndex = subslotNumber % numSubslotsPerSlot; // Get the index of the subslot in the slot
     uint32_t slotNumber = subslotNumber / numSubslotsPerSlot; // Get the slot number
-    return m_executionGrid.at(channelNumber).at(slotNumber).m_subslots.at(subslotIndex);
+    return m_macScheduler.at(channelNumber).at(slotNumber).m_subslots.at(subslotIndex);
 }
 
 double
-Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
+Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
 {
     Time currentTime = Simulator::Now();
     Time frameDuration = MicroSeconds(FRAME_DURATION_US);
@@ -341,32 +341,32 @@ Dect2020ExtExecutionGrid::GetTimeTillSubslotStartNs(uint32_t subslotNumber) cons
 }
 
 uint32_t
-Dect2020ExtExecutionGrid::GetCurrentSlotNumber() const
+Dect2020ExtMacScheduler::GetCurrentSlotNumber() const
 {
     return m_currentSlotNumber;
 }
 
 uint32_t
-Dect2020ExtExecutionGrid::GetCurrentSubslotNumber() const
+Dect2020ExtMacScheduler::GetCurrentSubslotNumber() const
 {
     return m_currentSubslotNumber;
 }
 
 uint32_t
-Dect2020ExtExecutionGrid::GetSFN() const
+Dect2020ExtMacScheduler::GetSFN() const
 {
     return m_SFN;
 }
 
 void
-Dect2020ExtExecutionGrid::ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridOperation operation)
+Dect2020ExtMacScheduler::ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation)
 {
     if (operation.m_startSubslot == operation.m_endSubslot)
     {
         uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
         uint32_t subslotIndex = operation.m_startSubslot % numSubslotsPerSlot;
         uint32_t slotNumber = operation.m_startSubslot / numSubslotsPerSlot;
-        m_nextExecutionGrid.at(operation.m_channelNumber).at(slotNumber).m_subslots.at(subslotIndex).operation = operation;
+        m_nextMacScheduler.at(operation.m_channelNumber).at(slotNumber).m_subslots.at(subslotIndex).operation = operation;
     }
     else
     {
@@ -374,45 +374,45 @@ Dect2020ExtExecutionGrid::ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridO
     }
 }
 
-std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>>
-Dect2020ExtExecutionGrid::GetExecutionGrid() const
+std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>>
+Dect2020ExtMacScheduler::GetMacScheduler() const
 {
-    return m_executionGrid;
+    return m_macScheduler;
 }
 
 void
-Dect2020ExtExecutionGrid::SetMac(Ptr<Dect2020ExtMac> mac)
+Dect2020ExtMacScheduler::SetMac(Ptr<Dect2020ExtMac> mac)
 {
     m_mac = mac;
 }
 
 void
-Dect2020ExtExecutionGrid::PrintConfiguration() const
+Dect2020ExtMacScheduler::PrintConfiguration() const
 {
-    NS_LOG_INFO("Execution Grid Configuration:");
+    NS_LOG_INFO("Mac Scheduler Configuration:");
     NS_LOG_INFO("  Band Number: " << static_cast<uint16_t>(m_bandNumber));
     NS_LOG_INFO("  Subcarrier Scaling Factor: " << static_cast<uint16_t>(m_subcarrierScalingFactor));
     NS_LOG_INFO("  Fourier Transform Scaling Factor: " << static_cast<uint16_t>(m_fourierTransformScalingFactor));
 }
 
 void
-Dect2020ExtExecutionGrid::PrintExecutionGrid() const
+Dect2020ExtMacScheduler::PrintMacScheduler() const
 {
-    NS_LOG_INFO("Execution Grid:");
-    for (auto it = m_executionGrid.begin(); it != m_executionGrid.end(); it++)
+    NS_LOG_INFO("Mac Scheduler:");
+    for (auto it = m_macScheduler.begin(); it != m_macScheduler.end(); it++)
     {
         std::stringstream ss;
         ss << "Ch: " << it->first << " | Slots: " << it->second.size() << " | ";
         
         for (size_t slotIdx = 0; slotIdx < it->second.size(); slotIdx++)
         {
-            const Dect2020ExtExecutionGridSlot& slot = it->second[slotIdx];
+            const Dect2020ExtMacSchedulerSlot& slot = it->second[slotIdx];
             ss << "Slot[" << slot.m_slotNumber << ": " << slot.m_slotStartTimeNs << "-" 
                << slot.m_slotEndTimeNs << "ns, Subslots: " << slot.m_subslots.size() << "] { ";
             
             for (size_t subslotIdx = 0; subslotIdx < slot.m_subslots.size(); subslotIdx++)
             {
-                const Dect2020ExtExecutionGridSubslot& subslot = slot.m_subslots[subslotIdx];
+                const Dect2020ExtMacSchedulerSubslot& subslot = slot.m_subslots[subslotIdx];
                 ss << "SS[idx:" << subslot.m_subslotIndex << " num:" << subslot.m_subslotNumber 
                    << " " << subslot.m_subslotStartTimeNs << "-" << subslot.m_subslotEndTimeNs << "ns] ";
             }

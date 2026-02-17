@@ -46,7 +46,7 @@ Dect2020ExtMac::~Dect2020ExtMac()
 }
 
 TypeId
-Dect2020ExtMac::GetTypeId(void)
+Dect2020ExtMac::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtMac")
                                 .SetParent<Object>()
@@ -447,8 +447,8 @@ Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanC
     // Schedule EndSlotScan at the end of all subslots inside the channel
     for (uint32_t subslotNumber = 0; subslotNumber < subslotsPerChannel; subslotNumber++)
     {
-        double subslotStartTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(subslotNumber);
-        double subslotEndTimeNs = m_executionGrid->GetSubslotEndTimeOffsetNs(subslotNumber);
+        double subslotStartTimeNs = m_macScheduler->GetSubslotStartTimeOffsetNs(subslotNumber);
+        double subslotEndTimeNs = m_macScheduler->GetSubslotEndTimeOffsetNs(subslotNumber);
 
         Simulator::Schedule(NanoSeconds(subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
         Simulator::Schedule(NanoSeconds(subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
@@ -487,8 +487,8 @@ Dect2020ExtMac::StartBeaconTransmission()
     m_currentChannelId = m_operatingChannelId;
 
     // Network Beacon Transmission - subslot 0 (start of the first slot)
-    Dect2020ExtExecutionGridOperation networkBeaconOperation;
-    networkBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_NETWORK_BEACON;
+    Dect2020ExtMacSchedulerOperation networkBeaconOperation;
+    networkBeaconOperation.m_operationType = Dect2020ExtMacSchedulerOperation::TX_NETWORK_BEACON;
     networkBeaconOperation.m_channelNumber = m_currentChannelId;
     networkBeaconOperation.m_startSubslot = 0;
     networkBeaconOperation.m_endSubslot = 0;
@@ -497,15 +497,15 @@ Dect2020ExtMac::StartBeaconTransmission()
         this->StartNetworkBeaconTransmission();
     };
     networkBeaconOperation.m_periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
-    networkBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    networkBeaconOperation.m_frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
     m_networkBeaconSubslot = 0;
 
-    m_executionGrid->ScheduleOperationOnNextFrame(networkBeaconOperation);
+    m_macScheduler->ScheduleOperationOnNextFrame(networkBeaconOperation);
 
     // Cluster Beacon Transmission - subslot 3 (start of the second slot)
-    Dect2020ExtExecutionGridOperation clusterBeaconOperation;
-    clusterBeaconOperation.m_operationType = Dect2020ExtExecutionGridOperation::TX_CLUSTER_BEACON;
+    Dect2020ExtMacSchedulerOperation clusterBeaconOperation;
+    clusterBeaconOperation.m_operationType = Dect2020ExtMacSchedulerOperation::TX_CLUSTER_BEACON;
     clusterBeaconOperation.m_channelNumber = m_currentChannelId;
     clusterBeaconOperation.m_startSubslot = 4;
     clusterBeaconOperation.m_endSubslot = 4;
@@ -515,11 +515,11 @@ Dect2020ExtMac::StartBeaconTransmission()
     };
 
     clusterBeaconOperation.m_periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
-    clusterBeaconOperation.m_frameOffset = m_executionGrid->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    clusterBeaconOperation.m_frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
     m_clusterBeaconSubslot = 4;
 
-    m_executionGrid->ScheduleOperationOnNextFrame(clusterBeaconOperation);
+    m_macScheduler->ScheduleOperationOnNextFrame(clusterBeaconOperation);
 }
 
 void
@@ -543,7 +543,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
     NS_LOG_DEBUG(this);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
 
-    NS_LOG_INFO("Sending Network Beacon on channel " << m_currentChannelId << " at slot - " << m_executionGrid->GetCurrentSlotNumber() << " subslot - " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("Sending Network Beacon on channel " << m_currentChannelId << " at slot - " << m_macScheduler->GetCurrentSlotNumber() << " subslot - " << m_macScheduler->GetCurrentSubslotNumber());
     m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
@@ -553,7 +553,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
     NS_LOG_FUNCTION(this << channelId);
     Ptr<Packet> packet = BuildClusterBeacon(channelId);
 
-    NS_LOG_INFO("Sending Cluster Beacon on channel " << m_currentChannelId << " at slot - " << m_executionGrid->GetCurrentSlotNumber() << " subslot - " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("Sending Cluster Beacon on channel " << m_currentChannelId << " at slot - " << m_macScheduler->GetCurrentSlotNumber() << " subslot - " << m_macScheduler->GetCurrentSubslotNumber());
     m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
 }
 
@@ -576,8 +576,8 @@ Dect2020ExtMac::BuildNetworkBeacon()
 
     // Calculate time to next Cluster Beacon
     // Get absolute time offsets for each beacon within a frame
-    double networkBeaconTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(m_networkBeaconSubslot);
-    double clusterBeaconTimeNs = m_executionGrid->GetSubslotStartTimeOffsetNs(m_clusterBeaconSubslot);
+    double networkBeaconTimeNs = m_macScheduler->GetSubslotStartTimeOffsetNs(m_networkBeaconSubslot);
+    double clusterBeaconTimeNs = m_macScheduler->GetSubslotStartTimeOffsetNs(m_clusterBeaconSubslot);
 
     // Calculate the offset between them
     double offsetTimeNs = clusterBeaconTimeNs - networkBeaconTimeNs;
@@ -619,7 +619,7 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 
     // Cluster Beacon Message IE
     Dect2020ExtClusterBeaconMessageIE clusterBeaconMessageIE;
-    clusterBeaconMessageIE.SetSFN(m_executionGrid->GetSFN());
+    clusterBeaconMessageIE.SetSFN(m_macScheduler->GetSFN());
     clusterBeaconMessageIE.SetTxPowerIncluded(false);
     clusterBeaconMessageIE.SetPowerConstraints(false);
     clusterBeaconMessageIE.SetFrameOffsetIncluded(false);
@@ -819,7 +819,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
     if (lengthInSubslots)
     {
         uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-        double subslotDurationUs = (m_executionGrid->SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
+        double subslotDurationUs = (m_macScheduler->SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
         rachDurationUs = length * subslotDurationUs;
     }
     else
@@ -854,7 +854,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
     uint32_t CW_CURRENT = CW_MIN;
 
     // Calculate time until RACH resources start
-    double timeToRachStartNs = m_executionGrid->GetTimeTillSubslotStartNs(startSubslot);
+    double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot);
     Time delay = NanoSeconds(timeToRachStartNs);
 
     std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
@@ -878,7 +878,7 @@ void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Initiating backoff at subslot - " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber());
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
@@ -919,7 +919,7 @@ void
 Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Performing LBT at subslot " << m_executionGrid->GetCurrentSubslotNumber());
+    NS_LOG_INFO("Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     // Reset sampling context
     randomAccessContext->m_lbtSampleCount = 0;
@@ -984,8 +984,8 @@ void
 Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Evaluating LBT channel at subslot " << m_executionGrid->GetCurrentSubslotNumber());
-    NS_LOG_INFO("SFN: " << m_executionGrid->GetSFN());
+    NS_LOG_INFO("Evaluating LBT channel at subslot " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_INFO("SFN: " << m_macScheduler->GetSFN());
 
     // Calculate average RSSI from all samples
     double totalRssi = 0.0;
@@ -1820,9 +1820,9 @@ Dect2020ExtMac::GetRxGainFromIndex(uint8_t index) const
 }
 
 void
-Dect2020ExtMac::SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid)
+Dect2020ExtMac::SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler)
 {
-    m_executionGrid = executionGrid;
+    m_macScheduler = macScheduler;
 }
 
 Dect2020ExtMac::Dect2020ExtAssociationStatus

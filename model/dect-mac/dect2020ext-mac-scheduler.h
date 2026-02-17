@@ -1,5 +1,5 @@
-#ifndef DECT2020EXT_EXECUTION_GRID_H
-#define DECT2020EXT_EXECUTION_GRID_H
+#ifndef DECT2020EXT_MAC_SCHEDULER_H 
+#define DECT2020EXT_MAC_SCHEDULER_H 
 
 #include "ns3/dect2020ext-channel-manager.h"
 
@@ -13,18 +13,14 @@
 namespace ns3
 {
 
-// ##############################
-// #### Forward Declarations ####
-// ##############################
-
 class Dect2020ExtChannelManager;
 class Dect2020ExtMac;
 
-// ##################################
-// #### Execution Grid Operation ####
-// ##################################
+// #################################
+// #### Mac Scheduler Operation ####
+// #################################
 
-class Dect2020ExtExecutionGridOperation
+class Dect2020ExtMacSchedulerOperation
 {
 public:
     enum OperationType
@@ -35,8 +31,8 @@ public:
         TX_CLUSTER_BEACON
     };
 
-    Dect2020ExtExecutionGridOperation();
-    virtual ~Dect2020ExtExecutionGridOperation();
+    Dect2020ExtMacSchedulerOperation();
+    virtual ~Dect2020ExtMacSchedulerOperation();
 
     OperationType m_operationType;
     uint16_t m_channelNumber;
@@ -48,34 +44,34 @@ public:
     uint32_t m_frameOffset;
 };
 
-// #########################################
-// #### Dect2020ExtExecutionGridSubslot ####
-// #########################################
+// ###############################
+// #### Mac Scheduler Subslot ####
+// ###############################
 
-class Dect2020ExtExecutionGridSubslot
+class Dect2020ExtMacSchedulerSubslot
 {
 public:
-    Dect2020ExtExecutionGridSubslot();
-    virtual ~Dect2020ExtExecutionGridSubslot();
+    Dect2020ExtMacSchedulerSubslot();
+    virtual ~Dect2020ExtMacSchedulerSubslot();
 
     double m_subslotStartTimeNs; // Start time of the subslot in nanoseconds
     double m_subslotEndTimeNs; // End time of the subslot in nanoseconds
     uint32_t m_subslotIndex; // Index of the subslot in the slot
     uint32_t m_subslotNumber; // Number of the subslot in the channel
-    Dect2020ExtExecutionGridOperation operation;
+    Dect2020ExtMacSchedulerOperation operation;
 };
 
-// ######################################
-// #### Dect2020ExtExecutionGridSlot ####
-// ######################################
+// ############################
+// #### Mac Scheduler Slot ####
+// ############################
 
-class Dect2020ExtExecutionGridSlot
+class Dect2020ExtMacSchedulerSlot
 {
 public:
-    Dect2020ExtExecutionGridSlot();
-    virtual ~Dect2020ExtExecutionGridSlot();
+    Dect2020ExtMacSchedulerSlot();
+    virtual ~Dect2020ExtMacSchedulerSlot();
     
-    std::vector<Dect2020ExtExecutionGridSubslot> m_subslots;
+    std::vector<Dect2020ExtMacSchedulerSubslot> m_subslots;
     double m_slotStartTimeNs; // Start time of the slot in nanoseconds
     double m_slotEndTimeNs; // End time of the slot in nanoseconds
     uint32_t m_slotNumber; // Number of the slot in the channel
@@ -83,14 +79,14 @@ public:
 
 
 // ########################
-// #### Execution Grid ####
+// #### Mac Scheduler ####
 // ########################
 
-class Dect2020ExtExecutionGrid : public Object
+class Dect2020ExtMacScheduler : public Object
 {
 public:
-    Dect2020ExtExecutionGrid();
-    virtual ~Dect2020ExtExecutionGrid();
+    Dect2020ExtMacScheduler();
+    virtual ~Dect2020ExtMacScheduler();
 
     static TypeId GetTypeId();
 
@@ -98,10 +94,10 @@ public:
 
     void Initialize();
 
-    // Execution Grid Operations
+    // Mac Scheduler Operations
 
-    void StartExecutionGrid();
-    void ScheduleNextExecutionGrid();
+    void StartMacScheduler();
+    void ScheduleNextMacScheduler();
     void ProcessSlot(uint32_t slotNumber);
     void ProcessSubslot(uint32_t subslotNumber);
 
@@ -112,7 +108,7 @@ public:
     double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
     double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
     double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
-    Dect2020ExtExecutionGridSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
+    Dect2020ExtMacSchedulerSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
     double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
     uint32_t GetCurrentSlotNumber() const;
     uint32_t GetCurrentSubslotNumber() const;
@@ -122,18 +118,18 @@ public:
 
     // Scheduling
 
-    void ScheduleOperationOnNextFrame(Dect2020ExtExecutionGridOperation operation);
+    void ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation);
 
     // Setters and Getters
 
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> GetExecutionGrid() const;
+    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
     void SetMac(Ptr<Dect2020ExtMac> mac);
 
     // Configuration
 
     void PrintConfiguration() const;
 
-    void PrintExecutionGrid() const;
+    void PrintMacScheduler() const;
 
     // Constants
 
@@ -142,8 +138,8 @@ public:
     const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 
 private:
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_executionGrid;
-    std::map<uint16_t, std::vector<Dect2020ExtExecutionGridSlot>> m_nextExecutionGrid;
+    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_macScheduler;
+    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_nextMacScheduler;
     Time m_currentFrameStartTime;
     uint32_t m_SFN = 0; // System Frame Number
     Ptr<Dect2020ExtMac> m_mac;
@@ -160,4 +156,4 @@ private:
 
 } // namespace ns3
 
-#endif // DECT2020EXT_EXECUTION_GRID_H
+#endif //  DECT2020EXT_MAC_SCHEDULER_H

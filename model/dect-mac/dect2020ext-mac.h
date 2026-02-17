@@ -16,7 +16,7 @@
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
 
-#include "ns3/dect2020ext-execution-grid.h"
+#include "ns3/dect2020ext-mac-scheduler.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -38,7 +38,7 @@ class Dect2020ExtPhy;
 class Dect2020ExtPHYControlFieldType1;
 class Dect2020ExtRandomAccessResourceIE;
 class Dect2020ExtRdCapabilityIE;
-class Dect2020ExtExecutionGrid;
+class Dect2020ExtMacScheduler;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -261,7 +261,7 @@ class Dect2020ExtMac : public Object
         uint16_t GetCurrentChannelId(void) const;
         double GetRxGainFromIndex(uint8_t index) const;
 
-        void SetExecutionGrid(Ptr<Dect2020ExtExecutionGrid> executionGrid);
+        void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
 
         Dect2020ExtAssociationStatus GetAssociationStatus();
 
@@ -296,7 +296,7 @@ class Dect2020ExtMac : public Object
         uint32_t m_networkId;
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
-        Ptr<Dect2020ExtExecutionGrid> m_executionGrid;
+        Ptr<Dect2020ExtMacScheduler> m_macScheduler;
 
         // Configuration Attributes
         uint8_t m_bandNumber;

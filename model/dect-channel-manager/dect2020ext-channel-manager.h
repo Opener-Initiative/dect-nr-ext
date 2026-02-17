@@ -64,8 +64,8 @@ public:
 
     // Setters and Getters
 
-    void SetSpectrumChannel(Ptr<SingleModelSpectrumChannel> spectrumChannel);
-    Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
+    void SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel);
+    // Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
 
     // Calculation
 
@@ -87,7 +87,7 @@ public:
 
 private:
     std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
-    Ptr<SingleModelSpectrumChannel> m_spectrumChannel;
+    Ptr<SpectrumChannel> m_spectrumChannel;
 
     // Configuration variables for the DECT-NR-EXT module
 

@@ -1,7 +1,9 @@
-#include "ns3/dect2020ext-execution-grid.h"
+#include "ns3/dect2020ext-mac-scheduler.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-phy.h"
+
+#include "ns3/dect2020ext-config.h"
 
 #include "ns3/simulator.h"
 #include "ns3/single-model-spectrum-channel.h"
@@ -117,26 +119,13 @@ plt.show()
 int
 main(int argc, char *argv[])
 {
-    // LogComponentEnable("Dect2020ExtExecutionGrid", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
 
-    // Spectrum Channel
-    Ptr<SingleModelSpectrumChannel> channel = CreateObject<SingleModelSpectrumChannel>();
-    channel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
-    channel->AddPropagationLossModel(CreateObject<LogDistancePropagationLossModel>());
-
-    // Channel Manager
-    Ptr<Dect2020ExtChannelManager> channelManager = CreateObject<Dect2020ExtChannelManager>();
-    channelManager->SetBandNumber(1);
-    channelManager->SetSubcarrierScalingFactor(1);
-    channelManager->SetFourierTransformScalingFactor(1);
-    channelManager->SetSpectrumChannel(channel);
-    channelManager->Configure();
-    channelManager->InitializeChannels();
-
+    Dect2020ExtConfig config;
     NetDeviceContainer devices;
 
     // ################
@@ -147,21 +136,20 @@ main(int argc, char *argv[])
 
     // FT PHY
     Ptr<Dect2020ExtPhy> ftPHY = CreateObject<Dect2020ExtPhy>();
-    ftPHY->SetChannel(channel);
-    channel->AddRx(ftPHY);
+    config.ApplyToPhy(ftPHY);
 
-    // FT Execution Grid
-    Ptr<Dect2020ExtExecutionGrid> ftExecutionGrid = CreateObject<Dect2020ExtExecutionGrid>();
-    ftExecutionGrid->Initialize();
+    // FT Mac Scheduler
+    Ptr<Dect2020ExtMacScheduler> ftMacScheduler = CreateObject<Dect2020ExtMacScheduler>();
+    ftMacScheduler->Initialize();
 
     // FT MAC
     Ptr<Dect2020ExtMac> ftMAC = CreateObject<Dect2020ExtMac>();
     ftMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMAC->SetPhy(ftPHY);
-    ftMAC->SetExecutionGrid(ftExecutionGrid);
+    ftMAC->SetMacScheduler(ftMacScheduler);
 
     ftPHY->SetMac(ftMAC);
-    ftExecutionGrid->SetMac(ftMAC);
+    ftMacScheduler->SetMac(ftMAC);
 
     // FT Net Device
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
@@ -195,7 +183,7 @@ main(int argc, char *argv[])
 
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMac::Start, ftMAC);
     Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ftPHY);
-    Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ftExecutionGrid);
+    Simulator::ScheduleWithContext(ftNode->GetId(), Seconds(0), &Dect2020ExtMacScheduler::StartMacScheduler, ftMacScheduler);
 
     // #################
     // ###### PTs ######
@@ -213,18 +201,18 @@ main(int argc, char *argv[])
         Ptr<Dect2020ExtPhy> ptPHY = CreateObject<Dect2020ExtPhy>();
         ptPHY->SetChannel(channel);
 
-        // PT Execution Grid
-        Ptr<Dect2020ExtExecutionGrid> ptExecutionGrid = CreateObject<Dect2020ExtExecutionGrid>();
-        ptExecutionGrid->Initialize();
+        // PT Mac Scheduler
+        Ptr<Dect2020ExtMacScheduler> ptMacScheduler = CreateObject<Dect2020ExtMacScheduler>();
+        ptMacScheduler->Initialize();
 
         // PT MAC
         Ptr<Dect2020ExtMac> ptMAC = CreateObject<Dect2020ExtMac>();
         ptMAC->SetPhy(ptPHY);
         ptMAC->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
-        ptMAC->SetExecutionGrid(ptExecutionGrid);
+        ptMAC->SetMacScheduler(ptMacScheduler);
 
         ptPHY->SetMac(ptMAC);
-        ptExecutionGrid->SetMac(ptMAC);
+        ptMacScheduler->SetMac(ptMAC);
 
         // PT Net Device
         Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
@@ -267,7 +255,7 @@ main(int argc, char *argv[])
 
         Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtMac::Start, ptMAC);
         Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtPhy::Start, ptPHY);
-        Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtExecutionGrid::StartExecutionGrid, ptExecutionGrid);
+        Simulator::ScheduleWithContext(ptNodes.Get(i)->GetId(), Seconds(0), &Dect2020ExtMacScheduler::StartMacScheduler, ptMacScheduler);
     }
 
     Simulator::Schedule(Seconds(5.9), &CreatePythonConnectionGraph, devices);

@@ -25,12 +25,20 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
-# DECT-2020 EXT Execution Grid
-set(dect2020ext_execution_grid_src
-    model/execution-grid/dect2020ext-execution-grid.cc)
+# DECT-2020 EXT Configuration
+set(dect2020ext_configuration_src
+    model/config/dect2020ext-config.cc)
 
-set(dect2020ext_execution_grid_h
-    model/execution-grid/dect2020ext-execution-grid.h)
+set(dect2020ext_configuration_h
+    model/config/dect2020ext-config.h
+    model/config/dect2020ext-config-values.h)
+
+# DECT-2020 EXT Mac Scheduler
+set(dect2020ext_mac_scheduler_src
+    model/dect-mac/dect2020ext-mac-scheduler.cc)
+
+set(dect2020ext_mac_scheduler_h
+    model/dect-mac/dect2020ext-mac-scheduler.h)
 
 # DECT-2020 EXT NetDevice
 set(dect2020ext_net_device_src
@@ -203,7 +211,8 @@ build_lib(
         ${dect2020ext_information_elements_src}
         ${dect2020ext_mac_multiplexing_header_src}
         ${dect2020ext_spectrum_signal_parameters_src}
-        ${dect2020ext_execution_grid_src}
+        ${dect2020ext_mac_scheduler_src}
+        ${dect2020ext_configuration_src}
     HEADER_FILES
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
@@ -218,7 +227,8 @@ build_lib(
         ${dect2020ext_information_elements_h}
         ${dect2020ext_mac_multiplexing_header_h}
         ${dect2020ext_spectrum_signal_parameters_h}
-        ${dect2020ext_execution_grid_h}
+        ${dect2020ext_mac_scheduler_h}
+        ${dect2020ext_configuration_h}
     TEST_SOURCES
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}
