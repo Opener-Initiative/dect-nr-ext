@@ -1,7 +1,5 @@
 #include "dect2020ext-phy-control-field-type-1.h"
 
-#include "ns3/address-utils.h"
-
 #include <cmath>
 
 namespace ns3
