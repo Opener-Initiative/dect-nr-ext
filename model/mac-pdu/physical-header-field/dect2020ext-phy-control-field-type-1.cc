@@ -1,7 +1,6 @@
 #include "dect2020ext-phy-control-field-type-1.h"
 
 #include "ns3/address-utils.h"
-#include "ns3/log.h"
 
 #include <cmath>
 
@@ -9,7 +8,6 @@ namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtPHYControlFieldType1");
-
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPHYControlFieldType1);
 
 Dect2020ExtPHYControlFieldType1::Dect2020ExtPHYControlFieldType1()
@@ -21,7 +19,7 @@ Dect2020ExtPHYControlFieldType1::~Dect2020ExtPHYControlFieldType1()
 }
 
 TypeId
-Dect2020ExtPHYControlFieldType1::GetTypeId(void)
+Dect2020ExtPHYControlFieldType1::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtPHYControlFieldType1")
                             .SetParent<Header>()
@@ -43,7 +41,7 @@ Dect2020ExtPHYControlFieldType1::Print(std::ostream& os) const
 }
 
 uint32_t
-Dect2020ExtPHYControlFieldType1::GetSerializedSize(void) const
+Dect2020ExtPHYControlFieldType1::GetSerializedSize() const
 {
     return 5;
 }
@@ -51,10 +49,7 @@ Dect2020ExtPHYControlFieldType1::GetSerializedSize(void) const
 void
 Dect2020ExtPHYControlFieldType1::Serialize(Buffer::Iterator start) const
 {
-    // ETSI 103 636 04: Figure 6.2.1-1
-
     uint8_t byte0 = 0;
-    byte0 |= 0B000 << 5;
     byte0 |= m_packetLengthType << 4;
     byte0 |= m_packetLength;
 
