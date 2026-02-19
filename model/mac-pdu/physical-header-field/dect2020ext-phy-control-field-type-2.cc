@@ -1,5 +1,7 @@
 #include "dect2020ext-phy-control-field-type-2.h"
 
+#include <cmath>
+
 namespace ns3
 {
 
@@ -173,6 +175,259 @@ Dect2020ExtPHYControlFieldType2::Deserialize(Buffer::Iterator start)
     }
 
     return bytesRead;
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetHeaderFormat() const
+{
+    return m_headerFormat;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetPacketLengthType(uint8_t packetLengthType)
+{
+    if (packetLengthType == 0 || packetLengthType == 1)
+    {
+        m_packetLengthType = packetLengthType;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Packet Length Type. Must be 0 or 1.");
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetPacketLengthType() const
+{
+    return m_packetLengthType;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetPacketLength(uint8_t packetLength)
+{
+    if (packetLength >= 0 && packetLength <= 15)
+    {
+        m_packetLength = packetLength;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Packet Length. Must be between 0 and 15");
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetPacketLength() const
+{
+    return m_packetLength;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetShortNetworkID(uint8_t shortNetworkID)
+{
+    if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
+    {
+        m_shortNetworkID = shortNetworkID;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Short Network ID. Must be between 0 and " << (pow(2, 8) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetShortNetworkID() const
+{
+    return m_shortNetworkID;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetTransmitterIdentity(uint16_t transmitterIdentity)
+{
+    if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
+    {
+        m_transmitterIdentity = transmitterIdentity;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Transmitter Identity. Must be between 0 and " << (pow(2, 16) - 1));
+    }
+}
+
+uint16_t
+Dect2020ExtPHYControlFieldType2::GetTransmitterIdentity() const
+{
+    return m_transmitterIdentity;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetTransmitPower(uint8_t transmitPower)
+{
+    if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
+    {
+        m_transmitPower = transmitPower;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Transmit Power. Must be between 0 and " << (pow(2, 4) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetTransmitPower() const
+{
+    return m_transmitPower;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetDFMCS(uint8_t DFMCS)
+{
+    if (DFMCS >= 0 && DFMCS <= pow(2, 4) - 1)
+    {
+        m_DFMCS = DFMCS;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid DF MCS. Must be between 0 and " << pow(2, 4) - 1);
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetDFMCS() const
+{
+    return m_DFMCS;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetReceiverIdentity(uint16_t receiverIdentity)
+{
+    if (receiverIdentity >= 0 && receiverIdentity <= pow(2, 16) - 1)
+    {
+        m_receiverIdentity = receiverIdentity;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Receiver Identity. Must be between 0 and " << (pow(2, 16) - 1));
+    }
+}
+
+uint16_t
+Dect2020ExtPHYControlFieldType2::GetReceiverIdentity() const
+{
+    return m_receiverIdentity;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetNumberOfSpatialStreams(uint8_t numberOfSpatialStreams)
+{
+    if (numberOfSpatialStreams >= 0 && numberOfSpatialStreams <= pow(2, 2) - 1)
+    {
+        m_numberOfSpatialStreams = numberOfSpatialStreams;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Number of Spatial Streams. Must be between 0 and " << (pow(2, 2) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetNumberOfSpatialStreams() const
+{
+    return m_numberOfSpatialStreams;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetDFRedundancyVersion(uint8_t dFRedundancyVersion)
+{
+    if (dFRedundancyVersion >= 0 && dFRedundancyVersion <= pow(2, 2) - 1)
+    {
+        m_DFRedundancyVersion = dFRedundancyVersion;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid DF Redundancy Version. Must be between 0 and " << (pow(2, 2) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetDFRedundancyVersion() const
+{
+    return m_DFRedundancyVersion;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetDFNewDataIndication(uint8_t dFNewDataIndication)
+{
+    if (dFNewDataIndication == 0 || dFNewDataIndication == 1)
+    {
+        m_DFNewDataIndication = dFNewDataIndication;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid DF New Data Indication. Must be 0 or 1.");
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetDFNewDataIndication() const
+{
+    return m_DFNewDataIndication;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetDFHARQProcessNumber(uint8_t dFHARQProcessNumber)
+{
+    if (dFHARQProcessNumber >= 0 && dFHARQProcessNumber <= pow(2, 3) - 1)
+    {
+        m_DFHARQProcessNumber = dFHARQProcessNumber;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid DF HARQ Process Number. Must be between 0 and " << (pow(2, 3) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetDFHARQProcessNumber() const
+{
+    return m_DFHARQProcessNumber;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetFeedbackFormat(uint8_t feedbackFormat)
+{
+    if (feedbackFormat >= 0 && feedbackFormat <= pow(2, 4) - 1)
+    {
+        m_feedbackFormat = feedbackFormat;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Feedback Format. Must be between 0 and " << (pow(2, 4) - 1));
+    }
+}
+
+uint8_t
+Dect2020ExtPHYControlFieldType2::GetFeedbackFormat() const
+{
+    return m_feedbackFormat;
+}
+
+void
+Dect2020ExtPHYControlFieldType2::SetFeedbackInfo(uint16_t feedbackInfo)
+{
+    if (feedbackInfo >= 0 && feedbackInfo <= pow(2, 12) - 1)
+    {
+        m_feedbackInfo = feedbackInfo;
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid Feedback Info. Must be between 0 and " << (pow(2, 12) - 1));
+    }
+}
+
+uint16_t
+Dect2020ExtPHYControlFieldType2::GetFeedbackInfo() const
+{
+    return m_feedbackInfo;
 }
 
 } // namespace ns3

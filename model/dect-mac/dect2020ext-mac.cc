@@ -93,21 +93,31 @@ Dect2020ExtMac::TestFunction()
 }
 
 void
-Dect2020ExtMac::InitializeDevice(void)
+Dect2020ExtMac::Start()
 {
-    NS_LOG_FUNCTION(this);
+    // Configuration
+    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_terminationPointTypeSet, "Termination Point Type is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_phy, "PHY is not set for Dect2020ExtMac");
+
+    // MAC Scheduler
+    m_macScheduler = CreateObject<Dect2020ExtMacScheduler>();
+    m_macScheduler->SetAttribute("config_bandNumber", UintegerValue(m_bandNumber));
+    m_macScheduler->SetAttribute("config_subcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
+    m_macScheduler->SetAttribute("config_fourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
+    m_macScheduler->SetAttribute("config_channelManager", PointerValue(m_channelManager));
+    m_macScheduler->SetMac(this);
+    m_macScheduler->Initialize();
+    m_macScheduler->StartMacScheduler();
+
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
     m_backoffRandomVariable->SetStream(GetNode()->GetId());
-}
-void
-Dect2020ExtMac::Start(void)
-{
-    if (m_channelManager == nullptr)
-    {
-        NS_LOG_ERROR("Channel manager is not set for MAC");
-    }
+
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
         NS_LOG_INFO("FT Device " << this << " starts the network initialization");
@@ -1679,7 +1689,7 @@ Dect2020ExtMac::GetNetDevice(void) const
 }
 
 Ptr<Node>
-Dect2020ExtMac::GetNode(void) const
+Dect2020ExtMac::GetNode() const
 {
     if (m_device)
     {

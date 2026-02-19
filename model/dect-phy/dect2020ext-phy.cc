@@ -34,9 +34,6 @@ const std::vector<uint16_t> Dect2020ExtPhy::m_singleSlotSingleStreamTransportBlo
 Dect2020ExtPhy::Dect2020ExtPhy()
 {
     NS_LOG_FUNCTION(this);
-    m_SFN = 0;
-    m_interference = CreateObject<Dect2020ExtInterference>();
-    m_currentState = IDLE;
 }
 
 Dect2020ExtPhy::~Dect2020ExtPhy()
@@ -87,9 +84,22 @@ void
 Dect2020ExtPhy::Start()
 {
     NS_LOG_FUNCTION(this);
-    StartFrameTimer();
+
+    // Configuration
+    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtPhy");
+    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtPhy");
+    NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtPhy");
+    NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtPhy");
+    NS_ABORT_MSG_IF(!m_channel, "Spectrum Channel is not set for Dect2020ExtPhy");
+    NS_ABORT_MSG_IF(!m_antenna, "Antenna is not set for Dect2020ExtPhy");
+
+    // State Machine
+    m_currentState = IDLE;
+
+    // Interference
+    m_interference = CreateObject<Dect2020ExtInterference>();
     m_interference->m_mac = this->m_mac;
-    Simulator::ScheduleWithContext(m_device->GetNode()->GetId(), Seconds(0), &Dect2020ExtInterference::Initialize, m_interference, m_channelManager->GetSpectrumModel(m_bandNumber));
+    m_interference->Initialize(m_channelManager->GetSpectrumModel(m_bandNumber));
 }
 
 void
@@ -228,9 +238,6 @@ Dect2020ExtPhy::GetCurrentAbsoluteSubslot() const
     return m_currentAbsoluteSubslot;
 }
 
-/**
- * Assigns the MAC to the PHY
- */
 void
 Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
 {
@@ -283,6 +290,7 @@ Dect2020ExtPhy::SetBandNumber(uint8_t bandNumber)
 {
     NS_LOG_FUNCTION(this << bandNumber);
     m_bandNumber = bandNumber;
+    m_bandNumberSet = true;
 }
 
 uint8_t
@@ -296,6 +304,7 @@ Dect2020ExtPhy::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
 {
     NS_LOG_FUNCTION(this << subcarrierScalingFactor);
     m_subcarrierScalingFactor = subcarrierScalingFactor;
+    m_subcarrierScalingFactorSet = true;
 }
 
 uint8_t
@@ -309,6 +318,7 @@ Dect2020ExtPhy::SetFourierTransformScalingFactor(uint8_t fourierTransformScaling
 {
     NS_LOG_FUNCTION(this << fourierTransformScalingFactor);
     m_fourierTransformScalingFactor = fourierTransformScalingFactor;
+    m_fourierTransformScalingFactorSet = true;
 }
 
 uint8_t

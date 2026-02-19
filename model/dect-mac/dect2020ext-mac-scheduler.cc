@@ -75,25 +75,25 @@ Dect2020ExtMacScheduler::GetTypeId()
         .AddConstructor<Dect2020ExtMacScheduler>()
         .SetGroupName("Dect2020Ext")
 
-        .AddAttribute("config_BandNumber",
+        .AddAttribute("config_bandNumber",
                         "DECT-2020 band number configuration",
                         UintegerValue(1),
                         MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_bandNumber),
                         MakeUintegerChecker<uint8_t>(1, 21))
 
-        .AddAttribute("config_SubcarrierScalingFactor",
+        .AddAttribute("config_subcarrierScalingFactor",
                         "DECT-2020 subcarrier scaling factor configuration",
                         UintegerValue(1),
                         MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_subcarrierScalingFactor),
                         MakeUintegerChecker<uint8_t>(1, 8))
 
-        .AddAttribute("config_FourierTransformScalingFactor",
+        .AddAttribute("config_fourierTransformScalingFactor",
                         "DECT-2020 Fourier transform scaling factor configuration",
                         UintegerValue(1),
                         MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_fourierTransformScalingFactor),
                         MakeUintegerChecker<uint8_t>(1, 8))
 
-        .AddAttribute("config_ChannelManager",
+        .AddAttribute("config_channelManager",
                         "Dect2020ExtChannelManager configuration",
                         PointerValue(nullptr),
                         MakePointerAccessor(&Dect2020ExtMacScheduler::m_channelManager),
@@ -158,6 +158,11 @@ void
 Dect2020ExtMacScheduler::StartMacScheduler()
 {
     NS_LOG_FUNCTION(this);
+
+    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtMacScheduler");
+    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtMacScheduler");
+    NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtMacScheduler");
+    NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtMacScheduler");
 
     m_currentFrameStartTime = Simulator::Now();
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();

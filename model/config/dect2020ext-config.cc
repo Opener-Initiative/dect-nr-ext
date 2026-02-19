@@ -2,6 +2,8 @@
 #include "dect2020ext-config-values.h"
 
 #include "ns3/propagation-delay-model.h"
+#include "ns3/config.h"
+#include "ns3/pointer.h"
 
 namespace ns3
 {
@@ -38,6 +40,22 @@ Dect2020ExtConfig::CreateConfiguredChannelManager()
     return channelManager;
 }
 
+Ptr<IsotropicAntennaModel>
+Dect2020ExtConfig::CreateConfiguredIsotropicAntennaModel()
+{
+    Ptr<IsotropicAntennaModel> antenna = CreateObject<IsotropicAntennaModel>();
+
+    if (RX_GAIN_INDEX > 8)
+    {
+        NS_ABORT_MSG("Invalid RX gain" << static_cast<int>(RX_GAIN_INDEX));
+    }
+
+    DoubleValue rxGain = static_cast<int8_t>(-10 + RX_GAIN_INDEX * 2);
+    antenna->SetAttribute("Gain", rxGain);
+
+    return antenna;
+}
+
 void
 Dect2020ExtConfig::ApplyToPhy(Ptr<Dect2020ExtPhy> phy)
 {
@@ -46,6 +64,7 @@ Dect2020ExtConfig::ApplyToPhy(Ptr<Dect2020ExtPhy> phy)
     phy->SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
     phy->SetChannel(m_spectrumChannel);
     phy->SetChannelManager(m_channelManager);
+    phy->SetAntenna(CreateConfiguredIsotropicAntennaModel());
 }
 
 void

@@ -147,10 +147,15 @@ private:
     uint32_t m_currentSubslotNumber;
 
     // Configuration
-
     uint8_t m_bandNumber;
+    bool m_bandNumberSet = false;
+
     uint8_t m_subcarrierScalingFactor;
+    bool m_subcarrierScalingFactorSet = false;
+
     uint8_t m_fourierTransformScalingFactor;
+    bool m_fourierTransformScalingFactorSet = false;
+
     Ptr<Dect2020ExtChannelManager> m_channelManager;
 };
 

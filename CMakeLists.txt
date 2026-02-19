@@ -25,6 +25,13 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
+# DECT-2020 EXT Utilities
+set(dect2020ext_utilities_src
+    model/utilities/dect2020ext-utilities.cc)
+
+set(dect2020ext_utilities_h
+    model/utilities/dect2020ext-utilities.h)
+
 # DECT-2020 EXT Configuration
 set(dect2020ext_configuration_src
     model/config/dect2020ext-config.cc)
@@ -213,6 +220,7 @@ build_lib(
         ${dect2020ext_spectrum_signal_parameters_src}
         ${dect2020ext_mac_scheduler_src}
         ${dect2020ext_configuration_src}
+        ${dect2020ext_utilities_src}
     HEADER_FILES
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
@@ -229,6 +237,7 @@ build_lib(
         ${dect2020ext_spectrum_signal_parameters_h}
         ${dect2020ext_mac_scheduler_h}
         ${dect2020ext_configuration_h}
+        ${dect2020ext_utilities_h}
     TEST_SOURCES
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}

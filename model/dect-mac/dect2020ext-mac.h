@@ -170,7 +170,6 @@ class Dect2020ExtMac : public Object
 
         // Initialization
 
-        void InitializeDevice();
         void Start();
         void DiscoverNetworks();
         void InitializeNetwork();
@@ -245,7 +244,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
         void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
         Ptr<Dect2020ExtNetDevice> GetNetDevice(void) const;
-        Ptr<Node> GetNode(void) const;
+        Ptr<Node> GetNode() const;
         void SetPhy(Ptr<Dect2020ExtPhy> phy);
         Ptr<Dect2020ExtPhy> GetPhy(void) const;
         void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
@@ -286,7 +285,6 @@ class Dect2020ExtMac : public Object
 
     private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
-        Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
         Ptr<Dect2020ExtNetDevice> m_device;
         Ptr<Dect2020ExtPhy> m_phy;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
@@ -297,11 +295,6 @@ class Dect2020ExtMac : public Object
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
         Ptr<Dect2020ExtMacScheduler> m_macScheduler;
-
-        // Configuration Attributes
-        uint8_t m_bandNumber;
-        uint8_t m_subcarrierScalingFactor;
-        uint8_t m_fourierTransformScalingFactor;
 
         Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
         Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod m_networkBeaconPeriod = Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod::NETWORK_BEACON_PERIOD_100MS;
@@ -331,7 +324,19 @@ class Dect2020ExtMac : public Object
 
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
 
-        // std::map<uint32_t, ChannelEvaluation> m_scanEvaluations;
+        // Configuration
+
+        uint8_t m_bandNumber;
+        bool m_bandNumberSet = false;
+
+        uint8_t m_subcarrierScalingFactor;
+        bool m_subcarrierScalingFactorSet = false;
+
+        uint8_t m_fourierTransformScalingFactor;
+        bool m_fourierTransformScalingFactorSet = false;
+
+        Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
+        bool m_terminationPointTypeSet = false;
 
         // ####################
         // ##### Constants ####

@@ -10,6 +10,10 @@
 namespace ns3
 {
 
+// Numerologies:
+// Dect2020ExtChannelManager
+// Dect2020ExtPhy
+
 constexpr uint8_t BAND_NUMBER = 1;
 constexpr uint8_t SUBCARRIER_SCALING_FACTOR = 1;
 constexpr uint8_t FOURIER_TRANSFORM_SCALING_FACTOR = 1;
@@ -19,6 +23,10 @@ constexpr uint8_t FOURIER_TRANSFORM_SCALING_FACTOR = 1;
 using SPECTRUM_CHANNEL_TYPE = SingleModelSpectrumChannel;
 using PROPAGATION_DELAY_MODEL = ConstantSpeedPropagationDelayModel;
 using PROPAGATION_LOSS_MODEL = LogDistancePropagationLossModel;
+
+// Antenna
+
+constexpr uint8_t RX_GAIN_INDEX = 5;
 
 } // namespace ns3
 

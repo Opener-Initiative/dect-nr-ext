@@ -9,6 +9,7 @@
 
 #include "ns3/ptr.h"
 #include "ns3/single-model-spectrum-channel.h"
+#include "ns3/isotropic-antenna-model.h"
 
 namespace ns3
 {
@@ -21,12 +22,14 @@ class Dect2020ExtConfig
 
         Ptr<SPECTRUM_CHANNEL_TYPE> CreateConfiguredSpectrumChannel();
         Ptr<Dect2020ExtChannelManager> CreateConfiguredChannelManager();
+        Ptr<IsotropicAntennaModel> CreateConfiguredIsotropicAntennaModel();
         void ApplyToPhy(Ptr<Dect2020ExtPhy> phy);
         void ApplyToMac(Ptr<Dect2020ExtMac> mac);
 
     private:
         Ptr<SpectrumChannel> m_spectrumChannel;
         Ptr<Dect2020ExtChannelManager> m_channelManager;
+        Ptr<IsotropicAntennaModel> m_antenna;
 };
 
 } // namespace ns3

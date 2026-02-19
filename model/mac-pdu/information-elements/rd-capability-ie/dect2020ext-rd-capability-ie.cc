@@ -1,5 +1,4 @@
 #include "dect2020ext-rd-capability-ie.h"
-#include "ns3/log.h"
 
 namespace ns3
 {

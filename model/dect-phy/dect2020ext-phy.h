@@ -72,12 +72,12 @@ class Dect2020ExtPhy : public SpectrumPhy
 		// Configuration
 
 		void SetBandNumber(uint8_t bandNumber);
-		uint8_t GetBandNumber(void) const;
+		uint8_t GetBandNumber() const;
 		void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-		uint8_t GetSubcarrierScalingFactor(void) const;
+		uint8_t GetSubcarrierScalingFactor() const;
 		void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
-		uint8_t GetFourierTransformScalingFactor(void) const;
-		void PrintConfiguration(void) const;
+		uint8_t GetFourierTransformScalingFactor() const;
+		void PrintConfiguration() const;
 
 		// Inherited from SpectrumPhy
 
@@ -131,11 +131,16 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		Dect2020ExtPhyState m_currentState;
 
-		// Configuration Attributes
+		// Configuration
+
+		uint8_t m_bandNumber;
+		bool m_bandNumberSet = false;
 
 		uint8_t m_subcarrierScalingFactor;
-		uint8_t m_bandNumber;
+		bool m_subcarrierScalingFactorSet = false;
+
 		uint8_t m_fourierTransformScalingFactor;
+		bool m_fourierTransformScalingFactorSet = false;
 
 		// ###################
 		// #### Constants ####
