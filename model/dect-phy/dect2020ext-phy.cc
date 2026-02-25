@@ -54,29 +54,23 @@ Dect2020ExtPhy::GetTypeId(void)
                                                 MakeTraceSourceAccessor(&Dect2020ExtPhy::m_SFN),
                                                 "ns3::TracedValueCallback::Uint32")
 
-                                .AddAttribute("config_BandNumber",
+                                .AddAttribute("config_bandNumber",
                                               "DECT-2020 band number configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtPhy::m_bandNumber),
                                               MakeUintegerChecker<uint8_t>(1, 21))
 
-                                .AddAttribute("config_SubcarrierScalingFactor",
+                                .AddAttribute("config_subcarrierScalingFactor",
                                               "DECT-2020 subcarrier scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtPhy::m_subcarrierScalingFactor),
                                               MakeUintegerChecker<uint8_t>(1, 8))
 
-                                .AddAttribute("config_FourierTransformScalingFactor",
+                                .AddAttribute("config_fourierTransformScalingFactor",
                                               "DECT-2020 Fourier transform scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtPhy::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8))
-
-                                .AddAttribute("config_ChannelManager",
-                                              "Dect2020ExtChannelManager configuration",
-                                              PointerValue(nullptr),
-                                              MakePointerAccessor(&Dect2020ExtPhy::m_channelManager),
-                                              MakePointerChecker<Dect2020ExtChannelManager>());
+                                              MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 
@@ -86,12 +80,16 @@ Dect2020ExtPhy::Start()
     NS_LOG_FUNCTION(this);
 
     // Configuration
-    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtPhy");
-    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtPhy");
-    NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtPhy");
-    NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtPhy");
-    NS_ABORT_MSG_IF(!m_channel, "Spectrum Channel is not set for Dect2020ExtPhy");
-    NS_ABORT_MSG_IF(!m_antenna, "Antenna is not set for Dect2020ExtPhy");
+    std::string errorMessage = " was not set for Dect2020ExtPhy";
+
+    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number" << errorMessage);
+    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor" << errorMessage);
+    NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor" << errorMessage);
+    NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager" << errorMessage);
+    NS_ABORT_MSG_IF(!m_channel, "Spectrum Channel" << errorMessage);
+    NS_ABORT_MSG_IF(!m_antenna, "Antenna" << errorMessage);
+    NS_ABORT_MSG_IF(!m_device, "Net Device" << errorMessage);
+    NS_ABORT_MSG_IF(!m_mobilityModel, "Mobility Model" << errorMessage);
 
     // State Machine
     m_currentState = IDLE;

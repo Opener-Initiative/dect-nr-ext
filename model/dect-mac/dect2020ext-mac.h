@@ -263,17 +263,6 @@ class Dect2020ExtMac : public Object
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
 
         Dect2020ExtAssociationStatus GetAssociationStatus();
-
-        // Configuration
-
-        void SetBandNumber(uint8_t bandNumber);
-        uint8_t GetBandNumber(void) const;
-        void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-        uint8_t GetSubcarrierScalingFactor(void) const;
-        void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
-        uint8_t GetFourierTransformScalingFactor(void) const;
-        void PrintConfiguration(void) const;
-
         uint8_t m_nextAvailableSubslot = 2;
 
         bool m_dectDelay = false;
@@ -283,12 +272,23 @@ class Dect2020ExtMac : public Object
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
         Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
 
+        // ###########################
+        // ###### Configuration ######
+        // ###########################
+
+        void SetBandNumber(uint8_t bandNumber);
+        uint8_t GetBandNumber() const;
+        void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+        uint8_t GetSubcarrierScalingFactor() const;
+        void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+        uint8_t GetFourierTransformScalingFactor() const;
+        void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
+
+        void PrintConfiguration() const;
+
     private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
-        Ptr<Dect2020ExtNetDevice> m_device;
-        Ptr<Dect2020ExtPhy> m_phy;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
-        Ptr<Dect2020ExtChannelManager> m_channelManager;
         uint16_t m_operatingChannelId;
         uint16_t m_networkBeaconChannelId;
         uint32_t m_networkId;
@@ -324,7 +324,9 @@ class Dect2020ExtMac : public Object
 
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
 
-        // Configuration
+        // ###########################
+        // ###### Configuration ######
+        // ###########################
 
         uint8_t m_bandNumber;
         bool m_bandNumberSet = false;
@@ -335,8 +337,20 @@ class Dect2020ExtMac : public Object
         uint8_t m_fourierTransformScalingFactor;
         bool m_fourierTransformScalingFactorSet = false;
 
+        Ptr<Dect2020ExtChannelManager> m_channelManager;
+
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType m_terminationPointType;
         bool m_terminationPointTypeSet = false;
+
+        Ptr<Dect2020ExtPhy> m_phy;
+
+        Dect2020ExtRandomAccessResourceIE m_configuredRandomAccessResourceIE;
+        bool m_configuredRandomAccessResourceIESet = false;
+
+        // Dect2020ExtRdCapabilityIE m_configuredRdCapabilityIE;
+        // bool m_configuredRdCapabilityIESet = false;
+
+        Ptr<Dect2020ExtNetDevice> m_device;
 
         // ####################
         // ##### Constants ####

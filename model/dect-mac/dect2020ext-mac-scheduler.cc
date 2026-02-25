@@ -363,6 +363,69 @@ Dect2020ExtMacScheduler::GetSFN() const
     return m_SFN;
 }
 
+std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>>
+Dect2020ExtMacScheduler::GetMacScheduler() const
+{
+    return m_macScheduler;
+}
+
+void
+Dect2020ExtMacScheduler::SetMac(Ptr<Dect2020ExtMac> mac)
+{
+    m_mac = mac;
+}
+
+void
+Dect2020ExtMacScheduler::SetBandNumber(uint8_t bandNumber)
+{
+    m_bandNumber = bandNumber;
+    m_bandNumberSet = true;
+}
+
+uint8_t
+Dect2020ExtMacScheduler::GetBandNumber() const
+{
+    return m_bandNumber;
+}
+
+void
+Dect2020ExtMacScheduler::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
+{
+    m_subcarrierScalingFactor = subcarrierScalingFactor;
+    m_subcarrierScalingFactorSet = true;
+}
+
+uint8_t
+Dect2020ExtMacScheduler::GetSubcarrierScalingFactor() const
+{
+    return m_subcarrierScalingFactor;
+}
+
+void
+Dect2020ExtMacScheduler::SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor)
+{
+    m_fourierTransformScalingFactor = fourierTransformScalingFactor;
+    m_fourierTransformScalingFactorSet = true;
+}
+
+uint8_t
+Dect2020ExtMacScheduler::GetFourierTransformScalingFactor() const
+{
+    return m_fourierTransformScalingFactor;
+}
+
+void
+Dect2020ExtMacScheduler::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
+{
+    m_channelManager = channelManager;
+}
+
+Ptr<Dect2020ExtChannelManager>
+Dect2020ExtMacScheduler::GetChannelManager() const
+{
+    return m_channelManager;
+}
+
 void
 Dect2020ExtMacScheduler::ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation)
 {
@@ -377,18 +440,6 @@ Dect2020ExtMacScheduler::ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOpe
     {
         // TBD
     }
-}
-
-std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>>
-Dect2020ExtMacScheduler::GetMacScheduler() const
-{
-    return m_macScheduler;
-}
-
-void
-Dect2020ExtMacScheduler::SetMac(Ptr<Dect2020ExtMac> mac)
-{
-    m_mac = mac;
 }
 
 void

@@ -114,21 +114,30 @@ public:
     uint32_t GetCurrentSubslotNumber() const;
 
     // Setters and Getters
+
     uint32_t GetSFN() const;
+    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
+    void SetMac(Ptr<Dect2020ExtMac> mac);
+
+    void SetBandNumber(uint8_t bandNumber);
+    uint8_t GetBandNumber() const;
+
+    void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+    uint8_t GetSubcarrierScalingFactor() const;
+
+    void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+    uint8_t GetFourierTransformScalingFactor() const;
+
+    void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
+    Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 
     // Scheduling
 
     void ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation);
 
-    // Setters and Getters
-
-    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
-    void SetMac(Ptr<Dect2020ExtMac> mac);
-
     // Configuration
 
     void PrintConfiguration() const;
-
     void PrintMacScheduler() const;
 
     // Constants

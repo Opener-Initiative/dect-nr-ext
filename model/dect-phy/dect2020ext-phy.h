@@ -112,7 +112,6 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint16_t m_currentAbsoluteSubslot;
 		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
 
-		Ptr<Dect2020ExtChannelManager> m_channelManager;
 	    Time m_frameStartTime;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
@@ -122,16 +121,14 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
 
-		Ptr<NetDevice> m_device;
-		Ptr<MobilityModel> m_mobilityModel;
-		Ptr<SpectrumChannel> m_channel;
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
-		Ptr<Object> m_antenna;
 
 
 		Dect2020ExtPhyState m_currentState;
 
-		// Configuration
+		// ###########################
+		// ###### Configuration ######
+		// ###########################
 
 		uint8_t m_bandNumber;
 		bool m_bandNumberSet = false;
@@ -141,6 +138,12 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		uint8_t m_fourierTransformScalingFactor;
 		bool m_fourierTransformScalingFactorSet = false;
+
+		Ptr<Dect2020ExtChannelManager> m_channelManager;
+		Ptr<SpectrumChannel> m_channel;
+		Ptr<Object> m_antenna;
+		Ptr<NetDevice> m_device;
+		Ptr<MobilityModel> m_mobilityModel;
 
 		// ###################
 		// #### Constants ####

@@ -27,6 +27,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <random>
+#include <string>
 
 namespace ns3
 {
@@ -53,29 +54,23 @@ Dect2020ExtMac::GetTypeId()
                                 .SetGroupName("Dect2020Ext")
                                 .AddConstructor<Dect2020ExtMac>()
 
-                                .AddAttribute("config_BandNumber",
+                                .AddAttribute("config_bandNumber",
                                               "DECT-2020 band number configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtMac::m_bandNumber),
                                               MakeUintegerChecker<uint8_t>(1, 21))
 
-                                .AddAttribute("config_SubcarrierScalingFactor",
+                                .AddAttribute("config_subcarrierScalingFactor",
                                               "DECT-2020 subcarrier scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtMac::m_subcarrierScalingFactor),
                                               MakeUintegerChecker<uint8_t>(1, 8))
 
-                                .AddAttribute("config_FourierTransformScalingFactor",
+                                .AddAttribute("config_fourierTransformScalingFactor",
                                               "DECT-2020 Fourier transform scaling factor configuration",
                                               UintegerValue(1),
                                               MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8))
-
-                                .AddAttribute("config_ChannelManager",
-                                              "Dect2020ExtChannelManager configuration",
-                                              PointerValue(nullptr),
-                                              MakePointerAccessor(&Dect2020ExtMac::m_channelManager),
-                                              MakePointerChecker<Dect2020ExtChannelManager>());
+                                              MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 
@@ -96,23 +91,30 @@ void
 Dect2020ExtMac::Start()
 {
     // Configuration
-    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtMac");
-    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtMac");
+    std::string errorMessage = " was not set for Dect2020ExtMac";
+
+    NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number" << errorMessage);
+    NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor" << errorMessage);
     NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_terminationPointTypeSet, "Termination Point Type is not set for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_phy, "PHY is not set for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resources were not configured for Dect2020ExtMac");
+    NS_ABORT_MSG_IF(!m_device, "Net Device is not set for Dect2020ExtMac");
 
     // MAC Scheduler
     m_macScheduler = CreateObject<Dect2020ExtMacScheduler>();
-    m_macScheduler->SetAttribute("config_bandNumber", UintegerValue(m_bandNumber));
-    m_macScheduler->SetAttribute("config_subcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
-    m_macScheduler->SetAttribute("config_fourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
-    m_macScheduler->SetAttribute("config_channelManager", PointerValue(m_channelManager));
+
+    m_macScheduler->SetBandNumber(m_bandNumber);
+    m_macScheduler->SetSubcarrierScalingFactor(m_subcarrierScalingFactor);
+    m_macScheduler->SetFourierTransformScalingFactor(m_fourierTransformScalingFactor);
+    m_macScheduler->SetChannelManager(m_channelManager);
+
     m_macScheduler->SetMac(this);
     m_macScheduler->Initialize();
     m_macScheduler->StartMacScheduler();
 
+    // Initialization
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
@@ -120,12 +122,12 @@ Dect2020ExtMac::Start()
 
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
-        NS_LOG_INFO("FT Device " << this << " starts the network initialization");
+        NS_LOG_INFO("FT Device " << this << " starts network initialization");
         InitializeNetwork();
     }
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
-        NS_LOG_INFO("PT Device " << this << " starts the network discovery");
+        NS_LOG_INFO("PT Device " << this << " starts network discovery");
         DiscoverNetworks();
     }
 }
@@ -1668,6 +1670,7 @@ void
 Dect2020ExtMac::SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType)
 {
     m_terminationPointType = terminationPointType;
+    m_terminationPointTypeSet = true;
 }
 
 Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
@@ -1845,6 +1848,7 @@ void
 Dect2020ExtMac::SetBandNumber(uint8_t bandNumber)
 {
     m_bandNumber = bandNumber;
+    m_bandNumberSet = true;
 }
 
 uint8_t
@@ -1857,6 +1861,7 @@ void
 Dect2020ExtMac::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
 {
     m_subcarrierScalingFactor = subcarrierScalingFactor;
+    m_subcarrierScalingFactorSet = true;
 }
 
 uint8_t
@@ -1869,12 +1874,20 @@ void
 Dect2020ExtMac::SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor)
 {
     m_fourierTransformScalingFactor = fourierTransformScalingFactor;
+    m_fourierTransformScalingFactorSet = true;
 }
 
 uint8_t
-Dect2020ExtMac::GetFourierTransformScalingFactor(void) const
+Dect2020ExtMac::GetFourierTransformScalingFactor() const
 {
     return m_fourierTransformScalingFactor;
+}
+
+void
+Dect2020ExtMac::ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE)
+{
+    m_configuredRandomAccessResourceIE = randomAccessResourceIE;
+    m_configuredRandomAccessResourceIESet = true;
 }
 
 void

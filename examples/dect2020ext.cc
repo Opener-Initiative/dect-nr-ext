@@ -24,7 +24,7 @@ int
 main(int argc, char *argv[])
 {
     // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
+    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
@@ -39,9 +39,12 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtPhy> ftPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ftPhy);
 
+    Dect2020ExtRandomAccessResourceIE ftRandomAccessResources;
+
     Ptr<Dect2020ExtMac> ftMac = CreateObject<Dect2020ExtMac>();
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMac->SetPhy(ftPhy);
+    ftMac->ConfigureRandomAccessResources(ftRandomAccessResources);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);
@@ -54,11 +57,13 @@ main(int argc, char *argv[])
     ftNetDevice->SetMac(ftMac);
     ftNetDevice->SetNode(ftNode);
 
-    ftPhy->SetDevice(ftNetDevice);
     ftNode->AddDevice(ftNetDevice);
 
     InstallCenterMobilityModel(ftNode);
     ftPhy->SetMobility(ftNode->GetObject<MobilityModel>());
+
+    ftMac->Start();
+    ftPhy->Start();
 
     Simulator::Stop(Seconds(6));
     Simulator::Run();
