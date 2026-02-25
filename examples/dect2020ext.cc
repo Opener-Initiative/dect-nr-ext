@@ -19,7 +19,6 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
-
 int
 main(int argc, char *argv[])
 {
@@ -68,5 +67,6 @@ main(int argc, char *argv[])
     Simulator::Stop(Seconds(6));
     Simulator::Run();
     Simulator::Destroy();
+
     return 0;
 }

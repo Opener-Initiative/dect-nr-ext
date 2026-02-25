@@ -324,6 +324,8 @@ class Dect2020ExtMac : public Object
 
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
 
+        std::string MAC_IDENTITY;
+
         // ###########################
         // ###### Configuration ######
         // ###########################

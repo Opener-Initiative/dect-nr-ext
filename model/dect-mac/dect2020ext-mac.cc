@@ -115,27 +115,37 @@ Dect2020ExtMac::Start()
     m_macScheduler->StartMacScheduler();
 
     // Initialization
-    SetLongRadioDeviceId(GenerateLongRadioDeviceId());
-    SetShortRadioDeviceId(GenerateShortRadioDeviceId());
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
     m_backoffRandomVariable->SetStream(GetNode()->GetId());
 
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
-        NS_LOG_INFO("FT Device " << this << " starts network initialization");
+        std::ostringstream oss;
+        oss << "FT_MAC[" << this << "]";
+        MAC_IDENTITY = oss.str();
+
+        SetLongRadioDeviceId(GenerateLongRadioDeviceId());
+        SetShortRadioDeviceId(GenerateShortRadioDeviceId());
         InitializeNetwork();
     }
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
-        NS_LOG_INFO("PT Device " << this << " starts network discovery");
+        std::ostringstream oss;
+        oss << "PT_MAC[" << this << "]";
+        MAC_IDENTITY = oss.str();
+
+        SetLongRadioDeviceId(GenerateLongRadioDeviceId());
+        SetShortRadioDeviceId(GenerateShortRadioDeviceId());
         DiscoverNetworks();
     }
 }
 
 void
-Dect2020ExtMac::DiscoverNetworks(void)
+Dect2020ExtMac::DiscoverNetworks()
 {
     NS_LOG_FUNCTION(this);
+    NS_LOG_INFO("PT Device " << this << " starts network discovery");
+
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
         m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
         m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
@@ -190,6 +200,7 @@ Dect2020ExtMac::DiscoverNetworks(void)
 void
 Dect2020ExtMac::InitializeNetwork(void)
 {
+    NS_LOG_INFO("FT Device " << this << " starts network initialization");
     uint32_t networkId = GenerateValidNetworkID();
     SetNetworkId(networkId);
 
@@ -1712,7 +1723,7 @@ Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
 }
 
 Ptr<Dect2020ExtPhy>
-Dect2020ExtMac::GetPhy(void) const
+Dect2020ExtMac::GetPhy() const
 {
     return m_phy;
 }
@@ -1744,7 +1755,7 @@ Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
 
         if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
         {
-            NS_LOG_INFO("Set Long Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
+            NS_LOG_INFO(MAC_IDENTITY << ": setting Long Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
         }
         else if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
         {
@@ -1774,7 +1785,7 @@ Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
         m_shortRadioDeviceId = rdId;
         if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
         {
-            NS_LOG_INFO("Set Short Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
+            NS_LOG_INFO(MAC_IDENTITY << ": setting Short Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
         }
         else if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
         {
