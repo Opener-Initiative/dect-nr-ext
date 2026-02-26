@@ -145,7 +145,7 @@ void
 Dect2020ExtMac::DiscoverNetworks()
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": discovering networks");
+    NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks");
 
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
         m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
@@ -191,7 +191,7 @@ Dect2020ExtMac::DiscoverNetworks()
     }
 
     // Switch to the next channel
-    NS_LOG_INFO(MAC_IDENTITY<< ": switching to channel " << nextChannelId);
+    NS_LOG_INFO(MAC_IDENTITY<< ": Switching to channel " << nextChannelId);
     SetCurrentChannelId(nextChannelId);
 
     Time t = MilliSeconds(10); // Discover Network wait time
@@ -199,9 +199,9 @@ Dect2020ExtMac::DiscoverNetworks()
 }
 
 void
-Dect2020ExtMac::InitializeNetwork(void)
+Dect2020ExtMac::InitializeNetwork()
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": starting network initialization");
+    NS_LOG_INFO(MAC_IDENTITY << ": Starting network initialization");
     uint32_t networkId = GenerateValidNetworkID();
     SetNetworkId(networkId);
 
@@ -375,7 +375,7 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
     if (!evaluations.empty())
     {
         m_operatingChannelId = evaluations[0].channelId;
-        NS_LOG_INFO(MAC_IDENTITY << ": selected Operating Channel: " << m_operatingChannelId 
+        NS_LOG_INFO(MAC_IDENTITY << ": Selected Operating Channel: " << m_operatingChannelId 
                     << " with " << evaluations[0].free << " free subslots");
     }
     else
@@ -442,14 +442,14 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
     backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
     if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": finished scanning all subslots on channel " << channelContext->channelNumber);
-        NS_LOG_INFO(MAC_IDENTITY << ": finished scanning all channels");
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all channels");
         OperatingChannelSelection(backgroundScanContext);
     }
 
     else if (subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": finished scanning all subslots on channel " << channelContext->channelNumber);
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
     }
 }
 
@@ -564,7 +564,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
     NS_LOG_DEBUG(this);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon on channel " << m_currentChannelId << " at slot - " << m_macScheduler->GetCurrentSlotNumber() << " subslot - " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_currentChannelId << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
     m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
@@ -574,7 +574,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
     NS_LOG_FUNCTION(this << channelId);
     Ptr<Packet> packet = BuildClusterBeacon(channelId);
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon on channel " << m_currentChannelId << " at slot - " << m_macScheduler->GetCurrentSlotNumber() << " subslot - " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_currentChannelId << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
     m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
 }
 
@@ -605,7 +605,7 @@ Dect2020ExtMac::BuildNetworkBeacon()
 
     auto timeToNextClusterBeaconUs = static_cast<uint32_t>(offsetTimeNs / 1000.0);
 
-    NS_LOG_INFO(MAC_IDENTITY << ": time to next cluster beacon " << timeToNextClusterBeaconUs << "us");
+    // NS_LOG_INFO(MAC_IDENTITY << ": time to next cluster beacon " << timeToNextClusterBeaconUs << "us");
 
     networkBeaconMessageIE.SetTimeToNext(timeToNextClusterBeaconUs);
 
@@ -723,7 +723,7 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
         uint16_t packetLengthInSlots = 0;
         packetLengthInSlots = std::ceil(packetLengthBits / mcsTransportBlockSizeBits);
 
-        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU length in slots: " << packetLengthInSlots);
+        // NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU length in slots: " << packetLengthInSlots);
 
         physicalHeaderField.SetPacketLength(packetLengthInSlots); // Size of packet in slots
     }
@@ -913,8 +913,10 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
         NS_LOG_WARN("Backoff target position " << targetPositionIndex 
                     << " exceeds available positions (" 
                     << randomAccessContext->m_startPositions.size() << ")");
+
         // Defer to next RACH opportunity
         m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
+        ChangeAssociationStatus(Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT);
         return;
     }
 
@@ -1587,7 +1589,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
     if (associationResponseMessage.GetAssociationAccepted())
     {
         // Currently, we accept all association responses
-        m_associationStatus = ASSOCIATED;
+        ChangeAssociationStatus(Dect2020ExtAssociationStatus::ASSOCIATED);
 
         // If we dont receive a Cluster Beacon every 60 Seconds, we assume the FT is offline
         // Simulator::Schedule(Seconds(60), &Dect2020ExtMac::VerifyAssociatedStatus, this);
@@ -1751,7 +1753,7 @@ Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
     {
         m_longRadioDeviceId = rdId;
 
-        NS_LOG_INFO(MAC_IDENTITY << ": setting Long Radio Device ID: 0x" << std::hex << rdId);
+        NS_LOG_INFO(MAC_IDENTITY << ": Setting Long Radio Device ID: 0x" << std::hex << rdId);
     }
     else
     {
@@ -1775,7 +1777,7 @@ Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
     {
         m_shortRadioDeviceId = rdId;
 
-        NS_LOG_INFO(MAC_IDENTITY << ": setting Short Radio Device ID: 0x" << std::hex << rdId);
+        NS_LOG_INFO(MAC_IDENTITY << ": Setting Short Radio Device ID: 0x" << std::hex << rdId);
     }
     else
     {
@@ -1838,6 +1840,22 @@ Dect2020ExtMac::Dect2020ExtAssociationStatus
 Dect2020ExtMac::GetAssociationStatus()
 {
     return m_associationStatus;
+}
+
+void
+Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus)
+{
+    std::string newStatus = "";
+    switch (associationStatus)
+    {
+        case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED";
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING: newStatus = "ASSOCIATION_PREPARING";
+        case Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT: newStatus = "WAITING_FOR_SELECTED_FT";
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PENDING: newStatus = "ASSOCIATION_PENDING";
+        case Dect2020ExtAssociationStatus::ASSOCIATED: newStatus = "ASSOCIATED";
+    }
+    m_associationStatus = associationStatus;
+    NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
 }
 
 void

@@ -263,6 +263,8 @@ class Dect2020ExtMac : public Object
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
 
         Dect2020ExtAssociationStatus GetAssociationStatus();
+        void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
+
         uint8_t m_nextAvailableSubslot = 2;
 
         bool m_dectDelay = false;

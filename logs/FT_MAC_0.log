@@ -1,438 +1,114 @@
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: setting Long Radio Device ID: 0x97e1b6f4
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: setting Short Radio Device ID: 0x5057
-+0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: starting network initialization
-+0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1657
-+0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1658
-+0.029999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1659
-+0.039999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1660
-+0.049999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1661
-+0.059999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1662
-+0.069999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1663
-+0.079999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1664
-+0.089999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1665
-+0.099999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1666
-+0.109999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1667
-+0.119999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1668
-+0.129999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1669
-+0.139999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1670
-+0.149999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1671
-+0.159999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1672
-+0.169999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1673
-+0.179999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1674
-+0.189999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1675
-+0.199999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1676
-+0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all subslots on channel 1677
-+0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: finished scanning all channels
-+0.209999984s Dect2020ExtMac:OperatingChannelSelection(): FT_MAC[0]: selected Operating Channel: 1657 with 48 free subslots
-+0.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+0.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+0.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+0.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+0.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+0.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.010000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.010000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.010833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.060833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.110000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.110000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.110833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.160833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+1.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+1.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+1.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+1.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+1.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.010000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.010000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.010833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.060833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.110000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.110000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.110833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.160833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.212666330s Dect2020ExtPhy:StartRx(): FT_MAC[0]: Received packet on the current channel 1657 with RSSI -36.6777 dBm
++0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0x97e1b6f4
++0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x5057
++0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
++0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
++0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
++0.029999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1659
++0.039999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1660
++0.049999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1661
++0.059999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1662
++0.069999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1663
++0.079999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1664
++0.089999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1665
++0.099999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1666
++0.109999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1667
++0.119999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1668
++0.129999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1669
++0.139999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1670
++0.149999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1671
++0.159999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1672
++0.169999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1673
++0.179999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1674
++0.189999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1675
++0.199999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1676
++0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1677
++0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all channels
++0.209999984s Dect2020ExtMac:OperatingChannelSelection(): FT_MAC[0]: Selected Operating Channel: 1657 with 48 free subslots
++0.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
 +2.212666330s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
-+2.212666330s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+2.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+2.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+2.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.010000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.010000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.010833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.060833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.110000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.110000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.110833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.160833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+3.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+3.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+3.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+3.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+3.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.010000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.010000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.010833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.060833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.110000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.110000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.110833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.160833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+4.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+4.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+4.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+4.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+4.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.010000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.010000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.010833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.060833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.110000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.110000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.110833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.160833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.210000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.210000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.210833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.260833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.310000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.310000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.310833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.360833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.410000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.410000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.410833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.460833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.510000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.510000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.510833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.560833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.610000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.610000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.610833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.660833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.710000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.710000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.710833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.760833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.810000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.810000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.810833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.860833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.910000000s Dect2020ExtMac:BuildNetworkBeacon(): FT_MAC[0]: time to next cluster beacon 833us
-+5.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon on channel 1657 at slot - 0 subslot - 0
-+5.910000000s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 1
-+5.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.910833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
-+5.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon on channel 1657 at slot - 2 subslot - 4
-+5.960833332s Dect2020ExtMac:BuildPhysicalHeaderField(): FT_MAC[0]: MAC PDU length in slots: 2
++2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
