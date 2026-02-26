@@ -286,6 +286,8 @@ class Dect2020ExtMac : public Object
 
         void PrintConfiguration() const;
 
+        std::string MAC_IDENTITY;
+
     private:
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
@@ -323,8 +325,6 @@ class Dect2020ExtMac : public Object
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
 
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
-
-        std::string MAC_IDENTITY;
 
         // ###########################
         // ###### Configuration ######

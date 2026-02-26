@@ -2,7 +2,7 @@ import re
 import sys
 from collections import defaultdict
 
-def split_logs_by_identifier(log_file, pattern=r"(?:FT|PT)_MAC\[0x[0-9a-f]+\]"):
+def split_logs_by_identifier(log_file, pattern=r"(?:FT|PT)_MAC\[[0-9]+\]"):
     files = defaultdict(list)
 
     with open(log_file) as f:
@@ -13,7 +13,7 @@ def split_logs_by_identifier(log_file, pattern=r"(?:FT|PT)_MAC\[0x[0-9a-f]+\]"):
                 files[identifier].append(line)
 
     for identifier, lines in files.items():
-        safe_name = identifier.replace("[", "_").replace("]", "").replace("0x", "")
+        safe_name = identifier.replace("[", "_").replace("]", "")
         output_file = f"./logs/{safe_name}.log"
         with open(output_file, "w") as f:
             f.writelines(lines)

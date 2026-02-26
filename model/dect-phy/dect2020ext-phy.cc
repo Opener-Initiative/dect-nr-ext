@@ -91,6 +91,20 @@ Dect2020ExtPhy::Start()
     NS_ABORT_MSG_IF(!m_device, "Net Device" << errorMessage);
     NS_ABORT_MSG_IF(!m_mobilityModel, "Mobility Model" << errorMessage);
     NS_ABORT_MSG_IF(!m_receiveCallbackSet, "Receive callback" << errorMessage);
+    NS_ABORT_MSG_IF(!m_mac, "MAC" << errorMessage);
+
+    if (m_mac->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    {
+        std::ostringstream oss;
+        oss << "FT_PHY[" << m_device->GetNode()->GetId() << "]";
+        PHY_IDENTITY = oss.str();
+    }
+    else if (m_mac->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    {
+        std::ostringstream oss;
+        oss << "PT_PHY[" << m_device->GetNode()->GetId() << "]";
+        PHY_IDENTITY = oss.str();
+    }
 
     // State Machine
     m_currentState = IDLE;
@@ -172,7 +186,7 @@ Subslot*
 Dect2020ExtPhy::GetCurrentSubslot()
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(m_currentSubslotId);
+    NS_LOG_INFO(PHY_IDENTITY << ": current subslot id " << m_currentSubslotId);
     // TODO: Implement subslot retrieval logic
     return nullptr;
 }
@@ -331,10 +345,10 @@ void
 Dect2020ExtPhy::PrintConfiguration(void) const
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("DECT-2020 PHY Configuration:");
-    NS_LOG_INFO("Band Number: " << static_cast<uint32_t>(m_bandNumber));
-    NS_LOG_INFO("Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
-    NS_LOG_INFO("Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
+    NS_LOG_INFO(PHY_IDENTITY << ": dect-2020 PHY configuration:");
+    NS_LOG_INFO(PHY_IDENTITY << ": band number: " << static_cast<uint32_t>(m_bandNumber));
+    NS_LOG_INFO(PHY_IDENTITY << ": subcarrier scaling factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
+    NS_LOG_INFO(PHY_IDENTITY << ": fourier transform scaling factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
 
     std::cout << "DECT-2020 PHY Configuration:" << "\n";
     std::cout << "Band Number: " << static_cast<uint32_t>(m_bandNumber) << "\n";
@@ -436,9 +450,9 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Drop packet if the device is not currently tuned to the correct channel
     if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
     {
-        NS_LOG_INFO("Received packet on wrong channel");
-        NS_LOG_INFO("Current channel: " << this->m_mac->m_currentChannelId);
-        NS_LOG_INFO("Channel from dect params: " << dectParams->m_currentChannelId);
+        NS_LOG_INFO(PHY_IDENTITY << ": received packet on wrong channel");
+        NS_LOG_INFO(PHY_IDENTITY << ": current channel: " << this->m_mac->m_currentChannelId);
+        NS_LOG_INFO(PHY_IDENTITY << ": channel from dect params: " << dectParams->m_currentChannelId);
         return;
     }
 
@@ -451,8 +465,8 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Estimate potential collisions based on total channel power (RSSI)
     double rssiChannelWatt = (*m_interference->m_allSignals)[channelIndex];
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
-    NS_LOG_INFO("Received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
-    NS_LOG_INFO("Total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
 
     // double sinrLinear = rssiPacket / (rssiChannelWatt - rssiPacket);
     // double sinrDb = 10.0 * std::log10(sinrLinear);
@@ -479,7 +493,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     }
 
     // Otherwise, receive packet successfully and pass it to the MAC
-    NS_LOG_INFO("Passing to the MAC");
+    NS_LOG_INFO(PHY_IDENTITY << ": passing to the MAC");
     m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
 }
 
@@ -488,10 +502,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
 {
     NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
-    NS_ASSERT_MSG(this->m_device, "m_device is null");
-    NS_ASSERT_MSG(this->m_mac, "m_mac is null");
-    NS_ASSERT_MSG(this->m_channelManager, "m_channelManager is null");
-    NS_LOG_INFO("Sending");
+    NS_LOG_INFO(PHY_IDENTITY << ": sending");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();

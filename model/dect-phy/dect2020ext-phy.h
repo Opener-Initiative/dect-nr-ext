@@ -105,6 +105,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		Ptr<Dect2020ExtInterference> m_interference;
 
+		std::string PHY_IDENTITY;
+
 	private:
 		uint32_t m_currentSlot;
 		uint32_t m_currentSubslot;
