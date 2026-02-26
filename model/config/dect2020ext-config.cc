@@ -37,6 +37,8 @@ Dect2020ExtConfig::CreateConfiguredChannelManager()
     channelManager->SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
     channelManager->SetSpectrumChannel(m_spectrumChannel);
 
+    channelManager->InitializeChannels();
+
     return channelManager;
 }
 

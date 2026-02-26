@@ -34,7 +34,6 @@ main(int argc, char *argv[])
     // ###### FT ######
     // ################
 
-    // FT PHY
     Ptr<Dect2020ExtPhy> ftPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ftPhy);
 
@@ -61,8 +60,38 @@ main(int argc, char *argv[])
     InstallCenterMobilityModel(ftNode);
     ftPhy->SetMobility(ftNode->GetObject<MobilityModel>());
 
+    // ################
+    // ###### PT ######
+    // ################
+
+    Ptr<Dect2020ExtPhy> ptPhy = CreateObject<Dect2020ExtPhy>();
+    config.ApplyToPhy(ptPhy);
+
+    Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
+    ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+    ptMac->SetPhy(ptPhy);
+    config.ApplyToMac(ptMac);
+
+    ptPhy->SetMac(ptMac);
+
+    Ptr<Node> ptNode = CreateObject<Node>();
+
+    Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
+    ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+    ptNetDevice->SetPhy(ptPhy);
+    ptNetDevice->SetMac(ptMac);
+    ptNetDevice->SetNode(ptNode);
+
+    ptNode->AddDevice(ptNetDevice);
+
+    InstallCenterMobilityModel(ptNode);
+    ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
+
     ftMac->Start();
     ftPhy->Start();
+
+    ptMac->Start();
+    ptPhy->Start();
 
     Simulator::Stop(Seconds(6));
     Simulator::Run();

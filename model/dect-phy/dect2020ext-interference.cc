@@ -36,8 +36,8 @@ Dect2020ExtInterference::Initialize(Ptr<const SpectrumModel> spectrumModel)
     // This corresponds to thermal noise: -174dBm/Hz + 10*log10(channel bandwidth)
     for (uint32_t i = 0; i < m_allSignals->GetSpectrumModel()->GetNumBands(); ++i)
     {
-        double noiseDbm = -111.0;
-        double noiseWatt = std::pow(10.0, 0.1 * (noiseDbm - 30.0)); // Convert dBm to linear Watt
+        // double noiseDbm = -111.0;
+        double noiseWatt = std::pow(10.0, 0.1 * (m_configuredNoiseDbm - 30.0)); // Convert dBm to linear Watt
         (*m_allSignals)[i] = noiseWatt; // Set the baseline noise power
     }
     

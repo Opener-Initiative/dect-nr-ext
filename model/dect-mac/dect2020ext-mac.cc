@@ -99,7 +99,6 @@ Dect2020ExtMac::Start()
     NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_terminationPointTypeSet, "Termination Point Type is not set for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_phy, "PHY is not set for Dect2020ExtMac");
-    NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resources were not configured for Dect2020ExtMac");
     NS_ABORT_MSG_IF(!m_device, "Net Device is not set for Dect2020ExtMac");
 
     // MAC Scheduler
@@ -120,6 +119,8 @@ Dect2020ExtMac::Start()
 
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
+        NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resources were not configured for Dect2020ExtMac");
+
         std::ostringstream oss;
         oss << "FT_MAC[" << this << "]";
         MAC_IDENTITY = oss.str();
@@ -144,7 +145,7 @@ void
 Dect2020ExtMac::DiscoverNetworks()
 {
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("PT Device " << this << " starts network discovery");
+    NS_LOG_INFO(MAC_IDENTITY << ": discovering networks");
 
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
         m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
@@ -190,7 +191,7 @@ Dect2020ExtMac::DiscoverNetworks()
     }
 
     // Switch to the next channel
-    NS_LOG_INFO("Switching to channel " << nextChannelId);
+    NS_LOG_INFO(MAC_IDENTITY<< ": switching to channel " << nextChannelId);
     SetCurrentChannelId(nextChannelId);
 
     Time t = MilliSeconds(10); // Discover Network wait time
@@ -200,7 +201,7 @@ Dect2020ExtMac::DiscoverNetworks()
 void
 Dect2020ExtMac::InitializeNetwork(void)
 {
-    NS_LOG_INFO("FT Device " << this << " starts network initialization");
+    NS_LOG_INFO(MAC_IDENTITY << ": starting network initialization");
     uint32_t networkId = GenerateValidNetworkID();
     SetNetworkId(networkId);
 
@@ -1753,14 +1754,7 @@ Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
     {
         m_longRadioDeviceId = rdId;
 
-        if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": setting Long Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
-        }
-        else if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
-        {
-            NS_LOG_INFO("Set Long Radio Device ID: 0x" << std::hex << rdId << " on PT Device " << this);
-        }
+        NS_LOG_INFO(MAC_IDENTITY << ": setting Long Radio Device ID: 0x" << std::hex << rdId);
     }
     else
     {
@@ -1783,14 +1777,8 @@ Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
     if (!(rdId == 0x0000))
     {
         m_shortRadioDeviceId = rdId;
-        if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": setting Short Radio Device ID: 0x" << std::hex << rdId << " on FT Device " << this);
-        }
-        else if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
-        {
-            NS_LOG_INFO("Set Short Radio Device ID: 0x" << std::hex << rdId << " on PT Device " << this);
-        }
+
+        NS_LOG_INFO(MAC_IDENTITY << ": setting Short Radio Device ID: 0x" << std::hex << rdId);
     }
     else
     {

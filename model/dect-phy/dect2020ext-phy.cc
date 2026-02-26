@@ -90,6 +90,7 @@ Dect2020ExtPhy::Start()
     NS_ABORT_MSG_IF(!m_antenna, "Antenna" << errorMessage);
     NS_ABORT_MSG_IF(!m_device, "Net Device" << errorMessage);
     NS_ABORT_MSG_IF(!m_mobilityModel, "Mobility Model" << errorMessage);
+    NS_ABORT_MSG_IF(!m_receiveCallbackSet, "Receive callback" << errorMessage);
 
     // State Machine
     m_currentState = IDLE;
@@ -281,6 +282,7 @@ void
 Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double> cb)
 {
     m_receiveCallback = cb;
+    m_receiveCallbackSet = true;
 }
 
 void
@@ -424,13 +426,6 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Add the received signal to the interference (signal will be removed after the duration)
     m_interference->AddSignal(params->psd, params->duration, channelIndex);
 
-    // Check if receive callback is set
-    if (m_receiveCallback.IsNull())
-    {
-        NS_LOG_WARN("Receive callback not set, dropping packet");
-        return;
-    }
-
     // Check if this is a DECT-specific signal
     if (!dectParams)
     {
@@ -458,6 +453,9 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
     NS_LOG_INFO("Received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
     NS_LOG_INFO("Total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
+
+    // double sinrLinear = rssiPacket / (rssiChannelWatt - rssiPacket);
+    // double sinrDb = 10.0 * std::log10(sinrLinear);
 
     // if RSSI is in an ambiguous range, apply probabilistic drop
     // if (rssiChannelDbm > 11.5 && rssiChannelDbm < 13.1)
@@ -554,6 +552,18 @@ void
 Dect2020ExtPhy::ChangeState(Dect2020ExtPhyState newState)
 {
     m_currentState = newState;
+}
+
+double
+Dect2020ExtPhy::GetBLER(double sinrDb, uint8_t mcs)
+{
+    // SINR threshold where BLER = 10% for each MCS.
+    // Below this: very likely to fail. Above this: very likely to succeed.
+
+    // static const double threshold[1] = {
+    //     -3.0, // MCS 0
+    // };
+    return 0;
 }
 
 } // namespace ns3

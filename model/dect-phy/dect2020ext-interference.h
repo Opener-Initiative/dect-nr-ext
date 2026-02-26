@@ -28,6 +28,7 @@ class Dect2020ExtInterference : public Object
         Ptr<const SpectrumValue> m_noise{nullptr};
 
         Ptr<Dect2020ExtMac> m_mac;
+		double m_configuredNoiseDbm = -111.0;
 };
 
 } // namespace ns3

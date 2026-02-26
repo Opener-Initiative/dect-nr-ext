@@ -97,6 +97,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
 		void ChangeState(Dect2020ExtPhyState newState);
+		double GetBLER(double sinrDb, uint8_t mcs);
 
 		// Callbacks
 
@@ -105,8 +106,6 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<Dect2020ExtInterference> m_interference;
 
 	private:
-	    // Dect2020ExtPhy Private Members
-
 		uint32_t m_currentSlot;
 		uint32_t m_currentSubslot;
 		uint16_t m_currentAbsoluteSubslot;
@@ -118,11 +117,11 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
 		Callback<void, Ptr<Packet>, double> m_receiveCallback;
+		bool m_receiveCallbackSet = false;
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
 
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
-
 
 		Dect2020ExtPhyState m_currentState;
 
