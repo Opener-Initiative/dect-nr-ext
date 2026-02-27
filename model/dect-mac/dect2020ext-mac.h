@@ -15,6 +15,7 @@
 #include "ns3/dect2020ext-association-request-message-ie.h"
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
+#include "ns3/dect2020ext-association-control-ie.h"
 
 #include "ns3/dect2020ext-mac-scheduler.h"
 
@@ -231,7 +232,7 @@ class Dect2020ExtMac : public Object
         void VerifyWaitingForSelectedFtAssociationStatus(void);
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         void VerifyPendingAssociationStatus(void);
-        void ProcessAssociationRequest(const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
+        void ProcessAssociationRequest(const Dect2020ExtAssociationControlIE associationControlIE, const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
         void SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
         void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
         void VerifyAssociatedStatus(void);

@@ -4,6 +4,7 @@
 # if(NOT HAVE_STDINT_H)
 #     message(FATAL_ERROR "stdint.h not found. This is required for the dect-nr-ext module.")
 # endif()
+
 ###########
 ## TYPES ##
 ###########
@@ -128,7 +129,8 @@ set(dect2020ext_information_elements_src
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc
     model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.cc
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc)
+    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc
+    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.cc)
 
 set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h
@@ -137,7 +139,8 @@ set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h
     model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.h
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h)
+    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h
+    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
 
 # set(route_info_ie_src
 #     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)

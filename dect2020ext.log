@@ -970,6 +970,7 @@
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): ASSOCIATION CONTROL IE - OK!
 +2.212666330s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED

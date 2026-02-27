@@ -3,6 +3,9 @@
 namespace ns3
 {
 
+using DlDataReception = Dect2020ExtAssociationControlIE::DlDataReception;
+using ULPeriod = Dect2020ExtAssociationControlIE::ULPeriod;
+
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtAssociationControlIE");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtAssociationControlIE);
 
@@ -85,16 +88,9 @@ Dect2020ExtAssociationControlIE::GetCbM() const
 }
 
 void
-Dect2020ExtAssociationControlIE::SetDlDataReception(uint8_t dlDataReception)
+Dect2020ExtAssociationControlIE::SetDlDataReception(DlDataReception dlDataReception)
 {
-    if (dlDataReception <= 5)
-    {
-        m_dlDataReception = dlDataReception;
-    }
-    else
-    {
-        NS_LOG_WARN("Invalid DLdataReception. Must be between 0 and 5");
-    }
+    m_dlDataReception = dlDataReception;
 }
 
 uint8_t
@@ -104,22 +100,56 @@ Dect2020ExtAssociationControlIE::GetDlDataReception() const
 }
 
 void
-Dect2020ExtAssociationControlIE::SetUlPeriod(uint8_t ulPeriod)
+Dect2020ExtAssociationControlIE::SetUlPeriod(ULPeriod ulPeriod)
 {
-    if (ulPeriod <= 11)
-    {
-        m_ULPeriod = ulPeriod;
-    }
-    else
-    {
-        NS_LOG_WARN("Invalid ULPeriod. Must be between 0 and 11");
-    }
+    m_ULPeriod = ulPeriod;
 }
 
 uint8_t
 Dect2020ExtAssociationControlIE::GetUlPeriod() const
 {
     return m_ULPeriod;
+}
+
+Time 
+Dect2020ExtAssociationControlIE::DecodeDlDataReception() const
+{
+    switch (m_dlDataReception)
+    {
+        case MS_0:  return MilliSeconds(0);
+        case MS_5:  return MilliSeconds(5);
+        case MS_10: return MilliSeconds(10);
+        case MS_20: return MilliSeconds(20);
+        case MS_40: return MilliSeconds(40);
+        case MS_80: return MilliSeconds(80);
+
+        default:
+            NS_LOG_WARN("m_dlDataReception was not initialized correctly");
+            return MilliSeconds(0);
+    }
+}
+
+Time
+Dect2020ExtAssociationControlIE::DecodeULPeriod() const
+{
+    switch (m_ULPeriod)
+    {
+        case S_10:  return Seconds(10);
+        case S_20:  return Seconds(20);
+        case S_48:  return Seconds(48);
+        case S_90:  return Seconds(90);
+        case MIN_5: return Minutes(5);
+        case MIN_10: return Minutes(10);
+        case MIN_30: return Minutes(30);
+        case H_1:   return Hours(1);
+        case H_6:   return Hours(6);
+        case H_12:  return Hours(12);
+        case H_24:  return Hours(24);
+        case H_48:  return Hours(48);
+        default:
+            NS_LOG_WARN("m_ULPeriod was not initialized correctly");
+            return Seconds(10);
+    }
 }
 
 } // namespace ns3

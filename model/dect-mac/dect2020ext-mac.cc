@@ -12,6 +12,7 @@
 #include "ns3/dect2020ext-unicast-header.h"
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
+#include "ns3/dect2020ext-association-control-ie.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -31,6 +32,9 @@
 
 namespace ns3
 {
+
+using DlDataReception = Dect2020ExtAssociationControlIE::DlDataReception;
+using ULPeriod = Dect2020ExtAssociationControlIE::ULPeriod;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtMac");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
@@ -1222,7 +1226,6 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
             return;
         }
 
-
         // Strip the message headers
         Dect2020ExtAssociationRequestMessageIE associationRequestMessage;
         packet->RemoveHeader(associationRequestMessage);
@@ -1230,10 +1233,10 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
         Dect2020ExtRdCapabilityIE rdCapabilityIE;
         packet->RemoveHeader(rdCapabilityIE);
 
-        // Dect2020AssociationControlIE associationControlIE;
-        // packet->RemoveHeader(associationControlIE);
+        Dect2020ExtAssociationControlIE associationControlIE;
+        packet->RemoveHeader(associationControlIE);
 
-        ProcessAssociationRequest(rdCapabilityIE, associationRequestMessage, transmitterAddress);
+        ProcessAssociationRequest(associationControlIE, rdCapabilityIE, associationRequestMessage, transmitterAddress);
     }
 
     // Message is an association response
@@ -1383,11 +1386,15 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     NS_LOG_FUNCTION(this << ft);
     NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send association request");
 
-    // Simulator::Schedule(MilliSeconds(200),
-    //                     &Dect2020ExtMac::VerifyPendingAssociationStatus,
-    //                     this); // Verify the association status after 200 ms
-
     Ptr<Packet> packet = Create<Packet>();
+
+    // --- Association Control IE ---
+    Dect2020ExtAssociationControlIE associationControlIE;
+    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
+    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
+
+    packet->AddHeader(associationControlIE);
 
     // --- RD Capability IE ---
     Dect2020ExtRdCapabilityIE rdCapabilityIE;
@@ -1412,7 +1419,7 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 
     packet->AddHeader(rdCapabilityIE);
 
-    // --- Association Request Message ---
+    // --- Association Request Message IE ---
     Dect2020ExtAssociationRequestMessageIE associationRequestMessage;
     associationRequestMessage.SetSetupCause(0); // Initial association
     associationRequestMessage.SetNumberOfFlows(0);
@@ -1460,8 +1467,6 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 
     // Initiate Random Access Procedure with the selected FT
     InitiateRandomAccess(ft->ftRandomAccessResourceIE, packet, physicalHeaderField);
-
-    // m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
 }
 
 void
@@ -1474,7 +1479,7 @@ Dect2020ExtMac::VerifyPendingAssociationStatus(void)
 }
 
 void
-Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
+Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE associationControlIE, const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
 {
     NS_LOG_FUNCTION(this << associationRequestMessage << transmitterAddress);
     NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
