@@ -171,6 +171,7 @@ class Dect2020ExtMac : public Object
 
         // Initialization
 
+        void Initialize();
         void Start();
         void DiscoverNetworks();
         void InitializeNetwork();
@@ -286,6 +287,7 @@ class Dect2020ExtMac : public Object
         void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
         uint8_t GetFourierTransformScalingFactor() const;
         void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
+        void ConfigureAssociationControlIE(Dect2020ExtAssociationControlIE associationControlIE);
 
         void PrintConfiguration() const;
 
@@ -351,6 +353,9 @@ class Dect2020ExtMac : public Object
 
         Dect2020ExtRandomAccessResourceIE m_configuredRandomAccessResourceIE;
         bool m_configuredRandomAccessResourceIESet = false;
+
+        Dect2020ExtAssociationControlIE m_configuredAssociationControlIE;
+        bool m_configuredAssociationControlIESet = false;
 
         // Dect2020ExtRdCapabilityIE m_configuredRdCapabilityIE;
         // bool m_configuredRdCapabilityIESet = false;

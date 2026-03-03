@@ -17,6 +17,9 @@
 
 using namespace ns3;
 
+using DlDataReception = Dect2020ExtAssociationControlIE::DlDataReception;
+using ULPeriod = Dect2020ExtAssociationControlIE::ULPeriod;
+
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
 int
@@ -70,9 +73,15 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtPhy> ptPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ptPhy);
 
+    Dect2020ExtAssociationControlIE associationControlIE;
+    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
+    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
+
     Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
     ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
     ptMac->SetPhy(ptPhy);
+    ptMac->ConfigureAssociationControlIE(associationControlIE);
     config.ApplyToMac(ptMac);
 
     ptPhy->SetMac(ptMac);

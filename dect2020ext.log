@@ -1,6 +1,8 @@
++0.000000000s Dect2020ExtMac:Start(): INFO
 +0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0x97e1b6f4
 +0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x5057
 +0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
++0.000000000s Dect2020ExtMac:Start(): INFO
 +0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): PT_MAC[1]: Setting Long Radio Device ID: 0xde34b94b
 +0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): PT_MAC[1]: Setting Short Radio Device ID: 0xc53
 +0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
@@ -970,7 +972,6 @@
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): ASSOCIATION CONTROL IE - OK!
 +2.212666330s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED

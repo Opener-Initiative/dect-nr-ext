@@ -28,6 +28,9 @@ using PROPAGATION_LOSS_MODEL = LogDistancePropagationLossModel;
 
 constexpr uint8_t RX_GAIN_INDEX = 5;
 
+// MAC Random Access Procedure
+constexpr bool USE_CPP_RNG = false;
+
 } // namespace ns3
 
 #endif

@@ -92,7 +92,7 @@ Dect2020ExtMac::TestFunction()
 }
 
 void
-Dect2020ExtMac::Start()
+Dect2020ExtMac::Initialize()
 {
     // Configuration
     std::string errorMessage = " was not set for Dect2020ExtMac";
@@ -121,26 +121,38 @@ Dect2020ExtMac::Start()
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
     m_backoffRandomVariable->SetStream(GetNode()->GetId());
 
+    SetLongRadioDeviceId(GenerateLongRadioDeviceId());
+    SetShortRadioDeviceId(GenerateShortRadioDeviceId());
+
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
-        NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resources were not configured for Dect2020ExtMac");
+        SetNetworkId(GenerateValidNetworkID());
+    }
+}
+
+void
+Dect2020ExtMac::Start()
+{
+    std::string errorMessage = " was not set for Dect2020ExtMac";
+
+    if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    {
+        NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resource IE" << errorMessage);
 
         std::ostringstream oss;
         oss << "FT_MAC[" << m_device->GetNode()->GetId() << "]";
         MAC_IDENTITY = oss.str();
 
-        SetLongRadioDeviceId(GenerateLongRadioDeviceId());
-        SetShortRadioDeviceId(GenerateShortRadioDeviceId());
         InitializeNetwork();
     }
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
+        NS_ABORT_MSG_IF(!m_configuredAssociationControlIESet, "Association Control IE" << errorMessage);
+
         std::ostringstream oss;
         oss << "PT_MAC[" << m_device->GetNode()->GetId() << "]";
         MAC_IDENTITY = oss.str();
 
-        SetLongRadioDeviceId(GenerateLongRadioDeviceId());
-        SetShortRadioDeviceId(GenerateShortRadioDeviceId());
         DiscoverNetworks();
     }
 }
@@ -1389,12 +1401,12 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     Ptr<Packet> packet = Create<Packet>();
 
     // --- Association Control IE ---
-    Dect2020ExtAssociationControlIE associationControlIE;
-    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
-    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
-    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
+    // Dect2020ExtAssociationControlIE associationControlIE;
+    // associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
+    // associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    // associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
 
-    packet->AddHeader(associationControlIE);
+    packet->AddHeader(m_configuredAssociationControlIE);
 
     // --- RD Capability IE ---
     Dect2020ExtRdCapabilityIE rdCapabilityIE;
@@ -1483,6 +1495,8 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
 {
     NS_LOG_FUNCTION(this << associationRequestMessage << transmitterAddress);
     NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
+
+
 
     Dect2020ExtAssociatedPtInfo ptInfo;
     ptInfo.associationEstablished = Simulator::Now();
@@ -1907,6 +1921,13 @@ Dect2020ExtMac::ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE
 {
     m_configuredRandomAccessResourceIE = randomAccessResourceIE;
     m_configuredRandomAccessResourceIESet = true;
+}
+
+void
+Dect2020ExtMac::ConfigureAssociationControlIE(Dect2020ExtAssociationControlIE associationControlIE)
+{
+    m_configuredAssociationControlIE = associationControlIE;
+    m_configuredAssociationControlIESet = true;
 }
 
 void

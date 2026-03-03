@@ -26,6 +26,10 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
+# DECT-2020 EXT Module Header
+set(dect2020ext_module_h
+    model/dect2020ext-module.h)
+
 # DECT-2020 EXT Utilities
 set(dect2020ext_utilities_src
     model/utilities/dect2020ext-utilities.cc)
@@ -152,6 +156,11 @@ set(dect2020ext_information_elements_h
 ## TESTS ##
 ###########
 
+set(dect2020ext_random_access_test_src
+    test/random-access/dect2020ext-random-access-test.cc
+    test/random-access/dect2020ext-random-access-test-case1.cc
+    test/random-access/dect2020ext-random-access-test-case2.cc)
+
 # Message Tests
 set(dect2020ext_message_test_src
     test/network-beacon-message/dect2020ext-network-beacon-message-serialization-test-case.cc
@@ -225,6 +234,7 @@ build_lib(
         ${dect2020ext_configuration_src}
         ${dect2020ext_utilities_src}
     HEADER_FILES
+        ${dect2020ext_module_h}
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
@@ -249,6 +259,7 @@ build_lib(
         ${mac_multiplexing_header_test_src}
         ${dect2020ext_mac_common_headers_test_src}
         ${dect2020ext_mac_header_type_test_src}
+        ${dect2020ext_random_access_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
