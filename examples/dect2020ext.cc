@@ -99,9 +99,11 @@ main(int argc, char *argv[])
     InstallCenterMobilityModel(ptNode);
     ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
 
+    ftMac->Initialize();
     ftMac->Start();
     ftPhy->Start();
 
+    ptMac->Initialize();
     ptMac->Start();
     ptPhy->Start();
 

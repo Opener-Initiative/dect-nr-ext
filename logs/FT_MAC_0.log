@@ -1,5 +1,3 @@
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0x97e1b6f4
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x5057
 +0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
 +0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
 +0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
@@ -89,7 +87,9 @@
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.212666330s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Current subslot 12
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Association Response absolute subslot 15
++2.213124995s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)

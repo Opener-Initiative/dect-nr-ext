@@ -1,5 +1,3 @@
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): PT_MAC[1]: Setting Long Radio Device ID: 0xde34b94b
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): PT_MAC[1]: Setting Short Radio Device ID: 0xc53
 +0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
 +0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
@@ -856,7 +854,7 @@
 +2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate found with RSSI -36.6777 dBm
 +2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate long ID: 2548152052
-+2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 15651079
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 9887602
 +2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate cluster channel ID: 1657
 +2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Switching to best FT's channel: 1657
 +2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Swithing to WAITING_FOR_SELECTED_FT status
@@ -864,23 +862,11 @@
 +2.210833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.210833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.210833332s Dect2020ExtMac:SendAssociationRequest(): PT_MAC[1]: Preparing to send association request
-+2.210833332s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[1]: initiating Random Access Procedure
-+2.212083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: initiating backoff at subslot - 10
-+2.212083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: random backoff value: 6
-+2.212583330s Dect2020ExtMac:PerformLBT(): PT_MAC[1]: Performing LBT at subslot 12
-+2.212583330s Dect2020ExtMac:PerformLBT(): PT_MAC[1]: LBT at position 6 (elapsed: 500 us)
-+2.212583330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[1]: Sampling LBT RSSI
-+2.212615330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[1]: Sampling LBT RSSI
-+2.212647330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[1]: Sampling LBT RSSI
-+2.212657330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[1]: Sampling LBT RSSI
-+2.212666330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[1]: Sampling LBT RSSI
-+2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Evaluating LBT channel at subslot 12
-+2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: SFN: 221
-+2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: LBT RSSI - Average: -111 dBm, Max: -111 dBm
++2.210833332s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[1]: Initiating Random Access Procedure
 +2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting -> power on channel is -111 dBm
-+2.212666330s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.212666330s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
-+2.212666330s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: 2212666: Dect2020Mac::HandleUnicastPacket: Association Response by 0xde34b94b accepted
++2.213124995s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.213124995s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
++2.213124995s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: 2213124: Dect2020Mac::HandleUnicastPacket: Association Response by 0xc52ad94 accepted
 +2.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
 +2.260833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.260833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon

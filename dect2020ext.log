@@ -1,223 +1,1052 @@
-[0/2] Re-checking globbed directories...
-[1/3] Building CXX object contrib/dect-nr-ext/CMakeFiles/dect-nr-ext.dir/model/dect-mac/dect2020ext-mac.cc.o
-[2/3] Linking CXX shared library lib/libns3.46.1-dect-nr-ext-debug.so
-Finished executing the following commands:
-/usr/bin/cmake --build /home/seele/ns-3.46.1/build -j 5
-NS3_ENABLED_MODULES == ['ns3-zigbee', 'ns3-wifi', 'ns3-virtual-net-device', 'ns3-uan', 'ns3-traffic-control', 'ns3-topology-read', 'ns3-tap-bridge', 'ns3-stats', 'ns3-spectrum', 'ns3-sixlowpan', 'ns3-propagation', 'ns3-point-to-point-layout', 'ns3-point-to-point', 'ns3-olsr', 'ns3-nix-vector-routing', 'ns3-network', 'ns3-netanim', 'ns3-mobility', 'ns3-mesh', 'ns3-lte', 'ns3-lr-wpan', 'ns3-internet-apps', 'ns3-internet', 'ns3-flow-monitor', 'ns3-fd-net-device', 'ns3-energy', 'ns3-dsr', 'ns3-dsdv', 'ns3-csma-layout', 'ns3-csma', 'ns3-core', 'ns3-config-store', 'ns3-buildings', 'ns3-bridge', 'ns3-applications', 'ns3-aodv', 'ns3-antenna']
-NS3_ENABLED_CONTRIBUTED_MODULES == ['ns3-dect-nr-ext', 'ns3-dect-nr']
-NS3_MODULE_PATH == ['/home/seele/.pyenv/libexec', '/home/seele/.pyenv/plugins/python-build/bin', '/home/seele/.pyenv/plugins/pyenv-virtualenv/bin', '/home/seele/.pyenv/plugins/pyenv-update/bin', '/home/seele/.pyenv/plugins/pyenv-doctor/bin', '/home/seele/.pyenv/libexec', '/home/seele/.pyenv/plugins/python-build/bin', '/home/seele/.pyenv/plugins/pyenv-virtualenv/bin', '/home/seele/.pyenv/plugins/pyenv-update/bin', '/home/seele/.pyenv/plugins/pyenv-doctor/bin', '/home/seele/.pyenv/shims', '/home/seele/.pyenv/bin', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/bin/site_perl', '/usr/bin/vendor_perl', '/usr/bin/core_perl', '/home/seele/jupyter/bin/', '/home/seele/ns-3.46.1', '/home/seele/ns-3.46.1/build', '/home/seele/ns-3.46.1/build/lib']
-ENABLE_EXAMPLES == True
-ENABLE_TESTS == True
-EXAMPLE_DIRECTORIES == ['wireless', 'udp-client-server', 'udp', 'tutorial', 'traffic-control', 'tcp', 'stats', 'socket', 'routing', 'realtime', 'naming', 'matrix-topology', 'ipv6', 'error-model', 'energy', 'channel-models']
-ENABLE_PYTHON_BINDINGS == False
-NSCLICK == False
-ENABLE_BRITE == False
-ENABLE_OPENFLOW == False
-APPNAME == ns
-BUILD_PROFILE == debug
-VERSION == 3.46.1
-PYTHON == ['/home/seele/.pyenv/shims/python3']
-VALGRIND_FOUND == False
-Building: ./ns3
-os.environ["PYTHONPATH"] == /home/seele/ns-3.46.1/build/bindings/python
-os.environ["LD_LIBRARY_PATH"] == :/home/seele/.pyenv/libexec:/home/seele/.pyenv/plugins/python-build/bin:/home/seele/.pyenv/plugins/pyenv-virtualenv/bin:/home/seele/.pyenv/plugins/pyenv-update/bin:/home/seele/.pyenv/plugins/pyenv-doctor/bin:/home/seele/.pyenv/libexec:/home/seele/.pyenv/plugins/python-build/bin:/home/seele/.pyenv/plugins/pyenv-virtualenv/bin:/home/seele/.pyenv/plugins/pyenv-update/bin:/home/seele/.pyenv/plugins/pyenv-doctor/bin:/home/seele/.pyenv/shims:/home/seele/.pyenv/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/seele/jupyter/bin/:/home/seele/ns-3.46.1:/home/seele/ns-3.46.1/build:/home/seele/ns-3.46.1/build/lib
-Synchronously execute /home/seele/ns-3.46.1/build/utils/ns3.46.1-test-runner-debug --print-test-name-list
-Return code =  0
-stderr =  
-Queue dect2020ext-random-access-test
-Launch utils/ns3.46.1-test-runner-debug --test-name=dect2020ext-random-access-test --stop-on-failure --fullness=QUICK
-Synchronously execute /home/seele/ns-3.46.1/build/utils/ns3.46.1-test-runner-debug --test-name=dect2020ext-random-access-test --stop-on-failure --fullness=QUICK --xml --tempdir=testpy-output/2026-03-03-21-12-15-CUT --out=testpy-output/2026-03-03-21-12-15-CUT/dect2020ext-random-access-test.xml 
-Return code =  0
-stderr =  +0.000000000s Dect2020ExtPhy:Dect2020ExtPhy(0x7fff26cd10b8)
-+0.000000000s Dect2020ExtPhy:SetBandNumber(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetSubcarrierScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetFourierTransformScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtMac:GenerateLongRadioDeviceId(): 0: Long Radio Device ID 2794407254generated.
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0xa68f4556
-+0.000000000s Dect2020ExtMac:GenerateShortRadioDeviceId(): 0: Short Radio Device ID 46629generated.
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0xb625
-+0.000000000s Dect2020ExtPhy:Dect2020ExtPhy(0x7fff26cd10b8)
-+0.000000000s Dect2020ExtPhy:SetBandNumber(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetSubcarrierScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetFourierTransformScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtMac:GenerateLongRadioDeviceId(): 0: Long Radio Device ID 1805049713generated.
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0x6b96df71
-+0.000000000s Dect2020ExtMac:GenerateShortRadioDeviceId(): 0: Short Radio Device ID 56883generated.
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0xde33
-+0.000000000s Dect2020ExtMac:BuildClusterBeacon(0x7fff26cd10e0)
-+0.000000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x7fff26cd0fe8)
-+0.000000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x7fff26cd1108)
-+0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-+0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Switching to channel 1657
-+0.000000000s Dect2020ExtPhy:Start(0x7fff26cd0e80)
-+0.000000000s Dect2020ExtPhy:Start(0x7fff26cd0e80)
-+0.010000000s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[0]: Initiating Random Access Procedure
-+0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-+0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Switching to channel 1658
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 10, position - 0
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 8
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 666.68
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 0
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 666.68
-+0.012749330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 13, position - 8
-+0.012749330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 8 (elapsed: 666 us)
-+0.012749330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012781330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012813330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012823330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012832330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 13, position - 9
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 13, position - 9
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 15
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 2000.04
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 750.015
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 1250.03
-+0.014082330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 19, position - 24
-+0.014082330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 24 (elapsed: 1999 us)
-+0.014082330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014114330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014146330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014156330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014165330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 19, position - 25
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 19, position - 25
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 18
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 3583.4
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 2083.38
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 1500.03
-+0.015665330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 27, position - 43
-+0.015665330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 43 (elapsed: 3582 us)
-+0.015665330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015697330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015729330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015739330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015748330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 27, position - 44
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 27, position - 44
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 35
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 6583.46
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 3666.74
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 2916.72
-+0.018664330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 41, position - 79
-+0.018664330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 79 (elapsed: 6581 us)
-+0.018664330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018696330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018728330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018738330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018747330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 41, position - 80
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 41, position - 80
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): Backoff target position 190 exceeds available positions (125)
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 110
-+0.018747330s Dect2020ExtMac:ChangeAssociationStatus(): 2
-+0.018747330s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[0]: Association status changed to WAITING_FOR_SELECTED_FT
-+0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-
-returncode = 0
----------- begin standard out ----------
-
----------- begin standard err ----------
-+0.000000000s Dect2020ExtPhy:Dect2020ExtPhy(0x7fff26cd10b8)
-+0.000000000s Dect2020ExtPhy:SetBandNumber(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetSubcarrierScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetFourierTransformScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtMac:GenerateLongRadioDeviceId(): 0: Long Radio Device ID 2794407254generated.
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0xa68f4556
-+0.000000000s Dect2020ExtMac:GenerateShortRadioDeviceId(): 0: Short Radio Device ID 46629generated.
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0xb625
-+0.000000000s Dect2020ExtPhy:Dect2020ExtPhy(0x7fff26cd10b8)
-+0.000000000s Dect2020ExtPhy:SetBandNumber(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetSubcarrierScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtPhy:SetFourierTransformScalingFactor(0x7fff26cd10b8, 1)
-+0.000000000s Dect2020ExtMac:GenerateLongRadioDeviceId(): 0: Long Radio Device ID 1805049713generated.
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0x6b96df71
-+0.000000000s Dect2020ExtMac:GenerateShortRadioDeviceId(): 0: Short Radio Device ID 56883generated.
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0xde33
-+0.000000000s Dect2020ExtMac:BuildClusterBeacon(0x7fff26cd10e0)
-+0.000000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x7fff26cd0fe8)
-+0.000000000s Dect2020ExtMac:BuildRandomAccessResourceIE(0x7fff26cd1108)
-+0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-+0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Switching to channel 1657
-+0.000000000s Dect2020ExtPhy:Start(0x7fff26cd0e80)
-+0.000000000s Dect2020ExtPhy:Start(0x7fff26cd0e80)
-+0.010000000s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[0]: Initiating Random Access Procedure
-+0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-+0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Switching to channel 1658
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 10, position - 0
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 8
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 666.68
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 0
-+0.012083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 666.68
-+0.012749330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 13, position - 8
-+0.012749330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 8 (elapsed: 666 us)
-+0.012749330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012781330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012813330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012823330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012832330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 13, position - 9
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.012832330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 13, position - 9
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 15
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 2000.04
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 750.015
-+0.012832330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 1250.03
-+0.014082330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 19, position - 24
-+0.014082330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 24 (elapsed: 1999 us)
-+0.014082330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014114330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014146330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014156330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014165330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 19, position - 25
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.014165330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 19, position - 25
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 18
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 3583.4
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 2083.38
-+0.014165330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 1500.03
-+0.015665330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 27, position - 43
-+0.015665330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 43 (elapsed: 3582 us)
-+0.015665330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015697330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015729330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015739330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015748330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 27, position - 44
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.015748330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 27, position - 44
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 35
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Target position time us: 6583.46
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Current positioin time us: 3666.74
-+0.015748330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Backoff duration us: 2916.72
-+0.018664330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: Performing LBT at subslot 41, position - 79
-+0.018664330s Dect2020ExtMac:PerformLBT(): PT_MAC[0]: LBT at position 79 (elapsed: 6581 us)
-+0.018664330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018696330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018728330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018738330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018747330s Dect2020ExtMac:SampleLBTRSSI(): PT_MAC[0]: Sampling LBT RSSI
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Evaluating LBT channel at subslot 41, position - 80
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: LBT RSSI - Average: 40 dBm, Max: 40 dBm
-+0.018747330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[0]: Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: 40 dBm)
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Initiating backoff at subslot - 41, position - 80
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): Backoff target position 190 exceeds available positions (125)
-+0.018747330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[0]: Random backoff value: 110
-+0.018747330s Dect2020ExtMac:ChangeAssociationStatus(): 2
-+0.018747330s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[0]: Association status changed to WAITING_FOR_SELECTED_FT
-+0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[0]: Discovering networks
-
----------- end standard err ----------
-[1/1] [32mPASS[0m: TestSuite dect2020ext-random-access-test
-1 of 1 tests passed (1 passed, 0 skipped, 0 failed, 0 crashed, 0 valgrind errors)
++0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0x97e1b6f4
++0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0x5057
++0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
++0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): : Setting Long Radio Device ID: 0xc52ad94
++0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): : Setting Short Radio Device ID: 0x6d6e
++0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
++0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
++0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.029999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1659
++0.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.039999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1660
++0.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.049999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1661
++0.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.059999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1662
++0.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.069999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1663
++0.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.079999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1664
++0.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.089999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1665
++0.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.099999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1666
++0.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.109999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1667
++0.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.119999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1668
++0.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.129999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1669
++0.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.139999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1670
++0.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.149999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1671
++0.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.159999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1672
++0.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.169999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1673
++0.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.179999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1674
++0.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.189999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1675
++0.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.199999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1676
++0.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1677
++0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all channels
++0.209999984s Dect2020ExtMac:OperatingChannelSelection(): FT_MAC[0]: Selected Operating Channel: 1657 with 48 free subslots
++0.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.210000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++0.210000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++0.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.210833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++0.210833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++0.210833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Switching to ASSOCIATION_PREPARING status
++0.210833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Discovering networks
++0.210833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.210833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.220833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.220833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.230833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.230833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.240833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.240833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.250833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.250833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.260833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.260833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.270833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.270833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.280833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.280833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.290833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.290833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.300833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.300833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.310833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.310833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.310833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++0.310833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++0.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.320833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.320833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.330833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.330833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.340833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.340833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.350833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.350833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.360833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.360833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.370833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.370833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.380833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.380833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.390833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.390833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.400833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.400833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.410833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.410833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.420833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.420833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.430833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.430833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.440833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.440833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.450833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.450833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.460833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.460833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.470833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.470833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.480833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.480833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.490833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.490833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.500833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.500833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.510833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.510833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.520833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.520833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.530833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.530833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.540833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.540833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.550833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.550833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.560833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.560833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.570833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.570833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.580833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.580833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.590833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.590833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.600833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.600833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.610833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.610833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.620833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.620833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.630833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.630833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.640833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.640833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.650833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.650833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.660833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.660833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.670833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.670833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.680833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.680833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.690833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.690833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.700833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.700833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.710833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.710833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.720833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.720833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.730833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.730833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.740833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.740833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.750833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.750833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.760833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.760833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.770833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.770833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.780833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.780833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.790833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.790833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.800833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.800833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.810833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.810833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.820833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.820833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.830833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.830833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.840833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.840833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.850833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.850833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.860833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.860833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.870833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.870833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.880833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.880833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.890833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.890833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.900833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.900833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++0.910833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.910833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.920833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.920833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.930833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.930833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.940833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.940833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.950833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.950833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.960833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.960833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++0.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.970833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.970833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.980833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.980833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.990833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++0.990833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.000833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.000833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.010833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.010833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.020833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.020833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.030833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.030833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.040833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.040833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.050833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.050833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.060833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.060833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.070833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.070833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.080833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.080833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.090833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.090833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.100833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.100833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.110833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.110833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.120833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.120833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.130833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.130833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.140833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.140833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.150833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.150833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.160833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.160833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.170833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.170833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.180833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.180833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.190833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.190833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.200833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.200833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.210833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.210833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.220833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.220833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.230833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.230833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.240833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.240833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.250833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.250833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.260833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.260833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.270833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.270833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.280833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.280833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.290833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.290833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.300833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.300833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.310833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.310833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.320833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.320833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.330833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.330833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.340833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.340833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.350833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.350833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.360833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.360833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.360833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++1.360833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++1.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.370833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.370833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.380833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.380833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.390833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.390833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.400833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.400833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.410833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.410833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.420833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.420833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.430833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.430833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.440833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.440833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.450833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.450833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.460833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.460833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.470833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.470833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.480833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.480833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.490833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.490833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.500833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.500833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.510833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.510833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.520833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.520833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.530833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.530833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.540833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.540833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.550833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.550833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.560833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.560833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.570833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.570833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.580833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.580833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.590833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.590833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.600833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.600833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.610833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.610833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.620833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.620833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.630833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.630833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.640833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.640833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.650833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.650833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.660833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.660833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.670833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.670833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.680833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.680833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.690833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.690833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.700833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.700833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.710833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.710833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.720833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.720833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.730833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.730833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.740833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.740833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.750833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.750833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.760833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.760833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.770833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.770833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.780833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.780833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.790833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.790833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.800833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.800833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.810833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.810833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.820833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.820833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.830833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.830833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.840833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.840833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.850833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.850833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.860833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.860833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.870833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.870833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.880833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.880833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.890833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.890833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.900833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.900833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++1.910833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.910833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.920833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.920833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.930833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.930833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.940833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.940833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.950833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.950833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.960833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.960833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++1.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.970833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.970833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.980833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.980833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.990833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++1.990833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++2.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++2.000833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.000833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++2.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++2.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.010833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.010833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++2.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++2.020833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.020833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++2.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++2.030833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.030833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++2.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++2.040833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.040833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++2.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++2.050833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.050833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++2.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++2.060833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.060833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++2.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++2.070833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.070833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++2.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++2.080833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.080833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++2.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++2.090833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.090833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++2.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++2.100833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.100833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++2.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++2.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.110833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.110833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++2.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++2.120833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.120833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++2.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++2.130833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.130833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++2.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++2.140833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.140833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++2.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++2.150833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.150833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++2.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++2.160833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.160833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++2.170833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.170833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++2.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++2.180833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.180833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++2.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++2.190833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.190833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++2.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++2.200833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.200833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate found with RSSI -36.6777 dBm
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate long ID: 2548152052
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 9887602
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate cluster channel ID: 1657
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Switching to best FT's channel: 1657
++2.210833332s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Swithing to WAITING_FOR_SELECTED_FT status
++2.210833332s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.210833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.210833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.210833332s Dect2020ExtMac:SendAssociationRequest(): PT_MAC[1]: Preparing to send association request
++2.210833332s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[1]: Initiating Random Access Procedure
++2.212666330s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): MAC PDU size: 4 subslots
++2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting -> power on channel is -111 dBm
++2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
++2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): harqDelay: 
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): responseAbsSubslot: 15
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): currentAbsSubslot: 12
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Current subslot 12
++2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Association Response absolute subslot 15
++2.213124995s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response
++2.213124995s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.213124995s Dect2020ExtMac:ChangeAssociationStatus(): 4
++2.213124995s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
++2.213124995s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: 2213124: Dect2020Mac::HandleUnicastPacket: Association Response by 0xc52ad94 accepted
++2.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Discovering networks
++2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.260833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.260833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.260833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.310000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.310000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.310833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.310833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.310833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.360833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.360833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.360833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.410000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.410000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.410833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.410833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.410833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.460833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.460833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.460833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.510000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.510000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.510833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.510833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.510833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.560833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.560833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.560833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.610000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.610000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.610833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.610833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.610833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.660833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.660833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.660833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.710000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.710000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.710833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.710833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.710833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.760833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.760833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.760833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.810000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.810000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.810833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.810833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.810833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.860833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.860833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.860833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.910000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
++2.910000000s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
++2.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.910833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.910833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.910833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.960833332s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
++2.960833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
++2.960833332s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated

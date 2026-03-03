@@ -1495,10 +1495,7 @@ Dect2020ExtMac::VerifyPendingAssociationStatus(void)
 void
 Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE associationControlIE, const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress)
 {
-    NS_LOG_FUNCTION(this << associationRequestMessage << transmitterAddress);
     NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
-
-
 
     Dect2020ExtAssociatedPtInfo ptInfo;
     ptInfo.associationEstablished = Simulator::Now();
@@ -1519,29 +1516,32 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
     // TODO: implement logic to accept or reject device. Currently every device is accepted
 
     // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
-    // uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+    uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+    uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
-    // uint32_t currentAbsSubslot = m_phy->GetCurrentAbsoluteSubslot();
+    uint8_t harqDelay = rdCapabilityIE.GetHarqFeedbackDelay();
+    uint32_t responseAbsSubslot;
 
-    // uint8_t harqDelay = rdCapabilityIE.GetHarqFeedbackDelay();
-    // uint32_t responseAbsSubslot;
+    if (m_dectDelay == 0)
+    {
+        responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
+        NS_LOG_INFO("harqDelay: " << harqDelay);
+        NS_LOG_INFO("responseAbsSubslot: " << responseAbsSubslot);
+        NS_LOG_INFO("currentAbsSubslot: " << currentAbsSubslot);
+    }
+    else
+    {
+        responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
+    }
 
-    // if (m_dectDelay == 0)
-    // {
-    //     responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
-    //     NS_LOG_INFO("harqDelay: " << harqDelay);
-    //     NS_LOG_INFO("responseAbsSubslot: " << responseAbsSubslot);
-    //     NS_LOG_INFO("currentAbsSubslot: " << currentAbsSubslot);
-    // }
-    // else
-    // {
-    //     responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
-    // }
+    NS_LOG_INFO(MAC_IDENTITY << "Current subslot " << currentAbsSubslot);
+    NS_LOG_INFO(MAC_IDENTITY << "Association Response absolute subslot " << responseAbsSubslot);
 
+    double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
     // Time t = CalculcateTimeOffsetFromCurrentSubslot(responseAbsSubslot - currentAbsSubslot);
     // NS_LOG_INFO("t: " << t);
 
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
+    Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
 }
 
 void
