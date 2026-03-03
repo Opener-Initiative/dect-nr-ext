@@ -261,6 +261,7 @@ class Dect2020ExtMac : public Object
         void SetCurrentChannelId(uint16_t channelId);
         uint16_t GetCurrentChannelId(void) const;
         double GetRxGainFromIndex(uint8_t index) const;
+        Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
 
@@ -288,6 +289,7 @@ class Dect2020ExtMac : public Object
         uint8_t GetFourierTransformScalingFactor() const;
         void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
         void ConfigureAssociationControlIE(Dect2020ExtAssociationControlIE associationControlIE);
+        void ConfigureRngStream(int64_t stream);
 
         void PrintConfiguration() const;
 
@@ -356,6 +358,9 @@ class Dect2020ExtMac : public Object
 
         Dect2020ExtAssociationControlIE m_configuredAssociationControlIE;
         bool m_configuredAssociationControlIESet = false;
+
+        int64_t m_configuredRngStream;
+        bool m_configuredRngStreamSet = false;
 
         // Dect2020ExtRdCapabilityIE m_configuredRdCapabilityIE;
         // bool m_configuredRdCapabilityIESet = false;

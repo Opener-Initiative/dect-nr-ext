@@ -159,7 +159,8 @@ set(dect2020ext_information_elements_h
 set(dect2020ext_random_access_test_src
     test/random-access/dect2020ext-random-access-test.cc
     test/random-access/dect2020ext-random-access-test-case1.cc
-    test/random-access/dect2020ext-random-access-test-case2.cc)
+    test/random-access/dect2020ext-random-access-test-case2.cc
+    test/random-access/dect2020ext-random-access-test-case3.cc)
 
 # Message Tests
 set(dect2020ext_message_test_src

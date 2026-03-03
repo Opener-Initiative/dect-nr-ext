@@ -41,13 +41,11 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 
 Dect2020ExtMac::Dect2020ExtMac()
 {
-    NS_LOG_FUNCTION(this);
     m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
 }
 
 Dect2020ExtMac::~Dect2020ExtMac()
 {
-    NS_LOG_FUNCTION(this);
 }
 
 TypeId
@@ -119,7 +117,15 @@ Dect2020ExtMac::Initialize()
 
     // Initialization
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
-    m_backoffRandomVariable->SetStream(GetNode()->GetId());
+
+    if (!m_configuredRngStreamSet)
+    {
+        m_backoffRandomVariable->SetStream(GetNode()->GetId());
+    }
+    else
+    {
+        m_backoffRandomVariable->SetStream(m_configuredRngStream);
+    }
 
     SetLongRadioDeviceId(GenerateLongRadioDeviceId());
     SetShortRadioDeviceId(GenerateShortRadioDeviceId());
@@ -160,7 +166,6 @@ Dect2020ExtMac::Start()
 void
 Dect2020ExtMac::DiscoverNetworks()
 {
-    NS_LOG_FUNCTION(this);
     NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks");
 
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
@@ -845,8 +850,7 @@ Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
 void
 Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": initiating Random Access Procedure");
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
     bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
     uint8_t length = randomAccessResourceIE.GetRaraLength(); // RACH resources length
@@ -914,8 +918,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
@@ -930,6 +933,8 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
                     << " exceeds available positions (" 
                     << randomAccessContext->m_startPositions.size() << ")");
 
+        NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
+
         // Defer to next RACH opportunity
         m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
         ChangeAssociationStatus(Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT);
@@ -941,7 +946,10 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     double currentPositionTimeUs = randomAccessContext->m_startPositions[randomAccessContext->m_currentPositionIndex];
     double backoffDurationUs = targetPositionTimeUs - currentPositionTimeUs;
 
-    NS_LOG_INFO(MAC_IDENTITY << ": random backoff value: " << backoffValue);
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Target position time us: " << targetPositionTimeUs);
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Current positioin time us: " << currentPositionTimeUs);
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Backoff duration us: " << backoffDurationUs);
     
     // Update current position to target position
     randomAccessContext->m_currentPositionIndex = targetPositionIndex;
@@ -957,8 +965,7 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
 void
 Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
 
     // Reset sampling context
     randomAccessContext->m_lbtSampleCount = 0;
@@ -974,7 +981,7 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     const double START_POSITION_INTERVAL_US = STF_US + GI_US;
     auto currentPositionIndex = static_cast<uint32_t>(std::round(elapsedUs / START_POSITION_INTERVAL_US));
 
-    NS_LOG_INFO(MAC_IDENTITY << ": LBT at position " << currentPositionIndex 
+    NS_LOG_DEBUG(MAC_IDENTITY << ": LBT at position " << currentPositionIndex 
                  << " (elapsed: " << elapsedUs << " us)");
 
     // Define sampling points within START_POSITION_INTERVAL_US (STF + GI)
@@ -996,8 +1003,7 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
 void
 Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": Sampling LBT RSSI");
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Sampling LBT RSSI");
 
     // Get current channel number and calculate channel index
     uint16_t currentChannelNumber = m_currentChannelId;
@@ -1015,6 +1021,7 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
     // If all samples collected, evaluate the channel
     if (randomAccessContext->m_lbtSampleCount >= randomAccessContext->m_lbtTotalSamples)
     {
+        randomAccessContext->m_currentPositionIndex++;
         EvaluateLBTChannel(randomAccessContext);
     }
 }
@@ -1022,9 +1029,7 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
 void
 Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": Evaluating LBT channel at subslot " << m_macScheduler->GetCurrentSubslotNumber());
-    NS_LOG_INFO(MAC_IDENTITY << ": SFN: " << m_macScheduler->GetSFN());
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Evaluating LBT channel at subslot " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
 
     // Calculate average RSSI from all samples
     double totalRssi = 0.0;
@@ -1038,7 +1043,7 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
 
     double avgRssiDbm = totalRssi / randomAccessContext->m_lbtRssiSamples.size();
 
-    NS_LOG_INFO(MAC_IDENTITY << ": LBT RSSI - Average: " << avgRssiDbm << " dBm, Max: " << maxRssi << " dBm");
+    NS_LOG_DEBUG(MAC_IDENTITY << ": LBT RSSI - Average: " << avgRssiDbm << " dBm, Max: " << maxRssi << " dBm");
 
     // Determine channel state based on RSSI threshlods
     bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
@@ -1067,9 +1072,6 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
     else if (channelIsBusy)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
-
-        // After LBT completes, we are at the next position (LBT duration = 1 interval)
-        randomAccessContext->m_currentPositionIndex += 1;
 
         // Exponential backoff: double CW_CURRENT, cap at CW_MAX
         uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
@@ -1849,6 +1851,12 @@ Dect2020ExtMac::GetRxGainFromIndex(uint8_t index) const
     return static_cast<int8_t>(-10 + index * 2);
 }
 
+Ptr<Dect2020ExtChannelManager>
+Dect2020ExtMac::GetChannelManager() const
+{
+    return m_channelManager;
+}
+
 void
 Dect2020ExtMac::SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler)
 {
@@ -1865,13 +1873,14 @@ void
 Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus)
 {
     std::string newStatus = "";
+    NS_LOG_INFO(associationStatus);
     switch (associationStatus)
     {
-        case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED";
-        case Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING: newStatus = "ASSOCIATION_PREPARING";
-        case Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT: newStatus = "WAITING_FOR_SELECTED_FT";
-        case Dect2020ExtAssociationStatus::ASSOCIATION_PENDING: newStatus = "ASSOCIATION_PENDING";
-        case Dect2020ExtAssociationStatus::ASSOCIATED: newStatus = "ASSOCIATED";
+        case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING: newStatus = "ASSOCIATION_PREPARING"; break;
+        case Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT: newStatus = "WAITING_FOR_SELECTED_FT"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PENDING: newStatus = "ASSOCIATION_PENDING"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATED: newStatus = "ASSOCIATED"; break;
     }
     m_associationStatus = associationStatus;
     NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
@@ -1928,6 +1937,13 @@ Dect2020ExtMac::ConfigureAssociationControlIE(Dect2020ExtAssociationControlIE as
 {
     m_configuredAssociationControlIE = associationControlIE;
     m_configuredAssociationControlIESet = true;
+}
+
+void
+Dect2020ExtMac::ConfigureRngStream(int64_t stream)
+{
+    m_configuredRngStream = stream;
+    m_configuredRngStreamSet = true;
 }
 
 void

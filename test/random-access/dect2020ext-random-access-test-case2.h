@@ -19,4 +19,3 @@ class Dect2020ExtRandomAccessTestCase2 : public TestCase
 } // namespace ns3
 
 #endif // DECT2020_EXT_RANDOM_ACCESS_TEST_CASE2_H
-

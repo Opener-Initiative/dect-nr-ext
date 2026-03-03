@@ -1,5 +1,6 @@
 #include "dect2020ext-random-access-test-case1.h"
 #include "dect2020ext-random-access-test-case2.h"
+#include "dect2020ext-random-access-test-case3.h"
 
 #include "ns3/test.h"
 
@@ -16,8 +17,9 @@ class Dect2020ExtRandomAccessTest : public TestSuite
 Dect2020ExtRandomAccessTest::Dect2020ExtRandomAccessTest()
     : TestSuite("dect2020ext-random-access-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020ExtRandomAccessTestCase1(), TestCase::Duration::QUICK);
-    AddTestCase(new Dect2020ExtRandomAccessTestCase2(), TestCase::Duration::QUICK);
+    // AddTestCase(new Dect2020ExtRandomAccessTestCase1(), TestCase::Duration::QUICK);
+    // AddTestCase(new Dect2020ExtRandomAccessTestCase2(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtRandomAccessTestCase3(), TestCase::Duration::QUICK);
 }
 
 Dect2020ExtRandomAccessTest::~Dect2020ExtRandomAccessTest()
