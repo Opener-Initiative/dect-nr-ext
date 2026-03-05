@@ -35,6 +35,10 @@ main(int argc, char *argv[])
     // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
 
     Dect2020ExtConfig config;
+    Dect2020ExtAssociationControlIE associationControlIE;
+    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
+    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
 
     // ################
     // ###### FT ######
@@ -49,6 +53,7 @@ main(int argc, char *argv[])
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMac->SetPhy(ftPhy);
     ftMac->ConfigureRandomAccessResources(ftRandomAccessResources);
+    ftMac->ConfigureAssociationControlIE(associationControlIE);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);
@@ -72,11 +77,6 @@ main(int argc, char *argv[])
 
     Ptr<Dect2020ExtPhy> ptPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ptPhy);
-
-    Dect2020ExtAssociationControlIE associationControlIE;
-    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
-    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
-    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
 
     Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
     ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);

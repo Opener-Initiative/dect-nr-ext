@@ -26,6 +26,13 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
+# DECT-2020 EXT App
+set(dect2020ext_app_src
+    model/application/dect2020ext-app.cc)
+
+set(dect2020ext_app_h
+    model/application/dect2020ext-app.h)
+
 # DECT-2020 EXT Module Header
 set(dect2020ext_module_h
     model/dect2020ext-module.h)
@@ -234,6 +241,7 @@ build_lib(
         ${dect2020ext_mac_scheduler_src}
         ${dect2020ext_configuration_src}
         ${dect2020ext_utilities_src}
+        ${dect2020ext_app_src}
     HEADER_FILES
         ${dect2020ext_module_h}
         ${dect2020ext_types_h}
@@ -252,6 +260,7 @@ build_lib(
         ${dect2020ext_mac_scheduler_h}
         ${dect2020ext_configuration_h}
         ${dect2020ext_utilities_h}
+        ${dect2020ext_app_h}
     TEST_SOURCES
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}

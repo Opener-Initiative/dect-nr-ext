@@ -16,8 +16,8 @@
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
 #include "ns3/dect2020ext-association-control-ie.h"
-
 #include "ns3/dect2020ext-mac-scheduler.h"
+#include "ns3/dect2020ext-app.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -29,6 +29,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <queue>
 
 namespace ns3
 {
@@ -40,6 +41,7 @@ class Dect2020ExtPHYControlFieldType1;
 class Dect2020ExtRandomAccessResourceIE;
 class Dect2020ExtRdCapabilityIE;
 class Dect2020ExtMacScheduler;
+class Dect2020ExtApp;
 
 struct Dect2020ExtChannelEvaluation
 {
@@ -143,7 +145,7 @@ struct Dect2020ExtAssociatedPtInfo
     // uint8_t maxHarqReRxDelay;
     // uint8_t flowId;
     // bool cb_m;
-    // Dect2020RdCapabilityIE rdCapabilityIe;
+    // Dect2020ExtRdCapabilityIE rdCapabilityIe;
 
     // double lastRssi;
 };
@@ -229,14 +231,14 @@ class Dect2020ExtMac : public Object
         void HandleUnicastPacket(Ptr<Packet> packet);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
-        void SelectBestFtCandidate(void);
+        void SelectBestFtCandidate();
         void VerifyWaitingForSelectedFtAssociationStatus(void);
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
-        void VerifyPendingAssociationStatus(void);
+        void VerifyPendingAssociationStatus();
         void ProcessAssociationRequest(const Dect2020ExtAssociationControlIE associationControlIE, const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
         void SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
         void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
-        void VerifyAssociatedStatus(void);
+        void VerifyAssociatedStatus();
         Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
         Time CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots);
 
@@ -248,18 +250,18 @@ class Dect2020ExtMac : public Object
         Ptr<Dect2020ExtNetDevice> GetNetDevice(void) const;
         Ptr<Node> GetNode() const;
         void SetPhy(Ptr<Dect2020ExtPhy> phy);
-        Ptr<Dect2020ExtPhy> GetPhy(void) const;
+        Ptr<Dect2020ExtPhy> GetPhy() const;
         void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
         void SetNetworkId(uint32_t networkId);
-        uint32_t GetNetworkId(void) const;
+        uint32_t GetNetworkId() const;
         void SetLongRadioDeviceId(uint32_t rdId);
-        uint32_t GetLongRadioDeviceId(void) const;
+        uint32_t GetLongRadioDeviceId() const;
         void SetShortRadioDeviceId(uint16_t rdId);
-        uint16_t GetShortRadioDeviceId(void) const;
-        uint32_t GetOperatingChannelId(void) const;
+        uint16_t GetShortRadioDeviceId() const;
+        uint32_t GetOperatingChannelId() const;
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
         void SetCurrentChannelId(uint16_t channelId);
-        uint16_t GetCurrentChannelId(void) const;
+        uint16_t GetCurrentChannelId() const;
         double GetRxGainFromIndex(uint8_t index) const;
         Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 
@@ -276,6 +278,10 @@ class Dect2020ExtMac : public Object
 
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
         Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
+
+        // Application
+        void EnqueuePacket(Ptr<Packet> packet);
+        void LaunchApp();
 
         // ###########################
         // ###### Configuration ######
@@ -332,6 +338,10 @@ class Dect2020ExtMac : public Object
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
 
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
+
+        // Application
+        std::queue<Ptr<Packet>> m_txQueue;
+        Ptr<Dect2020ExtApp> m_app;
 
         // ###########################
         // ###### Configuration ######

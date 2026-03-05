@@ -144,6 +144,7 @@ Dect2020ExtMac::Start()
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
         NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resource IE" << errorMessage);
+        NS_ABORT_MSG_IF(!m_configuredAssociationControlIESet, "Association Control IE" << errorMessage);
 
         std::ostringstream oss;
         oss << "FT_MAC[" << m_device->GetNode()->GetId() << "]";
@@ -166,8 +167,6 @@ Dect2020ExtMac::Start()
 void
 Dect2020ExtMac::DiscoverNetworks()
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks");
-
     if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
         m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
         m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
@@ -319,19 +318,10 @@ Dect2020ExtMac::DisplayChannelEvaluations(void)
     NS_LOG_DEBUG("====================================================");
 }
 
-/**
- * @brief Schedule the background scan with the given delay.
- * 
- * Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback. 
- * Then, schedule the background scan with the given delay.
- */
 void
 Dect2020ExtMac::ScheduleBackgroundScan()
 {
     NS_LOG_FUNCTION(this);
-
-    // Connect the OnRssiMeasurement callback to RssiMeasured Trace Callback
-    // m_channelManager->TraceConnectWithoutContext("RssiMeasured", MakeCallback(&Dect2020ExtMac::OnRssiMeasurement, this));
 
     // Schedule the background scan
     Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
@@ -410,8 +400,6 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
 void
 Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber)
 {
-    NS_LOG_FUNCTION(this);
-
     // Calculate channel index from the channel number
     uint16_t channelIndex = context->channelNumber - m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(context->channelNumber));
 
@@ -422,19 +410,13 @@ Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnCha
     // Store the RSSI sample
     context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
     
-    // NS_LOG_INFO("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
+    NS_LOG_DEBUG("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
 }
 
 void
 Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
-
-    // Debug
-    // if (subslotNumber == 0)
-    // {
-    //     NS_LOG_INFO("Starting scanning on " << channelContext->channelNumber);
-    // }
 
     // 1. Tune to the correct channel
     SetCurrentChannelId(channelContext->channelNumber);
@@ -451,8 +433,6 @@ Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContex
         // NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
         Simulator::Schedule(NanoSeconds(samplingOffsetNs), &Dect2020ExtMac::SampleRSSIFromInterference, this, channelContext, subslotNumber);
     }
-
-    // 3. Store the result of average RSSI on the subslot
 }
 
 void
@@ -1176,6 +1156,10 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
         NS_LOG_INFO(MAC_IDENTITY << ": Next cluster channel in network beacon: " << ftBeaconNextClusterChannel);
         ft->clusterChannelId = ftBeaconNextClusterChannel;
+
+        // Get time to next cluster beacon from the network beacon message
+        uint32_t timeToNextCluster = networkBeaconMessage.GetTimeToNext();
+        NS_LOG_INFO(MAC_IDENTITY << ": Time to next cluster beacon: " << timeToNextCluster << " microseconds");
     }
 
     // --- Cluster Beacon Message ---
@@ -1373,8 +1357,7 @@ Dect2020ExtMac::SelectBestFtCandidate(void)
     m_currentChannelId = bestCandidate.clusterChannelId;
 
     // Step 4: Set status and wait for next cluster beacon of selected FT
-    m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
-    NS_LOG_INFO(MAC_IDENTITY << ": Swithing to WAITING_FOR_SELECTED_FT status");
+    ChangeAssociationStatus(WAITING_FOR_SELECTED_FT);
 
     // Cluster Beacon triggers next step in EvaluateClusterBeacon
     // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
@@ -1403,11 +1386,6 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     Ptr<Packet> packet = Create<Packet>();
 
     // --- Association Control IE ---
-    // Dect2020ExtAssociationControlIE associationControlIE;
-    // associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
-    // associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
-    // associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
-
     packet->AddHeader(m_configuredAssociationControlIE);
 
     // --- RD Capability IE ---
@@ -1477,7 +1455,7 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     Dect2020ExtPHYControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
     physicalHeaderField.SetShortNetworkID(m_potentialShortNetworkId);
 
-    m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PENDING;
+    ChangeAssociationStatus(ASSOCIATION_PENDING);
 
     // Initiate Random Access Procedure with the selected FT
     InitiateRandomAccess(ft->ftRandomAccessResourceIE, packet, physicalHeaderField);
@@ -1509,11 +1487,12 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
     // ptInfo.maxHarqReRxDelay = associationRequestMessage.GetMaxHarqReRxDelay();
     // ptInfo.flowId = associationRequestMessage.GetFlowId();
     // // ptInfo.cb_m = assoControlIe.GetClusterBeaconMonitoring() == 1 ? true : false;
-    // // ptInfo.rdCapabilityIe = rdCapabilityIe;
+    // ptInfo.rdCapabilityIe = rdCapabilityIe;
 
     m_associatedPtDevices.push_back(ptInfo);
 
     // TODO: implement logic to accept or reject device. Currently every device is accepted
+    // TODO: implement association maintenance
 
     // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
     uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
@@ -1525,9 +1504,9 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
     if (m_dectDelay == 0)
     {
         responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
-        NS_LOG_INFO("harqDelay: " << harqDelay);
-        NS_LOG_INFO("responseAbsSubslot: " << responseAbsSubslot);
-        NS_LOG_INFO("currentAbsSubslot: " << currentAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
+        NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
     }
     else
     {
@@ -1538,8 +1517,6 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
     NS_LOG_INFO(MAC_IDENTITY << "Association Response absolute subslot " << responseAbsSubslot);
 
     double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
-    // Time t = CalculcateTimeOffsetFromCurrentSubslot(responseAbsSubslot - currentAbsSubslot);
-    // NS_LOG_INFO("t: " << t);
 
     Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
 }
@@ -1549,7 +1526,7 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
 {
     // TODO: Add RD Capability IE
     NS_LOG_FUNCTION(this);
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending Association Response");
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending Association Response at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     Ptr<Packet> packet = Create<Packet>();
 
@@ -1597,7 +1574,7 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
 void
 Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress)
 {
-    NS_LOG_FUNCTION(this << associationResponseMessage << transmitterAddress);
+    NS_LOG_INFO(MAC_IDENTITY << "Processing association response");
 
     if (m_associationStatus != ASSOCIATION_PENDING)
     {
@@ -1617,9 +1594,10 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
 
         // Store the associated FTs Long RD ID
         m_associatedFTNetDeviceLongRdId = transmitterAddress;
-        NS_LOG_INFO(MAC_IDENTITY << ": " << Simulator::Now().GetMicroSeconds()
-                    << ": Dect2020Mac::HandleUnicastPacket: Association Response by 0x" << std::hex
-                    << this->GetLongRadioDeviceId() << " accepted");
+        NS_LOG_INFO(MAC_IDENTITY << ": Association Response accepted");
+
+        // Starting app transmission
+        LaunchApp();
     }
     else
     {
@@ -1884,6 +1862,25 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
     }
     m_associationStatus = associationStatus;
     NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
+}
+
+void
+Dect2020ExtMac::EnqueuePacket(Ptr<Packet> packet)
+{
+    // TODO: Decide how DECT Application will work
+    m_txQueue.push(packet);
+    // Ptr<Packet> macPdu = Create<Packet>(); // dummy MAC PDU
+    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet");
+    // InitiateRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, macPdu, BuildPhysicalHeaderField(1, packet->GetSize()));
+}
+
+void
+Dect2020ExtMac::LaunchApp()
+{
+    m_app = CreateObject<Dect2020ExtApp>();
+    m_app->SetMac(this);
+    m_app->SetTxPeriod(MilliSeconds(10));
+    m_app->Start();
 }
 
 void
