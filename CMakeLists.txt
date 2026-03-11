@@ -26,6 +26,13 @@ set(dect2020ext_mac_pdu_helper_h
 ## MODEL ##
 ###########
 
+# DECT-2020 Statistics
+set(dect2020ext_statistics_src
+    model/statistics/dect2020ext-statistics.cc)
+
+set(dect2020ext_statistics_h
+    model/statistics/dect2020ext-statistics.h)
+
 # DECT-2020 EXT App
 set(dect2020ext_app_src
     model/application/dect2020ext-app.cc)
@@ -163,6 +170,10 @@ set(dect2020ext_information_elements_h
 ## TESTS ##
 ###########
 
+set(dect2020ext_phy_test_src
+    test/phy/dect2020ext-phy-test.cc
+    test/phy/dect2020ext-phy-test-case1.cc)
+
 set(dect2020ext_random_access_test_src
     test/random-access/dect2020ext-random-access-test.cc
     test/random-access/dect2020ext-random-access-test-case1.cc
@@ -242,6 +253,7 @@ build_lib(
         ${dect2020ext_configuration_src}
         ${dect2020ext_utilities_src}
         ${dect2020ext_app_src}
+        ${dect2020ext_statistics_src}
     HEADER_FILES
         ${dect2020ext_module_h}
         ${dect2020ext_types_h}
@@ -261,6 +273,7 @@ build_lib(
         ${dect2020ext_configuration_h}
         ${dect2020ext_utilities_h}
         ${dect2020ext_app_h}
+        ${dect2020ext_statistics_h}
     TEST_SOURCES
         ${dect2020ext_information_elements_test_src}
         ${dect2020ext_physical_header_field_test_src}
@@ -270,6 +283,7 @@ build_lib(
         ${dect2020ext_mac_common_headers_test_src}
         ${dect2020ext_mac_header_type_test_src}
         ${dect2020ext_random_access_test_src}
+        ${dect2020ext_phy_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}

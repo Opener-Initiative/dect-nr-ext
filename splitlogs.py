@@ -2,7 +2,7 @@ import re
 import sys
 from collections import defaultdict
 
-def split_logs_by_identifier(log_file, pattern=r"(?:FT|PT)_MAC\[[0-9]+\]"):
+def split_logs_by_identifier(log_file, pattern=r"(?:FT|PT)_(?:MAC|PHY)\[[0-9]+\]"):
     files = defaultdict(list)
 
     with open(log_file) as f:

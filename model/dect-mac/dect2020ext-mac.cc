@@ -27,6 +27,7 @@
 #include <sstream>
 #include <algorithm>
 #include <string>
+#include <iomanip>
 
 namespace ns3
 {
@@ -896,7 +897,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
@@ -1035,7 +1036,7 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
         if (fitsInRachResources)
         {
             // Transmit packet
-            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting -> power on channel is " << avgRssiDbm << " dBm");
+            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at position " << randomAccessContext->m_currentPositionIndex << " -> power on channel is " << avgRssiDbm << " dBm");
             m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderField);
         }
         else
@@ -1114,6 +1115,11 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Unicast Packet");
         HandleUnicastPacket(packet);
+    }
+
+    else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER)
+    {
+        HandleDataPacket(packet);
     }
 
     // Forward the packet to the net device for minimal implementation
@@ -1256,6 +1262,24 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
 
         ProcessAssociationResponse(associationResponseMessage, transmitterAddress);
     }
+}
+
+void
+Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet)
+{
+    // --- Unicast Header ---
+    Dect2020ExtUnicastHeader unicastHeader;
+    packet->RemoveHeader(unicastHeader);
+
+    // Check if the Unicast Message is for this device
+    uint32_t receiverAddress = unicastHeader.GetReceiverAddress();
+    // uint32_t transmitterAddress = unicastHeader.GetTransmitterAddress();
+
+    if (receiverAddress != this->GetLongRadioDeviceId())
+    {
+        return; // Packet is not for this device
+    }
+    NS_LOG_INFO(MAC_IDENTITY << ": Received DATA MAC PDU");
 }
 
 Dect2020ExtFtCandidateInfo*
@@ -1865,19 +1889,46 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
 void
 Dect2020ExtMac::EnqueuePacket(Ptr<Packet> packet)
 {
-    // TODO: Decide how DECT Application will work
     m_txQueue.push(packet);
-    // Ptr<Packet> macPdu = Create<Packet>(); // dummy MAC PDU
-    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet");
-    // InitiateRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, macPdu, BuildPhysicalHeaderField(1, packet->GetSize()));
+    Ptr<Packet> macPdu = Create<Packet>(10); // dummy MAC PDU
+    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
+
+    Dect2020ExtUnicastHeader unicastHeader;
+    unicastHeader.SetReset(0);
+    unicastHeader.SetMacSequence(0);
+    unicastHeader.SetSequenceNumber(0);
+    unicastHeader.SetReceiverAddress(m_selectedFtCandidate.longFtId);
+    unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
+
+    macPdu->AddHeader(unicastHeader);
+
+    Dect2020ExtMacHeaderType macHeaderType;
+    macHeaderType.SetVersion(0);
+    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
+    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
+
+    macPdu->AddHeader(macHeaderType);
+
+    // If the device is already inside the RACH resources -> defer till next RACH resources
+    if (m_macScheduler->GetCurrentSubslotNumber() > m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Deferring till next RACH resources");
+        double timeTillNextFrameNs = m_macScheduler->GetTimeTillNextFrameNs();
+        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs), &Dect2020ExtMac::InitiateRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIE, macPdu, BuildPhysicalHeaderField(1, packet->GetSize()));
+    }
+    else
+    {
+        InitiateRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, macPdu, BuildPhysicalHeaderField(1, packet->GetSize()));
+    }
 }
 
 void
 Dect2020ExtMac::LaunchApp()
 {
+    NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
     m_app = CreateObject<Dect2020ExtApp>();
     m_app->SetMac(this);
-    m_app->SetTxPeriod(MilliSeconds(10));
+    m_app->SetTxPeriod(MicroSeconds(200));
     m_app->Start();
 }
 

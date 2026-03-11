@@ -23,7 +23,7 @@ Dect2020ExtConfig::CreateConfiguredSpectrumChannel()
 {
     Ptr<SPECTRUM_CHANNEL_TYPE> spectrumChannel = CreateObject<SPECTRUM_CHANNEL_TYPE>();
     spectrumChannel->SetPropagationDelayModel(CreateObject<PROPAGATION_DELAY_MODEL>());
-    spectrumChannel->AddPropagationLossModel(CreateObject<PROPAGATION_LOSS_MODEL>());
+    // spectrumChannel->AddPropagationLossModel(CreateObject<PROPAGATION_LOSS_MODEL>());
 
     return spectrumChannel;
 }

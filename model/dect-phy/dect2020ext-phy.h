@@ -107,6 +107,12 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		std::string PHY_IDENTITY;
 
+		// ##################
+		// ###### TEST ######
+		// ##################
+
+		bool m_phyTest = false;
+
 	private:
 		uint32_t m_currentSlot;
 		uint32_t m_currentSubslot;

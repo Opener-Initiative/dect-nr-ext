@@ -229,6 +229,7 @@ class Dect2020ExtMac : public Object
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
+        void HandleDataPacket(Ptr<Packet> packet);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
         void SelectBestFtCandidate();
@@ -270,18 +271,15 @@ class Dect2020ExtMac : public Object
         Dect2020ExtAssociationStatus GetAssociationStatus();
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
-        uint8_t m_nextAvailableSubslot = 2;
-
-        bool m_dectDelay = false;
-
-        uint16_t m_currentChannelId;
-
-        uint32_t m_associatedFTNetDeviceLongRdId = 0;
-        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
-
         // Application
         void EnqueuePacket(Ptr<Packet> packet);
         void LaunchApp();
+
+        uint32_t m_associatedFTNetDeviceLongRdId = 0;
+        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
+        uint8_t m_nextAvailableSubslot = 2;
+        bool m_dectDelay = false;
+        uint16_t m_currentChannelId;
 
         // ###########################
         // ###### Configuration ######
@@ -296,7 +294,6 @@ class Dect2020ExtMac : public Object
         void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE);
         void ConfigureAssociationControlIE(Dect2020ExtAssociationControlIE associationControlIE);
         void ConfigureRngStream(int64_t stream);
-
         void PrintConfiguration() const;
 
         std::string MAC_IDENTITY;
@@ -325,18 +322,12 @@ class Dect2020ExtMac : public Object
         uint32_t m_clusterBeaconSubslot = 4;
 
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
-
         Dect2020ExtMacMultiplexingHeaderTypeA m_lastFtMacMxHeader;
-
         Dect2020ExtAssociationStatus m_associationStatus;
         bool m_isWaitingForClusterBeacon;
-
         uint8_t m_lastSfn;
-
         uint8_t m_potentialShortNetworkId;
-
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
-
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
 
         // Application

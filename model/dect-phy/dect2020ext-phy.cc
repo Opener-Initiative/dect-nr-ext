@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
 #include "ns3/dect2020ext-mac-header-type.h"
 #include "ns3/dect2020ext-interference.h"
+#include "ns3/dect2020ext-statistics.h"
 
 #include "ns3/simulator.h"
 #include "ns3/pointer.h"
@@ -99,7 +100,7 @@ Dect2020ExtPhy::Start()
         oss << "FT_PHY[" << m_device->GetNode()->GetId() << "]";
         PHY_IDENTITY = oss.str();
     }
-    else if (m_mac->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    else if (m_mac->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
         std::ostringstream oss;
         oss << "PT_PHY[" << m_device->GetNode()->GetId() << "]";
@@ -485,16 +486,24 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // }
 
     // if RSSI clearly indicates collision, drop packet
-    if (rssiChannelDbm > 13.1)
+    if (rssiChannelDbm > 13.0)
     {
-        NS_LOG_WARN("Received packet on channel with RSSI clearly indicating collision");
-        NS_LOG_WARN("Dropping packet");
+        NS_LOG_INFO(PHY_IDENTITY << ": Received packet on channel with RSSI clearly indicating collision");
+        NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet");
+        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
         return;
     }
 
-    // Otherwise, receive packet successfully and pass it to the MAC
-    NS_LOG_INFO(PHY_IDENTITY << ": passing to the MAC");
-    m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
+    if (m_phyTest)
+    {
+        return;
+    }
+    else
+    {
+        // Otherwise, receive packet successfully and pass it to the MAC
+        NS_LOG_INFO(PHY_IDENTITY << ": Passing to the MAC");
+        m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
+    }
 }
 
 void

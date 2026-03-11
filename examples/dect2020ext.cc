@@ -2,9 +2,9 @@
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-phy.h"
-
 #include "ns3/dect2020ext-config.h"
 #include "ns3/dect2020ext-utilities.h"
+#include "ns3/dect2020ext-statistics.h"
 
 #include "ns3/simulator.h"
 #include "ns3/single-model-spectrum-channel.h"
@@ -26,7 +26,8 @@ int
 main(int argc, char *argv[])
 {
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
 
     // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
     // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
@@ -75,41 +76,48 @@ main(int argc, char *argv[])
     // ###### PT ######
     // ################
 
-    Ptr<Dect2020ExtPhy> ptPhy = CreateObject<Dect2020ExtPhy>();
-    config.ApplyToPhy(ptPhy);
+    int ptNumber = 1;
 
-    Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
-    ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
-    ptMac->SetPhy(ptPhy);
-    ptMac->ConfigureAssociationControlIE(associationControlIE);
-    config.ApplyToMac(ptMac);
+    for (int i = 0; i < ptNumber; i++)
+    {
+        Ptr<Dect2020ExtPhy> ptPhy = CreateObject<Dect2020ExtPhy>();
+        config.ApplyToPhy(ptPhy);
 
-    ptPhy->SetMac(ptMac);
+        Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
+        ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+        ptMac->SetPhy(ptPhy);
+        ptMac->ConfigureAssociationControlIE(associationControlIE);
+        config.ApplyToMac(ptMac);
 
-    Ptr<Node> ptNode = CreateObject<Node>();
+        ptPhy->SetMac(ptMac);
 
-    Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
-    ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
-    ptNetDevice->SetPhy(ptPhy);
-    ptNetDevice->SetMac(ptMac);
-    ptNetDevice->SetNode(ptNode);
+        Ptr<Node> ptNode = CreateObject<Node>();
 
-    ptNode->AddDevice(ptNetDevice);
+        Ptr<Dect2020ExtNetDevice> ptNetDevice = CreateObject<Dect2020ExtNetDevice>();
+        ptNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+        ptNetDevice->SetPhy(ptPhy);
+        ptNetDevice->SetMac(ptMac);
+        ptNetDevice->SetNode(ptNode);
 
-    InstallCenterMobilityModel(ptNode);
-    ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
+        ptNode->AddDevice(ptNetDevice);
+
+        InstallCenterMobilityModel(ptNode);
+        ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
+        ptMac->Initialize();
+        ptMac->Start();
+        ptPhy->Start();
+    }
 
     ftMac->Initialize();
     ftMac->Start();
     ftPhy->Start();
 
-    ptMac->Initialize();
-    ptMac->Start();
-    ptPhy->Start();
 
-    Simulator::Stop(Seconds(3));
+    Simulator::Stop(Seconds(2.5));
     Simulator::Run();
     Simulator::Destroy();
+
+    Dect2020ExtStatistics::OutputDroppedPackets();
 
     return 0;
 }
