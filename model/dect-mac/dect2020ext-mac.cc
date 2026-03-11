@@ -25,9 +25,7 @@
 #include <limits>
 #include <memory>
 #include <sstream>
-#include <iomanip>
 #include <algorithm>
-#include <random>
 #include <string>
 
 namespace ns3
