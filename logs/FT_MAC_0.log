@@ -93,6 +93,19 @@
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Current subslot 12
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Association Response absolute subslot 15
 +2.213124995s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 15
++2.222166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.232166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.232249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.232499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.232749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)

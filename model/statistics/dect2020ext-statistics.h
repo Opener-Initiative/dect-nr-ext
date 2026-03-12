@@ -14,8 +14,10 @@ class Dect2020ExtStatistics
         ~Dect2020ExtStatistics();
 
         static void OutputDroppedPackets();
+        static void OutputAcceptedPackets();
 
         static std::map<std::string, int> m_droppedPackets;
+        static std::map<std::string, int> m_acceptedPackets;
 };
 
 } // namespace ns3

@@ -502,6 +502,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     {
         // Otherwise, receive packet successfully and pass it to the MAC
         NS_LOG_INFO(PHY_IDENTITY << ": Passing to the MAC");
+        Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
         m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
     }
 }

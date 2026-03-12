@@ -1929,6 +1929,7 @@ Dect2020ExtMac::LaunchApp()
     m_app = CreateObject<Dect2020ExtApp>();
     m_app->SetMac(this);
     m_app->SetTxPeriod(MicroSeconds(200));
+    m_app->SetPacketQuantity(50);
     m_app->Start();
 }
 

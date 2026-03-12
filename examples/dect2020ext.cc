@@ -118,6 +118,7 @@ main(int argc, char *argv[])
     Simulator::Destroy();
 
     Dect2020ExtStatistics::OutputDroppedPackets();
+    Dect2020ExtStatistics::OutputAcceptedPackets();
 
     return 0;
 }

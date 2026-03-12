@@ -48,10 +48,17 @@ Dect2020ExtApp::Stop()
 void
 Dect2020ExtApp::GeneratePacket()
 {
-    Ptr<Packet> packet = Create<Packet>();
-    m_mac->EnqueuePacket(packet);
-
-    m_event = Simulator::Schedule(m_txPeriod, &Dect2020ExtApp::GeneratePacket, this);
+    if (m_enqueuedPacketQuantity < m_packetLimit)
+    {
+        Ptr<Packet> packet = Create<Packet>();
+        m_mac->EnqueuePacket(packet);
+        m_enqueuedPacketQuantity++;
+        m_event = Simulator::Schedule(m_txPeriod, &Dect2020ExtApp::GeneratePacket, this);
+    }
+    else
+    {
+        Stop();
+    }
 }
 
 void
@@ -65,6 +72,12 @@ void
 Dect2020ExtApp::SetMac(Ptr<Dect2020ExtMac> mac)
 {
     m_mac = mac;
+}
+
+void
+Dect2020ExtApp::SetPacketQuantity(int quantity)
+{
+    m_packetQuantity = quantity;
 }
 
 }; // namespace ns3

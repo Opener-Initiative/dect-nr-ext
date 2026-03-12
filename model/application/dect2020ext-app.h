@@ -26,14 +26,17 @@ class Dect2020ExtApp : public Object
         // Configuration
         void SetTxPeriod(Time period);
         void SetMac(Ptr<Dect2020ExtMac> mac);
+        void SetPacketLimit(int quantity);
 
     private:
+
         // Configuration
         Time m_txPeriod;
         bool m_txPeriodSet = false;
         Ptr<Dect2020ExtMac> m_mac;
-
         EventId m_event;
+        int m_packetLimit;
+        int m_enqueuedPacketQuantity = 0;
 };
 
 }; // namespace ns3
