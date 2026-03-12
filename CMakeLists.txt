@@ -107,10 +107,12 @@ set(dect2020ext_phy_h
 
 # DECT-2020 EXT Physical Header Field
 set(dect2020ext_physical_header_field_src
-    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.cc)
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.cc
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-2.cc)
 
 set(dect2020ext_physical_header_field_h
-    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.h)
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-1.h
+    model/mac-pdu/physical-header-field/dect2020ext-phy-control-field-type-2.h)
 
 # DECT-2020 EXT MAC Header Type
 set(dect2020ext_mac_header_type_src

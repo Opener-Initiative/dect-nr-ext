@@ -1,3 +1,5 @@
++0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0xde34b94b
++0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0xc53
 +0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
 +0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
 +0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
@@ -84,6 +86,7 @@
 +2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.212666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
 +2.212666330s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
@@ -93,19 +96,15 @@
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Current subslot 12
 +2.212666330s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]Association Response absolute subslot 15
 +2.213124995s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 15
-+2.222166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.222832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.232166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.232249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.232499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
-+2.232749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]Current subslot 12
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]HARQ ACK absolute subslot 15
++2.223124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]ACK
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)

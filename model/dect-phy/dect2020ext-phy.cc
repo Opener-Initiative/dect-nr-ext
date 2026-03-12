@@ -294,9 +294,9 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
 }
 
 void
-Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double> cb)
+Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback)
 {
-    m_receiveCallback = cb;
+    m_receiveCallback = callback;
     m_receiveCallbackSet = true;
 }
 
@@ -503,7 +503,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         // Otherwise, receive packet successfully and pass it to the MAC
         NS_LOG_INFO(PHY_IDENTITY << ": Passing to the MAC");
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
-        m_receiveCallback(dectParams->txPacket, rssiPacketDbm);
+        m_receiveCallback(dectParams->txPacket, rssiPacketDbm, dectParams->m_data);
     }
 }
 
@@ -520,6 +520,51 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
     params->m_currentChannelId = this->m_mac->GetCurrentChannelId();
+    params->m_data = false;
+
+    // Calculate the TX duration based on the packet size and MCS
+    Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
+    params->duration = duration;
+
+    // Get the channel index --> this is the index of the channel used for PSD
+    uint16_t channelIndex = this->m_mac->m_currentChannelId - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
+
+    // Set the PSD value for the current channel
+    Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
+    double txPowerWatt = m_channelManager->DbmToW(dectNetDevice->m_txPowerDbm);
+
+    // Create PSD and initialize
+    Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
+    Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
+    
+    for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
+    {
+        (*psd)[i] = 0.0; // Initialize all channels to 0.0
+    }
+
+    // Set power only on the current channel
+    (*psd)[channelIndex] = txPowerWatt;
+    params->psd = psd;
+
+    // Start the transmission immediately
+    m_channel->StartTx(params);
+    DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
+}
+
+void
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeader)
+{
+    NS_LOG_FUNCTION(this << packet << physicalHeader);
+    NS_ASSERT_MSG(packet, "Packet is null");
+    NS_LOG_INFO(PHY_IDENTITY << ": sending");
+
+    // Create and initialize the transmission parameters
+    Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
+    params->txPhy = this;
+    params->txPacket = packet->Copy(); // deep copy to avoid modifying original
+    params->txPacket->AddHeader(physicalHeader);
+    params->m_currentChannelId = this->m_mac->GetCurrentChannelId();
+    params->m_data = true;
 
     // Calculate the TX duration based on the packet size and MCS
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
@@ -552,6 +597,25 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
 
 double
 Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader)
+{
+    if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
+    {
+        // TBD
+    }
+    else if (physicalHeader.GetPacketLengthType() == 1) // Packet length is given in slots
+    {
+        return physicalHeader.GetPacketLength() * 416670; // 416.67 ns per slot
+    }
+    else
+    {
+        NS_LOG_WARN("Invalid packet length type");
+        return 0;
+    }
+    return 0;
+}
+
+double
+Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader)
 {
     if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
     {

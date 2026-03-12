@@ -18,6 +18,7 @@
 #include "ns3/dect2020ext-association-control-ie.h"
 #include "ns3/dect2020ext-mac-scheduler.h"
 #include "ns3/dect2020ext-app.h"
+#include "ns3/dect2020ext-phy-control-field-type-2.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -43,6 +44,26 @@ class Dect2020ExtRdCapabilityIE;
 class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
 
+struct Dect2020ExtHarqProcess
+{
+    enum State
+    {
+        FREE, // prces is available for a new packet
+        WAITING_ACK, // packet sent, waiting for feedback
+        NACK_PENDING // NACK received, retransmission needed
+    };
+
+    State state = FREE;
+    uint8_t processId = 0;
+    uint8_t ndi = 0;
+    uint8_t rv = 0;
+    uint8_t reTxCount = 0;
+    uint8_t maxRetx = 4;
+
+    Ptr<Packet> packet;
+    Time txTime;
+};
+
 struct Dect2020ExtChannelEvaluation
 {
     uint16_t channelId;
@@ -64,7 +85,9 @@ struct Dect2020ExtRandomAccessContext
     uint32_t m_CW_MAX;
     uint32_t m_CW_CURRENT;
     Ptr<Packet> m_packet;
-    Dect2020ExtPHYControlFieldType1 m_physicalHeaderField;
+    Dect2020ExtPHYControlFieldType1 m_physicalHeaderFieldType1;
+    Dect2020ExtPHYControlFieldType2 m_physicalHeaderFieldType2;
+    int m_physicalHeaderFieldType;
 
     // LBT sampling
     std::vector<double> m_lbtRssiSamples; // Store RSSI samples during LBT
@@ -145,7 +168,7 @@ struct Dect2020ExtAssociatedPtInfo
     // uint8_t maxHarqReRxDelay;
     // uint8_t flowId;
     // bool cb_m;
-    // Dect2020ExtRdCapabilityIE rdCapabilityIe;
+    Dect2020ExtRdCapabilityIE rdCapabilityIe;
 
     // double lastRssi;
 };
@@ -218,6 +241,7 @@ class Dect2020ExtMac : public Object
         // Random Access Procedure
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
+        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
@@ -226,7 +250,7 @@ class Dect2020ExtMac : public Object
 
         // Association Procedure
 
-        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm);
+        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
         void HandleDataPacket(Ptr<Packet> packet);
@@ -271,9 +295,16 @@ class Dect2020ExtMac : public Object
         Dect2020ExtAssociationStatus GetAssociationStatus();
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
+        // HARQ
+        void InitiateHARQ();
+        void SendHarqAck();
+
         // Application
-        void EnqueuePacket(Ptr<Packet> packet);
+        void EnqueuePacket();
         void LaunchApp();
+
+        // ACK/NACK
+        Dect2020ExtPHYControlFieldType2 BuildPhysicalHeaderFieldType2(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
         Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
@@ -333,6 +364,10 @@ class Dect2020ExtMac : public Object
         // Application
         std::queue<Ptr<Packet>> m_txQueue;
         Ptr<Dect2020ExtApp> m_app;
+
+        // HARQ
+        static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
+        std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqTable;
 
         // ###########################
         // ###### Configuration ######

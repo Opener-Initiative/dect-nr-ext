@@ -5,6 +5,7 @@
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-phy-control-field-type-2.h"
 #include "ns3/dect2020ext-interference.h"
 
 #include "ns3/spectrum-phy.h"
@@ -26,6 +27,7 @@ struct Slot;
 struct Subslot;
 class Dect2020ExtMac;
 class Dect2020ExtPHYControlFieldType1;
+class Dect2020ExtPHYControlFieldType2;
 class Dect2020ExtInterference;
 
 class Dect2020ExtPhy : public SpectrumPhy
@@ -67,7 +69,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
-		void SetReceiveCallback(Callback<void, Ptr<Packet>, double> callback);
+		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback);
 
 		// Configuration
 
@@ -95,7 +97,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 		// Dect2020ExtPhy Methods
 
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
+		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
+		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader);
 		void ChangeState(Dect2020ExtPhyState newState);
 		double GetBLER(double sinrDb, uint8_t mcs);
 
@@ -124,7 +128,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;
 		Ptr<Dect2020ExtMac> m_mac;
-		Callback<void, Ptr<Packet>, double> m_receiveCallback;
+		Callback<void, Ptr<Packet>, double, bool> m_receiveCallback;
 		bool m_receiveCallbackSet = false;
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;

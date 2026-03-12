@@ -1,5 +1,6 @@
 #include "dect2020ext-phy-control-field-type-2.h"
 
+#include "ns3/abort.h"
 #include <cmath>
 
 namespace ns3
@@ -7,6 +8,10 @@ namespace ns3
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtPHYControlFieldType2");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPHYControlFieldType2);
+
+Dect2020ExtPHYControlFieldType2::Dect2020ExtPHYControlFieldType2()
+{
+}
 
 Dect2020ExtPHYControlFieldType2::Dect2020ExtPHYControlFieldType2(Dect2020ExtHeaderFormat headerFormat)
 {
@@ -109,38 +114,33 @@ Dect2020ExtPHYControlFieldType2::Serialize(Buffer::Iterator start) const
 
         start.WriteU8(byte9);
     }
+    else
+    {
+        NS_ABORT_MSG("Dect2020ExtPHYControlFieldType2::Serialize: unknown headerFormat " << (int)m_headerFormat);
+    }
 }
 
 uint32_t
 Dect2020ExtPHYControlFieldType2::Deserialize(Buffer::Iterator start)
 {
-    int bytesRead = 0;
-
     uint8_t byte0 = start.ReadU8();
     m_headerFormat = byte0 >> 5;
     m_packetLengthType = (byte0 >> 4) & 0x01;
     m_packetLength = byte0 & 0x0F;
 
-    bytesRead++;
-
     // byte 1
     m_shortNetworkID = start.ReadU8();
-
-    bytesRead++;
 
     // byte 2 and 3
     m_transmitterIdentity = start.ReadU16();
 
+    // byte 4
     uint8_t byte4 = start.ReadU8();
     m_transmitPower = byte4 >> 4;
     m_DFMCS = byte4 & 0x0F;
 
-    bytesRead++;
-
     // byte 5 and 6
     m_receiverIdentity = start.ReadU16();
-
-    bytesRead += 2;
 
     if (m_headerFormat == FORMAT_000)
     {
@@ -150,31 +150,27 @@ Dect2020ExtPHYControlFieldType2::Deserialize(Buffer::Iterator start)
         m_DFNewDataIndication = (byte7 >> 3) & 0x01;
         m_DFHARQProcessNumber = byte7 & 0x07;
 
-        bytesRead++;
-
         // byte 8 and 9
         uint8_t byte8 = start.ReadU8();
         m_feedbackFormat = byte8 >> 4;
-        m_feedbackInfo = (byte8 << 8) | start.ReadU8();
-
-        bytesRead += 2;
+        m_feedbackInfo = ((uint16_t)(byte8 & 0x0F) << 8) | start.ReadU8();
     }
     else if (m_headerFormat == FORMAT_001)
     {
         uint8_t byte7 = start.ReadU8();
         m_numberOfSpatialStreams = byte7 >> 6;
 
-        bytesRead++;
-
         // byte 8 and 9
         uint8_t byte8 = start.ReadU8();
         m_feedbackFormat = byte8 >> 4;
-        m_feedbackInfo = (byte8 << 8) | start.ReadU8();
-
-        bytesRead += 2;
+        m_feedbackInfo = ((uint16_t)(byte8 & 0x0F) << 8) | start.ReadU8();
+    }
+    else
+    {
+        NS_ABORT_MSG("Dect2020ExtPHYControlFieldType2::Deserialize: unknown headerFormat " << (int)m_headerFormat);
     }
 
-    return bytesRead;
+    return GetSerializedSize();
 }
 
 uint8_t

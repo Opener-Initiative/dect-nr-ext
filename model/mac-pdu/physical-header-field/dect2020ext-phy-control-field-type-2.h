@@ -16,6 +16,7 @@ class Dect2020ExtPHYControlFieldType2 : public Header
 			FORMAT_001 = 1
 		};
 
+		Dect2020ExtPHYControlFieldType2();
 		Dect2020ExtPHYControlFieldType2(Dect2020ExtHeaderFormat headerFormat);
 		virtual ~Dect2020ExtPHYControlFieldType2();
 

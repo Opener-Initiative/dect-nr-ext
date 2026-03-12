@@ -50,8 +50,7 @@ Dect2020ExtApp::GeneratePacket()
 {
     if (m_enqueuedPacketQuantity < m_packetLimit)
     {
-        Ptr<Packet> packet = Create<Packet>();
-        m_mac->EnqueuePacket(packet);
+        m_mac->EnqueuePacket();
         m_enqueuedPacketQuantity++;
         m_event = Simulator::Schedule(m_txPeriod, &Dect2020ExtApp::GeneratePacket, this);
     }
@@ -75,9 +74,9 @@ Dect2020ExtApp::SetMac(Ptr<Dect2020ExtMac> mac)
 }
 
 void
-Dect2020ExtApp::SetPacketQuantity(int quantity)
+Dect2020ExtApp::SetPacketLimit(int quantity)
 {
-    m_packetQuantity = quantity;
+    m_packetLimit = quantity;
 }
 
 }; // namespace ns3

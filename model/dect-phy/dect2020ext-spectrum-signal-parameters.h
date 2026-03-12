@@ -44,6 +44,7 @@ class Dect2020ExtSpectrumSignalParameters : public SpectrumSignalParameters
 
     Ptr<Packet> txPacket;
     uint32_t m_currentChannelId;
+    bool m_data;
 };
 
 } // namespace ns3

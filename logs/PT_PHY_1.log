@@ -188,56 +188,7 @@
 +2.213124995s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
 +2.213124995s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: 10 dBm
 +2.213124995s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
-+2.222166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222332330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222416330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222499330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222499330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222582330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222582330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222582330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222582330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222582330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
 +2.222666330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222666330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222666330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222832330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.222832330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.232166330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.232249330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.232499330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.232499330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
-+2.232749330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
 +2.260833332s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
 +2.260833332s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: 10 dBm
 +2.260833332s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
