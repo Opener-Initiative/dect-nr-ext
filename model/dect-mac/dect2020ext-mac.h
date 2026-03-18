@@ -253,7 +253,7 @@ class Dect2020ExtMac : public Object
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
-        void HandleDataPacket(Ptr<Packet> packet);
+        void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
         void SelectBestFtCandidate();
@@ -297,7 +297,8 @@ class Dect2020ExtMac : public Object
 
         // HARQ
         void InitiateHARQ();
-        void SendHarqAck();
+        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
+        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
 
         // Application
         void EnqueuePacket();

@@ -113,7 +113,7 @@ main(int argc, char *argv[])
     ftPhy->Start();
 
 
-    Simulator::Stop(Seconds(2.5));
+    Simulator::Stop(Seconds(4));
     Simulator::Run();
     Simulator::Destroy();
 

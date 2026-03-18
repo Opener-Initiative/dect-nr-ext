@@ -102,13 +102,499 @@
 +2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
 +2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
 +2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
-+2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]Current subslot 12
-+2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]HARQ ACK absolute subslot 15
-+2.223124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]ACK
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.222666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.223124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.232582330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.232582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.233124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.242832330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.242832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.243333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.252499330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.252499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.252916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.262249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.262249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.262708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.272249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.272249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.272708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.282249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.282249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.282708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.292249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.292249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.292708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.302249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.302249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.302708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.312332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.312332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.312916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.322582330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.322582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.323124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.332749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.332749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.333333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.342332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.342332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.342916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.352249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.352249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.352708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
 +2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.362332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.362332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.362916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.372166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.372166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.372708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.382416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.382416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.382916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.392749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.392749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.393333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.402749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.402749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.403333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
 +2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.412416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.412416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.412916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.422166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.422166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.422708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.432832330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.432832330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.433333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.442666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.442666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.443124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.452416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.452416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.452916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
 +2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.462416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.462416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.462916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.472749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.472749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.473333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.482332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.482332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.482916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.492332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.492332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.492916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.502749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.502749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.503333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.512666330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.512666330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.513124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.522166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.522166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.522708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.532249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.532249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.532708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.542499330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.542499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.542916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.552332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.552332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.552916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.562416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.562416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.562916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.572582330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.572582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.573124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.582416330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.582416330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.582916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.592249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.592249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.592708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.602166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.602166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.602708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.612582330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.612582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.613124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.622166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.622166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.622708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.632249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.632249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.632708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.642332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.642332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.642916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.652582330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 15
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 12
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 12
++2.652582330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 15
++2.653124995s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.662332330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.662332330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.662916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.672499330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.672499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.672916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.682749330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 16
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 13
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 13
++2.682749330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 16
++2.683333328s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.692166330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.692166330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.692708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.702499330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 14
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 11
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 11
++2.702499330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 14
++2.702916662s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.712249330s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Received DATA MAC PDU
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Found PT with longRdId 2548152052
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ Delay: 2
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Absolute HARQ ACK subslot: 13
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current absolute subslot: 10
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: Current subslot 10
++2.712249330s Dect2020ExtMac:HandleDataPacket(): FT_MAC[0]: HARQ ACK absolute subslot 13
++2.712708329s Dect2020ExtMac:SendHarqAck(): FT_MAC[0]: Sending ACK
++2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++2.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
++3.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
++3.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)

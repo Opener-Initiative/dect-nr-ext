@@ -1210,7 +1210,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
 
     else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER)
     {
-        HandleDataPacket(packet);
+        HandleDataPacket(packet, physicalHeaderFieldType2);
     }
 
     // Forward the packet to the net device for minimal implementation
@@ -1356,7 +1356,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
 }
 
 void
-Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet)
+Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2)
 {
     // --- Unicast Header ---
     Dect2020ExtUnicastHeader unicastHeader;
@@ -1372,6 +1372,14 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet)
     }
 
     NS_LOG_INFO(MAC_IDENTITY << ": Received DATA MAC PDU");
+
+    // Only PT devices can receive ACK for DATA MAC PDU
+    if (m_terminationPointType == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Received HARQ ACK");
+        HandleHarqAck(packet, physicalHeaderFieldType2);
+        return;
+    }
 
     uint32_t targetId = transmitterAddress;
 
@@ -1406,12 +1414,45 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet)
             responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
         }
 
-        NS_LOG_INFO(MAC_IDENTITY << "Current subslot " << currentAbsSubslot);
-        NS_LOG_INFO(MAC_IDENTITY << "HARQ ACK absolute subslot " << responseAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": HARQ ACK absolute subslot " << responseAbsSubslot);
 
         double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
 
-        Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendHarqAck, this);
+        Ptr<Packet> ack = Create<Packet>();
+
+        Dect2020ExtUnicastHeader unicastHeader;
+        unicastHeader.SetReset(0);
+        unicastHeader.SetMacSequence(0);
+        unicastHeader.SetSequenceNumber(0);
+        unicastHeader.SetReceiverAddress(it->longRdId);
+        unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
+
+        ack->AddHeader(unicastHeader);
+
+        Dect2020ExtMacHeaderType macHeaderType;
+        macHeaderType.SetVersion(0);
+        macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
+        macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
+
+        ack->AddHeader(macHeaderType);
+
+        Dect2020ExtPHYControlFieldType2 phyCtrl(Dect2020ExtPHYControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_000);
+        phyCtrl.SetPacketLengthType(1); // length in slots
+        phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(ack->GetSize()));
+        phyCtrl.SetShortNetworkID(0); // currently not used
+        phyCtrl.SetTransmitterIdentity(m_shortRadioDeviceId);
+        phyCtrl.SetTransmitPower(23);
+        phyCtrl.SetDFMCS(m_mcs);
+        phyCtrl.SetReceiverIdentity(0); // not used
+        phyCtrl.SetNumberOfSpatialStreams(0); // currently not used
+        phyCtrl.SetDFRedundancyVersion(0); // currently not used
+        phyCtrl.SetDFNewDataIndication(0); // currently not used
+        phyCtrl.SetDFHARQProcessNumber(physicalHeaderFieldType2.GetDFHARQProcessNumber()); // currently not used
+        phyCtrl.SetFeedbackFormat(1);
+        phyCtrl.SetFeedbackInfo(1);
+
+        Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendHarqAck, this, ack, phyCtrl);
     }
     else
     {
@@ -2047,9 +2088,6 @@ Dect2020ExtMac::InitiateHARQ()
     Ptr<Packet> packet = m_txQueue.front();
     m_txQueue.pop();
 
-    Dect2020ExtMacHeaderType type;
-    packet->PeekHeader(type);
-
     proc->state = Dect2020ExtHarqProcess::WAITING_ACK;
     proc->packet = packet->Copy();
     proc->ndi = 1;
@@ -2089,9 +2127,44 @@ Dect2020ExtMac::InitiateHARQ()
 }
 
 void
-Dect2020ExtMac::SendHarqAck()
+Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
 {
-    NS_LOG_INFO(MAC_IDENTITY << "ACK");
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
+    m_phy->Send(ack, phyCtrl);
+}
+
+void
+Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
+{
+    // Find a HARQ process
+    Dect2020ExtHarqProcess* proc = nullptr;
+    for (auto& p: m_harqTable)
+    {
+        if (p.processId == phyCtrl.GetDFHARQProcessNumber())
+        {
+            proc = &p;
+            break;
+        }
+    }
+
+    if (!proc)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
+        return; // all processes in use - back-pressure to the tx queue
+    }
+   
+    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processId << " ACK");
+    // Reset the HARQ process
+    proc->state = Dect2020ExtHarqProcess::FREE;
+    proc->packet = nullptr;
+    proc->ndi = 0;
+    proc->rv = 0;
+    proc->reTxCount = 0;
+
+    if (!m_txQueue.empty())
+    {
+        InitiateHARQ();
+    }
 }
 
 void
