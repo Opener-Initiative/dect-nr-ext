@@ -2051,7 +2051,6 @@ void
 Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus)
 {
     std::string newStatus = "";
-    NS_LOG_INFO(associationStatus);
     switch (associationStatus)
     {
         case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED"; break;

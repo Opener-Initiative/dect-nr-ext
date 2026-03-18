@@ -34,7 +34,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 {
 	public:
 
-	    enum Dect2020ExtPhyState
+	    enum PhyState
 		{
 			IDLE,
 			RX,
@@ -100,8 +100,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader);
-		void ChangeState(Dect2020ExtPhyState newState);
-		double GetBLER(double sinrDb, uint8_t mcs);
+		void ChangeState(PhyState newState);
 
 		// Callbacks
 
@@ -135,7 +134,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
 
-		Dect2020ExtPhyState m_currentState;
+		PhyState m_currentState = IDLE;
 
 		// ###########################
 		// ###### Configuration ######
@@ -156,9 +155,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<NetDevice> m_device;
 		Ptr<MobilityModel> m_mobilityModel;
 
-		// ###################
-		// #### Constants ####
-		// ###################
+		// #######################
+		// ###### Constants ######
+		// #######################
 
 		const double SLOT_DURATION_NS = 416666; // 0,41667 ms in nanoseconds
 		const uint16_t FRAME_DURATION_US = 10000; // 10 ms in microseconds

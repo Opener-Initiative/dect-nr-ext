@@ -418,19 +418,12 @@ Dect2020ExtPhy::GetAntenna() const
 void
 Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
-    NS_LOG_FUNCTION(this);
-    // TODO: check if the device is in RX State (--> need to implement a TX/RX State Machine)
-
     // Cast the generic SpectrumSignalParameters to our specific DECT-2020 parameters
-    Ptr<Dect2020ExtSpectrumSignalParameters> dectParams =
-        DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
+    Ptr<Dect2020ExtSpectrumSignalParameters> dectParams = DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
 
     // Extract the channel index within the spectrum model
-    uint16_t channelIndex =
-        dectParams->m_currentChannelId -
-        m_channelManager->GetFirstValidChannelNumber(
-            m_channelManager->GetBandNumber(dectParams->m_currentChannelId));
-
+    uint16_t channelIndex = dectParams->m_currentChannelId -
+        m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(dectParams->m_currentChannelId));
 
     // Extract the received signal strength (in Watt and dBm) from the PSD
     double rssiPacket = (*params->psd)[channelIndex];
@@ -441,7 +434,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Add the received signal to the interference (signal will be removed after the duration)
     m_interference->AddSignal(params->psd, params->duration, channelIndex);
 
-    // Check if this is a DECT-specific signal
+    // Drop packet if the params are not DECT params
     if (!dectParams)
     {
         NS_LOG_WARN("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
@@ -460,39 +453,27 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Drop packet if below minimum RX sensitivity
     if (rssiPacketDbm < minRxSensitivityDbm)
     {
+        NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet due to weak signal");
+        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
         return;
     }
 
-    // Estimate potential collisions based on total channel power (RSSI)
+    // Drop packet if PHY is not in IDLE state
+    if (m_currentState != IDLE)
+    {
+        NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet due to collision");
+        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
+        return;
+    }
+
+    // Change state to RX - switch bach to IDLE after params->duration
+    ChangeState(RX);
+    Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
+
     double rssiChannelWatt = (*m_interference->m_allSignals)[channelIndex];
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
     NS_LOG_INFO(PHY_IDENTITY << ": received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
     NS_LOG_INFO(PHY_IDENTITY << ": total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
-
-    // double sinrLinear = rssiPacket / (rssiChannelWatt - rssiPacket);
-    // double sinrDb = 10.0 * std::log10(sinrLinear);
-
-    // if RSSI is in an ambiguous range, apply probabilistic drop
-    // if (rssiChannelDbm > 11.5 && rssiChannelDbm < 13.1)
-    // {
-    //     Ptr<UniformRandomVariable> randVar = CreateObject<UniformRandomVariable>();
-    //     double rand = randVar->GetValue(0.0, 1.0);
-    //     if (rand > 0.5)
-    //     {
-    //         NS_LOG_WARN("Received packet on channel with RSSI in ambiguous range");
-    //         NS_LOG_WARN("Dropping packet with probabilistic drop");
-    //         return;
-    //     }
-    // }
-
-    // if RSSI clearly indicates collision, drop packet
-    if (rssiChannelDbm > 13.0)
-    {
-        NS_LOG_INFO(PHY_IDENTITY << ": Received packet on channel with RSSI clearly indicating collision");
-        NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet");
-        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
-        return;
-    }
 
     if (m_phyTest)
     {
@@ -634,21 +615,17 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHe
 }
 
 void
-Dect2020ExtPhy::ChangeState(Dect2020ExtPhyState newState)
+Dect2020ExtPhy::ChangeState(PhyState newState)
 {
+    std::string state = "";
+    switch (newState)
+    {
+        case IDLE: state = "IDLE"; break;
+        case TX: state = "TX"; break;
+        case RX: state = "RX"; break;
+    }
     m_currentState = newState;
-}
-
-double
-Dect2020ExtPhy::GetBLER(double sinrDb, uint8_t mcs)
-{
-    // SINR threshold where BLER = 10% for each MCS.
-    // Below this: very likely to fail. Above this: very likely to succeed.
-
-    // static const double threshold[1] = {
-    //     -3.0, // MCS 0
-    // };
-    return 0;
+    NS_LOG_INFO(PHY_IDENTITY << ": State changed to " << state);
 }
 
 } // namespace ns3
