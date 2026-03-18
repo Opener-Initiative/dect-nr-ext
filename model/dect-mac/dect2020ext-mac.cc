@@ -2,7 +2,6 @@
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-net-device.h"
 #include "ns3/dect2020ext-phy.h"
-#include "ns3/dect2020ext-mac-pdu-helper.h"
 #include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
 #include "ns3/dect2020ext-cluster-beacon-message-ie.h"
@@ -13,6 +12,7 @@
 #include "ns3/dect2020ext-association-response-message-ie.h"
 #include "ns3/dect2020ext-rd-capability-ie.h"
 #include "ns3/dect2020ext-association-control-ie.h"
+#include "ns3/dect2020ext-mac-header-type.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -1848,32 +1848,6 @@ Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
     m_ftCandidates.push_back(newCandidate);
 
     return &m_ftCandidates.back();
-}
-
-Time
-Dect2020ExtMac::CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots)
-{
-    uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
-    uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    
-    // Get consistent snapshot of PHY state to avoid timing issues
-    uint32_t currentSfn = m_phy->GetCurrentSFN();
-    uint32_t currentAbsSubslot = m_phy->GetCurrentAbsoluteSubslot();
-
-    // Calculate target position based on the delay
-    uint32_t targetAbsSubslot = currentAbsSubslot + delayInSubslots;
-
-    // Calculate target SFN (wraps at 256)
-    uint8_t targetSfn = (currentSfn + (targetAbsSubslot / subslotsPerFrame)) % 256;
-
-    // Calculate slot and subslot within the target frame
-    uint32_t subslotWithinFrame = targetAbsSubslot % subslotsPerFrame;
-    uint32_t slot = subslotWithinFrame / subslotsPerSlot;
-    uint32_t subslot = subslotWithinFrame % subslotsPerSlot;
-
-    Time t = m_phy->GetTimeToNextAbsoluteSubslot(targetSfn, slot, subslot);
-
-    return t;
 }
 
 void

@@ -12,16 +12,6 @@
 set(dect2020ext_types_h
     model/dect-types/dect2020ext-types.h)
 
-############
-## HELPER ##
-############
-
-set(dect2020ext_mac_pdu_helper_src
-    helper/mac-pdu/dect2020ext-mac-pdu-helper.cc)
-
-set(dect2020ext_mac_pdu_helper_h
-    helper/mac-pdu/dect2020ext-mac-pdu-helper.h)
-
 ###########
 ## MODEL ##
 ###########
@@ -162,12 +152,6 @@ set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h
     model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
 
-# set(route_info_ie_src
-#     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.cc)
-
-# set(route_info_ie_h
-#     model/mac-pdu/information-elements/route-info-ie/dect2020ext-route-info-ie.h)
-
 ###########
 ## TESTS ##
 ###########
@@ -232,10 +216,6 @@ set(mac_multiplexing_header_test_src
     test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-test.cc
     test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-serialization-test-case.cc)
 
-# set(route_info_ie_test_src
-#     test/information-elements/route-info-ie/test.cc
-#     test/information-elements/route-info-ie/serialization-test-case.cc)
-
 build_lib(
     LIBNAME dect-nr-ext
     SOURCE_FILES
@@ -244,7 +224,6 @@ build_lib(
         ${dect2020ext_channel_src}
         ${dect2020ext_mac_src}
         ${dect2020ext_phy_src}
-        ${dect2020ext_mac_pdu_helper_src}
         ${dect2020ext_physical_header_field_src}
         ${dect2020ext_mac_header_type_src}
         ${dect2020ext_mac_common_headers_src}
@@ -264,7 +243,6 @@ build_lib(
         ${dect2020ext_channel_h}
         ${dect2020ext_mac_h}
         ${dect2020ext_phy_h}
-        ${dect2020ext_mac_pdu_helper_h}
         ${dect2020ext_physical_header_field_h}
         ${dect2020ext_mac_header_type_h}
         ${dect2020ext_mac_common_headers_h}

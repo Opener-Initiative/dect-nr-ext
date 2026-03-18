@@ -23,8 +23,6 @@ namespace ns3
 
 class Dect2020ExtChannelManager;
 class Dect2020ExtChannel;
-struct Slot;
-struct Subslot;
 class Dect2020ExtMac;
 class Dect2020ExtPHYControlFieldType1;
 class Dect2020ExtPHYControlFieldType2;
@@ -41,7 +39,6 @@ class Dect2020ExtPhy : public SpectrumPhy
 			TX
 		};
 
-
 		Dect2020ExtPhy();
 		virtual ~Dect2020ExtPhy();
 
@@ -49,20 +46,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		void Start();
 
-		// Frame Timer and SFN
-
-		void StartFrameTimer();
-		void ProcessSlot(uint32_t slot, double slotStartTime);
-		void ProcessSubslot(uint32_t slotId, uint32_t subslotId);
-		Slot* GetCurrentSlot(void);
-		Subslot* GetCurrentSubslot();
-		void OnNewFrame(Callback<void, uint32_t, uint32_t> callback);
-		void DisconnectSFNCallback();
-		Time GetTimeToNextAbsoluteSubslot(uint8_t targetSfn, uint8_t targetSlot, uint8_t targetSubslot) const;
-		int GetAbsoluteSubslotIndex(uint8_t slot, uint8_t subslot) const;
-		uint16_t GetCurrentAbsoluteSubslot() const;
-
-		// Dect2020ExtPhy Setters and Getters
+		// ################################################
+		// ###### Dect2020ExtPhy Setters and Getters ######
+		// ################################################
 
 		void SetMac(Ptr<Dect2020ExtMac> mac);
 		uint32_t GetCurrentSFN() const;
@@ -71,7 +57,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
 		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback);
 
-		// Configuration
+		// ###########################
+		// ###### Configuration ######
+		// ###########################
 
 		void SetBandNumber(uint8_t bandNumber);
 		uint8_t GetBandNumber() const;
@@ -81,7 +69,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint8_t GetFourierTransformScalingFactor() const;
 		void PrintConfiguration() const;
 
-		// Inherited from SpectrumPhy
+		// SpectrumPhy Overloaded Methods
 
 		void SetDevice(Ptr<NetDevice> d) override;
 		Ptr<NetDevice> GetDevice() const override;
@@ -102,16 +90,22 @@ class Dect2020ExtPhy : public SpectrumPhy
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader);
 		void ChangeState(PhyState newState);
 
-		// Callbacks
+		// #######################
+		// ###### Callbacks ######
+		// #######################
 
 		Callback<void, uint32_t, uint32_t> m_SFNCallback;
+
+		// ##########################
+		// ###### Interference ######
+		// ##########################
 
 		Ptr<Dect2020ExtInterference> m_interference;
 
 		std::string PHY_IDENTITY;
 
 		// ##################
-		// ###### TEST ######
+		// ###### Test ######
 		// ##################
 
 		bool m_phyTest = false;
@@ -132,9 +126,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
 
-		Ptr<const SpectrumModel> m_spectrumModel; // TODO: Determine if this is RxSpectrumModel
+		Ptr<const SpectrumModel> m_spectrumModel;
 
-		PhyState m_currentState = IDLE;
+		PhyState m_currentState;
 
 		// ###########################
 		// ###### Configuration ######

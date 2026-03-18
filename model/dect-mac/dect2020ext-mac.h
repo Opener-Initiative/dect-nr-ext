@@ -19,6 +19,7 @@
 #include "ns3/dect2020ext-mac-scheduler.h"
 #include "ns3/dect2020ext-app.h"
 #include "ns3/dect2020ext-phy-control-field-type-2.h"
+#include "ns3/dect2020ext-mac-header-type.h"
 
 #include "ns3/object.h"
 #include "ns3/nstime.h"
@@ -43,6 +44,7 @@ class Dect2020ExtRandomAccessResourceIE;
 class Dect2020ExtRdCapabilityIE;
 class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
+class Dect2020ExtMacHeaderType;
 
 struct Dect2020ExtHarqProcess
 {
@@ -192,6 +194,7 @@ class Dect2020ExtMac : public Object
         };
 
         // Test
+
         void TestFunction();
 
         // Initialization
@@ -265,9 +268,10 @@ class Dect2020ExtMac : public Object
         void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
         void VerifyAssociatedStatus();
         Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
-        Time CalculcateTimeOffsetFromCurrentSubslot(uint32_t delayInSubslots);
 
-        // Dect2020ExtMac Setters and Getters
+        // ################################################
+        // ###### Dect2020ExtMac Setters and Getters ######
+        // ################################################
 
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
@@ -289,29 +293,36 @@ class Dect2020ExtMac : public Object
         uint16_t GetCurrentChannelId() const;
         double GetRxGainFromIndex(uint8_t index) const;
         Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
-
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
-
         Dect2020ExtAssociationStatus GetAssociationStatus();
+
+        // ################################
+        // ###### Association Status ######
+        // ################################
+
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
-        // HARQ
+        // ##################
+        // ###### HARQ ######
+        // ##################
+
         void InitiateHARQ();
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
         void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
 
-        // Application
+        // #########################
+        // ###### Application ######
+        // #########################
+
         void EnqueuePacket();
         void LaunchApp();
 
-        // ACK/NACK
+        // ######################
+        // ###### ACK/NACK ######
+        // ######################
+
         Dect2020ExtPHYControlFieldType2 BuildPhysicalHeaderFieldType2(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
-        uint32_t m_associatedFTNetDeviceLongRdId = 0;
-        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
-        uint8_t m_nextAvailableSubslot = 2;
-        bool m_dectDelay = false;
-        uint16_t m_currentChannelId;
 
         // ###########################
         // ###### Configuration ######
@@ -328,6 +339,11 @@ class Dect2020ExtMac : public Object
         void ConfigureRngStream(int64_t stream);
         void PrintConfiguration() const;
 
+        uint32_t m_associatedFTNetDeviceLongRdId = 0;
+        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
+        uint8_t m_nextAvailableSubslot = 2;
+        bool m_dectDelay = false;
+        uint16_t m_currentChannelId;
         std::string MAC_IDENTITY;
 
     private:
@@ -339,20 +355,15 @@ class Dect2020ExtMac : public Object
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;
         Ptr<Dect2020ExtMacScheduler> m_macScheduler;
-
         Time m_networkBeaconPeriodTime = MilliSeconds(100); // Network Beacon Period
         Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod m_networkBeaconPeriod = Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod::NETWORK_BEACON_PERIOD_100MS;
         Time m_clusterBeaconPeriodTime = MilliSeconds(50); // Cluster Beacon Period
         Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod m_clusterBeaconPeriod = Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod::CLUSTER_BEACON_PERIOD_50MS;
-
         uint8_t m_mcs = 0; // Modulation and Coding Scheme
-
         uint32_t m_networkBeaconSweepCount;
         Time m_nextNetworkBeaconTime;
-
         uint32_t m_networkBeaconSubslot = 0;
         uint32_t m_clusterBeaconSubslot = 4;
-
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
         Dect2020ExtMacMultiplexingHeaderTypeA m_lastFtMacMxHeader;
         Dect2020ExtAssociationStatus m_associationStatus;
@@ -361,12 +372,8 @@ class Dect2020ExtMac : public Object
         uint8_t m_potentialShortNetworkId;
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
-
-        // Application
         std::queue<Ptr<Packet>> m_txQueue;
         Ptr<Dect2020ExtApp> m_app;
-
-        // HARQ
         static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
         std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqTable;
 
