@@ -54,7 +54,6 @@ main(int argc, char *argv[])
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMac->SetPhy(ftPhy);
     ftMac->ConfigureRandomAccessResources(ftRandomAccessResources);
-    ftMac->ConfigureAssociationControlIE(associationControlIE);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);

@@ -40,7 +40,6 @@ NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMac);
 
 Dect2020ExtMac::Dect2020ExtMac()
 {
-    m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
 }
 
 Dect2020ExtMac::~Dect2020ExtMac()
@@ -53,25 +52,25 @@ Dect2020ExtMac::GetTypeId()
     static TypeId tid = TypeId("ns3::Dect2020ExtMac")
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
-                                .AddConstructor<Dect2020ExtMac>()
+                                .AddConstructor<Dect2020ExtMac>();
 
-                                .AddAttribute("config_bandNumber",
-                                              "DECT-2020 band number configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtMac::m_bandNumber),
-                                              MakeUintegerChecker<uint8_t>(1, 21))
+                                // .AddAttribute("config_bandNumber",
+                                //               "DECT-2020 band number configuration",
+                                //               UintegerValue(1),
+                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_bandNumber),
+                                //               MakeUintegerChecker<uint8_t>(1, 21))
 
-                                .AddAttribute("config_subcarrierScalingFactor",
-                                              "DECT-2020 subcarrier scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtMac::m_subcarrierScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8))
+                                // .AddAttribute("config_subcarrierScalingFactor",
+                                //               "DECT-2020 subcarrier scaling factor configuration",
+                                //               UintegerValue(1),
+                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_subcarrierScalingFactor),
+                                //               MakeUintegerChecker<uint8_t>(1, 8))
 
-                                .AddAttribute("config_fourierTransformScalingFactor",
-                                              "DECT-2020 Fourier transform scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8));
+                                // .AddAttribute("config_fourierTransformScalingFactor",
+                                //               "DECT-2020 Fourier transform scaling factor configuration",
+                                //               UintegerValue(1),
+                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
+                                //               MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 
@@ -126,12 +125,9 @@ Dect2020ExtMac::Initialize()
         m_backoffRandomVariable->SetStream(m_configuredRngStream);
     }
 
-    // SetLongRadioDeviceId(GenerateLongRadioDeviceId());
-    // SetShortRadioDeviceId(GenerateShortRadioDeviceId());
-
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
-        SetNetworkId(GenerateValidNetworkID());
+        SetNetworkId(GenerateValidNetworkId());
     }
 }
 
@@ -143,7 +139,6 @@ Dect2020ExtMac::Start()
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
         NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIESet, "Random Access Resource IE" << errorMessage);
-        NS_ABORT_MSG_IF(!m_configuredAssociationControlIESet, "Association Control IE" << errorMessage);
 
         std::ostringstream oss;
         oss << "FT_MAC[" << m_device->GetNode()->GetId() << "]";
@@ -227,14 +222,14 @@ void
 Dect2020ExtMac::InitializeNetwork()
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Starting network initialization");
-    uint32_t networkId = GenerateValidNetworkID();
+    uint32_t networkId = GenerateValidNetworkId();
     SetNetworkId(networkId);
 
     Simulator::Schedule(Seconds(0), &Dect2020ExtMac::ScheduleBackgroundScan, this);
 }
 
 uint32_t
-Dect2020ExtMac::GenerateValidNetworkID(void)
+Dect2020ExtMac::GenerateValidNetworkId()
 {
     Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
     uint32_t networkId = 0;
@@ -362,7 +357,6 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
 
         for (uint32_t subslotNumber = 0; subslotNumber < it->second.size(); ++subslotNumber)
         {
-            // NS_LOG_INFO("Subslot " << subslotNumber << " RSSI: " << it->second[subslotNumber]);
             double rssi = it->second[subslotNumber];
             if (rssi <= RSSI_THRESHOLD_MIN)
             {
@@ -695,7 +689,6 @@ Dect2020ExtMac::BuildRandomAccessResourceIE()
     randomAccessResourceIE.SetChannelFieldIncluded(false);
     randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
 
-    // uint8_t startSubslot = CalculateAbsoluteStartSubslot();
     randomAccessResourceIE.SetStartSubslot(10); // where RACH resources start
     randomAccessResourceIE.SetLengthType(0); // length in subslots
     randomAccessResourceIE.SetRaraLength(50);
@@ -740,27 +733,6 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
     physicalHeaderField.SetDFMCS(m_mcs);
 
     return physicalHeaderField;
-}
-
-uint8_t
-Dect2020ExtMac::CalculateAbsoluteStartSubslot()
-{
-    NS_LOG_FUNCTION(this);
-    // uint8_t absoluteStartSubslot = m_nextAvailableSubslot;
-    // uint8_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
-
-    // // If the next available subslot is greater than the number of subslots per frame,
-    // // wrap around to the beginning of the frame
-    // if (absoluteStartSubslot >= subslotsPerFrame)
-    // {
-    //     absoluteStartSubslot = absoluteStartSubslot % subslotsPerFrame;
-    //     m_nextAvailableSubslot = absoluteStartSubslot;
-    // }
-
-    // m_nextAvailableSubslot += 2;
-
-    // return absoluteStartSubslot;
-    return 6; // start of slot 3
 }
 
 uint32_t
@@ -1798,6 +1770,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
 
         // Starting app transmission
         LaunchApp();
+        StartKeepAlivePeriod();
     }
     else
     {
@@ -1848,6 +1821,37 @@ Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
     m_ftCandidates.push_back(newCandidate);
 
     return &m_ftCandidates.back();
+}
+
+void
+Dect2020ExtMac::StartKeepAlivePeriod()
+{
+    m_lastRxTime = Simulator::Now();
+    Simulator::Schedule(m_configuredAssociationControlIE.DecodeULPeriod(), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+}
+
+void
+Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded()
+{
+    Time ulPeriod = m_configuredAssociationControlIE.DecodeULPeriod();
+
+    if (Simulator::Now() - m_lastRxTime >= ulPeriod)
+    {
+        // KeepAlivePeriod exceeded - send Keep Alive IE
+        NS_LOG_INFO(MAC_IDENTITY << ": Keep Alive Period exceeded");
+        Simulator::Schedule(ulPeriod, &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+    }
+    else
+    {
+        Time remaining = ulPeriod - (Simulator::Now() - m_lastRxTime);
+        Simulator::Schedule(Max(remaining, MilliSeconds(1)), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+    }
+}
+
+void
+Dect2020ExtMac::RestartKeepAlivePeriod()
+{
+    m_lastRxTime = Simulator::Now();
 }
 
 void
@@ -2134,6 +2138,8 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 p
     proc->rv = 0;
     proc->reTxCount = 0;
 
+    RestartKeepAlivePeriod();
+
     if (!m_txQueue.empty())
     {
         InitiateHARQ();
@@ -2175,13 +2181,6 @@ Dect2020ExtMac::LaunchApp()
     m_app->SetPacketLimit(50);
     m_app->Start();
     InitiateHARQ();
-}
-
-Dect2020ExtPHYControlFieldType2
-Dect2020ExtMac::BuildPhysicalHeaderFieldType2(uint8_t packetLengthType, uint32_t packetLengthBytes)
-{
-    Dect2020ExtPHYControlFieldType2 phyHeaderFieldType2(Dect2020ExtPHYControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_001);
-    return phyHeaderFieldType2;
 }
 
 void

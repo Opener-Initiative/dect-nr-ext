@@ -124,10 +124,10 @@ struct Dect2020ExtSubslotScanContext
 
 struct Dect2020ExtFtCandidateInfo
 {
-    // uint8_t shortNetworkId; // Short Network ID of the FT candidate
-    uint32_t networkId;     // Network ID of the FT candidate
-    uint32_t shortFtId;     // Short RD ID of the FT candidate
-    uint32_t longFtId;      // Long RD ID of the FT candidate
+    // uint8_t shortNetworkId;
+    uint32_t networkId;
+    uint32_t shortFtId;
+    uint32_t longFtId;
 
     uint16_t clusterChannelId;
     uint8_t sfn;
@@ -197,13 +197,15 @@ class Dect2020ExtMac : public Object
 
         void TestFunction();
 
-        // Initialization
+        // ############################
+        // ###### Initialization ######
+        // ############################
 
         void Initialize();
         void Start();
         void DiscoverNetworks();
         void InitializeNetwork();
-        uint32_t GenerateValidNetworkID();
+        uint32_t GenerateValidNetworkId();
         uint32_t GenerateLongRadioDeviceId();
         uint16_t GenerateShortRadioDeviceId();
 
@@ -235,13 +237,14 @@ class Dect2020ExtMac : public Object
 
         // Beacon Transmission Helper Functions
 
-        uint8_t CalculateAbsoluteStartSubslot();
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod period);
         uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const;
         uint8_t CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const;
 
-        // Random Access Procedure
+        // #####################################
+        // ###### Random Access Procedure ######
+        // #####################################
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
         void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField);
@@ -251,7 +254,9 @@ class Dect2020ExtMac : public Object
         void EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        // Association Procedure
+        // ###################################
+        // ###### Association Procedure ######
+        // ###################################
 
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
@@ -260,7 +265,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
         void SelectBestFtCandidate();
-        void VerifyWaitingForSelectedFtAssociationStatus(void);
+        void VerifyWaitingForSelectedFtAssociationStatus();
         void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         void VerifyPendingAssociationStatus();
         void ProcessAssociationRequest(const Dect2020ExtAssociationControlIE associationControlIE, const Dect2020ExtRdCapabilityIE& rdCapabilityIE, const Dect2020ExtAssociationRequestMessageIE& associationRequestMessage, uint32_t transmitterAddress);
@@ -268,15 +273,18 @@ class Dect2020ExtMac : public Object
         void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIE associationResponseMessage, uint32_t transmitterAddress);
         void VerifyAssociatedStatus();
         Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
+        void StartKeepAlivePeriod();
+        void VerifyKeepAlivePeriodNotExceeded();
+        void RestartKeepAlivePeriod();
 
         // ################################################
         // ###### Dect2020ExtMac Setters and Getters ######
         // ################################################
 
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
-        Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType(void) const;
+        Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType() const;
         void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
-        Ptr<Dect2020ExtNetDevice> GetNetDevice(void) const;
+        Ptr<Dect2020ExtNetDevice> GetNetDevice() const;
         Ptr<Node> GetNode() const;
         void SetPhy(Ptr<Dect2020ExtPhy> phy);
         Ptr<Dect2020ExtPhy> GetPhy() const;
@@ -316,13 +324,6 @@ class Dect2020ExtMac : public Object
 
         void EnqueuePacket();
         void LaunchApp();
-
-        // ######################
-        // ###### ACK/NACK ######
-        // ######################
-
-        Dect2020ExtPHYControlFieldType2 BuildPhysicalHeaderFieldType2(uint8_t packetLengthType, uint32_t packetLengthBytes);
-
 
         // ###########################
         // ###### Configuration ######
@@ -366,7 +367,7 @@ class Dect2020ExtMac : public Object
         uint32_t m_clusterBeaconSubslot = 4;
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
         Dect2020ExtMacMultiplexingHeaderTypeA m_lastFtMacMxHeader;
-        Dect2020ExtAssociationStatus m_associationStatus;
+        Dect2020ExtAssociationStatus m_associationStatus = NOT_ASSOCIATED;
         bool m_isWaitingForClusterBeacon;
         uint8_t m_lastSfn;
         uint8_t m_potentialShortNetworkId;
@@ -376,6 +377,7 @@ class Dect2020ExtMac : public Object
         Ptr<Dect2020ExtApp> m_app;
         static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
         std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqTable;
+        Time m_lastRxTime;
 
         // ###########################
         // ###### Configuration ######

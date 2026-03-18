@@ -19,7 +19,6 @@ namespace ns3
 
 class Dect2020ExtChannel;
 class Dect2020ExtNetDevice;
-struct Dect2020ExtSubslotScanContext;
 
 struct BandParameters
 {
@@ -39,33 +38,19 @@ public:
     Dect2020ExtChannelManager();
     virtual ~Dect2020ExtChannelManager();
 
-    static TypeId GetTypeId(void);
+    static TypeId GetTypeId();
 
-    void InitializeChannels(void);
+    void InitializeChannels();
     BandParameters GetBandParameters(uint8_t bandNumber);
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetChannels(void);
-    uint32_t GetSubslotsPerSlot(void);
+    uint32_t GetSubslotsPerSlot();
     uint8_t GetBandNumber(uint16_t channelNumber);
     uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
     Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
 
-    // RSSI
-
-    void DisplayRssiResults(void);
-    std::map<uint16_t, std::vector<double>> GetRssiResults(void);
-    static void SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    static void SpectrumAnalyzerCallbackThunk(Dect2020ExtChannelManager* self, std::shared_ptr<Dect2020ExtSubslotScanContext> context, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    void SpectrumAnalyzerCallback(uint16_t channelId, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    void SpectrumAnalyzerCallback(std::shared_ptr<Dect2020ExtSubslotScanContext> context, Ptr<SpectrumAnalyzer> analyzer, Ptr<const SpectrumValue> spectrumValue);
-    void MeasureRssi(uint16_t channelId, TimeValue duration);
-    void MeasureRssi(std::shared_ptr<Dect2020ExtSubslotScanContext> context, TimeValue duration);
-
-    // Setters and Getters
-
     void SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel);
-    // Ptr<SingleModelSpectrumChannel> GetSpectrumChannel(void);
 
     // Calculation
 
@@ -76,14 +61,12 @@ public:
     // Configuration
 
     void SetBandNumber(uint8_t bandNumber);
-    uint8_t GetBandNumber(void) const;
+    uint8_t GetBandNumber() const;
     void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-    uint8_t GetSubcarrierScalingFactor(void) const;
+    uint8_t GetSubcarrierScalingFactor() const;
     void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
-    uint8_t GetFourierTransformScalingFactor(void) const;
-    void Configure(void);
-
-    TracedCallback<uint16_t, double, std::shared_ptr<Dect2020ExtSubslotScanContext>> m_rssiMeasured; // (channelId, rssiDbm, context)
+    uint8_t GetFourierTransformScalingFactor() const;
+    void Configure();
 
 private:
     std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
@@ -98,7 +81,7 @@ private:
     std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
     std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels; // uint8_t bandNumber -> Ptr<SpectrumModel>
 
-}; // class Dect2020ExtChannelManager
+};
 
 }; // namespace ns3
 
