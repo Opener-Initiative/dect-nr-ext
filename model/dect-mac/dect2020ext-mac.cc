@@ -876,23 +876,50 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 void
 Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Harq Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
     bool lengthInSubslots = !randomAccessResourceIE.GetLengthType();
     uint8_t length = randomAccessResourceIE.GetRaraLength(); // RACH resources length
 
-    // Calculate the total RACH resource duration in microseconds
+    // Calculate the remaining RACH resource duration in microseconds
     double rachDurationUs;
     if (lengthInSubslots)
     {
         uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+        uint32_t subslotsPerFrame = subslotsPerSlot * 24;
+
+        uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
+        uint32_t nextSubslotNumber = currentSubslotNumber + 1;
+
+        // Reschedule for the next frame's RACH window if the current one has passed
+        if (nextSubslotNumber >= startSubslot + length)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": RACH window has passed, rescheduling for next frame");
+            double timeTillNextFrameNs = m_macScheduler->GetTimeTillNextFrameNs();
+            double offsetTillStartSubslot = m_macScheduler->GetSubslotStartTimeOffsetNs(startSubslot);
+            Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + offsetTillStartSubslot), &Dect2020ExtMac::InitiateHarqRandomAccess, this, randomAccessResourceIE, packet, physicalHeaderField);
+            return;
+        }
+
+        if (nextSubslotNumber < startSubslot)
+        {
+            NS_LOG_WARN(MAC_IDENTITY << ": Not within RACH window, aborting");
+            return;
+        }
+
+        // nextSubslotNumber is within the RACH window; wrap for the scheduler vector lookup
+        uint32_t nextSubslotWrapped = nextSubslotNumber % subslotsPerFrame;
+        uint32_t remainingFullRachSubslots = currentSubslotNumber - startSubslot;
+        double timeTillNextSubslotUs = m_macScheduler->GetTimeTillSubslotStartNs(nextSubslotWrapped) / 1000.0;
+
         double subslotDurationUs = (m_macScheduler->SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
-        rachDurationUs = length * subslotDurationUs;
+        rachDurationUs = (length - remainingFullRachSubslots) * subslotDurationUs;
+        rachDurationUs += timeTillNextSubslotUs;
     }
     else
     {
         // tbd --> Length in slots
-        NS_LOG_WARN("WARNING: RACH resources length is in slots (not yet implemented)");
+        NS_LOG_WARN(MAC_IDENTITY << ": WARNING: RACH resources length is in slots (not yet implemented)");
         return;
     }
 
@@ -920,10 +947,6 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE rando
     // Initialize and set CW_CURRENT to CW_MIN
     uint32_t CW_CURRENT = CW_MIN;
 
-    // Calculate time until RACH resources start
-    double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot);
-    Time delay = NanoSeconds(timeToRachStartNs);
-
     std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
     randomAccessContext->m_randomAccessResourceIE = randomAccessResourceIE;
     randomAccessContext->m_startPositions = startPositions;
@@ -934,12 +957,9 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE rando
     randomAccessContext->m_physicalHeaderFieldType2 = physicalHeaderField;
     randomAccessContext->m_physicalHeaderFieldType = 2;
 
-    // Store RACH start time for precise timing calculations
-    randomAccessContext->m_rachStartTime = Simulator::Now() + delay;
     randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
 
-    // Schedule the backoff initialization to start when RACH resources begin
-    Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
+    InitiateBackoff(randomAccessContext);
 }
 
 void
@@ -949,6 +969,7 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
+    NS_LOG_INFO(MAC_IDENTITY << ": Random backoff value " << backoffValue);
 
     // Calculate target position: current position + backoff
     uint32_t targetPositionIndex = randomAccessContext->m_currentPositionIndex + backoffValue;
@@ -956,15 +977,13 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     // Ensure we don't exceed available positions
     if (targetPositionIndex >= randomAccessContext->m_startPositions.size())
     {        
-        NS_LOG_WARN("Backoff target position " << targetPositionIndex 
+        NS_LOG_WARN(MAC_IDENTITY << ": Backoff target position " << targetPositionIndex 
                     << " exceeds available positions (" 
                     << randomAccessContext->m_startPositions.size() << ")");
 
         NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
 
         // Defer to next RACH opportunity
-        m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
-        ChangeAssociationStatus(Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT);
         return;
     }
 
@@ -998,18 +1017,6 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     randomAccessContext->m_lbtSampleCount = 0;
     randomAccessContext->m_lbtRssiSamples.clear();
     randomAccessContext->m_lbtRssiSamples.reserve(5); // Reserve space for 5 samples
-
-    // Calculate our current position relative to RACH start
-    Time currentTime = Simulator::Now();
-    Time elapsedSinceRachStart = currentTime - randomAccessContext->m_rachStartTime;
-    double elapsedUs = elapsedSinceRachStart.GetMicroSeconds();
-
-    // Find which start position we are closest to
-    const double START_POSITION_INTERVAL_US = STF_US + GI_US;
-    auto currentPositionIndex = static_cast<uint32_t>(std::round(elapsedUs / START_POSITION_INTERVAL_US));
-
-    NS_LOG_DEBUG(MAC_IDENTITY << ": LBT at position " << currentPositionIndex 
-                 << " (elapsed: " << elapsedUs << " us)");
 
     // Define sampling points within START_POSITION_INTERVAL_US (STF + GI)
     std::vector<double> samplingOffsetsUs = {
@@ -1099,7 +1106,6 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
             // Defer to next random access resources
             // Reset to WAITING_FOR_SELECTED_FT so next cluster beacon re-triggers association
             NS_LOG_INFO("Deferring to next random access resources -> the MAC PDU doesn't fit into RACH resources");
-            m_associationStatus = Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT;
             return;
         }
     }
@@ -1386,10 +1392,17 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldT
             responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
         }
 
-        NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
-        NS_LOG_INFO(MAC_IDENTITY << ": HARQ ACK absolute subslot " << responseAbsSubslot);
+        // Wrap into the current frame's subslot range so the scheduler vector lookup
+        // stays in bounds. GetTimeTillSubslotStartNs already handles the case where
+        // the wrapped subslot has already passed in the current frame by adding one
+        // full frame duration, so cross-frame responses are scheduled correctly.
+        uint32_t responseSubslotInFrame = responseAbsSubslot % subslotsPerFrame;
 
-        double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": HARQ ACK absolute subslot " << responseAbsSubslot
+                                 << " (in-frame: " << responseSubslotInFrame << ")");
+
+        double t = m_macScheduler->GetTimeTillSubslotStartNs(responseSubslotInFrame);
 
         Ptr<Packet> ack = Create<Packet>();
 
@@ -1874,7 +1887,7 @@ Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
 }
 
 Ptr<Dect2020ExtNetDevice>
-Dect2020ExtMac::GetNetDevice(void) const
+Dect2020ExtMac::GetNetDevice() const
 {
     return m_device;
 }
@@ -1889,9 +1902,6 @@ Dect2020ExtMac::GetNode() const
     return nullptr;
 }
 
-/**
- * Assigns the PHY to the MAC
- */
 void
 Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
 {
@@ -1918,7 +1928,7 @@ Dect2020ExtMac::SetNetworkId(uint32_t networkId)
 }
 
 uint32_t
-Dect2020ExtMac::GetNetworkId(void) const
+Dect2020ExtMac::GetNetworkId() const
 {
     return m_networkId;
 }
@@ -2089,17 +2099,18 @@ Dect2020ExtMac::InitiateHARQ()
 
     NS_LOG_INFO(MAC_IDENTITY << ": HARQ process ID " << (uint32_t)proc->processId);
 
-    // If the device is already inside the RACH resources -> defer till next RACH resources
+    // If the device is already inside the RACH resources -> execute InitiateHarqRandomAccess immediately
     if (m_macScheduler->GetCurrentSubslotNumber() > m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Deferring till next RACH resources");
-        double timeTillNextFrameNs = m_macScheduler->GetTimeTillNextFrameNs();
-        Simulator::Schedule(NanoSeconds(timeTillNextFrameNs), &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
-    }
-    else
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Starting random access immediately");
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
         InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
+    }
+    if (m_macScheduler->GetCurrentSlotNumber() < m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
+    {
+        // Calculate time till RACH resources
+        double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot());
+        Time delay = NanoSeconds(timeToRachStartNs);
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
     }
 }
 
@@ -2177,7 +2188,7 @@ Dect2020ExtMac::LaunchApp()
     NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
     m_app = CreateObject<Dect2020ExtApp>();
     m_app->SetMac(this);
-    m_app->SetTxPeriod(MicroSeconds(200));
+    m_app->SetTxPeriod(MilliSeconds(5));
     m_app->SetPacketLimit(50);
     m_app->Start();
     InitiateHARQ();

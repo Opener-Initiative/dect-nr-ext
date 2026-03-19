@@ -108,13 +108,14 @@ plt.show()
 }
 
 void
-InstallCircularMobilityModel(uint32_t index, Ptr<Node> node, Ptr<NodeContainer> nodeContainer, Ptr<UniformRandomVariable> randomRadius)
+InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius)
 {        
+    NS_ASSERT_MSG(totalNodes > 0, "totalNodes must be > 0 to avoid division by zero");
     MobilityHelper mobility;
     Ptr<ListPositionAllocator> positionAllocator = CreateObject<ListPositionAllocator>();
 
     // Calculate angle for the node (evenly distributed around circle)
-    double angle = (2.0 * M_PI * index) / nodeContainer->GetN(); // radians
+    double angle = (2.0 * M_PI * index) / totalNodes; // radians
     double radius = randomRadius->GetValue();
     double x = radius * std::cos(angle);
     double y = radius * std::sin(angle);        

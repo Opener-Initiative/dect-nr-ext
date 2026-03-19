@@ -76,6 +76,10 @@ main(int argc, char *argv[])
     // ################
 
     int ptNumber = 1;
+    NodeContainer ptNodes;
+    Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
+    randomRadius->SetAttribute("Min", DoubleValue(10.0));
+    randomRadius->SetAttribute("Max", DoubleValue(50.0));
 
     for (int i = 0; i < ptNumber; i++)
     {
@@ -100,8 +104,9 @@ main(int argc, char *argv[])
 
         ptNode->AddDevice(ptNetDevice);
 
-        InstallCenterMobilityModel(ptNode);
+        InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius);
         ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
+
         ptMac->Initialize();
         ptMac->Start();
         ptPhy->Start();
@@ -110,7 +115,6 @@ main(int argc, char *argv[])
     ftMac->Initialize();
     ftMac->Start();
     ftPhy->Start();
-
 
     Simulator::Stop(Seconds(4));
     Simulator::Run();
