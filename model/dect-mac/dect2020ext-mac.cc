@@ -2064,6 +2064,7 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
 void
 Dect2020ExtMac::InitiateHARQ()
 {
+    NS_LOG_FUNCTION(MAC_IDENTITY);
     // Find a free process
     Dect2020ExtHarqProcess* proc = nullptr;
     for (auto& p: m_harqTable)
@@ -2116,8 +2117,9 @@ Dect2020ExtMac::InitiateHARQ()
         NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
         InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
     }
-    if (m_macScheduler->GetCurrentSlotNumber() < m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
+    else if (m_macScheduler->GetCurrentSlotNumber() < m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
     {
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access at the next RACH resources");
         // Calculate time till RACH resources
         double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot());
         Time delay = NanoSeconds(timeToRachStartNs);
@@ -2128,6 +2130,7 @@ Dect2020ExtMac::InitiateHARQ()
 void
 Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
 {
+    NS_LOG_FUNCTION(MAC_IDENTITY);
     NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
     m_phy->Send(ack, phyCtrl);
 }
@@ -2135,6 +2138,7 @@ Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phy
 void
 Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
 {
+    NS_LOG_FUNCTION(MAC_IDENTITY);
     // Find a HARQ process
     Dect2020ExtHarqProcess* proc = nullptr;
     for (auto& p: m_harqTable)
