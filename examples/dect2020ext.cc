@@ -35,11 +35,27 @@ main(int argc, char *argv[])
     // LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
 
+    // Information Elements
     Dect2020ExtConfig config;
     Dect2020ExtAssociationControlIE associationControlIE;
     associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
     associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
     associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
+
+    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+    // randomAccessResourceIE.SetRepeat(0);
+    // randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
+    // randomAccessResourceIE.SetChannelFieldIncluded(false);
+    // randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
+    // randomAccessResourceIE.SetStartSubslot(10);
+    // randomAccessResourceIE.SetLengthType(0); // length in subslots
+    // randomAccessResourceIE.SetRaraLength(50);
+    // randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
+    // randomAccessResourceIE.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
+    // randomAccessResourceIE.SetCwMinSig(1);
+    // randomAccessResourceIE.SetDectDelay(false);
+    // randomAccessResourceIE.SetResponseWindow(5);
+    // randomAccessResourceIE.SetCwMaxSig(5);
 
     // ################
     // ###### FT ######

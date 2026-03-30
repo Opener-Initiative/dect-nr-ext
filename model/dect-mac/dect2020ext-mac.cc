@@ -683,23 +683,30 @@ Dect2020ExtRandomAccessResourceIE
 Dect2020ExtMac::BuildRandomAccessResourceIE()
 {
     NS_LOG_FUNCTION(this);
-    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
-    randomAccessResourceIE.SetRepeat(0);
-    randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
-    randomAccessResourceIE.SetChannelFieldIncluded(false);
-    randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
 
-    randomAccessResourceIE.SetStartSubslot(10); // where RACH resources start
-    randomAccessResourceIE.SetLengthType(0); // length in subslots
-    randomAccessResourceIE.SetRaraLength(50);
-    randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
-    randomAccessResourceIE.SetMaxRachLength(4);     // Max 4 subslots (2 slots) / transmission
-    randomAccessResourceIE.SetCwMinSig(1);
-    randomAccessResourceIE.SetDectDelay(m_dectDelay);
-    randomAccessResourceIE.SetResponseWindow(5);
-    randomAccessResourceIE.SetCwMaxSig(5);
+    // if (m_configuredRandomAccessResourceIESet)
+    // {
+    //     return m_configuredRandomAccessResourceIE;
+    // }
+    // else
+    // {
+        Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+        randomAccessResourceIE.SetRepeat(0);
+        randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
+        randomAccessResourceIE.SetChannelFieldIncluded(false);
+        randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
+        randomAccessResourceIE.SetStartSubslot(10);
+        randomAccessResourceIE.SetLengthType(0); // length in subslots
+        randomAccessResourceIE.SetRaraLength(50);
+        randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
+        randomAccessResourceIE.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
+        randomAccessResourceIE.SetCwMinSig(1);
+        randomAccessResourceIE.SetDectDelay(m_dectDelay);
+        randomAccessResourceIE.SetResponseWindow(5); // response window length in subslots -> value + 1 subslot
+        randomAccessResourceIE.SetCwMaxSig(5);
 
-    return randomAccessResourceIE;
+        return randomAccessResourceIE;
+    // }
 }
 
 Dect2020ExtPHYControlFieldType1
@@ -956,8 +963,8 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE rando
     randomAccessContext->m_packet = packet;
     randomAccessContext->m_physicalHeaderFieldType2 = physicalHeaderField;
     randomAccessContext->m_physicalHeaderFieldType = 2;
-
     randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
+    randomAccessContext->m_harq = true;
 
     InitiateBackoff(randomAccessContext);
 }
@@ -1099,6 +1106,9 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
             else
             {
                 m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
+                double subslotDurationNs = m_macScheduler->SLOT_DURATION_NS / 2;
+                Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIE.GetResponseWindow());
+                Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
             }
         }
         else
@@ -2097,6 +2107,7 @@ Dect2020ExtMac::InitiateHARQ()
     phyCtrl.SetFeedbackFormat(1);
     phyCtrl.SetFeedbackInfo(0);
 
+    NS_LOG_INFO(MAC_IDENTITY << ": Dequeued packet, initiating HARQ");
     NS_LOG_INFO(MAC_IDENTITY << ": HARQ process ID " << (uint32_t)proc->processId);
 
     // If the device is already inside the RACH resources -> execute InitiateHarqRandomAccess immediately
@@ -2142,6 +2153,7 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 p
     }
    
     NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processId << " ACK");
+
     // Reset the HARQ process
     proc->state = Dect2020ExtHarqProcess::FREE;
     proc->packet = nullptr;
@@ -2155,6 +2167,39 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 p
     {
         InitiateHARQ();
     }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, stopping");
+    }
+}
+
+void
+Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 phyCtrlType2)
+{
+    // Find a HARQ process
+    Dect2020ExtHarqProcess* proc = nullptr;
+    for (auto& p: m_harqTable)
+    {
+        if (p.processId == phyCtrlType2.GetDFHARQProcessNumber())
+        {
+            proc = &p;
+            break;
+        }
+    }
+
+    if (!proc)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
+        return; // all processes in use - back-pressure to the tx queue
+    }
+
+    // If HARQ ACK has not been already received -> retransmit
+    if (proc->state == Dect2020ExtHarqProcess::WAITING_ACK)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
+        InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrlType2);
+    }
+    NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
 }
 
 void

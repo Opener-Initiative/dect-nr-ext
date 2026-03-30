@@ -123,7 +123,7 @@ Dect2020ExtNetDevice::SetBootstrappingVariables(bool isFT)
     m_rxGain = 5; // 0 dB
     m_maxMcs = 11;
     m_softBufferSize = 0;
-    m_numOfHarqProcesses = 2;
+    m_numOfHarqProcesses = 1;
     m_harqFeedbackDelay = 2;
     m_dDelay = true;
     m_halfDulp = false;

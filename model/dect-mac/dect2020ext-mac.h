@@ -99,6 +99,9 @@ struct Dect2020ExtRandomAccessContext
     // Timing reference
     Time m_rachStartTime; // Absolute time when RACH resources start
     uint32_t m_currentPositionIndex = 0; // Track which start positiion we are at
+
+    // HARQ
+    bool m_harq = false;
 };
 
 struct Dect2020ExtRSSI1OnChannelContext
@@ -317,6 +320,7 @@ class Dect2020ExtMac : public Object
         void InitiateHARQ();
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
         void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
+        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 phyCtrlType2);
 
         // #########################
         // ###### Application ######

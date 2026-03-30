@@ -42,6 +42,13 @@ Initiate the backoff process:
 
 NOTE: After transmitting to random access the RD may re-initiate the random access transmission procedure to the same random access resources
 
+# HARQ
+The processing time for creating the feedback is two subslots or as indicated by the RD in the **HARQ feedback delay** field in RD capability IE.
+Feedback delay: n + HARQ feedback delay + 1
+
+RACH Response window: 5 subslots
+HARQ feedback delay: 3 -> 3 + 1 < 5 subslots
+
 
 
 
