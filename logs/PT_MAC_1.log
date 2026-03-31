@@ -438,8 +438,8 @@
 +2.200833454s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate found with RSSI 10 dBm
-+2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate long ID: 206744980
-+2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 12987057
++2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate long ID: 1388083455
++2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 1317289
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate cluster channel ID: 1657
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Switching to best FT's channel: 1657
 +2.210833454s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to WAITING_FOR_SELECTED_FT
@@ -448,53 +448,92 @@
 +2.210833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.210833454s Dect2020ExtMac:SendAssociationRequest(): PT_MAC[1]: Preparing to send association request
 +2.210833454s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATION_PENDING
-+2.210833454s Dect2020ExtMac:InitiateRandomAccess(): PT_MAC[1]: Initiating Random Access Procedure
++2.210833454s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: Dequeued packet, initiating HARQ
++2.210833454s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: HARQ process ID 0
++2.210833454s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: Executing Random Access at the next RACH resources
++2.212083330s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
 +2.212083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 10, position - 0
 +2.212083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 6
++2.212666330s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 4 subslots
 +2.212666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 7 -> power on channel is -111 dBm
-+2.213125117s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.213125117s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.213125117s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
-+2.213125117s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
-+2.213125117s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: Association Response accepted
-+2.213125117s Dect2020ExtMac:LaunchApp(): PT_MAC[1]: Launching application
-+2.213125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.213125117s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: Dequeued packet, initiating HARQ
-+2.213125117s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: HARQ process ID 0
-+2.213125117s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: Executing Random Access immediately
-+2.213125117s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
-+2.213125117s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 15, position - 0
-+2.213125117s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 6
-+2.213708117s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 7 -> power on channel is -111 dBm
-+2.214166782s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.214166782s Dect2020ExtMac:HandleDataPacket(): PT_MAC[1]: Received DATA MAC PDU
-+2.214166782s Dect2020ExtMac:HandleDataPacket(): PT_MAC[1]: Received HARQ ACK
-+2.214166782s Dect2020ExtMac:HandleHarqAck(): PT_MAC[1]: HARQ process 0 ACK
-+2.214166782s Dect2020ExtMac:HandleHarqAck(): PT_MAC[1]: Tx queue empty, stopping
-+2.214749782s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
-+2.218125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.223125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.228125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.233125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.238125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.243125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.248125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.253125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.258125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
++2.212666581s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.212666581s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.212666581s Dect2020ExtMac:HandleUnicastPacket(): PT_MAC[1]: The unicast packet is not for this device
++2.213707995s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
++2.213707995s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
++2.213707995s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 17, position - 0
++2.213707995s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 6
++2.213707995s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
++2.214290995s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 4 subslots
++2.214290995s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 7 -> power on channel is -111.001 dBm
++2.214791781s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.214791781s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.214791781s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
++2.214791781s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
++2.214791781s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: Association Response accepted
++2.214791781s Dect2020ExtMac:LaunchApp(): PT_MAC[1]: Launching application
++2.214791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.214791781s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: No free HARQ process, deferring
++2.215332660s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
++2.215332660s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
++2.215332660s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 25, position - 0
++2.215332660s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 5
++2.215332660s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
++2.215831660s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 4 subslots
++2.215831660s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 6 -> power on channel is -111.001 dBm
++2.216250112s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.216250112s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.216250112s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
++2.216873325s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
++2.216873325s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
++2.216873325s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 32, position - 0
++2.216873325s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 8
++2.216873325s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
++2.217622325s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 4 subslots
++2.217622325s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 9 -> power on channel is -111.001 dBm
++2.218125109s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.218125109s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.218125109s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
++2.218663990s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
++2.218663990s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
++2.218663990s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 41, position - 0
++2.218663990s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 4
++2.218663990s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
++2.219079990s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 4 subslots
++2.219079990s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 5 -> power on channel is -111.001 dBm
++2.219583440s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.219583440s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.219583440s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
++2.219791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.220121655s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
++2.220121655s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Initiating Harq Random Access Procedure
++2.220121655s Dect2020ExtMac:InitiateHarqRandomAccess(): PT_MAC[1]: Not within RACH window, aborting
++2.220121655s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
++2.220205246s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.220205246s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
++2.220205246s Dect2020ExtMac:HandleUnicastPacket(): PT_MAC[1]: The unicast packet is not for this device
++2.224791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.229791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.234791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.239791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.244791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.249791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.254791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.259791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
 +2.260833454s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.260833454s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.260833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.260833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
-+2.263125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.268125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.273125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.278125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.283125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.288125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.293125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.298125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.303125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.308125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
++2.264791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.269791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.274791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.279791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.284791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.289791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.294791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.299791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.304791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.309791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
 +2.310000122s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.310000122s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
 +2.310000122s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
@@ -503,30 +542,30 @@
 +2.310833454s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.310833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.310833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
-+2.313125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.318125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.323125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.328125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.333125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.338125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.343125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.348125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.353125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.358125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
++2.314791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.319791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.324791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.329791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.334791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.339791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.344791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.349791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.354791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.359791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
 +2.360833454s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.360833454s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.360833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.360833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
-+2.363125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.368125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.373125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.378125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.383125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.388125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.393125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.398125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.403125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.408125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
++2.364791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.369791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.374791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.379791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.384791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.389791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.394791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.399791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.404791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.409791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
 +2.410000122s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.410000122s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Network Beacon Message
 +2.410000122s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
@@ -535,16 +574,16 @@
 +2.410833454s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.410833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.410833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
-+2.413125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.418125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.423125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.428125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.433125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.438125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.443125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.448125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
-+2.453125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 15
-+2.458125117s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 39
++2.414791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.419791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.424791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.429791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.434791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.439791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.444791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.449791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
++2.454791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 23
++2.459791781s Dect2020ExtMac:EnqueuePacket(): PT_MAC[1]: Enqueue packet at subslot 47
 +2.460833454s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI 10 dBm on channel 1657
 +2.460833454s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.460833454s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon

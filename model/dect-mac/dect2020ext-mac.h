@@ -321,6 +321,7 @@ class Dect2020ExtMac : public Object
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
         void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
         void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 phyCtrlType2);
+        void MonitorTxQueue();
 
         // #########################
         // ###### Application ######

@@ -1144,7 +1144,7 @@ Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect202
     if (lengthInSubslots)
     {
         uint8_t packetLengthInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->m_packet->GetSize());
-        NS_LOG_INFO("MAC PDU size: " << (uint32_t)packetLengthInSubslots << " subslots");
+        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU size: " << (uint32_t)packetLengthInSubslots << " subslots");
         return packetLengthInSubslots <= randomAccessContext->m_randomAccessResourceIE.GetMaxRachLength();
     }
     else
@@ -1286,6 +1286,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
 
     if (receiverAddress != this->GetLongRadioDeviceId())
     {
+        NS_LOG_INFO(MAC_IDENTITY << ": The unicast packet is not for this device");
         return; // Packet is not for this device
     }
 
@@ -1303,7 +1304,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
         if (m_device->GetTerminationPointType() !=
             Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
         {
-            NS_LOG_WARN("Association Request received, but this device is not an FT.");
+            NS_LOG_INFO(MAC_IDENTITY << "Association Request received, but this device is not an FT.");
             return;
         }
 
@@ -1327,7 +1328,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
         if (m_device->GetTerminationPointType() !=
             Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
         {
-            NS_LOG_WARN("Association Response received, but this device is not an PT. FT "
+            NS_LOG_INFO(MAC_IDENTITY << "Association Response received, but this device is not an PT. FT "
                         "association not yet implemented.");
             return;
         }
@@ -1646,14 +1647,10 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 
     packet->AddHeader(macHeaderType);
 
-    // --- Physical Header Field ---
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
-    physicalHeaderField.SetShortNetworkID(m_potentialShortNetworkId);
-
     ChangeAssociationStatus(ASSOCIATION_PENDING);
 
-    // Initiate Random Access Procedure with the selected FT
-    InitiateRandomAccess(ft->ftRandomAccessResourceIE, packet, physicalHeaderField);
+    m_txQueue.push(packet);
+    InitiateHARQ();
 }
 
 void
@@ -1708,8 +1705,8 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIE 
         responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
     }
 
-    NS_LOG_INFO(MAC_IDENTITY << "Current subslot " << currentAbsSubslot);
-    NS_LOG_INFO(MAC_IDENTITY << "Association Response absolute subslot " << responseAbsSubslot);
+    NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
+    NS_LOG_INFO(MAC_IDENTITY << ": Association Response absolute subslot " << responseAbsSubslot);
 
     double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
 
@@ -2173,7 +2170,8 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 p
     }
     else
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, stopping");
+        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
+        MonitorTxQueue();
     }
 }
 
@@ -2204,6 +2202,20 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType
         InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrlType2);
     }
     NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
+}
+
+void
+Dect2020ExtMac::MonitorTxQueue()
+{
+    if (m_txQueue.empty())
+    {
+        Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMac::MonitorTxQueue, this);
+    }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
+        InitiateHARQ();
+    }
 }
 
 void

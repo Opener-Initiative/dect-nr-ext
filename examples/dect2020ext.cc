@@ -29,11 +29,7 @@ main(int argc, char *argv[])
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
 
-    // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC | LOG_PREFIX_NODE));
-    // LogComponentEnable("Dect2020ExtInterference", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    // LogComponentEnable("SingleModelSpectrumChannel", LOG_LEVEL_LOGIC);
+    NetDeviceContainer devices;
 
     // Information Elements
     Dect2020ExtConfig config;
@@ -87,11 +83,13 @@ main(int argc, char *argv[])
     InstallCenterMobilityModel(ftNode);
     ftPhy->SetMobility(ftNode->GetObject<MobilityModel>());
 
+    devices.Add(ftNetDevice);
+
     // ################
     // ###### PT ######
     // ################
 
-    int ptNumber = 1;
+    int ptNumber = 2;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
     randomRadius->SetAttribute("Min", DoubleValue(10.0));
@@ -123,6 +121,8 @@ main(int argc, char *argv[])
         InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius);
         ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
 
+        devices.Add(ptNetDevice);
+
         ptMac->Initialize();
         ptMac->Start();
         ptPhy->Start();
@@ -138,6 +138,7 @@ main(int argc, char *argv[])
 
     Dect2020ExtStatistics::OutputDroppedPackets();
     Dect2020ExtStatistics::OutputAcceptedPackets();
+    CreatePythonConnectionGraph(devices);
 
     return 0;
 }
