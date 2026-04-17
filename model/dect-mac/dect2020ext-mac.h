@@ -46,39 +46,6 @@ class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
 class Dect2020ExtMacHeaderType;
 
-struct Dect2020ExtHarqProcess
-{
-    enum State
-    {
-        FREE, // prces is available for a new packet
-        WAITING_ACK, // packet sent, waiting for feedback
-        NACK_PENDING // NACK received, retransmission needed
-    };
-
-    State state = FREE;
-    uint8_t processId = 0;
-    uint8_t ndi = 0;
-    uint8_t rv = 0;
-    uint8_t reTxCount = 0;
-    uint8_t maxRetx = 4;
-
-    Ptr<Packet> packet;
-    Time txTime;
-};
-
-struct Dect2020ExtChannelEvaluation
-{
-    uint16_t channelId;
-    uint32_t free = 0;
-    uint32_t possible = 0;
-    uint32_t busy = 0;
-
-    uint32_t Total() const
-    {
-        return free + possible + busy;
-    }
-};
-
 struct Dect2020ExtRandomAccessContext
 {
     Dect2020ExtRandomAccessResourceIE m_randomAccessResourceIE;
@@ -102,6 +69,39 @@ struct Dect2020ExtRandomAccessContext
 
     // HARQ
     bool m_harq = false;
+};
+
+struct Dect2020ExtHarqProcess
+{
+    enum State
+    {
+        FREE, // prces is available for a new packet
+        WAITING_ACK, // packet sent, waiting for feedback
+        NACK_PENDING // NACK received, retransmission needed
+    };
+
+    State state = FREE;
+    uint8_t processId = 0;
+    uint8_t ndi = 0;
+    uint8_t rv = 0;
+    uint8_t reTxCount = 0;
+    uint8_t maxRetx = 4;
+    Ptr<Packet> packet;
+    Time txTime;
+    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
+};
+
+struct Dect2020ExtChannelEvaluation
+{
+    uint16_t channelId;
+    uint32_t free = 0;
+    uint32_t possible = 0;
+    uint32_t busy = 0;
+
+    uint32_t Total() const
+    {
+        return free + possible + busy;
+    }
 };
 
 struct Dect2020ExtRSSI1OnChannelContext
@@ -250,7 +250,7 @@ class Dect2020ExtMac : public Object
         // #####################################
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
-        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField);
+        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);

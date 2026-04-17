@@ -881,7 +881,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 }
 
 void
-Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField)
+Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Initiating Harq Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
@@ -965,6 +965,8 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE rando
     randomAccessContext->m_physicalHeaderFieldType = 2;
     randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
     randomAccessContext->m_harq = true;
+
+    harqProcess->randomAccessContext = randomAccessContext;
 
     InitiateBackoff(randomAccessContext);
 }
@@ -1498,7 +1500,8 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& c
         Time searchBestFtTimeSeconds = Seconds(2);
         
         // ASSOCIATION_PREPARING means the device is scanning the network to find the best FT candidate
-        m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
+        ChangeAssociationStatus(ASSOCIATION_PREPARING);
+        // m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
         NS_LOG_INFO(MAC_IDENTITY << ": Switching to ASSOCIATION_PREPARING status");
         NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks");
         DiscoverNetworks();
@@ -2079,7 +2082,6 @@ Dect2020ExtMac::InitiateHARQ()
         return; // all processes in use - back-pressure to the tx queue
     }
 
-    // Claim the process for the next packet
     Ptr<Packet> packet = m_txQueue.front();
     m_txQueue.pop();
 
@@ -2112,7 +2114,7 @@ Dect2020ExtMac::InitiateHARQ()
     if (m_macScheduler->GetCurrentSubslotNumber() > m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
-        InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
+        InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl, proc);
     }
     else if (m_macScheduler->GetCurrentSlotNumber() < m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot())
     {
@@ -2120,7 +2122,7 @@ Dect2020ExtMac::InitiateHARQ()
         // Calculate time till RACH resources
         double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(m_selectedFtCandidate.ftRandomAccessResourceIE.GetStartSubslot());
         Time delay = NanoSeconds(timeToRachStartNs);
-        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl);
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrl, proc);
     }
 }
 
@@ -2199,7 +2201,13 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType
     if (proc->state == Dect2020ExtHarqProcess::WAITING_ACK)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
-        InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIE, packet, phyCtrlType2);
+
+        uint32_t newCW = std::min(proc->randomAccessContext->m_CW_CURRENT * 2, proc->randomAccessContext->m_CW_MAX);
+        proc->randomAccessContext->m_CW_CURRENT = newCW;
+        proc->randomAccessContext->m_lbtSampleCount = 0;
+        proc->randomAccessContext->m_lbtRssiSamples.clear();
+        
+        InitiateBackoff(proc->randomAccessContext);
     }
     NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
 }

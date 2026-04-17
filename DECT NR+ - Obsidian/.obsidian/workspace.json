@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "4de5974cfe4a9f5f",
+        "id": "339964a0150f4bea",
         "type": "tabs",
         "children": [
           {
-            "id": "9880f0fd5e5f7561",
+            "id": "da5383a9a55560f3",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 265.5086555480957,
-    "collapsed": true
+    "width": 265.5086555480957
   },
   "right": {
     "id": "85c6a212cc3f323c",
@@ -184,11 +183,15 @@
       "bases:Create new base": false
     }
   },
-  "active": "9880f0fd5e5f7561",
+  "active": "da5383a9a55560f3",
   "lastOpenFiles": [
-    "Plan for the remaining work (until March 31).md",
-    "DECT NR+.md",
+    "DECT NR+.html",
+    "DECT NR+_tmp.html",
+    "DECT NR+.pdf",
     "2025 DECT NR+ NS3 Project Report.md",
+    "DECT NR+.md",
+    "Plan for the remaining work (until March 31).md",
+    "().md",
     "Diagrams",
     "Welcome.md"
   ]

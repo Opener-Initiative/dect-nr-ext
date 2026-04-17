@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DECT NR+.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="design-documentation-of-the-dect-nr-ns-3-implementation">Design Documentation of the DECT NR+ NS-3 Implementation</h1>
+<h1 id="configuration">Configuration</h1>
+<p>The project can be configured through the <code>config</code> model located in <code>/model/config</code>.
+The configuration model is divided into two parts: <code>dect2020ext-config-values</code> (a single header file) and <code>dect2020ext-config</code> (config class).
+<code>dect2020ext-config-values</code> contains configuration variables that are used by <code>dect2020ext-config</code> to configure <code>dect2020ext</code> models.</p>
+<p>The <code>Dect2020ExtConfig</code> class creates two objects that are shared by all <code>Dect2020Ext</code> models:</p>
+<ul>
+<li>Spectrum Channel</li>
+<li>Channel Manager
+<code>Dect2020ExtConfig</code> also creates an Isotropic Antenna for every PHY.
+<code>Dect2020ExtConfig</code> has <code>ApplyToPhy</code> and <code>ApplyToMac</code> functions that bootstrap the values from <code>dect2020ext-config-values</code> to the corresponding <code>Dect2020ExtPhy</code> and <code>Dect2020ExtMac</code> models.</li>
+</ul>
+<h1 id="logging">Logging</h1>
+<p>The default logging setup (logging levels) looks like this:</p>
+<pre class="hljs"><code><div>LogComponentEnable(<span class="hljs-string">"Dect2020ExtMac"</span>, LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+LogComponentEnable(<span class="hljs-string">"Dect2020ExtPhy"</span>, LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+LogComponentEnable(<span class="hljs-string">"Dect2020ExtStatistics"</span>, LogLevel(LOG_LEVEL_INFO));
+</div></code></pre>
+<p>Logging levels are usually defined at the start of every simulation script.</p>
+<p>Usually, simulation scripts produce an extremely large amount of logs.
+<code>splitlogs.py</code> Python divides the logs into separate files based on the identity of objects.
+The identity of objects is constructed from their node's index and operational mode: Fixed Termination point (FT) or Portable Termination point (PT).</p>
+<p>Each PHY and MAC object has its own <code>PHY_IDENTITY</code> or <code>MAC_IDENTITY</code>.
+This is important for logging since it allows to divide the logs from different models into separate files.
+The current default way of logging information (for MAC for example) is:</p>
+<pre class="hljs"><code><div>NS_LOG_INFO(MAC_IDENTITY &lt;&lt; <span class="hljs-string">"some interesting information"</span>);
+</div></code></pre>
+<p>Note, if the information is logged without using a proper identity, the logs will not be separated correctly by the <code>splitlogs.py</code> script.</p>
+<h1 id="statistics">Statistics</h1>
+<p>The <code>Dect2020ExtStatistics</code> model currently supports logging the number of accepted and dropped packets based on the <code>PHY_IDENTITY</code>.</p>
+<h1 id="initialization">Initialization</h1>
+<h1 id="initializing-network">Initializing Network</h1>
+<h1 id="spectrum-management-procedure">Spectrum Management Procedure</h1>
+<h1 id="beacon-transmission">Beacon Transmission</h1>
+<h1 id="association-procedure">Association Procedure</h1>
+<pre><code class="language-mermaid"><div class="mermaid">---
+config:
+  theme: dark
+  look: classic
+  sequence:
+    actorMargin: 150
+---
+sequenceDiagram
+participant FT
+participant PT
+participant PT_MAC as PT MAC
+
+loop Every Network Beacon Period
+  FT ->> PT: Network Beacon
+end
+
+loop Every Cluster Beacon Period
+  FT ->> PT: Cluster Beacon
+end
+
+alt IF Association Status: NOT_ASSOCIATED
+  Note over PT, PT_MAC: Change Association Status to <br> ASSOCIATION_PREPARING
+  Note over PT, PT_MAC: Select best FT candidate
+end
+
+Note over PT, PT_MAC: Best FT candidate selection done - change status to <br> WAITING_FOR_SELECTED_FT
+
+FT ->> PT: Cluster Beacon
+
+alt IF Association Status: WAITING_FOR_SELECTED_FT
+  Note over PT, PT_MAC: Send Association Request 
+end
+
+PT ->> FT: Association Request Message
+FT ->> PT: Association Response Message
+
+alt
+  Note over PT, PT_MAC: IF Association Request accepted: change association status to <br> ASSOCIATED
+end
+
+loop Based on App Tx period and state
+ PT ->> FT: Data transmission
+end
+</div></code></pre>
+<h1 id="harq-and-random-access-procedure">HARQ and Random Access Procedure</h1>
+<h2 id="harq">HARQ</h2>
+<p>In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as &quot;HARQ&quot; in the code base, the procedure is not fully implemented.
+The current &quot;HARQ&quot; implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
+The repeat requests are done upon the timeout (RACH response window exceeds and no ACK has been received).
+The RACH response window should always be longer than HARQ feedback delay to give the FT time to respond to the packet.
+The processing time for creating the feedback is two subslots or as indicated by the RD in the <code>HARQ feedback delay</code> field in RD capability IE.
+Feedback delay: n + <code>HARQ feedback delay</code> + 1.</p>
+<pre><code class="language-mermaid"><div class="mermaid">---
+config:
+    theme: dark
+    look: classic
+---
+flowchart TD
+
+ProcessAssociationResponse["Dect2020ExtMac::**ProcessAssociationResponse**"]
+AssociationResponseAccepted{"Association Response accepted?"}
+LaunchApp["Dect2020ExtMac::**LaunchApp**"]
+InitiateHARQ["Dect2020ExtMac::**InitiateHARQ**" called to initiate data transmission]
+
+ProcessAssociationResponse --> AssociationResponseAccepted
+AssociationResponseAccepted -- YES --> LaunchApp
+AssociationResponseAccepted -- NO --> TBD1["TBD"]
+LaunchApp --> InitiateHARQ
+</div></code></pre>
+<p>RACH Response window: 5 subslots
+HARQ feedback delay: 3 -&gt; 3 + 1 &lt; 5 subslots (important for the implementation)</p>
+<h2 id="random-access-procedure">Random Access Procedure</h2>
+<p>The Random Access Procedure is implemented according to ETSI TS 103 636-4 v2.1.1 section 5.3.</p>
+<h2 id="mac-header-type">MAC Header Type</h2>
+<pre><code class="language-mermaid"><div class="mermaid">packet
+title DATA MAC Header Type
++2: "Version: 0"
++2: "MAC security: 0"
++4: "MAC Header Type: 0000"
+</div></code></pre>
+
+</body>
+</html>
