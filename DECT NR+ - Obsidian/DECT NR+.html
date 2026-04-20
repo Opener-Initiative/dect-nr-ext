@@ -399,6 +399,36 @@ The current default way of logging information (for MAC for example) is:</p>
 <h1 id="initializing-network">Initializing Network</h1>
 <h1 id="spectrum-management-procedure">Spectrum Management Procedure</h1>
 <h1 id="beacon-transmission">Beacon Transmission</h1>
+<h1 id="phy-rx-state-machine">PHY Rx State Machine</h1>
+<pre><code class="language-mermaid"><div class="mermaid">---
+config:
+  theme: dark
+  look: classic
+  sequence:
+    actorMargin: 150
+  themeVariables:
+    primaryTextColor: "#ffffff"
+    noteBkgColor: "#ffffff"
+    noteTextColor: "#000000"
+    signalColor: "#000000"
+    signalTextColor: "#000000"
+    loopTextColor: "#000000"
+---
+sequenceDiagram
+
+participant PT_PHY
+participant FT_PHY
+
+Note over FT_PHY: State: IDLE
+PT_PHY ->> FT_PHY: Packet Tx start
+activate PT_PHY
+activate FT_PHY
+Note over FT_PHY: State Rx
+PT_PHY ->> FT_PHY: Packet Tx end
+deactivate PT_PHY
+deactivate FT_PHY
+Note over FT_PHY: State IDLE
+</div></code></pre>
 <h1 id="association-procedure">Association Procedure</h1>
 <pre><code class="language-mermaid"><div class="mermaid">---
 config:
@@ -406,6 +436,13 @@ config:
   look: classic
   sequence:
     actorMargin: 150
+  themeVariables:
+    primaryTextColor: "#ffffff"
+    noteBkgColor: "#ffffff"
+    noteTextColor: "#000000"
+    signalColor: "#000000"
+    signalTextColor: "#000000"
+    loopTextColor: "#000000"
 ---
 sequenceDiagram
 participant FT
@@ -454,31 +491,38 @@ The processing time for creating the feedback is two subslots or as indicated by
 Feedback delay: n + <code>HARQ feedback delay</code> + 1.</p>
 <pre><code class="language-mermaid"><div class="mermaid">---
 config:
-    theme: dark
-    look: classic
+  theme: dark
+  look: classic
 ---
 flowchart TD
-
-ProcessAssociationResponse["Dect2020ExtMac::**ProcessAssociationResponse**"]
-AssociationResponseAccepted{"Association Response accepted?"}
-LaunchApp["Dect2020ExtMac::**LaunchApp**"]
-InitiateHARQ["Dect2020ExtMac::**InitiateHARQ**" called to initiate data transmission]
+ProcessAssociationResponse[Dect2020ExtMac::**ProcessAssociationResponse**]
+AssociationResponseAccepted{Association Response accepted?}
+LaunchApp[Dect2020ExtMac::**LaunchApp**]
+InitiateHARQ[Dect2020ExtMac::**InitiateHARQ**]
+DequeuePacket[Dect2020ExtMac::**m_txQueue.pop**]
+InitiateHarqRandomAccess[Dect2020ExtMac::**InitiateHarqRandomAccess**]
+SendPacket[Send Packet]
+ReceiveFromPhy[Dect2020ExtMac::**ReceiveFromPhy**]
+IsDataPacket{Data packet?}
+HandleDataPacket[Dect2020ExtMac::**HanleDataPacket**]
+HandleHarqAck[Dect2020ExtMac::**HandleHarqAck**]
+IsTxQueueEmpty{Is Tx queue empty?}
+MonitorTxQueue[Dect2020ExtMac::**MonitorTxQueue**]
 
 ProcessAssociationResponse --> AssociationResponseAccepted
 AssociationResponseAccepted -- YES --> LaunchApp
-AssociationResponseAccepted -- NO --> TBD1["TBD"]
+AssociationResponseAccepted -- NO --> TBD1[TBD]
 LaunchApp --> InitiateHARQ
-</div></code></pre>
-<p>RACH Response window: 5 subslots
-HARQ feedback delay: 3 -&gt; 3 + 1 &lt; 5 subslots (important for the implementation)</p>
-<h2 id="random-access-procedure">Random Access Procedure</h2>
-<p>The Random Access Procedure is implemented according to ETSI TS 103 636-4 v2.1.1 section 5.3.</p>
-<h2 id="mac-header-type">MAC Header Type</h2>
-<pre><code class="language-mermaid"><div class="mermaid">packet
-title DATA MAC Header Type
-+2: "Version: 0"
-+2: "MAC security: 0"
-+4: "MAC Header Type: 0000"
+InitiateHARQ --> DequeuePacket
+DequeuePacket --> InitiateHarqRandomAccess
+InitiateHarqRandomAccess --> SendPacket
+
+ReceiveFromPhy --> IsDataPacket
+IsDataPacket -- YES --> HandleDataPacket
+HandleDataPacket --> HandleHarqAck
+HandleHarqAck --> IsTxQueueEmpty
+IsTxQueueEmpty -- YES --> InitiateHARQ
+IsTxQueueEmpty -- NO --> MonitorTxQueue
 </div></code></pre>
 
 </body>

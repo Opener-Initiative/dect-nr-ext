@@ -38,6 +38,20 @@ The `Dect2020ExtStatistics` model currently supports logging the number of accep
 
 # PHY Rx State Machine
 ```mermaid
+---
+config:
+  theme: dark
+  look: classic
+  sequence:
+    actorMargin: 150
+  themeVariables:
+    primaryTextColor: "#ffffff"
+    noteBkgColor: "#ffffff"
+    noteTextColor: "#000000"
+    signalColor: "#000000"
+    signalTextColor: "#000000"
+    loopTextColor: "#000000"
+---
 sequenceDiagram
 
 participant PT_PHY
@@ -63,6 +77,13 @@ config:
   look: classic
   sequence:
     actorMargin: 150
+  themeVariables:
+    primaryTextColor: "#ffffff"
+    noteBkgColor: "#ffffff"
+    noteTextColor: "#000000"
+    signalColor: "#000000"
+    signalTextColor: "#000000"
+    loopTextColor: "#000000"
 ---
 sequenceDiagram
 participant FT
@@ -146,3 +167,4 @@ HandleDataPacket --> HandleHarqAck
 HandleHarqAck --> IsTxQueueEmpty
 IsTxQueueEmpty -- YES --> InitiateHARQ
 IsTxQueueEmpty -- NO --> MonitorTxQueue
+```

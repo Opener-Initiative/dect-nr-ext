@@ -394,6 +394,10 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physica
     // Start the transmission immediately
     m_channel->StartTx(params);
     DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
+
+    // Change state to RX - switch bach to IDLE after params->duration
+    ChangeState(TX);
+    Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
 }
 
 void
