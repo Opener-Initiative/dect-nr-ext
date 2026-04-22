@@ -1,26 +1,26 @@
-#include "serialization-test-case.h"
-#include "ns3/dect2020-unicast-header.h"
+#include "dect2020ext-unicast-header-serialization-test-case.h"
+#include "ns3/dect2020ext-unicast-header.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020UnicastHeaderSerializationTestCase::Dect2020UnicastHeaderSerializationTestCase()
-    : TestCase("UnicastHeaderSerializationTest")
+Dect2020ExtUnicastHeaderSerializationTestCase::Dect2020ExtUnicastHeaderSerializationTestCase()
+    : TestCase("Dect2020ExtUnicastHeaderSerializationTest")
 {
 }
 
-Dect2020UnicastHeaderSerializationTestCase::~Dect2020UnicastHeaderSerializationTestCase()
+Dect2020ExtUnicastHeaderSerializationTestCase::~Dect2020ExtUnicastHeaderSerializationTestCase()
 {
 }
 
-void Dect2020UnicastHeaderSerializationTestCase::DoSetup()
+void Dect2020ExtUnicastHeaderSerializationTestCase::DoSetup()
 {
 }
 
-void Dect2020UnicastHeaderSerializationTestCase::DoRun()
+void Dect2020ExtUnicastHeaderSerializationTestCase::DoRun()
 {
-    Dect2020UnicastHeader originalHeader;
-    Dect2020UnicastHeader deserializedHeader;
+    Dect2020ExtUnicastHeader originalHeader;
+    Dect2020ExtUnicastHeader deserializedHeader;
     Packet packet;
     uint8_t macSequence = 0xF;
     uint8_t sequenceNumber = 0xAB;

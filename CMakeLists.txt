@@ -207,7 +207,9 @@ set(dect2020ext_mac_common_headers_test_src
     test/mac-common-headers/data-mac-pdu/dect2020ext-data-mac-pdu-test.cc
     test/mac-common-headers/data-mac-pdu/dect2020ext-data-mac-pdu-serialization-test-case.cc
     test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-test.cc
-    test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-serialization-test-case.cc)
+    test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-serialization-test-case.cc
+    test/mac-common-headers/unicast-header/dect2020ext-unicast-header-test.cc
+    test/mac-common-headers/unicast-header/dect2020ext-unicast-header-serialization-test-case.cc)
 
 # Mac Header Type Test
 set(dect2020ext_mac_header_type_test_src
