@@ -1,5 +1,5 @@
 # Design Documentation of the DECT NR+ NS-3 Implementation
-# Configuration
+# 1. Configuration
 The project can be configured through the `config` model located in `/model/config`.
 The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
 `dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
@@ -9,7 +9,7 @@ The `Dect2020ExtConfig` class creates two objects that are shared by all `Dect20
 - Channel Manager
 `Dect2020ExtConfig` also creates an Isotropic Antenna for every PHY.
 `Dect2020ExtConfig` has `ApplyToPhy` and `ApplyToMac` functions that bootstrap the values from `dect2020ext-config-values` to the corresponding `Dect2020ExtPhy` and `Dect2020ExtMac` models.
-# Logging
+# 2. Logging
 The default logging setup (logging levels) looks like this:
 ```c++
 LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
@@ -29,14 +29,14 @@ The current default way of logging information (for MAC for example) is:
 NS_LOG_INFO(MAC_IDENTITY << "some interesting information");
 ```
 Note, if the information is logged without using a proper identity, the logs will not be separated correctly by the `splitlogs.py` script.
-# Statistics
+# 3. Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on the `PHY_IDENTITY`.
-# Initialization
-# Initializing Network
-# Spectrum Management Procedure
-# Beacon Transmission
+# 4. Initialization
+# 5. Initializing Network
+# 6. Spectrum Management Procedure
+# 7. Beacon Transmission
 
-# PHY Rx State Machine
+# 8. PHY Rx State Machine
 ```mermaid
 ---
 config:
@@ -68,7 +68,7 @@ deactivate FT_PHY
 Note over FT_PHY: State IDLE
 ```
 
-# Association Procedure
+# 9. Association Procedure
 
 ```mermaid
 ---
@@ -123,7 +123,7 @@ loop Based on App Tx period and state
 end
 ```
 
-# HARQ and Random Access Procedure
+# 10. HARQ and Random Access Procedure
 ## HARQ
 In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as "HARQ" in the code base, the procedure is not fully implemented.
 The current "HARQ" implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
@@ -168,3 +168,33 @@ HandleHarqAck --> IsTxQueueEmpty
 IsTxQueueEmpty -- YES --> InitiateHARQ
 IsTxQueueEmpty -- NO --> MonitorTxQueue
 ```
+# 11. MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
+The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
+The table is implemented as follows:
+```c++
+const std::vector<uint16_t> Dect2020ExtPhy::m_singleSlotSingleStreamTransportBlockSizesMu1Beta1
+{
+    136,  // MCS 0
+    296,  // MCS 1
+    456,  // MCS 2
+    616,  // MCS 3
+    936,  // MCS 4
+    1256, // MCS 5
+    1416, // MCS 6
+    1576, // MCS 7
+    1896, // MCS 8
+    2040, // MCS 9
+    2296, // MCS 10
+    2552  // MCS 11
+};
+```
+
+The computation of MAC PDU size in slots and subslots is as follows:
+1. Convert size from bytes to bits by multiplying `packetLengthInBytes` by 8.
+2. Get MCS Transport Block Size (TBS) by calling `Dect2020ExtPhy::GetMcsTransportBlockSize` and passing alpha, beta, and configured MCS index (at the MAC level) to the function and storing the result in `mcsTransportBlockSizeBitsPerSlot`.
+3. If the length is calculated in subslots:
+	1. Get subslots per slot from `Dect2020ExtChannelManager` and store the result in `subslotsPerSlot`
+	2. Calculate transport block size per subslot by dividing `mcsTransportBlockSizeBitsPerSlot` by `subslotsPerSlot`
+	3. Calculate packet MAC PDU length in subslots (with rounding up)  by calling `std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot`
+4. If the length is calculated in slots:
+	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
