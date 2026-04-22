@@ -198,3 +198,9 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	3. Calculate packet MAC PDU length in subslots (with rounding up)  by calling `std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot`
 4. If the length is calculated in slots:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
+# 12. Available Tests
+1. Mac Common Headers:
+	1. Beacon Header
+	2. Data MAC PDU
+	3. RD Broadcasting Header
+	4. Unicast Header

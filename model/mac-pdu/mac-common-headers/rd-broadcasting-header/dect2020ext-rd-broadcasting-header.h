@@ -1,6 +1,3 @@
-// DECT 2020 RD Broadcasting Header
-// ETSI TS 103 636-4 6.3.3.4
-
 #ifndef DECT2020EXT_RD_BROADCASTING_HEADER_H
 #define DECT2020EXT_RD_BROADCASTING_HEADER_H
 
@@ -9,11 +6,11 @@
 namespace ns3
 {
 
-class Dect2020ExtRDBroadcastingHeader : public Header
+class Dect2020ExtRdBroadcastingHeader : public Header
 {
     public:
-        Dect2020ExtRDBroadcastingHeader();
-        ~Dect2020ExtRDBroadcastingHeader() override;
+        Dect2020ExtRdBroadcastingHeader();
+        ~Dect2020ExtRdBroadcastingHeader() override;
 
         // Virtual Header base class methods
 
@@ -43,4 +40,4 @@ class Dect2020ExtRDBroadcastingHeader : public Header
 
 } // namespace ns3
 
-#endif // DECT2020EXT_RD_BROADCASTING_HEADER_H
+#endif // DECT2020EXT_RD_BROADCASTING_HEADER_H_H

@@ -1,29 +1,29 @@
-#include "serialization-test-case.h"
-#include "ns3/dect2020-data-mac-pdu-header.h"
+#include "dect2020ext-data-mac-pdu-serialization-test-case.h"
+#include "ns3/dect2020ext-data-mac-pdu-header.h"
 #include "ns3/packet.h"
 
 namespace ns3
 {
 
-Dect2020DataMacPduSerializationTestCase::Dect2020DataMacPduSerializationTestCase()
-    : TestCase("Dect2020DataMacPduHeaderSerializationTestCase")
+Dect2020ExtDataMacPduSerializationTestCase::Dect2020ExtDataMacPduSerializationTestCase()
+    : TestCase("Dect2020ExtDataMacPduHeaderSerializationTestCase")
 {
 }
 
-Dect2020DataMacPduSerializationTestCase::~Dect2020DataMacPduSerializationTestCase()
-{
-}
-
-void
-Dect2020DataMacPduSerializationTestCase::DoSetup()
+Dect2020ExtDataMacPduSerializationTestCase::~Dect2020ExtDataMacPduSerializationTestCase()
 {
 }
 
 void
-Dect2020DataMacPduSerializationTestCase::DoRun()
+Dect2020ExtDataMacPduSerializationTestCase::DoSetup()
 {
-    Dect2020DataMacPduHeader originalHeader;
-    Dect2020DataMacPduHeader deserializedHeader;
+}
+
+void
+Dect2020ExtDataMacPduSerializationTestCase::DoRun()
+{
+    Dect2020ExtDataMacPduHeader originalHeader;
+    Dect2020ExtDataMacPduHeader deserializedHeader;
     Packet packet;
 
     // Set test values

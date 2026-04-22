@@ -3,41 +3,41 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtRDBroadcastingHeader");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRDBroadcastingHeader);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtRdBroadcastingHeader");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRdBroadcastingHeader);
 
-Dect2020ExtRDBroadcastingHeader::Dect2020ExtRDBroadcastingHeader()
+Dect2020ExtRdBroadcastingHeader::Dect2020ExtRdBroadcastingHeader()
 {
 }
 
-Dect2020ExtRDBroadcastingHeader::~Dect2020ExtRDBroadcastingHeader()
+Dect2020ExtRdBroadcastingHeader::~Dect2020ExtRdBroadcastingHeader()
 {
 }
 
 // Virtual Header base class methods
 
 TypeId
-Dect2020ExtRDBroadcastingHeader::GetTypeId()
+Dect2020ExtRdBroadcastingHeader::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtRDBroadcastingHeader")
+    static TypeId tid = TypeId("ns3::Dect2020ExtRdBroadcastingHeader")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtRDBroadcastingHeader>();
+                            .AddConstructor<Dect2020ExtRdBroadcastingHeader>();
     return tid;
 }
 
 TypeId
-Dect2020ExtRDBroadcastingHeader::GetInstanceTypeId() const
+Dect2020ExtRdBroadcastingHeader::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
-uint32_t Dect2020ExtRDBroadcastingHeader::GetSerializedSize() const
+uint32_t Dect2020ExtRdBroadcastingHeader::GetSerializedSize() const
 {
     return 6;
 }
 
-void Dect2020ExtRDBroadcastingHeader::Serialize(Buffer::Iterator start) const
+void Dect2020ExtRdBroadcastingHeader::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     // 3 first bits are reserved
@@ -53,7 +53,7 @@ void Dect2020ExtRDBroadcastingHeader::Serialize(Buffer::Iterator start) const
     start.WriteU32(m_transmitterAddress);
 }
 
-uint32_t Dect2020ExtRDBroadcastingHeader::Deserialize(Buffer::Iterator start)
+uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -80,7 +80,7 @@ uint32_t Dect2020ExtRDBroadcastingHeader::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ExtRDBroadcastingHeader::Print(std::ostream &os) const
+Dect2020ExtRdBroadcastingHeader::Print(std::ostream &os) const
 {
     os << "[DECT2020 RD BROADCASTING HEADER]" << "\n"
         << "Reset value: 0x" << std::hex << (int)GetReset() << "\n"
@@ -90,7 +90,7 @@ Dect2020ExtRDBroadcastingHeader::Print(std::ostream &os) const
 
 // Setters and Getters
 
-void Dect2020ExtRDBroadcastingHeader::SetReset(uint8_t value)
+void Dect2020ExtRdBroadcastingHeader::SetReset(uint8_t value)
 {
     if(value != 0x0 && value != 0x1)
     {
@@ -102,12 +102,12 @@ void Dect2020ExtRDBroadcastingHeader::SetReset(uint8_t value)
     }
 }
 
-uint8_t Dect2020ExtRDBroadcastingHeader::GetReset() const
+uint8_t Dect2020ExtRdBroadcastingHeader::GetReset() const
 {
     return m_reset;
 }
 
-void Dect2020ExtRDBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
+void Dect2020ExtRdBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
     if((sequenceNumber & 0xF000) != 0)
     {
@@ -119,17 +119,17 @@ void Dect2020ExtRDBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
     }
 }
 
-uint16_t Dect2020ExtRDBroadcastingHeader::GetSequenceNumber() const
+uint16_t Dect2020ExtRdBroadcastingHeader::GetSequenceNumber() const
 {
     return m_sequenceNumber;
 }
 
-void Dect2020ExtRDBroadcastingHeader::SetTransmitterAddress(uint32_t transmitterAddress)
+void Dect2020ExtRdBroadcastingHeader::SetTransmitterAddress(uint32_t transmitterAddress)
 {
     m_transmitterAddress = transmitterAddress;
 }
 
-uint32_t Dect2020ExtRDBroadcastingHeader::GetTransmitterAddress() const
+uint32_t Dect2020ExtRdBroadcastingHeader::GetTransmitterAddress() const
 {
     return m_transmitterAddress;
 }

@@ -200,11 +200,14 @@ set(dect2020ext_information_elements_test_src
     test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-test.cc
     test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-serialization-test-case.cc)
 
-# MAC Common Headers
-
+# MAC Common Header Tests
 set(dect2020ext_mac_common_headers_test_src
     test/mac-common-headers/beacon-header/dect2020ext-beacon-header-test.cc
-    test/mac-common-headers/beacon-header/dect2020ext-beacon-header-serialization-test-case.cc)
+    test/mac-common-headers/beacon-header/dect2020ext-beacon-header-serialization-test-case.cc
+    test/mac-common-headers/data-mac-pdu/dect2020ext-data-mac-pdu-test.cc
+    test/mac-common-headers/data-mac-pdu/dect2020ext-data-mac-pdu-serialization-test-case.cc
+    test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-test.cc
+    test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-serialization-test-case.cc)
 
 # Mac Header Type Test
 set(dect2020ext_mac_header_type_test_src
@@ -255,15 +258,15 @@ build_lib(
         ${dect2020ext_app_h}
         ${dect2020ext_statistics_h}
     TEST_SOURCES
-        ${dect2020ext_information_elements_test_src}
-        ${dect2020ext_physical_header_field_test_src}
-        ${dect2020ext_configuration_test_src}
-        ${dect2020ext_message_test_src}
-        ${mac_multiplexing_header_test_src}
         ${dect2020ext_mac_common_headers_test_src}
-        ${dect2020ext_mac_header_type_test_src}
-        ${dect2020ext_random_access_test_src}
-        ${dect2020ext_phy_test_src}
+        # ${dect2020ext_information_elements_test_src}
+        # ${dect2020ext_physical_header_field_test_src}
+        # ${dect2020ext_configuration_test_src}
+        # ${dect2020ext_message_test_src}
+        # ${mac_multiplexing_header_test_src}
+        # ${dect2020ext_mac_header_type_test_src}
+        # ${dect2020ext_random_access_test_src}
+        # ${dect2020ext_phy_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}

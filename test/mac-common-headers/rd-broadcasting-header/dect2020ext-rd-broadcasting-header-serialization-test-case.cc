@@ -1,26 +1,26 @@
-#include "serialization-test-case.h"
-#include "ns3/dect2020-rd-broadcasting-header.h"
+#include "dect2020ext-rd-broadcasting-header-serialization-test-case.h"
+#include "ns3/dect2020ext-rd-broadcasting-header.h"
 #include "ns3/packet.h"
 
 namespace ns3 {
 
-Dect2020RDBroadcastingHeaderSerializationTestCase::Dect2020RDBroadcastingHeaderSerializationTestCase()
-    : TestCase("Dect2020RDBroadcastingHeaderSerializationTestCase")
+Dect2020ExtRdBroadcastingHeaderSerializationTestCase::Dect2020ExtRdBroadcastingHeaderSerializationTestCase()
+    : TestCase("Dect2020ExtRdBroadcastingHeaderSerializationTestCase")
 {
 }
 
-Dect2020RDBroadcastingHeaderSerializationTestCase::~Dect2020RDBroadcastingHeaderSerializationTestCase()
+Dect2020ExtRdBroadcastingHeaderSerializationTestCase::~Dect2020ExtRdBroadcastingHeaderSerializationTestCase()
 {
 }
 
-void Dect2020RDBroadcastingHeaderSerializationTestCase::DoSetup()
+void Dect2020ExtRdBroadcastingHeaderSerializationTestCase::DoSetup()
 {
 }
 
-void Dect2020RDBroadcastingHeaderSerializationTestCase::DoRun()
+void Dect2020ExtRdBroadcastingHeaderSerializationTestCase::DoRun()
 {
-    Dect2020RDBroadcastingHeader originalHeader;
-    Dect2020RDBroadcastingHeader deserializedHeader;
+    Dect2020ExtRdBroadcastingHeader originalHeader;
+    Dect2020ExtRdBroadcastingHeader deserializedHeader;
     Packet packet;
 
     // Set test values

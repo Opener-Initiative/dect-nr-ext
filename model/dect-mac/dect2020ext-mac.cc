@@ -904,7 +904,7 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE rando
             NS_LOG_INFO(MAC_IDENTITY << ": RACH window has passed, rescheduling for next frame");
             double timeTillNextFrameNs = m_macScheduler->GetTimeTillNextFrameNs();
             double offsetTillStartSubslot = m_macScheduler->GetSubslotStartTimeOffsetNs(startSubslot);
-            Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + offsetTillStartSubslot), &Dect2020ExtMac::InitiateHarqRandomAccess, this, randomAccessResourceIE, packet, physicalHeaderField);
+            Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + offsetTillStartSubslot), &Dect2020ExtMac::InitiateHarqRandomAccess, this, randomAccessResourceIE, packet, physicalHeaderField, harqProcess);
             return;
         }
 
