@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tracking.md",
+                "file": "DECT NR+.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tracking"
+              "title": "DECT NR+"
             }
           }
         ]
@@ -185,8 +185,8 @@
   },
   "active": "da5383a9a55560f3",
   "lastOpenFiles": [
-    "DECT NR+.md",
     "Tracking.md",
+    "DECT NR+.md",
     "DECT NR+.html",
     "DECT NR+_tmp.html",
     "DECT NR+.pdf",

@@ -199,8 +199,26 @@ The computation of MAC PDU size in slots and subslots is as follows:
 4. If the length is calculated in slots:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
 # 12. Available Tests
-1. Mac Common Headers:
-	1. Beacon Header
+1. Mac Common Header Serialization/Deserialization tests:
+	1. [Beacon Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C455%5D)
 	2. Data MAC PDU
 	3. RD Broadcasting Header
 	4. Unicast Header
+# 13. MAC Common Header Tests
+All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
+1. Two header objects are initiated - one for the original header and one for the deserialized header
+2. One packet object is initiated to simulate adding headers to MAC PDU
+3. Values for header fields are generated randomly, for example:
+```c++
+std::random_device rd;
+std::mt19937 mt(rd());
+std::uniform_int_distribution<uint32_t> networkIdDist(0, 0xFFFFFF);
+std::uniform_int_distribution<uint32_t> transmitterAddressDist(0, 0xFFFFFFFF);
+
+uint32_t networkId = networkIdDist(mt); // 24-bit ID
+uint32_t transmitterAddress = transmitterAddressDist(mt); // 32-bit address
+
+originalHeader.SetNetworkId(networkId);
+originalHeader.SetTransmitterAddress(transmitterAddress);
+```
+4. When adding header to the packet, the size of the packet before and after addition is also tested
