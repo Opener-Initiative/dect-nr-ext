@@ -1,4 +1,4 @@
-# Design Documentation of the DECT NR+ NS-3 Implementation
+# Design Documentation of the DECT NR+ ns-3 Implementation
 # 1. Configuration
 The project can be configured through the `config` model located in `/model/config`.
 The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
@@ -222,3 +222,17 @@ originalHeader.SetNetworkId(networkId);
 originalHeader.SetTransmitterAddress(transmitterAddress);
 ```
 4. When adding header to the packet, the size of the packet before and after addition is also tested
+# 14. Running Tests
+All tests can be executed with the `test.py` ns-3 script:
+1. Navigate to the root directory of ns-3
+2. To run all `dect2020ext` tests, run this command in the terminal:
+```bash
+python test.py --suite="dect2020ext*"
+```
+3. To run a specific `TestSuite`, run this command in the terminal (regex can also be used to specify what to run):
+```bash
+python test.py --suite="dect2020ext-beacon*"
+```
+
+Tips:
+1. To be 100% sure that the tested models work correctly, it is probably a good idea to run tests a couple of times. Some tests, for example, MAC Common Header tests, can be tested with random values and therefore should be tested a couple of times to see how the models behave with different random values.

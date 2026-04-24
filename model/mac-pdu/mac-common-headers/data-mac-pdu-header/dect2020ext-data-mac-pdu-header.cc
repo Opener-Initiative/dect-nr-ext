@@ -58,13 +58,12 @@ Dect2020ExtDataMacPduHeader::Deserialize (Buffer::Iterator start)
     // byte 0
     uint8_t byte0 = start.ReadU8();
     m_reset = ((byte0 >> 4) & 0x1);
-    m_sequenceNumber = (byte0 & 0x0F);
+    m_sequenceNumber = static_cast<uint16_t>((byte0 & 0x0F) << 8);
 
     bytesRead++;
 
     // byte 1
     uint8_t byte1 = start.ReadU8();
-    m_sequenceNumber |= (m_sequenceNumber << 8);
     m_sequenceNumber |= (byte1);
 
     bytesRead++;

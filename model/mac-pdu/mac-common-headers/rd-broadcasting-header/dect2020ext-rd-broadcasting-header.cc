@@ -7,6 +7,9 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtRdBroadcastingHeader");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRdBroadcastingHeader);
 
 Dect2020ExtRdBroadcastingHeader::Dect2020ExtRdBroadcastingHeader()
+    : m_reset(0),
+      m_sequenceNumber(0),
+      m_transmitterAddress(0)
 {
 }
 
@@ -60,14 +63,13 @@ uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
     // byte 0
     uint8_t byte0 = start.ReadU8();
     m_reset = ((byte0 >> 4) & 0x1);
-    m_sequenceNumber = (byte0 & 0x0F);
+    m_sequenceNumber = static_cast<uint16_t>((byte0 & 0x0F) << 8);
 
     bytesRead++;
 
     // byte 1
     uint8_t byte1 = start.ReadU8();
-    m_sequenceNumber |= (m_sequenceNumber << 8);
-    m_sequenceNumber |= (byte1);
+    m_sequenceNumber |= byte1;
 
     bytesRead++;
 
@@ -83,9 +85,9 @@ void
 Dect2020ExtRdBroadcastingHeader::Print(std::ostream &os) const
 {
     os << "[DECT2020 RD BROADCASTING HEADER]" << "\n"
-        << "Reset value: 0x" << std::hex << (int)GetReset() << "\n"
-        << "Sequence Number: 0x" << std::hex << (int)GetSequenceNumber() << "\n"
-        << "Transmitter Address: 0x" << std::hex << (int)GetTransmitterAddress() << "\n";
+        << "Reset value: 0x" << std::hex << static_cast<uint32_t>(GetReset()) << "\n"
+        << "Sequence Number: 0x" << std::hex << GetSequenceNumber() << "\n"
+        << "Transmitter Address: 0x" << std::hex << GetTransmitterAddress() << "\n";
 }
 
 // Setters and Getters

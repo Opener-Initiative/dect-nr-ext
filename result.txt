@@ -1,0 +1,9 @@
+FAIL: Test Suite "dect2020ext-rd-broadcasting-header-test" (0.001)
+FAIL: Test Case "Dect2020ExtRdBroadcastingHeaderSerializationTestCase" (0.000)
+    Details:
+      Message:   Sequence Number mismatch after serialization/deserialization
+      Condition: deserializedHeader.GetSequenceNumber() (actual) == sequenceNumber (limit)
+      Actual:    1007
+      Limit:     1004
+      File:      /home/seele/ns-3.46.1/contrib/dect-nr-ext/test/mac-common-headers/rd-broadcasting-header/dect2020ext-rd-broadcasting-header-serialization-test-case.cc
+      Line:      71
