@@ -31,3 +31,6 @@ Rename HARQ to ARQ or stop and wait
 
 # Changes to the implementation documentation
 - Implemented PHY Tx state machine -> update diagram 8
+
+# Questions
+1. Does network byte order matter in MAC PDUs? Should host to network byte orders be used?

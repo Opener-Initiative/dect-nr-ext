@@ -12,7 +12,7 @@ class Dect2020ExtBeaconHeader : public Header
 		Dect2020ExtBeaconHeader();
 		virtual ~Dect2020ExtBeaconHeader();
 
-		// Overloaded methods from Header
+		// Overloaded methods from Header base class
 
 		static TypeId GetTypeId();
 		TypeId GetInstanceTypeId() const override;

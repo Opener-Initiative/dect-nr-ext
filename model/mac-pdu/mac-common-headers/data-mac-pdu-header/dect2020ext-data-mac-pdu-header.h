@@ -12,23 +12,24 @@ class Dect2020ExtDataMacPduHeader : public Header
         Dect2020ExtDataMacPduHeader();
         virtual ~Dect2020ExtDataMacPduHeader();
 
-        // Virtual Header base class methods
+        // Overloaded methods from Header base class
 
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId() const override;
-        virtual uint32_t GetSerializedSize() const override;
-        virtual void Serialize(Buffer::Iterator start) const override;
-        virtual uint32_t Deserialize(Buffer::Iterator start) override;
-        virtual void Print(std::ostream &os) const override;
+        static TypeId GetTypeId();
+        TypeId GetInstanceTypeId() const override;
+        void Print(std::ostream &os) const override;
+        uint32_t GetSerializedSize() const override;
+        void Serialize(Buffer::Iterator start) const override;
+        uint32_t Deserialize(Buffer::Iterator start) override;
 
         // Setters and Getters
         void SetReset(uint8_t value);
         uint8_t GetReset() const;
+
         void SetSequenceNumber(uint16_t sequenceNumber);
         uint16_t GetSequenceNumber() const;
         
     private:
-        uint8_t m_reset;
+        uint8_t m_reset; // 1 relevant bit
         uint16_t m_sequenceNumber; // 12 relevant bits
 };
 
