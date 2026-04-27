@@ -7,11 +7,6 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtUnicastHeader");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtUnicastHeader);
 
 Dect2020ExtUnicastHeader::Dect2020ExtUnicastHeader()
-    : m_reset(false),
-      m_macSequence(0),
-      m_sequenceNumber(0),
-      m_receiverAddress(0),
-      m_transmitterAddress(0)
 {
 }
 
@@ -19,72 +14,8 @@ Dect2020ExtUnicastHeader::~Dect2020ExtUnicastHeader()
 {
 }
 
-void
-Dect2020ExtUnicastHeader::SetReset(bool reset)
-{
-    m_reset = reset;
-}
-
-bool
-Dect2020ExtUnicastHeader::GetReset() const
-{
-    return m_reset;
-}
-
-void
-Dect2020ExtUnicastHeader::SetMacSequence(uint8_t number)
-{
-    if((number >> 4) != 0)
-    {
-        throw std::runtime_error("[ERROR] Argument of SetMacSequence function is longer than 4 bits!");
-    } 
-    m_macSequence = number;
-}
-
-uint8_t
-Dect2020ExtUnicastHeader::GetMacSequence() const
-{
-    return m_macSequence;
-}
-
-void
-Dect2020ExtUnicastHeader::SetSequenceNumber(uint8_t number)
-{
-    m_sequenceNumber = number;
-}
-
-uint8_t
-Dect2020ExtUnicastHeader::GetSequenceNumber() const
-{
-    return m_sequenceNumber;
-}
-
-void
-Dect2020ExtUnicastHeader::SetReceiverAddress(uint32_t address)
-{
-    m_receiverAddress = address;
-}
-
-uint32_t
-Dect2020ExtUnicastHeader::GetReceiverAddress() const
-{
-    return m_receiverAddress;
-}
-
-void
-Dect2020ExtUnicastHeader::SetTransmitterAddress(uint32_t address)
-{
-    m_transmitterAddress = address;
-}
-
-uint32_t
-Dect2020ExtUnicastHeader::GetTransmitterAddress() const
-{
-    return m_transmitterAddress;
-}
-
 TypeId
-Dect2020ExtUnicastHeader::GetTypeId(void)
+Dect2020ExtUnicastHeader::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtUnicastHeader")
                             .SetParent<Header>()
@@ -94,7 +25,7 @@ Dect2020ExtUnicastHeader::GetTypeId(void)
 }
 
 TypeId
-Dect2020ExtUnicastHeader::GetInstanceTypeId(void) const
+Dect2020ExtUnicastHeader::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
@@ -145,5 +76,72 @@ Dect2020ExtUnicastHeader::Deserialize(Buffer::Iterator start)
     return 10;
 }
 
+void
+Dect2020ExtUnicastHeader::SetReset(bool reset)
+{
+    if(reset != 0x0 && reset != 0x1)
+    {
+        NS_FATAL_ERROR("[ERROR] Reset can only be 0 ir 1, got: " << reset);
+    }
+    m_reset = reset;
+}
+
+bool
+Dect2020ExtUnicastHeader::GetReset() const
+{
+    return m_reset;
+}
+
+void
+Dect2020ExtUnicastHeader::SetMacSequence(uint8_t number)
+{
+    if(number > 0xF)
+    {
+        NS_FATAL_ERROR("[ERROR] MAC Sequence can only be 4 bit long, got: " << number);
+    } 
+    m_macSequence = number;
+}
+
+uint8_t
+Dect2020ExtUnicastHeader::GetMacSequence() const
+{
+    return m_macSequence;
+}
+
+void
+Dect2020ExtUnicastHeader::SetSequenceNumber(uint8_t number)
+{
+    m_sequenceNumber = number;
+}
+
+uint8_t
+Dect2020ExtUnicastHeader::GetSequenceNumber() const
+{
+    return m_sequenceNumber;
+}
+
+void
+Dect2020ExtUnicastHeader::SetReceiverAddress(uint32_t address)
+{
+    m_receiverAddress = address;
+}
+
+uint32_t
+Dect2020ExtUnicastHeader::GetReceiverAddress() const
+{
+    return m_receiverAddress;
+}
+
+void
+Dect2020ExtUnicastHeader::SetTransmitterAddress(uint32_t address)
+{
+    m_transmitterAddress = address;
+}
+
+uint32_t
+Dect2020ExtUnicastHeader::GetTransmitterAddress() const
+{
+    return m_transmitterAddress;
+}
     
 } // namespace ns3

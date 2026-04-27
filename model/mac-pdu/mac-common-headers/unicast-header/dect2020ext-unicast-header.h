@@ -12,38 +12,31 @@ class Dect2020ExtUnicastHeader : public Header
         Dect2020ExtUnicastHeader();
         virtual ~Dect2020ExtUnicastHeader();
 
-        // Set Reset
+        // Overloaded methods from Header base class
+
+        static TypeId GetTypeId();
+        TypeId GetInstanceTypeId() const override;
+        void Print(std::ostream& os) const override;
+        uint32_t GetSerializedSize() const override;
+        void Serialize(Buffer::Iterator start) const override;
+        uint32_t Deserialize(Buffer::Iterator start) override;
+
+        // Setters and Getters
+
         void SetReset(bool reset);
-        // Get Reset
         bool GetReset() const;
 
-        // Set MAC Sequence
         void SetMacSequence(uint8_t number);
-        // Get MAC Sequence
         uint8_t GetMacSequence() const;
 
-        // Set Sequence Number
         void SetSequenceNumber(uint8_t number);
-        // Get Sequence Number
         uint8_t GetSequenceNumber() const;
 
-        // Set Receiver Address
         void SetReceiverAddress(uint32_t);
-        // Get Receiver Address
         uint32_t GetReceiverAddress() const;
 
-        // Set Transmitter Address
         void SetTransmitterAddress(uint32_t);
-        // Get Transmitter Address
         uint32_t GetTransmitterAddress() const;
-
-        // Überladene Methoden von Header
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId(void) const;
-        virtual void Print(std::ostream& os) const;
-        virtual uint32_t GetSerializedSize(void) const;
-        virtual void Serialize(Buffer::Iterator start) const;
-        virtual uint32_t Deserialize(Buffer::Iterator start);
 
     private:
         bool m_reset; // 1 bit
