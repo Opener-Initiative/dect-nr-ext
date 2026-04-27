@@ -881,7 +881,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAcc
 }
 
 void
-Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess)
+Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Initiating Harq Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
@@ -1164,7 +1164,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
     NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
 
     Dect2020ExtPhyControlFieldType1 physicalHeaderFieldType1;
-    Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2;
+    Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2;
 
     if (data)
     {
@@ -1347,7 +1347,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
 }
 
 void
-Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2)
+Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2)
 {
     // --- Unicast Header ---
     Dect2020ExtUnicastHeader unicastHeader;
@@ -1435,7 +1435,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldT
 
         ack->AddHeader(macHeaderType);
 
-        Dect2020ExtPHYControlFieldType2 phyCtrl(Dect2020ExtPHYControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_000);
+        Dect2020ExtPhyControlFieldType2 phyCtrl(Dect2020ExtPhyControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_000);
         phyCtrl.SetPacketLengthType(1); // length in slots
         phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(ack->GetSize()));
         phyCtrl.SetShortNetworkID(0); // currently not used
@@ -2092,7 +2092,7 @@ Dect2020ExtMac::InitiateHARQ()
     proc->reTxCount = 0;
     proc->txTime = Simulator::Now();
 
-    Dect2020ExtPHYControlFieldType2 phyCtrl(Dect2020ExtPHYControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_000);
+    Dect2020ExtPhyControlFieldType2 phyCtrl(Dect2020ExtPhyControlFieldType2::Dect2020ExtHeaderFormat::FORMAT_000);
     phyCtrl.SetPacketLengthType(1); // length in slots
     phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(packet->GetSize()));
     phyCtrl.SetShortNetworkID(0); // currently not used
@@ -2127,7 +2127,7 @@ Dect2020ExtMac::InitiateHARQ()
 }
 
 void
-Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
+Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
 {
     NS_LOG_FUNCTION(MAC_IDENTITY);
     NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
@@ -2135,7 +2135,7 @@ Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phy
 }
 
 void
-Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl)
+Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
 {
     NS_LOG_FUNCTION(MAC_IDENTITY);
     // Find a HARQ process
@@ -2178,7 +2178,7 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 p
 }
 
 void
-Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 phyCtrlType2)
+Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2)
 {
     // Find a HARQ process
     Dect2020ExtHarqProcess* proc = nullptr;

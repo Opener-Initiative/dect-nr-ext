@@ -55,7 +55,7 @@ struct Dect2020ExtRandomAccessContext
     uint32_t m_CW_CURRENT;
     Ptr<Packet> m_packet;
     Dect2020ExtPhyControlFieldType1 m_physicalHeaderFieldType1;
-    Dect2020ExtPHYControlFieldType2 m_physicalHeaderFieldType2;
+    Dect2020ExtPhyControlFieldType2 m_physicalHeaderFieldType2;
     int m_physicalHeaderFieldType;
 
     // LBT sampling
@@ -250,7 +250,7 @@ class Dect2020ExtMac : public Object
         // #####################################
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField);
-        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
+        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
@@ -264,7 +264,7 @@ class Dect2020ExtMac : public Object
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
-        void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2);
+        void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2);
         Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIE& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIE& randomAccessResourceIE, Dect2020ExtFtCandidateInfo* ft);
         void SelectBestFtCandidate();
@@ -318,9 +318,9 @@ class Dect2020ExtMac : public Object
         // ##################
 
         void InitiateHARQ();
-        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
-        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPHYControlFieldType2 phyCtrl);
-        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 phyCtrlType2);
+        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
+        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
+        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2);
         void MonitorTxQueue();
 
         // #########################

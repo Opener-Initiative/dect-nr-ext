@@ -401,7 +401,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
 }
 
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeader)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader)
 {
     NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
@@ -464,7 +464,7 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHe
 }
 
 double
-Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader)
+Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHeader)
 {
     if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
     {

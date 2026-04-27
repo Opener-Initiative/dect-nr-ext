@@ -6,51 +6,51 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtPHYControlFieldType2");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPHYControlFieldType2);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhyControlFieldType2");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhyControlFieldType2);
 
-Dect2020ExtPHYControlFieldType2::Dect2020ExtPHYControlFieldType2()
+Dect2020ExtPhyControlFieldType2::Dect2020ExtPhyControlFieldType2()
 {
 }
 
-Dect2020ExtPHYControlFieldType2::Dect2020ExtPHYControlFieldType2(Dect2020ExtHeaderFormat headerFormat)
+Dect2020ExtPhyControlFieldType2::Dect2020ExtPhyControlFieldType2(Dect2020ExtHeaderFormat headerFormat)
 {
 	m_headerFormat = headerFormat;
 }
 
-Dect2020ExtPHYControlFieldType2::~Dect2020ExtPHYControlFieldType2()
+Dect2020ExtPhyControlFieldType2::~Dect2020ExtPhyControlFieldType2()
 {
 }
 
 TypeId
-Dect2020ExtPHYControlFieldType2::GetTypeId()
+Dect2020ExtPhyControlFieldType2::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtPHYControlFieldType2")
+    static TypeId tid = TypeId("ns3::Dect2020ExtPhyControlFieldType2")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtPHYControlFieldType2>();
+                            .AddConstructor<Dect2020ExtPhyControlFieldType2>();
     return tid;
 }
 
 TypeId
-Dect2020ExtPHYControlFieldType2::GetInstanceTypeId() const
+Dect2020ExtPhyControlFieldType2::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 void
-Dect2020ExtPHYControlFieldType2::Print(std::ostream& os) const
+Dect2020ExtPhyControlFieldType2::Print(std::ostream& os) const
 {
 }
 
 uint32_t
-Dect2020ExtPHYControlFieldType2::GetSerializedSize() const
+Dect2020ExtPhyControlFieldType2::GetSerializedSize() const
 {
     return 10;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::Serialize(Buffer::Iterator start) const
+Dect2020ExtPhyControlFieldType2::Serialize(Buffer::Iterator start) const
 {
     uint8_t byte0 = 0; 
     byte0 |= m_headerFormat << 5;
@@ -116,12 +116,12 @@ Dect2020ExtPHYControlFieldType2::Serialize(Buffer::Iterator start) const
     }
     else
     {
-        NS_ABORT_MSG("Dect2020ExtPHYControlFieldType2::Serialize: unknown headerFormat " << (int)m_headerFormat);
+        NS_ABORT_MSG("Dect2020ExtPhyControlFieldType2::Serialize: unknown headerFormat " << (int)m_headerFormat);
     }
 }
 
 uint32_t
-Dect2020ExtPHYControlFieldType2::Deserialize(Buffer::Iterator start)
+Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
 {
     uint8_t byte0 = start.ReadU8();
     m_headerFormat = byte0 >> 5;
@@ -167,20 +167,20 @@ Dect2020ExtPHYControlFieldType2::Deserialize(Buffer::Iterator start)
     }
     else
     {
-        NS_ABORT_MSG("Dect2020ExtPHYControlFieldType2::Deserialize: unknown headerFormat " << (int)m_headerFormat);
+        NS_ABORT_MSG("Dect2020ExtPhyControlFieldType2::Deserialize: unknown headerFormat " << (int)m_headerFormat);
     }
 
     return GetSerializedSize();
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetHeaderFormat() const
+Dect2020ExtPhyControlFieldType2::GetHeaderFormat() const
 {
     return m_headerFormat;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020ExtPhyControlFieldType2::SetPacketLengthType(uint8_t packetLengthType)
 {
     if (packetLengthType == 0 || packetLengthType == 1)
     {
@@ -193,13 +193,13 @@ Dect2020ExtPHYControlFieldType2::SetPacketLengthType(uint8_t packetLengthType)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetPacketLengthType() const
+Dect2020ExtPhyControlFieldType2::GetPacketLengthType() const
 {
     return m_packetLengthType;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetPacketLength(uint8_t packetLength)
+Dect2020ExtPhyControlFieldType2::SetPacketLength(uint8_t packetLength)
 {
     if (packetLength >= 0 && packetLength <= 15)
     {
@@ -212,13 +212,13 @@ Dect2020ExtPHYControlFieldType2::SetPacketLength(uint8_t packetLength)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetPacketLength() const
+Dect2020ExtPhyControlFieldType2::GetPacketLength() const
 {
     return m_packetLength;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020ExtPhyControlFieldType2::SetShortNetworkID(uint8_t shortNetworkID)
 {
     if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
     {
@@ -231,13 +231,13 @@ Dect2020ExtPHYControlFieldType2::SetShortNetworkID(uint8_t shortNetworkID)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetShortNetworkID() const
+Dect2020ExtPhyControlFieldType2::GetShortNetworkID() const
 {
     return m_shortNetworkID;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetTransmitterIdentity(uint16_t transmitterIdentity)
+Dect2020ExtPhyControlFieldType2::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
     if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
     {
@@ -250,13 +250,13 @@ Dect2020ExtPHYControlFieldType2::SetTransmitterIdentity(uint16_t transmitterIden
 }
 
 uint16_t
-Dect2020ExtPHYControlFieldType2::GetTransmitterIdentity() const
+Dect2020ExtPhyControlFieldType2::GetTransmitterIdentity() const
 {
     return m_transmitterIdentity;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetTransmitPower(uint8_t transmitPower)
+Dect2020ExtPhyControlFieldType2::SetTransmitPower(uint8_t transmitPower)
 {
     if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
     {
@@ -269,13 +269,13 @@ Dect2020ExtPHYControlFieldType2::SetTransmitPower(uint8_t transmitPower)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetTransmitPower() const
+Dect2020ExtPhyControlFieldType2::GetTransmitPower() const
 {
     return m_transmitPower;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetDFMCS(uint8_t DFMCS)
+Dect2020ExtPhyControlFieldType2::SetDFMCS(uint8_t DFMCS)
 {
     if (DFMCS >= 0 && DFMCS <= pow(2, 4) - 1)
     {
@@ -288,13 +288,13 @@ Dect2020ExtPHYControlFieldType2::SetDFMCS(uint8_t DFMCS)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetDFMCS() const
+Dect2020ExtPhyControlFieldType2::GetDFMCS() const
 {
     return m_DFMCS;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetReceiverIdentity(uint16_t receiverIdentity)
+Dect2020ExtPhyControlFieldType2::SetReceiverIdentity(uint16_t receiverIdentity)
 {
     if (receiverIdentity >= 0 && receiverIdentity <= pow(2, 16) - 1)
     {
@@ -307,13 +307,13 @@ Dect2020ExtPHYControlFieldType2::SetReceiverIdentity(uint16_t receiverIdentity)
 }
 
 uint16_t
-Dect2020ExtPHYControlFieldType2::GetReceiverIdentity() const
+Dect2020ExtPhyControlFieldType2::GetReceiverIdentity() const
 {
     return m_receiverIdentity;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetNumberOfSpatialStreams(uint8_t numberOfSpatialStreams)
+Dect2020ExtPhyControlFieldType2::SetNumberOfSpatialStreams(uint8_t numberOfSpatialStreams)
 {
     if (numberOfSpatialStreams >= 0 && numberOfSpatialStreams <= pow(2, 2) - 1)
     {
@@ -326,13 +326,13 @@ Dect2020ExtPHYControlFieldType2::SetNumberOfSpatialStreams(uint8_t numberOfSpati
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetNumberOfSpatialStreams() const
+Dect2020ExtPhyControlFieldType2::GetNumberOfSpatialStreams() const
 {
     return m_numberOfSpatialStreams;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetDFRedundancyVersion(uint8_t dFRedundancyVersion)
+Dect2020ExtPhyControlFieldType2::SetDFRedundancyVersion(uint8_t dFRedundancyVersion)
 {
     if (dFRedundancyVersion >= 0 && dFRedundancyVersion <= pow(2, 2) - 1)
     {
@@ -345,13 +345,13 @@ Dect2020ExtPHYControlFieldType2::SetDFRedundancyVersion(uint8_t dFRedundancyVers
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetDFRedundancyVersion() const
+Dect2020ExtPhyControlFieldType2::GetDFRedundancyVersion() const
 {
     return m_DFRedundancyVersion;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetDFNewDataIndication(uint8_t dFNewDataIndication)
+Dect2020ExtPhyControlFieldType2::SetDFNewDataIndication(uint8_t dFNewDataIndication)
 {
     if (dFNewDataIndication == 0 || dFNewDataIndication == 1)
     {
@@ -364,13 +364,13 @@ Dect2020ExtPHYControlFieldType2::SetDFNewDataIndication(uint8_t dFNewDataIndicat
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetDFNewDataIndication() const
+Dect2020ExtPhyControlFieldType2::GetDFNewDataIndication() const
 {
     return m_DFNewDataIndication;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetDFHARQProcessNumber(uint8_t dFHARQProcessNumber)
+Dect2020ExtPhyControlFieldType2::SetDFHARQProcessNumber(uint8_t dFHARQProcessNumber)
 {
     if (dFHARQProcessNumber >= 0 && dFHARQProcessNumber <= pow(2, 3) - 1)
     {
@@ -383,13 +383,13 @@ Dect2020ExtPHYControlFieldType2::SetDFHARQProcessNumber(uint8_t dFHARQProcessNum
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetDFHARQProcessNumber() const
+Dect2020ExtPhyControlFieldType2::GetDFHARQProcessNumber() const
 {
     return m_DFHARQProcessNumber;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetFeedbackFormat(uint8_t feedbackFormat)
+Dect2020ExtPhyControlFieldType2::SetFeedbackFormat(uint8_t feedbackFormat)
 {
     if (feedbackFormat >= 0 && feedbackFormat <= pow(2, 4) - 1)
     {
@@ -402,13 +402,13 @@ Dect2020ExtPHYControlFieldType2::SetFeedbackFormat(uint8_t feedbackFormat)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType2::GetFeedbackFormat() const
+Dect2020ExtPhyControlFieldType2::GetFeedbackFormat() const
 {
     return m_feedbackFormat;
 }
 
 void
-Dect2020ExtPHYControlFieldType2::SetFeedbackInfo(uint16_t feedbackInfo)
+Dect2020ExtPhyControlFieldType2::SetFeedbackInfo(uint16_t feedbackInfo)
 {
     if (feedbackInfo >= 0 && feedbackInfo <= pow(2, 12) - 1)
     {
@@ -421,7 +421,7 @@ Dect2020ExtPHYControlFieldType2::SetFeedbackInfo(uint16_t feedbackInfo)
 }
 
 uint16_t
-Dect2020ExtPHYControlFieldType2::GetFeedbackInfo() const
+Dect2020ExtPhyControlFieldType2::GetFeedbackInfo() const
 {
     return m_feedbackInfo;
 }
