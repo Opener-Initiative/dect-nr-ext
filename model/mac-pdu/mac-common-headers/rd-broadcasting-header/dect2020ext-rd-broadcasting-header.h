@@ -10,16 +10,16 @@ class Dect2020ExtRdBroadcastingHeader : public Header
 {
     public:
         Dect2020ExtRdBroadcastingHeader();
-        ~Dect2020ExtRdBroadcastingHeader() override;
+        virtual ~Dect2020ExtRdBroadcastingHeader();
 
-        // Virtual Header base class methods
+		// Overloaded methods from Header base class
 
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId() const override;
-        virtual uint32_t GetSerializedSize() const override;
-        virtual void Serialize(Buffer::Iterator start) const override;
-        virtual uint32_t Deserialize(Buffer::Iterator start) override;
-        virtual void Print(std::ostream &os) const override;
+        static TypeId GetTypeId();
+        TypeId GetInstanceTypeId() const override;
+        void Print(std::ostream &os) const override;
+        uint32_t GetSerializedSize() const override;
+        void Serialize(Buffer::Iterator start) const override;
+        uint32_t Deserialize(Buffer::Iterator start) override;
 
         // Setters and Getters
 

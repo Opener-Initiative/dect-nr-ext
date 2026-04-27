@@ -1,5 +1,4 @@
 #include "dect2020ext-data-mac-pdu-header.h"
-#include "ns3/log.h"
 
 namespace ns3 {
 
@@ -83,12 +82,9 @@ void Dect2020ExtDataMacPduHeader::SetReset(uint8_t value)
 {
     if(value != 0x0 && value != 0x1)
     {
-        throw std::runtime_error("[ERROR] Reset value can only be zero or one");
+        NS_FATAL_ERROR("[ERROR] Reset can only be 0 or 1, got: " << value);
     }
-    else
-    {
-        m_reset = value;
-    }
+    m_reset = value;
 }
 
 uint8_t Dect2020ExtDataMacPduHeader::GetReset() const
@@ -98,14 +94,11 @@ uint8_t Dect2020ExtDataMacPduHeader::GetReset() const
 
 void Dect2020ExtDataMacPduHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
-    if((sequenceNumber & 0xF000) != 0)
+    if(sequenceNumber > 0xFFF)
     {
-        throw std::runtime_error("[ERROR] Sequence Number can only be 12-bit long");
+        NS_FATAL_ERROR("[ERROR] Sequence number can only be 12 bits long, got: " << sequenceNumber);
     }
-    else
-    {
-        m_sequenceNumber = sequenceNumber;
-    }
+    m_sequenceNumber = sequenceNumber;
 }
 
 uint16_t Dect2020ExtDataMacPduHeader::GetSequenceNumber() const

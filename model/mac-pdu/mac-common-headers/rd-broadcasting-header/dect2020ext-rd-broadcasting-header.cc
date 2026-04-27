@@ -7,17 +7,12 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtRdBroadcastingHeader");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRdBroadcastingHeader);
 
 Dect2020ExtRdBroadcastingHeader::Dect2020ExtRdBroadcastingHeader()
-    : m_reset(0),
-      m_sequenceNumber(0),
-      m_transmitterAddress(0)
 {
 }
 
 Dect2020ExtRdBroadcastingHeader::~Dect2020ExtRdBroadcastingHeader()
 {
 }
-
-// Virtual Header base class methods
 
 TypeId
 Dect2020ExtRdBroadcastingHeader::GetTypeId()
@@ -33,6 +28,15 @@ TypeId
 Dect2020ExtRdBroadcastingHeader::GetInstanceTypeId() const
 {
     return GetTypeId();
+}
+
+void
+Dect2020ExtRdBroadcastingHeader::Print(std::ostream &os) const
+{
+    os << "[DECT2020 RD BROADCASTING HEADER]" << "\n"
+        << "Reset value: 0x" << std::hex << static_cast<uint32_t>(GetReset()) << "\n"
+        << "Sequence Number: 0x" << std::hex << GetSequenceNumber() << "\n"
+        << "Transmitter Address: 0x" << std::hex << GetTransmitterAddress() << "\n";
 }
 
 uint32_t Dect2020ExtRdBroadcastingHeader::GetSerializedSize() const
@@ -81,27 +85,13 @@ uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
     return bytesRead;
 }
 
-void
-Dect2020ExtRdBroadcastingHeader::Print(std::ostream &os) const
-{
-    os << "[DECT2020 RD BROADCASTING HEADER]" << "\n"
-        << "Reset value: 0x" << std::hex << static_cast<uint32_t>(GetReset()) << "\n"
-        << "Sequence Number: 0x" << std::hex << GetSequenceNumber() << "\n"
-        << "Transmitter Address: 0x" << std::hex << GetTransmitterAddress() << "\n";
-}
-
-// Setters and Getters
-
 void Dect2020ExtRdBroadcastingHeader::SetReset(uint8_t value)
 {
     if(value != 0x0 && value != 0x1)
     {
-        throw std::runtime_error("[ERROR] Reset value can only be zero or one");
+        NS_FATAL_ERROR("[ERROR] Reset can only be 0 ir 1, got: " << value);
     }
-    else
-    {
-        m_reset = value;
-    }
+    m_reset = value;
 }
 
 uint8_t Dect2020ExtRdBroadcastingHeader::GetReset() const
@@ -111,14 +101,11 @@ uint8_t Dect2020ExtRdBroadcastingHeader::GetReset() const
 
 void Dect2020ExtRdBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
-    if((sequenceNumber & 0xF000) != 0)
+    if(sequenceNumber > 0xFFF)
     {
-        throw std::runtime_error("[ERROR] Sequence Number can only be 12-bit long");
+        NS_FATAL_ERROR("[ERROR] Sequence Number can only be 12 bit long, got: " << sequenceNumber);
     }
-    else
-    {
-        m_sequenceNumber = sequenceNumber;
-    }
+    m_sequenceNumber = sequenceNumber;
 }
 
 uint16_t Dect2020ExtRdBroadcastingHeader::GetSequenceNumber() const
@@ -137,4 +124,3 @@ uint32_t Dect2020ExtRdBroadcastingHeader::GetTransmitterAddress() const
 }
 
 } // namespace ns3
-
