@@ -2,36 +2,36 @@
 #define DECT2020EXT_BEACON_HEADER_H
 
 #include "ns3/header.h"
-#include "ns3/nstime.h"
-#include "ns3/address.h"
 
 namespace ns3
 {
 
 class Dect2020ExtBeaconHeader : public Header
 {
-  public:
-    Dect2020ExtBeaconHeader();
-    virtual ~Dect2020ExtBeaconHeader();
+	public:
+		Dect2020ExtBeaconHeader();
+		virtual ~Dect2020ExtBeaconHeader();
 
-    // Setter und Getter
-    void SetNetworkId(uint32_t networkId);
-    uint32_t GetNetworkId() const;
+		// Overloaded methods from Header
 
-    void SetTransmitterAddress(uint32_t transmitterId);
-    uint32_t GetTransmitterAddress() const;
+		static TypeId GetTypeId();
+		TypeId GetInstanceTypeId() const override;
+		void Print(std::ostream& os) const override;
+		uint32_t GetSerializedSize() const override;
+		void Serialize(Buffer::Iterator start) const override;
+		uint32_t Deserialize(Buffer::Iterator start) override;
 
-    // Überladene Methoden von Header
-    static TypeId GetTypeId(void);
-    virtual TypeId GetInstanceTypeId(void) const;
-    virtual void Print(std::ostream& os) const;
-    virtual uint32_t GetSerializedSize(void) const;
-    virtual void Serialize(Buffer::Iterator start) const;
-    virtual uint32_t Deserialize(Buffer::Iterator start);
+		// Setters and Getters
 
-  private:
-    uint32_t m_networkId;          // 24 Bits relevant
-    uint32_t m_transmitterAddress; // 32 Bits
+		void SetNetworkId(uint32_t networkId);
+		uint32_t GetNetworkId() const;
+
+		void SetTransmitterAddress(uint32_t transmitterId);
+		uint32_t GetTransmitterAddress() const;
+
+	private:
+		uint32_t m_networkId; // 24 bits relevant
+		uint32_t m_transmitterAddress; // 32 bits
 };
 
 } // namespace ns3

@@ -8,6 +8,8 @@
 - Check MAC Common Headers, MAC Header Type, Physical Header Field, and Information Elements
 - MAC Common Header tests - make test values random (use mt19937 predefined random number generator)
 
+# Done
+
 Write tests for:
 - MAC PDU: All MAC PDUs (MAC Header Type, Information Elements, MAC Messages)
 - MAC: MAC PDU size calculation in slots and subslots
