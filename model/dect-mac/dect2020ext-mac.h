@@ -39,7 +39,7 @@ namespace ns3
 class Dect2020ExtChannelManager;
 class Dect2020ExtNetDevice;
 class Dect2020ExtPhy;
-class Dect2020ExtPHYControlFieldType1;
+class Dect2020ExtPhyControlFieldType1;
 class Dect2020ExtRandomAccessResourceIE;
 class Dect2020ExtRdCapabilityIE;
 class Dect2020ExtMacScheduler;
@@ -54,7 +54,7 @@ struct Dect2020ExtRandomAccessContext
     uint32_t m_CW_MAX;
     uint32_t m_CW_CURRENT;
     Ptr<Packet> m_packet;
-    Dect2020ExtPHYControlFieldType1 m_physicalHeaderFieldType1;
+    Dect2020ExtPhyControlFieldType1 m_physicalHeaderFieldType1;
     Dect2020ExtPHYControlFieldType2 m_physicalHeaderFieldType2;
     int m_physicalHeaderFieldType;
 
@@ -137,7 +137,7 @@ struct Dect2020ExtFtCandidateInfo
     Time receptionTime;
     double rssiDbm;
 
-    Dect2020ExtPHYControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
+    Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
     Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
     Dect2020ExtNetworkBeaconMessageIE ftNetworkBeaconMessage; // Last received Network Beacon Message
@@ -236,7 +236,7 @@ class Dect2020ExtMac : public Object
         Ptr<Packet> BuildNetworkBeacon();
         Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
         Dect2020ExtRandomAccessResourceIE BuildRandomAccessResourceIE();
-        Dect2020ExtPHYControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+        Dect2020ExtPhyControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
         // Beacon Transmission Helper Functions
 
@@ -249,7 +249,7 @@ class Dect2020ExtMac : public Object
         // ###### Random Access Procedure ######
         // #####################################
 
-        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField);
+        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField);
         void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);

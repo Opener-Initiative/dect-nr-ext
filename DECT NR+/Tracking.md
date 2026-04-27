@@ -1,4 +1,9 @@
 # Tasks
+- Add ranges to all modules in MAC PDU:
+	- Physical Header Field
+	- MAC Header Type
+	- MAC Common Headers
+	- IEs
 - Add comments to every MAC PDU module (with names)
 - Check MAC Common Headers, MAC Header Type, Physical Header Field, and Information Elements
 - MAC Common Header tests - make test values random (use mt19937 predefined random number generator)

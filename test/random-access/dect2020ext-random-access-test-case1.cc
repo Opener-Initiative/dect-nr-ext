@@ -134,7 +134,7 @@ Dect2020ExtRandomAccessTestCase1::DoRun()
 
     Ptr<Packet> packet = ftMac->BuildClusterBeacon(1657);
     Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = ftMac->BuildRandomAccessResourceIE();
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField = ftMac->BuildPhysicalHeaderField(1, packet->GetSize());
+    Dect2020ExtPhyControlFieldType1 physicalHeaderField = ftMac->BuildPhysicalHeaderField(1, packet->GetSize());
 
     Simulator::Schedule(MilliSeconds(10), &Dect2020ExtMac::InitiateRandomAccess, ptMac, randomAccessResourceIE, packet, physicalHeaderField);
 

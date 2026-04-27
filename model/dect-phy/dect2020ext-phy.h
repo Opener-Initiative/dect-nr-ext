@@ -24,7 +24,7 @@ namespace ns3
 class Dect2020ExtChannelManager;
 class Dect2020ExtChannel;
 class Dect2020ExtMac;
-class Dect2020ExtPHYControlFieldType1;
+class Dect2020ExtPhyControlFieldType1;
 class Dect2020ExtPHYControlFieldType2;
 class Dect2020ExtInterference;
 
@@ -84,9 +84,9 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		// Dect2020ExtPhy Methods
 
-		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeader);
+		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader);
 		void Send(Ptr<Packet> packet, Dect2020ExtPHYControlFieldType2 physicalHeader);
-		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType1 physicalHeader);
+		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPHYControlFieldType2 physicalHeader);
 		void ChangeState(PhyState newState);
 

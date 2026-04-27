@@ -78,7 +78,7 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
     NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 17, "Should be 17");
 
     // Physical Header Field
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+    Dect2020ExtPhyControlFieldType1 physicalHeaderField;
 
     packet->AddHeader(physicalHeaderField);
 
@@ -89,7 +89,7 @@ Dect2020ExtNetworkBeaconMessageSerializationTestCase::DoRun()
     // 3. Extract all headers from the packet according to the MAC layer's functionality
 
     // Physical Header Field
-    Dect2020ExtPHYControlFieldType1 r_physicalHeaderField;
+    Dect2020ExtPhyControlFieldType1 r_physicalHeaderField;
     packet->RemoveHeader(r_physicalHeaderField);
 
     NS_TEST_ASSERT_MSG_EQ(packet->GetSize(), 17, "Should be 17");

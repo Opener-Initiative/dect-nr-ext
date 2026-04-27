@@ -709,10 +709,10 @@ Dect2020ExtMac::BuildRandomAccessResourceIE()
     // }
 }
 
-Dect2020ExtPHYControlFieldType1
+Dect2020ExtPhyControlFieldType1
 Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes)
 {
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField;
+    Dect2020ExtPhyControlFieldType1 physicalHeaderField;
     physicalHeaderField.SetPacketLengthType(packetLengthType); // 0 = in Subslots, 1 = in Slots
 
     if (packetLengthType == 0) // Packet length is given in subslots
@@ -812,7 +812,7 @@ Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
 }
 
 void
-Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPHYControlFieldType1 physicalHeaderField)
+Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIE randomAccessResourceIE, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
     uint16_t startSubslot = randomAccessResourceIE.GetStartSubslot();
@@ -1163,7 +1163,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
     NS_LOG_FUNCTION(this << packet);
     NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
 
-    Dect2020ExtPHYControlFieldType1 physicalHeaderFieldType1;
+    Dect2020ExtPhyControlFieldType1 physicalHeaderFieldType1;
     Dect2020ExtPHYControlFieldType2 physicalHeaderFieldType2;
 
     if (data)
@@ -1760,7 +1760,7 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
     packet->AddHeader(macHeaderType);
 
     // --- Physical Header Field ---
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
+    Dect2020ExtPhyControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
     physicalHeaderField.SetShortNetworkID(m_networkId);
 
     m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY

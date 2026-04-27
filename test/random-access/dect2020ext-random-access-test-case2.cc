@@ -151,7 +151,7 @@ Dect2020ExtRandomAccessTestCase2::DoRun()
 
     Ptr<Packet> packet = ftMac->BuildClusterBeacon(1657);
     Dect2020ExtRandomAccessResourceIE randomAccessResourceIE = ftMac->BuildRandomAccessResourceIE();
-    Dect2020ExtPHYControlFieldType1 physicalHeaderField = ftMac->BuildPhysicalHeaderField(1, packet->GetSize());
+    Dect2020ExtPhyControlFieldType1 physicalHeaderField = ftMac->BuildPhysicalHeaderField(1, packet->GetSize());
 
     Ptr<SpectrumModel> spectrumModel = ptMac->GetChannelManager()->GetSpectrumModel(1);
     Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);

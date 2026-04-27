@@ -1,3 +1,5 @@
+// PHY Control Field: Type 1, Header Format: 000
+
 #ifndef DECT2020EXT_PHY_CONTROL_FIELD_TYPE_1
 #define DECT2020EXT_PHY_CONTROL_FIELD_TYPE_1
 
@@ -6,11 +8,11 @@
 namespace ns3
 {
 
-class Dect2020ExtPHYControlFieldType1 : public Header
+class Dect2020ExtPhyControlFieldType1 : public Header
 {
 	public:
-		Dect2020ExtPHYControlFieldType1();
-		virtual ~Dect2020ExtPHYControlFieldType1();
+		Dect2020ExtPhyControlFieldType1();
+		virtual ~Dect2020ExtPhyControlFieldType1();
 
 		// Overloaded Methods from the Header class
 

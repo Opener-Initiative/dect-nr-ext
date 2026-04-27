@@ -21,8 +21,8 @@ Dect2020ExtPhysicalHeaderFieldSerializationTestCase::DoSetup()
 void
 Dect2020ExtPhysicalHeaderFieldSerializationTestCase::DoRun()
 {
-    Dect2020ExtPHYControlFieldType1 originalHeader;
-    Dect2020ExtPHYControlFieldType1 deserializedHeader;
+    Dect2020ExtPhyControlFieldType1 originalHeader;
+    Dect2020ExtPhyControlFieldType1 deserializedHeader;
     Packet packet;
 
     // Set test values

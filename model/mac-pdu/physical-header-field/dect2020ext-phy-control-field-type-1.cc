@@ -5,47 +5,47 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtPHYControlFieldType1");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPHYControlFieldType1);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhyControlFieldType1");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhyControlFieldType1);
 
-Dect2020ExtPHYControlFieldType1::Dect2020ExtPHYControlFieldType1()
+Dect2020ExtPhyControlFieldType1::Dect2020ExtPhyControlFieldType1()
 {
 }
 
-Dect2020ExtPHYControlFieldType1::~Dect2020ExtPHYControlFieldType1()
+Dect2020ExtPhyControlFieldType1::~Dect2020ExtPhyControlFieldType1()
 {
 }
 
 TypeId
-Dect2020ExtPHYControlFieldType1::GetTypeId()
+Dect2020ExtPhyControlFieldType1::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtPHYControlFieldType1")
+    static TypeId tid = TypeId("ns3::Dect2020ExtPhyControlFieldType1")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtPHYControlFieldType1>();
+                            .AddConstructor<Dect2020ExtPhyControlFieldType1>();
     return tid;
 }
 
 TypeId
-Dect2020ExtPHYControlFieldType1::GetInstanceTypeId(void) const
+Dect2020ExtPhyControlFieldType1::GetInstanceTypeId(void) const
 {
     return GetTypeId();
 }
 
 void
-Dect2020ExtPHYControlFieldType1::Print(std::ostream& os) const
+Dect2020ExtPhyControlFieldType1::Print(std::ostream& os) const
 {
     // TODO: Implement
 }
 
 uint32_t
-Dect2020ExtPHYControlFieldType1::GetSerializedSize() const
+Dect2020ExtPhyControlFieldType1::GetSerializedSize() const
 {
     return 5;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::Serialize(Buffer::Iterator start) const
+Dect2020ExtPhyControlFieldType1::Serialize(Buffer::Iterator start) const
 {
     uint8_t byte0 = 0;
     byte0 |= m_packetLengthType << 4;
@@ -66,7 +66,7 @@ Dect2020ExtPHYControlFieldType1::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtPHYControlFieldType1::Deserialize(Buffer::Iterator start)
+Dect2020ExtPhyControlFieldType1::Deserialize(Buffer::Iterator start)
 {
     int bytesRead = 0;
 
@@ -93,13 +93,13 @@ Dect2020ExtPHYControlFieldType1::Deserialize(Buffer::Iterator start)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetHeaderFormat() const
+Dect2020ExtPhyControlFieldType1::GetHeaderFormat() const
 {
     return m_headerFormat;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020ExtPhyControlFieldType1::SetPacketLengthType(uint8_t packetLengthType)
 {
     if (packetLengthType == 0 || packetLengthType == 1)
     {
@@ -112,13 +112,13 @@ Dect2020ExtPHYControlFieldType1::SetPacketLengthType(uint8_t packetLengthType)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetPacketLengthType() const
+Dect2020ExtPhyControlFieldType1::GetPacketLengthType() const
 {
     return m_packetLengthType;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetPacketLength(uint8_t packetLength)
+Dect2020ExtPhyControlFieldType1::SetPacketLength(uint8_t packetLength)
 {
     if (packetLength >= 0 && packetLength <= 15)
     {
@@ -131,13 +131,13 @@ Dect2020ExtPHYControlFieldType1::SetPacketLength(uint8_t packetLength)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetPacketLength() const
+Dect2020ExtPhyControlFieldType1::GetPacketLength() const
 {
     return m_packetLength;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020ExtPhyControlFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
 {
     if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
     {
@@ -150,13 +150,13 @@ Dect2020ExtPHYControlFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetShortNetworkID() const
+Dect2020ExtPhyControlFieldType1::GetShortNetworkID() const
 {
     return m_shortNetworkID;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetTransmitterIdentity(uint16_t transmitterIdentity)
+Dect2020ExtPhyControlFieldType1::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
     if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
     {
@@ -169,13 +169,13 @@ Dect2020ExtPHYControlFieldType1::SetTransmitterIdentity(uint16_t transmitterIden
 }
 
 uint16_t
-Dect2020ExtPHYControlFieldType1::GetTransmitterIdentity() const
+Dect2020ExtPhyControlFieldType1::GetTransmitterIdentity() const
 {
     return m_transmitterIdentity;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetTransmitPower(uint8_t transmitPower)
+Dect2020ExtPhyControlFieldType1::SetTransmitPower(uint8_t transmitPower)
 {
     if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
     {
@@ -188,13 +188,13 @@ Dect2020ExtPHYControlFieldType1::SetTransmitPower(uint8_t transmitPower)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetTransmitPower() const
+Dect2020ExtPhyControlFieldType1::GetTransmitPower() const
 {
     return m_transmitPower;
 }
 
 void
-Dect2020ExtPHYControlFieldType1::SetDFMCS(uint8_t DFMCS)
+Dect2020ExtPhyControlFieldType1::SetDFMCS(uint8_t DFMCS)
 {
     if (DFMCS >= 0 && DFMCS <= pow(2, 3) - 1)
     {
@@ -207,7 +207,7 @@ Dect2020ExtPHYControlFieldType1::SetDFMCS(uint8_t DFMCS)
 }
 
 uint8_t
-Dect2020ExtPHYControlFieldType1::GetDFMCS() const
+Dect2020ExtPhyControlFieldType1::GetDFMCS() const
 {
     return m_DFMCS;
 }
