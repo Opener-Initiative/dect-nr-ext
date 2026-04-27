@@ -36,7 +36,7 @@ void Dect2020ExtUnicastHeaderSerializationTestCase::DoRun()
     std::cout << "Original MAC sequence: 0x" << std::hex << (int)originalHeader.GetMacSequence() << "\n";
     std::cout << "Original sequence number: 0x" << std::hex << (int)originalHeader.GetSequenceNumber() << "\n";
     std::cout << "Original receiver address: 0x" << std::hex << originalHeader.GetReceiverAddress() << "\n";
-    std::cout << "Original transmitter address: 0x" << std::hex << originalHeader.GetTransmitterAddress() << "\n" << "\n";
+    std::cout << "Original transmitter address: 0x" << std::hex << originalHeader.GetTransmitterAddress() << "\n\n";
 
     packet.AddHeader(originalHeader);
     packet.RemoveHeader(deserializedHeader);

@@ -63,7 +63,7 @@ void Dect2020ExtRdBroadcastingHeaderSerializationTestCase::DoRun()
     std::cout << "[DESERIALIZED VALUES]" << "\n";
     std::cout << "Deserialized reset: 0x" << std::hex << (int)deserializedHeader.GetReset() << "\n";
     std::cout << "Deserialized sequence number: 0x" << std::hex << deserializedHeader.GetSequenceNumber() << "\n";
-    std::cout << "Deserialized transmitter address: 0x" << std::hex << deserializedHeader.GetTransmitterAddress() << "\n" << "\n";
+    std::cout << "Deserialized transmitter address: 0x" << std::hex << deserializedHeader.GetTransmitterAddress() << "\n\n";
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetReset(), reset,
                             "Reset field mismatch after serialization/deserialization");

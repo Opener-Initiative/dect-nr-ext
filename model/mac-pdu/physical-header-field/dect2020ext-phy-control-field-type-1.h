@@ -22,6 +22,7 @@ class Dect2020ExtPHYControlFieldType1 : public Header
 		uint32_t Deserialize(Buffer::Iterator start) override;
 
 		// Setters and Getters
+
 		uint8_t GetHeaderFormat() const;
 		void SetPacketLengthType(uint8_t packetLengthType);
 		uint8_t GetPacketLengthType() const;

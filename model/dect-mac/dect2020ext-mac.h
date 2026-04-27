@@ -77,7 +77,7 @@ struct Dect2020ExtHarqProcess
     {
         FREE, // prces is available for a new packet
         WAITING_ACK, // packet sent, waiting for feedback
-        NACK_PENDING // NACK received, retransmission needed
+        // NACK_PENDING // NACK received, retransmission needed
     };
 
     State state = FREE;

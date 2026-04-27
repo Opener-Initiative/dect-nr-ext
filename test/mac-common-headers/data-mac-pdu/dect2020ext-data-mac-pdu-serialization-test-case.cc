@@ -42,7 +42,7 @@ Dect2020ExtDataMacPduSerializationTestCase::DoRun()
 
     std::cout << "[ORIGINAL VALUES]" << "\n";
     std::cout << "Original reset: 0x" << std::hex << (int)originalHeader.GetReset() << "\n";
-    std::cout << "Original sequence number: 0x" << std::hex << originalHeader.GetSequenceNumber() << "\n" << "\n";
+    std::cout << "Original sequence number: 0x" << std::hex << originalHeader.GetSequenceNumber() << "\n\n";
 
     uint32_t sizeBefore = packet.GetSize();
     std::cout << "Size before adding header: " << sizeBefore << "\n";
@@ -55,7 +55,7 @@ Dect2020ExtDataMacPduSerializationTestCase::DoRun()
 
     packet.RemoveHeader(deserializedHeader);
     uint32_t sizeAfterRemove = packet.GetSize();
-    std::cout << "Size after removing header: " << sizeAfterRemove << "\n" << "\n";
+    std::cout << "Size after removing header: " << sizeAfterRemove << "\n\n";
 
     NS_TEST_ASSERT_MSG_EQ(sizeAfterRemove, 0, "Size after removal should be 0");
 

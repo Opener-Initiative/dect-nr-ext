@@ -39,7 +39,7 @@ void Dect2020ExtBeaconHeaderSerializationTestCase::DoRun()
 
     std::cout << "[ORIGINAL VALUES]" << "\n";
     std::cout << "Original network ID: 0x" << std::hex << originalHeader.GetNetworkId() << "\n";
-    std::cout << "Original transmitter address: 0x" << std::hex << originalHeader.GetTransmitterAddress() << "\n" << "\n";
+    std::cout << "Original transmitter address: 0x" << std::hex << originalHeader.GetTransmitterAddress() << "\n\n";
 
     uint32_t sizeBefore = packet.GetSize();
     std::cout << "Size before adding header: " << sizeBefore << "\n";
@@ -52,7 +52,7 @@ void Dect2020ExtBeaconHeaderSerializationTestCase::DoRun()
 
     packet.RemoveHeader(deserializedHeader);
     uint32_t sizeAfterRemove = packet.GetSize();
-    std::cout << "Size after removing header: " << sizeAfterRemove << "\n" << "\n";
+    std::cout << "Size after removing header: " << sizeAfterRemove << "\n\n";
 
     NS_TEST_ASSERT_MSG_EQ(sizeAfterRemove, 0, "Size after removal should be 0");
 
