@@ -1,18 +1,21 @@
 #include "dect2020ext-mac-header-type.h"
 
-#include "ns3/log.h"
-
-#include <algorithm> // für std::copy
-#include <cstdint>
-
 namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacHeaderType");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacHeaderType);
 
+Dect2020ExtMacHeaderType::Dect2020ExtMacHeaderType()
+{
+}
+
+Dect2020ExtMacHeaderType::~Dect2020ExtMacHeaderType()
+{
+}
+
 TypeId
-Dect2020ExtMacHeaderType::GetTypeId(void)
+Dect2020ExtMacHeaderType::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtMacHeaderType")
                             .SetParent<Header>()
@@ -27,15 +30,49 @@ Dect2020ExtMacHeaderType::GetInstanceTypeId() const
     return GetTypeId();
 }
 
-Dect2020ExtMacHeaderType::Dect2020ExtMacHeaderType()
-    : m_version(0),
-      m_macSecurity(MAC_SECURITY_NOT_USED),
-      m_macHeaderTypeField(DATA_MAC_PDU_HEADER)
+void
+Dect2020ExtMacHeaderType::Print(std::ostream& os) const
 {
+    os << "Beacon Header Type:" << std::endl << "Version = " << static_cast<int>(m_version) << std::endl
+       << "MAC Security = " << static_cast<int>(m_macSecurity) << std::endl
+       << "MAC Header Type = " << static_cast<int>(m_macHeaderTypeField) << std::endl;
 }
 
-Dect2020ExtMacHeaderType::~Dect2020ExtMacHeaderType()
+uint32_t
+Dect2020ExtMacHeaderType::GetSerializedSize() const
 {
+    return 1;
+}
+
+void
+Dect2020ExtMacHeaderType::Serialize(Buffer::Iterator start) const
+{
+    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
+
+    uint8_t byte0 = 0;
+
+    byte0 |= (m_version & 0x03) << 6;       // Bit 0-1
+    byte0 |= (m_macSecurity & 0x03) << 4;   // Bit 2-3
+    byte0 |= (m_macHeaderTypeField & 0x0F); // Bit 4-7
+
+    start.WriteU8(byte0);
+}
+
+uint32_t
+Dect2020ExtMacHeaderType::Deserialize(Buffer::Iterator start)
+{
+    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
+    uint8_t bytesRead = 0;
+    uint8_t byte0 = 0;
+
+    byte0 = start.ReadU8();
+    bytesRead++;
+
+    m_version = (byte0 >> 6) & 0x03;
+    m_macSecurity = static_cast<MacSecurityField>((byte0 >> 4) & 0x03);
+    m_macHeaderTypeField = static_cast<MacHeaderTypeField>(byte0 & 0x0F);
+
+    return bytesRead;
 }
 
 void
@@ -93,51 +130,6 @@ ns3::Dect2020ExtMacHeaderType::MacHeaderTypeField
 Dect2020ExtMacHeaderType::GetMacHeaderTypeField() const
 {
     return m_macHeaderTypeField;
-}
-
-uint32_t
-Dect2020ExtMacHeaderType::GetSerializedSize() const
-{
-    return 1;
-}
-
-void
-Dect2020ExtMacHeaderType::Print(std::ostream& os) const
-{
-    os << "Beacon Header Type:" << std::endl << "Version = " << static_cast<int>(m_version) << std::endl
-       << "MAC Security = " << static_cast<int>(m_macSecurity) << std::endl
-       << "MAC Header Type = " << static_cast<int>(m_macHeaderTypeField) << std::endl;
-}
-
-void
-Dect2020ExtMacHeaderType::Serialize(Buffer::Iterator start) const
-{
-    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
-
-    uint8_t byte0 = 0;
-
-    byte0 |= (m_version & 0x03) << 6;       // Bit 0-1
-    byte0 |= (m_macSecurity & 0x03) << 4;   // Bit 2-3
-    byte0 |= (m_macHeaderTypeField & 0x0F); // Bit 4-7
-
-    start.WriteU8(byte0);
-}
-
-uint32_t
-Dect2020ExtMacHeaderType::Deserialize(Buffer::Iterator start)
-{
-    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
-    uint8_t bytesRead = 0;
-    uint8_t byte0 = 0;
-
-    byte0 = start.ReadU8();
-    bytesRead++;
-
-    m_version = (byte0 >> 6) & 0x03;
-    m_macSecurity = static_cast<MacSecurityField>((byte0 >> 4) & 0x03);
-    m_macHeaderTypeField = static_cast<MacHeaderTypeField>(byte0 & 0x0F);
-
-    return bytesRead;
 }
 
 } // namespace ns3

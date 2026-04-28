@@ -1,14 +1,9 @@
-# Design Documentation of the DECT NR+ ns-3 Implementation
-
-# Quick Links
+# 1 Quick Links
 DECT-2020 New Radio (NR):
 - [Part 2: Radio reception and transmission requirements; ETSI TS 103 636-2 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363602/02.01.01_60/ts_10363602v020101p.pdf)
 - [Part 3: Physical layer; ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf)
 - [Part 4: MAC layer; ETSI TS 103 636-4 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
-
-# 1. Mango
-
-# 1. Configuration
+# 2 Configuration
 The project can be configured through the `config` model located in `/model/config`.
 The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
 `dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
@@ -18,7 +13,7 @@ The `Dect2020ExtConfig` class creates two objects that are shared by all `Dect20
 - Channel Manager
 `Dect2020ExtConfig` also creates an Isotropic Antenna for every PHY.
 `Dect2020ExtConfig` has `ApplyToPhy` and `ApplyToMac` functions that bootstrap the values from `dect2020ext-config-values` to the corresponding `Dect2020ExtPhy` and `Dect2020ExtMac` models.
-# 2. Logging
+# 3 Logging
 The default logging setup (logging levels) looks like this:
 ```c++
 LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
@@ -38,14 +33,14 @@ The current default way of logging information (for MAC for example) is:
 NS_LOG_INFO(MAC_IDENTITY << "some interesting information");
 ```
 Note, if the information is logged without using a proper identity, the logs will not be separated correctly by the `splitlogs.py` script.
-# 3. Statistics
+# 4 Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
-# 4. Initialization
-# 5. Initializing Network
-# 6. Spectrum Management Procedure
-# 7. Beacon Transmission
+# 5 Initialization
+# 6 Initializing Network
+# 7 Spectrum Management Procedure
+# 8 Beacon Transmission
 
-# 8. PHY Rx State Machine
+# 9 PHY Rx State Machine
 ```mermaid
 ---
 config:
@@ -77,7 +72,7 @@ deactivate FT_PHY
 Note over FT_PHY: State IDLE
 ```
 
-# 9. Association Procedure
+# 10 Association Procedure
 
 ```mermaid
 ---
@@ -132,8 +127,8 @@ loop Based on App Tx period and state
 end
 ```
 
-# 10. HARQ and Random Access Procedure
-## HARQ
+# 11 HARQ and Random Access Procedure
+## 11.1 HARQ
 In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as "HARQ" in the code base, the procedure is not fully implemented.
 The current "HARQ" implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
 The repeat requests are done upon the timeout (RACH response window exceeds and no ACK has been received).
@@ -177,8 +172,8 @@ HandleHarqAck --> IsTxQueueEmpty
 IsTxQueueEmpty -- YES --> InitiateHARQ
 IsTxQueueEmpty -- NO --> MonitorTxQueue
 ```
-# 11. MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
-The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
+# 12 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
+The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
 The table is implemented as follows:
 ```c++
 const std::vector<uint16_t> Dect2020ExtPhy::m_singleSlotSingleStreamTransportBlockSizesMu1Beta1
@@ -207,7 +202,9 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	3. Calculate packet MAC PDU length in subslots (with rounding up)  by calling `std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot`
 4. If the length is calculated in slots:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
-# 12. Available Tests
+# 13 MAC PDU
+All MAC PDU formats are serialized with host to network byte order (big-endian) and deserialized with network to host byte order (small-endian).
+# 14 Available Tests
 %% 1. [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
 	1. PHY Control Field: Type 1, Header Format: 000
 	2. PHY Control Field: Type 2, Header Format: 000
@@ -217,7 +214,7 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	2. [Data MAC PDU](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C619%5D)
 	3. [RD Broadcasting Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A763%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C445%5D)
 	4. [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
-# 13. MAC Common Header Tests
+# 15 MAC Common Header Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header
 2. One packet object is initiated to simulate adding headers to MAC PDU
@@ -235,7 +232,7 @@ originalHeader.SetNetworkId(networkId);
 originalHeader.SetTransmitterAddress(transmitterAddress);
 ```
 4. When adding header to the packet, the size of the packet before and after addition is also tested
-# 14. Running Tests
+# 16 Running Tests
 All tests can be executed with the `test.py` ns-3 script:
 1. Navigate to the root directory of ns-3
 2. To run all `dect2020ext` tests, run this command in the terminal:
@@ -249,3 +246,5 @@ python test.py --suite="dect2020ext-beacon*"
 
 Tips:
 1. To be 100% sure that the tested models work correctly, it is probably a good idea to run tests a couple of times. Some tests, for example, MAC Common Header tests, can be tested with random values and therefore should be tested a couple of times to see how the models behave with different random values.
+# 17 Future Work
+## 17.1 Dect2020ExtTypes
