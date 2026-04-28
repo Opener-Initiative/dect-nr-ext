@@ -57,8 +57,8 @@ Dect2020ExtUnicastHeader::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte0);
     
     start.WriteU8(m_sequenceNumber); // Sequence Number
-    start.WriteU32(m_receiverAddress); // Receiver Address
-    start.WriteU32(m_transmitterAddress); // Transmitter Address
+    start.WriteHtonU32(m_receiverAddress); // Receiver Address
+    start.WriteHtonU32(m_transmitterAddress); // Transmitter Address
 }
 
 uint32_t
@@ -70,8 +70,8 @@ Dect2020ExtUnicastHeader::Deserialize(Buffer::Iterator start)
     m_macSequence = byte0 & 0x0F;   // Bits 3-0: MAC Sequence
     
     m_sequenceNumber = start.ReadU8();
-    m_receiverAddress = start.ReadU32();
-    m_transmitterAddress = start.ReadU32();
+    m_receiverAddress = start.ReadNtohU32();
+    m_transmitterAddress = start.ReadNtohU32();
 
     return 10;
 }

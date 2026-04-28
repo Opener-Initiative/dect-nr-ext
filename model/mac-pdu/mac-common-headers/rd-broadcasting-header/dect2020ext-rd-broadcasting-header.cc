@@ -57,7 +57,7 @@ void Dect2020ExtRdBroadcastingHeader::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte1);
 
     // 4-byte transmitter address
-    start.WriteU32(m_transmitterAddress);
+    start.WriteHtonU32(m_transmitterAddress);
 }
 
 uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
@@ -78,7 +78,7 @@ uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
     bytesRead++;
 
     // 4-byte transmitter address
-    m_transmitterAddress = start.ReadU32();
+    m_transmitterAddress = start.ReadNtohU32();
 
     bytesRead += 4;
 
