@@ -1,5 +1,7 @@
 #include "dect2020ext-mac-header-type.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3
 {
 
@@ -80,9 +82,7 @@ Dect2020ExtMacHeaderType::SetVersion(uint8_t version)
 {
     if (version != 0)
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Version must be 0.");
+        DECT2020EXT_MAC_PDU_FATAL("Version must be 0", static_cast<uint32_t>(version));
     }
 
     m_version = version;

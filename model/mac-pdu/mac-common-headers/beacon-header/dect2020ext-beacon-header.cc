@@ -46,22 +46,26 @@ Dect2020ExtBeaconHeader::GetSerializedSize() const
 void
 Dect2020ExtBeaconHeader::Serialize(Buffer::Iterator start) const
 {
+    // 3 bytes
     start.WriteU8((m_networkId >> 16) & 0xFF);
     start.WriteU8((m_networkId >> 8) & 0xFF);
     start.WriteU8(m_networkId & 0xFF);
 
+    // 4 bytes
     start.WriteHtonU32(m_transmitterAddress);
 }
 
 uint32_t
 Dect2020ExtBeaconHeader::Deserialize(Buffer::Iterator start)
 {
+    // 3 bytes
     uint32_t networkId = 0;
     networkId |= (start.ReadU8() << 16);
     networkId |= (start.ReadU8() << 8);
     networkId |= start.ReadU8();
     m_networkId = networkId;
 
+    // 4 bytes
     m_transmitterAddress = start.ReadNtohU32();
 
     return GetSerializedSize();
@@ -72,7 +76,12 @@ Dect2020ExtBeaconHeader::SetNetworkId(uint32_t networkId)
 {
     if (networkId > 0xFFFFFF)
     {
-        NS_FATAL_ERROR("[FATAL ERROR] Network ID can only be 24 bits long, got: " << networkId);
+        NS_FATAL_ERROR("Error in "
+                        << std::string(__func__)
+                        << "at" + std::string(__FILE__)
+                        << ":" + std::to_string(__LINE__)
+                        << " - Network ID can only be 24 bits long, got: "
+                        << networkId);
     }
     m_networkId = networkId;
 }

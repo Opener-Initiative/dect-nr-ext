@@ -16,6 +16,10 @@ set(dect2020ext_types_h
 ## MODEL ##
 ###########
 
+# DECT-2020 MAC PDU Defs
+set(dect2020ext_mac_pdu_defs_h
+    model/mac-pdu/dect2020ext-mac-pdu-defs.h)
+
 # DECT-2020 Statistics
 set(dect2020ext_statistics_src
     model/statistics/dect2020ext-statistics.cc)
@@ -241,6 +245,7 @@ build_lib(
         ${dect2020ext_app_src}
         ${dect2020ext_statistics_src}
     HEADER_FILES
+        ${dect2020ext_mac_pdu_defs_h}
         ${dect2020ext_module_h}
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
@@ -261,12 +266,12 @@ build_lib(
         ${dect2020ext_statistics_h}
     TEST_SOURCES
         ${dect2020ext_mac_common_headers_test_src}
+        ${dect2020ext_mac_header_type_test_src}
         # ${dect2020ext_information_elements_test_src}
         # ${dect2020ext_physical_header_field_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_message_test_src}
         # ${mac_multiplexing_header_test_src}
-        # ${dect2020ext_mac_header_type_test_src}
         # ${dect2020ext_random_access_test_src}
         # ${dect2020ext_phy_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}
