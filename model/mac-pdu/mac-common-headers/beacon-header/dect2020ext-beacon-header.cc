@@ -1,5 +1,7 @@
 #include "dect2020ext-beacon-header.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3
 {
 
@@ -76,12 +78,7 @@ Dect2020ExtBeaconHeader::SetNetworkId(uint32_t networkId)
 {
     if (networkId > 0xFFFFFF)
     {
-        NS_FATAL_ERROR("Error in "
-                        << std::string(__func__)
-                        << "at" + std::string(__FILE__)
-                        << ":" + std::to_string(__LINE__)
-                        << " - Network ID can only be 24 bits long, got: "
-                        << networkId);
+        DECT2020EXT_MAC_PDU_FATAL("Network ID can only be 24 bits long", networkId);
     }
     m_networkId = networkId;
 }
@@ -97,7 +94,7 @@ Dect2020ExtBeaconHeader::SetTransmitterAddress(uint32_t transmitterId)
 {
     if (transmitterId > 0xFFFFFFFF)
     {
-        NS_FATAL_ERROR("[FATAL ERROR] Transmitter address can only be 32 bits long, got: " << transmitterId);
+        DECT2020EXT_MAC_PDU_FATAL("Transmitter address can only be 32 bits long", transmitterId);
     }
     m_transmitterAddress = transmitterId;
 }

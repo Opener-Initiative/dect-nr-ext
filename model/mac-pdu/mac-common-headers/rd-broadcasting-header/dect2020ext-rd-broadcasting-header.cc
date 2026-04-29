@@ -1,5 +1,7 @@
 #include "dect2020ext-rd-broadcasting-header.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3
 {
 
@@ -89,7 +91,7 @@ void Dect2020ExtRdBroadcastingHeader::SetReset(uint8_t value)
 {
     if(value != 0x0 && value != 0x1)
     {
-        NS_FATAL_ERROR("[ERROR] Reset can only be 0 ir 1, got: " << value);
+        DECT2020EXT_MAC_PDU_FATAL("Reset can only be 0 or 1", static_cast<uint32_t>(value));
     }
     m_reset = value;
 }
@@ -103,7 +105,7 @@ void Dect2020ExtRdBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
     if(sequenceNumber > 0xFFF)
     {
-        NS_FATAL_ERROR("[ERROR] Sequence Number can only be 12 bit long, got: " << sequenceNumber);
+        DECT2020EXT_MAC_PDU_FATAL("Sequence Number can only be 12 bit long", sequenceNumber);
     }
     m_sequenceNumber = sequenceNumber;
 }

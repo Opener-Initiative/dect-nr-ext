@@ -1,5 +1,7 @@
 #include "dect2020ext-data-mac-pdu-header.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtDataMacPduHeader");
@@ -47,8 +49,9 @@ void
 Dect2020ExtDataMacPduHeader::Serialize (Buffer::Iterator start) const
 {
 	// byte 0
-	// 3 first bytes are reserved
-    uint8_t byte0 = (m_reset << 4);
+	// 3 first bits are reserved
+    uint8_t byte0 = 0;
+    byte0 |= static_cast<uint8_t>(m_reset) << 4;
     byte0 |= (m_sequenceNumber >> 8);
     start.WriteU8(byte0);
 
@@ -60,34 +63,28 @@ Dect2020ExtDataMacPduHeader::Serialize (Buffer::Iterator start) const
 uint32_t
 Dect2020ExtDataMacPduHeader::Deserialize (Buffer::Iterator start)
 {
-    int bytesRead = 0;
-
     // byte 0
     uint8_t byte0 = start.ReadU8();
     m_reset = ((byte0 >> 4) & 0x1);
     m_sequenceNumber = static_cast<uint16_t>((byte0 & 0x0F) << 8);
 
-    bytesRead++;
-
     // byte 1
     uint8_t byte1 = start.ReadU8();
     m_sequenceNumber |= (byte1);
 
-    bytesRead++;
-
-	return bytesRead;
+	return GetSerializedSize();
 }
 
-void Dect2020ExtDataMacPduHeader::SetReset(uint8_t value)
+void Dect2020ExtDataMacPduHeader::SetReset(bool value)
 {
     if(value != 0x0 && value != 0x1)
     {
-        NS_FATAL_ERROR("[ERROR] Reset can only be 0 or 1, got: " << value);
+        DECT2020EXT_MAC_PDU_FATAL("Reset can only be 0 or 1", value);
     }
     m_reset = value;
 }
 
-uint8_t Dect2020ExtDataMacPduHeader::GetReset() const
+bool Dect2020ExtDataMacPduHeader::GetReset() const
 {
     return m_reset;
 }
@@ -96,7 +93,7 @@ void Dect2020ExtDataMacPduHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
     if(sequenceNumber > 0xFFF)
     {
-        NS_FATAL_ERROR("[ERROR] Sequence number can only be 12 bits long, got: " << sequenceNumber);
+        DECT2020EXT_MAC_PDU_FATAL("Sequence number can only be 12 bits long", sequenceNumber);
     }
     m_sequenceNumber = sequenceNumber;
 }

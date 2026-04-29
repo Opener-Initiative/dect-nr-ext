@@ -1,5 +1,7 @@
 #include "dect2020ext-unicast-header.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3
 {
 
@@ -81,7 +83,7 @@ Dect2020ExtUnicastHeader::SetReset(bool reset)
 {
     if(reset != 0x0 && reset != 0x1)
     {
-        NS_FATAL_ERROR("[ERROR] Reset can only be 0 ir 1, got: " << reset);
+        DECT2020EXT_MAC_PDU_FATAL("Reset can only be 0 or 1", reset);
     }
     m_reset = reset;
 }
@@ -97,7 +99,7 @@ Dect2020ExtUnicastHeader::SetMacSequence(uint8_t number)
 {
     if(number > 0xF)
     {
-        NS_FATAL_ERROR("[ERROR] MAC Sequence can only be 4 bit long, got: " << number);
+        DECT2020EXT_MAC_PDU_FATAL("MAC Sequence can only be 4 bit long", static_cast<uint32_t>(number));
     } 
     m_macSequence = number;
 }

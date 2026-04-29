@@ -22,14 +22,14 @@ class Dect2020ExtDataMacPduHeader : public Header
         uint32_t Deserialize(Buffer::Iterator start) override;
 
         // Setters and Getters
-        void SetReset(uint8_t value);
-        uint8_t GetReset() const;
+        void SetReset(bool value);
+        bool GetReset() const;
 
         void SetSequenceNumber(uint16_t sequenceNumber);
         uint16_t GetSequenceNumber() const;
         
     private:
-        uint8_t m_reset; // 1 relevant bit
+        bool m_reset; // 1 bit
         uint16_t m_sequenceNumber; // 12 relevant bits
 };
 
