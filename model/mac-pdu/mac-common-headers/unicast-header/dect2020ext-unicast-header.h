@@ -8,7 +8,7 @@ namespace ns3
 
 class Dect2020ExtUnicastHeader : public Header
 {
-    public: 
+    public:
         Dect2020ExtUnicastHeader();
         virtual ~Dect2020ExtUnicastHeader();
 
@@ -26,23 +26,23 @@ class Dect2020ExtUnicastHeader : public Header
         void SetReset(bool reset);
         bool GetReset() const;
 
-        void SetMacSequence(uint8_t number);
+        void SetMacSequence(uint8_t macSequence);
         uint8_t GetMacSequence() const;
 
-        void SetSequenceNumber(uint8_t number);
+        void SetSequenceNumber(uint8_t sequenceNumber);
         uint8_t GetSequenceNumber() const;
 
-        void SetReceiverAddress(uint32_t);
+        void SetReceiverAddress(uint32_t receiverAddress);
         uint32_t GetReceiverAddress() const;
 
-        void SetTransmitterAddress(uint32_t);
+        void SetTransmitterAddress(uint32_t transmitterAddress);
         uint32_t GetTransmitterAddress() const;
 
     private:
-        bool m_reset; // 1 bit
-        uint8_t m_macSequence; // 4 bits
-        uint8_t m_sequenceNumber; // 8 bits
-        uint32_t m_receiverAddress; // 32 bits
+        bool m_reset;                  // 1 bit
+        uint8_t m_macSequence;         // 4 bits
+        uint8_t m_sequenceNumber;      // 8 bits
+        uint32_t m_receiverAddress;    // 32 bits
         uint32_t m_transmitterAddress; // 32 bits
 };
 

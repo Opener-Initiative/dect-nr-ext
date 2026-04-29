@@ -1,5 +1,5 @@
-#ifndef DECT2020EXT_DATA_MAC_PDU_H
-#define DECT2020EXT_DATA_MAC_PDU_H
+#ifndef DECT2020EXT_DATA_MAC_PDU_HEADER_H
+#define DECT2020EXT_DATA_MAC_PDU_HEADER_H
 
 #include "ns3/header.h"
 
@@ -16,23 +16,24 @@ class Dect2020ExtDataMacPduHeader : public Header
 
         static TypeId GetTypeId();
         TypeId GetInstanceTypeId() const override;
-        void Print(std::ostream &os) const override;
+        void Print(std::ostream& os) const override;
         uint32_t GetSerializedSize() const override;
         void Serialize(Buffer::Iterator start) const override;
         uint32_t Deserialize(Buffer::Iterator start) override;
 
         // Setters and Getters
-        void SetReset(bool value);
+
+        void SetReset(bool reset);
         bool GetReset() const;
 
         void SetSequenceNumber(uint16_t sequenceNumber);
         uint16_t GetSequenceNumber() const;
-        
+
     private:
-        bool m_reset; // 1 relevant bit
-        uint16_t m_sequenceNumber; // 12 relevant bits
+        bool m_reset;              // 1 bit
+        uint16_t m_sequenceNumber; // 12 bits
 };
 
 } // namespace ns3
 
-#endif // DECT2020EXT_DATA_MAC_PDU_H 
+#endif // DECT2020EXT_DATA_MAC_PDU_HEADER_H

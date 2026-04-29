@@ -33,20 +33,22 @@ Dect2020ExtRdBroadcastingHeader::GetInstanceTypeId() const
 }
 
 void
-Dect2020ExtRdBroadcastingHeader::Print(std::ostream &os) const
+Dect2020ExtRdBroadcastingHeader::Print(std::ostream& os) const
 {
     os << "[DECT2020 RD BROADCASTING HEADER]" << "\n"
-        << "Reset value: 0x" << std::hex << static_cast<uint32_t>(GetReset()) << "\n"
-        << "Sequence Number: 0x" << std::hex << GetSequenceNumber() << "\n"
-        << "Transmitter Address: 0x" << std::hex << GetTransmitterAddress() << "\n";
+       << "Reset: 0x" << std::hex << static_cast<uint32_t>(m_reset) << "\n"
+       << "Sequence Number: 0x" << std::hex << static_cast<uint32_t>(m_sequenceNumber) << "\n"
+       << "Transmitter Address: 0x" << std::hex << m_transmitterAddress << std::dec;
 }
 
-uint32_t Dect2020ExtRdBroadcastingHeader::GetSerializedSize() const
+uint32_t
+Dect2020ExtRdBroadcastingHeader::GetSerializedSize() const
 {
     return 6;
 }
 
-void Dect2020ExtRdBroadcastingHeader::Serialize(Buffer::Iterator start) const
+void
+Dect2020ExtRdBroadcastingHeader::Serialize(Buffer::Iterator start) const
 {
     // byte 0
     // 3 first bits are reserved
@@ -58,11 +60,12 @@ void Dect2020ExtRdBroadcastingHeader::Serialize(Buffer::Iterator start) const
     uint8_t byte1 = (m_sequenceNumber & 0x0FF);
     start.WriteU8(byte1);
 
-    // 4-byte transmitter address
+    // 4-byte Transmitter Address
     start.WriteHtonU32(m_transmitterAddress);
 }
 
-uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
+uint32_t
+Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
 {
     // byte 0
     uint8_t byte0 = start.ReadU8();
@@ -73,46 +76,48 @@ uint32_t Dect2020ExtRdBroadcastingHeader::Deserialize(Buffer::Iterator start)
     uint8_t byte1 = start.ReadU8();
     m_sequenceNumber |= byte1;
 
-    // 4-byte transmitter address
+    // 4-byte Transmitter Address
     m_transmitterAddress = start.ReadNtohU32();
 
     return GetSerializedSize();
 }
 
-void Dect2020ExtRdBroadcastingHeader::SetReset(bool value)
+void
+Dect2020ExtRdBroadcastingHeader::SetReset(bool reset)
 {
-    if(value != 0x0 && value != 0x1)
-    {
-        DECT2020EXT_MAC_PDU_FATAL("Reset can only be 0 or 1", value);
-    }
-    m_reset = value;
+    m_reset = reset;
 }
 
-bool Dect2020ExtRdBroadcastingHeader::GetReset() const
+bool
+Dect2020ExtRdBroadcastingHeader::GetReset() const
 {
     return m_reset;
 }
 
-void Dect2020ExtRdBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
+void
+Dect2020ExtRdBroadcastingHeader::SetSequenceNumber(uint16_t sequenceNumber)
 {
-    if(sequenceNumber > 0xFFF)
+    if (sequenceNumber > 0xFFF)
     {
-        DECT2020EXT_MAC_PDU_FATAL("Sequence Number can only be 12 bit long", sequenceNumber);
+        DECT2020EXT_MAC_PDU_FATAL("Sequence Number must be at most 12 bits long", sequenceNumber);
     }
     m_sequenceNumber = sequenceNumber;
 }
 
-uint16_t Dect2020ExtRdBroadcastingHeader::GetSequenceNumber() const
+uint16_t
+Dect2020ExtRdBroadcastingHeader::GetSequenceNumber() const
 {
     return m_sequenceNumber;
 }
 
-void Dect2020ExtRdBroadcastingHeader::SetTransmitterAddress(uint32_t transmitterAddress)
+void
+Dect2020ExtRdBroadcastingHeader::SetTransmitterAddress(uint32_t transmitterAddress)
 {
     m_transmitterAddress = transmitterAddress;
 }
 
-uint32_t Dect2020ExtRdBroadcastingHeader::GetTransmitterAddress() const
+uint32_t
+Dect2020ExtRdBroadcastingHeader::GetTransmitterAddress() const
 {
     return m_transmitterAddress;
 }

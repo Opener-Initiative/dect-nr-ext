@@ -23,7 +23,7 @@ Dect2020ExtUnicastHeader::GetTypeId()
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
                             .AddConstructor<Dect2020ExtUnicastHeader>();
-    return tid; 
+    return tid;
 }
 
 TypeId
@@ -33,14 +33,14 @@ Dect2020ExtUnicastHeader::GetInstanceTypeId() const
 }
 
 void
-Dect2020ExtUnicastHeader::Print(std::ostream &os) const
+Dect2020ExtUnicastHeader::Print(std::ostream& os) const
 {
     os << "[DECT2020 UNICAST HEADER]" << "\n"
-        << "Reset: " << m_reset << "\n"
-        << "MAC Sequence: 0x" << std::hex << static_cast<uint32_t>(m_macSequence) << "\n"
-        << "Sequence number: 0x" << std::hex << static_cast<uint32_t>(m_sequenceNumber) << "\n"
-        << "Receiver address: 0x" << std::hex << m_receiverAddress << "\n"
-        << "Transmitter address: 0x" << std::hex << m_transmitterAddress << std::dec;
+       << "Reset: 0x" << std::hex << static_cast<uint32_t>(m_reset) << "\n"
+       << "MAC Sequence: 0x" << std::hex << static_cast<uint32_t>(m_macSequence) << "\n"
+       << "Sequence Number: 0x" << std::hex << static_cast<uint32_t>(m_sequenceNumber) << "\n"
+       << "Receiver Address: 0x" << std::hex << m_receiverAddress << "\n"
+       << "Transmitter Address: 0x" << std::hex << m_transmitterAddress << std::dec;
 }
 
 uint32_t
@@ -57,9 +57,9 @@ Dect2020ExtUnicastHeader::Serialize(Buffer::Iterator start) const
     uint8_t byte0 = static_cast<uint8_t>(m_reset) << 4;
     byte0 |= (m_macSequence & 0x0F);
     start.WriteU8(byte0);
-   
-    // byte1
-    start.WriteU8(m_sequenceNumber); // Sequence Number
+
+    // byte 1
+    start.WriteU8(m_sequenceNumber);
 
     // 4-byte Receiver Address
     start.WriteHtonU32(m_receiverAddress);
@@ -75,7 +75,7 @@ Dect2020ExtUnicastHeader::Deserialize(Buffer::Iterator start)
     uint8_t byte0 = start.ReadU8();
     m_reset = ((byte0 >> 4) & 0x1);
     m_macSequence = byte0 & 0x0F;
-   
+
     // byte 1
     m_sequenceNumber = start.ReadU8();
 
@@ -91,10 +91,6 @@ Dect2020ExtUnicastHeader::Deserialize(Buffer::Iterator start)
 void
 Dect2020ExtUnicastHeader::SetReset(bool reset)
 {
-    if(reset != 0x0 && reset != 0x1)
-    {
-        DECT2020EXT_MAC_PDU_FATAL("Reset can only be 0 or 1", reset);
-    }
     m_reset = reset;
 }
 
@@ -105,13 +101,14 @@ Dect2020ExtUnicastHeader::GetReset() const
 }
 
 void
-Dect2020ExtUnicastHeader::SetMacSequence(uint8_t number)
+Dect2020ExtUnicastHeader::SetMacSequence(uint8_t macSequence)
 {
-    if(number > 0xF)
+    if (macSequence > 0xF)
     {
-        DECT2020EXT_MAC_PDU_FATAL("MAC Sequence can only be 4 bit long", static_cast<uint32_t>(number));
-    } 
-    m_macSequence = number;
+        DECT2020EXT_MAC_PDU_FATAL("MAC Sequence must be at most 4 bits long",
+                                  static_cast<uint32_t>(macSequence));
+    }
+    m_macSequence = macSequence;
 }
 
 uint8_t
@@ -121,9 +118,9 @@ Dect2020ExtUnicastHeader::GetMacSequence() const
 }
 
 void
-Dect2020ExtUnicastHeader::SetSequenceNumber(uint8_t number)
+Dect2020ExtUnicastHeader::SetSequenceNumber(uint8_t sequenceNumber)
 {
-    m_sequenceNumber = number;
+    m_sequenceNumber = sequenceNumber;
 }
 
 uint8_t
@@ -133,9 +130,9 @@ Dect2020ExtUnicastHeader::GetSequenceNumber() const
 }
 
 void
-Dect2020ExtUnicastHeader::SetReceiverAddress(uint32_t address)
+Dect2020ExtUnicastHeader::SetReceiverAddress(uint32_t receiverAddress)
 {
-    m_receiverAddress = address;
+    m_receiverAddress = receiverAddress;
 }
 
 uint32_t
@@ -145,9 +142,9 @@ Dect2020ExtUnicastHeader::GetReceiverAddress() const
 }
 
 void
-Dect2020ExtUnicastHeader::SetTransmitterAddress(uint32_t address)
+Dect2020ExtUnicastHeader::SetTransmitterAddress(uint32_t transmitterAddress)
 {
-    m_transmitterAddress = address;
+    m_transmitterAddress = transmitterAddress;
 }
 
 uint32_t
@@ -155,5 +152,5 @@ Dect2020ExtUnicastHeader::GetTransmitterAddress() const
 {
     return m_transmitterAddress;
 }
-    
+
 } // namespace ns3

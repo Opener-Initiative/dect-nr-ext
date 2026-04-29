@@ -35,8 +35,9 @@ Dect2020ExtBeaconHeader::GetInstanceTypeId() const
 void
 Dect2020ExtBeaconHeader::Print(std::ostream& os) const
 {
-    os << "Beacon Header:" << std::endl << "NetworkId = 0x" << std::hex << m_networkId << std::endl
-       << "TransmitterAddress = 0x" << std::hex << m_transmitterAddress << std::endl;
+    os << "[DECT2020 BEACON HEADER]" << "\n"
+       << "Network ID: 0x" << std::hex << m_networkId << "\n"
+       << "Transmitter Address: 0x" << std::hex << m_transmitterAddress << std::dec;
 }
 
 uint32_t
@@ -78,7 +79,7 @@ Dect2020ExtBeaconHeader::SetNetworkId(uint32_t networkId)
 {
     if (networkId > 0xFFFFFF)
     {
-        DECT2020EXT_MAC_PDU_FATAL("Network ID can only be 24 bits long", networkId);
+        DECT2020EXT_MAC_PDU_FATAL("Network ID must be at most 24 bits long", networkId);
     }
     m_networkId = networkId;
 }
@@ -90,13 +91,9 @@ Dect2020ExtBeaconHeader::GetNetworkId() const
 }
 
 void
-Dect2020ExtBeaconHeader::SetTransmitterAddress(uint32_t transmitterId)
+Dect2020ExtBeaconHeader::SetTransmitterAddress(uint32_t transmitterAddress)
 {
-    if (transmitterId > 0xFFFFFFFF)
-    {
-        DECT2020EXT_MAC_PDU_FATAL("Transmitter address can only be 32 bits long", transmitterId);
-    }
-    m_transmitterAddress = transmitterId;
+    m_transmitterAddress = transmitterAddress;
 }
 
 uint32_t
