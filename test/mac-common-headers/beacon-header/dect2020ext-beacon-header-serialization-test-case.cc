@@ -28,11 +28,11 @@ void Dect2020ExtBeaconHeaderSerializationTestCase::DoRun()
 
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<uint32_t> networkIdDist(0, 0xFFFFFF);
-    std::uniform_int_distribution<uint32_t> transmitterAddressDist(0, 0xFFFFFFFF);
+    std::uniform_int_distribution<unsigned int> networkIdDist(0, 0xFFFFFF);
+    std::uniform_int_distribution<unsigned int> transmitterAddressDist(0, 0xFFFFFFFF);
 
-    uint32_t networkId = networkIdDist(mt); // 24-bit ID
-    uint32_t transmitterAddress = transmitterAddressDist(mt); // 32-bit address
+    auto networkId = static_cast<uint32_t>(networkIdDist(mt)); // 24-bit ID
+    auto transmitterAddress = static_cast<uint32_t>(transmitterAddressDist(mt)); // 32-bit address
 
     originalHeader.SetNetworkId(networkId);
     originalHeader.SetTransmitterAddress(transmitterAddress);

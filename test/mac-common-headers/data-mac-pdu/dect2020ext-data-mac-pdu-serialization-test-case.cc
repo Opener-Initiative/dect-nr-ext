@@ -1,4 +1,5 @@
 #include "dect2020ext-data-mac-pdu-serialization-test-case.h"
+
 #include "ns3/dect2020ext-data-mac-pdu-header.h"
 
 #include "ns3/packet.h"
@@ -31,11 +32,11 @@ Dect2020ExtDataMacPduSerializationTestCase::DoRun()
 
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<uint8_t> resetDist(0, 1);
-    std::uniform_int_distribution<uint16_t> sequenceNumberDist(0, 0xFFF);
+    std::bernoulli_distribution resetDist(0.5);
+    std::uniform_int_distribution<unsigned int> sequenceNumberDist(0, 0xFFF);
 
-    uint8_t reset = resetDist(mt); // 1-bit value
-    uint16_t sequenceNumber = sequenceNumberDist(mt); // 12-bit value
+    bool reset = resetDist(mt); // 1-bit value
+    auto sequenceNumber = static_cast<uint16_t>(sequenceNumberDist(mt)); // 12-bit value
 
     originalHeader.SetReset(reset);
     originalHeader.SetSequenceNumber(sequenceNumber);

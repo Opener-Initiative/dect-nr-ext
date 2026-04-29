@@ -29,7 +29,7 @@ class Dect2020ExtDataMacPduHeader : public Header
         uint16_t GetSequenceNumber() const;
         
     private:
-        bool m_reset; // 1 bit
+        bool m_reset; // 1 relevant bit
         uint16_t m_sequenceNumber; // 12 relevant bits
 };
 

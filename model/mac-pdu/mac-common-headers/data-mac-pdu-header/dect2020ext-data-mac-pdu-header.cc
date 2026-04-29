@@ -50,8 +50,7 @@ Dect2020ExtDataMacPduHeader::Serialize (Buffer::Iterator start) const
 {
 	// byte 0
 	// 3 first bits are reserved
-    uint8_t byte0 = 0;
-    byte0 |= static_cast<uint8_t>(m_reset) << 4;
+    uint8_t byte0 = static_cast<uint8_t>(m_reset) << 4;
     byte0 |= (m_sequenceNumber >> 8);
     start.WriteU8(byte0);
 
