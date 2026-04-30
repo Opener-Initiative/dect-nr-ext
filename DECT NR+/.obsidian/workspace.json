@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ToC",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -183,7 +184,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "1ef55c7f01550203",
+  "active": "b2c074fc8a208954",
   "lastOpenFiles": [
     "Tracking.md",
     "Design Documentation of the DECT-2020 NR ns-3 Implementation.md",

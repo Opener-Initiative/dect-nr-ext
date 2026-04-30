@@ -1,6 +1,6 @@
 #include "dect2020ext-phy-control-field-type-1.h"
 
-#include <cmath>
+#include "ns3/dect2020ext-mac-pdu-defs.h"
 
 namespace ns3
 {
@@ -27,7 +27,7 @@ Dect2020ExtPhyControlFieldType1::GetTypeId()
 }
 
 TypeId
-Dect2020ExtPhyControlFieldType1::GetInstanceTypeId(void) const
+Dect2020ExtPhyControlFieldType1::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
@@ -47,17 +47,18 @@ Dect2020ExtPhyControlFieldType1::GetSerializedSize() const
 void
 Dect2020ExtPhyControlFieldType1::Serialize(Buffer::Iterator start) const
 {
+    // byte 0
     uint8_t byte0 = 0;
-    byte0 |= m_packetLengthType << 4;
+    byte0 |= (static_cast<uint8_t>(m_packetLengthType)) << 4;
     byte0 |= m_packetLength;
 
     start.WriteU8(byte0);
 
     // byte 1
-    start.WriteU8(m_shortNetworkID);
+    start.WriteU8(m_shortNetworkId);
 
     // byte 2 and 3
-    start.WriteU16(m_transmitterIdentity);
+    start.WriteHtonU16(m_transmitterIdentity);
 
     uint8_t byte4 = 0;
     byte4 |= m_transmitPower << 4;
@@ -68,28 +69,22 @@ Dect2020ExtPhyControlFieldType1::Serialize(Buffer::Iterator start) const
 uint32_t
 Dect2020ExtPhyControlFieldType1::Deserialize(Buffer::Iterator start)
 {
-    int bytesRead = 0;
-
     uint8_t byte0 = start.ReadU8();
     m_headerFormat = byte0 >> 5;
     m_packetLengthType = byte0 >> 4;
     m_packetLength = byte0 & 0x0F;
-    bytesRead++;
 
     // byte 1
-    m_shortNetworkID = start.ReadU8();
-    bytesRead++;
+    m_shortNetworkId = start.ReadU8();
 
     // byte 2 and 3
-    m_transmitterIdentity = start.ReadU16();
-    bytesRead += 2;
+    m_transmitterIdentity = start.ReadNtohU16();
 
     uint8_t byte4 = start.ReadU8();
     m_transmitPower = byte4 >> 4;
     m_DFMCS = byte4 & 0x07;
-    bytesRead++;
 
-    return bytesRead;
+    return GetSerializedSize();
 }
 
 uint8_t
@@ -99,19 +94,12 @@ Dect2020ExtPhyControlFieldType1::GetHeaderFormat() const
 }
 
 void
-Dect2020ExtPhyControlFieldType1::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020ExtPhyControlFieldType1::SetPacketLengthType(bool packetLengthType)
 {
-    if (packetLengthType == 0 || packetLengthType == 1)
-    {
-        m_packetLengthType = packetLengthType;
-    }
-    else
-    {
-        NS_LOG_WARN("Invalid Packet Length Type. Must be 0 or 1.");
-    }
+    m_packetLengthType = packetLengthType;
 }
 
-uint8_t
+bool
 Dect2020ExtPhyControlFieldType1::GetPacketLengthType() const
 {
     return m_packetLengthType;
@@ -126,7 +114,7 @@ Dect2020ExtPhyControlFieldType1::SetPacketLength(uint8_t packetLength)
     }
     else
     {
-        NS_LOG_WARN("Invalid Packet Length. Must be between 0 and 15");
+        DECT2020EXT_MAC_PDU_FATAL("Invalid packet length, must be between 0 and 15", static_cast<uint32_t>(packetLength));
     }
 }
 
@@ -137,34 +125,34 @@ Dect2020ExtPhyControlFieldType1::GetPacketLength() const
 }
 
 void
-Dect2020ExtPhyControlFieldType1::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020ExtPhyControlFieldType1::SetShortNetworkId(uint8_t shortNetworkId)
 {
-    if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
+    if (shortNetworkId >= 0 && shortNetworkId <= 0xFF)
     {
-        m_shortNetworkID = shortNetworkID;
+        m_shortNetworkId = shortNetworkId;
     }
     else
     {
-        NS_LOG_WARN("Invalid Short Network ID. Must be between 0 and " << (pow(2, 8) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid Short Network ID, must be between 0 and 0xFF", static_cast<uint32_t>(shortNetworkId));
     }
 }
 
 uint8_t
-Dect2020ExtPhyControlFieldType1::GetShortNetworkID() const
+Dect2020ExtPhyControlFieldType1::GetShortNetworkId() const
 {
-    return m_shortNetworkID;
+    return m_shortNetworkId;
 }
 
 void
 Dect2020ExtPhyControlFieldType1::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
-    if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
+    if (transmitterIdentity >= 0 && transmitterIdentity <= 0xFFFF)
     {
         m_transmitterIdentity = transmitterIdentity;
     }
     else
     {
-        NS_LOG_WARN("Invalid Transmitter Identity. Must be between 0 and " << (pow(2, 16) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid Transmitter Identity, must be between 0 and 0xFFFF", transmitterIdentity);
     }
 }
 
@@ -177,13 +165,13 @@ Dect2020ExtPhyControlFieldType1::GetTransmitterIdentity() const
 void
 Dect2020ExtPhyControlFieldType1::SetTransmitPower(uint8_t transmitPower)
 {
-    if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
+    if (transmitPower >= 0 && transmitPower <= 15)
     {
         m_transmitPower = transmitPower;
     }
     else
     {
-        NS_LOG_WARN("Invalid Transmit Power. Must be between 0 and " << (pow(2, 4) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid transmit power, must be between 0 and 15", static_cast<uint32_t>(transmitPower));
     }
 }
 
@@ -196,13 +184,13 @@ Dect2020ExtPhyControlFieldType1::GetTransmitPower() const
 void
 Dect2020ExtPhyControlFieldType1::SetDFMCS(uint8_t DFMCS)
 {
-    if (DFMCS >= 0 && DFMCS <= pow(2, 3) - 1)
+    if (DFMCS >= 0 && DFMCS <= 7)
     {
         m_DFMCS = DFMCS;
     }
     else
     {
-        NS_LOG_WARN("Invalid DF MCS. Must be between 0 and " << pow(2, 3) - 1);
+        DECT2020EXT_MAC_PDU_FATAL("Invalid DF MCS, must be between 0 and 7", static_cast<uint32_t>(DFMCS));
     }
 }
 

@@ -1,8 +1,30 @@
+- [1 Quick Links](#1%20Quick%20Links)
+- [2 Configuration](#2%20Configuration)
+- [3 Logging](#3%20Logging)
+- [4 Statistics](#4%20Statistics)
+- [5 Initialization](#5%20Initialization)
+- [6 Initializing Network](#6%20Initializing%20Network)
+- [7 Spectrum Management Procedure](#7%20Spectrum%20Management%20Procedure)
+- [8 Beacon Transmission](#8%20Beacon%20Transmission)
+- [9 PHY Rx State Machine](#9%20PHY%20Rx%20State%20Machine)
+- [10 Association Procedure](#10%20Association%20Procedure)
+- [11 HARQ and Random Access Procedure](#11%20HARQ%20and%20Random%20Access%20Procedure)
+	- [11.1 HARQ](#11.1%20HARQ)
+- [12 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)](#12%20MAC%20PDU%20Size%20Calculation%20Based%20on%20Modulation%20and%20Coding%20Scheme%20(MCS))
+- [13 MAC PDU](#13%20MAC%20PDU)
+	- [13.1 Currently implemented MAC PDU formats](#13.1%20Currently%20implemented%20MAC%20PDU%20formats)
+	- [13.2 MAC PDU Macros](#13.2%20MAC%20PDU%20Macros)
+- [14 Available Tests](#14%20Available%20Tests)
+- [15 MAC Common Header Tests](#15%20MAC%20Common%20Header%20Tests)
+- [16 Running Tests](#16%20Running%20Tests)
+- [17 Future Work](#17%20Future%20Work)
+	- [17.1 Dect2020ExtTypes](#17.1%20Dect2020ExtTypes)
 # 1 Quick Links
 DECT-2020 New Radio (NR):
 - [Part 2: Radio reception and transmission requirements; ETSI TS 103 636-2 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363602/02.01.01_60/ts_10363602v020101p.pdf)
 - [Part 3: Physical layer; ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf)
 - [Part 4: MAC layer; ETSI TS 103 636-4 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
+ns-3
 # 2 Configuration
 The project can be configured through the `config` model located in `/model/config`.
 The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
@@ -204,14 +226,15 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
 # 13 MAC PDU
 All MAC PDU formats are serialized with host to network byte order (big-endian) and deserialized with network to host byte order (small-endian).
-Currently implemented MAC PDU formats:
+
+## 13.1 Currently implemented MAC PDU formats
 - MAC Common Headers:
-	1. [Beacon Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C455%5D)
-	2. [Data MAC PDU](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C619%5D)
-	3. [RD Broadcasting Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A763%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C445%5D)
-	4. [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
+	- [Beacon Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C455%5D)
+	- [Data MAC PDU](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C619%5D)
+	- [RD Broadcasting Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A763%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C445%5D)
+	- [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
 - [MAC Header Type](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A568%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C350%5D)
-## MAC PDU Macros
+## 13.2 MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
 # 14 Available Tests
 %% 1. [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
