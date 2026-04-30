@@ -12,8 +12,8 @@ class Dect2020ExtMacHeaderTypeSerializationTestCase : public TestCase
         Dect2020ExtMacHeaderTypeSerializationTestCase();
         virtual ~Dect2020ExtMacHeaderTypeSerializationTestCase();
 
-        virtual void DoSetup();
-        virtual void DoRun();
+        void DoSetup() override;
+        void DoRun() override;
 };
 
 } // namespace ns3

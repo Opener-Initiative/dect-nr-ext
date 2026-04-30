@@ -1,5 +1,5 @@
-#ifndef DECT2020EXT_MAC_HEADER_TYPE
-#define DECT2020EXT_MAC_HEADER_TYPE
+#ifndef DECT2020EXT_MAC_HEADER_TYPE_H
+#define DECT2020EXT_MAC_HEADER_TYPE_H
 
 #include "ns3/header.h"
 
@@ -9,20 +9,20 @@ namespace ns3
 class Dect2020ExtMacHeaderType : public Header
 {
 	public:
-		enum MacSecurityField // ETSI TS 103 636-4 V 1.51 #6.3.2-1
+		enum MacSecurityField
 		{
-			MAC_SECURITY_NOT_USED = 0,   // MAC security is not used for this MAC PDU.
-			MAC_SECURITY_USED_NO_IE = 1, // MAC security is used and the MAC Security IE is not present.
-			MAC_SECURITY_USED_WITH_IE = 2, // MAC is security used and a MAC Sec. Info IE is in MAC PDU
-			RESERVED = 3                   // Reserved.
+			MAC_SECURITY_NOT_USED = 0,     // MAC security is not used for this MAC PDU
+			MAC_SECURITY_USED_NO_IE = 1,   // MAC security is used and the MAC Security IE is not present
+			MAC_SECURITY_USED_WITH_IE = 2, // MAC is security used and a MAC Secucity Info IE is in MAC PDU
+			RESERVED = 3                   // Reserved
 		};
 
-		enum MacHeaderTypeField // ETSI TS 103 636-4 V 1.51 #6.3.2-2
+		enum MacHeaderTypeField
 		{
-			DATA_MAC_PDU_HEADER = 0,    // DATA MAC PDU header as defined in Figure 6.3.3.1-1
-			BEACON_HEADER = 1,          // Beacon Header as defined in Figure 6.3.3.2-1
-			UNICAST_HEADER = 2,         // Unicast Header as defined in Figure 6.3.3.3-1
-			RD_BROADCASTING_HEADER = 3, // RD Broadcasting Header as defined in Figure 6.3.3.4-1
+			DATA_MAC_PDU_HEADER = 0,    // DATA MAC PDU header
+			BEACON_HEADER = 1,          // Beacon Header
+			UNICAST_HEADER = 2,         // Unicast Header
+			RD_BROADCASTING_HEADER = 3, // RD Broadcasting Header
 			ESCAPE = 15                 // Escape
 		};
 
@@ -57,4 +57,4 @@ class Dect2020ExtMacHeaderType : public Header
 
 } // namespace ns3
 
-#endif // DECT2020EXT_MAC_HEADER_TYPE
+#endif // DECT2020EXT_MAC_HEADER_TYPE_H

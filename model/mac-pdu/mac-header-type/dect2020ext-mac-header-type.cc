@@ -49,8 +49,7 @@ Dect2020ExtMacHeaderType::GetSerializedSize() const
 void
 Dect2020ExtMacHeaderType::Serialize(Buffer::Iterator start) const
 {
-    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
-
+    // byte 0
     uint8_t byte0 = 0;
 
     byte0 |= (m_version & 0x03) << 6;       // Bit 0-1
@@ -63,7 +62,7 @@ Dect2020ExtMacHeaderType::Serialize(Buffer::Iterator start) const
 uint32_t
 Dect2020ExtMacHeaderType::Deserialize(Buffer::Iterator start)
 {
-    // See ETSI Doc. 103 636-4 - V.1.5.1 - 6.3.2
+    // byte 0
     uint8_t bytesRead = 0;
     uint8_t byte0 = 0;
 
@@ -99,9 +98,7 @@ Dect2020ExtMacHeaderType::SetMacSecurity(MacSecurityField macSecurity)
 {
     if ((macSecurity < 0) || (macSecurity > 3))
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Mac Security must be between 0 and 3");
+        DECT2020EXT_MAC_PDU_FATAL("Mac Security must be between 0 and 3", static_cast<uint32_t>(macSecurity));
     }
 
     m_macSecurity = macSecurity;
@@ -118,9 +115,7 @@ Dect2020ExtMacHeaderType::SetMacHeaderTypeField(MacHeaderTypeField macHeaderType
 {
     if ((macHeaderTypeField < 0) || (macHeaderTypeField > 15))
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Mac Header Type Field must be between 0 and 2^4-1");
+        DECT2020EXT_MAC_PDU_FATAL("Mac Header Type Field must be between 0 and 15", static_cast<uint32_t>(macHeaderTypeField));
     }
 
     m_macHeaderTypeField = macHeaderTypeField;
