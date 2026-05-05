@@ -1,6 +1,9 @@
 #include "dect2020ext-phy-control-field-type-2.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 #include "ns3/abort.h"
+
 #include <cmath>
 
 namespace ns3
@@ -13,7 +16,7 @@ Dect2020ExtPhyControlFieldType2::Dect2020ExtPhyControlFieldType2()
 {
 }
 
-Dect2020ExtPhyControlFieldType2::Dect2020ExtPhyControlFieldType2(Dect2020ExtHeaderFormat headerFormat)
+Dect2020ExtPhyControlFieldType2::Dect2020ExtPhyControlFieldType2(PhyControlFieldType2Format headerFormat)
 {
 	m_headerFormat = headerFormat;
 }
@@ -116,7 +119,7 @@ Dect2020ExtPhyControlFieldType2::Serialize(Buffer::Iterator start) const
     }
     else
     {
-        NS_ABORT_MSG("Dect2020ExtPhyControlFieldType2::Serialize: unknown headerFormat " << (int)m_headerFormat);
+        DECT2020EXT_MAC_PDU_FATAL("Unknown header format", static_cast<int>(m_headerFormat));
     }
 }
 
@@ -124,7 +127,7 @@ uint32_t
 Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
 {
     uint8_t byte0 = start.ReadU8();
-    m_headerFormat = byte0 >> 5;
+    m_headerFormat = static_cast<PhyControlFieldType2Format>(byte0 >> 5);
     m_packetLengthType = (byte0 >> 4) & 0x01;
     m_packetLength = byte0 & 0x0F;
 
@@ -173,7 +176,13 @@ Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
     return GetSerializedSize();
 }
 
-uint8_t
+void
+Dect2020ExtPhyControlFieldType2::SetHeaderFormat(PhyControlFieldType2Format format)
+{
+    m_headerFormat = format;
+}
+
+Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format
 Dect2020ExtPhyControlFieldType2::GetHeaderFormat() const
 {
     return m_headerFormat;

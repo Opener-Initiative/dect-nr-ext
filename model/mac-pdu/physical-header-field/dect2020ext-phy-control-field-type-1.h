@@ -46,7 +46,7 @@ class Dect2020ExtPhyControlFieldType1 : public Header
         uint8_t GetDFMCS() const;
 
 	private:
-		uint8_t m_headerFormat = 0; 	    // 3 bits are set to 000 for type 1
+		uint8_t m_headerFormat = 0; 	// 3 bits are set to 000 for type 1
 		bool m_packetLengthType;        // 1 bit
 		uint8_t m_packetLength;         // 4 bits
 		uint8_t m_shortNetworkId;       // 8 bits

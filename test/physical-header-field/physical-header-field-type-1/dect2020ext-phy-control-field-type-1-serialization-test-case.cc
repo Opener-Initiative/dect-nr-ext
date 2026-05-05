@@ -6,7 +6,8 @@
 
 #include <random>
 
-namespace ns3 {
+namespace ns3
+{
 
 Dect2020ExtPhyControlFieldType1SerializationTestCase::Dect2020ExtPhyControlFieldType1SerializationTestCase() 
     : TestCase("Dect2020ExtPhyControlFieldType1SerializationTestCase")

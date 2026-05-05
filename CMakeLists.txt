@@ -192,7 +192,9 @@ set(dect2020ext_configuration_test_src
 # Physical Header Field
 set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/physical-header-field-type-1/dect2020ext-phy-control-field-type-1-test.cc
-    test/physical-header-field/physical-header-field-type-1/dect2020ext-phy-control-field-type-1-serialization-test-case.cc)
+    test/physical-header-field/physical-header-field-type-1/dect2020ext-phy-control-field-type-1-serialization-test-case.cc
+    test/physical-header-field/physical-header-field-type-2/dect2020ext-phy-control-field-type-2-test.cc
+    test/physical-header-field/physical-header-field-type-2/dect2020ext-phy-control-field-type-2-serialization-test-case.cc)
 
 # Information Elements Tests
 
