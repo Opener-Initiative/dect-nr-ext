@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tracking.md",
+                "file": "Design Documentation of the DECT-2020 NR ns-3 Implementation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tracking"
+              "title": "Design Documentation of the DECT-2020 NR ns-3 Implementation"
             }
           }
         ]
@@ -185,8 +185,8 @@
   },
   "active": "1ef55c7f01550203",
   "lastOpenFiles": [
-    "Design Documentation of the DECT-2020 NR ns-3 Implementation.md",
     "Tracking.md",
+    "Design Documentation of the DECT-2020 NR ns-3 Implementation.md",
     "DECT NR+.html",
     "DECT NR+_tmp.html",
     "DECT NR+.pdf",

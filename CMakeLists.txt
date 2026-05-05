@@ -191,8 +191,8 @@ set(dect2020ext_configuration_test_src
 
 # Physical Header Field
 set(dect2020ext_physical_header_field_test_src
-    test/physical-header-field/dect2020ext-physical-header-field-test.cc
-    test/physical-header-field/dect2020ext-physical-header-field-serialization-test-case.cc)
+    test/physical-header-field/physical-header-field-type-1/dect2020ext-phy-control-field-type-1-test.cc
+    test/physical-header-field/physical-header-field-type-1/dect2020ext-phy-control-field-type-1-serialization-test-case.cc)
 
 # Information Elements Tests
 
@@ -231,8 +231,8 @@ build_lib(
         ${dect2020ext_net_device_src}
         ${dect2020ext_channel_manager_src}
         ${dect2020ext_channel_src}
-        ${dect2020ext_mac_src}
-        ${dect2020ext_phy_src}
+        # ${dect2020ext_mac_src}
+        # ${dect2020ext_phy_src}
         ${dect2020ext_physical_header_field_src}
         ${dect2020ext_mac_header_type_src}
         ${dect2020ext_mac_common_headers_src}
@@ -267,8 +267,8 @@ build_lib(
     TEST_SOURCES
         ${dect2020ext_mac_common_headers_test_src}
         ${dect2020ext_mac_header_type_test_src}
+        ${dect2020ext_physical_header_field_test_src}
         # ${dect2020ext_information_elements_test_src}
-        # ${dect2020ext_physical_header_field_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_message_test_src}
         # ${mac_multiplexing_header_test_src}

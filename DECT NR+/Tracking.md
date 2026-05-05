@@ -16,7 +16,7 @@ Explain HARQ in diagram
 Rename HARQ to ARQ or stop and wait?
 # Done
 - Checked MAC Common Headers:
-	- [x] Class name
+	- Class name
 	- Serialization/Deserialization Hton and Ntoh serialization/deserialization
 	- Error handling
 - MAC Common Header tests:
