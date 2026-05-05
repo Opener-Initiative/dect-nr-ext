@@ -16,7 +16,7 @@ Explain HARQ in diagram
 Rename HARQ to ARQ or stop and wait?
 # Done
 - Checked MAC Common Headers:
-	- Class name
+	- [x] Class name
 	- Serialization/Deserialization Hton and Ntoh serialization/deserialization
 	- Error handling
 - MAC Common Header tests:
@@ -31,6 +31,7 @@ Rename HARQ to ARQ or stop and wait?
 3. ARQ protocols on Layer 2 DLC (for flow control and error control)
 4. Flow Control is to adapt the Tx transmission to the Rx speed
 5. HARQ = ARQ (L2) + FEC (Turbo Coding on PHY)
+6. Add probability-based decoding errors on the PHY (Packet Error Rate) - CRC abstraction
 # Issues to be resolved
 # Changes to the implementation documentation
 - Implemented PHY Tx state machine -> update diagram 8
