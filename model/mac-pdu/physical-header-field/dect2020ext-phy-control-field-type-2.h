@@ -37,14 +37,14 @@ class Dect2020ExtPhyControlFieldType2 : public Header
 		void SetHeaderFormat(PhyControlFieldType2Format format);
 		PhyControlFieldType2Format GetHeaderFormat() const;
 
-		void SetPacketLengthType(uint8_t packetLengthType);
-		uint8_t GetPacketLengthType() const;
+		void SetPacketLengthType(bool packetLengthType);
+		bool GetPacketLengthType() const;
 
 		void SetPacketLength(uint8_t packetLength);
 		uint8_t GetPacketLength() const;
 		
-		void SetShortNetworkID(uint8_t shortNetworkID);
-		uint8_t GetShortNetworkID() const;
+		void SetShortNetworkId(uint8_t shortNetworkId);
+		uint8_t GetShortNetworkId() const;
 
 		void SetTransmitterIdentity(uint16_t transmitterIdentity);
 		uint16_t GetTransmitterIdentity() const;
@@ -52,8 +52,8 @@ class Dect2020ExtPhyControlFieldType2 : public Header
 		void SetTransmitPower(uint8_t transmitPower);
 		uint8_t GetTransmitPower() const;
 
-		void SetDFMCS(uint8_t dFMCS);
-		uint8_t GetDFMCS() const;
+		void SetDfmcs(uint8_t dFMCS);
+		uint8_t GetDfmcs() const;
 
 		void SetReceiverIdentity(uint16_t receiverIdentity);
 		uint16_t GetReceiverIdentity() const;
@@ -61,14 +61,14 @@ class Dect2020ExtPhyControlFieldType2 : public Header
 		void SetNumberOfSpatialStreams(uint8_t numberOfSpatialStreams);
 		uint8_t GetNumberOfSpatialStreams() const;
 
-		void SetDFRedundancyVersion(uint8_t dFRedundancyVersion);
-		uint8_t GetDFRedundancyVersion() const;
+		void SetDfRedundancyVersion(uint8_t dfRedundancyVersion);
+		uint8_t GetDfRedundancyVersion() const;
 
-		void SetDFNewDataIndication(uint8_t dFNewDataIndication);
-		uint8_t GetDFNewDataIndication() const;
+		void SetDfNewDataIndication(bool dFNewDataIndication);
+		bool GetDfNewDataIndication() const;
 
-		void SetDFHARQProcessNumber(uint8_t dFHARQProcessNumber);
-		uint8_t GetDFHARQProcessNumber() const;
+		void SetDfHarqProcessNumber(uint8_t dfHarqProcessNumber);
+		uint8_t GetDfHarqProcessNumber() const;
 
 		void SetFeedbackFormat(uint8_t feedbackFormat);
 		uint8_t GetFeedbackFormat() const;
@@ -78,20 +78,19 @@ class Dect2020ExtPhyControlFieldType2 : public Header
 
 	private:
 		PhyControlFieldType2Format m_headerFormat; // 3 relevant bits
-		uint8_t m_packetLengthType;       // 1 relevant bit
+		bool m_packetLengthType;          // 1 relevant bit
 		uint8_t m_packetLength;           // 4 relevant bits
-		uint8_t m_shortNetworkID;         // 8 relevant bits
+		uint8_t m_shortNetworkId;         // 8 relevant bits
 		uint16_t m_transmitterIdentity;   // 16 relevant bits
 		uint8_t m_transmitPower;          // 4 relevant bits
-		uint8_t m_DFMCS;    	  	      // 4 relevant bits
+		uint8_t m_dfmcs;    	  	      // 4 relevant bits
 		uint16_t m_receiverIdentity;      // 16 relevant bits
 		uint8_t m_numberOfSpatialStreams; // 2 relevant bits
-		uint8_t m_DFRedundancyVersion;    // 2 relevant bits
-		uint8_t m_DFNewDataIndication;    // 1 relevant bit
-		uint8_t m_DFHARQProcessNumber;    // 3 relevant bits
+		uint8_t m_dfRedundancyVersion;    // 2 relevant bits
+		bool m_dfNewDataIndication;       // 1 relevant bit
+		uint8_t m_dfHarqProcessNumber;    // 3 relevant bits
 		uint8_t m_feedbackFormat;         // 4 relevant bits
 		uint16_t m_feedbackInfo;          // 12 relevant bits
-
 };
 
 } // namespace ns3

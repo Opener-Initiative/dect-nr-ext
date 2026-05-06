@@ -4,8 +4,6 @@
 
 #include "ns3/abort.h"
 
-#include <cmath>
-
 namespace ns3
 {
 
@@ -49,6 +47,7 @@ Dect2020ExtPhyControlFieldType2::Print(std::ostream& os) const
 uint32_t
 Dect2020ExtPhyControlFieldType2::GetSerializedSize() const
 {
+    // Note: both header formats are 10-byte long
     return 10;
 }
 
@@ -63,7 +62,7 @@ Dect2020ExtPhyControlFieldType2::Serialize(Buffer::Iterator start) const
     start.WriteU8(byte0);
 
     // byte 1
-    start.WriteU8(m_shortNetworkID);
+    start.WriteU8(m_shortNetworkId);
 
     // byte 2 and 3
     start.WriteU16(m_transmitterIdentity);
@@ -71,7 +70,7 @@ Dect2020ExtPhyControlFieldType2::Serialize(Buffer::Iterator start) const
     // byte 4
     uint8_t byte4 = 0;
     byte4 |= m_transmitPower << 4;
-    byte4 |= m_DFMCS;
+    byte4 |= m_dfmcs;
 
     start.WriteU8(byte4);
 
@@ -82,9 +81,9 @@ Dect2020ExtPhyControlFieldType2::Serialize(Buffer::Iterator start) const
     {
         uint8_t byte7 = 0;
         byte7 |= m_numberOfSpatialStreams << 6;
-        byte7 |= m_DFRedundancyVersion << 4;
-        byte7 |= m_DFNewDataIndication << 3;
-        byte7 |= m_DFHARQProcessNumber;
+        byte7 |= m_dfRedundancyVersion << 4;
+        byte7 |= m_dfNewDataIndication << 3;
+        byte7 |= m_dfHarqProcessNumber;
 
         start.WriteU8(byte7);
 
@@ -132,7 +131,7 @@ Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
     m_packetLength = byte0 & 0x0F;
 
     // byte 1
-    m_shortNetworkID = start.ReadU8();
+    m_shortNetworkId = start.ReadU8();
 
     // byte 2 and 3
     m_transmitterIdentity = start.ReadU16();
@@ -140,7 +139,7 @@ Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
     // byte 4
     uint8_t byte4 = start.ReadU8();
     m_transmitPower = byte4 >> 4;
-    m_DFMCS = byte4 & 0x0F;
+    m_dfmcs= byte4 & 0x0F;
 
     // byte 5 and 6
     m_receiverIdentity = start.ReadU16();
@@ -149,9 +148,9 @@ Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
     {
         uint8_t byte7 = start.ReadU8();
         m_numberOfSpatialStreams = byte7 >> 6;
-        m_DFRedundancyVersion = (byte7 >> 4) & 0x03;
-        m_DFNewDataIndication = (byte7 >> 3) & 0x01;
-        m_DFHARQProcessNumber = byte7 & 0x07;
+        m_dfRedundancyVersion = (byte7 >> 4) & 0x03;
+        m_dfNewDataIndication = (byte7 >> 3) & 0x01;
+        m_dfHarqProcessNumber = byte7 & 0x07;
 
         // byte 8 and 9
         uint8_t byte8 = start.ReadU8();
@@ -170,7 +169,7 @@ Dect2020ExtPhyControlFieldType2::Deserialize(Buffer::Iterator start)
     }
     else
     {
-        NS_ABORT_MSG("Dect2020ExtPhyControlFieldType2::Deserialize: unknown headerFormat " << (int)m_headerFormat);
+        DECT2020EXT_MAC_PDU_FATAL("Unknown header format", m_headerFormat);
     }
 
     return GetSerializedSize();
@@ -189,19 +188,12 @@ Dect2020ExtPhyControlFieldType2::GetHeaderFormat() const
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetPacketLengthType(uint8_t packetLengthType)
+Dect2020ExtPhyControlFieldType2::SetPacketLengthType(bool packetLengthType)
 {
-    if (packetLengthType == 0 || packetLengthType == 1)
-    {
-        m_packetLengthType = packetLengthType;
-    }
-    else
-    {
-        NS_LOG_WARN("Invalid Packet Length Type. Must be 0 or 1.");
-    }
+    m_packetLengthType = packetLengthType;
 }
 
-uint8_t
+bool
 Dect2020ExtPhyControlFieldType2::GetPacketLengthType() const
 {
     return m_packetLengthType;
@@ -216,7 +208,7 @@ Dect2020ExtPhyControlFieldType2::SetPacketLength(uint8_t packetLength)
     }
     else
     {
-        NS_LOG_WARN("Invalid Packet Length. Must be between 0 and 15");
+        DECT2020EXT_MAC_PDU_FATAL("Invalid packet length, must be between 0 and 15", packetLength);
     }
 }
 
@@ -227,34 +219,34 @@ Dect2020ExtPhyControlFieldType2::GetPacketLength() const
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetShortNetworkID(uint8_t shortNetworkID)
+Dect2020ExtPhyControlFieldType2::SetShortNetworkId(uint8_t shortNetworkId)
 {
-    if (shortNetworkID >= 0 && shortNetworkID <= pow(2, 8) - 1)
+    if (shortNetworkId >= 0 && shortNetworkId <= 0xFF)
     {
-        m_shortNetworkID = shortNetworkID;
+        m_shortNetworkId = shortNetworkId;
     }
     else
     {
-        NS_LOG_WARN("Invalid Short Network ID. Must be between 0 and " << (pow(2, 8) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid short network ID, must be between 0 and 0xFF", shortNetworkId);
     }
 }
 
 uint8_t
-Dect2020ExtPhyControlFieldType2::GetShortNetworkID() const
+Dect2020ExtPhyControlFieldType2::GetShortNetworkId() const
 {
-    return m_shortNetworkID;
+    return m_shortNetworkId;
 }
 
 void
 Dect2020ExtPhyControlFieldType2::SetTransmitterIdentity(uint16_t transmitterIdentity)
 {
-    if (transmitterIdentity >= 0 && transmitterIdentity <= pow(2, 16) - 1)
+    if (transmitterIdentity >= 0 && transmitterIdentity <= 0xFFFF)
     {
         m_transmitterIdentity = transmitterIdentity;
     }
     else
     {
-        NS_LOG_WARN("Invalid Transmitter Identity. Must be between 0 and " << (pow(2, 16) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid transmitter identity, must be between 0 and 0xFFFF", transmitterIdentity);
     }
 }
 
@@ -267,13 +259,13 @@ Dect2020ExtPhyControlFieldType2::GetTransmitterIdentity() const
 void
 Dect2020ExtPhyControlFieldType2::SetTransmitPower(uint8_t transmitPower)
 {
-    if (transmitPower >= 0 && transmitPower <= (pow(2, 4) - 1))
+    if (transmitPower >= 0 && transmitPower <= 15)
     {
         m_transmitPower = transmitPower;
     }
     else
     {
-        NS_LOG_WARN("Invalid Transmit Power. Must be between 0 and " << (pow(2, 4) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid transmit power, must be between 0 and 15", transmitPower);
     }
 }
 
@@ -284,34 +276,34 @@ Dect2020ExtPhyControlFieldType2::GetTransmitPower() const
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetDFMCS(uint8_t DFMCS)
+Dect2020ExtPhyControlFieldType2::SetDfmcs(uint8_t dfmcs)
 {
-    if (DFMCS >= 0 && DFMCS <= pow(2, 4) - 1)
+    if (dfmcs >= 0 && dfmcs <= 15)
     {
-        m_DFMCS = DFMCS;
+        m_dfmcs= dfmcs;
     }
     else
     {
-        NS_LOG_WARN("Invalid DF MCS. Must be between 0 and " << pow(2, 4) - 1);
+        DECT2020EXT_MAC_PDU_FATAL("Invalid DF MCS, must be between 0 and 15", dfmcs);
     }
 }
 
 uint8_t
-Dect2020ExtPhyControlFieldType2::GetDFMCS() const
+Dect2020ExtPhyControlFieldType2::GetDfmcs() const
 {
-    return m_DFMCS;
+    return m_dfmcs;
 }
 
 void
 Dect2020ExtPhyControlFieldType2::SetReceiverIdentity(uint16_t receiverIdentity)
 {
-    if (receiverIdentity >= 0 && receiverIdentity <= pow(2, 16) - 1)
+    if (receiverIdentity >= 0 && receiverIdentity <= 0xFFFF)
     {
         m_receiverIdentity = receiverIdentity;
     }
     else
     {
-        NS_LOG_WARN("Invalid Receiver Identity. Must be between 0 and " << (pow(2, 16) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid receiver identity, must be between 0 and 0xFFFF", receiverIdentity);
     }
 }
 
@@ -324,13 +316,13 @@ Dect2020ExtPhyControlFieldType2::GetReceiverIdentity() const
 void
 Dect2020ExtPhyControlFieldType2::SetNumberOfSpatialStreams(uint8_t numberOfSpatialStreams)
 {
-    if (numberOfSpatialStreams >= 0 && numberOfSpatialStreams <= pow(2, 2) - 1)
+    if (numberOfSpatialStreams >= 0 && numberOfSpatialStreams <= 3)
     {
         m_numberOfSpatialStreams = numberOfSpatialStreams;
     }
     else
     {
-        NS_LOG_WARN("Invalid Number of Spatial Streams. Must be between 0 and " << (pow(2, 2) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid number of spatial streams, must be between 0 and 3", numberOfSpatialStreams);
     }
 }
 
@@ -341,72 +333,65 @@ Dect2020ExtPhyControlFieldType2::GetNumberOfSpatialStreams() const
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetDFRedundancyVersion(uint8_t dFRedundancyVersion)
+Dect2020ExtPhyControlFieldType2::SetDfRedundancyVersion(uint8_t dfRedundancyVersion)
 {
-    if (dFRedundancyVersion >= 0 && dFRedundancyVersion <= pow(2, 2) - 1)
+    if (dfRedundancyVersion >= 0 && dfRedundancyVersion <= 3)
     {
-        m_DFRedundancyVersion = dFRedundancyVersion;
+        m_dfRedundancyVersion = dfRedundancyVersion;
     }
     else
     {
-        NS_LOG_WARN("Invalid DF Redundancy Version. Must be between 0 and " << (pow(2, 2) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid DF Redundancy Version, must be between 0 and 3", dfRedundancyVersion);
     }
 }
 
 uint8_t
-Dect2020ExtPhyControlFieldType2::GetDFRedundancyVersion() const
+Dect2020ExtPhyControlFieldType2::GetDfRedundancyVersion() const
 {
-    return m_DFRedundancyVersion;
+    return m_dfRedundancyVersion;
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetDFNewDataIndication(uint8_t dFNewDataIndication)
+Dect2020ExtPhyControlFieldType2::SetDfNewDataIndication(bool dfNewDataIndication)
 {
-    if (dFNewDataIndication == 0 || dFNewDataIndication == 1)
-    {
-        m_DFNewDataIndication = dFNewDataIndication;
-    }
-    else
-    {
-        NS_LOG_WARN("Invalid DF New Data Indication. Must be 0 or 1.");
-    }
+    m_dfNewDataIndication = dfNewDataIndication;
 }
 
-uint8_t
-Dect2020ExtPhyControlFieldType2::GetDFNewDataIndication() const
+bool
+Dect2020ExtPhyControlFieldType2::GetDfNewDataIndication() const
 {
-    return m_DFNewDataIndication;
+    return m_dfNewDataIndication;
 }
 
 void
-Dect2020ExtPhyControlFieldType2::SetDFHARQProcessNumber(uint8_t dFHARQProcessNumber)
+Dect2020ExtPhyControlFieldType2::SetDfHarqProcessNumber(uint8_t dfHarqProcessNumber)
 {
-    if (dFHARQProcessNumber >= 0 && dFHARQProcessNumber <= pow(2, 3) - 1)
+    if (dfHarqProcessNumber >= 0 && dfHarqProcessNumber <= 7)
     {
-        m_DFHARQProcessNumber = dFHARQProcessNumber;
+        m_dfHarqProcessNumber = dfHarqProcessNumber;
     }
     else
     {
-        NS_LOG_WARN("Invalid DF HARQ Process Number. Must be between 0 and " << (pow(2, 3) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid DF HARQ Process Number, must be between 0 and 7", dfHarqProcessNumber);
     }
 }
 
 uint8_t
-Dect2020ExtPhyControlFieldType2::GetDFHARQProcessNumber() const
+Dect2020ExtPhyControlFieldType2::GetDfHarqProcessNumber() const
 {
-    return m_DFHARQProcessNumber;
+    return m_dfHarqProcessNumber;
 }
 
 void
 Dect2020ExtPhyControlFieldType2::SetFeedbackFormat(uint8_t feedbackFormat)
 {
-    if (feedbackFormat >= 0 && feedbackFormat <= pow(2, 4) - 1)
+    if (feedbackFormat >= 0 && feedbackFormat <= 15)
     {
         m_feedbackFormat = feedbackFormat;
     }
     else
     {
-        NS_LOG_WARN("Invalid Feedback Format. Must be between 0 and " << (pow(2, 4) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid feedback format, must be between 0 and 15", feedbackFormat);
     }
 }
 
@@ -419,13 +404,13 @@ Dect2020ExtPhyControlFieldType2::GetFeedbackFormat() const
 void
 Dect2020ExtPhyControlFieldType2::SetFeedbackInfo(uint16_t feedbackInfo)
 {
-    if (feedbackInfo >= 0 && feedbackInfo <= pow(2, 12) - 1)
+    if (feedbackInfo >= 0 && feedbackInfo <= 0xFFF)
     {
         m_feedbackInfo = feedbackInfo;
     }
     else
     {
-        NS_LOG_WARN("Invalid Feedback Info. Must be between 0 and " << (pow(2, 12) - 1));
+        DECT2020EXT_MAC_PDU_FATAL("Invalid feedback info, must be between 0 and 0xFFF", feedbackInfo);
     }
 }
 
