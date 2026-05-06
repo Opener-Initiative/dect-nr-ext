@@ -78,19 +78,19 @@ class Dect2020ExtPhyControlFieldType2 : public Header
 
 	private:
 		PhyControlFieldType2Format m_headerFormat; // 3 relevant bits
-		bool m_packetLengthType;          // 1 relevant bit
-		uint8_t m_packetLength;           // 4 relevant bits
-		uint8_t m_shortNetworkId;         // 8 relevant bits
-		uint16_t m_transmitterIdentity;   // 16 relevant bits
-		uint8_t m_transmitPower;          // 4 relevant bits
-		uint8_t m_dfmcs;    	  	      // 4 relevant bits
-		uint16_t m_receiverIdentity;      // 16 relevant bits
-		uint8_t m_numberOfSpatialStreams; // 2 relevant bits
-		uint8_t m_dfRedundancyVersion;    // 2 relevant bits
-		bool m_dfNewDataIndication;       // 1 relevant bit
-		uint8_t m_dfHarqProcessNumber;    // 3 relevant bits
-		uint8_t m_feedbackFormat;         // 4 relevant bits
-		uint16_t m_feedbackInfo;          // 12 relevant bits
+		bool m_packetLengthType = false;      // 2 relevant bit
+		uint8_t m_packetLength = 0;           // 4 relevant bits
+		uint8_t m_shortNetworkId = 0;         // 8 relevant bits
+		uint16_t m_transmitterIdentity = 0;   // 16 relevant bits
+		uint8_t m_transmitPower = 0;          // 4 relevant bits
+		uint8_t m_dfmcs = 0;    	  	      // 4 relevant bits
+		uint16_t m_receiverIdentity = 0;      // 16 relevant bits
+		uint8_t m_numberOfSpatialStreams = 0; // 2 relevant bits
+		uint8_t m_dfRedundancyVersion = 0;    // 2 relevant bits
+		bool m_dfNewDataIndication = false;   // 1 relevant bit
+		uint8_t m_dfHarqProcessNumber = 0;    // 3 relevant bits
+		uint8_t m_feedbackFormat = 0;         // 4 relevant bits
+		uint16_t m_feedbackInfo = 0;          // 12 relevant bits
 };
 
 } // namespace ns3

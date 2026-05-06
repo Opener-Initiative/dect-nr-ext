@@ -77,15 +77,15 @@ Dect2020ExtPhyControlFieldType2SerializationTestCase::DoRun()
     originalHeader.SetHeaderFormat(headerFormat);
     originalHeader.SetPacketLengthType(packetLengthType);
     originalHeader.SetPacketLength(packetLength);
-    originalHeader.SetShortNetworkID(shortNetworkId);
+    originalHeader.SetShortNetworkId(shortNetworkId);
     originalHeader.SetTransmitterIdentity(transmitterIdentity);
     originalHeader.SetTransmitPower(transmitPower);
-    originalHeader.SetDFMCS(dfmcs);
-    originalHeader.SetReceiverIdentity(receiverIdentity);
+    originalHeader.SetDfmcs(dfmcs);
+    originalHeader.SetReceiverIdentity(receiverIdentity); //
     originalHeader.SetNumberOfSpatialStreams(numberOfSpatialStreams);
-    originalHeader.SetDFRedundancyVersion(dfRedundancyVersion);
-    originalHeader.SetDFNewDataIndication(dfNewDataIndication);
-    originalHeader.SetDFHARQProcessNumber(dfHarqProcessNumber);
+    originalHeader.SetDfRedundancyVersion(dfRedundancyVersion);
+    originalHeader.SetDfNewDataIndication(dfNewDataIndication);
+    originalHeader.SetDfHarqProcessNumber(dfHarqProcessNumber);
     originalHeader.SetFeedbackFormat(feedbackFormat);
     originalHeader.SetFeedbackInfo(feedbackInfo);
 
@@ -93,22 +93,23 @@ Dect2020ExtPhyControlFieldType2SerializationTestCase::DoRun()
     std::cout << "Header format: " << (int)originalHeader.GetHeaderFormat() << "\n";
     std::cout << "Packet length type: " << (int)originalHeader.GetPacketLengthType() << "\n";
     std::cout << "Packet length: " << (int)originalHeader.GetPacketLength() << "\n";
-    std::cout << "Short network ID: " << (int)originalHeader.GetShortNetworkID() << "\n";
+    std::cout << "Short network ID: " << (int)originalHeader.GetShortNetworkId() << "\n";
     std::cout << "Transmitter identity: " << (int)originalHeader.GetTransmitterIdentity() << "\n";
     std::cout << "Transmit power: " << (int)originalHeader.GetTransmitPower() << "\n";
-    std::cout << "DF MCS: " << (int)originalHeader.GetDFMCS() << "\n";
+    std::cout << "DF MCS: " << (int)originalHeader.GetDfmcs() << "\n";
     std::cout << "Receiver identity: " << (int)originalHeader.GetReceiverIdentity() << "\n";
-    std::cout << "Number of spatial streams: " << (int)originalHeader.GetNumberOfSpatialStreams()
-              << "\n";
+    std::cout << "Number of spatial streams: " << (int)originalHeader.GetNumberOfSpatialStreams() << "\n";
+
     if (headerFormat == Dect2020ExtPhyControlFieldType2::FORMAT_000)
     {
-        std::cout << "DF redundancy version: " << (int)originalHeader.GetDFRedundancyVersion()
+        std::cout << "DF redundancy version: " << (int)originalHeader.GetDfRedundancyVersion()
                   << "\n";
-        std::cout << "DF new data indication: " << (int)originalHeader.GetDFNewDataIndication()
+        std::cout << "DF new data indication: " << (int)originalHeader.GetDfNewDataIndication()
                   << "\n";
-        std::cout << "DF HARQ process number: " << (int)originalHeader.GetDFHARQProcessNumber()
+        std::cout << "DF HARQ process number: " << (int)originalHeader.GetDfHarqProcessNumber()
                   << "\n";
     }
+
     std::cout << "Feedback format: " << (int)originalHeader.GetFeedbackFormat() << "\n";
     std::cout << "Feedback info: " << (int)originalHeader.GetFeedbackInfo() << "\n";
 
@@ -126,23 +127,23 @@ Dect2020ExtPhyControlFieldType2SerializationTestCase::DoRun()
     std::cout << "Header format: " << (int)deserializedHeader.GetHeaderFormat() << "\n";
     std::cout << "Packet length type: " << (int)deserializedHeader.GetPacketLengthType() << "\n";
     std::cout << "Packet length: " << (int)deserializedHeader.GetPacketLength() << "\n";
-    std::cout << "Short network ID: " << (int)deserializedHeader.GetShortNetworkID() << "\n";
-    std::cout << "Transmitter identity: " << (int)deserializedHeader.GetTransmitterIdentity()
-              << "\n";
+    std::cout << "Short network ID: " << (int)deserializedHeader.GetShortNetworkId() << "\n";
+    std::cout << "Transmitter identity: " << (int)deserializedHeader.GetTransmitterIdentity() << "\n";
     std::cout << "Transmit power: " << (int)deserializedHeader.GetTransmitPower() << "\n";
-    std::cout << "DF MCS: " << (int)deserializedHeader.GetDFMCS() << "\n";
+    std::cout << "DF MCS: " << (int)deserializedHeader.GetDfmcs() << "\n";
     std::cout << "Receiver identity: " << (int)deserializedHeader.GetReceiverIdentity() << "\n";
-    std::cout << "Number of spatial streams: "
-              << (int)deserializedHeader.GetNumberOfSpatialStreams() << "\n";
-    if (deserializedHeader.GetHeaderFormat() == Dect2020ExtPhyControlFieldType2::FORMAT_000)
+    std::cout << "Number of spatial streams: " << (int)deserializedHeader.GetNumberOfSpatialStreams() << "\n";
+
+    if (headerFormat == Dect2020ExtPhyControlFieldType2::FORMAT_000)
     {
-        std::cout << "DF redundancy version: " << (int)deserializedHeader.GetDFRedundancyVersion()
+        std::cout << "DF redundancy version: " << (int)deserializedHeader.GetDfRedundancyVersion()
                   << "\n";
-        std::cout << "DF new data indication: " << (int)deserializedHeader.GetDFNewDataIndication()
+        std::cout << "DF new data indication: " << (int)deserializedHeader.GetDfNewDataIndication()
                   << "\n";
-        std::cout << "DF HARQ process number: " << (int)deserializedHeader.GetDFHARQProcessNumber()
+        std::cout << "DF HARQ process number: " << (int)deserializedHeader.GetDfHarqProcessNumber()
                   << "\n";
     }
+
     std::cout << "Feedback format: " << (int)deserializedHeader.GetFeedbackFormat() << "\n";
     std::cout << "Feedback info: " << (int)deserializedHeader.GetFeedbackInfo() << "\n";
 
@@ -158,8 +159,8 @@ Dect2020ExtPhyControlFieldType2SerializationTestCase::DoRun()
                           originalHeader.GetPacketLength(),
                           "Packet length mismatch after serialization/deserialization");
 
-    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetShortNetworkID(),
-                          originalHeader.GetShortNetworkID(),
+    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetShortNetworkId(),
+                          originalHeader.GetShortNetworkId(),
                           "Short network ID mismatch after serialization/deserialization");
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetTransmitterIdentity(),
@@ -170,34 +171,31 @@ Dect2020ExtPhyControlFieldType2SerializationTestCase::DoRun()
                           originalHeader.GetTransmitPower(),
                           "Transmit power mismatch after serialization/deserialization");
 
-    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDFMCS(),
-                          originalHeader.GetDFMCS(),
+    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDfmcs(),
+                          originalHeader.GetDfmcs(),
                           "DF MCS mismatch after serialization/deserialization");
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetReceiverIdentity(),
                           originalHeader.GetReceiverIdentity(),
                           "Receiver identity mismatch after serialization/deserialization");
 
-    NS_TEST_ASSERT_MSG_EQ(
-        deserializedHeader.GetNumberOfSpatialStreams(),
-        originalHeader.GetNumberOfSpatialStreams(),
-        "Number of spatial streams mismatch after serialization/deserialization");
+    NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetNumberOfSpatialStreams(),
+                          originalHeader.GetNumberOfSpatialStreams(),
+                          "Number of spatial streams mismatch after serialization/deserialization");
 
     if (headerFormat == Dect2020ExtPhyControlFieldType2::FORMAT_000)
     {
-        NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDFRedundancyVersion(),
-                              originalHeader.GetDFRedundancyVersion(),
+        NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDfRedundancyVersion(),
+                              originalHeader.GetDfRedundancyVersion(),
                               "DF redundancy version mismatch after serialization/deserialization");
 
-        NS_TEST_ASSERT_MSG_EQ(
-            deserializedHeader.GetDFNewDataIndication(),
-            originalHeader.GetDFNewDataIndication(),
-            "DF new data indication mismatch after serialization/deserialization");
+        NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDfNewDataIndication(),
+                              originalHeader.GetDfNewDataIndication(),
+                              "DF new data indication mismatch after serialization/deserialization");
 
-        NS_TEST_ASSERT_MSG_EQ(
-            deserializedHeader.GetDFHARQProcessNumber(),
-            originalHeader.GetDFHARQProcessNumber(),
-            "DF HARQ process number mismatch after serialization/deserialization");
+        NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetDfHarqProcessNumber(),
+                              originalHeader.GetDfHarqProcessNumber(),
+                              "DF HARQ process number mismatch after serialization/deserialization");
     }
 
     NS_TEST_ASSERT_MSG_EQ(deserializedHeader.GetFeedbackFormat(),
