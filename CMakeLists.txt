@@ -270,10 +270,10 @@ build_lib(
         ${dect2020ext_mac_common_headers_test_src}
         ${dect2020ext_mac_header_type_test_src}
         ${dect2020ext_physical_header_field_test_src}
+        ${mac_multiplexing_header_test_src}
         # ${dect2020ext_information_elements_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_message_test_src}
-        # ${mac_multiplexing_header_test_src}
         # ${dect2020ext_random_access_test_src}
         # ${dect2020ext_phy_test_src}
         # ${dect2020ext_spectrum_management_procedure_test_src}

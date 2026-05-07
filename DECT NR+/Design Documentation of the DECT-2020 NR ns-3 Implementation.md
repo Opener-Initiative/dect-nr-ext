@@ -1,20 +1,3 @@
-- [1 Quick Links](#1%20Quick%20Links)
-- [2 Configuration](#2%20Configuration)
-- [3 Logging](#3%20Logging)
-- [4 Statistics](#4%20Statistics)
-- [5 PHY Rx State Machine](#5%20PHY%20Rx%20State%20Machine)
-- [6 Association Procedure](#6%20Association%20Procedure)
-- [7 HARQ and Random Access Procedure](#7%20HARQ%20and%20Random%20Access%20Procedure)
-	- [7.1 HARQ](#7.1%20HARQ)
-- [8 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)](#8%20MAC%20PDU%20Size%20Calculation%20Based%20on%20Modulation%20and%20Coding%20Scheme%20(MCS))
-- [9 MAC PDU](#9%20MAC%20PDU)
-	- [9.1 Currently implemented MAC PDU formats](#9.1%20Currently%20implemented%20MAC%20PDU%20formats)
-	- [9.2 MAC PDU Macros](#9.2%20MAC%20PDU%20Macros)
-- [10 Available Tests](#10%20Available%20Tests)
-- [11 MAC Common Header Tests](#11%20MAC%20Common%20Header%20Tests)
-- [12 Running Tests](#12%20Running%20Tests)
-- [13 Future Work](#13%20Future%20Work)
-	- [13.1 Dect2020ExtTypes](#13.1%20Dect2020ExtTypes)
 # 1 Quick Links
 DECT-2020 New Radio (NR):
 - [Part 2: Radio reception and transmission requirements; ETSI TS 103 636-2 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363602/02.01.01_60/ts_10363602v020101p.pdf)
@@ -185,8 +168,8 @@ HandleHarqAck --> IsTxQueueEmpty
 IsTxQueueEmpty -- YES --> InitiateHARQ
 IsTxQueueEmpty -- NO --> MonitorTxQueue
 ```
-# Data Transmission
-## Stop-and-Wait ARQ
+# 8 Data Transmission
+## 8.1 Stop-and-Wait ARQ
 ```mermaid
 ---
 config:
@@ -224,7 +207,7 @@ deactivate PT
 deactivate FT
 PT ->> FT: Only upon receiving ACK 1 -> continue data transmission
 ```
-## My version of how HARQ is implemented in DECT-2020 NR
+## 8.2 My version of how HARQ is implemented in DECT-2020 NR
 ```mermaid
 ---
 config:
@@ -270,10 +253,10 @@ Note over PT_MAC: HARQ process 1 becomes free
 Note over PT_MAC: HARQ process 2 timer exceeds
 PT_MAC ->> PT_PHY: Retransmit PACKET 2...
 ```
-## Problem with this approach
+## 8.3 Problem with this approach
 ```mermaid
 ```
-# 8 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
+# 9 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
 The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
 The table is implemented as follows:
 ```c++
@@ -303,31 +286,38 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	3. Calculate packet MAC PDU length in subslots (with rounding up)  by calling `std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot`
 4. If the length is calculated in slots:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
-# 9 MAC PDU
+# 10 MAC PDU
 All MAC PDU formats are serialized with host to network byte order (big-endian) and deserialized with network to host byte order (small-endian).
-
-## 9.1 Currently implemented MAC PDU formats
+## 10.1 Currently implemented MAC PDU formats
 - [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
 	- Type 1, Header Format: 000
+	- Type 2, Header Format: 000
+	- Type 2, Header Format: 001
+- [MAC Header Type](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A568%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C350%5D)
 - MAC Common Headers:
 	- [Beacon Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C455%5D)
 	- [Data MAC PDU](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C619%5D)
 	- [RD Broadcasting Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A763%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C445%5D)
 	- [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
-- [MAC Header Type](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A568%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C350%5D)
-## 9.2 MAC PDU Macros
+- [MAC Multiplexing Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
+	- Type A
+## 10.2 MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
-# 10 Available Tests
-%% 1. [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
-	1. PHY Control Field: Type 1, Header Format: 000
-	2. PHY Control Field: Type 2, Header Format: 000
-1. MAC Header Type Serialization/Deserialization test %%
-2. MAC Common Header tests:
-	1. [Beacon Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C455%5D)
-	2. [Data MAC PDU](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C619%5D)
-	3. [RD Broadcasting Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A763%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C445%5D)
-	4. [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
-# 11 MAC Common Header Tests
+# 11 Available Tests
+- Physical Header Field:
+	- Serialization/Deserialization tests:
+		- PHY Control Field: Type 1, Header Format: 000
+		- PHY Control Field: Type 2, Header Format: 000
+		- PHY Control Field: Type 2, Header Format: 001
+- MAC Header Type:
+	- Serialization/Deserialization test
+- MAC Common Headers:
+	- Serialization/Deserialization tests:
+		- Beacon Header
+		- Data MAC PDU
+		- RD Broadcasting Header
+		- Unicast Header
+## 11.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header
 2. One packet object is initiated to simulate adding headers to MAC PDU
@@ -345,7 +335,7 @@ originalHeader.SetNetworkId(networkId);
 originalHeader.SetTransmitterAddress(transmitterAddress);
 ```
 4. When adding header to the packet, the size of the packet before and after addition is also tested
-# 12 Running Tests
+## 11.2 Running Tests
 All tests can be executed with the `test.py` ns-3 script:
 1. Navigate to the root directory of ns-3
 2. To run all `dect2020ext` tests, run this command in the terminal:
@@ -359,5 +349,5 @@ python test.py --suite="dect2020ext-beacon*"
 
 Tips:
 1. To be 100% sure that the tested models work correctly, it is probably a good idea to run tests a couple of times. Some tests, for example, MAC Common Header tests, can be tested with random values and therefore should be tested a couple of times to see how the models behave with different random values.
-# 13 Future Work
-## 13.1 Dect2020ExtTypes
+# 12 Future Work
+## 12.1 Dect2020ExtTypes

@@ -1,5 +1,7 @@
 #include "dect2020ext-mac-multiplexing-header-type-a.h"
 
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
 namespace ns3
 {
 
@@ -15,9 +17,12 @@ Dect2020ExtMacMultiplexingHeaderTypeA::~Dect2020ExtMacMultiplexingHeaderTypeA()
 }
 
 TypeId
-Dect2020ExtMacMultiplexingHeaderTypeA::GetTypeId(void)
+Dect2020ExtMacMultiplexingHeaderTypeA::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeA");
+    static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeA")
+                            .SetParent<Header>()
+                            .SetGroupName("Dect2020Ext")
+                            .AddConstructor<Dect2020ExtMacMultiplexingHeaderTypeA>();
     return tid;
 }
 
@@ -53,7 +58,7 @@ Dect2020ExtMacMultiplexingHeaderTypeA::Deserialize(Buffer::Iterator start)
 
     m_macExtensionFieldEncoding = (byte0 >> 6) & 0x03; // Bit 0-1
     m_length = (byte0 >> 5) & 0x01;                    // Bit 2
-    m_ieTypeFieldEncoding = (byte0 & 0x1F);            // Bit 3-7
+    m_ieTypeFieldEncoding = static_cast<IeTypeFieldEncoding>(byte0 & 0x1F); // Bit 3-7
 
     return 1;
 }
@@ -67,6 +72,16 @@ Dect2020ExtMacMultiplexingHeaderTypeA::Print(std::ostream &os) const
        << "IE Type Field Encoding: " << static_cast<int>(m_ieTypeFieldEncoding) << std::endl;
 }
 
+void
+Dect2020ExtMacMultiplexingHeaderTypeA::SetMacExtensionFieldEncoding(uint8_t encoding)
+{
+    if (encoding > 3)
+    {
+        DECT2020EXT_MAC_PDU_FATAL("Invalid MAC Extension Field encoding, must be at most 2 bits", encoding);
+    }
+    m_macExtensionFieldEncoding = encoding;
+}
+
 uint8_t
 Dect2020ExtMacMultiplexingHeaderTypeA::GetMacExtensionFieldEncoding() const
 {
@@ -74,35 +89,28 @@ Dect2020ExtMacMultiplexingHeaderTypeA::GetMacExtensionFieldEncoding() const
 }
 
 void
-Dect2020ExtMacMultiplexingHeaderTypeA::SetMacExtensionFieldEncoding(uint8_t encoding)
+Dect2020ExtMacMultiplexingHeaderTypeA::SetLengthField(bool length)
 {
-    m_ieTypeFieldEncoding = encoding;
+    m_length = length;
 }
 
-uint8_t
+bool
 Dect2020ExtMacMultiplexingHeaderTypeA::GetLengthField() const
 {
     return m_length;
 }
 
 void
-Dect2020ExtMacMultiplexingHeaderTypeA::SetLengthField(uint8_t length)
+Dect2020ExtMacMultiplexingHeaderTypeA::SetIeTypeFieldEncoding(IeTypeFieldEncoding type)
 {
-    m_length = length & 0x01;
+    m_ieTypeFieldEncoding = type;
 }
 
-Dect2020ExtMacMultiplexingHeaderTypeA::Dect2020ExtIETypeFieldEncoding
+
+Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding
 Dect2020ExtMacMultiplexingHeaderTypeA::GetIeTypeFieldEncoding() const
 {
-    return static_cast<Dect2020ExtIETypeFieldEncoding>(m_ieTypeFieldEncoding);
-}
-
-
-
-void
-Dect2020ExtMacMultiplexingHeaderTypeA::SetIeTypeFieldEncoding(Dect2020ExtIETypeFieldEncoding type)
-{
-    m_ieTypeFieldEncoding = static_cast<uint8_t>(type);
+    return m_ieTypeFieldEncoding;
 }
 
 } // namespace ns3
