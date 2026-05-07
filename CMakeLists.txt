@@ -196,18 +196,18 @@ set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/physical-header-field-type-2/dect2020ext-phy-control-field-type-2-test.cc
     test/physical-header-field/physical-header-field-type-2/dect2020ext-phy-control-field-type-2-serialization-test-case.cc)
 
-# Information Elements Tests
+# Information Element Tests
 
-set(dect2020ext_information_elements_test_src
-    test/information-elements/network-beacon-message-ie/test.cc
-    test/information-elements/network-beacon-message-ie/serialization-test-case.cc
-    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-test.cc
-    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-serialization-test-case.cc
-    test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-test.cc
-    test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-serialization-test-case.cc)
+set(dect2020ext_information_element_tests_src
+    test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-test.cc
+    test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-serialization-test-case.cc)
+    # test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-test.cc
+    # test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-serialization-test-case.cc
+    # test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-test.cc
+    # test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-serialization-test-case.cc)
 
 # MAC Common Header Tests
-set(dect2020ext_mac_common_headers_test_src
+set(dect2020ext_mac_common_header_tests_src
     test/mac-common-headers/beacon-header/dect2020ext-beacon-header-test.cc
     test/mac-common-headers/beacon-header/dect2020ext-beacon-header-serialization-test-case.cc
     test/mac-common-headers/data-mac-pdu/dect2020ext-data-mac-pdu-test.cc
@@ -267,11 +267,11 @@ build_lib(
         # ${dect2020ext_app_h}
         # ${dect2020ext_statistics_h}
     TEST_SOURCES
-        ${dect2020ext_mac_common_headers_test_src}
+        ${dect2020ext_mac_common_header_tests_src}
         ${dect2020ext_mac_header_type_test_src}
         ${dect2020ext_physical_header_field_test_src}
         ${dect2020ext_mac_multiplexing_header_test_src}
-        # ${dect2020ext_information_elements_test_src}
+        ${dect2020ext_information_element_tests_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_message_test_src}
         # ${dect2020ext_random_access_test_src}
