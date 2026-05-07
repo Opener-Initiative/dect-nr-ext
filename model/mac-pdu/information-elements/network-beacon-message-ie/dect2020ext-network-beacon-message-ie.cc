@@ -1,41 +1,59 @@
 #include "dect2020ext-network-beacon-message-ie.h"
 
-#include <algorithm> // für std::copy
-#include <cstdint>
+#include "ns3/dect2020ext-mac-pdu-defs.h"
+
+#include <algorithm>
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtNetworkBeaconMessageIE");
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtNetworkBeaconMessageIE);
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtNetworkBeaconMessageIe");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtNetworkBeaconMessageIe);
 
-Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconMessageIE()
+Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconMessageIe()
 {
-    m_nextClusterChannel = 0;
 }
 
-Dect2020ExtNetworkBeaconMessageIE::~Dect2020ExtNetworkBeaconMessageIE()
+Dect2020ExtNetworkBeaconMessageIe::~Dect2020ExtNetworkBeaconMessageIe()
 {
 }
 
 TypeId
-Dect2020ExtNetworkBeaconMessageIE::GetTypeId(void)
+Dect2020ExtNetworkBeaconMessageIe::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtNetworkBeaconMessageIE")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtNetworkBeaconMessageIE>();
+                            .AddConstructor<Dect2020ExtNetworkBeaconMessageIe>();
     return tid;
 }
 
 TypeId
-Dect2020ExtNetworkBeaconMessageIE::GetInstanceTypeId() const
+Dect2020ExtNetworkBeaconMessageIe::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
+void
+Dect2020ExtNetworkBeaconMessageIe::Print(std::ostream& os) const
+{
+    os << "Dect2020ExtNetworkBeaconMessageIE" << std::endl;
+    os << "Tx Power Included: " << m_txPowerIncluded << std::endl;
+    os << "Power Constraints: " << m_powerConstraints << std::endl;
+    os << "Current Cluster Channel Included: " << m_currentClusterChannelIncluded << std::endl;
+    os << "Network Beacon Channels: " << m_networkBeaconChannels << std::endl;
+    os << "Network Beacon Period: " << m_networkBeaconPeriod << std::endl;
+    os << "Cluster Beacon Period: " << m_clusterBeaconPeriod << std::endl;
+    os << "Next Cluster Channel: " << m_nextClusterChannel << std::endl;
+    os << "Time To Next: " << m_timeToNext << std::endl;
+    os << "Clusters Max Tx Power: " << m_clusterMaxTxPower << std::endl;
+    os << "Current Cluster Channel: " << m_currentClusterChannel << std::endl;
+    os << "Additional Network Beacon Channels: ";
+    os << std::endl;
+}
+
 uint32_t
-Dect2020ExtNetworkBeaconMessageIE::GetSerializedSize() const
+Dect2020ExtNetworkBeaconMessageIe::GetSerializedSize() const
 {
     uint32_t sizeInBits = 0;
 
@@ -66,10 +84,8 @@ Dect2020ExtNetworkBeaconMessageIE::GetSerializedSize() const
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtNetworkBeaconMessageIe::Serialize(Buffer::Iterator start) const
 {
-    // See ETSI Doc. 103 636-4 Figure 6.4.2.2-1 for more Information
-
     // Byte 0
     uint8_t byte0 = 0;
     // Bit 0-2 Reserved
@@ -107,7 +123,7 @@ Dect2020ExtNetworkBeaconMessageIE::Serialize(Buffer::Iterator start) const
         // Byte 8
         uint8_t byte8 = 0;
         // Bit 0-3 Reserved
-        byte8 |= (m_clustersMaxTxPower & 0x0F); // Bit 4-7
+        byte8 |= (m_clusterMaxTxPower & 0x0F); // Bit 4-7
 
         start.WriteU8(byte8);
     }
@@ -139,7 +155,7 @@ Dect2020ExtNetworkBeaconMessageIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtNetworkBeaconMessageIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtNetworkBeaconMessageIe::Deserialize(Buffer::Iterator start)
 {
     // See ETSI Doc. 103 636-4 Figure 6.4.2.2-1 for more Information
 
@@ -195,7 +211,7 @@ Dect2020ExtNetworkBeaconMessageIE::Deserialize(Buffer::Iterator start)
         bytesRead++;
 
         // Bit 0-3: Reserved
-        m_clustersMaxTxPower = byte8 & 0x0F;
+        m_clusterMaxTxPower = byte8 & 0x0F;
     }
 
     if (m_currentClusterChannelIncluded)
@@ -228,210 +244,164 @@ Dect2020ExtNetworkBeaconMessageIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::Print(std::ostream& os) const
-{
-    os << "Dect2020ExtNetworkBeaconMessageIE" << std::endl;
-    os << "Tx Power Included: " << m_txPowerIncluded << std::endl;
-    os << "Power Constraints: " << m_powerConstraints << std::endl;
-    os << "Current Cluster Channel Included: " << m_currentClusterChannelIncluded << std::endl;
-    os << "Network Beacon Channels: " << m_networkBeaconChannels << std::endl;
-    os << "Network Beacon Period: " << m_networkBeaconPeriod << std::endl;
-    os << "Cluster Beacon Period: " << m_clusterBeaconPeriod << std::endl;
-    os << "Next Cluster Channel: " << m_nextClusterChannel << std::endl;
-    os << "Time To Next: " << m_timeToNext << std::endl;
-    os << "Clusters Max Tx Power: " << m_clustersMaxTxPower << std::endl;
-    os << "Current Cluster Channel: " << m_currentClusterChannel << std::endl;
-    os << "Additional Network Beacon Channels: ";
-    os << std::endl;
-}
-
-void
-Dect2020ExtNetworkBeaconMessageIE::SetTxPowerIncluded(bool txPowerIncluded)
+Dect2020ExtNetworkBeaconMessageIe::SetTxPowerIncluded(bool txPowerIncluded)
 {
     m_txPowerIncluded = txPowerIncluded;
 }
 
 bool
-Dect2020ExtNetworkBeaconMessageIE::GetTxPowerIncluded() const
+Dect2020ExtNetworkBeaconMessageIe::GetTxPowerIncluded() const
 {
     return m_txPowerIncluded;
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetPowerConstraints(bool powerConstraints)
+Dect2020ExtNetworkBeaconMessageIe::SetPowerConstraints(bool powerConstraints)
 {
     m_powerConstraints = powerConstraints;
 }
 
 bool
-Dect2020ExtNetworkBeaconMessageIE::GetPowerConstraints() const
+Dect2020ExtNetworkBeaconMessageIe::GetPowerConstraints() const
 {
     return m_powerConstraints;
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetCurrentClusterChannelIncluded(bool currentClusterChannelIncluded)
+Dect2020ExtNetworkBeaconMessageIe::SetCurrentClusterChannelIncluded(bool currentClusterChannelIncluded)
 {
     m_currentClusterChannelIncluded = currentClusterChannelIncluded;
 }
 
 bool
-Dect2020ExtNetworkBeaconMessageIE::GetCurrentClusterChannelIncluded() const
+Dect2020ExtNetworkBeaconMessageIe::GetCurrentClusterChannelIncluded() const
 {
     return m_currentClusterChannelIncluded;
 }
 
-/**
- * Set the number of additional Network Channels
- *
- * @param value Value between 0 and 3
- * @throws std::invalid_argument if the value is outside the valid range.
- */
 void
-Dect2020ExtNetworkBeaconMessageIE::SetNetworkBeaconChannels(uint8_t networkBeaconChannels)
+Dect2020ExtNetworkBeaconMessageIe::SetNetworkBeaconChannels(uint8_t networkBeaconChannels)
 {
     if ((networkBeaconChannels < 0) || (networkBeaconChannels > 3))
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Network Beacon Channels must be between 0 and 3");
+        DECT2020EXT_MAC_PDU_FATAL("Network Beacon Channels must be between 0 and 3", networkBeaconChannels);
     }
 
     m_networkBeaconChannels = networkBeaconChannels;
 }
 
 uint8_t
-Dect2020ExtNetworkBeaconMessageIE::GetNetworkBeaconChannels() const
+Dect2020ExtNetworkBeaconMessageIe::GetNetworkBeaconChannels() const
 {
     return m_networkBeaconChannels;
 }
 
-/**
- * Set the Network Beacon Period
- *
- * @param value Value between 0 and 2^4-1
- * @throws std::invalid_argument if the value is outside the valid range.
- */
 void
-Dect2020ExtNetworkBeaconMessageIE::SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconPeriod networkBeaconPeriod)
+Dect2020ExtNetworkBeaconMessageIe::SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconPeriod networkBeaconPeriod)
 {
-    if ((networkBeaconPeriod < 0) || (networkBeaconPeriod > 15))
+    // Note: validating here against the biggest Network Beacon period since the rest of the values
+    // are reserved by the standard
+    if (networkBeaconPeriod > NETWORK_BEACON_PERIOD_4000MS)
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Network Beacon Period must be between 0 and 2^4-1");
+        DECT2020EXT_MAC_PDU_FATAL("Network Beacon period must be between 0 and 6", networkBeaconPeriod);
     }
 
     m_networkBeaconPeriod = networkBeaconPeriod;
 }
 
-Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod
-Dect2020ExtNetworkBeaconMessageIE::GetNetworkBeaconPeriod() const
+Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod
+Dect2020ExtNetworkBeaconMessageIe::GetNetworkBeaconPeriod() const
 {
     return m_networkBeaconPeriod;
 }
 
-/**
- * Set the Cluster Beacon Period
- *
- * @param value Value between 0 and 2^4-1
- * @throws std::invalid_argument if the value is outside the valid range.
- */
 void
-Dect2020ExtNetworkBeaconMessageIE::SetClusterBeaconPeriod(Dect2020ExtClusterBeaconPeriod clusterBeaconPeriod)
+Dect2020ExtNetworkBeaconMessageIe::SetClusterBeaconPeriod(Dect2020ExtClusterBeaconPeriod clusterBeaconPeriod)
 {
-    if ((clusterBeaconPeriod < 0) || (clusterBeaconPeriod > 15))
+    // Note: validating here against the biggest Cluster Beacon period since the rest of the values
+    // are reserved by the standard
+    if (clusterBeaconPeriod > 10)
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Cluster Beacon Period must be between 0 and 2^4-1");
+        DECT2020EXT_MAC_PDU_FATAL("Cluster Beacon period must be between 0 and 10", clusterBeaconPeriod);
     }
 
     m_clusterBeaconPeriod = clusterBeaconPeriod;
 }
 
-Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod
-Dect2020ExtNetworkBeaconMessageIE::GetClusterBeaconPeriod() const
+Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod
+Dect2020ExtNetworkBeaconMessageIe::GetClusterBeaconPeriod() const
 {
     return m_clusterBeaconPeriod;
 }
 
-/**
- * Set the Next Cluster Channel
- *
- * @param value Value between 0 and 8191 (2^13-1)
- * @throws std::invalid_argument if the value is outside the valid range.
- */
 void
-Dect2020ExtNetworkBeaconMessageIE::SetNextClusterChannel(uint16_t nextClusterChannel)
+Dect2020ExtNetworkBeaconMessageIe::SetNextClusterChannel(uint16_t nextClusterChannel)
 {
     if ((nextClusterChannel < 0) || (nextClusterChannel > 8191))
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Next Cluster Channel must be between 0 and 8191");
+        DECT2020EXT_MAC_PDU_FATAL("Next Cluster Channel must be between 0 and 8191", nextClusterChannel);
     }
 
     m_nextClusterChannel = nextClusterChannel;
 }
 
 uint16_t
-Dect2020ExtNetworkBeaconMessageIE::GetNextClusterChannel() const
+Dect2020ExtNetworkBeaconMessageIe::GetNextClusterChannel() const
 {
     return m_nextClusterChannel;
 }
 
-/**
- * Set the Time To Next
- *
- * @param value Value between 0 and 2^32-1
- * @throws std::invalid_argument if the value is outside the valid range.
- */
 void
-Dect2020ExtNetworkBeaconMessageIE::SetTimeToNext(uint32_t timeToNext)
+Dect2020ExtNetworkBeaconMessageIe::SetTimeToNext(uint32_t timeToNext)
 {
     if ((timeToNext < 0) || (timeToNext > UINT32_MAX))
     {
-        throw std::invalid_argument("Error in " + std::string(__func__) + " at " +
-                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) +
-                                    " - Time To Next must be between 0 and 2^32-1");
+        DECT2020EXT_MAC_PDU_FATAL("Time to Next must be between 0 and 32 bits", timeToNext);
     }
 
     m_timeToNext = timeToNext;
 }
 
 uint32_t
-Dect2020ExtNetworkBeaconMessageIE::GetTimeToNext() const
+Dect2020ExtNetworkBeaconMessageIe::GetTimeToNext() const
 {
     return m_timeToNext;
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetClustersMaxTxPower(uint8_t clustersMaxTxPower)
+Dect2020ExtNetworkBeaconMessageIe::SetClustersMaxTxPower(uint8_t clusterMaxTxPower)
 {
-    m_clustersMaxTxPower = clustersMaxTxPower;
+    if (clusterMaxTxPower > 15)
+    {
+        DECT2020EXT_MAC_PDU_FATAL("Cluster Max Tx Power must be between 0 and 15", clusterMaxTxPower);
+    }
+    m_clusterMaxTxPower = clusterMaxTxPower;
 }
 
 uint8_t
-Dect2020ExtNetworkBeaconMessageIE::GetClustersMaxTxPower() const
+Dect2020ExtNetworkBeaconMessageIe::GetClustersMaxTxPower() const
 {
-    return m_clustersMaxTxPower;
+    return m_clusterMaxTxPower;
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetCurrentClusterChannel(uint16_t currentClusterChannel)
+Dect2020ExtNetworkBeaconMessageIe::SetCurrentClusterChannel(uint16_t currentClusterChannel)
 {
+    if (currentClusterChannel > 8191)
+    {
+        DECT2020EXT_MAC_PDU_FATAL("Current Cluster Channel must be between 0 and 8191", currentClusterChannel);
+    }
     m_currentClusterChannel = currentClusterChannel;
 }
 
 uint16_t
-Dect2020ExtNetworkBeaconMessageIE::GetCurrentClusterChannel() const
+Dect2020ExtNetworkBeaconMessageIe::GetCurrentClusterChannel() const
 {
     return m_currentClusterChannel;
 }
 
 void
-Dect2020ExtNetworkBeaconMessageIE::SetAdditionalNetworkBeaconChannels(uint16_t additionalNetworkBeaconChannels[3])
+Dect2020ExtNetworkBeaconMessageIe::SetAdditionalNetworkBeaconChannels(uint16_t additionalNetworkBeaconChannels[3])
 {
     std::copy(additionalNetworkBeaconChannels,
               additionalNetworkBeaconChannels + 3,
@@ -439,7 +409,7 @@ Dect2020ExtNetworkBeaconMessageIE::SetAdditionalNetworkBeaconChannels(uint16_t a
 }
 
 uint16_t*
-Dect2020ExtNetworkBeaconMessageIE::GetAdditionalNetworkBeaconChannels()
+Dect2020ExtNetworkBeaconMessageIe::GetAdditionalNetworkBeaconChannels()
 {
     return m_additionalNetworkBeaconChannels;
 }
