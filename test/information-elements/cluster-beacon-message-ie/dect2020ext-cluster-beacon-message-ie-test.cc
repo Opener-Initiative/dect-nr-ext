@@ -4,24 +4,23 @@
 namespace ns3
 {
 
-class Dect2020ExtClusterBeaconMessageIESerializationTest : public TestSuite
+class Dect2020ExtClusterBeaconMessageIeSerializationTest : public TestSuite
 {
     public:
-        Dect2020ExtClusterBeaconMessageIESerializationTest();
-        virtual ~Dect2020ExtClusterBeaconMessageIESerializationTest();
+        Dect2020ExtClusterBeaconMessageIeSerializationTest();
+        virtual ~Dect2020ExtClusterBeaconMessageIeSerializationTest();
 };
 
-Dect2020ExtClusterBeaconMessageIESerializationTest::Dect2020ExtClusterBeaconMessageIESerializationTest() 
+Dect2020ExtClusterBeaconMessageIeSerializationTest::Dect2020ExtClusterBeaconMessageIeSerializationTest() 
     : TestSuite("dect2020ext-cluster-beacon-message-ie-serialization-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020ExtClusterBeaconMessageIESerializationTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtClusterBeaconMessageIeSerializationTestCase(), TestCase::Duration::QUICK);
 }
 
-Dect2020ExtClusterBeaconMessageIESerializationTest::~Dect2020ExtClusterBeaconMessageIESerializationTest()
+Dect2020ExtClusterBeaconMessageIeSerializationTest::~Dect2020ExtClusterBeaconMessageIeSerializationTest()
 {
 }
 
-static Dect2020ExtClusterBeaconMessageIESerializationTest dect2020ExtClusterBeaconMessageIESerializationTest;
+static Dect2020ExtClusterBeaconMessageIeSerializationTest dect2020ExtClusterBeaconMessageIeSerializationTest;
 
 } // namespace ns3
-

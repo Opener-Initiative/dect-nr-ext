@@ -200,11 +200,11 @@ set(dect2020ext_physical_header_field_test_src
 
 set(dect2020ext_information_element_tests_src
     test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-test.cc
-    test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-serialization-test-case.cc)
-    # test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-test.cc
-    # test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-serialization-test-case.cc
+    test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-serialization-test-case.cc
+    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-test.cc
+    test/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie-serialization-test-case.cc)
     # test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-test.cc
-    # test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-serialization-test-case.cc)
+    # test/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie-serialization-test-case.cc
 
 # MAC Common Header Tests
 set(dect2020ext_mac_common_header_tests_src
