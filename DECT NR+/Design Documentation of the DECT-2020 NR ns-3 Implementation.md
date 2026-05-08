@@ -207,55 +207,9 @@ deactivate PT
 deactivate FT
 PT ->> FT: Only upon receiving ACK 1 -> continue data transmission
 ```
-## 8.2 My version of how HARQ is implemented in DECT-2020 NR
-```mermaid
----
-config:
-  theme: dark
-  look: classic
-  sequence:
-    actorMargin: 150
-  themeVariables:
-    primaryTextColor: "#ffffff"
-    noteBkgColor: "#ffffff"
-    noteTextColor: "#000000"
-    signalColor: "#000000"
-    signalTextColor: "#000000"
-    loopTextColor: "#000000"
----
-sequenceDiagram
+## 8.2 General Description
+Data transmission is implemented via HARQ operation and Random Access. MAC PDU formats that belong to HARQ and Random Access are used to configure how data transmission will happen.
 
-participant PT_MAC
-participant PT_PHY
-participant FT_PHY
-participant FT_MAC
-participant DEV
-
-Note over PT_MAC: 2 packets are enqued into the Tx queue
-Note over PT_MAC: 2 HARQ processes are allocated for each packet
-Note over PT_MAC: 2 ACK timers are started for each HARQ process
-PT_MAC ->> PT_PHY: Transmit PACKET 1
-PT_PHY ->> FT_PHY: Send PACKET 1 Start
-FT_PHY ->> FT_MAC: Received PACKET 1
-Note over PT_PHY, FT_PHY: Signal duration
-PT_PHY ->> FT_PHY: Send PACKET 1 End
-PT_MAC ->> PT_PHY: Transmit PACKET 2
-FT_PHY ->> FT_MAC: Received PACKET 2
-PT_PHY ->> FT_PHY: Send PACKET 2 Start
-Note over PT_PHY, FT_PHY: Signal duration
-DEV ->> FT_MAC: Transmit data
-Note over FT_MAC: PACKET 2 dropped due to collision
-PT_PHY ->> FT_PHY: Send PACKET 2 End
-FT_MAC ->> FT_PHY: Transmit ACK 1
-FT_PHY ->> PT_PHY: Send ACK 1
-PT_PHY ->> PT_MAC: Received ACK 1
-Note over PT_MAC: HARQ process 1 becomes free
-Note over PT_MAC: HARQ process 2 timer exceeds
-PT_MAC ->> PT_PHY: Retransmit PACKET 2...
-```
-## 8.3 Problem with this approach
-```mermaid
-```
 # 9 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
 The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
 The table is implemented as follows:
