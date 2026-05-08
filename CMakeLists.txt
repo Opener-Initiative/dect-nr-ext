@@ -138,23 +138,23 @@ set(dect2020ext_mac_multiplexing_header_h
 # Information Elements
 set(dect2020ext_information_elements_src
     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.cc
-    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
-    # model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc
-    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.cc)
+    # model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
+    # model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
     # model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc
     # model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.cc
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc
-    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.cc)
+    # model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc
+    # model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.cc)
 
 set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h
-    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
-    # model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h
-    model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
+    model/mac-pdu/information-elements/cluster-beacon-message-ie/dect2020ext-cluster-beacon-message-ie.h)
+    # model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
+    # model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
     # model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h
     # model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.h
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h
-    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
+    # model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h
+    # model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
 
 ###########
 ## TESTS ##
