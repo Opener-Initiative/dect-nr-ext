@@ -2,30 +2,29 @@
 #define DECT2020EXT_ASSOCIATION_REQUEST_MESSAGE_IE_H
 
 #include "ns3/dect2020ext-network-beacon-message-ie.h"
+
 #include "ns3/header.h"
 
 namespace ns3
 {
 
-class Dect2020ExtNetworkBeaconMessageIE;
+typedef Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod NetworkBeaconPeriod;
+typedef Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod ClusterBeaconPeriod;
 
-typedef Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtNetworkBeaconPeriod NetworkBeaconPeriod;
-typedef Dect2020ExtNetworkBeaconMessageIE::Dect2020ExtClusterBeaconPeriod ClusterBeaconPeriod;
-
-class Dect2020ExtAssociationRequestMessageIE : public Header
+class Dect2020ExtAssociationRequestMessageIe : public Header
 {
     public:
-        Dect2020ExtAssociationRequestMessageIE();
-        virtual ~Dect2020ExtAssociationRequestMessageIE();
+        Dect2020ExtAssociationRequestMessageIe();
+        virtual ~Dect2020ExtAssociationRequestMessageIe();
 
         // Virtual Header base class methods
 
-        static TypeId GetTypeId(void);
-        virtual TypeId GetInstanceTypeId() const override;
-        virtual uint32_t GetSerializedSize() const override;
-        virtual void Serialize(Buffer::Iterator start) const override;
-        virtual uint32_t Deserialize(Buffer::Iterator start) override;
-        virtual void Print(std::ostream &os) const override;
+        static TypeId GetTypeId();
+        TypeId GetInstanceTypeId() const override;
+        uint32_t GetSerializedSize() const override;
+        void Serialize(Buffer::Iterator start) const override;
+        uint32_t Deserialize(Buffer::Iterator start) override;
+        void Print(std::ostream &os) const override;
 
         // Setters and Getters
 
