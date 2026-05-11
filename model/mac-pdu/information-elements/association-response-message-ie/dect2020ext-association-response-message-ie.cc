@@ -1,40 +1,38 @@
 #include "dect2020ext-association-response-message-ie.h"
-#include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtAssociationResponseMessageIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtAssociationResponseMessageIe");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtAssociationResponseMessageIe);
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtAssociationResponseMessageIE);
-
-Dect2020ExtAssociationResponseMessageIE::Dect2020ExtAssociationResponseMessageIE()
+Dect2020ExtAssociationResponseMessageIe::Dect2020ExtAssociationResponseMessageIe()
 {
     NS_LOG_FUNCTION(this);
 }
 
-Dect2020ExtAssociationResponseMessageIE::~Dect2020ExtAssociationResponseMessageIE()
+Dect2020ExtAssociationResponseMessageIe::~Dect2020ExtAssociationResponseMessageIe()
 {
     NS_LOG_FUNCTION(this);
 }
 
 TypeId
-Dect2020ExtAssociationResponseMessageIE::GetTypeId(void)
+Dect2020ExtAssociationResponseMessageIe::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtAssociationResponseMessageIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtAssociationResponseMessageIe")
                             .SetParent<Header>()
-                            .AddConstructor<Dect2020ExtAssociationResponseMessageIE>();
+                            .AddConstructor<Dect2020ExtAssociationResponseMessageIe>();
     return tid;
 }
 
 TypeId
-Dect2020ExtAssociationResponseMessageIE::GetInstanceTypeId() const
+Dect2020ExtAssociationResponseMessageIe::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020ExtAssociationResponseMessageIE::GetSerializedSize() const
+Dect2020ExtAssociationResponseMessageIe::GetSerializedSize() const
 {
     NS_LOG_FUNCTION(this);
     uint32_t size = 1; // Byte 0
@@ -60,7 +58,7 @@ Dect2020ExtAssociationResponseMessageIE::GetSerializedSize() const
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtAssociationResponseMessageIe::Serialize(Buffer::Iterator start) const
 {
     // Byte 0
     uint8_t byte0 = 0;
@@ -125,7 +123,7 @@ Dect2020ExtAssociationResponseMessageIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtAssociationResponseMessageIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtAssociationResponseMessageIe::Deserialize(Buffer::Iterator start)
 {
     NS_LOG_FUNCTION(this << &start);
     Buffer::Iterator i = start;
@@ -182,164 +180,164 @@ Dect2020ExtAssociationResponseMessageIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::Print(std::ostream& os) const
+Dect2020ExtAssociationResponseMessageIe::Print(std::ostream& os) const
 {
     NS_LOG_FUNCTION(this << &os);
-    os << "Dect2020ExtAssociationResponseMessageIE";
+    os << "Dect2020ExtAssociationResponseMessageIe";
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetAssociationAccepted(bool accepted)
+Dect2020ExtAssociationResponseMessageIe::SetAssociationAccepted(bool accepted)
 {
     m_associationAccepted = accepted;
 }
 
 bool
-Dect2020ExtAssociationResponseMessageIE::GetAssociationAccepted() const
+Dect2020ExtAssociationResponseMessageIe::GetAssociationAccepted() const
 {
     return m_associationAccepted;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetHarqMod(bool harqMod)
+Dect2020ExtAssociationResponseMessageIe::SetHarqMod(bool harqMod)
 {
     m_harqMod = harqMod;
 }
 
 bool
-Dect2020ExtAssociationResponseMessageIE::GetHarqMod() const
+Dect2020ExtAssociationResponseMessageIe::GetHarqMod() const
 {
     return m_harqMod;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetNumberOfFlows(uint8_t numberOfFlows)
+Dect2020ExtAssociationResponseMessageIe::SetNumberOfFlows(uint8_t numberOfFlows)
 {
     m_numberOfFlows = numberOfFlows & 0x07; // 3 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetNumberOfFlows() const
+Dect2020ExtAssociationResponseMessageIe::GetNumberOfFlows() const
 {
     return m_numberOfFlows;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetGroupIdAndResourceTagIncluded(bool included)
+Dect2020ExtAssociationResponseMessageIe::SetGroupIdAndResourceTagIncluded(bool included)
 {
     m_groupIdAndResourceTagIncluded = included;
 }
 
 bool
-Dect2020ExtAssociationResponseMessageIE::GetGroupIdAndResourceTagIncluded() const
+Dect2020ExtAssociationResponseMessageIe::GetGroupIdAndResourceTagIncluded() const
 {
     return m_groupIdAndResourceTagIncluded;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetRejectCause(uint8_t cause)
+Dect2020ExtAssociationResponseMessageIe::SetRejectCause(uint8_t cause)
 {
     m_rejectCause = cause & 0x0F; // 4 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetRejectCause() const
+Dect2020ExtAssociationResponseMessageIe::GetRejectCause() const
 {
     return m_rejectCause;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetRejectTimer(uint8_t timer)
+Dect2020ExtAssociationResponseMessageIe::SetRejectTimer(uint8_t timer)
 {
     m_rejectTimer = timer & 0x0F; // 4 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetRejectTimer() const
+Dect2020ExtAssociationResponseMessageIe::GetRejectTimer() const
 {
     return m_rejectTimer;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetHarqProcessesRx(uint8_t value)
+Dect2020ExtAssociationResponseMessageIe::SetHarqProcessesRx(uint8_t value)
 {
     m_harqProcessesRx = value & 0x07; // 3 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetHarqProcessesRx() const
+Dect2020ExtAssociationResponseMessageIe::GetHarqProcessesRx() const
 {
     return m_harqProcessesRx;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetMaxHarqReRxDelay(uint8_t delay)
+Dect2020ExtAssociationResponseMessageIe::SetMaxHarqReRxDelay(uint8_t delay)
 {
     m_maxHarqReRxDelay = delay & 0x1F; // 5 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetMaxHarqReRxDelay() const
+Dect2020ExtAssociationResponseMessageIe::GetMaxHarqReRxDelay() const
 {
     return m_maxHarqReRxDelay;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetHarqProcessesTx(uint8_t value)
+Dect2020ExtAssociationResponseMessageIe::SetHarqProcessesTx(uint8_t value)
 {
     m_harqProcessesTx = value & 0x07; // 3 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetHarqProcessesTx() const
+Dect2020ExtAssociationResponseMessageIe::GetHarqProcessesTx() const
 {
     return m_harqProcessesTx;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetMaxHarqReTxDelay(uint8_t delay)
+Dect2020ExtAssociationResponseMessageIe::SetMaxHarqReTxDelay(uint8_t delay)
 {
     m_maxHarqReTxDelay = delay & 0x1F; // 5 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetMaxHarqReTxDelay() const
+Dect2020ExtAssociationResponseMessageIe::GetMaxHarqReTxDelay() const
 {
     return m_maxHarqReTxDelay;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetFlowId(uint8_t flowId)
+Dect2020ExtAssociationResponseMessageIe::SetFlowId(uint8_t flowId)
 {
     m_flowId = flowId & 0x3F; // 6 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetFlowId() const
+Dect2020ExtAssociationResponseMessageIe::GetFlowId() const
 {
     return m_flowId;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetGroupId(uint8_t groupId)
+Dect2020ExtAssociationResponseMessageIe::SetGroupId(uint8_t groupId)
 {
     m_groupId = groupId & 0x7F; // 7 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetGroupId() const
+Dect2020ExtAssociationResponseMessageIe::GetGroupId() const
 {
     return m_groupId;
 }
 
 void
-Dect2020ExtAssociationResponseMessageIE::SetResourceTag(uint8_t resourceTag)
+Dect2020ExtAssociationResponseMessageIe::SetResourceTag(uint8_t resourceTag)
 {
     m_resourceTag = resourceTag & 0x7F; // 7 Bit
 }
 
 uint8_t
-Dect2020ExtAssociationResponseMessageIE::GetResourceTag() const
+Dect2020ExtAssociationResponseMessageIe::GetResourceTag() const
 {
     return m_resourceTag;
 }
