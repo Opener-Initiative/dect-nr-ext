@@ -1,41 +1,37 @@
 #include "dect2020ext-random-access-resource-ie.h"
-#include "ns3/log.h"
 
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtRandomAccessResourceIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtRandomAccessResourceIe");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRandomAccessResourceIe);
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRandomAccessResourceIE);
-
-Dect2020ExtRandomAccessResourceIE::Dect2020ExtRandomAccessResourceIE()
+Dect2020ExtRandomAccessResourceIe::Dect2020ExtRandomAccessResourceIe()
 {
-    NS_LOG_FUNCTION(this);
 }
 
-Dect2020ExtRandomAccessResourceIE::~Dect2020ExtRandomAccessResourceIE()
+Dect2020ExtRandomAccessResourceIe::~Dect2020ExtRandomAccessResourceIe()
 {
-    NS_LOG_FUNCTION(this);
 }
 
 TypeId
-Dect2020ExtRandomAccessResourceIE::GetTypeId(void)
+Dect2020ExtRandomAccessResourceIe::GetTypeId(void)
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtRandomAccessResourceIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtRandomAccessResourceIe")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtRandomAccessResourceIE>();
+                            .AddConstructor<Dect2020ExtRandomAccessResourceIe>();
     return tid;
 }
 
 TypeId
-Dect2020ExtRandomAccessResourceIE::GetInstanceTypeId() const
+Dect2020ExtRandomAccessResourceIe::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020ExtRandomAccessResourceIE::GetSerializedSize() const
+Dect2020ExtRandomAccessResourceIe::GetSerializedSize() const
 {
     NS_LOG_FUNCTION(this);
     uint32_t size = 0;
@@ -72,7 +68,7 @@ Dect2020ExtRandomAccessResourceIE::GetSerializedSize() const
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtRandomAccessResourceIe::Serialize(Buffer::Iterator start) const
 {
     NS_LOG_FUNCTION(this << &start);
     // Byte 0
@@ -86,10 +82,10 @@ Dect2020ExtRandomAccessResourceIE::Serialize(Buffer::Iterator start) const
 
     start.WriteU8(byte0);
 
-    if (false) // Byte1 only if subcarrier scaling factor >= 4 --> currently not implemented
-    {
-        // Byte 1
-    }
+    // if (false) // Byte1 only if subcarrier scaling factor >= 4 --> currently not implemented
+    // {
+    //     // Byte 1
+    // }
 
     // Byte 2
     uint8_t byte2 = m_startSubslot & 0xFF; // Bit 0-7;
@@ -168,7 +164,7 @@ Dect2020ExtRandomAccessResourceIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtRandomAccessResourceIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtRandomAccessResourceIe::Deserialize(Buffer::Iterator start)
 {
     NS_LOG_FUNCTION(this << &start);
     Buffer::Iterator i = start;
@@ -240,7 +236,7 @@ Dect2020ExtRandomAccessResourceIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::Print(std::ostream &os) const
+Dect2020ExtRandomAccessResourceIe::Print(std::ostream &os) const
 {
     NS_LOG_FUNCTION(this << &os);
     os << "Dect2020RandomAccessResourceIE:" << std::endl;
@@ -289,217 +285,217 @@ Dect2020ExtRandomAccessResourceIE::Print(std::ostream &os) const
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetRepeat(uint8_t repeat)
+Dect2020ExtRandomAccessResourceIe::SetRepeat(uint8_t repeat)
 {
     m_repeat = repeat & 0x03;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetRepeat() const
+Dect2020ExtRandomAccessResourceIe::GetRepeat() const
 {
     return m_repeat;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetSystemFrameNumberFieldIncluded(bool included)
+Dect2020ExtRandomAccessResourceIe::SetSystemFrameNumberFieldIncluded(bool included)
 {
     m_systemFrameNumberFieldIncluded = included;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetSystemFrameNumberFieldIncluded() const
+Dect2020ExtRandomAccessResourceIe::GetSystemFrameNumberFieldIncluded() const
 {
     return m_systemFrameNumberFieldIncluded;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetChannelFieldIncluded(bool included)
+Dect2020ExtRandomAccessResourceIe::SetChannelFieldIncluded(bool included)
 {
     m_channelFieldIncluded = included;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetChannelFieldIncluded() const
+Dect2020ExtRandomAccessResourceIe::GetChannelFieldIncluded() const
 {
     return m_channelFieldIncluded;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetSeparateChannelFieldIncluded(bool included)
+Dect2020ExtRandomAccessResourceIe::SetSeparateChannelFieldIncluded(bool included)
 {
     m_separateChannelFieldIncluded = included;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetSeparateChannelFieldIncluded() const
+Dect2020ExtRandomAccessResourceIe::GetSeparateChannelFieldIncluded() const
 {
     return m_separateChannelFieldIncluded;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetStartSubslot(uint16_t subslot)
+Dect2020ExtRandomAccessResourceIe::SetStartSubslot(uint16_t subslot)
 {
     m_startSubslot = subslot;
 }
 
 uint16_t
-Dect2020ExtRandomAccessResourceIE::GetStartSubslot() const
+Dect2020ExtRandomAccessResourceIe::GetStartSubslot() const
 {
     return m_startSubslot;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetLengthType(bool lengthType)
+Dect2020ExtRandomAccessResourceIe::SetLengthType(bool lengthType)
 {
     m_lengthType = lengthType;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetLengthType() const
+Dect2020ExtRandomAccessResourceIe::GetLengthType() const
 {
     return m_lengthType;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetRaraLength(uint8_t length)
+Dect2020ExtRandomAccessResourceIe::SetRaraLength(uint8_t length)
 {
     m_raraLength = length & 0x7F;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetRaraLength() const
+Dect2020ExtRandomAccessResourceIe::GetRaraLength() const
 {
     return m_raraLength;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetMaxRachLengthType(bool type)
+Dect2020ExtRandomAccessResourceIe::SetMaxRachLengthType(bool type)
 {
     m_maxRachLengthType = type;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetMaxRachLengthType() const
+Dect2020ExtRandomAccessResourceIe::GetMaxRachLengthType() const
 {
     return m_maxRachLengthType;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetMaxRachLength(uint8_t length)
+Dect2020ExtRandomAccessResourceIe::SetMaxRachLength(uint8_t length)
 {
     m_maxRachLength = length & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetMaxRachLength() const
+Dect2020ExtRandomAccessResourceIe::GetMaxRachLength() const
 {
     return m_maxRachLength;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetCwMinSig(uint8_t cwMinSig)
+Dect2020ExtRandomAccessResourceIe::SetCwMinSig(uint8_t cwMinSig)
 {
     m_cwMin_sig = cwMinSig & 0x07;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetCwMinSig() const
+Dect2020ExtRandomAccessResourceIe::GetCwMinSig() const
 {
     return m_cwMin_sig;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetDectDelay(bool dectDelay)
+Dect2020ExtRandomAccessResourceIe::SetDectDelay(bool dectDelay)
 {
     m_dectDelay = dectDelay;
 }
 
 bool
-Dect2020ExtRandomAccessResourceIE::GetDectDelay() const
+Dect2020ExtRandomAccessResourceIe::GetDectDelay() const
 {
     return m_dectDelay;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetResponseWindow(uint8_t responseWindow)
+Dect2020ExtRandomAccessResourceIe::SetResponseWindow(uint8_t responseWindow)
 {
     m_responseWindow = responseWindow & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetResponseWindow() const
+Dect2020ExtRandomAccessResourceIe::GetResponseWindow() const
 {
     return m_responseWindow;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetCwMaxSig(uint8_t cwMaxSig)
+Dect2020ExtRandomAccessResourceIe::SetCwMaxSig(uint8_t cwMaxSig)
 {
     m_cwMax_sig = cwMaxSig & 0x07;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetCwMaxSig() const
+Dect2020ExtRandomAccessResourceIe::GetCwMaxSig() const
 {
     return m_cwMax_sig;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetRepetition(uint8_t repetition)
+Dect2020ExtRandomAccessResourceIe::SetRepetition(uint8_t repetition)
 {
     m_repitition = repetition;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetRepetition() const
+Dect2020ExtRandomAccessResourceIe::GetRepetition() const
 {
     return m_repitition;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetValidity(uint8_t validity)
+Dect2020ExtRandomAccessResourceIe::SetValidity(uint8_t validity)
 {
     m_validity = validity;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetValidity() const
+Dect2020ExtRandomAccessResourceIe::GetValidity() const
 {
     return m_validity;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetSystemFrameNumberValue(uint8_t sfn)
+Dect2020ExtRandomAccessResourceIe::SetSystemFrameNumberValue(uint8_t sfn)
 {
     m_systemFrameNumberValue = sfn;
 }
 
 uint8_t
-Dect2020ExtRandomAccessResourceIE::GetSystemFrameNumberValue() const
+Dect2020ExtRandomAccessResourceIe::GetSystemFrameNumberValue() const
 {
     return m_systemFrameNumberValue;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetChannelAbsoluteCarrierCenterFrequency(uint16_t freq)
+Dect2020ExtRandomAccessResourceIe::SetChannelAbsoluteCarrierCenterFrequency(uint16_t freq)
 {
     m_channelAbsoluteCarrierCentryFrequency = freq & 0x1FFF;
 }
 
 uint16_t
-Dect2020ExtRandomAccessResourceIE::GetChannelAbsoluteCarrierCenterFrequency() const
+Dect2020ExtRandomAccessResourceIe::GetChannelAbsoluteCarrierCenterFrequency() const
 {
     return m_channelAbsoluteCarrierCentryFrequency;
 }
 
 void
-Dect2020ExtRandomAccessResourceIE::SetSeparateChannelAbsoluteCarrierCenterFrequency(uint16_t freq)
+Dect2020ExtRandomAccessResourceIe::SetSeparateChannelAbsoluteCarrierCenterFrequency(uint16_t freq)
 {
     m_separateChannelAbsoluteCarrierCentryFrequency = freq & 0x1FFF;
 }
 
 uint16_t
-Dect2020ExtRandomAccessResourceIE::GetSeparateChannelAbsoluteCarrierCenterFrequency() const
+Dect2020ExtRandomAccessResourceIe::GetSeparateChannelAbsoluteCarrierCenterFrequency() const
 {
     return m_separateChannelAbsoluteCarrierCentryFrequency;
 }

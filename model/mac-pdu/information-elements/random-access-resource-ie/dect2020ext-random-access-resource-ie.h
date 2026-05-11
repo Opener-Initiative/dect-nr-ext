@@ -6,11 +6,11 @@
 namespace ns3
 {
 
-class Dect2020ExtRandomAccessResourceIE : public Header
+class Dect2020ExtRandomAccessResourceIe : public Header
 {
     public:
-        Dect2020ExtRandomAccessResourceIE();
-        virtual ~Dect2020ExtRandomAccessResourceIE();
+        Dect2020ExtRandomAccessResourceIe();
+        virtual ~Dect2020ExtRandomAccessResourceIe();
 
         // Virtual Header base class methods
 
@@ -22,6 +22,7 @@ class Dect2020ExtRandomAccessResourceIE : public Header
         void Print(std::ostream &os) const override;
 
         // Setters and Getters
+
         void SetRepeat(uint8_t repeat);
         uint8_t GetRepeat() const;
 
@@ -77,27 +78,25 @@ class Dect2020ExtRandomAccessResourceIE : public Header
         uint16_t GetSeparateChannelAbsoluteCarrierCenterFrequency() const;
 
     private:
-        uint8_t m_repeat;                      // 2 Bit
-        bool m_systemFrameNumberFieldIncluded; // 1 Bit --> SFN
-        bool m_channelFieldIncluded;           // 1 Bit
-        bool m_separateChannelFieldIncluded;   // 1 Bit
-        uint16_t m_startSubslot;               // 8 Bit. For subcarrier scaling factor <= 4,
-        //                                    // otherwise 9 Bit. Note: Only the 8 Bit variant is
-        //                                    currently implemented
-        bool m_lengthType;    // 1 Bit. 0 = length in subslots, 1 = length in slots
-        uint8_t m_raraLength; // 7 Bit. The length of the random access resource allocation in subslots
-                            // or slots
-        bool m_maxRachLengthType;         // 1 Bit. 0 = length in subslots, 1 = length in slots
-        uint8_t m_maxRachLength;          // 4 Bit
-        uint8_t m_cwMin_sig;              // 3 Bit
-        bool m_dectDelay;                 // 1 Bit
-        uint8_t m_responseWindow;         // 4 Bit
-        uint8_t m_cwMax_sig;              // 3 Bit
-        uint8_t m_repitition;             // 8 Bit
-        uint8_t m_validity;               // 8 Bit
-        uint8_t m_systemFrameNumberValue; // 8 Bit
-        uint16_t m_channelAbsoluteCarrierCentryFrequency;         // 13 Bit
-        uint16_t m_separateChannelAbsoluteCarrierCentryFrequency; // 13 Bit
+        uint8_t m_repeat;                      // 2 bits
+        bool m_systemFrameNumberFieldIncluded; // 1 bit
+        bool m_channelFieldIncluded;           // 1 bit
+        bool m_separateChannelFieldIncluded;   // 1 bit
+        uint16_t m_startSubslot;               // 8 bits. For subcarrier scaling factor <= 4,
+                                               // otherwise 9 bits. Note: Only the 8 Bit variant is currently implemented
+        bool m_lengthType;    // 1 bit. 0 = length in subslots, 1 = length in slots
+        uint8_t m_raraLength; // 7 bits. The length of the random access resource allocation in subslots or slots
+        bool m_maxRachLengthType;         // 1 bit. 0 = length in subslots, 1 = length in slots
+        uint8_t m_maxRachLength;          // 4 bits
+        uint8_t m_cwMin_sig;              // 3 bits
+        bool m_dectDelay;                 // 1 bit
+        uint8_t m_responseWindow;         // 4 bits
+        uint8_t m_cwMax_sig;              // 3 bits
+        uint8_t m_repitition;             // 8 bits
+        uint8_t m_validity;               // 8 bits
+        uint8_t m_systemFrameNumberValue; // 8 bits
+        uint16_t m_channelAbsoluteCarrierCentryFrequency;         // 13 bits
+        uint16_t m_separateChannelAbsoluteCarrierCentryFrequency; // 13 bits
 };
 
 } // namespace ns3

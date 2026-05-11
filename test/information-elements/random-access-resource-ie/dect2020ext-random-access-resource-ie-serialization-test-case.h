@@ -6,11 +6,11 @@
 namespace ns3
 {
 
-class Dect2020ExtRandomAccessResourceIESerializationTestCase : public TestCase
+class Dect2020ExtRandomAccessResourceIeSerializationTestCase : public TestCase
 {
 public:
-    Dect2020ExtRandomAccessResourceIESerializationTestCase();
-    virtual ~Dect2020ExtRandomAccessResourceIESerializationTestCase();
+    Dect2020ExtRandomAccessResourceIeSerializationTestCase();
+    virtual ~Dect2020ExtRandomAccessResourceIeSerializationTestCase();
     void DoSetup() override;
     void DoRun() override;
 };

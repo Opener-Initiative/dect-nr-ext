@@ -258,7 +258,7 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 ## 10.2 MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
 # 11 Available Tests
-- Physical Header Field:
+- **Physical Header Field**:
 	- Serialization/Deserialization tests:
 		- PHY Control Field: Type 1, Header Format: 000
 		- PHY Control Field: Type 2, Header Format: 000
@@ -271,6 +271,15 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Data MAC PDU
 		- RD Broadcasting Header
 		- Unicast Header
+- MAC Multiplexing Header:
+	- Serialization/Deserialization test:
+		- Type A
+- Information Elements;
+	- Serialization/Deserialization tests:
+		- Network Beacon Message IE
+		- Cluster Beacon Message IE
+		- Association Request Message IE
+		- Random Access Resource IE
 ## 11.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header

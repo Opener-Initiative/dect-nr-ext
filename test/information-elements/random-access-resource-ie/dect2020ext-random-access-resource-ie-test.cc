@@ -4,24 +4,24 @@
 namespace ns3
 {
 
-class Dect2020ExtRandomAccessResourceIESerializationTest : public TestSuite
+class Dect2020ExtRandomAccessResourceIeSerializationTest : public TestSuite
 {
     public:
-        Dect2020ExtRandomAccessResourceIESerializationTest();
-        virtual ~Dect2020ExtRandomAccessResourceIESerializationTest();
+        Dect2020ExtRandomAccessResourceIeSerializationTest();
+        virtual ~Dect2020ExtRandomAccessResourceIeSerializationTest();
 };
 
-Dect2020ExtRandomAccessResourceIESerializationTest::Dect2020ExtRandomAccessResourceIESerializationTest() 
+Dect2020ExtRandomAccessResourceIeSerializationTest::Dect2020ExtRandomAccessResourceIeSerializationTest() 
     : TestSuite("dect2020ext-random-access-resource-ie-serialization-test", Type::UNIT)
 {
-    AddTestCase(new Dect2020ExtRandomAccessResourceIESerializationTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtRandomAccessResourceIeSerializationTestCase(), TestCase::Duration::QUICK);
 }
 
-Dect2020ExtRandomAccessResourceIESerializationTest::~Dect2020ExtRandomAccessResourceIESerializationTest()
+Dect2020ExtRandomAccessResourceIeSerializationTest::~Dect2020ExtRandomAccessResourceIeSerializationTest()
 {
 }
 
-static Dect2020ExtRandomAccessResourceIESerializationTest dect2020ExtRandomAccessResourceIESerializationTest;
+static Dect2020ExtRandomAccessResourceIeSerializationTest dect2020ExtRandomAccessResourceIeSerializationTest;
 
 } // namespace ns3
 
