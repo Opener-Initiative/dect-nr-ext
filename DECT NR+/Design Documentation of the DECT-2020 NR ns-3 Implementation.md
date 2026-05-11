@@ -279,6 +279,7 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Network Beacon Message IE
 		- Cluster Beacon Message IE
 		- Association Request Message IE
+		- Association Response Message IE
 		- Random Access Resource IE
 ## 11.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:

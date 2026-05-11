@@ -3,43 +3,42 @@
 namespace ns3
 {
 
-NS_LOG_COMPONENT_DEFINE("Dect2020ExtRdCapabilityIE");
+NS_LOG_COMPONENT_DEFINE("Dect2020ExtRdCapabilityIe");
+NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRdCapabilityIe);
 
-NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtRdCapabilityIE);
-
-Dect2020ExtRdCapabilityIE::Dect2020ExtRdCapabilityIE()
+Dect2020ExtRdCapabilityIe::Dect2020ExtRdCapabilityIe()
 {
     m_numOfPhyCapabilities = 0;
 }
 
-Dect2020ExtRdCapabilityIE::~Dect2020ExtRdCapabilityIE()
+Dect2020ExtRdCapabilityIe::~Dect2020ExtRdCapabilityIe()
 {
 }
 
 TypeId
-Dect2020ExtRdCapabilityIE::GetTypeId(void)
+Dect2020ExtRdCapabilityIe::GetTypeId()
 {
-    static TypeId tid = TypeId("ns3::Dect2020ExtRdCapabilityIE")
+    static TypeId tid = TypeId("ns3::Dect2020ExtRdCapabilityIe")
                             .SetParent<Header>()
                             .SetGroupName("Dect2020Ext")
-                            .AddConstructor<Dect2020ExtRdCapabilityIE>();
+                            .AddConstructor<Dect2020ExtRdCapabilityIe>();
     return tid;
 }
 
 TypeId
-Dect2020ExtRdCapabilityIE::GetInstanceTypeId(void) const
+Dect2020ExtRdCapabilityIe::GetInstanceTypeId() const
 {
     return GetTypeId();
 }
 
 uint32_t
-Dect2020ExtRdCapabilityIE::GetSerializedSize() const
+Dect2020ExtRdCapabilityIe::GetSerializedSize() const
 {
     return 7;
 }
 
 void
-Dect2020ExtRdCapabilityIE::Print(std::ostream& os) const
+Dect2020ExtRdCapabilityIe::Print(std::ostream& os) const
 {
     os << "RD Capability IE:"
        << " Number of PHY capabilities=" << static_cast<uint32_t>(m_numOfPhyCapabilities) << std::endl 
@@ -65,7 +64,7 @@ Dect2020ExtRdCapabilityIE::Print(std::ostream& os) const
 
 
 void
-Dect2020ExtRdCapabilityIE::Serialize(Buffer::Iterator start) const
+Dect2020ExtRdCapabilityIe::Serialize(Buffer::Iterator start) const
 {
     // Byte 0
     uint8_t byte0 = 0;
@@ -128,7 +127,7 @@ Dect2020ExtRdCapabilityIE::Serialize(Buffer::Iterator start) const
 }
 
 uint32_t
-Dect2020ExtRdCapabilityIE::Deserialize(Buffer::Iterator start)
+Dect2020ExtRdCapabilityIe::Deserialize(Buffer::Iterator start)
 {
     // Byte 0
     uint8_t byte0 = start.ReadU8();
@@ -184,229 +183,229 @@ Dect2020ExtRdCapabilityIE::Deserialize(Buffer::Iterator start)
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetNumOfPhyCapabilities(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetNumOfPhyCapabilities(uint8_t val)
 {
     m_numOfPhyCapabilities = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetNumOfPhyCapabilities() const
+Dect2020ExtRdCapabilityIe::GetNumOfPhyCapabilities() const
 {
     return m_numOfPhyCapabilities;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetRelease(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetRelease(uint8_t val)
 {
     m_Release = val & 0x1F;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetRelease() const
+Dect2020ExtRdCapabilityIe::GetRelease() const
 {
     return m_Release;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetGroupAssignment(bool enabled)
+Dect2020ExtRdCapabilityIe::SetGroupAssignment(bool enabled)
 {
     m_groupAssignment = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetGroupAssignment() const
+Dect2020ExtRdCapabilityIe::GetGroupAssignment() const
 {
     return m_groupAssignment;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetPaging(bool enabled)
+Dect2020ExtRdCapabilityIe::SetPaging(bool enabled)
 {
     m_paging = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetPaging() const
+Dect2020ExtRdCapabilityIe::GetPaging() const
 {
     return m_paging;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetOperatingModes(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetOperatingModes(uint8_t val)
 {
     m_operatingModes = val & 0x03;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetOperatingModes() const
+Dect2020ExtRdCapabilityIe::GetOperatingModes() const
 {
     return m_operatingModes;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetMesh(bool enabled)
+Dect2020ExtRdCapabilityIe::SetMesh(bool enabled)
 {
     m_mesh = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetMesh() const
+Dect2020ExtRdCapabilityIe::GetMesh() const
 {
     return m_mesh;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetScheduledAccessDataTransfer(bool enabled)
+Dect2020ExtRdCapabilityIe::SetScheduledAccessDataTransfer(bool enabled)
 {
     m_scheduledAccessDataTransfer = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetScheduledAccessDataTransfer() const
+Dect2020ExtRdCapabilityIe::GetScheduledAccessDataTransfer() const
 {
     return m_scheduledAccessDataTransfer;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetMacSecurity(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetMacSecurity(uint8_t val)
 {
     m_macSecurity = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetMacSecurity() const
+Dect2020ExtRdCapabilityIe::GetMacSecurity() const
 {
     return m_macSecurity;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetDlcServiceType(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetDlcServiceType(uint8_t val)
 {
     m_dlcServiceType = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetDlcServiceType() const
+Dect2020ExtRdCapabilityIe::GetDlcServiceType() const
 {
     return m_dlcServiceType;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetRdPowerClass(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetRdPowerClass(uint8_t val)
 {
     m_rdPowerClass = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetRdPowerClass() const
+Dect2020ExtRdCapabilityIe::GetRdPowerClass() const
 {
     return m_rdPowerClass;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetMaxNssFoRx(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetMaxNssFoRx(uint8_t val)
 {
     m_maxNssFoRx = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetMaxNssFoRx() const
+Dect2020ExtRdCapabilityIe::GetMaxNssFoRx() const
 {
     return m_maxNssFoRx;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetRxForTxDiversity(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetRxForTxDiversity(uint8_t val)
 {
     m_rxForTxDiversity = val & 0x07;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetRxForTxDiversity() const
+Dect2020ExtRdCapabilityIe::GetRxForTxDiversity() const
 {
     return m_rxForTxDiversity;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetRxGain(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetRxGain(uint8_t val)
 {
     m_rxGain = val & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetRxGain() const
+Dect2020ExtRdCapabilityIe::GetRxGain() const
 {
     return m_rxGain;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetMaxMcs(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetMaxMcs(uint8_t val)
 {
     m_maxMcs = val & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetMaxMcs() const
+Dect2020ExtRdCapabilityIe::GetMaxMcs() const
 {
     return m_maxMcs;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetSoftBufferSize(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetSoftBufferSize(uint8_t val)
 {
     m_softBufferSize = val & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetSoftBufferSize() const
+Dect2020ExtRdCapabilityIe::GetSoftBufferSize() const
 {
     return m_softBufferSize;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetNumOfHarqProcesses(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetNumOfHarqProcesses(uint8_t val)
 {
     m_numOfHarqProcesses = val & 0x03;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetNumOfHarqProcesses() const
+Dect2020ExtRdCapabilityIe::GetNumOfHarqProcesses() const
 {
     return m_numOfHarqProcesses;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetHarqFeedbackDelay(uint8_t val)
+Dect2020ExtRdCapabilityIe::SetHarqFeedbackDelay(uint8_t val)
 {
     m_harqFeedbackDelay = val & 0x0F;
 }
 
 uint8_t
-Dect2020ExtRdCapabilityIE::GetHarqFeedbackDelay() const
+Dect2020ExtRdCapabilityIe::GetHarqFeedbackDelay() const
 {
     return m_harqFeedbackDelay;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetDDelay(bool enabled)
+Dect2020ExtRdCapabilityIe::SetDDelay(bool enabled)
 {
     m_dDelay = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetDDelay() const
+Dect2020ExtRdCapabilityIe::GetDDelay() const
 {
     return m_dDelay;
 }
 
 void
-Dect2020ExtRdCapabilityIE::SetHalfDulp(bool enabled)
+Dect2020ExtRdCapabilityIe::SetHalfDulp(bool enabled)
 {
     m_halfDulp = enabled;
 }
 
 bool
-Dect2020ExtRdCapabilityIE::GetHalfDulp() const
+Dect2020ExtRdCapabilityIe::GetHalfDulp() const
 {
     return m_halfDulp;
 }

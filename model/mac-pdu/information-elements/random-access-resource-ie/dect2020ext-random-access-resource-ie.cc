@@ -15,7 +15,7 @@ Dect2020ExtRandomAccessResourceIe::~Dect2020ExtRandomAccessResourceIe()
 }
 
 TypeId
-Dect2020ExtRandomAccessResourceIe::GetTypeId(void)
+Dect2020ExtRandomAccessResourceIe::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtRandomAccessResourceIe")
                             .SetParent<Header>()
