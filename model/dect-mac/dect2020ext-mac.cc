@@ -736,7 +736,7 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
 
     physicalHeaderField.SetShortNetworkId(m_networkId);
     physicalHeaderField.SetTransmitterIdentity(m_shortRadioDeviceId);
-    physicalHeaderField.SetTransmitPower(23); // dBm -- device power class 1
+    physicalHeaderField.SetTransmitPower(10); // dBm -- device power class 1
     physicalHeaderField.SetDFMCS(m_mcs);
 
     return physicalHeaderField;
@@ -2097,7 +2097,7 @@ Dect2020ExtMac::InitiateHARQ()
     phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(packet->GetSize()));
     phyCtrl.SetShortNetworkId(0); // currently not used
     phyCtrl.SetTransmitterIdentity(m_shortRadioDeviceId);
-    phyCtrl.SetTransmitPower(23);
+    phyCtrl.SetTransmitPower(10);
     phyCtrl.SetDfmcs(m_mcs);
     phyCtrl.SetReceiverIdentity(m_selectedFtCandidate.shortFtId);
     phyCtrl.SetNumberOfSpatialStreams(0); // currently not used
