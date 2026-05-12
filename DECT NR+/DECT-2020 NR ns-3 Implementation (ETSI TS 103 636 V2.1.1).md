@@ -255,10 +255,17 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 	- [Unicast Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A691%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
 - [MAC Multiplexing Header](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
 	- Type A
+- Information Elements:
+	- [Network Beacon Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A993%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C306%5D)
+	- [Cluster Beacon Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A996%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C207%5D)
+	- [Association Request Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1175%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C406%5D)
+	- [Association Response Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1273%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C627%5D)
+	- [Random Access Resource IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1713%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
+	- [RD Capability IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1818%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C620%5D)
 ## 10.2 MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
 # 11 Available Tests
-- **Physical Header Field**:
+- Physical Header Field:
 	- Serialization/Deserialization tests:
 		- PHY Control Field: Type 1, Header Format: 000
 		- PHY Control Field: Type 2, Header Format: 000
