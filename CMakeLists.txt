@@ -170,10 +170,10 @@ set(dect2020ext_random_access_test_src
 
 # Message Tests
 set(dect2020ext_message_tests_src
-    test/network-beacon-message/dect2020ext-network-beacon-message-serialization-test-case.cc
-    test/network-beacon-message/dect2020ext-network-beacon-message-test.cc)
-    # test/cluster-beacon-message/dect2020ext-cluster-beacon-message-serialization-test-case.cc
-    # test/cluster-beacon-message/dect2020ext-cluster-beacon-message-test.cc)
+    test/messages/network-beacon-message/dect2020ext-network-beacon-message-serialization-test-case.cc
+    test/messages/network-beacon-message/dect2020ext-network-beacon-message-test.cc
+    test/messages/cluster-beacon-message/dect2020ext-cluster-beacon-message-serialization-test-case.cc
+    test/messages/cluster-beacon-message/dect2020ext-cluster-beacon-message-test.cc)
 
 # Spectrum Management Procedure Test
 set(dect2020ext_spectrum_management_procedure_test_src

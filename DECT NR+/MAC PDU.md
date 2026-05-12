@@ -33,6 +33,18 @@ Size: 23 bytes
 | Index 2        |          Beacon Header           | 7 bytes |
 | Index 1        |         MAC Header Type          | 1 byte  |
 | Index 0: front |     PHY Control Field Type 1     | 5 bytes |
+Configuration for optional fields:
+- Cluster Beacon Message IE:
+	- Cluster Max TX power field is not included
+	- The RD operating in FT mode does not have power constraints (power constraints are not particularly relevant to ns-3)
+	- Frame Offset field is not present
+	- The cluster channel for the next cluster beacon period is the same as the current cluster channel. The next cluster channel field is not included
+	- The next cluster beacon is transmitted based on Cluster beacon period. The Time to next field is not present
+- Random Access Resource IE:
+	- Repeat: resource allocation is single allocation, and the repetition and validity fields are not present (since RACH resources always come after the Cluster Beacon)
+	- SFN is not included
+	- The resource allocation is valid for the channel where the IE is received. The channel field is not present in the IE
+	- The random access response is sent on the same channel as the random access message
 # 2 Association Procedure
 ## 2.1 Association Request Message
 Transmitter: PT
