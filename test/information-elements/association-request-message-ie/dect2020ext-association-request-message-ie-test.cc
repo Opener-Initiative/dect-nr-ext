@@ -5,23 +5,23 @@
 namespace ns3
 {
 
-class Dect2020ExtAssociationRequestMessageIeSerializationTest : public TestSuite
+class Dect2020ExtAssociationRequestMessageIeTest : public TestSuite
 {
     public:
-        Dect2020ExtAssociationRequestMessageIeSerializationTest();
-        virtual ~Dect2020ExtAssociationRequestMessageIeSerializationTest();
+        Dect2020ExtAssociationRequestMessageIeTest();
+        virtual ~Dect2020ExtAssociationRequestMessageIeTest();
 };
 
-Dect2020ExtAssociationRequestMessageIeSerializationTest::Dect2020ExtAssociationRequestMessageIeSerializationTest()
-    : TestSuite("dect2020ext-association-request-message-ie-serialization-test", Type::UNIT)
+Dect2020ExtAssociationRequestMessageIeTest::Dect2020ExtAssociationRequestMessageIeTest()
+    : TestSuite("dect2020ext-association-request-message-ie-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtAssociationRequestMessageIeSerializationTestCase(), TestCase::Duration::QUICK);
 }
 
-Dect2020ExtAssociationRequestMessageIeSerializationTest::~Dect2020ExtAssociationRequestMessageIeSerializationTest()
+Dect2020ExtAssociationRequestMessageIeTest::~Dect2020ExtAssociationRequestMessageIeTest()
 {
 }
 
-static Dect2020ExtAssociationRequestMessageIeSerializationTest dect2020ExtAssociationRequestMessageIeSerializationTest;
+static Dect2020ExtAssociationRequestMessageIeTest dect2020ExtAssociationRequestMessageIeTest;
 
 } // namespace ns3

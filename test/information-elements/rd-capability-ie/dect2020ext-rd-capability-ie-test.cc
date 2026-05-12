@@ -13,7 +13,7 @@ class Dect2020ExtRdCapabilityIeTest : public TestSuite
 };
 
 Dect2020ExtRdCapabilityIeTest::Dect2020ExtRdCapabilityIeTest()
-    : TestSuite("dect2020ext-rd-capability-ie-serialization-test", Type::UNIT)
+    : TestSuite("dect2020ext-rd-capability-ie-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtRdCapabilityIeSerializationTestCase(), TestCase::Duration::QUICK);
 }

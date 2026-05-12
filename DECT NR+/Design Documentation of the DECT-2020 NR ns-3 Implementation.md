@@ -281,6 +281,7 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Association Request Message IE
 		- Association Response Message IE
 		- Random Access Resource IE
+		- RD Capability IE
 ## 11.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header
