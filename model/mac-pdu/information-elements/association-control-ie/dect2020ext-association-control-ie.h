@@ -8,13 +8,12 @@ namespace ns3
 {
 
 
-class Dect2020ExtAssociationControlIE : public Header
+class Dect2020ExtAssociationControlIe : public Header
 {
     public:
-        Dect2020ExtAssociationControlIE();
-        virtual ~Dect2020ExtAssociationControlIE();
+        Dect2020ExtAssociationControlIe();
+        virtual ~Dect2020ExtAssociationControlIe();
 
-        // DlDataReception encoding
         enum DlDataReception : uint8_t
         {
             MS_0 = 0,
@@ -25,8 +24,7 @@ class Dect2020ExtAssociationControlIE : public Header
             MS_80 = 5
         };
 
-        // ULPeriod encoding
-        enum ULPeriod : uint8_t
+        enum UlPeriod : uint8_t
         {
             S_10 = 0,
             S_20 = 1,
@@ -59,17 +57,17 @@ class Dect2020ExtAssociationControlIE : public Header
         void SetDlDataReception(DlDataReception dlDataReception);
         uint8_t GetDlDataReception() const;
 
-        void SetUlPeriod(ULPeriod ulPeriod);
+        void SetUlPeriod(UlPeriod ulPeriod);
         uint8_t GetUlPeriod() const;
 
         // Association Control IE methods
         Time DecodeDlDataReception() const;
-        Time DecodeULPeriod() const;
+        Time DecodeUlPeriod() const;
 
     private:
         uint8_t m_CB_M; // 1 relevant bits
         uint8_t m_dlDataReception; // 3 relevant bits
-        uint8_t m_ULPeriod; // 4 relevant bits
+        uint8_t m_UlPeriod; // 4 relevant bits
 };
 
 } // namespace ns3

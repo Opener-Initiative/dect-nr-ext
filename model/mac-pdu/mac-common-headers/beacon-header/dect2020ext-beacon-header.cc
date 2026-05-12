@@ -77,11 +77,11 @@ Dect2020ExtBeaconHeader::Deserialize(Buffer::Iterator start)
 void
 Dect2020ExtBeaconHeader::SetNetworkId(uint32_t networkId)
 {
-    if (networkId > 0xFFFFFF)
+    m_networkId = networkId & 0xFFFFFF;
+    if ((networkId & 0xFFFFFF) > 0xFFFFFF)
     {
         DECT2020EXT_MAC_PDU_FATAL("Network ID must be at most 24 bits long", networkId);
     }
-    m_networkId = networkId;
 }
 
 uint32_t

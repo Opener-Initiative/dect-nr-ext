@@ -17,8 +17,8 @@
 
 using namespace ns3;
 
-using DlDataReception = Dect2020ExtAssociationControlIE::DlDataReception;
-using ULPeriod = Dect2020ExtAssociationControlIE::ULPeriod;
+using DlDataReception = Dect2020ExtAssociationControlIe::DlDataReception;
+using UlPeriod = Dect2020ExtAssociationControlIe::UlPeriod;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
@@ -33,12 +33,12 @@ main(int argc, char *argv[])
 
     // Information Elements
     Dect2020ExtConfig config;
-    Dect2020ExtAssociationControlIE associationControlIE;
-    associationControlIE.SetCbM(1); // maintain Cluster Beacon reception
-    associationControlIE.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
-    associationControlIE.SetUlPeriod(ULPeriod::S_10); // association maintenance period 10 seconds
+    Dect2020ExtAssociationControlIe associationControlIe;
+    associationControlIe.SetCbM(1); // maintain Cluster Beacon reception
+    associationControlIe.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    associationControlIe.SetUlPeriod(UlPeriod::S_10); // association maintenance period 10 seconds
 
-    Dect2020ExtRandomAccessResourceIE randomAccessResourceIE;
+    Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
     // randomAccessResourceIE.SetRepeat(0);
     // randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
     // randomAccessResourceIE.SetChannelFieldIncluded(false);
@@ -60,7 +60,7 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtPhy> ftPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ftPhy);
 
-    Dect2020ExtRandomAccessResourceIE ftRandomAccessResources;
+    Dect2020ExtRandomAccessResourceIe ftRandomAccessResources;
 
     Ptr<Dect2020ExtMac> ftMac = CreateObject<Dect2020ExtMac>();
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
@@ -103,7 +103,7 @@ main(int argc, char *argv[])
         Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
         ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
         ptMac->SetPhy(ptPhy);
-        ptMac->ConfigureAssociationControlIE(associationControlIE);
+        ptMac->ConfigureAssociationControlIe(associationControlIe);
         config.ApplyToMac(ptMac);
 
         ptPhy->SetMac(ptMac);

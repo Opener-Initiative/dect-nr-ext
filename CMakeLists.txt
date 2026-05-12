@@ -142,8 +142,8 @@ set(dect2020ext_information_elements_src
     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.cc
     model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.cc
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.cc
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc)
-    # model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.cc)
+    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.cc
+    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.cc)
 
 set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie.h
@@ -151,8 +151,8 @@ set(dect2020ext_information_elements_h
     model/mac-pdu/information-elements/association-request-message-ie/dect2020ext-association-request-message-ie.h
     model/mac-pdu/information-elements/association-response-message-ie/dect2020ext-association-response-message-ie.h
     model/mac-pdu/information-elements/random-access-resource-ie/dect2020ext-random-access-resource-ie.h
-    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h)
-    # model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
+    model/mac-pdu/information-elements/rd-capability-ie/dect2020ext-rd-capability-ie.h
+    model/mac-pdu/information-elements/association-control-ie/dect2020ext-association-control-ie.h)
 
 ###########
 ## TESTS ##
@@ -239,17 +239,17 @@ build_lib(
         ${dect2020ext_mac_common_headers_src}
         ${dect2020ext_mac_multiplexing_header_src}
         ${dect2020ext_information_elements_src}
-        # ${dect2020ext_net_device_src}
-        # ${dect2020ext_channel_manager_src}
-        # ${dect2020ext_channel_src}
-        # ${dect2020ext_mac_src}
-        # ${dect2020ext_phy_src}
-        # ${dect2020ext_spectrum_signal_parameters_src}
-        # ${dect2020ext_mac_scheduler_src}
-        # ${dect2020ext_configuration_src}
-        # ${dect2020ext_utilities_src}
-        # ${dect2020ext_app_src}
-        # ${dect2020ext_statistics_src}
+        ${dect2020ext_net_device_src}
+        ${dect2020ext_channel_manager_src}
+        ${dect2020ext_channel_src}
+        ${dect2020ext_mac_src}
+        ${dect2020ext_phy_src}
+        ${dect2020ext_spectrum_signal_parameters_src}
+        ${dect2020ext_mac_scheduler_src}
+        ${dect2020ext_configuration_src}
+        ${dect2020ext_utilities_src}
+        ${dect2020ext_app_src}
+        ${dect2020ext_statistics_src}
     HEADER_FILES
         ${dect2020ext_mac_pdu_defs_h}
         ${dect2020ext_physical_header_field_h}
@@ -257,19 +257,19 @@ build_lib(
         ${dect2020ext_mac_common_headers_h}
         ${dect2020ext_mac_multiplexing_header_h}
         ${dect2020ext_information_elements_h}
-        # ${dect2020ext_module_h}
-        # ${dect2020ext_types_h}
-        # ${dect2020ext_net_device_h}
-        # ${dect2020ext_channel_manager_h}
-        # ${dect2020ext_channel_h}
-        # ${dect2020ext_mac_h}
-        # ${dect2020ext_phy_h}
-        # ${dect2020ext_spectrum_signal_parameters_h}
-        # ${dect2020ext_mac_scheduler_h}
-        # ${dect2020ext_configuration_h}
-        # ${dect2020ext_utilities_h}
-        # ${dect2020ext_app_h}
-        # ${dect2020ext_statistics_h}
+        ${dect2020ext_module_h}
+        ${dect2020ext_types_h}
+        ${dect2020ext_net_device_h}
+        ${dect2020ext_channel_manager_h}
+        ${dect2020ext_channel_h}
+        ${dect2020ext_mac_h}
+        ${dect2020ext_phy_h}
+        ${dect2020ext_spectrum_signal_parameters_h}
+        ${dect2020ext_mac_scheduler_h}
+        ${dect2020ext_configuration_h}
+        ${dect2020ext_utilities_h}
+        ${dect2020ext_app_h}
+        ${dect2020ext_statistics_h}
     TEST_SOURCES
         ${dect2020ext_mac_common_header_tests_src}
         ${dect2020ext_mac_header_type_test_src}
