@@ -58,13 +58,16 @@ participant PT_PHY
 participant FT_PHY
 
 Note over FT_PHY: State: IDLE
+Note over PT_PHY: State: IDLE
 PT_PHY ->> FT_PHY: Packet Tx start
 activate PT_PHY
 activate FT_PHY
+Note over PT_PHY: State Tx
 Note over FT_PHY: State Rx
 PT_PHY ->> FT_PHY: Packet Tx end
 deactivate PT_PHY
 deactivate FT_PHY
+Note over PT_PHY: State IDLE
 Note over FT_PHY: State IDLE
 ```
 
@@ -165,8 +168,8 @@ ReceiveFromPhy --> IsDataPacket
 IsDataPacket -- YES --> HandleDataPacket
 HandleDataPacket --> HandleHarqAck
 HandleHarqAck --> IsTxQueueEmpty
-IsTxQueueEmpty -- YES --> InitiateHARQ
-IsTxQueueEmpty -- NO --> MonitorTxQueue
+IsTxQueueEmpty -- YES --> MonitorTxQueue
+IsTxQueueEmpty -- NO --> InitiateHARQ
 ```
 # 8 Data Transmission
 ## 8.1 Stop-and-Wait ARQ
