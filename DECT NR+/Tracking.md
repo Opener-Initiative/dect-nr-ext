@@ -37,3 +37,10 @@ Rename HARQ to ARQ or stop and wait?
 - Implemented PHY Tx state machine -> update diagram 8
 # Questions
 1. Which IE Type Field Encoding of MAC Multiplexing Header Type A should be used for data transmission?
+
+
+# TASKS
+1. Create a tutorial on how to run visualization scripts with python (README)
+2. Write instructions about splitlogs.py
+3. Update the documentation (diagrams)
+4. Send an email after all of this

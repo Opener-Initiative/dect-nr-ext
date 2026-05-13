@@ -201,36 +201,42 @@
 +2.212666581s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
 +2.213125125s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
 +2.213499921s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-+2.214291246s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
-+2.214291246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.214291246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
-+2.214291246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
-+2.214791789s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
-+2.215124586s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-+2.215831911s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
-+2.215831911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.215831911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
-+2.215831911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
-+2.216250120s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
-+2.216665251s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-+2.217622576s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
-+2.217622576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.217622576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
-+2.217622576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
-+2.218125117s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
-+2.218455916s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-+2.219080241s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
-+2.219080241s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.219080241s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
-+2.219080241s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
-+2.219583448s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
-+2.219913581s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-+2.220204995s Dect2020ExtPhy:Send(): PT_PHY[2]: sending
-+2.220625129s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
-+2.220625129s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.220625129s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
-+2.220625129s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
-+2.221041799s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.214707246s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.214707246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.214707246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.214707246s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.215208455s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
++2.215540586s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.216122995s Dect2020ExtPhy:Send(): PT_PHY[2]: sending
++2.216666786s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.216666786s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.216666786s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.216666786s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.217083456s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.217497911s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.217497911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.217497911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.217497911s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.217916784s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
++2.218331251s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.218747660s Dect2020ExtPhy:Send(): PT_PHY[2]: sending
++2.219166782s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.219166782s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.219166782s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.219166782s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.219583452s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.223455576s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.223455576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.223455576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.223455576s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.223958457s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Dropping packet due to collision
++2.224288916s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
++2.224872325s Dect2020ExtPhy:Send(): PT_PHY[2]: sending
++2.225416788s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
++2.225416788s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
++2.225416788s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
++2.225416788s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
++2.225833458s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
 +2.260833462s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to RX
 +2.260833462s Dect2020ExtPhy:StartRx(): PT_PHY[2]: received packet on the current channel 1657 with RSSI 10 dBm
 +2.260833462s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
@@ -491,5 +497,5 @@
 +3.960833462s Dect2020ExtPhy:StartRx(): PT_PHY[2]: total channel 1657 power: 10 dBm
 +3.960833462s Dect2020ExtPhy:StartRx(): PT_PHY[2]: Passing to the MAC
 +3.961666802s Dect2020ExtPhy:ChangeState(): PT_PHY[2]: State changed to IDLE
-PT_PHY[2] dropped 5 packets
-PT_PHY[2] accepted 63 packets
+PT_PHY[2] dropped 4 packets
+PT_PHY[2] accepted 64 packets

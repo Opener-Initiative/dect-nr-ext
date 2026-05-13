@@ -24,7 +24,7 @@ LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
 Logging levels are usually defined at the start of every simulation script.
 
 Usually, simulation scripts produce an extremely large amount of logs.
-`splitlogs.py` Python divides the logs into separate files based on the identity of objects.
+`splitlogs.py` Python script divides the logs into separate files based on the identity of objects.
 The identity of objects is constructed from their node's index and operational mode: Fixed Termination point (FT) or Portable Termination point (PT).
 
 Each PHY and MAC object has its own `PHY_IDENTITY` or `MAC_IDENTITY`.
