@@ -8,14 +8,6 @@ Clone the repository to the `contrib` directory inside ns-3
 ```bash
 git clone https://github.com/seelennebel/dect-nr-ext.git
 ```
-Go into `dect-nr-ext` directory:
-```bash
-cd dect-nr-ext
-```
-Change the branch to `exe`
-```bash
-git checkout exe
-```
 ## Configure and compile
 Run these commands in the ns-3 root directory (where `ns3` executable is located) to configure ns-3 to run examples (simulation scripts) and tests:
 ```bash
