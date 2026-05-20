@@ -195,7 +195,6 @@ set(dect2020ext_physical_header_field_test_src
     test/physical-header-field/physical-header-field-type-2/dect2020ext-phy-control-field-type-2-serialization-test-case.cc)
 
 # Information Element Tests
-
 set(dect2020ext_information_element_tests_src
     test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-test.cc
     test/information-elements/network-beacon-message-ie/dect2020ext-network-beacon-message-ie-serialization-test-case.cc
@@ -230,6 +229,11 @@ set(dect2020ext_mac_header_type_test_src
 set(dect2020ext_mac_multiplexing_header_test_src
     test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-test.cc
     test/mac-multiplexing-header/mac-multiplexing-header-type-a/dect2020ext-mac-multiplexing-header-type-a-serialization-test-case.cc)
+
+# MAC PDU Size Calculation Test
+set(dect2020ext_mac_pdu_size_calculation_test_src
+    test/mac-pdu-size-calculation/dect2020ext-mac-pdu-size-calculation-test.cc
+    test/mac-pdu-size-calculation/dect2020ext-mac-pdu-size-calculation-test-case.cc)
 
 build_lib(
     LIBNAME dect-nr-ext
@@ -277,6 +281,7 @@ build_lib(
         ${dect2020ext_mac_multiplexing_header_test_src}
         ${dect2020ext_information_element_tests_src}
         ${dect2020ext_message_tests_src}
+        ${dect2020ext_mac_pdu_size_calculation_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_random_access_test_src}
         # ${dect2020ext_phy_test_src}
