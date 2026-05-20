@@ -1,29 +1,15 @@
 # Tasks
-- Change error-checking mechanism to NS_FATAL_ERROR (\_\_func__, \_\_FILE__, \_\_LINE__)
-- Add range checking to all modules in MAC PDU:
-	- Physical Header Field
-	- MAC Header Type
-	- MAC Common Headers
-	- IEs
+- Ensure that all MAC PDU models use DECT2020EXT_MAC_PDU_FATAL macro
+- Add range checking to all modules in MAC PDU (output errors with the macro)
 - Add comments to every MAC PDU module (with names)
-- Check MAC Common Headers, MAC Header Type, Physical Header Field, and Information Elements
 - Describe Dect2020ExtTypes as possible future work
-Write tests for:
-- MAC PDU: All MAC PDUs (MAC Header Type, Information Elements, MAC Messages)
-- MAC: MAC PDU size calculation in slots and subslots
-- PHY: MAC PDU duration in nanoseconds (based on its size in slots or subslots)
-Explain HARQ in diagram
-Rename HARQ to ARQ or stop and wait?
-# Done
-- Checked MAC Common Headers:
-	- Class name
-	- Serialization/Deserialization Hton and Ntoh serialization/deserialization
-	- Error handling
-- MAC Common Header tests:
-	- Random values
-	- Packet size before/after serialization/deserialization
+- Write tests for:
+	- MAC PDU
+	- MAC: MAC PDU size calculation in slots and subslots
+	- PHY: MAC PDU duration in nanoseconds (based on its size in slots or subslots)
+- Rename HARQ to ARQ or stop and wait?
 # Suggestions
-1. Update the Statistics module - include delay: timing of RACH, channel occupancy
+1. Update the Statistics module - include delay, timing of RACH, channel occupancy
 2. ARQ Protocols:
 	1. Stop and Wait
 	2. GobackN
