@@ -147,7 +147,7 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
     {
         if (mcsIndex >= m_singleSlotSingleStreamTransportBlockSizesMu1Beta1.size())
         {
-            NS_LOG_WARN("Invalid MCS index for (mu = 1, beta = 1)");
+            NS_FATAL_ERROR("Invalid MCS index for (mu = 1, beta = 1)");
             return 0;
         }
         return m_singleSlotSingleStreamTransportBlockSizesMu1Beta1[mcsIndex];

@@ -74,6 +74,8 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	3. Calculate packet MAC PDU length in subslots (with rounding up)  by calling `std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSubslot`
 4. If the length is calculated in slots:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
+
+**Currently, only MCS index 0 is supported. TBS for MCS 0 is 136.**
 ## 7.2 Tx Duration Calculation
 Tx duration is calculated in the `Dect2020ExtPhy::Send` function and inserted into `Dect2020ExtSpectrumSignalParameters`. Those parameters are crucial for transmission over the `Spectrum` channel.
 Tx duration in nanoseconds is as follows:
@@ -130,6 +132,11 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Association Response Message IE
 		- Random Access Resource IE
 		- RD Capability IE
+- Messages
+	- Serialization/Deserialization tests:
+		- Cluster Beacon Message
+		- Network Beacon Message
+- MAC PDU size calculation test
 ## 9.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header

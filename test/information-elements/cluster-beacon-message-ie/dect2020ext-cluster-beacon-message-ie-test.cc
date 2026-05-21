@@ -12,7 +12,7 @@ class Dect2020ExtClusterBeaconMessageIeSerializationTest : public TestSuite
 };
 
 Dect2020ExtClusterBeaconMessageIeSerializationTest::Dect2020ExtClusterBeaconMessageIeSerializationTest() 
-    : TestSuite("dect2020ext-cluster-beacon-message-ie-serialization-test", Type::UNIT)
+    : TestSuite("dect2020ext-cluster-beacon-message-ie-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtClusterBeaconMessageIeSerializationTestCase(), TestCase::Duration::QUICK);
 }
