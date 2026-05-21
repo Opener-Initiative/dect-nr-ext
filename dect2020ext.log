@@ -6,65 +6,86 @@
 +0.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1657
 +0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0x52bc78ff
 +0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x2c10
-+0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting network initialization
++0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting background scan
++0.000000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
 +0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1658
++0.010000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
++0.020000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1659
 +0.029999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1659
++0.030000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1660
 +0.039999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1660
++0.040000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1661
 +0.049999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1661
++0.050000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1662
 +0.059999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1662
++0.060000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1663
 +0.069999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1663
++0.070000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1664
 +0.079999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1664
++0.080000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1665
 +0.089999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1665
++0.090000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1666
 +0.099999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1666
++0.100000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +0.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1667
 +0.109999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1667
++0.110000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +0.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1668
 +0.119999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1668
++0.120000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +0.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1669
 +0.129999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1669
++0.130000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +0.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1670
 +0.139999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1670
++0.140000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +0.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1671
 +0.149999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1671
++0.150000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1672
 +0.159999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1672
++0.160000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +0.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1673
 +0.169999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1673
++0.170000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1674
 +0.179999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1674
++0.180000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +0.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1675
 +0.189999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1675
++0.190000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1676
 +0.199999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1676
++0.200000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]0x559e3abdd890
 +0.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +0.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[2]: Switching to channel 1677
 +0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1677
@@ -1535,7 +1556,7 @@
 +2.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate found with RSSI 10 dBm
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate long ID: 1388083455
-+2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 1317289
++2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate network ID: 15081408
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate cluster channel ID: 1657
 +2.210833454s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Switching to best FT's channel: 1657
 +2.210833454s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to WAITING_FOR_SELECTED_FT
@@ -1553,7 +1574,7 @@
 +2.210833454s Dect2020ExtMac:InitiateHARQ(): PT_MAC[1]: Executing Random Access at the next RACH resources
 +2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Best FT candidate found with RSSI 10 dBm
 +2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Best FT candidate long ID: 1388083455
-+2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Best FT candidate network ID: 1317289
++2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Best FT candidate network ID: 15081408
 +2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Best FT candidate cluster channel ID: 1657
 +2.210833462s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[2]: Switching to best FT's channel: 1657
 +2.210833462s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[2]: Association status changed to WAITING_FOR_SELECTED_FT

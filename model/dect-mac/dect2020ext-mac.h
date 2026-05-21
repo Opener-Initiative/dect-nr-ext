@@ -104,16 +104,17 @@ struct Dect2020ExtChannelEvaluation
     }
 };
 
-struct Dect2020ExtRSSI1OnChannelContext
+struct Dect2020ExtRssi1OnChannelContext
 {
     uint16_t channelNumber;
+    Time channelMeasurementStartTime;
     std::vector<std::vector<double>> rssiAverages; // [subslotNumber][RSSI samples]
 };
 
 struct Dect2020ExtBackgroundScanContext
 {
     // Store per-channel contexts (keyed by channel number)
-    std::map<uint16_t, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext>> channelContexts; // [channelNumber][RSSI averages]
+    std::map<uint16_t, std::shared_ptr<Dect2020ExtRssi1OnChannelContext>> channelContexts; // [channelNumber][RSSI averages]
 };
 
 struct Dect2020ExtSubslotScanContext
@@ -122,7 +123,6 @@ struct Dect2020ExtSubslotScanContext
     Dect2020ExtChannelEvaluation evaluation;
     uint32_t subslotCount;
     uint32_t totalSubslots;
-    // std::function<void(const Dect2020ExtChannelEvaluation&)> onComplete;
 };
 
 struct Dect2020ExtFtCandidateInfo
@@ -196,8 +196,6 @@ class Dect2020ExtMac : public Object
             ASSOCIATED
         };
 
-        // Test
-
         void TestFunction();
 
         // ############################
@@ -215,12 +213,11 @@ class Dect2020ExtMac : public Object
         // Spectrum Management Procedure
 
         void DisplayChannelEvaluations();
-        void ScheduleBackgroundScan();
         void OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext);
-        void SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber);
-        void StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber);
-        void EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber);
-        void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext);
+        void SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> context, uint32_t subslotNumber);
+        void StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber);
+        void EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber);
+        void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext);
         void BackgroundScan();
 
         // Beacon Transmission

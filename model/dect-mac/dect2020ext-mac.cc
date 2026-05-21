@@ -90,7 +90,6 @@ Dect2020ExtMac::TestFunction()
 void
 Dect2020ExtMac::Initialize()
 {
-    // Configuration
     std::string errorMessage = " was not set for Dect2020ExtMac";
 
     NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number" << errorMessage);
@@ -113,7 +112,7 @@ Dect2020ExtMac::Initialize()
     m_macScheduler->Initialize();
     m_macScheduler->StartMacScheduler();
 
-    // Initialization
+    // Random Variable
     m_backoffRandomVariable = CreateObject<UniformRandomVariable>();
 
     if (!m_configuredRngStreamSet)
@@ -125,6 +124,7 @@ Dect2020ExtMac::Initialize()
         m_backoffRandomVariable->SetStream(m_configuredRngStream);
     }
 
+    // Network ID for FT
     if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
     {
         SetNetworkId(GenerateValidNetworkId());
@@ -221,11 +221,9 @@ Dect2020ExtMac::DiscoverNetworks()
 void
 Dect2020ExtMac::InitializeNetwork()
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Starting network initialization");
-    uint32_t networkId = GenerateValidNetworkId();
-    SetNetworkId(networkId);
+    NS_LOG_INFO(MAC_IDENTITY << ": Starting background scan");
 
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::ScheduleBackgroundScan, this);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
 }
 
 uint32_t
@@ -247,7 +245,7 @@ Dect2020ExtMac::GenerateValidNetworkId()
 
 // TODO: Mitigate collision of long radio device IDs
 uint32_t
-Dect2020ExtMac::GenerateLongRadioDeviceId(void)
+Dect2020ExtMac::GenerateLongRadioDeviceId()
 {
     Ptr<UniformRandomVariable> randomVar = CreateObject<UniformRandomVariable>();
     uint32_t rdId = 0;
@@ -282,7 +280,7 @@ Dect2020ExtMac::GenerateShortRadioDeviceId()
 
 
 void
-Dect2020ExtMac::DisplayChannelEvaluations(void)
+Dect2020ExtMac::DisplayChannelEvaluations()
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_DEBUG("============ Channel Evaluations Summary ============");
@@ -316,15 +314,6 @@ Dect2020ExtMac::DisplayChannelEvaluations(void)
     }
     
     NS_LOG_DEBUG("====================================================");
-}
-
-void
-Dect2020ExtMac::ScheduleBackgroundScan()
-{
-    NS_LOG_FUNCTION(this);
-
-    // Schedule the background scan
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::BackgroundScan, this);
 }
 
 void
@@ -397,7 +386,7 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
 }
 
 void
-Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> context, uint32_t subslotNumber)
+Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> context, uint32_t subslotNumber)
 {
     // Calculate channel index from the channel number
     uint16_t channelIndex = context->channelNumber - m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(context->channelNumber));
@@ -409,11 +398,11 @@ Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRSSI1OnCha
     // Store the RSSI sample
     context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
     
-    NS_LOG_DEBUG("Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
+    // NS_LOG_INFO(MAC_IDENTITY << ": Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
 }
 
 void
-Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber)
+Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
 
@@ -435,7 +424,7 @@ Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRSSI1OnChannelContex
 }
 
 void
-Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext, uint32_t subslotNumber)
+Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
 {
     NS_LOG_FUNCTION(this);
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
@@ -454,12 +443,15 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
 }
 
 void
-Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext)
+Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext)
 {
-    NS_LOG_FUNCTION(this << channelContext->channelNumber);
+    NS_LOG_INFO(MAC_IDENTITY << this);
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t slotsPerChannel = 24;
     uint32_t subslotsPerChannel = numSubslotsPerSlot * slotsPerChannel;
+
+    // Store the measurement start time for testing
+    channelContext->channelMeasurementStartTime = Simulator::Now();
 
     // Initialize the RSSI average vector for the channel
     channelContext->rssiAverages.resize(subslotsPerChannel);
@@ -489,7 +481,7 @@ Dect2020ExtMac::BackgroundScan()
     for (uint32_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
     {
         // Create context for each channel scan
-        std::shared_ptr<Dect2020ExtRSSI1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRSSI1OnChannelContext>();
+        std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRssi1OnChannelContext>();
         channelContext->channelNumber = channelNumber;
 
         // Schedule MeasureRSSI1OnChannel for the channel
