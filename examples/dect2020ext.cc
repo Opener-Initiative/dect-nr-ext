@@ -39,19 +39,19 @@ main(int argc, char *argv[])
     associationControlIe.SetUlPeriod(UlPeriod::S_10); // association maintenance period 10 seconds
 
     Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
-    // randomAccessResourceIE.SetRepeat(0);
-    // randomAccessResourceIE.SetSystemFrameNumberFieldIncluded(false);
-    // randomAccessResourceIE.SetChannelFieldIncluded(false);
-    // randomAccessResourceIE.SetSeparateChannelFieldIncluded(false);
-    // randomAccessResourceIE.SetStartSubslot(10);
-    // randomAccessResourceIE.SetLengthType(0); // length in subslots
-    // randomAccessResourceIE.SetRaraLength(50);
-    // randomAccessResourceIE.SetMaxRachLengthType(0); // length in subslots
-    // randomAccessResourceIE.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
-    // randomAccessResourceIE.SetCwMinSig(1);
-    // randomAccessResourceIE.SetDectDelay(false);
-    // randomAccessResourceIE.SetResponseWindow(5);
-    // randomAccessResourceIE.SetCwMaxSig(5);
+    randomAccessResourceIe.SetRepeat(0);
+    randomAccessResourceIe.SetSystemFrameNumberFieldIncluded(false);
+    randomAccessResourceIe.SetChannelFieldIncluded(false);
+    randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
+    randomAccessResourceIe.SetStartSubslot(10);
+    randomAccessResourceIe.SetLengthType(false); // length in subslots
+    randomAccessResourceIe.SetRaraLength(50);
+    randomAccessResourceIe.SetMaxRachLengthType(0); // length in subslots
+    randomAccessResourceIe.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
+    randomAccessResourceIe.SetCwMinSig(1);
+    randomAccessResourceIe.SetDectDelay(false);
+    randomAccessResourceIe.SetResponseWindow(5);
+    randomAccessResourceIe.SetCwMaxSig(5);
 
     // ################
     // ###### FT ######
@@ -60,12 +60,10 @@ main(int argc, char *argv[])
     Ptr<Dect2020ExtPhy> ftPhy = CreateObject<Dect2020ExtPhy>();
     config.ApplyToPhy(ftPhy);
 
-    Dect2020ExtRandomAccessResourceIe ftRandomAccessResources;
-
     Ptr<Dect2020ExtMac> ftMac = CreateObject<Dect2020ExtMac>();
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMac->SetPhy(ftPhy);
-    ftMac->ConfigureRandomAccessResources(ftRandomAccessResources);
+    ftMac->ConfigureRandomAccessResources(randomAccessResourceIe);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);

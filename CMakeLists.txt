@@ -178,9 +178,7 @@ set(dect2020ext_message_tests_src
 # Spectrum Management Procedure Test
 set(dect2020ext_spectrum_management_procedure_test_src
     test/spectrum-management-procedure/dect2020ext-spectrum-management-procedure-test.cc
-    test/spectrum-management-procedure/dect2020ext-scan-measurement-duration-test-case.cc
-    test/spectrum-management-procedure/dect2020ext-rssi-measurement-test-case.cc
-    test/spectrum-management-procedure/dect2020ext-network-beacon-period-test-case.cc)
+    test/spectrum-management-procedure/dect2020ext-channel-selection-test-case.cc)
 
 # Configuration Test
 set(dect2020ext_configuration_test_src
@@ -288,10 +286,10 @@ build_lib(
         ${dect2020ext_message_tests_src}
         ${dect2020ext_mac_pdu_size_calculation_test_src}
         ${dect2020ext_mac_scheduler_test_src}
+        ${dect2020ext_spectrum_management_procedure_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_random_access_test_src}
         # ${dect2020ext_phy_test_src}
-        # ${dect2020ext_spectrum_management_procedure_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}
