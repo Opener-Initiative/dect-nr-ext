@@ -13,6 +13,7 @@
 #include "ns3/dect2020ext-rd-capability-ie.h"
 #include "ns3/dect2020ext-association-control-ie.h"
 #include "ns3/dect2020ext-mac-header-type.h"
+#include "ns3/dect2020ext-config-values.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -816,7 +817,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
     if (lengthInSubslots)
     {
         uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-        double subslotDurationUs = (m_macScheduler->SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
+        double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
         rachDurationUs = length * subslotDurationUs;
     }
     else
@@ -911,7 +912,7 @@ Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIe rando
         uint32_t remainingFullRachSubslots = currentSubslotNumber - startSubslot;
         double timeTillNextSubslotUs = m_macScheduler->GetTimeTillSubslotStartNs(nextSubslotWrapped) / 1000.0;
 
-        double subslotDurationUs = (m_macScheduler->SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
+        double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
         rachDurationUs = (length - remainingFullRachSubslots) * subslotDurationUs;
         rachDurationUs += timeTillNextSubslotUs;
     }
@@ -1100,7 +1101,7 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
             else
             {
                 m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
-                double subslotDurationNs = m_macScheduler->SLOT_DURATION_NS / 2;
+                double subslotDurationNs = SLOT_DURATION_NS / 2;
                 Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIe.GetResponseWindow());
                 Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
             }

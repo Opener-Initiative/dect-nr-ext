@@ -10,7 +10,7 @@
 ###########
 
 set(dect2020ext_types_h
-    model/dect-types/dect2020ext-types.h)
+    model/types/dect2020ext-types.h)
 
 ###########
 ## MODEL ##
@@ -55,49 +55,49 @@ set(dect2020ext_configuration_h
 
 # DECT-2020 EXT Mac Scheduler
 set(dect2020ext_mac_scheduler_src
-    model/dect-mac/dect2020ext-mac-scheduler.cc)
+    model/mac/dect2020ext-mac-scheduler.cc)
 
 set(dect2020ext_mac_scheduler_h
-    model/dect-mac/dect2020ext-mac-scheduler.h)
+    model/mac/dect2020ext-mac-scheduler.h)
 
 # DECT-2020 EXT NetDevice
 set(dect2020ext_net_device_src
-    model/dect-net-device/dect2020ext-net-device.cc)
+    model/net-device/dect2020ext-net-device.cc)
 
 set(dect2020ext_net_device_h
-    model/dect-net-device/dect2020ext-net-device.h)
+    model/net-device/dect2020ext-net-device.h)
 
 # DECT-2020 EXT Channel
 set(dect2020ext_channel_src
-    model/dect-channel/dect2020ext-channel.cc)
+    model/channel/dect2020ext-channel.cc)
     
 set(dect2020ext_channel_h
-    model/dect-channel/dect2020ext-channel.h)
+    model/channel/dect2020ext-channel.h)
 
 # DECT-2020 EXT Channel Manager
 set(dect2020ext_channel_manager_src
-    model/dect-channel-manager/dect2020ext-channel-manager.cc)
+    model/channel-manager/dect2020ext-channel-manager.cc)
 
 set(dect2020ext_channel_manager_h
-    model/dect-channel-manager/dect2020ext-channel-manager.h)
+    model/channel-manager/dect2020ext-channel-manager.h)
 
 # DECT-2020 EXT MAC
 set(dect2020ext_mac_src
-    model/dect-mac/dect2020ext-mac.cc)
+    model/mac/dect2020ext-mac.cc)
 
 set(dect2020ext_mac_h
-    model/dect-mac/dect2020ext-mac.h)
+    model/mac/dect2020ext-mac.h)
 
 # DECT-2020 EXT PHY
 set(dect2020ext_phy_src
-    model/dect-phy/dect2020ext-phy.cc
-    model/dect-phy/dect2020ext-interference.cc
-    model/dect-phy/dect2020ext-spectrum-signal-parameters.cc)
+    model/phy/dect2020ext-phy.cc
+    model/phy/dect2020ext-interference.cc
+    model/phy/dect2020ext-spectrum-signal-parameters.cc)
 
 set(dect2020ext_phy_h
-    model/dect-phy/dect2020ext-phy.h
-    model/dect-phy/dect2020ext-interference.h
-    model/dect-phy/dect2020ext-spectrum-signal-parameters.h)
+    model/phy/dect2020ext-phy.h
+    model/phy/dect2020ext-interference.h
+    model/phy/dect2020ext-spectrum-signal-parameters.h)
 
 # DECT-2020 EXT Physical Header Field
 set(dect2020ext_physical_header_field_src

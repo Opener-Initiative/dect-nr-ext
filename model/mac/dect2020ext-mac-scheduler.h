@@ -77,7 +77,6 @@ public:
     uint32_t m_slotNumber; // Number of the slot in the channel
 };
 
-
 // ########################
 // #### Mac Scheduler ####
 // ########################
@@ -140,11 +139,11 @@ public:
     void PrintConfiguration() const;
     void PrintMacScheduler() const;
 
-    // Constants
+    // // Constants
 
-    const uint32_t SLOTS_PER_FRAME = 24;
-    const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
-    const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
+    // const uint32_t SLOTS_PER_FRAME = 24;
+    // const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
+    // const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 
 private:
     std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_macScheduler;

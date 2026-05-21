@@ -10,13 +10,13 @@
 namespace ns3
 {
 
-// Numerologies:
-// Dect2020ExtChannelManager
-// Dect2020ExtPhy
-
 constexpr uint8_t BAND_NUMBER = 1;
 constexpr uint8_t SUBCARRIER_SCALING_FACTOR = 1;
 constexpr uint8_t FOURIER_TRANSFORM_SCALING_FACTOR = 1;
+
+constexpr uint32_t SLOTS_PER_FRAME = 24;
+constexpr double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
+constexpr uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
 
 // Spectrum channel
 

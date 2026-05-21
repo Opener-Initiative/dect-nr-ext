@@ -1,5 +1,6 @@
 #include "dect2020ext-mac-scheduler.h"
 
+#include "ns3/dect2020ext-config-values.h"
 #include "ns3/dect2020ext-mac.h"
 
 #include "ns3/simulator.h"
@@ -29,7 +30,6 @@ Dect2020ExtMacSchedulerOperation::Dect2020ExtMacSchedulerOperation()
 Dect2020ExtMacSchedulerOperation::~Dect2020ExtMacSchedulerOperation()
 {
 }
-
 
 // ###############################
 // #### Mac Scheduler Subslot ####
@@ -73,31 +73,31 @@ Dect2020ExtMacScheduler::GetTypeId()
     static TypeId tid = TypeId("ns3::Dect2020ExtMacScheduler")
         .SetParent<Object>()
         .AddConstructor<Dect2020ExtMacScheduler>()
-        .SetGroupName("Dect2020Ext")
+        .SetGroupName("Dect2020Ext");
 
-        .AddAttribute("config_bandNumber",
-                        "DECT-2020 band number configuration",
-                        UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_bandNumber),
-                        MakeUintegerChecker<uint8_t>(1, 21))
+        // .AddAttribute("config_bandNumber",
+        //                 "DECT-2020 band number configuration",
+        //                 UintegerValue(1),
+        //                 MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_bandNumber),
+        //                 MakeUintegerChecker<uint8_t>(1, 21))
 
-        .AddAttribute("config_subcarrierScalingFactor",
-                        "DECT-2020 subcarrier scaling factor configuration",
-                        UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_subcarrierScalingFactor),
-                        MakeUintegerChecker<uint8_t>(1, 8))
+        // .AddAttribute("config_subcarrierScalingFactor",
+        //                 "DECT-2020 subcarrier scaling factor configuration",
+        //                 UintegerValue(1),
+        //                 MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_subcarrierScalingFactor),
+        //                 MakeUintegerChecker<uint8_t>(1, 8))
 
-        .AddAttribute("config_fourierTransformScalingFactor",
-                        "DECT-2020 Fourier transform scaling factor configuration",
-                        UintegerValue(1),
-                        MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_fourierTransformScalingFactor),
-                        MakeUintegerChecker<uint8_t>(1, 8))
+        // .AddAttribute("config_fourierTransformScalingFactor",
+        //                 "DECT-2020 Fourier transform scaling factor configuration",
+        //                 UintegerValue(1),
+        //                 MakeUintegerAccessor(&Dect2020ExtMacScheduler::m_fourierTransformScalingFactor),
+        //                 MakeUintegerChecker<uint8_t>(1, 8))
 
-        .AddAttribute("config_channelManager",
-                        "Dect2020ExtChannelManager configuration",
-                        PointerValue(nullptr),
-                        MakePointerAccessor(&Dect2020ExtMacScheduler::m_channelManager),
-                        MakePointerChecker<Dect2020ExtChannelManager>());
+        // .AddAttribute("config_channelManager",
+        //                 "Dect2020ExtChannelManager configuration",
+        //                 PointerValue(nullptr),
+        //                 MakePointerAccessor(&Dect2020ExtMacScheduler::m_channelManager),
+        //                 MakePointerChecker<Dect2020ExtChannelManager>());
     return tid;
 }
 
