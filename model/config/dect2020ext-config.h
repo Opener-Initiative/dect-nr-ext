@@ -26,7 +26,6 @@ class Dect2020ExtConfig
         void ApplyToPhy(Ptr<Dect2020ExtPhy> phy);
         void ApplyToMac(Ptr<Dect2020ExtMac> mac);
 
-    private:
         Ptr<SpectrumChannel> m_spectrumChannel;
         Ptr<Dect2020ExtChannelManager> m_channelManager;
         Ptr<IsotropicAntennaModel> m_antenna;

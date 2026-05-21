@@ -1,0 +1,25 @@
+#include "dect2020ext-mac-scheduler-test-case.h"
+#include "ns3/test.h"
+
+namespace ns3 {
+
+class Dect2020ExtMacSchedulerTest : public TestSuite
+{
+    public:
+        Dect2020ExtMacSchedulerTest();
+        virtual ~Dect2020ExtMacSchedulerTest();
+};
+
+Dect2020ExtMacSchedulerTest::Dect2020ExtMacSchedulerTest()
+    : TestSuite("dect2020ext-mac-scheduler-test", Type::UNIT)
+{
+    AddTestCase(new Dect2020ExtMacSchedulerTestCase(), TestCase::Duration::QUICK);
+}
+
+Dect2020ExtMacSchedulerTest::~Dect2020ExtMacSchedulerTest()
+{
+}
+
+static Dect2020ExtMacSchedulerTest dect2020ExtMacSchedulerTest;
+
+} // namespace ns3

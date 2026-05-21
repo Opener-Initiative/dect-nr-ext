@@ -22,26 +22,26 @@ class Dect2020ExtMac;
 
 class Dect2020ExtMacSchedulerOperation
 {
-public:
-    enum OperationType
-    {
-        TEST, // Only for testing !!!
-        IDLE,
-        TX_NETWORK_BEACON,
-        TX_CLUSTER_BEACON
-    };
+    public:
+        enum OperationType
+        {
+            TEST, // Only for testing !!!
+            IDLE,
+            TX_NETWORK_BEACON,
+            TX_CLUSTER_BEACON
+        };
 
-    Dect2020ExtMacSchedulerOperation();
-    virtual ~Dect2020ExtMacSchedulerOperation();
+        Dect2020ExtMacSchedulerOperation();
+        virtual ~Dect2020ExtMacSchedulerOperation();
 
-    OperationType m_operationType;
-    uint16_t m_channelNumber;
-    uint32_t m_startSubslot;
-    uint32_t m_endSubslot;
-    Ptr<Packet> m_resource;
-    std::function<void()> m_operation;
-    uint32_t m_periodFrames;
-    uint32_t m_frameOffset;
+        OperationType operationType;
+        uint16_t channelNumber;
+        uint32_t startSubslot;
+        uint32_t endSubslot;
+        Ptr<Packet> resource;
+        std::function<void()> operation;
+        uint32_t periodFrames;
+        uint32_t frameOffset;
 };
 
 // ###############################
@@ -50,15 +50,15 @@ public:
 
 class Dect2020ExtMacSchedulerSubslot
 {
-public:
-    Dect2020ExtMacSchedulerSubslot();
-    virtual ~Dect2020ExtMacSchedulerSubslot();
+    public:
+        Dect2020ExtMacSchedulerSubslot();
+        virtual ~Dect2020ExtMacSchedulerSubslot();
 
-    double m_subslotStartTimeNs; // Start time of the subslot in nanoseconds
-    double m_subslotEndTimeNs; // End time of the subslot in nanoseconds
-    uint32_t m_subslotIndex; // Index of the subslot in the slot
-    uint32_t m_subslotNumber; // Number of the subslot in the channel
-    Dect2020ExtMacSchedulerOperation operation;
+        double subslotStartTimeNs; // Start time of the subslot in nanoseconds
+        double subslotEndTimeNs; // End time of the subslot in nanoseconds
+        uint32_t subslotIndex; // Index of the subslot in the slot
+        uint32_t subslotNumber; // Number of the subslot in the channel
+        Dect2020ExtMacSchedulerOperation operation;
 };
 
 // ############################
@@ -67,14 +67,14 @@ public:
 
 class Dect2020ExtMacSchedulerSlot
 {
-public:
-    Dect2020ExtMacSchedulerSlot();
-    virtual ~Dect2020ExtMacSchedulerSlot();
-    
-    std::vector<Dect2020ExtMacSchedulerSubslot> m_subslots;
-    double m_slotStartTimeNs; // Start time of the slot in nanoseconds
-    double m_slotEndTimeNs; // End time of the slot in nanoseconds
-    uint32_t m_slotNumber; // Number of the slot in the channel
+    public:
+        Dect2020ExtMacSchedulerSlot();
+        virtual ~Dect2020ExtMacSchedulerSlot();
+        
+        std::vector<Dect2020ExtMacSchedulerSubslot> subslots;
+        double slotStartTimeNs; // Start time of the slot in nanoseconds
+        double slotEndTimeNs; // End time of the slot in nanoseconds
+        uint32_t slotNumber; // Number of the slot in the channel
 };
 
 // ########################
@@ -83,88 +83,82 @@ public:
 
 class Dect2020ExtMacScheduler : public Object
 {
-public:
-    Dect2020ExtMacScheduler();
-    virtual ~Dect2020ExtMacScheduler();
+    public:
+        Dect2020ExtMacScheduler();
+        virtual ~Dect2020ExtMacScheduler();
 
-    static TypeId GetTypeId();
+        static TypeId GetTypeId();
 
-    // Initialization
+        // Initialization
 
-    void Initialize();
+        void Initialize();
 
-    // Mac Scheduler Operations
+        // Mac Scheduler Operations
 
-    void StartMacScheduler();
-    void ScheduleNextMacScheduler();
-    void ProcessSlot(uint32_t slotNumber);
-    void ProcessSubslot(uint32_t subslotNumber);
+        void StartMacScheduler();
+        void ScheduleNextMacScheduler();
+        void ProcessSlot(uint32_t slotNumber);
+        void ProcessSubslot(uint32_t subslotNumber);
 
-    // Time and Slot/Subslot Getters
+        // Time and Slot/Subslot Getters
 
-    double GetTimeTillNextFrameNs() const;
-    double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
-    double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
-    double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
-    double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
-    Dect2020ExtMacSchedulerSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
-    double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
-    uint32_t GetCurrentSlotNumber() const;
-    uint32_t GetCurrentSubslotNumber() const;
+        double GetTimeTillNextFrameNs() const;
+        double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
+        double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
+        double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+        double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+        Dect2020ExtMacSchedulerSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
+        double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
+        uint32_t GetCurrentSlotNumber() const;
+        uint32_t GetCurrentSubslotNumber() const;
 
-    // Setters and Getters
+        // Setters and Getters
 
-    uint32_t GetSFN() const;
-    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
-    void SetMac(Ptr<Dect2020ExtMac> mac);
+        uint32_t GetSFN() const;
+        std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
+        void SetMac(Ptr<Dect2020ExtMac> mac);
 
-    void SetBandNumber(uint8_t bandNumber);
-    uint8_t GetBandNumber() const;
+        void SetBandNumber(uint8_t bandNumber);
+        uint8_t GetBandNumber() const;
 
-    void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-    uint8_t GetSubcarrierScalingFactor() const;
+        void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+        uint8_t GetSubcarrierScalingFactor() const;
 
-    void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
-    uint8_t GetFourierTransformScalingFactor() const;
+        void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+        uint8_t GetFourierTransformScalingFactor() const;
 
-    void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
-    Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
+        void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
+        Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 
-    // Scheduling
+        // Scheduling
 
-    void ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation);
+        void ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOperation operation);
 
-    // Configuration
+        // Configuration
 
-    void PrintConfiguration() const;
-    void PrintMacScheduler() const;
+        void PrintConfiguration() const;
+        void PrintMacScheduler() const;
 
-    // // Constants
+    private:
+        std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_macScheduler;
+        std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_nextMacScheduler;
+        Time m_currentFrameStartTime;
+        uint32_t m_SFN = 0; // System Frame Number
+        Ptr<Dect2020ExtMac> m_mac;
+        uint32_t m_currentSlotNumber;
+        uint32_t m_currentSubslotNumber;
 
-    // const uint32_t SLOTS_PER_FRAME = 24;
-    // const double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
-    // const uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
+        // Configuration
+        uint8_t m_bandNumber;
+        bool m_bandNumberSet = false;
 
-private:
-    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_macScheduler;
-    std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_nextMacScheduler;
-    Time m_currentFrameStartTime;
-    uint32_t m_SFN = 0; // System Frame Number
-    Ptr<Dect2020ExtMac> m_mac;
-    uint32_t m_currentSlotNumber;
-    uint32_t m_currentSubslotNumber;
+        uint8_t m_subcarrierScalingFactor;
+        bool m_subcarrierScalingFactorSet = false;
 
-    // Configuration
-    uint8_t m_bandNumber;
-    bool m_bandNumberSet = false;
+        uint8_t m_fourierTransformScalingFactor;
+        bool m_fourierTransformScalingFactorSet = false;
 
-    uint8_t m_subcarrierScalingFactor;
-    bool m_subcarrierScalingFactorSet = false;
-
-    uint8_t m_fourierTransformScalingFactor;
-    bool m_fourierTransformScalingFactorSet = false;
-
-    Ptr<Dect2020ExtChannelManager> m_channelManager;
+        Ptr<Dect2020ExtChannelManager> m_channelManager;
 };
 
 } // namespace ns3

@@ -20,3 +20,4 @@
 6. Add probability-based decoding errors on the PHY (Packet Error Rate) - CRC abstraction
 # Questions
 1. Which IE Type Field Encoding of MAC Multiplexing Header Type A should be used for data transmission?
+2. During beacon transmission and data transfer, should association messages be prioritized inside a Tx queue?

@@ -448,8 +448,7 @@ Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanC
 {
     NS_LOG_INFO(MAC_IDENTITY << this);
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    uint32_t slotsPerChannel = 24;
-    uint32_t subslotsPerChannel = numSubslotsPerSlot * slotsPerChannel;
+    uint32_t subslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
     // Store the measurement start time for testing
     channelContext->channelMeasurementStartTime = Simulator::Now();
@@ -502,16 +501,16 @@ Dect2020ExtMac::StartBeaconTransmission()
 
     // Network Beacon Transmission - subslot 0 (start of the first slot)
     Dect2020ExtMacSchedulerOperation networkBeaconOperation;
-    networkBeaconOperation.m_operationType = Dect2020ExtMacSchedulerOperation::TX_NETWORK_BEACON;
-    networkBeaconOperation.m_channelNumber = m_currentChannelId;
-    networkBeaconOperation.m_startSubslot = 0;
-    networkBeaconOperation.m_endSubslot = 0;
+    networkBeaconOperation.operationType = Dect2020ExtMacSchedulerOperation::TX_NETWORK_BEACON;
+    networkBeaconOperation.channelNumber = m_currentChannelId;
+    networkBeaconOperation.startSubslot = 0;
+    networkBeaconOperation.endSubslot = 0;
 
-    networkBeaconOperation.m_operation = [this](){
+    networkBeaconOperation.operation = [this](){
         this->StartNetworkBeaconTransmission();
     };
-    networkBeaconOperation.m_periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
-    networkBeaconOperation.m_frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    networkBeaconOperation.periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
+    networkBeaconOperation.frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
     m_networkBeaconSubslot = 0;
 
@@ -519,17 +518,17 @@ Dect2020ExtMac::StartBeaconTransmission()
 
     // Cluster Beacon Transmission - subslot 3 (start of the second slot)
     Dect2020ExtMacSchedulerOperation clusterBeaconOperation;
-    clusterBeaconOperation.m_operationType = Dect2020ExtMacSchedulerOperation::TX_CLUSTER_BEACON;
-    clusterBeaconOperation.m_channelNumber = m_currentChannelId;
-    clusterBeaconOperation.m_startSubslot = 4;
-    clusterBeaconOperation.m_endSubslot = 4;
+    clusterBeaconOperation.operationType = Dect2020ExtMacSchedulerOperation::TX_CLUSTER_BEACON;
+    clusterBeaconOperation.channelNumber = m_currentChannelId;
+    clusterBeaconOperation.startSubslot = 4;
+    clusterBeaconOperation.endSubslot = 4;
 
-    clusterBeaconOperation.m_operation = [this](){
+    clusterBeaconOperation.operation = [this](){
         this->StartClusterBeaconTransmission();
     };
 
-    clusterBeaconOperation.m_periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
-    clusterBeaconOperation.m_frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    clusterBeaconOperation.periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
+    clusterBeaconOperation.frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
 
     m_clusterBeaconSubslot = 4;
 

@@ -62,23 +62,23 @@ This step is important for `Dect2020ExtMac` since it allows to check if importan
 	- Create a `MAC_IDENTITY`
 	- Generate and set long and short radio device IDs
 	- Call `Dect2020ExtMac::DiscoverNetworks`
-# Spectrum Management Procedure
-`Dect2020ExtMac::InitializeNetwork` starts a background scan `Dect2020ExtMac::BackgroundScan` immediately (but the delay can also be modified).
-# 6 Statistics
+# 6 Spectrum Management Procedure
+`Dect2020ExtMac::InitializeNetwork` starts a background scan `Dect2020ExtMac::BackgroundScan` immediately (but the delay can also be modified manually). `Dect2020ExtMac::BackgroundScan` extracts band parameters from `Dect2020ExtChannelManager` to get the number of channels inside the operating band. The function schedules RSSI measurements for each channel and creates one `Dect2020ExtBackgroundScanContext` for the whole background scan and one `Dect2020ExtRssi1OnChannelContext` for each channel. The background scan function schedules RSSI measurements for each channel based on 10ms period (10 ms = 1 frame = all subslots to scan for each channel).
+# 7 Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
-# 7 HARQ and Random Access Procedure
-## 7.1 HARQ
+# 8 HARQ and Random Access Procedure
+## 8.1 HARQ
 In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as "HARQ" in the code base, the procedure is not fully implemented.
 The current "HARQ" implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
 The repeat requests are done upon the timeout (RACH response window exceeds and no ACK has been received).
 The RACH response window should always be longer than HARQ feedback delay to give the FT time to respond to the packet.
 The processing time for creating the feedback is two subslots or as indicated by the RD in the `HARQ feedback delay` field in RD capability IE.
 Feedback delay: n + `HARQ feedback delay` + 1.
-# 8 Data Transmission
-## 8.1 General Description
+# 9 Data Transmission
+## 9.1 General Description
 Data transmission is implemented via HARQ operation and Random Access. MAC PDU formats that belong to HARQ and Random Access are used to configure how data transmission will happen.
-# 9 MAC PDU Size and Tx Duration Calculation
-## 9.1 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
+# 10 MAC PDU Size and Tx Duration Calculation
+## 10.1 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
 The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
 The table is implemented as follows:
 ```c++
@@ -110,16 +110,16 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
 
 **Currently, only MCS index 0 is supported. TBS for MCS 0 is 136.**
-## 9.2 Tx Duration Calculation
+## 10.2 Tx Duration Calculation
 Tx duration is calculated in the `Dect2020ExtPhy::Send` function and inserted into `Dect2020ExtSpectrumSignalParameters`. Those parameters are crucial for transmission over the `Spectrum` channel.
 Tx duration in nanoseconds is as follows:
 1. If packet length is given in subslots:
 	1. TBD
 2. If packet length is given in slots:
 	1. Multiply packet length (in slots) by 416670 (416.67 nanoseconds per slot)
-# 10 MAC PDU
+# 11 MAC PDU
 All MAC PDU formats are serialized with host to network byte order (big-endian) and deserialized with network to host byte order (small-endian).
-## 10.1 Currently implemented MAC PDU formats
+## 11.1 Currently implemented MAC PDU formats
 - [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
 	- Type 1, Header Format: 000
 	- Type 2, Header Format: 000
@@ -139,9 +139,9 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 	- [Association Response Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1273%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C627%5D)
 	- [Random Access Resource IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1713%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
 	- [RD Capability IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1818%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C620%5D)
-## 10.2 MAC PDU Macros
+## 11.2 MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
-# 11 Available Tests
+# 12 Available Tests
 - Physical Header Field:
 	- Serialization/Deserialization tests:
 		- PHY Control Field: Type 1, Header Format: 000
@@ -171,7 +171,7 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Cluster Beacon Message
 		- Network Beacon Message
 - MAC PDU size calculation test
-## 11.1 MAC PDU Tests
+## 12.1 MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header
 2. One packet object is initiated to simulate adding headers to MAC PDU
@@ -189,7 +189,7 @@ originalHeader.SetNetworkId(networkId);
 originalHeader.SetTransmitterAddress(transmitterAddress);
 ```
 4. When adding header to the packet, the size of the packet before and after addition is also tested
-## 11.2 Running Tests
+## 12.2 Running Tests
 All tests can be executed with the `test.py` ns-3 script:
 1. Navigate to the root directory of ns-3
 2. To run all `dect2020ext` tests, run this command in the terminal:
@@ -203,5 +203,5 @@ python test.py --suite="dect2020ext-beacon*"
 
 Tips:
 1. To be 100% sure that the tested models work correctly, it is probably a good idea to run tests a couple of times. Some tests, for example, MAC Common Header tests, can be tested with random values and therefore should be tested a couple of times to see how the models behave with different random values.
-# 12 Future Work
-## 12.1 Dect2020ExtTypes
+# 13 Future Work
+## 13.1 Dect2020ExtTypes

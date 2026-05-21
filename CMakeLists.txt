@@ -235,6 +235,11 @@ set(dect2020ext_mac_pdu_size_calculation_test_src
     test/mac-pdu-size-calculation/dect2020ext-mac-pdu-size-calculation-test.cc
     test/mac-pdu-size-calculation/dect2020ext-mac-pdu-size-calculation-test-case.cc)
 
+# MAC Scheduler Test
+set(dect2020ext_mac_scheduler_test_src
+    test/mac-scheduler/dect2020ext-mac-scheduler-test.cc
+    test/mac-scheduler/dect2020ext-mac-scheduler-test-case.cc)
+
 build_lib(
     LIBNAME dect-nr-ext
     SOURCE_FILES
@@ -282,6 +287,7 @@ build_lib(
         ${dect2020ext_information_element_tests_src}
         ${dect2020ext_message_tests_src}
         ${dect2020ext_mac_pdu_size_calculation_test_src}
+        ${dect2020ext_mac_scheduler_test_src}
         # ${dect2020ext_configuration_test_src}
         # ${dect2020ext_random_access_test_src}
         # ${dect2020ext_phy_test_src}
