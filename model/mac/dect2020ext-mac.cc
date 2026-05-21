@@ -411,8 +411,7 @@ Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContex
     SetCurrentChannelId(channelContext->channelNumber);
 
     // 2. Get power from the subslot with sampling rate
-    double slotDurationNs = 416666; // 0,41667 milliseconds in nanoseconds
-    double subslotDurationNs = slotDurationNs / m_channelManager->GetSubslotsPerSlot();
+    double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
     double baseSamplingOffsetNs = subslotDurationNs / 5;
 
     for (uint32_t sampleIndex = 0; sampleIndex < 5; sampleIndex++)
