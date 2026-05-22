@@ -114,6 +114,10 @@ Dect2020ExtPhy::Start()
     m_interference = CreateObject<Dect2020ExtInterference>();
     m_interference->m_mac = this->m_mac;
     m_interference->Initialize(m_channelManager->GetSpectrumModel(m_bandNumber));
+
+    // Register as a receiver only after full initialization, so signals
+    // are never delivered to a PHY whose m_interference is still null.
+    m_channel->AddRx(this);
 }
 
 void
@@ -249,10 +253,6 @@ void
 Dect2020ExtPhy::SetChannel(Ptr<SpectrumChannel> c)
 {
     m_channel = c;
-    if (m_channel)
-    {
-        m_channel->AddRx(this);
-    }
 }
 
 Ptr<SpectrumChannel>

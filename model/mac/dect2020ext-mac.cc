@@ -283,8 +283,7 @@ Dect2020ExtMac::GenerateShortRadioDeviceId()
 void
 Dect2020ExtMac::DisplayChannelEvaluations()
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_DEBUG("============ Channel Evaluations Summary ============");
+    NS_LOG_INFO("============ Channel Evaluations Summary ============");
     
     // Display all channel evaluations
     if (m_channelEvaluations.empty())
@@ -294,8 +293,8 @@ Dect2020ExtMac::DisplayChannelEvaluations()
     }
     
     // Display header
-    NS_LOG_DEBUG("Channel ID | Free | Possible | Busy | Total | Free %");
-    NS_LOG_DEBUG("-----------------------------------------------------");
+    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
+    NS_LOG_INFO("-----------------------------------------------------");
     
     // Display each channel evaluation
     for (const auto& eval : m_channelEvaluations)
@@ -311,10 +310,10 @@ Dect2020ExtMac::DisplayChannelEvaluations()
             << std::setw(5) << total << " | "
             << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
         
-        NS_LOG_DEBUG(oss.str());
+        NS_LOG_INFO(oss.str());
     }
     
-    NS_LOG_DEBUG("====================================================");
+    NS_LOG_INFO("====================================================");
 }
 
 void
@@ -371,19 +370,33 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
     };
     
     std::stable_sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
+
+    m_channelEvaluations = evaluations;
     
     if (!evaluations.empty())
     {
         m_operatingChannelId = evaluations[0].channelId;
         NS_LOG_INFO(MAC_IDENTITY << ": Selected Operating Channel: " << m_operatingChannelId 
                     << " with " << evaluations[0].free << " free subslots");
+        if (m_displayChannelEvaluations)
+        {
+            DisplayChannelEvaluations();
+        }
     }
     else
     {
-        NS_LOG_WARN("No channel evaluations available for selection");
+        NS_FATAL_ERROR("No channel evaluations available for selection");
     }
 
-    StartBeaconTransmission();
+    if (m_proceedToBeaconTransmission)
+    {
+        StartBeaconTransmission();
+    }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Execution finished");
+        return;
+    }
 }
 
 void
@@ -445,7 +458,8 @@ Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext>
 void
 Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext)
 {
-    NS_LOG_INFO(MAC_IDENTITY << this);
+    NS_LOG_INFO(MAC_IDENTITY << ": Starting to scan channel " << channelContext->channelNumber);
+
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
     uint32_t subslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
@@ -673,31 +687,14 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
 Dect2020ExtRandomAccessResourceIe
 Dect2020ExtMac::BuildRandomAccessResourceIe()
 {
-    NS_LOG_FUNCTION(this);
-
-    // if (m_configuredRandomAccessResourceIeSet)
-    // {
-    //     return m_configuredRandomAccessResourceIe;
-    // }
-    // else
-    // {
-        Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
-        randomAccessResourceIe.SetRepeat(0);
-        randomAccessResourceIe.SetSystemFrameNumberFieldIncluded(false);
-        randomAccessResourceIe.SetChannelFieldIncluded(false);
-        randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
-        randomAccessResourceIe.SetStartSubslot(10);
-        randomAccessResourceIe.SetLengthType(0); // length in subslots
-        randomAccessResourceIe.SetRaraLength(50);
-        randomAccessResourceIe.SetMaxRachLengthType(0); // length in subslots
-        randomAccessResourceIe.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
-        randomAccessResourceIe.SetCwMinSig(1);
-        randomAccessResourceIe.SetDectDelay(m_dectDelay);
-        randomAccessResourceIe.SetResponseWindow(5); // response window length in subslots -> value + 1 subslot
-        randomAccessResourceIe.SetCwMaxSig(5);
-
-        return randomAccessResourceIe;
-    // }
+    if (m_configuredRandomAccessResourceIeSet)
+    {
+        return m_configuredRandomAccessResourceIe;
+    }
+    else
+    {
+        NS_FATAL_ERROR("No Random Access Resource IE provided for MAC");
+    }
 }
 
 Dect2020ExtPhyControlFieldType1
@@ -708,21 +705,11 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
 
     if (packetLengthType == 0) // Packet length is given in subslots
     {
-        // TBD
+        physicalHeaderField.SetPacketLength(CalculateMacPduSizeInSubslots(packetLengthBytes));
     }
     else if (packetLengthType == 1) // Packet length is given in slots
     {
-        double packetLengthBits = packetLengthBytes * 8;
-        double mcsTransportBlockSizeBits =
-            this->m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor,
-                                                  m_fourierTransformScalingFactor,
-                                                  m_mcs);
-        uint16_t packetLengthInSlots = 0;
-        packetLengthInSlots = std::ceil(packetLengthBits / mcsTransportBlockSizeBits);
-
-        // NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU length in slots: " << packetLengthInSlots);
-
-        physicalHeaderField.SetPacketLength(packetLengthInSlots); // Size of packet in slots
+        physicalHeaderField.SetPacketLength(CalculateMacPduSizeInSlots(packetLengthBytes)); // Size of packet in slots
     }
 
     physicalHeaderField.SetShortNetworkId(m_networkId);
@@ -1170,17 +1157,25 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
     Dect2020ExtMacHeaderType macHeaderType;
     packet->RemoveHeader(macHeaderType);
 
-    if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER)
+    // FT devices can receive beacons but currently they do nothing with them
+    if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtNetDevice::PT)
     {
-        // Create FT Candidate Info
-        // FT Candidate Info can be updated if the candidate has sent a beacon message before
-        Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderFieldType1.GetTransmitterIdentity());
-        ft->rssiDbm = rssiDbm;
-        ft->ftPhyHeaderField = physicalHeaderFieldType1;
-        ft->receptionTime = Simulator::Now();
-        ft->shortFtId = physicalHeaderFieldType1.GetTransmitterIdentity();
+        if (m_proceedToAssociation)
+        {
+            // Create FT Candidate Info
+            // FT Candidate Info can be updated if the candidate has sent a beacon message before
+            Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderFieldType1.GetTransmitterIdentity());
+            ft->rssiDbm = rssiDbm;
+            ft->ftPhyHeaderField = physicalHeaderFieldType1;
+            ft->receptionTime = Simulator::Now();
+            ft->shortFtId = physicalHeaderFieldType1.GetTransmitterIdentity();
 
-        HandleBeaconPacket(packet, ft);
+            HandleBeaconPacket(packet, ft);
+        }
+        else
+        {
+            return;
+        }
     }
 
     else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER)
@@ -2312,6 +2307,24 @@ Dect2020ExtMac::ConfigureRngStream(int64_t stream)
 {
     m_configuredRngStream = stream;
     m_configuredRngStreamSet = true;
+}
+
+void
+Dect2020ExtMac::ProceedToBeaconTransmission(bool value)
+{
+    m_proceedToBeaconTransmission = value;
+}
+
+void
+Dect2020ExtMac::ProceedToAssociation(bool value)
+{
+    m_proceedToAssociation = value;
+}
+
+void
+Dect2020ExtMac::DisplayChannelEvaluations(bool value)
+{
+    m_displayChannelEvaluations = value;
 }
 
 void

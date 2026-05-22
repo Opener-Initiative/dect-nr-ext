@@ -340,6 +340,9 @@ class Dect2020ExtMac : public Object
         void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe);
         void ConfigureAssociationControlIe(Dect2020ExtAssociationControlIe associationControlIe);
         void ConfigureRngStream(int64_t stream);
+        void ProceedToBeaconTransmission(bool value);
+        void ProceedToAssociation(bool value);
+        void DisplayChannelEvaluations(bool value);
         void PrintConfiguration() const;
 
         uint32_t m_associatedFTNetDeviceLongRdId = 0;
@@ -414,6 +417,11 @@ class Dect2020ExtMac : public Object
         // bool m_configuredRdCapabilityIeSet = false;
 
         Ptr<Dect2020ExtNetDevice> m_device;
+
+        bool m_proceedToBeaconTransmission = true;
+        bool m_proceedToAssociation = true;
+
+        bool m_displayChannelEvaluations = false;
 
         // ####################
         // ##### Constants ####

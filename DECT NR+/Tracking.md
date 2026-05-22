@@ -19,5 +19,8 @@
 5. HARQ = ARQ (L2) + FEC (Turbo Coding on PHY)
 6. Add probability-based decoding errors on the PHY (Packet Error Rate) - CRC abstraction
 # Questions
-1. Which IE Type Field Encoding of MAC Multiplexing Header Type A should be used for data transmission?
-2. During beacon transmission and data transfer, should association messages be prioritized inside a Tx queue?
+1. During beacon transmission and data transfer, should association messages be prioritized inside a Tx queue?
+
+# Tasks
+1. Create a tutorial
+2. How to change code without damaging the repository

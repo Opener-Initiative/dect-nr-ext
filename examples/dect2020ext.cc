@@ -31,7 +31,7 @@ main(int argc, char *argv[])
 
     NetDeviceContainer devices;
 
-    // Information Elements
+    // Configuration
     Dect2020ExtConfig config;
     Dect2020ExtAssociationControlIe associationControlIe;
     associationControlIe.SetCbM(1); // maintain Cluster Beacon reception
@@ -87,7 +87,7 @@ main(int argc, char *argv[])
     // ###### PT ######
     // ################
 
-    int ptNumber = 2;
+    int ptNumber = 5;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
     randomRadius->SetAttribute("Min", DoubleValue(10.0));

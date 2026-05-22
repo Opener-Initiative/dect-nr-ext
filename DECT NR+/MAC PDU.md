@@ -75,3 +75,25 @@ Size: 30 bytes
 | Index 2        |             Unicast Header             | 10 bytes |
 | Index 1        |            MAC Header Type             | 1 byte   |
 | Index 0: front |        PHY Control Field Type 2        | 10 bytes |
+Results from `dect2020ext-mac-pdu-size-calculation-test-case.cc`
+----------------------------------------
+Network Beacon Message
+  Size (bytes)       : 22
+  Slots    - expected: 2  calculated: 2
+  Subslots - expected: 3  calculated: 3
+----------------------------------------
+Cluster Beacon Message
+  Size (bytes)       : 23
+  Slots    - expected: 2  calculated: 2
+  Subslots - expected: 3  calculated: 3
+----------------------------------------
+Association Request Message
+  Size (bytes)       : 35
+  Slots    - expected: 3  calculated: 3
+  Subslots - expected: 5  calculated: 5
+----------------------------------------
+Association Response Message
+  Size (bytes)       : 30
+  Slots    - expected: 2  calculated: 2
+  Subslots - expected: 4  calculated: 4
+----------------------------------------

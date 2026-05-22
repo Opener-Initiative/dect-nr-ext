@@ -1,0 +1,56 @@
++0.210000257s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to RX
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: total channel 1657 power: 10 dBm
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: Passing to the MAC
++0.210416927s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to IDLE
++0.210833589s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to RX
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: total channel 1657 power: 10 dBm
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: Passing to the MAC
++0.211666929s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to IDLE
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1662
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1667
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1667
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1672
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1677
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1677
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.210000257s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to RX
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: total channel 1657 power: 10 dBm
++0.210000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: Passing to the MAC
++0.210416927s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to IDLE
++0.210833589s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to RX
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: total channel 1657 power: 10 dBm
++0.210833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: Passing to the MAC
++0.211666929s Dect2020ExtPhy:ChangeState(): FT_PHY[1]: State changed to IDLE
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1662
++0.260833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1667
++0.310000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1667
++0.310833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1672
++0.360833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1677
++0.410000257s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: received packet on wrong channel
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: current channel: 1677
++0.410833589s Dect2020ExtPhy:StartRx(): FT_PHY[1]: channel from dect params: 1657

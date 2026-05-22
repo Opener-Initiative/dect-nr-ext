@@ -7,8 +7,13 @@ edges = []
 nodes.append(('FT0', 'FT', 'NOT_ASSOCIATED', 0, 0))
 nodes.append(('PT0', 'PT', 'ASSOCIATED', 36.4294, 0))
 edges.append(('FT0', 'PT0', {'power': 10}))
-nodes.append(('PT1', 'PT', 'ASSOCIATED', -38.8272, 4.75496e-15))
+nodes.append(('PT1', 'PT', 'ASSOCIATED', 11.9983, 36.9269))
 edges.append(('FT0', 'PT1', {'power': 10}))
+nodes.append(('PT2', 'PT', 'ASSOCIATED', -21.581, 15.6795))
+edges.append(('FT0', 'PT2', {'power': 10}))
+nodes.append(('PT3', 'PT', 'ASSOCIATED', -17.5861, -12.7771))
+edges.append(('FT0', 'PT3', {'power': 10}))
+nodes.append(('PT4', 'PT', 'ASSOCIATION_PENDING', 9.40755, -28.9535))
 
 graph = nx.Graph()
 

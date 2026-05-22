@@ -24,6 +24,7 @@ Provided directly in the simulation file:
 - Termination Point Type
 - Pointer to `Dect2020ExtPhy` (that belongs to the MAC)
 - Pointer to `Dect2020ExtNetDevice` (that belongs to the MAC)
+- Boolean value for proceeding to beacon transmission (if the simulation should stop at the background scan)
 - If the device is FT:
 	- Random Access Resource IE
 - If the device is PT:

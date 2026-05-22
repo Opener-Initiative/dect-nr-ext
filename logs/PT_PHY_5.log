@@ -1,0 +1,500 @@
++0.210000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++0.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++0.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++0.210416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++0.210833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++0.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++0.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++0.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++0.211666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++0.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1668
++0.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1677
++0.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.310833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++0.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++0.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++0.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++0.311666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++0.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1667
++0.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1676
++0.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1677
++0.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1666
++0.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1675
++0.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1676
++0.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1665
++0.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1674
++0.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1675
++0.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1664
++0.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1673
++0.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1674
++0.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1663
++0.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1672
++0.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1673
++0.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1662
++0.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1671
++0.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1672
++0.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++0.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++0.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1661
++0.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1670
++1.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1671
++1.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1660
++1.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1669
++1.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1670
++1.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1659
++1.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1668
++1.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1669
++1.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1658
++1.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1667
++1.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1668
++1.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.360833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++1.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++1.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++1.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++1.361666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++1.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1666
++1.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1667
++1.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1677
++1.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1665
++1.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1666
++1.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1676
++1.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1664
++1.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1665
++1.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1675
++1.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1663
++1.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1664
++1.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1674
++1.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1662
++1.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1663
++1.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1673
++1.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1661
++1.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1662
++1.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++1.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++1.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1672
++1.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1660
++2.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1661
++2.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1671
++2.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1659
++2.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1660
++2.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1670
++2.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on wrong channel
++2.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: current channel: 1658
++2.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: channel from dect params: 1657
++2.210833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.211666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.212249435s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.212249435s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.212249435s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.212249435s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.212708431s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.213082775s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.213581511s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.213581511s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.213581511s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.213581511s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.214166762s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.214414851s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.214872176s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.214872176s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.214872176s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.214872176s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.215416760s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.215705516s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.216664550s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.216664550s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.216664550s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.216664550s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.217083424s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.217497890s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.219162841s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.219162841s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.219162841s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.219162841s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.219583420s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.219996181s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.220330462s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.220330462s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.220330462s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.220330462s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.220833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.221163802s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.222789215s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.222789215s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.222789215s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.222789215s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.223333430s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Dropping packet due to collision
++2.223622555s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.260833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.261666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.310000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.310416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.310833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.311666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.360833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.361666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.410000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.410416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.410833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.411666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.460833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.461666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.510000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.510416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.510833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.511666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.560833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.561666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.610000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.610416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.610833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.611666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.660833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.661666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.710000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.710416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.710833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.711666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.760833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.761666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.810000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.810416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.810833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.811666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.860833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.861666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.910000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.910416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.910833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.911666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++2.960833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++2.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++2.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++2.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++2.961666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.010000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.010000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.010416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.010833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.010833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.011666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.060833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.060833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.061666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.110000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.110000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.110416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.110833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.110833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.111666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.160833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.160833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.161666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.210000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.210000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.210416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.210833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.210833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.211666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.260833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.260833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.261666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.310000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.310000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.310416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.310833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.310833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.311666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.360833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.360833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.361666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.410000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.410000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.410416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.410833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.410833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.411666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.460833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.460833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.461666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.510000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.510000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.510416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.510833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.510833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.511666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.560833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.560833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.561666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.610000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.610000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.610416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.610833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.610833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.611666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.660833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.660833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.661666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.710000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.710000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.710416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.710833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.710833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.711666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.760833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.760833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.761666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.810000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.810000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.810416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.810833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.810833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.811666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.860833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.860833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.861666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.910000102s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.910000102s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.910416772s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.910833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.910833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.911666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
++3.960833434s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to RX
++3.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: received packet on the current channel 1657 with RSSI 10 dBm
++3.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: total channel 1657 power: 10 dBm
++3.960833434s Dect2020ExtPhy:StartRx(): PT_PHY[5]: Passing to the MAC
++3.961666774s Dect2020ExtPhy:ChangeState(): PT_PHY[5]: State changed to IDLE
+PT_PHY[5] dropped 7 packets
+PT_PHY[5] accepted 64 packets
