@@ -28,7 +28,7 @@ class StrongType
 struct BandNumberTag{};
 struct SubcarrierScalingFactorTag{};
 struct FourierTransformScalingFactorTag{};
-struct Band1ChannelIDTag{};
+struct Band1ChannelNumberTag{};
 
 // Data type that represents the DECT-2020 NR band number. Currently, only band 1 is supported.
 using Dect2020ExtBandNumber = StrongType<uint8_t, BandNumberTag, 1, 1>;
@@ -40,7 +40,7 @@ using Dect2020ExtSubcarrierScalingFactor = StrongType<uint8_t, SubcarrierScaling
 using Dect2020ExtFourierTransformScalingFactor = StrongType<uint8_t, FourierTransformScalingFactorTag, 1, 8>;
 
 // Data type that represents the DECT-2020 NR band 1 channel ID. Currently, only values between 1657 and 1677 are supported.
-using Dect2020ExtBand1ChannelID = StrongType<uint16_t, Band1ChannelIDTag, 1657, 1677>;
+using Dect2020ExtBand1ChannelNumber = StrongType<uint16_t, Band1ChannelNumberTag, 1657, 1677>;
 
 } // namespace ns3
 

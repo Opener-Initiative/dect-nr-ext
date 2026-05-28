@@ -78,7 +78,7 @@ Dect2020ExtPhyTestCase1::DoRun()
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
     params->txPhy = txPhy;
     params->txPacket = Create<Packet>(10);
-    params->m_currentChannelId = 1657;
+    params->m_currentChannelNumber = 1657;
     params->duration = duration;
 
     double txPowerWatt = ftMac->GetChannelManager()->DbmToW(ftNetDevice->m_txPowerDbm);

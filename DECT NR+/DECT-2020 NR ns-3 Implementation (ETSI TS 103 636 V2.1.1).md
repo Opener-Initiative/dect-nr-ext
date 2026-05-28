@@ -3,15 +3,14 @@
 	- [Part 2: Radio reception and transmission requirements; ETSI TS 103 636-2 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363602/02.01.01_60/ts_10363602v020101p.pdf)
 	- [Part 3: Physical layer; ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf)
 	- [Part 4: MAC layer; ETSI TS 103 636-4 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
+	- [Part 5: DLC and Convergence layers; ETSI TS 103 636-5 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363605/02.01.01_60/ts_10363605v020101p.pdf)
 - [ns-3](https://www.nsnam.org/)
 # Configuration
-The project can be configured through the `config` model located in `/model/config`.
-The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
-`dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
+The project can be configured through the `config` model located in `/model/config`. The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class). `dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
 
 The `Dect2020ExtConfig` class creates two objects that are shared by all `Dect2020Ext` models:
-- Spectrum Channel
-- Channel Manager
+- `ns3::SpectrumChannel`
+- `Dect2020ExtChannelManager`
 `Dect2020ExtConfig` also creates an Isotropic Antenna for every PHY.
 `Dect2020ExtConfig` has `ApplyToPhy` and `ApplyToMac` functions that bootstrap the values from `dect2020ext-config-values` to the corresponding `Dect2020ExtPhy` and `Dect2020ExtMac` models.
 #### Values required for `Dect2020ExtMac` configuration:
@@ -45,7 +44,7 @@ Each PHY and MAC object has its own `PHY_IDENTITY` or `MAC_IDENTITY`. This is im
 NS_LOG_INFO(MAC_IDENTITY << "some interesting information");
 ```
 Note, if the information is logged without using a proper identity, the logs will not be separated correctly by the `splitlogs.py` script.
-# Initialization with `Dect2020ExtMac::Initialize`
+# MAC Initialization with `Dect2020ExtMac::Initialize`
 This step is important for `Dect2020ExtMac` since it allows to check if important values have been configured before `Dect2020ExtMac::Start`. The structure of `Dect2020ExtMac::Initialize` is as follows:
 - Check all config values (provided by `Dect2020ExtConfig` and simulation file)
 - Initialize MAC Scheduler
@@ -63,23 +62,29 @@ This step is important for `Dect2020ExtMac` since it allows to check if importan
 	- Create a `MAC_IDENTITY`
 	- Generate and set long and short radio device IDs
 	- Call `Dect2020ExtMac::DiscoverNetworks`
+# Important Conventions
+Channel number (`uint16_t m_operatingChannelNumber`) stands for the absolute channel frequency number. Using channel IDs is avoided in the code base since it confuses what a channel ID and channel number are. Since the standard refers to the absolute channel frequency NUMBERING, channel numbers are used in the code, not channel IDs.
 # Spectrum Management Procedure
 `Dect2020ExtMac::InitializeNetwork` starts a background scan `Dect2020ExtMac::BackgroundScan` immediately (but the delay can also be modified manually). `Dect2020ExtMac::BackgroundScan` extracts band parameters from `Dect2020ExtChannelManager` to get the number of channels inside the operating band. The function schedules RSSI measurements for each channel and creates one `Dect2020ExtBackgroundScanContext` for the whole background scan and one `Dect2020ExtRssi1OnChannelContext` for each channel. The background scan function schedules RSSI measurements for each channel based on 10ms period (10 ms = 1 frame = all subslots to scan for each channel).
-# 7 Statistics
+#### Operating Channel
+The goal of the FT device performing the spectrum management procedure is to select the operating channel number. Operating channel will be used as the channel for cluster beacon transmissions and (currently) for network beacon transmissions (which is not required by the standard but still implemented for simplification).
+
+PT device doesn't perform any background scans. Therefore, the operating channel number will be defined as the channel which the PT uses to communicate with the FT. This channel is configured via the Cluster Beacon Message IE.
+# Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
 # 8 HARQ and Random Access Procedure
-## 8.1 HARQ
+#### HARQ
 In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as "HARQ" in the code base, the procedure is not fully implemented.
 The current "HARQ" implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
 The repeat requests are done upon the timeout (RACH response window exceeds and no ACK has been received).
 The RACH response window should always be longer than HARQ feedback delay to give the FT time to respond to the packet.
 The processing time for creating the feedback is two subslots or as indicated by the RD in the `HARQ feedback delay` field in RD capability IE.
 Feedback delay: n + `HARQ feedback delay` + 1.
-# 9 Data Transmission
-## 9.1 General Description
+# Data Transmission
+#### General Description
 Data transmission is implemented via HARQ operation and Random Access. MAC PDU formats that belong to HARQ and Random Access are used to configure how data transmission will happen.
-# 10 MAC PDU Size and Tx Duration Calculation
-## 10.1 MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
+# MAC PDU Size and Tx Duration Calculation
+#### MAC PDU Size Calculation Based on Modulation and Coding Scheme (MCS)
 The MAC PDU size calculation in slots and subslots is implemented at the MAC level: `Dect2020ExtMac::CalculateMacPduSizeInSlots` and `Dect2020Ext::CalculateMacPduSizeInSubslots`. Both functions have a single parameter - `uint32_t packetLengthInBytes`. The Transport Block Size (TBS) values for single slot transmission and single spatial stream with maximum turbo code block size of 2048 bits are derived from [ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf#%5B%7B%22num%22%3A336%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C540%5D) Table C.2-1.
 The table is implemented as follows:
 ```c++
@@ -111,16 +116,16 @@ The computation of MAC PDU size in slots and subslots is as follows:
 	1. Calculate packet length in slots (with rounding up) by calling `std::ceil(packetLengthInBits / mscTransportBlockSizeBitsPerSlot`
 
 **Currently, only MCS index 0 is supported. TBS for MCS 0 is 136.**
-## 10.2 Tx Duration Calculation
+#### Tx Duration Calculation
 Tx duration is calculated in the `Dect2020ExtPhy::Send` function and inserted into `Dect2020ExtSpectrumSignalParameters`. Those parameters are crucial for transmission over the `Spectrum` channel.
 Tx duration in nanoseconds is as follows:
 1. If packet length is given in subslots:
 	1. TBD
 2. If packet length is given in slots:
 	1. Multiply packet length (in slots) by 416670 (416.67 nanoseconds per slot)
-# 11 MAC PDU
+# MAC PDU
 All MAC PDU formats are serialized with host to network byte order (big-endian) and deserialized with network to host byte order (small-endian).
-## 11.1 Currently implemented MAC PDU formats
+#### Currently implemented MAC PDU formats
 - [Physical Header Field](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A404%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C347%5D):
 	- Type 1, Header Format: 000
 	- Type 2, Header Format: 000
@@ -140,9 +145,10 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 	- [Association Response Message IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1273%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C627%5D)
 	- [Random Access Resource IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1713%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C218%5D)
 	- [RD Capability IE](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf#%5B%7B%22num%22%3A1818%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22FitH%22%7D%2C620%5D)
-## 11.2 MAC PDU Macros
+#### MAC PDU Macros
 `DECT2020EXT_MAC_PDU_FATAL(message, outputValue)` - outputs a fatal error with the message and the output value (which is wrong in this case)
-# 12 Available Tests
+# Tests
+#### Currently Available Tests:
 - Physical Header Field:
 	- Serialization/Deserialization tests:
 		- PHY Control Field: Type 1, Header Format: 000
@@ -172,7 +178,7 @@ All MAC PDU formats are serialized with host to network byte order (big-endian) 
 		- Cluster Beacon Message
 		- Network Beacon Message
 - MAC PDU size calculation test
-## 12.1 MAC PDU Tests
+#### MAC PDU Tests
 All serialization/deserialization tests for MAC Common Headers are implemented with the following principle:
 1. Two header objects are initiated - one for the original header and one for the deserialized header
 2. One packet object is initiated to simulate adding headers to MAC PDU
@@ -190,7 +196,7 @@ originalHeader.SetNetworkId(networkId);
 originalHeader.SetTransmitterAddress(transmitterAddress);
 ```
 4. When adding header to the packet, the size of the packet before and after addition is also tested
-## 12.2 Running Tests
+#### Running Tests
 All tests can be executed with the `test.py` ns-3 script:
 1. Navigate to the root directory of ns-3
 2. To run all `dect2020ext` tests, run this command in the terminal:
@@ -204,5 +210,5 @@ python test.py --suite="dect2020ext-beacon*"
 
 Tips:
 1. To be 100% sure that the tested models work correctly, it is probably a good idea to run tests a couple of times. Some tests, for example, MAC Common Header tests, can be tested with random values and therefore should be tested a couple of times to see how the models behave with different random values.
-# 13 Future Work
-## 13.1 Dect2020ExtTypes
+# Future Work
+#### Dect2020ExtTypes

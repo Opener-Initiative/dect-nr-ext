@@ -93,7 +93,7 @@ struct Dect2020ExtHarqProcess
 
 struct Dect2020ExtChannelEvaluation
 {
-    uint16_t channelId;
+    uint16_t channelNumber;
     uint32_t free = 0;
     uint32_t possible = 0;
     uint32_t busy = 0;
@@ -119,7 +119,7 @@ struct Dect2020ExtBackgroundScanContext
 
 struct Dect2020ExtSubslotScanContext
 {
-    uint16_t channelId;
+    uint16_t channelNumber;
     Dect2020ExtChannelEvaluation evaluation;
     uint32_t subslotCount;
     uint32_t totalSubslots;
@@ -132,7 +132,7 @@ struct Dect2020ExtFtCandidateInfo
     uint32_t shortFtId;
     uint32_t longFtId;
 
-    uint16_t clusterChannelId;
+    uint16_t clusterChannelNumber;
     uint8_t sfn;
     Time receptionTime;
     double rssiDbm;
@@ -148,7 +148,7 @@ struct Dect2020ExtFtCandidateInfo
     Dect2020ExtFtCandidateInfo()
         : networkId(0),
           longFtId(0),
-          clusterChannelId(0),
+          clusterChannelNumber(0),
           receptionTime(Seconds(0)),
           rssiDbm(-150.0), 
           ftPhyHeaderField(),
@@ -225,13 +225,13 @@ class Dect2020ExtMac : public Object
         void StartBeaconTransmission();
         void StartNetworkBeaconTransmission();
         void StartClusterBeaconTransmission();
-        void SendNetworkBeaconOnChannel(uint16_t channelId);
-        void SendClusterBeaconOnChannel(uint16_t channelId);
+        void SendNetworkBeaconOnChannel(uint16_t channelNumber);
+        void SendClusterBeaconOnChannel(uint16_t channelNumber);
 
         // Building MAC PDU
 
         Ptr<Packet> BuildNetworkBeacon();
-        Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelId);
+        Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelNumber);
         Dect2020ExtRandomAccessResourceIe BuildRandomAccessResourceIe();
         Dect2020ExtPhyControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
 
@@ -295,10 +295,9 @@ class Dect2020ExtMac : public Object
         uint32_t GetLongRadioDeviceId() const;
         void SetShortRadioDeviceId(uint16_t rdId);
         uint16_t GetShortRadioDeviceId() const;
-        uint32_t GetOperatingChannelId() const;
+        void SetOperatingChannelNumber(uint16_t channelNumber);
+        uint16_t GetOperatingChannelNumber() const;
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
-        void SetCurrentChannelId(uint16_t channelId);
-        uint16_t GetCurrentChannelId() const;
         double GetRxGainFromIndex(uint8_t index) const;
         Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
@@ -349,17 +348,13 @@ class Dect2020ExtMac : public Object
         Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
         uint8_t m_nextAvailableSubslot = 2;
         bool m_dectDelay = false;
-        uint16_t m_currentChannelId;
         std::string MAC_IDENTITY;
 
     private:
-
-        // All variables related to channel
-        uint16_t m_operatingChannelId;
+        uint16_t m_operatingChannelNumber;
 
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
-        uint16_t m_networkBeaconChannelId;
         uint32_t m_networkId;
         uint32_t m_longRadioDeviceId;
         uint16_t m_shortRadioDeviceId;

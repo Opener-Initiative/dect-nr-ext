@@ -39,7 +39,7 @@ class Dect2020ExtChannel : public Object
 
     void AddSlot(Slot slot);
 
-    uint32_t m_channelId; // #ETSI 103 636-2 V1.5.1, Section 5.4.2 (n)
+    uint32_t m_channelNumber; // #ETSI 103 636-2 V1.5.1, Section 5.4.2 (n)
     std::vector<Slot> m_slots;
     std::vector<Slot> m_slotsLastFrame;
     double m_centerFrequency;

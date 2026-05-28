@@ -32,7 +32,7 @@ Dect2020ExtSpectrumSignalParameters::Copy() const
     copy->psd = this->psd ? this->psd->Copy() : nullptr;
 
     copy->txPacket = this->txPacket ? this->txPacket->Copy() : nullptr;
-    copy->m_currentChannelId = m_currentChannelId;
+    copy->m_currentChannelNumber = m_currentChannelNumber;
     copy->m_data = m_data;
 
     return copy;

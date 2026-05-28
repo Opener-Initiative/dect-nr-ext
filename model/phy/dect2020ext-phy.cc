@@ -263,8 +263,8 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     Ptr<Dect2020ExtSpectrumSignalParameters> dectParams = DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
 
     // Extract the channel index within the spectrum model
-    uint16_t channelIndex = dectParams->m_currentChannelId -
-        m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(dectParams->m_currentChannelId));
+    uint16_t channelIndex = dectParams->m_currentChannelNumber -
+        m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(dectParams->m_currentChannelNumber));
 
     // Extract the received signal strength (in Watt and dBm) from the PSD
     double rssiPacket = (*params->psd)[channelIndex];
@@ -283,11 +283,11 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     }
 
     // Drop packet if the device is not currently tuned to the correct channel
-    if (dectParams->m_currentChannelId != this->m_mac->m_currentChannelId)
+    if (dectParams->m_currentChannelNumber != m_mac->GetOperatingChannelNumber())
     {
         NS_LOG_INFO(PHY_IDENTITY << ": received packet on wrong channel");
-        NS_LOG_INFO(PHY_IDENTITY << ": current channel: " << this->m_mac->m_currentChannelId);
-        NS_LOG_INFO(PHY_IDENTITY << ": channel from dect params: " << dectParams->m_currentChannelId);
+        NS_LOG_INFO(PHY_IDENTITY << ": current channel: " << m_mac->GetOperatingChannelNumber());
+        NS_LOG_INFO(PHY_IDENTITY << ": channel from dect params: " << dectParams->m_currentChannelNumber);
         return;
     }
 
@@ -313,8 +313,8 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 
     double rssiChannelWatt = (*m_interference->m_allSignals)[channelIndex];
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
-    NS_LOG_INFO(PHY_IDENTITY << ": received packet on the current channel " << dectParams->m_currentChannelId << " with RSSI " << rssiPacketDbm << " dBm");
-    NS_LOG_INFO(PHY_IDENTITY << ": total channel " << dectParams->m_currentChannelId << " power: " << rssiChannelDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": received packet on the current channel " << dectParams->m_currentChannelNumber << " with RSSI " << rssiPacketDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": total channel " << dectParams->m_currentChannelNumber << " power: " << rssiChannelDbm << " dBm");
 
     if (m_phyTest)
     {
@@ -341,7 +341,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
     params->txPhy = this;
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
-    params->m_currentChannelId = this->m_mac->GetCurrentChannelId();
+    params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
     params->m_data = false;
 
     // Calculate the TX duration based on the packet size and MCS
@@ -349,7 +349,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
     params->duration = duration;
 
     // Get the channel index --> this is the index of the channel used for PSD
-    uint16_t channelIndex = this->m_mac->m_currentChannelId - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
+    uint16_t channelIndex = m_mac->GetOperatingChannelNumber() - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
 
     // Set the PSD value for the current channel
     Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
@@ -389,7 +389,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physica
     params->txPhy = this;
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
-    params->m_currentChannelId = this->m_mac->GetCurrentChannelId();
+    params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
     params->m_data = true;
 
     // Calculate the TX duration based on the packet size and MCS
@@ -397,7 +397,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physica
     params->duration = duration;
 
     // Get the channel index --> this is the index of the channel used for PSD
-    uint16_t channelIndex = this->m_mac->m_currentChannelId - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
+    uint16_t channelIndex = m_mac->GetOperatingChannelNumber() - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
 
     // Set the PSD value for the current channel
     Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);

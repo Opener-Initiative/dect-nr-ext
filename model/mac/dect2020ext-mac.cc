@@ -54,24 +54,6 @@ Dect2020ExtMac::GetTypeId()
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
                                 .AddConstructor<Dect2020ExtMac>();
-
-                                // .AddAttribute("config_bandNumber",
-                                //               "DECT-2020 band number configuration",
-                                //               UintegerValue(1),
-                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_bandNumber),
-                                //               MakeUintegerChecker<uint8_t>(1, 21))
-
-                                // .AddAttribute("config_subcarrierScalingFactor",
-                                //               "DECT-2020 subcarrier scaling factor configuration",
-                                //               UintegerValue(1),
-                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_subcarrierScalingFactor),
-                                //               MakeUintegerChecker<uint8_t>(1, 8))
-
-                                // .AddAttribute("config_fourierTransformScalingFactor",
-                                //               "DECT-2020 Fourier transform scaling factor configuration",
-                                //               UintegerValue(1),
-                                //               MakeUintegerAccessor(&Dect2020ExtMac::m_fourierTransformScalingFactor),
-                                //               MakeUintegerChecker<uint8_t>(1, 8));
     return tid;
 }
 
@@ -179,13 +161,13 @@ Dect2020ExtMac::DiscoverNetworks()
 
     // Advance to the next channel; wrap around to nStart when outside [nStart, nEnd-1]
     // The lower-bound check also handles the uninitialized / out-of-band case on first entry.
-    uint32_t nextChannelId = (m_currentChannelId >= bp.nStart && m_currentChannelId < bp.nEnd)
-                                 ? m_currentChannelId + 1
+    uint16_t nextChannelNumber = (m_operatingChannelNumber >= bp.nStart && m_operatingChannelNumber < bp.nEnd)
+                                 ? m_operatingChannelNumber + 1
                                  : bp.nStart;
 
     // Switch to the next channel
-    NS_LOG_INFO(MAC_IDENTITY << ": Switching to channel " << nextChannelId);
-    SetCurrentChannelId(nextChannelId);
+    NS_LOG_INFO(MAC_IDENTITY << ": Switching to channel " << nextChannelNumber);
+    SetOperatingChannelNumber(nextChannelNumber);
 
     Time t = MilliSeconds(10); // Discover Network wait time
     Simulator::Schedule(t, &Dect2020ExtMac::DiscoverNetworks, this); // Schedule next discovery
@@ -275,7 +257,7 @@ Dect2020ExtMac::DisplayChannelEvaluations()
         double freePercentage = (total > 0) ? (eval.free * 100.0 / total) : 0.0;
         
         std::ostringstream oss;
-        oss << std::setw(10) << eval.channelId << " | "
+        oss << std::setw(10) << eval.channelNumber << " | "
             << std::setw(4) << eval.free << " | "
             << std::setw(8) << eval.possible << " | "
             << std::setw(4) << eval.busy << " | "
@@ -314,7 +296,7 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
     {
         // Create an evaluation for each channel
         Dect2020ExtChannelEvaluation evaluation;
-        evaluation.channelId = it->first;
+        evaluation.channelNumber = it->first;
 
         for (uint32_t subslotNumber = 0; subslotNumber < it->second.size(); ++subslotNumber)
         {
@@ -347,8 +329,8 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
     
     if (!evaluations.empty())
     {
-        m_operatingChannelId = evaluations[0].channelId;
-        NS_LOG_INFO(MAC_IDENTITY << ": Selected Operating Channel: " << m_operatingChannelId 
+        m_operatingChannelNumber = evaluations[0].channelNumber;
+        NS_LOG_INFO(MAC_IDENTITY << ": Selected Operating Channel: " << m_operatingChannelNumber
                     << " with " << evaluations[0].free << " free subslots");
         if (m_displayChannelEvaluations)
         {
@@ -393,7 +375,7 @@ Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContex
     NS_LOG_FUNCTION(this);
 
     // 1. Tune to the correct channel
-    SetCurrentChannelId(channelContext->channelNumber);
+    SetOperatingChannelNumber(channelContext->channelNumber);
 
     // 2. Get power from the subslot with sampling rate
     double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
@@ -481,13 +463,13 @@ Dect2020ExtMac::StartBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
 
+    // NOTE: Current channel should be m_operatingChannelNumber
     // Tune the device to the selected operating channel
-    m_currentChannelId = m_operatingChannelId;
 
     // Network Beacon Transmission - subslot 0 (start of the first slot)
     Dect2020ExtMacSchedulerOperation networkBeaconOperation;
     networkBeaconOperation.operationType = Dect2020ExtMacSchedulerOperation::TX_NETWORK_BEACON;
-    networkBeaconOperation.channelNumber = m_currentChannelId;
+    networkBeaconOperation.channelNumber = m_operatingChannelNumber;
     networkBeaconOperation.startSubslot = 0;
     networkBeaconOperation.endSubslot = 0;
 
@@ -504,7 +486,7 @@ Dect2020ExtMac::StartBeaconTransmission()
     // Cluster Beacon Transmission - subslot 3 (start of the second slot)
     Dect2020ExtMacSchedulerOperation clusterBeaconOperation;
     clusterBeaconOperation.operationType = Dect2020ExtMacSchedulerOperation::TX_CLUSTER_BEACON;
-    clusterBeaconOperation.channelNumber = m_currentChannelId;
+    clusterBeaconOperation.channelNumber = m_operatingChannelNumber;
     clusterBeaconOperation.startSubslot = 4;
     clusterBeaconOperation.endSubslot = 4;
 
@@ -524,34 +506,31 @@ void
 Dect2020ExtMac::StartNetworkBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_currentChannelId);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendNetworkBeaconOnChannel, this, m_operatingChannelNumber);
 }
 
 void
 Dect2020ExtMac::StartClusterBeaconTransmission()
 {
     NS_LOG_FUNCTION(this);
-    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelId);
+    Simulator::Schedule(Seconds(0), &Dect2020ExtMac::SendClusterBeaconOnChannel, this, m_operatingChannelNumber);
 }
 
 void
-Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelId)
+Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 {
-    NS_LOG_FUNCTION(this << channelId);
-    NS_LOG_DEBUG(this);
     Ptr<Packet> networkBeacon = BuildNetworkBeacon();
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_currentChannelId << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
     m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
 }
 
 void
-Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelId)
+Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
 {
-    NS_LOG_FUNCTION(this << channelId);
-    Ptr<Packet> packet = BuildClusterBeacon(channelId);
+    Ptr<Packet> packet = BuildClusterBeacon(channelNumber);
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_currentChannelId << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
     m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
 }
 
@@ -570,7 +549,7 @@ Dect2020ExtMac::BuildNetworkBeacon()
     networkBeaconMessageIe.SetNetworkBeaconChannels(0);
     networkBeaconMessageIe.SetNetworkBeaconPeriod(Dect2020ExtNetworkBeaconMessageIe::NETWORK_BEACON_PERIOD_100MS);
     networkBeaconMessageIe.SetClusterBeaconPeriod(Dect2020ExtNetworkBeaconMessageIe::CLUSTER_BEACON_PERIOD_50MS);
-    networkBeaconMessageIe.SetNextClusterChannel(m_operatingChannelId);
+    networkBeaconMessageIe.SetNextClusterChannel(m_operatingChannelNumber);
 
     // Calculate time to next Cluster Beacon
     // Get absolute time offsets for each beacon within a frame
@@ -610,7 +589,7 @@ Dect2020ExtMac::BuildNetworkBeacon()
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelId)
+Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelNumber)
 {
     NS_LOG_FUNCTION(this);
     Ptr<Packet> beacon = Create<Packet>();
@@ -999,7 +978,7 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
     NS_LOG_DEBUG(MAC_IDENTITY << ": Sampling LBT RSSI");
 
     // Get current channel number and calculate channel index
-    uint16_t currentChannelNumber = m_currentChannelId;
+    uint16_t currentChannelNumber = m_operatingChannelNumber;
     uint16_t firstValidChannelNumber = m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
     uint16_t channelIndex = currentChannelNumber - firstValidChannelNumber;
 
@@ -1111,7 +1090,7 @@ void
 Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
 {
     NS_LOG_FUNCTION(this << packet);
-    NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_currentChannelId);
+    NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_operatingChannelNumber);
 
     Dect2020ExtPhyControlFieldType1 physicalHeaderFieldType1;
     Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2;
@@ -1198,7 +1177,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         // Get the cluster channel id from the network beacon message
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
         NS_LOG_INFO(MAC_IDENTITY << ": Next cluster channel in network beacon: " << ftBeaconNextClusterChannel);
-        ft->clusterChannelId = ftBeaconNextClusterChannel;
+        ft->clusterChannelNumber = ftBeaconNextClusterChannel;
 
         // Get time to next cluster beacon from the network beacon message
         uint32_t timeToNextCluster = networkBeaconMessage.GetTimeToNext();
@@ -1215,8 +1194,8 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         if (ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
         {
             NS_LOG_INFO(MAC_IDENTITY << ": No Network Beacon Message received before, setting cluster channel to current channel");
-            ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_currentChannelId);
-            ft->clusterChannelId = this->m_currentChannelId;
+            ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_operatingChannelNumber);
+            ft->clusterChannelNumber = this->m_operatingChannelNumber;
         }
 
         Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
@@ -1492,7 +1471,7 @@ Dect2020ExtMac::SelectBestFtCandidate(void)
             NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate found with RSSI " << bestRssiDbm << " dBm");
             NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate long ID: " << ft.longFtId);
             NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate network ID: " << ft.networkId);
-            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate cluster channel ID: " << ft.clusterChannelId);
+            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate cluster channel ID: " << ft.clusterChannelNumber);
             bestCandidate = ft;
             found = true;
         }
@@ -1509,9 +1488,8 @@ Dect2020ExtMac::SelectBestFtCandidate(void)
     m_selectedFtCandidate = bestCandidate;
 
     // Step 3: Switch to the FT's channel
-    NS_LOG_INFO(MAC_IDENTITY << ": Switching to best FT's channel: " << bestCandidate.clusterChannelId);
-    m_operatingChannelId = bestCandidate.clusterChannelId;
-    m_currentChannelId = bestCandidate.clusterChannelId;
+    NS_LOG_INFO(MAC_IDENTITY << ": Switching to best FT's channel: " << bestCandidate.clusterChannelNumber);
+    m_operatingChannelNumber = bestCandidate.clusterChannelNumber;
 
     // Step 4: Set status and wait for next cluster beacon of selected FT
     ChangeAssociationStatus(WAITING_FOR_SELECTED_FT);
@@ -1944,33 +1922,27 @@ Dect2020ExtMac::SetShortRadioDeviceId(uint16_t rdId)
 }
 
 uint16_t
-Dect2020ExtMac::GetShortRadioDeviceId(void) const
+Dect2020ExtMac::GetShortRadioDeviceId() const
 {
     return m_shortRadioDeviceId;
 }
 
-uint32_t
-Dect2020ExtMac::GetOperatingChannelId(void) const
+void
+Dect2020ExtMac::SetOperatingChannelNumber(uint16_t channelNumber)
 {
-    return m_operatingChannelId;
+    m_operatingChannelNumber = channelNumber;
+}
+
+uint16_t
+Dect2020ExtMac::GetOperatingChannelNumber() const
+{
+    return m_operatingChannelNumber;
 }
 
 std::vector<Dect2020ExtChannelEvaluation>
 Dect2020ExtMac::GetChannelEvaluations(void) const
 {
     return m_channelEvaluations;
-}
-
-void
-Dect2020ExtMac::SetCurrentChannelId(uint16_t channelId)
-{
-    m_currentChannelId = channelId;
-}
-
-uint16_t
-Dect2020ExtMac::GetCurrentChannelId(void) const
-{
-    return m_currentChannelId;
 }
 
 double

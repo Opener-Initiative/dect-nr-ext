@@ -7,7 +7,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtChannel");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtChannel);
 
 TypeId
-Dect2020ExtChannel::GetTypeId(void)
+Dect2020ExtChannel::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtChannel")
                             .SetParent<Object>()
