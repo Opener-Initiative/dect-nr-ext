@@ -353,9 +353,12 @@ class Dect2020ExtMac : public Object
         std::string MAC_IDENTITY;
 
     private:
+
+        // All variables related to channel
+        uint16_t m_operatingChannelId;
+
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
-        uint16_t m_operatingChannelId;
         uint16_t m_networkBeaconChannelId;
         uint32_t m_networkId;
         uint32_t m_longRadioDeviceId;

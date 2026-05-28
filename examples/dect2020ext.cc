@@ -87,7 +87,7 @@ main(int argc, char *argv[])
     // ###### PT ######
     // ################
 
-    int ptNumber = 5;
+    int ptNumber = 1;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
     randomRadius->SetAttribute("Min", DoubleValue(10.0));

@@ -1,5 +1,5 @@
-+0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0xfdfdca87
-+0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x27ac
++0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0xc52ad94
++0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x6d6e
 +0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting background scan
 +0.000000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1657
 +0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
@@ -107,76 +107,46 @@
 +2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.212249403s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.212249403s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.212249403s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 13
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 10
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 10
-+2.212249403s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 13
-+2.212708329s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 13
-+2.213581419s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.213581419s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.213581419s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 20
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 17
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 17
-+2.213581419s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 20
-+2.214166660s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 20
-+2.214872084s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.214872084s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.214872084s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 26
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 23
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 23
-+2.214872084s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 26
-+2.215416658s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 26
-+2.216664460s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.216664460s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.216664460s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 34
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 31
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 31
-+2.216664460s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 34
-+2.217083322s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 34
-+2.219162749s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.219162749s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.219162749s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 46
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 43
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 43
-+2.219162749s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 46
-+2.219583318s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 46
-+2.220330452s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.220330452s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.220330452s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 4
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 1
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 1
-+2.220330452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 4
-+2.220833332s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 4
-+2.222789125s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
-+2.222789125s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.222789125s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 16
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 13
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 13
-+2.222789125s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 16
-+2.223333328s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 16
++2.212666452s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.212666452s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
++2.212666452s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 15
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 12
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 12
++2.212666452s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 15
++2.213124995s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 15
++2.214707117s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.214707117s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
++2.214707117s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 25
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 22
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 22
++2.214707117s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 25
++2.215208325s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 25
++2.217497782s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.217497782s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
++2.217497782s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 38
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 35
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 35
++2.217497782s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 38
++2.217916654s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 38
++2.223455447s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI 10 dBm on channel 1657
++2.223455447s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
++2.223455447s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 19
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 16
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 16
++2.223455447s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 19
++2.223958327s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 19
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)

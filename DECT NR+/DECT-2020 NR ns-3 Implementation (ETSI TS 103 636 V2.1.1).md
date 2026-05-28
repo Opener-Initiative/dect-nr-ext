@@ -1,10 +1,10 @@
-# 1 Quick Links
+# Quick Links
 - DECT-2020 New Radio (NR):
 	- [Part 2: Radio reception and transmission requirements; ETSI TS 103 636-2 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363602/02.01.01_60/ts_10363602v020101p.pdf)
 	- [Part 3: Physical layer; ETSI TS 103 636-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363603/02.01.01_60/ts_10363603v020101p.pdf)
 	- [Part 4: MAC layer; ETSI TS 103 636-4 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
 - [ns-3](https://www.nsnam.org/)
-# 2 Configuration
+# Configuration
 The project can be configured through the `config` model located in `/model/config`.
 The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class).
 `dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
@@ -14,7 +14,7 @@ The `Dect2020ExtConfig` class creates two objects that are shared by all `Dect20
 - Channel Manager
 `Dect2020ExtConfig` also creates an Isotropic Antenna for every PHY.
 `Dect2020ExtConfig` has `ApplyToPhy` and `ApplyToMac` functions that bootstrap the values from `dect2020ext-config-values` to the corresponding `Dect2020ExtPhy` and `Dect2020ExtMac` models.
-## 2.1 Values required for `Dect2020ExtMac` configuration:
+#### Values required for `Dect2020ExtMac` configuration:
 Provided by `Dect2020ExtConfig`:
 - Band number (currently only band 1 is supported)
 - Subcarrier scaling factor (currently only value 1 is supported)
@@ -29,7 +29,7 @@ Provided directly in the simulation file:
 	- Random Access Resource IE
 - If the device is PT:
 	- Association Control IE
-# 3 Logging
+# Logging
 The default logging setup (logging levels) looks like this:
 ```c++
 LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
@@ -45,14 +45,14 @@ Each PHY and MAC object has its own `PHY_IDENTITY` or `MAC_IDENTITY`. This is im
 NS_LOG_INFO(MAC_IDENTITY << "some interesting information");
 ```
 Note, if the information is logged without using a proper identity, the logs will not be separated correctly by the `splitlogs.py` script.
-# 4 Initialization with `Dect2020ExtMac::Initialize`
+# Initialization with `Dect2020ExtMac::Initialize`
 This step is important for `Dect2020ExtMac` since it allows to check if important values have been configured before `Dect2020ExtMac::Start`. The structure of `Dect2020ExtMac::Initialize` is as follows:
-- Check all config values (from `Dect2020ExtConfig` and simulation file)
+- Check all config values (provided by `Dect2020ExtConfig` and simulation file)
 - Initialize MAC Scheduler
 - Initialize a backoff random variable (used in RACH)
 - Generate Network ID if the device is FT
-# 5 `Dect2020ExtMac::Start` and `Dect2020ExtPhy::Start`
-## 5.1 `Dect2020ExtMac::Start`:
+# `Dect2020ExtMac::Start` and `Dect2020ExtPhy::Start`
+#### `Dect2020ExtMac::Start`:
 - If the device is FT:
 	- Check if Random Access Resource has been configured
 	- Create a `MAC_IDENTITY`
@@ -63,7 +63,7 @@ This step is important for `Dect2020ExtMac` since it allows to check if importan
 	- Create a `MAC_IDENTITY`
 	- Generate and set long and short radio device IDs
 	- Call `Dect2020ExtMac::DiscoverNetworks`
-# 6 Spectrum Management Procedure
+# Spectrum Management Procedure
 `Dect2020ExtMac::InitializeNetwork` starts a background scan `Dect2020ExtMac::BackgroundScan` immediately (but the delay can also be modified manually). `Dect2020ExtMac::BackgroundScan` extracts band parameters from `Dect2020ExtChannelManager` to get the number of channels inside the operating band. The function schedules RSSI measurements for each channel and creates one `Dect2020ExtBackgroundScanContext` for the whole background scan and one `Dect2020ExtRssi1OnChannelContext` for each channel. The background scan function schedules RSSI measurements for each channel based on 10ms period (10 ms = 1 frame = all subslots to scan for each channel).
 # 7 Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.

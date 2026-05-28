@@ -40,11 +40,10 @@ public:
 
     static TypeId GetTypeId();
 
-    void InitializeChannels();
     BandParameters GetBandParameters(uint8_t bandNumber);
     double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
     std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
-    std::vector<Ptr<Dect2020ExtChannel>> GetChannels(void);
+    std::vector<Ptr<Dect2020ExtChannel>> GetChannels();
     uint32_t GetSubslotsPerSlot();
     uint8_t GetBandNumber(uint16_t channelNumber);
     uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
@@ -66,21 +65,16 @@ public:
     uint8_t GetSubcarrierScalingFactor() const;
     void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
     uint8_t GetFourierTransformScalingFactor() const;
-    void Configure();
 
 private:
     std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
     Ptr<SpectrumChannel> m_spectrumChannel;
 
-    // Configuration variables for the DECT-NR-EXT module
-
     uint8_t m_bandNumber;
     uint8_t m_subcarrierScalingFactor;
     uint8_t m_fourierTransformScalingFactor;
 
-    std::map<uint16_t, std::vector<double>> m_rssiResults; // uint16_t channelId -> double rssi
     std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels; // uint8_t bandNumber -> Ptr<SpectrumModel>
-
 };
 
 }; // namespace ns3

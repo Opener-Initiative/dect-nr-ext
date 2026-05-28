@@ -36,99 +36,78 @@ Dect2020ExtChannelManager::GetTypeId()
     static TypeId tid = TypeId("ns3::Dect2020ExtChannelManager")
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
-                                .AddConstructor<Dect2020ExtChannelManager>()
-
-                                .AddAttribute("config_BandNumber",
-                                              "DECT-2020 band number configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_bandNumber),
-                                              MakeUintegerChecker<uint8_t>(1, 21))
-
-                                .AddAttribute("config_SubcarrierScalingFactor",
-                                              "DECT-2020 subcarrier scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_subcarrierScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8))
-
-                                .AddAttribute("config_FourierTransformScalingFactor",
-                                              "DECT-2020 Fourier transform scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtChannelManager::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8));
-
+                                .AddConstructor<Dect2020ExtChannelManager>();
     return tid;
 }
 
-// Initialize logic channels
-void
-Dect2020ExtChannelManager::InitializeChannels()
-{
-    NS_LOG_FUNCTION(this);
+// void
+// Dect2020ExtChannelManager::InitializeChannels()
+// {
+//     NS_LOG_FUNCTION(this);
 
-    // ###################################
-    // #### Initialize logic channels ####
-    // ###################################
+//     // ###################################
+//     // #### Initialize logic channels ####
+//     // ###################################
 
-    // Check if band number is valid (currently only 1 band is supported)
-    if (m_bandNumber != 1)
-    {
-        NS_FATAL_ERROR("Invalid band number. Currently only band 1 is supported.");
-    }
+//     // Check if band number is valid (currently only 1 band is supported)
+//     if (m_bandNumber != 1)
+//     {
+//         NS_FATAL_ERROR("Invalid band number. Currently only band 1 is supported.");
+//     }
 
-    // Check if subcarrier scaling factor is valid
-    if (!(m_subcarrierScalingFactor == 1 || m_subcarrierScalingFactor == 2 ||
-          m_subcarrierScalingFactor == 4 || m_subcarrierScalingFactor == 8))
-    {
-        NS_FATAL_ERROR("Invalid subcarrier scaling factor");
-    }
+//     // Check if subcarrier scaling factor is valid
+//     if (!(m_subcarrierScalingFactor == 1 || m_subcarrierScalingFactor == 2 ||
+//           m_subcarrierScalingFactor == 4 || m_subcarrierScalingFactor == 8))
+//     {
+//         NS_FATAL_ERROR("Invalid subcarrier scaling factor");
+//     }
 
-    const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
+//     const uint32_t slotsPerFrame = 24; // #ETSI TS 103 636-3 V1.5.1, Section 4.4
 
-    BandParameters bandParams = GetBandParameters(m_bandNumber); // Get current band parameters
-    uint32_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of Channels
+//     BandParameters bandParams = GetBandParameters(m_bandNumber); // Get current band parameters
+//     uint32_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of Channels
 
-    // Compute the subslot duration in nanoseconds
-    uint32_t numSubslotsPerSlot = GetSubslotsPerSlot();
-    const double slotDurationNs = 10000000 / slotsPerFrame;         // 0,41667 milliseconds in nanoseconds
-    double subslotDurationNs = slotDurationNs / numSubslotsPerSlot; // Subslot Duration in nanoseconds
+//     // Compute the subslot duration in nanoseconds
+//     uint32_t numSubslotsPerSlot = GetSubslotsPerSlot();
+//     const double slotDurationNs = 10000000 / slotsPerFrame;         // 0,41667 milliseconds in nanoseconds
+//     double subslotDurationNs = slotDurationNs / numSubslotsPerSlot; // Subslot Duration in nanoseconds
 
-    // Initialize the logical channels
-    m_channels.clear();
-    for (uint32_t ch = 0; ch < numChannels; ch++)
-    {
-        int channelFrequencyNumbering = bandParams.nStart + ch;
+//     // Initialize the logical channels
+//     m_channels.clear();
+//     for (uint32_t ch = 0; ch < numChannels; ch++)
+//     {
+//         int channelFrequencyNumbering = bandParams.nStart + ch;
 
-        Ptr<Dect2020ExtChannel> dect2020ExtChannel = CreateObject<Dect2020ExtChannel>();
-        dect2020ExtChannel->m_channelId = channelFrequencyNumbering;
-        dect2020ExtChannel->m_centerFrequency =
-            CalculateCenterFrequency(m_bandNumber, channelFrequencyNumbering);
+//         Ptr<Dect2020ExtChannel> dect2020ExtChannel = CreateObject<Dect2020ExtChannel>();
+//         dect2020ExtChannel->m_channelId = channelFrequencyNumbering;
+//         dect2020ExtChannel->m_centerFrequency =
+//             CalculateCenterFrequency(m_bandNumber, channelFrequencyNumbering);
 
-        for (uint32_t slot = 0; slot < slotsPerFrame; slot++)
-        {
-            Slot slotObj;
-            slotObj.slotId = slot;
+//         for (uint32_t slot = 0; slot < slotsPerFrame; slot++)
+//         {
+//             Slot slotObj;
+//             slotObj.slotId = slot;
 
-            for (uint32_t ss = 0; ss < numSubslotsPerSlot; ss++)
-            {
-                Subslot subslot;
-                subslot.subslotId = ss;
-                subslot.status = SubslotStatus::FREE;
-                subslot.rssi = 0.0;
-                subslot.subslotDurationNs = subslotDurationNs;
-                slotObj.subslots.push_back(subslot);
-            }
+//             for (uint32_t ss = 0; ss < numSubslotsPerSlot; ss++)
+//             {
+//                 Subslot subslot;
+//                 subslot.subslotId = ss;
+//                 subslot.status = SubslotStatus::FREE;
+//                 subslot.rssi = 0.0;
+//                 subslot.subslotDurationNs = subslotDurationNs;
+//                 slotObj.subslots.push_back(subslot);
+//             }
 
-            dect2020ExtChannel->AddSlot(slotObj); // Add the current Slot to the Channel
-        }
+//             dect2020ExtChannel->AddSlot(slotObj); // Add the current Slot to the Channel
+//         }
 
-        m_channels[m_bandNumber].push_back(dect2020ExtChannel);
-    }
-}
+//         m_channels[m_bandNumber].push_back(dect2020ExtChannel);
+//     }
+// }
 
 BandParameters
 Dect2020ExtChannelManager::GetBandParameters(uint8_t bandNumber)
 {
-    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     // Note: Currently only Bands 1, 2, 20, and 21 are implemented.
     BandParameters bp;
     bp.bandNumber = bandNumber;
@@ -191,7 +170,7 @@ Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t
 
         centerFrequency = f0 + (channelNumber * channelRaster);
     }
-    // TODO: Add more Bands
+    // TODO: Add more bands if required
 
     return centerFrequency;
 }
@@ -233,7 +212,6 @@ Dect2020ExtChannelManager::GetSubslotsPerSlot()
 uint8_t
 Dect2020ExtChannelManager::GetBandNumber(uint16_t channelNumber)
 {
-    NS_LOG_FUNCTION(this << channelNumber);
     struct BandChannelRange
     {
         uint8_t bandNumber;
@@ -260,7 +238,6 @@ Dect2020ExtChannelManager::GetBandNumber(uint16_t channelNumber)
 uint16_t
 Dect2020ExtChannelManager::GetFirstValidChannelNumber(uint8_t bandNumber)
 {
-    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
     switch (bandNumber)
     {
     case 1:
@@ -316,11 +293,6 @@ Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
 
     return model;
 }
-
-// Global variables to store spectrum analyzer results
-static std::map<uint16_t, double> g_channelRssiResults;
-static std::map<uint16_t, bool> g_channelMeasurementComplete;
-
 
 void 
 Dect2020ExtChannelManager::SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel)
@@ -401,39 +373,6 @@ Dect2020ExtChannelManager::GetFourierTransformScalingFactor() const
 {
     NS_LOG_FUNCTION(this);
     return m_fourierTransformScalingFactor;
-}
-
-/**
- * Configures DECT-2020 MAC and PHY using the configuration attributes
- * Updates the default values of the DECT-2020 MAC and PHY attributes
- */
-void
-Dect2020ExtChannelManager::Configure()
-{
-    NS_LOG_FUNCTION(this);
-
-    NS_LOG_INFO("Configuring DECT-2020 NR simulation with the following parameters:");
-    NS_LOG_INFO("Band Number: " << static_cast<uint32_t>(m_bandNumber));
-    NS_LOG_INFO("Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor));
-    NS_LOG_INFO("Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor));
-
-    // Configure MAC attributes
-    Config::SetDefault("ns3::Dect2020ExtMac::config_BandNumber", UintegerValue(m_bandNumber));
-    Config::SetDefault("ns3::Dect2020ExtMac::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtMac::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtMac::config_ChannelManager", PointerValue(this));
-
-    // Configure PHY attributes
-    Config::SetDefault("ns3::Dect2020ExtPhy::config_BandNumber", UintegerValue(m_bandNumber));
-    Config::SetDefault("ns3::Dect2020ExtPhy::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtPhy::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtPhy::config_ChannelManager", PointerValue(this));
-
-    // Configure Mac Scheduler attributes
-    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_BandNumber", UintegerValue(m_bandNumber));
-    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_SubcarrierScalingFactor", UintegerValue(m_subcarrierScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_FourierTransformScalingFactor", UintegerValue(m_fourierTransformScalingFactor));
-    Config::SetDefault("ns3::Dect2020ExtMacScheduler::config_ChannelManager", PointerValue(this));
 }
 
 }; // namespace ns3

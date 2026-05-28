@@ -175,44 +175,16 @@ Dect2020ExtMac::DiscoverNetworks()
         return; // Device is in association process --> abort discovering networks
     }
 
-    // if (m_associatedFTNetDeviceLongRdId != 0)
-    // {
-    //     return; // Device is already associated --> abort
-    // }
+    BandParameters bp = m_channelManager->GetBandParameters(this->GetBandNumber());
 
-    std::vector<Ptr<Dect2020ExtChannel>> channelList = m_channelManager->GetValidChannels(this->GetBandNumber());
-
-    // Check if there are any valid channels
-    if (channelList.empty())
-    {
-        NS_LOG_WARN("No valid channels available for band " << (uint32_t)this->GetBandNumber());
-        return;
-    }
-
-    // find the current channel
-    uint32_t current = m_currentChannelId;
-    uint32_t nextChannelId = 0;
-
-    // search if current + 1 is part of the channel list
-    bool found = false;
-    for (auto& ch : channelList)
-    {
-        if (ch->m_channelId == current + 1)
-        {
-            nextChannelId = ch->m_channelId;
-            found = true;
-            break;
-        }
-    }
-
-    if (!found)
-    {
-        // no valid next channel -> take the first one of the band
-        nextChannelId = channelList.front()->m_channelId;
-    }
+    // Advance to the next channel; wrap around to nStart when outside [nStart, nEnd-1]
+    // The lower-bound check also handles the uninitialized / out-of-band case on first entry.
+    uint32_t nextChannelId = (m_currentChannelId >= bp.nStart && m_currentChannelId < bp.nEnd)
+                                 ? m_currentChannelId + 1
+                                 : bp.nStart;
 
     // Switch to the next channel
-    NS_LOG_INFO(MAC_IDENTITY<< ": Switching to channel " << nextChannelId);
+    NS_LOG_INFO(MAC_IDENTITY << ": Switching to channel " << nextChannelId);
     SetCurrentChannelId(nextChannelId);
 
     Time t = MilliSeconds(10); // Discover Network wait time

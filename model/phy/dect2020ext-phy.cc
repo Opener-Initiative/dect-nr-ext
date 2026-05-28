@@ -43,35 +43,12 @@ Dect2020ExtPhy::~Dect2020ExtPhy()
 }
 
 TypeId
-Dect2020ExtPhy::GetTypeId(void)
+Dect2020ExtPhy::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtPhy")
                                 .SetParent<Object>()
                                 .SetGroupName("Dect2020Ext")
-                                .AddConstructor<Dect2020ExtPhy>()
-
-                                .AddTraceSource("SFN",
-                                                "System Frame Number (SFN)",
-                                                MakeTraceSourceAccessor(&Dect2020ExtPhy::m_SFN),
-                                                "ns3::TracedValueCallback::Uint32")
-
-                                .AddAttribute("config_bandNumber",
-                                              "DECT-2020 band number configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_bandNumber),
-                                              MakeUintegerChecker<uint8_t>(1, 21))
-
-                                .AddAttribute("config_subcarrierScalingFactor",
-                                              "DECT-2020 subcarrier scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_subcarrierScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8))
-
-                                .AddAttribute("config_fourierTransformScalingFactor",
-                                              "DECT-2020 Fourier transform scaling factor configuration",
-                                              UintegerValue(1),
-                                              MakeUintegerAccessor(&Dect2020ExtPhy::m_fourierTransformScalingFactor),
-                                              MakeUintegerChecker<uint8_t>(1, 8));
+                                .AddConstructor<Dect2020ExtPhy>();
     return tid;
 }
 
@@ -357,7 +334,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
 {
     NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
-    NS_LOG_INFO(PHY_IDENTITY << ": sending");
+    NS_LOG_INFO(PHY_IDENTITY << ": Sending");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
