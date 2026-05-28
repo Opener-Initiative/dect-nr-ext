@@ -3,6 +3,7 @@
 #include "ns3/log.h"
 #include "ns3/simulator.h"
 #include "ns3/spectrum-signal-parameters.h"
+#include "ns3/mobility-model.h"
 
 namespace ns3
 {
@@ -30,6 +31,7 @@ Dect2020ExtSpectrumSignalParameters::Copy() const
     copy->txPhy = this->txPhy;
     copy->txAntenna = this->txAntenna;
     copy->psd = this->psd ? this->psd->Copy() : nullptr;
+    copy->txMobility = this->txMobility;
 
     copy->txPacket = this->txPacket ? this->txPacket->Copy() : nullptr;
     copy->m_currentChannelNumber = m_currentChannelNumber;

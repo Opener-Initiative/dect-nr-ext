@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
+                "file": "Tracking.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1)"
+              "title": "Tracking"
             }
           }
         ],
@@ -93,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 263.50072860717773
+    "width": 314.50072860717773
   },
   "right": {
     "id": "85c6a212cc3f323c",
@@ -200,10 +200,10 @@
   },
   "active": "0856ff058fefa502",
   "lastOpenFiles": [
-    "Spectrum Module.md",
+    "Spectrum, Interference, and RSSI.md",
+    "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
     "MAC PDU.md",
     "Tracking.md",
-    "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
     "Diagrams.md",
     "DECT NR+.html",
     "DECT NR+_tmp.html",

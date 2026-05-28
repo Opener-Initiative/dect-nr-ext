@@ -23,7 +23,7 @@ Dect2020ExtConfig::CreateConfiguredSpectrumChannel()
 {
     Ptr<SPECTRUM_CHANNEL_TYPE> spectrumChannel = CreateObject<SPECTRUM_CHANNEL_TYPE>();
     spectrumChannel->SetPropagationDelayModel(CreateObject<PROPAGATION_DELAY_MODEL>());
-    // spectrumChannel->AddPropagationLossModel(CreateObject<PROPAGATION_LOSS_MODEL>());
+    spectrumChannel->AddPropagationLossModel(CreateObject<PROPAGATION_LOSS_MODEL>());
 
     return spectrumChannel;
 }
@@ -35,7 +35,6 @@ Dect2020ExtConfig::CreateConfiguredChannelManager()
     channelManager->SetBandNumber(BAND_NUMBER);
     channelManager->SetSubcarrierScalingFactor(SUBCARRIER_SCALING_FACTOR);
     channelManager->SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
-    channelManager->SetSpectrumChannel(m_spectrumChannel);
 
     return channelManager;
 }

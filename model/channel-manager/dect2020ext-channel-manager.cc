@@ -110,29 +110,6 @@ Dect2020ExtChannelManager::CalculateCenterFrequency(uint8_t bandNumber, uint32_t
     return centerFrequency;
 }
 
-// This function is here only for compatibility with the DECT-NR module.
-// It should not be used in the DECT-NR-EXT module.
-std::vector<Ptr<Dect2020ExtChannel>>
-Dect2020ExtChannelManager::GetValidChannels(uint8_t bandNumber)
-{
-    NS_LOG_FUNCTION(this << static_cast<uint32_t>(bandNumber));
-    std::vector<Ptr<Dect2020ExtChannel>> validChannels;
-
-    auto it = m_channels.find(bandNumber);
-    if (it != m_channels.end())
-    {
-        validChannels = it->second;
-    }
-    return validChannels;
-}
-
-std::vector<Ptr<Dect2020ExtChannel>>
-Dect2020ExtChannelManager::GetChannels()
-{
-    NS_LOG_FUNCTION(this);
-    return m_channels[m_bandNumber];
-}
-
 uint32_t
 Dect2020ExtChannelManager::GetSubslotsPerSlot()
 {
@@ -227,13 +204,6 @@ Dect2020ExtChannelManager::GetSpectrumModel(uint8_t bandId)
     m_bandModels[bandId] = model;
 
     return model;
-}
-
-void 
-Dect2020ExtChannelManager::SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel)
-{
-    NS_LOG_FUNCTION(this << spectrumChannel);
-    m_spectrumChannel = spectrumChannel;
 }
 
 double

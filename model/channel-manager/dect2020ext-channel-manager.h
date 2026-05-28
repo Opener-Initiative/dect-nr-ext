@@ -34,47 +34,42 @@ public:
 class Dect2020ExtChannelManager : public Object
 {
 
-public:
-    Dect2020ExtChannelManager();
-    virtual ~Dect2020ExtChannelManager();
+    public:
+        Dect2020ExtChannelManager();
+        virtual ~Dect2020ExtChannelManager();
 
-    static TypeId GetTypeId();
+        static TypeId GetTypeId();
 
-    BandParameters GetBandParameters(uint8_t bandNumber);
-    double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
-    std::vector<Ptr<Dect2020ExtChannel>> GetValidChannels(uint8_t bandNumber);
-    std::vector<Ptr<Dect2020ExtChannel>> GetChannels();
-    uint32_t GetSubslotsPerSlot();
-    uint8_t GetBandNumber(uint16_t channelNumber);
-    uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
-    Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
+        BandParameters GetBandParameters(uint8_t bandNumber);
+        double CalculateCenterFrequency(uint8_t bandNumber, uint32_t channelNumber);
+        uint32_t GetSubslotsPerSlot();
+        uint8_t GetBandNumber(uint16_t channelNumber);
+        uint16_t GetFirstValidChannelNumber(uint8_t bandNumber);
+        Ptr<SpectrumModel> GetSpectrumModel(uint8_t bandId);
 
-    void SetSpectrumChannel(Ptr<SpectrumChannel> spectrumChannel);
+        // Calculation
 
-    // Calculation
+        double DbmToW(double dBm);
+        double WToDbm(double w);
+        double CalculateRssiFromPower(double bandPower_W);
 
-    double DbmToW(double dBm);
-    double WToDbm(double w);
-    double CalculateRssiFromPower(double bandPower_W);
+        // Configuration
 
-    // Configuration
+        void SetBandNumber(uint8_t bandNumber);
+        uint8_t GetBandNumber() const;
+        void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
+        uint8_t GetSubcarrierScalingFactor() const;
+        void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
+        uint8_t GetFourierTransformScalingFactor() const;
 
-    void SetBandNumber(uint8_t bandNumber);
-    uint8_t GetBandNumber() const;
-    void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
-    uint8_t GetSubcarrierScalingFactor() const;
-    void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
-    uint8_t GetFourierTransformScalingFactor() const;
+    private:
+        std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels; // uint8_t bandNumber -> Ptr<SpectrumModel>
 
-private:
-    std::map<uint16_t, std::vector<Ptr<Dect2020ExtChannel>>> m_channels;
-    Ptr<SpectrumChannel> m_spectrumChannel;
+        // Configuration 
 
-    uint8_t m_bandNumber;
-    uint8_t m_subcarrierScalingFactor;
-    uint8_t m_fourierTransformScalingFactor;
-
-    std::map<uint8_t, Ptr<SpectrumModel>> m_bandModels; // uint8_t bandNumber -> Ptr<SpectrumModel>
+        uint8_t m_bandNumber;
+        uint8_t m_subcarrierScalingFactor;
+        uint8_t m_fourierTransformScalingFactor;
 };
 
 }; // namespace ns3

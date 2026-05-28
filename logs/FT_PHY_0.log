@@ -185,32 +185,32 @@
 +2.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.211666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.212666452s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.212666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.212666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: 10 dBm
++2.212666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.212666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
 +2.212666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
 +2.213124995s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.213124995s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.213499792s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.213541665s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.214707117s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.214707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.214707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: 10 dBm
++2.214707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.214707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
 +2.214707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
 +2.215208325s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.215208325s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.215540457s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.215624995s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.217497782s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.217497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.217497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: 10 dBm
++2.217497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.217497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
 +2.217497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
 +2.217916654s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.217916654s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.218331122s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.218333324s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.223455447s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.223455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI 10 dBm
-+2.223455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: 10 dBm
++2.223455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.223455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
 +2.223455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
 +2.223958327s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.223958327s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX

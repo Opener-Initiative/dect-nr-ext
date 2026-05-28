@@ -15,7 +15,7 @@ class Dect2020ExtSpectrumSignalParameters : public SpectrumSignalParameters
   public:
     Dect2020ExtSpectrumSignalParameters();
     virtual ~Dect2020ExtSpectrumSignalParameters();
-    virtual Ptr<SpectrumSignalParameters> Copy() const override;
+    Ptr<SpectrumSignalParameters> Copy() const override;
 
     Ptr<Packet> txPacket;
     uint32_t m_currentChannelNumber;

@@ -343,6 +343,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
     params->txPacket->AddHeader(physicalHeader);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
     params->m_data = false;
+    params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
