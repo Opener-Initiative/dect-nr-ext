@@ -297,7 +297,7 @@ class Dect2020ExtMac : public Object
         uint16_t GetShortRadioDeviceId() const;
         void SetOperatingChannelNumber(uint16_t channelNumber);
         uint16_t GetOperatingChannelNumber() const;
-        std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations(void) const;
+        std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations() const;
         double GetRxGainFromIndex(uint8_t index) const;
         Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);

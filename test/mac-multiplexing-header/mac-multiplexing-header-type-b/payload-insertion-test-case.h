@@ -13,8 +13,8 @@ public:
   Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase();
   virtual ~Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase();
 
-  virtual void DoSetup(void);
-  virtual void DoRun(void);
+  virtual void DoSetup();
+  virtual void DoRun();
 };
 
 } // namespace ns3

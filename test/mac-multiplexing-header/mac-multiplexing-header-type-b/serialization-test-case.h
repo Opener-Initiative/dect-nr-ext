@@ -13,8 +13,8 @@ public:
   Dect2020MacMultiplexingHeaderTypeBSerializationTestCase();
   virtual ~Dect2020MacMultiplexingHeaderTypeBSerializationTestCase();
 
-  virtual void DoSetup(void);
-  virtual void DoRun(void);
+  virtual void DoSetup();
+  virtual void DoRun();
 };
 
 } // namespace ns3

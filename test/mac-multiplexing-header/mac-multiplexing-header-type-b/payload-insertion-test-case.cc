@@ -13,12 +13,12 @@ Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::~Dect2020MacMultiple
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoSetup(void)
+Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoSetup()
 {
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoRun(void)
+Dect2020MacMultiplexingHeaderTypeBPayloadInsertionTestCase::DoRun()
 {
     Dect2020MacMultiplexingHeaderTypeB muxHeader;
     uint8_t originalPayload = 0xFF;

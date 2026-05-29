@@ -60,7 +60,7 @@ Dect2020ExtMacMultiplexingHeaderTypeB::GetSDU() const
 }
 
 TypeId
-Dect2020ExtMacMultiplexingHeaderTypeB::GetTypeId(void)
+Dect2020ExtMacMultiplexingHeaderTypeB::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeB")
         .SetParent<Header>()

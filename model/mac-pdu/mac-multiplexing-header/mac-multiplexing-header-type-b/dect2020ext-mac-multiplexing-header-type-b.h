@@ -22,7 +22,7 @@ class Dect2020ExtMacMultiplexingHeaderTypeB : public Dect2020ExtMacMultiplexingH
         uint8_t GetSDU() const;
 
         // Virtual methods of header class
-        static TypeId GetTypeId(void);
+        static TypeId GetTypeId();
         virtual TypeId GetInstanceTypeId() const;
         virtual uint32_t GetSerializedSize() const;
         virtual void Serialize(Buffer::Iterator start) const;

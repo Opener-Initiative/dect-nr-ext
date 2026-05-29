@@ -14,7 +14,7 @@ class Dect2020ExtResourceAllocationIE : public Header
 
         // Virtual Header base class methods
 
-        static TypeId GetTypeId(void);
+        static TypeId GetTypeId();
         virtual TypeId GetInstanceTypeId() const override;
         virtual uint32_t GetSerializedSize() const override;
         virtual void Serialize(Buffer::Iterator start) const override;

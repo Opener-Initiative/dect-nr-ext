@@ -18,7 +18,7 @@ Dect2020ExtKeepAliveIE::~Dect2020ExtKeepAliveIE ()
 }
 
 TypeId
-Dect2020ExtKeepAliveIE::GetTypeId (void)
+Dect2020ExtKeepAliveIE::GetTypeId ()
 {
   static TypeId tid = TypeId ("ns3::Dect2020ExtKeepAliveIE")
     .SetParent<Header> ()
@@ -28,13 +28,13 @@ Dect2020ExtKeepAliveIE::GetTypeId (void)
 }
 
 TypeId
-Dect2020ExtKeepAliveIE::GetInstanceTypeId (void) const
+Dect2020ExtKeepAliveIE::GetInstanceTypeId () const
 {
   return GetTypeId ();
 }
 
 uint32_t
-Dect2020ExtKeepAliveIE::GetSerializedSize (void) const
+Dect2020ExtKeepAliveIE::GetSerializedSize () const
 {
   // Since this is a keep-alive IE, it might not need to carry any data
   // Return 0 for now, adjust if data needs to be added later

@@ -19,7 +19,7 @@ Dect2020ExtResourceAllocationIE::~Dect2020ExtResourceAllocationIE()
 }
 
 TypeId
-Dect2020ExtResourceAllocationIE::GetTypeId(void)
+Dect2020ExtResourceAllocationIE::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtResourceAllocationIE")
                             .SetParent<Header>()

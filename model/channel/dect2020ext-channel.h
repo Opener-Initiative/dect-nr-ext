@@ -35,7 +35,7 @@ class Dect2020ExtChannel : public Object
     Dect2020ExtChannel();
     virtual ~Dect2020ExtChannel();
 
-    static TypeId GetTypeId(void);
+    static TypeId GetTypeId();
 
     void AddSlot(Slot slot);
 

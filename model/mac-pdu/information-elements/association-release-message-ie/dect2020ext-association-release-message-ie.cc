@@ -19,7 +19,7 @@ Dect2020ExtAssociationReleaseMessageIE::~Dect2020ExtAssociationReleaseMessageIE(
 }
 
 TypeId
-Dect2020ExtAssociationReleaseMessageIE::GetTypeId(void)
+Dect2020ExtAssociationReleaseMessageIE::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtAssociationReleaseMessageIE")
                             .SetParent<Header>()

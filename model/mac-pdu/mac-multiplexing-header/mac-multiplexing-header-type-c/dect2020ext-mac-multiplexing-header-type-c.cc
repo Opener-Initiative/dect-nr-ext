@@ -7,7 +7,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacMultiplexingHeaderTypeC");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacMultiplexingHeaderTypeC);
 
 TypeId
-Dect2020ExtMacMultiplexingHeaderTypeC::GetTypeId(void)
+Dect2020ExtMacMultiplexingHeaderTypeC::GetTypeId()
 {
     static TypeId tid = TypeId("ns3::Dect2020ExtMacMultiplexingHeaderTypeC")
         .SetParent<Header>()
@@ -41,7 +41,7 @@ Dect2020ExtMacMultiplexingHeaderTypeC::RemovePayload()
 }
 
 TypeId
-Dect2020ExtMacMultiplexingHeaderTypeC::GetInstanceTypeId(void) const
+Dect2020ExtMacMultiplexingHeaderTypeC::GetInstanceTypeId() const
 {
     return GetTypeId();
 }

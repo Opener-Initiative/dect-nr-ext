@@ -188,7 +188,7 @@ Dect2020ExtPhy::GetFourierTransformScalingFactor() const
 }
 
 void
-Dect2020ExtPhy::PrintConfiguration(void) const
+Dect2020ExtPhy::PrintConfiguration() const
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO(PHY_IDENTITY << ": dect-2020 PHY configuration:");

@@ -1454,7 +1454,7 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
 }
 
 void
-Dect2020ExtMac::SelectBestFtCandidate(void)
+Dect2020ExtMac::SelectBestFtCandidate()
 {
     NS_LOG_FUNCTION(this);
 
@@ -1593,7 +1593,7 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 }
 
 void
-Dect2020ExtMac::VerifyPendingAssociationStatus(void)
+Dect2020ExtMac::VerifyPendingAssociationStatus()
 {
     if (this->m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING)
     {
@@ -1741,7 +1741,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
 }
 
 void
-Dect2020ExtMac::VerifyAssociatedStatus(void)
+Dect2020ExtMac::VerifyAssociatedStatus()
 {
     Dect2020ExtFtCandidateInfo* ft = FindFtCandidateByLongId(m_associatedFTNetDeviceLongRdId);
     Time lastrBeaconReceived = ft->receptionTime;
@@ -1824,7 +1824,7 @@ Dect2020ExtMac::SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTermina
 }
 
 Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
-Dect2020ExtMac::GetTerminationPointType(void) const
+Dect2020ExtMac::GetTerminationPointType() const
 {
     return m_terminationPointType;
 }
@@ -1901,7 +1901,7 @@ Dect2020ExtMac::SetLongRadioDeviceId(uint32_t rdId)
 }
 
 uint32_t
-Dect2020ExtMac::GetLongRadioDeviceId(void) const
+Dect2020ExtMac::GetLongRadioDeviceId() const
 {
     return m_longRadioDeviceId;
 }
@@ -1943,7 +1943,7 @@ Dect2020ExtMac::GetOperatingChannelNumber() const
 }
 
 std::vector<Dect2020ExtChannelEvaluation>
-Dect2020ExtMac::GetChannelEvaluations(void) const
+Dect2020ExtMac::GetChannelEvaluations() const
 {
     return m_channelEvaluations;
 }
@@ -2204,7 +2204,7 @@ Dect2020ExtMac::SetBandNumber(uint8_t bandNumber)
 }
 
 uint8_t
-Dect2020ExtMac::GetBandNumber(void) const
+Dect2020ExtMac::GetBandNumber() const
 {
     return m_bandNumber;
 }
@@ -2217,7 +2217,7 @@ Dect2020ExtMac::SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor)
 }
 
 uint8_t
-Dect2020ExtMac::GetSubcarrierScalingFactor(void) const
+Dect2020ExtMac::GetSubcarrierScalingFactor() const
 {
     return m_subcarrierScalingFactor;
 }

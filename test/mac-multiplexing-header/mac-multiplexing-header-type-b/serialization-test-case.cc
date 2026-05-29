@@ -14,12 +14,12 @@ Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::~Dect2020MacMultiplexin
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoSetup(void)
+Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoSetup()
 {
 }
 
 void
-Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoRun(void)
+Dect2020MacMultiplexingHeaderTypeBSerializationTestCase::DoRun()
 {
     Dect2020MacMultiplexingHeaderTypeB originalMuxHeader;
     Dect2020MacMultiplexingHeaderTypeB deserializedMuxHeader;
