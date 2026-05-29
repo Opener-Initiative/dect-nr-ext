@@ -33,6 +33,7 @@ main(int argc, char *argv[])
 
     // Configuration
     Dect2020ExtConfig config;
+
     Dect2020ExtAssociationControlIe associationControlIe;
     associationControlIe.SetCbM(1); // maintain Cluster Beacon reception
     associationControlIe.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
@@ -46,7 +47,7 @@ main(int argc, char *argv[])
     randomAccessResourceIe.SetStartSubslot(10);
     randomAccessResourceIe.SetLengthType(false); // length in subslots
     randomAccessResourceIe.SetRaraLength(50);
-    randomAccessResourceIe.SetMaxRachLengthType(0); // length in subslots
+    randomAccessResourceIe.SetMaxRachLengthType(false); // length in subslots
     randomAccessResourceIe.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
     randomAccessResourceIe.SetCwMinSig(1);
     randomAccessResourceIe.SetDectDelay(false);
@@ -102,6 +103,7 @@ main(int argc, char *argv[])
         ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(associationControlIe);
+        ptMac->ProceedToDataTransmission(false);
         config.ApplyToMac(ptMac);
 
         ptPhy->SetMac(ptMac);

@@ -1727,9 +1727,12 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
         m_associatedFTNetDeviceLongRdId = transmitterAddress;
         NS_LOG_INFO(MAC_IDENTITY << ": Association Response accepted");
 
-        // Starting app transmission
-        LaunchApp();
-        StartKeepAlivePeriod();
+        if (m_proceedToDataTransmission)
+        {
+            // Starting app transmission
+            LaunchApp();
+            StartKeepAlivePeriod();
+        }
     }
     else
     {
@@ -2266,13 +2269,19 @@ Dect2020ExtMac::ProceedToAssociation(bool value)
 }
 
 void
+Dect2020ExtMac::ProceedToDataTransmission(bool value)
+{
+    m_proceedToDataTransmission = value;
+}
+
+void
 Dect2020ExtMac::DisplayChannelEvaluations(bool value)
 {
     m_displayChannelEvaluations = value;
 }
 
 void
-Dect2020ExtMac::PrintConfiguration(void) const
+Dect2020ExtMac::PrintConfiguration() const
 {
     NS_LOG_FUNCTION(this);
     NS_LOG_INFO(MAC_IDENTITY << ": DECT-2020 MAC Configuration:");

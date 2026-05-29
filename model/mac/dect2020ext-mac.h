@@ -341,6 +341,7 @@ class Dect2020ExtMac : public Object
         void ConfigureRngStream(int64_t stream);
         void ProceedToBeaconTransmission(bool value);
         void ProceedToAssociation(bool value);
+        void ProceedToDataTransmission(bool value);
         void DisplayChannelEvaluations(bool value);
         void PrintConfiguration() const;
 
@@ -418,6 +419,7 @@ class Dect2020ExtMac : public Object
 
         bool m_proceedToBeaconTransmission = true;
         bool m_proceedToAssociation = true;
+        bool m_proceedToDataTransmission = true;
 
         bool m_displayChannelEvaluations = false;
 
