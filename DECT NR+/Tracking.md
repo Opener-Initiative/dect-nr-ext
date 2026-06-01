@@ -20,6 +20,7 @@
 # Tasks
 1. Create a tutorial
 2. How to change code without damaging the repository
+3. Move config to somehow not be tracked by git
 
 ### Summary
 

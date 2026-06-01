@@ -1495,6 +1495,9 @@ Dect2020ExtMac::SelectBestFtCandidate()
     ChangeAssociationStatus(WAITING_FOR_SELECTED_FT);
 
     // Cluster Beacon triggers next step in EvaluateClusterBeacon
+
+
+
     // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
     // be the case because it should have received a Cluster Beacon and sent an Association Request
     // and the status is either associated or association pending.

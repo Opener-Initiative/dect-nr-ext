@@ -322,10 +322,12 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     }
     else
     {
-        // Otherwise, receive packet successfully and pass it to the MAC
+        // Otherwise, receive packet successfully
         NS_LOG_INFO(PHY_IDENTITY << ": Passing to the MAC");
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
-        m_receiveCallback(dectParams->txPacket, rssiPacketDbm, dectParams->m_data);
+
+        // Pass the packet to the MAC after the whole duration of the signal
+        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->txPacket, rssiPacketDbm, dectParams->m_data);
     }
 }
 
@@ -458,6 +460,12 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHe
         return 0;
     }
     return 0;
+}
+
+void
+Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data)
+{
+    m_receiveCallback(packet, rssiDbm, data);
 }
 
 void

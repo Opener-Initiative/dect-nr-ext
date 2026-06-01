@@ -89,6 +89,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHeader);
 		void ChangeState(PhyState newState);
+		void EndRx(Ptr<Packet> packet, double rssiDbm, bool data);
 
 		// #######################
 		// ###### Callbacks ######
