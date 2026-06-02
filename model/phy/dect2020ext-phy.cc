@@ -313,8 +313,8 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 
     double rssiChannelWatt = (*m_interference->m_allSignals)[channelIndex];
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
-    NS_LOG_INFO(PHY_IDENTITY << ": received packet on the current channel " << dectParams->m_currentChannelNumber << " with RSSI " << rssiPacketDbm << " dBm");
-    NS_LOG_INFO(PHY_IDENTITY << ": total channel " << dectParams->m_currentChannelNumber << " power: " << rssiChannelDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": Received packet on the current channel " << dectParams->m_currentChannelNumber << " with RSSI " << rssiPacketDbm << " dBm");
+    NS_LOG_INFO(PHY_IDENTITY << ": Total channel " << dectParams->m_currentChannelNumber << " power: " << rssiChannelDbm << " dBm");
 
     if (m_phyTest)
     {
@@ -323,7 +323,6 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     else
     {
         // Otherwise, receive packet successfully
-        NS_LOG_INFO(PHY_IDENTITY << ": Passing to the MAC");
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
 
         // Pass the packet to the MAC after the whole duration of the signal
@@ -334,9 +333,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 void
 Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader)
 {
-    NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
-    NS_LOG_INFO(PHY_IDENTITY << ": Sending");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
@@ -375,6 +372,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
     m_channel->StartTx(params);
     DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
 
+    NS_LOG_INFO(PHY_IDENTITY << ": Sending packet");
+
     // Change state to RX - switch bach to IDLE after params->duration
     ChangeState(TX);
     Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
@@ -383,9 +382,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
 void
 Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader)
 {
-    NS_LOG_FUNCTION(this << packet << physicalHeader);
     NS_ASSERT_MSG(packet, "Packet is null");
-    NS_LOG_INFO(PHY_IDENTITY << ": sending");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
@@ -393,7 +390,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physica
     params->txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->txPacket->AddHeader(physicalHeader);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
-    params->m_data = true;
+    params->m_data = false;
+    params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS
     Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
@@ -422,6 +420,12 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physica
     // Start the transmission immediately
     m_channel->StartTx(params);
     DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
+
+    NS_LOG_INFO(PHY_IDENTITY << ": Sending packet");
+
+    // Change state to RX - switch bach to IDLE after params->duration
+    ChangeState(TX);
+    Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
 }
 
 double

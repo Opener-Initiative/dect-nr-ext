@@ -92,12 +92,11 @@
 +0.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.210000000s FRAME START | SFN: 21 | T: 210 ms ==============================================================================================================================
 +0.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.210000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+0.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+0.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+0.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++0.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++0.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +0.210416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.210416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +0.210416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -105,12 +104,11 @@
 +0.210416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +0.210416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +0.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.210833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+0.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+0.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+0.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++0.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++0.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +0.211666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.211666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +0.211666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -135,7 +133,7 @@
 +0.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +0.260000000s FRAME START | SFN: 26 | T: 260 ms ==============================================================================================================================
 +0.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1667
@@ -157,14 +155,14 @@
 +0.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +0.310000000s FRAME START | SFN: 31 | T: 310 ms ==============================================================================================================================
 +0.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1677
 +0.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.310416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.310833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1677
@@ -186,7 +184,7 @@
 +0.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.360000000s FRAME START | SFN: 36 | T: 360 ms ==============================================================================================================================
 +0.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1666
@@ -208,14 +206,14 @@
 +0.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.410000000s FRAME START | SFN: 41 | T: 410 ms ==============================================================================================================================
 +0.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1676
 +0.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.410416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.410833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1676
@@ -237,7 +235,7 @@
 +0.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.460000000s FRAME START | SFN: 46 | T: 460 ms ==============================================================================================================================
 +0.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1665
@@ -259,14 +257,14 @@
 +0.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +0.510000000s FRAME START | SFN: 51 | T: 510 ms ==============================================================================================================================
 +0.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1675
 +0.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.510416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.510833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1675
@@ -288,7 +286,7 @@
 +0.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.560000000s FRAME START | SFN: 56 | T: 560 ms ==============================================================================================================================
 +0.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1664
@@ -310,14 +308,14 @@
 +0.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.610000000s FRAME START | SFN: 61 | T: 610 ms ==============================================================================================================================
 +0.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1674
 +0.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.610416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.610833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1674
@@ -339,7 +337,7 @@
 +0.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.660000000s FRAME START | SFN: 66 | T: 660 ms ==============================================================================================================================
 +0.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1663
@@ -361,14 +359,14 @@
 +0.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +0.710000000s FRAME START | SFN: 71 | T: 710 ms ==============================================================================================================================
 +0.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1673
 +0.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.710416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.710833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1673
@@ -390,7 +388,7 @@
 +0.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.760000000s FRAME START | SFN: 76 | T: 760 ms ==============================================================================================================================
 +0.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1662
@@ -412,14 +410,14 @@
 +0.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.810000000s FRAME START | SFN: 81 | T: 810 ms ==============================================================================================================================
 +0.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1672
 +0.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.810416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.810833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1672
@@ -441,7 +439,7 @@
 +0.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.860000000s FRAME START | SFN: 86 | T: 860 ms ==============================================================================================================================
 +0.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1661
@@ -463,14 +461,14 @@
 +0.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +0.910000000s FRAME START | SFN: 91 | T: 910 ms ==============================================================================================================================
 +0.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+0.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1671
 +0.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +0.910416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.910833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1671
@@ -492,7 +490,7 @@
 +0.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.960000000s FRAME START | SFN: 96 | T: 960 ms ==============================================================================================================================
 +0.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+0.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++0.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +0.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +0.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +0.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1660
@@ -514,14 +512,14 @@
 +1.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.010000000s FRAME START | SFN: 101 | T: 1010 ms ============================================================================================================================
 +1.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1670
 +1.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.010416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.010833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1670
@@ -543,7 +541,7 @@
 +1.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +1.060000000s FRAME START | SFN: 106 | T: 1060 ms ============================================================================================================================
 +1.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1659
@@ -565,14 +563,14 @@
 +1.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.110000000s FRAME START | SFN: 111 | T: 1110 ms ============================================================================================================================
 +1.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1669
 +1.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.110416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.110833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1669
@@ -594,7 +592,7 @@
 +1.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.160000000s FRAME START | SFN: 116 | T: 1160 ms ============================================================================================================================
 +1.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1658
@@ -616,14 +614,14 @@
 +1.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.210000000s FRAME START | SFN: 121 | T: 1210 ms ============================================================================================================================
 +1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1668
 +1.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.210416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1668
@@ -645,12 +643,11 @@
 +1.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +1.260000000s FRAME START | SFN: 126 | T: 1260 ms ============================================================================================================================
 +1.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.260833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+1.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+1.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+1.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++1.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++1.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +1.261666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.261666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.261666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
@@ -672,14 +669,14 @@
 +1.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.310000000s FRAME START | SFN: 131 | T: 1310 ms ============================================================================================================================
 +1.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1667
 +1.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.310416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.310833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1667
@@ -701,7 +698,7 @@
 +1.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.360000000s FRAME START | SFN: 136 | T: 1360 ms ============================================================================================================================
 +1.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1677
@@ -723,14 +720,14 @@
 +1.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.410000000s FRAME START | SFN: 141 | T: 1410 ms ============================================================================================================================
 +1.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1666
 +1.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.410416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.410833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1666
@@ -752,7 +749,7 @@
 +1.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.460000000s FRAME START | SFN: 146 | T: 1460 ms ============================================================================================================================
 +1.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1676
@@ -774,14 +771,14 @@
 +1.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +1.510000000s FRAME START | SFN: 151 | T: 1510 ms ============================================================================================================================
 +1.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1665
 +1.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.510416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.510833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1665
@@ -803,7 +800,7 @@
 +1.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.560000000s FRAME START | SFN: 156 | T: 1560 ms ============================================================================================================================
 +1.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1675
@@ -825,14 +822,14 @@
 +1.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.610000000s FRAME START | SFN: 161 | T: 1610 ms ============================================================================================================================
 +1.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1664
 +1.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.610416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.610833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1664
@@ -854,7 +851,7 @@
 +1.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.660000000s FRAME START | SFN: 166 | T: 1660 ms ============================================================================================================================
 +1.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1674
@@ -876,14 +873,14 @@
 +1.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +1.710000000s FRAME START | SFN: 171 | T: 1710 ms ============================================================================================================================
 +1.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1663
 +1.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.710416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.710833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1663
@@ -905,7 +902,7 @@
 +1.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.760000000s FRAME START | SFN: 176 | T: 1760 ms ============================================================================================================================
 +1.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1673
@@ -927,14 +924,14 @@
 +1.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.810000000s FRAME START | SFN: 181 | T: 1810 ms ============================================================================================================================
 +1.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1662
 +1.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.810416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.810833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1662
@@ -956,7 +953,7 @@
 +1.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.860000000s FRAME START | SFN: 186 | T: 1860 ms ============================================================================================================================
 +1.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1672
@@ -978,14 +975,14 @@
 +1.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +1.910000000s FRAME START | SFN: 191 | T: 1910 ms ============================================================================================================================
 +1.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+1.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1661
 +1.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +1.910416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.910833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1661
@@ -1007,7 +1004,7 @@
 +1.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.960000000s FRAME START | SFN: 196 | T: 1960 ms ============================================================================================================================
 +1.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+1.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++1.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +1.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +1.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +1.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1671
@@ -1029,14 +1026,14 @@
 +2.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +2.010000000s FRAME START | SFN: 201 | T: 2010 ms ============================================================================================================================
 +2.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1660
 +2.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +2.010416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.010833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1660
@@ -1058,7 +1055,7 @@
 +2.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +2.060000000s FRAME START | SFN: 206 | T: 2060 ms ============================================================================================================================
 +2.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1670
@@ -1080,14 +1077,14 @@
 +2.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +2.110000000s FRAME START | SFN: 211 | T: 2110 ms ============================================================================================================================
 +2.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1659
 +2.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +2.110416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.110833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1659
@@ -1109,7 +1106,7 @@
 +2.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +2.160000000s FRAME START | SFN: 216 | T: 2160 ms ============================================================================================================================
 +2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1669
@@ -1131,14 +1128,14 @@
 +2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +2.210000000s FRAME START | SFN: 221 | T: 2210 ms ============================================================================================================================
 +2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1658
 +2.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: channel from dect params: 1657
 +2.210416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on wrong channel
 +2.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: current channel: 1658
@@ -1156,12 +1153,11 @@
 +2.250000000s FRAME START | SFN: 225 | T: 2250 ms ============================================================================================================================
 +2.260000000s FRAME START | SFN: 226 | T: 2260 ms ============================================================================================================================
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.260833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.261666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.261666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.261666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1177,154 +1173,72 @@
 +2.262083330s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 6
 +2.262666330s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 3 subslots
 +2.262666330s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 7 -> power on channel is -111 dBm
-+2.262666330s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
++2.262666330s Dect2020ExtPhy:Send(): PT_PHY[1]: Sending packet
++2.262666330s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to TX
 +2.262666452s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.262666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.262666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
-+2.262666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
++2.262666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.262666452s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Total channel 1657 power: -83.5135 dBm
++2.263499670s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.263499792s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.263499792s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.263499792s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.263499792s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 19
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 16
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 16
-+2.263499792s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 19
 +2.263707995s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
 +2.263707995s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 17, position - 7
 +2.263707995s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 11
 +2.263707995s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
-+2.263958327s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 19
-+2.263958327s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
-+2.263958327s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
-+2.263958449s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.263958449s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.263958449s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.263958449s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
-+2.264374997s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
-+2.264375119s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
-+2.264375119s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.264375119s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.264375119s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
-+2.264375119s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to ASSOCIATED
-+2.264375119s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]: Association Response accepted
 +2.264706995s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 3 subslots
 +2.264706995s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 19 -> power on channel is -111 dBm
-+2.264706995s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
++2.264706995s Dect2020ExtPhy:Send(): PT_PHY[1]: Sending packet
++2.264706995s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to TX
 +2.264707117s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.264707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.264707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
-+2.264707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
++2.264707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.264707117s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Total channel 1657 power: -83.5135 dBm
++2.265540335s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.265540457s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.265540457s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.265540457s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.265540457s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 29
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 26
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 26
-+2.265540457s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 29
 +2.265748660s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
 +2.265748660s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 27, position - 19
 +2.265748660s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 20
 +2.265748660s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
-+2.266041657s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 29
-+2.266041657s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
-+2.266041657s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
-+2.266041779s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.266041779s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.266041779s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.266041779s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
-+2.266458327s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
-+2.266458449s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
-+2.266458449s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.266458449s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.266458449s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
-+2.266458449s Dect2020ExtMac:ProcessAssociationResponse(): Association Response received, but association status is not ASSOCIATION_PENDING. Ignoring the response.
 +2.267497660s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 3 subslots
 +2.267497660s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 40 -> power on channel is -111 dBm
-+2.267497660s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
++2.267497660s Dect2020ExtPhy:Send(): PT_PHY[1]: Sending packet
++2.267497660s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to TX
 +2.267497782s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.267497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.267497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
-+2.267497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
++2.267497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.267497782s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Total channel 1657 power: -83.5135 dBm
++2.268331000s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.268331122s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.268331122s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.268331122s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.268331122s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 42
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 39
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 39
-+2.268331122s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 42
 +2.268539325s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
 +2.268539325s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 40, position - 40
 +2.268539325s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 58
 +2.268539325s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
-+2.268749986s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 42
-+2.268749986s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
-+2.268749986s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
-+2.268750108s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.268750108s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.268750108s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.268750108s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
-+2.269166656s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
-+2.269166778s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
-+2.269166778s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.269166778s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.269166778s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
-+2.269166778s Dect2020ExtMac:ProcessAssociationResponse(): Association Response received, but association status is not ASSOCIATION_PENDING. Ignoring the response.
 +2.270000000s FRAME START | SFN: 227 | T: 2270 ms ============================================================================================================================
 +2.273455325s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 3 subslots
 +2.273455325s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 99 -> power on channel is -111 dBm
-+2.273455325s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
++2.273455325s Dect2020ExtPhy:Send(): PT_PHY[1]: Sending packet
++2.273455325s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to TX
 +2.273455447s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to RX
-+2.273455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.273455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: total channel 1657 power: -83.5135 dBm
-+2.273455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Passing to the MAC
++2.273455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.273455447s Dect2020ExtPhy:StartRx(): FT_PHY[0]: Total channel 1657 power: -83.5135 dBm
++2.274288665s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.274288787s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.274288787s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.274288787s Dect2020ExtMac:ReceiveFromPhy(): FT_MAC[0]: Received Unicast Packet
-+2.274288787s Dect2020ExtMac:HandleUnicastPacket(): FT_MAC[0]: Received Association Request
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Processing Association Request
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: HARQ Delay: 2
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Absolute response subslot: 23
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current absolute subslot: 20
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Current subslot 20
-+2.274288787s Dect2020ExtMac:ProcessAssociationRequest(): FT_MAC[0]: Association Response absolute subslot 23
 +2.274496990s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: received no ACK, retransmitting
 +2.274496990s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Initiating backoff at subslot - 21, position - 99
 +2.274496990s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Random backoff value 65
 +2.274496990s Dect2020ExtMac:InitiateBackoff(): PT_MAC[1]: Backoff target position 164 exceeds available positions (128)
 +2.274496990s Dect2020ExtMac:VerifyHarqAck(): PT_MAC[1]: ACK verified
-+2.274791659s Dect2020ExtMac:SendAssociationResponse(): FT_MAC[0]: Sending Association Response at subslot 23
-+2.274791659s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
-+2.274791659s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
-+2.274791781s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.274791781s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.274791781s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.274791781s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
-+2.275208329s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
-+2.275208451s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
-+2.275208451s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
-+2.275208451s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
-+2.275208451s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
-+2.275208451s Dect2020ExtMac:ProcessAssociationResponse(): Association Response received, but association status is not ASSOCIATION_PENDING. Ignoring the response.
 +2.280000000s FRAME START | SFN: 228 | T: 2280 ms ============================================================================================================================
 +2.290000000s FRAME START | SFN: 229 | T: 2290 ms ============================================================================================================================
 +2.300000000s FRAME START | SFN: 230 | T: 2300 ms ============================================================================================================================
 +2.310000000s FRAME START | SFN: 231 | T: 2310 ms ============================================================================================================================
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.310000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.310416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.310416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.310416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1332,48 +1246,43 @@
 +2.310416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.310416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.310833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.310833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.311666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.311666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.311666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.311666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.320000000s FRAME START | SFN: 232 | T: 2320 ms ============================================================================================================================
 +2.330000000s FRAME START | SFN: 233 | T: 2330 ms ============================================================================================================================
 +2.340000000s FRAME START | SFN: 234 | T: 2340 ms ============================================================================================================================
 +2.350000000s FRAME START | SFN: 235 | T: 2350 ms ============================================================================================================================
 +2.360000000s FRAME START | SFN: 236 | T: 2360 ms ============================================================================================================================
 +2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.360833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.361666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.361666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.361666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.361666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.370000000s FRAME START | SFN: 237 | T: 2370 ms ============================================================================================================================
 +2.380000000s FRAME START | SFN: 238 | T: 2380 ms ============================================================================================================================
 +2.390000000s FRAME START | SFN: 239 | T: 2390 ms ============================================================================================================================
 +2.400000000s FRAME START | SFN: 240 | T: 2400 ms ============================================================================================================================
 +2.410000000s FRAME START | SFN: 241 | T: 2410 ms ============================================================================================================================
 +2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.410000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.410416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.410416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.410416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1381,48 +1290,43 @@
 +2.410416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.410416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.410833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.410833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.411666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.411666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.411666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.411666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.420000000s FRAME START | SFN: 242 | T: 2420 ms ============================================================================================================================
 +2.430000000s FRAME START | SFN: 243 | T: 2430 ms ============================================================================================================================
 +2.440000000s FRAME START | SFN: 244 | T: 2440 ms ============================================================================================================================
 +2.450000000s FRAME START | SFN: 245 | T: 2450 ms ============================================================================================================================
 +2.460000000s FRAME START | SFN: 246 | T: 2460 ms ============================================================================================================================
 +2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.460833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.461666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.461666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.461666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.461666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.470000000s FRAME START | SFN: 247 | T: 2470 ms ============================================================================================================================
 +2.480000000s FRAME START | SFN: 248 | T: 2480 ms ============================================================================================================================
 +2.490000000s FRAME START | SFN: 249 | T: 2490 ms ============================================================================================================================
 +2.500000000s FRAME START | SFN: 250 | T: 2500 ms ============================================================================================================================
 +2.510000000s FRAME START | SFN: 251 | T: 2510 ms ============================================================================================================================
 +2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.510000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.510416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.510416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.510416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1430,48 +1334,43 @@
 +2.510416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.510416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.510833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.510833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.511666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.511666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.511666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.511666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.520000000s FRAME START | SFN: 252 | T: 2520 ms ============================================================================================================================
 +2.530000000s FRAME START | SFN: 253 | T: 2530 ms ============================================================================================================================
 +2.540000000s FRAME START | SFN: 254 | T: 2540 ms ============================================================================================================================
 +2.550000000s FRAME START | SFN: 255 | T: 2550 ms ============================================================================================================================
 +2.560000000s FRAME START | SFN: 256 | T: 2560 ms ============================================================================================================================
 +2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.560833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.561666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.561666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.561666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.561666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.570000000s FRAME START | SFN: 257 | T: 2570 ms ============================================================================================================================
 +2.580000000s FRAME START | SFN: 258 | T: 2580 ms ============================================================================================================================
 +2.590000000s FRAME START | SFN: 259 | T: 2590 ms ============================================================================================================================
 +2.600000000s FRAME START | SFN: 260 | T: 2600 ms ============================================================================================================================
 +2.610000000s FRAME START | SFN: 261 | T: 2610 ms ============================================================================================================================
 +2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.610000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.610416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.610416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.610416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1479,48 +1378,43 @@
 +2.610416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.610416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.610833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.610833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.611666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.611666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.611666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.611666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.620000000s FRAME START | SFN: 262 | T: 2620 ms ============================================================================================================================
 +2.630000000s FRAME START | SFN: 263 | T: 2630 ms ============================================================================================================================
 +2.640000000s FRAME START | SFN: 264 | T: 2640 ms ============================================================================================================================
 +2.650000000s FRAME START | SFN: 265 | T: 2650 ms ============================================================================================================================
 +2.660000000s FRAME START | SFN: 266 | T: 2660 ms ============================================================================================================================
 +2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.660833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.661666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.661666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.661666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.661666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.670000000s FRAME START | SFN: 267 | T: 2670 ms ============================================================================================================================
 +2.680000000s FRAME START | SFN: 268 | T: 2680 ms ============================================================================================================================
 +2.690000000s FRAME START | SFN: 269 | T: 2690 ms ============================================================================================================================
 +2.700000000s FRAME START | SFN: 270 | T: 2700 ms ============================================================================================================================
 +2.710000000s FRAME START | SFN: 271 | T: 2710 ms ============================================================================================================================
 +2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.710000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.710416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.710416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.710416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1528,48 +1422,43 @@
 +2.710416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.710416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.710833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.710833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.711666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.711666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.711666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.711666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.720000000s FRAME START | SFN: 272 | T: 2720 ms ============================================================================================================================
 +2.730000000s FRAME START | SFN: 273 | T: 2730 ms ============================================================================================================================
 +2.740000000s FRAME START | SFN: 274 | T: 2740 ms ============================================================================================================================
 +2.750000000s FRAME START | SFN: 275 | T: 2750 ms ============================================================================================================================
 +2.760000000s FRAME START | SFN: 276 | T: 2760 ms ============================================================================================================================
 +2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.760833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.761666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.761666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.761666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.761666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.770000000s FRAME START | SFN: 277 | T: 2770 ms ============================================================================================================================
 +2.780000000s FRAME START | SFN: 278 | T: 2780 ms ============================================================================================================================
 +2.790000000s FRAME START | SFN: 279 | T: 2790 ms ============================================================================================================================
 +2.800000000s FRAME START | SFN: 280 | T: 2800 ms ============================================================================================================================
 +2.810000000s FRAME START | SFN: 281 | T: 2810 ms ============================================================================================================================
 +2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.810000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.810416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.810416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.810416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1577,48 +1466,43 @@
 +2.810416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.810416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.810833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.810833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.811666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.811666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.811666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.811666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.820000000s FRAME START | SFN: 282 | T: 2820 ms ============================================================================================================================
 +2.830000000s FRAME START | SFN: 283 | T: 2830 ms ============================================================================================================================
 +2.840000000s FRAME START | SFN: 284 | T: 2840 ms ============================================================================================================================
 +2.850000000s FRAME START | SFN: 285 | T: 2850 ms ============================================================================================================================
 +2.860000000s FRAME START | SFN: 286 | T: 2860 ms ============================================================================================================================
 +2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.860833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.861666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.861666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.861666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.861666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.870000000s FRAME START | SFN: 287 | T: 2870 ms ============================================================================================================================
 +2.880000000s FRAME START | SFN: 288 | T: 2880 ms ============================================================================================================================
 +2.890000000s FRAME START | SFN: 289 | T: 2890 ms ============================================================================================================================
 +2.900000000s FRAME START | SFN: 290 | T: 2900 ms ============================================================================================================================
 +2.910000000s FRAME START | SFN: 291 | T: 2910 ms ============================================================================================================================
 +2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+2.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.910000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.910416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.910416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.910416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1626,48 +1510,43 @@
 +2.910416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +2.910416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +2.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.910833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.910833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.911666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.911666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.911666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.911666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.920000000s FRAME START | SFN: 292 | T: 2920 ms ============================================================================================================================
 +2.930000000s FRAME START | SFN: 293 | T: 2930 ms ============================================================================================================================
 +2.940000000s FRAME START | SFN: 294 | T: 2940 ms ============================================================================================================================
 +2.950000000s FRAME START | SFN: 295 | T: 2950 ms ============================================================================================================================
 +2.960000000s FRAME START | SFN: 296 | T: 2960 ms ============================================================================================================================
 +2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+2.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++2.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +2.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +2.960833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+2.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+2.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+2.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++2.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++2.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +2.961666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.961666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +2.961666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +2.961666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+2.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +2.970000000s FRAME START | SFN: 297 | T: 2970 ms ============================================================================================================================
 +2.980000000s FRAME START | SFN: 298 | T: 2980 ms ============================================================================================================================
 +2.990000000s FRAME START | SFN: 299 | T: 2990 ms ============================================================================================================================
 +3.000000000s FRAME START | SFN: 300 | T: 3000 ms ============================================================================================================================
 +3.010000000s FRAME START | SFN: 301 | T: 3010 ms ============================================================================================================================
 +3.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.010000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.010000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.010416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.010416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.010416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1675,48 +1554,43 @@
 +3.010416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.010416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.010833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.010833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.010833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.010833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.010833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.011666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.011666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.011666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.011666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.011666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.011666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.020000000s FRAME START | SFN: 302 | T: 3020 ms ============================================================================================================================
 +3.030000000s FRAME START | SFN: 303 | T: 3030 ms ============================================================================================================================
 +3.040000000s FRAME START | SFN: 304 | T: 3040 ms ============================================================================================================================
 +3.050000000s FRAME START | SFN: 305 | T: 3050 ms ============================================================================================================================
 +3.060000000s FRAME START | SFN: 306 | T: 3060 ms ============================================================================================================================
 +3.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.060833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.060833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.061666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.061666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.061666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.061666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.061666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.061666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.070000000s FRAME START | SFN: 307 | T: 3070 ms ============================================================================================================================
 +3.080000000s FRAME START | SFN: 308 | T: 3080 ms ============================================================================================================================
 +3.090000000s FRAME START | SFN: 309 | T: 3090 ms ============================================================================================================================
 +3.100000000s FRAME START | SFN: 310 | T: 3100 ms ============================================================================================================================
 +3.110000000s FRAME START | SFN: 311 | T: 3110 ms ============================================================================================================================
 +3.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.110000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.110000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.110416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.110416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.110416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1724,48 +1598,43 @@
 +3.110416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.110416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.110833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.110833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.110833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.110833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.110833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.111666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.111666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.111666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.111666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.111666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.111666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.120000000s FRAME START | SFN: 312 | T: 3120 ms ============================================================================================================================
 +3.130000000s FRAME START | SFN: 313 | T: 3130 ms ============================================================================================================================
 +3.140000000s FRAME START | SFN: 314 | T: 3140 ms ============================================================================================================================
 +3.150000000s FRAME START | SFN: 315 | T: 3150 ms ============================================================================================================================
 +3.160000000s FRAME START | SFN: 316 | T: 3160 ms ============================================================================================================================
 +3.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.160833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.160833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.161666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.161666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.161666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.161666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.161666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.161666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.170000000s FRAME START | SFN: 317 | T: 3170 ms ============================================================================================================================
 +3.180000000s FRAME START | SFN: 318 | T: 3180 ms ============================================================================================================================
 +3.190000000s FRAME START | SFN: 319 | T: 3190 ms ============================================================================================================================
 +3.200000000s FRAME START | SFN: 320 | T: 3200 ms ============================================================================================================================
 +3.210000000s FRAME START | SFN: 321 | T: 3210 ms ============================================================================================================================
 +3.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.210000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.210000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.210416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.210416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.210416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1773,48 +1642,43 @@
 +3.210416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.210416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.210833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.210833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.210833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.210833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.210833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.211666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.211666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.211666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.211666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.211666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.211666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.220000000s FRAME START | SFN: 322 | T: 3220 ms ============================================================================================================================
 +3.230000000s FRAME START | SFN: 323 | T: 3230 ms ============================================================================================================================
 +3.240000000s FRAME START | SFN: 324 | T: 3240 ms ============================================================================================================================
 +3.250000000s FRAME START | SFN: 325 | T: 3250 ms ============================================================================================================================
 +3.260000000s FRAME START | SFN: 326 | T: 3260 ms ============================================================================================================================
 +3.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.260833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.260833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.261666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.261666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.261666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.261666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.261666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.261666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.270000000s FRAME START | SFN: 327 | T: 3270 ms ============================================================================================================================
 +3.280000000s FRAME START | SFN: 328 | T: 3280 ms ============================================================================================================================
 +3.290000000s FRAME START | SFN: 329 | T: 3290 ms ============================================================================================================================
 +3.300000000s FRAME START | SFN: 330 | T: 3300 ms ============================================================================================================================
 +3.310000000s FRAME START | SFN: 331 | T: 3310 ms ============================================================================================================================
 +3.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.310000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.310000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.310416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.310416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.310416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1822,48 +1686,43 @@
 +3.310416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.310416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.310833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.310833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.310833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.310833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.310833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.311666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.311666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.311666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.311666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.320000000s FRAME START | SFN: 332 | T: 3320 ms ============================================================================================================================
 +3.330000000s FRAME START | SFN: 333 | T: 3330 ms ============================================================================================================================
 +3.340000000s FRAME START | SFN: 334 | T: 3340 ms ============================================================================================================================
 +3.350000000s FRAME START | SFN: 335 | T: 3350 ms ============================================================================================================================
 +3.360000000s FRAME START | SFN: 336 | T: 3360 ms ============================================================================================================================
 +3.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.360833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.360833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.361666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.361666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.361666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.361666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.370000000s FRAME START | SFN: 337 | T: 3370 ms ============================================================================================================================
 +3.380000000s FRAME START | SFN: 338 | T: 3380 ms ============================================================================================================================
 +3.390000000s FRAME START | SFN: 339 | T: 3390 ms ============================================================================================================================
 +3.400000000s FRAME START | SFN: 340 | T: 3400 ms ============================================================================================================================
 +3.410000000s FRAME START | SFN: 341 | T: 3410 ms ============================================================================================================================
 +3.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.410000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.410000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.410416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.410416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.410416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1871,48 +1730,43 @@
 +3.410416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.410416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.410833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.410833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.410833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.410833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.410833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.411666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.411666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.411666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.411666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.420000000s FRAME START | SFN: 342 | T: 3420 ms ============================================================================================================================
 +3.430000000s FRAME START | SFN: 343 | T: 3430 ms ============================================================================================================================
 +3.440000000s FRAME START | SFN: 344 | T: 3440 ms ============================================================================================================================
 +3.450000000s FRAME START | SFN: 345 | T: 3450 ms ============================================================================================================================
 +3.460000000s FRAME START | SFN: 346 | T: 3460 ms ============================================================================================================================
 +3.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.460833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.460833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.461666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.461666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.461666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.461666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.470000000s FRAME START | SFN: 347 | T: 3470 ms ============================================================================================================================
 +3.480000000s FRAME START | SFN: 348 | T: 3480 ms ============================================================================================================================
 +3.490000000s FRAME START | SFN: 349 | T: 3490 ms ============================================================================================================================
 +3.500000000s FRAME START | SFN: 350 | T: 3500 ms ============================================================================================================================
 +3.510000000s FRAME START | SFN: 351 | T: 3510 ms ============================================================================================================================
 +3.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.510000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.510000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.510416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.510416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.510416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1920,48 +1774,43 @@
 +3.510416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.510416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.510833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.510833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.510833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.510833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.510833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.511666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.511666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.511666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.511666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.520000000s FRAME START | SFN: 352 | T: 3520 ms ============================================================================================================================
 +3.530000000s FRAME START | SFN: 353 | T: 3530 ms ============================================================================================================================
 +3.540000000s FRAME START | SFN: 354 | T: 3540 ms ============================================================================================================================
 +3.550000000s FRAME START | SFN: 355 | T: 3550 ms ============================================================================================================================
 +3.560000000s FRAME START | SFN: 356 | T: 3560 ms ============================================================================================================================
 +3.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.560833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.560833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.561666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.561666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.561666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.561666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.570000000s FRAME START | SFN: 357 | T: 3570 ms ============================================================================================================================
 +3.580000000s FRAME START | SFN: 358 | T: 3580 ms ============================================================================================================================
 +3.590000000s FRAME START | SFN: 359 | T: 3590 ms ============================================================================================================================
 +3.600000000s FRAME START | SFN: 360 | T: 3600 ms ============================================================================================================================
 +3.610000000s FRAME START | SFN: 361 | T: 3610 ms ============================================================================================================================
 +3.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.610000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.610000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.610416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.610416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.610416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -1969,48 +1818,43 @@
 +3.610416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.610416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.610833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.610833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.610833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.610833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.610833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.611666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.611666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.611666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.611666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.620000000s FRAME START | SFN: 362 | T: 3620 ms ============================================================================================================================
 +3.630000000s FRAME START | SFN: 363 | T: 3630 ms ============================================================================================================================
 +3.640000000s FRAME START | SFN: 364 | T: 3640 ms ============================================================================================================================
 +3.650000000s FRAME START | SFN: 365 | T: 3650 ms ============================================================================================================================
 +3.660000000s FRAME START | SFN: 366 | T: 3660 ms ============================================================================================================================
 +3.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.660833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.660833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.661666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.661666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.661666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.661666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.670000000s FRAME START | SFN: 367 | T: 3670 ms ============================================================================================================================
 +3.680000000s FRAME START | SFN: 368 | T: 3680 ms ============================================================================================================================
 +3.690000000s FRAME START | SFN: 369 | T: 3690 ms ============================================================================================================================
 +3.700000000s FRAME START | SFN: 370 | T: 3700 ms ============================================================================================================================
 +3.710000000s FRAME START | SFN: 371 | T: 3710 ms ============================================================================================================================
 +3.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.710000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.710000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.710416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.710416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.710416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -2018,48 +1862,43 @@
 +3.710416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.710416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.710833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.710833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.710833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.710833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.710833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.711666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.711666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.711666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.711666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.720000000s FRAME START | SFN: 372 | T: 3720 ms ============================================================================================================================
 +3.730000000s FRAME START | SFN: 373 | T: 3730 ms ============================================================================================================================
 +3.740000000s FRAME START | SFN: 374 | T: 3740 ms ============================================================================================================================
 +3.750000000s FRAME START | SFN: 375 | T: 3750 ms ============================================================================================================================
 +3.760000000s FRAME START | SFN: 376 | T: 3760 ms ============================================================================================================================
 +3.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.760833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.760833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.761666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.761666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.761666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.761666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.770000000s FRAME START | SFN: 377 | T: 3770 ms ============================================================================================================================
 +3.780000000s FRAME START | SFN: 378 | T: 3780 ms ============================================================================================================================
 +3.790000000s FRAME START | SFN: 379 | T: 3790 ms ============================================================================================================================
 +3.800000000s FRAME START | SFN: 380 | T: 3800 ms ============================================================================================================================
 +3.810000000s FRAME START | SFN: 381 | T: 3810 ms ============================================================================================================================
 +3.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.810000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.810000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.810416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.810416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.810416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -2067,48 +1906,43 @@
 +3.810416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.810416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.810833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.810833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.810833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.810833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.810833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.811666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.811666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.811666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.811666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.820000000s FRAME START | SFN: 382 | T: 3820 ms ============================================================================================================================
 +3.830000000s FRAME START | SFN: 383 | T: 3830 ms ============================================================================================================================
 +3.840000000s FRAME START | SFN: 384 | T: 3840 ms ============================================================================================================================
 +3.850000000s FRAME START | SFN: 385 | T: 3850 ms ============================================================================================================================
 +3.860000000s FRAME START | SFN: 386 | T: 3860 ms ============================================================================================================================
 +3.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.860833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.860833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.861666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.861666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.861666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.861666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.870000000s FRAME START | SFN: 387 | T: 3870 ms ============================================================================================================================
 +3.880000000s FRAME START | SFN: 388 | T: 3880 ms ============================================================================================================================
 +3.890000000s FRAME START | SFN: 389 | T: 3890 ms ============================================================================================================================
 +3.900000000s FRAME START | SFN: 390 | T: 3900 ms ============================================================================================================================
 +3.910000000s FRAME START | SFN: 391 | T: 3910 ms ============================================================================================================================
 +3.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
-+3.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.910000122s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.910000122s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.910416670s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.910416792s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.910416792s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
@@ -2116,38 +1950,34 @@
 +3.910416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Next cluster channel in network beacon: 1657
 +3.910416792s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Time to next cluster beacon: 833 microseconds
 +3.910833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.910833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.910833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.910833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.910833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.911666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.911666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.911666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.911666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.920000000s FRAME START | SFN: 392 | T: 3920 ms ============================================================================================================================
 +3.930000000s FRAME START | SFN: 393 | T: 3930 ms ============================================================================================================================
 +3.940000000s FRAME START | SFN: 394 | T: 3940 ms ============================================================================================================================
 +3.950000000s FRAME START | SFN: 395 | T: 3950 ms ============================================================================================================================
 +3.960000000s FRAME START | SFN: 396 | T: 3960 ms ============================================================================================================================
 +3.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
-+3.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
++3.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending packet
 +3.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
 +3.960833454s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to RX
-+3.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: received packet on the current channel 1657 with RSSI -83.5213 dBm
-+3.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: total channel 1657 power: -83.5135 dBm
-+3.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Passing to the MAC
++3.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Received packet on the current channel 1657 with RSSI -83.5213 dBm
++3.960833454s Dect2020ExtPhy:StartRx(): PT_PHY[1]: Total channel 1657 power: -83.5135 dBm
 +3.961666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +3.961666794s Dect2020ExtPhy:ChangeState(): PT_PHY[1]: State changed to IDLE
 +3.961666794s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received packet from PHY with RSSI -83.5213 dBm on channel 1657
 +3.961666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
-+3.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
 +3.970000000s FRAME START | SFN: 397 | T: 3970 ms ============================================================================================================================
 +3.980000000s FRAME START | SFN: 398 | T: 3980 ms ============================================================================================================================
 +3.990000000s FRAME START | SFN: 399 | T: 3990 ms ============================================================================================================================
 FT_PHY[0] accepted 4 packets
-PT_PHY[1] accepted 59 packets
+PT_PHY[1] accepted 55 packets
