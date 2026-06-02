@@ -1436,11 +1436,8 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
         // This is the time in seconds for the PT to listen to other channels to collect potential FT candidates
         Time searchBestFtTimeSeconds = Seconds(2);
         
-        // ASSOCIATION_PREPARING means the device is scanning the network to find the best FT candidate
         ChangeAssociationStatus(ASSOCIATION_PREPARING);
-        // m_associationStatus = Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING;
-        NS_LOG_INFO(MAC_IDENTITY << ": Switching to ASSOCIATION_PREPARING status");
-        NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks");
+        NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks to find all possible candidates");
         DiscoverNetworks();
         Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
     }

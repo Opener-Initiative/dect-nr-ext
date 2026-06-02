@@ -70,6 +70,13 @@ Channel number (`uint16_t m_operatingChannelNumber`) stands for the absolute cha
 The goal of the FT device performing the spectrum management procedure is to select the operating channel number. Operating channel will be used as the channel for cluster beacon transmissions and (currently) for network beacon transmissions (which is not required by the standard but still implemented for simplification).
 
 PT device doesn't perform any background scans. Therefore, the operating channel number will be defined as the channel which the PT uses to communicate with the FT. This channel is configured via the Cluster Beacon Message IE.
+# Association Procedure
+#### Association State
+- NOT_ASSOCIATED: the PT device is not associated with any FT device
+- ASSOCIATION_PREPARING: the PT device is scanning the network to find the best FT candidate 
+- WAITING_FOR_SELECTED_FT: this state is switched upon the best FT candidate selection and can trigger association with the selected FT when the next Cluster Beacon arrives
+- ASSOCIATION_PENDING: this state indicates that Association Request Message has been sent to the FT and the PT is waiting for Association Response Message
+- ASSOCIATED: indicates that the device is associated with the selected FT device
 # Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
 # 8 HARQ and Random Access Procedure

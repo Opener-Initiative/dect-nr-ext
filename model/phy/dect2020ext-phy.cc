@@ -285,9 +285,9 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     // Drop packet if the device is not currently tuned to the correct channel
     if (dectParams->m_currentChannelNumber != m_mac->GetOperatingChannelNumber())
     {
-        NS_LOG_INFO(PHY_IDENTITY << ": received packet on wrong channel");
-        NS_LOG_INFO(PHY_IDENTITY << ": current channel: " << m_mac->GetOperatingChannelNumber());
-        NS_LOG_INFO(PHY_IDENTITY << ": channel from dect params: " << dectParams->m_currentChannelNumber);
+        NS_LOG_INFO(PHY_IDENTITY << ": Received packet on wrong channel");
+        NS_LOG_INFO(PHY_IDENTITY << ": Current channel: " << m_mac->GetOperatingChannelNumber());
+        NS_LOG_INFO(PHY_IDENTITY << ": Channel from dect params: " << dectParams->m_currentChannelNumber);
         return;
     }
 

@@ -127,7 +127,7 @@ struct Dect2020ExtSubslotScanContext
 
 struct Dect2020ExtFtCandidateInfo
 {
-    // uint8_t shortNetworkId;
+    uint8_t shortNetworkId;
     uint32_t networkId;
     uint32_t shortFtId;
     uint32_t longFtId;
@@ -137,16 +137,17 @@ struct Dect2020ExtFtCandidateInfo
     Time receptionTime;
     double rssiDbm;
 
-    Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;       // Last received Physical Header Field
-    Dect2020ExtBeaconHeader ftBeaconHeader;                 // Last received Beacon Header
-    Dect2020ExtUnicastHeader ftUnicastHeader;               // Last received Unicast Header
-    Dect2020ExtNetworkBeaconMessageIe ftNetworkBeaconMessage; // Last received Network Beacon Message
-    Dect2020ExtClusterBeaconMessageIe ftClusterBeaconMessage; // Last received Cluster Beacon Message
+    Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;           // Last received Physical Header Field
+    Dect2020ExtBeaconHeader ftBeaconHeader;                     // Last received Beacon Header
+    Dect2020ExtUnicastHeader ftUnicastHeader;                   // Last received Unicast Header
+    Dect2020ExtNetworkBeaconMessageIe ftNetworkBeaconMessage;   // Last received Network Beacon Message
+    Dect2020ExtClusterBeaconMessageIe ftClusterBeaconMessage;   // Last received Cluster Beacon Message
     Dect2020ExtRandomAccessResourceIe ftRandomAccessResourceIe; // Last received Random Access Resource Ie
 
     // Constructor to initialize all members to zero/default values
     Dect2020ExtFtCandidateInfo()
-        : networkId(0),
+        : shortNetworkId(0), 
+          networkId(0),
           longFtId(0),
           clusterChannelNumber(0),
           receptionTime(Seconds(0)),
@@ -198,9 +199,7 @@ class Dect2020ExtMac : public Object
 
         void TestFunction();
 
-        // ############################
-        // ###### Initialization ######
-        // ############################
+        // Initialization
 
         void Initialize();
         void Start();
@@ -242,9 +241,7 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const;
         uint8_t CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const;
 
-        // #####################################
-        // ###### Random Access Procedure ######
-        // #####################################
+        // Random Access Procedure
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField);
         void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
@@ -254,9 +251,7 @@ class Dect2020ExtMac : public Object
         void EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        // ###################################
-        // ###### Association Procedure ######
-        // ###################################
+        // Association Procedure
 
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
@@ -277,9 +272,7 @@ class Dect2020ExtMac : public Object
         void VerifyKeepAlivePeriodNotExceeded();
         void RestartKeepAlivePeriod();
 
-        // ################################################
-        // ###### Dect2020ExtMac Setters and Getters ######
-        // ################################################
+        // Dect2020ExtMac Setters and Getters
 
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType() const;
@@ -303,15 +296,11 @@ class Dect2020ExtMac : public Object
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
         Dect2020ExtAssociationStatus GetAssociationStatus();
 
-        // ################################
-        // ###### Association Status ######
-        // ################################
+        // Association Status
 
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
-        // ##################
-        // ###### HARQ ######
-        // ##################
+        // HARQ
 
         void InitiateHARQ();
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
@@ -319,16 +308,12 @@ class Dect2020ExtMac : public Object
         void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2);
         void MonitorTxQueue();
 
-        // #########################
-        // ###### Application ######
-        // #########################
+        // Application
 
         void EnqueuePacket();
         void LaunchApp();
 
-        // ###########################
-        // ###### Configuration ######
-        // ###########################
+        // Configuration
 
         void SetBandNumber(uint8_t bandNumber);
         uint8_t GetBandNumber() const;
@@ -383,9 +368,7 @@ class Dect2020ExtMac : public Object
         std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqTable;
         Time m_lastRxTime;
 
-        // ###########################
-        // ###### Configuration ######
-        // ###########################
+        // Configuration
 
         uint8_t m_bandNumber;
         bool m_bandNumberSet = false;
@@ -423,9 +406,7 @@ class Dect2020ExtMac : public Object
 
         bool m_displayChannelEvaluations = false;
 
-        // ####################
-        // ##### Constants ####
-        // ####################
+        // Constants
 
         // ETSI TS 103 636-4 V2.1.1 #7.2-1
         const double RSSI_THRESHOLD_MIN = -85; // dBm
@@ -443,4 +424,4 @@ class Dect2020ExtMac : public Object
 
 } // namespace ns3
 
-#endif /* DECT2020EXT_MAC_H */
+#endif // DECT2020EXT_MAC_H
