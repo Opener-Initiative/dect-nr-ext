@@ -97,6 +97,7 @@ class Dect2020ExtMacScheduler : public Object
 
         void StartMacScheduler();
         void ScheduleNextMacScheduler();
+        void PrintFrameEnd();
         void ProcessSlot(uint32_t slotNumber);
         void ProcessSubslot(uint32_t subslotNumber);
 
@@ -114,7 +115,7 @@ class Dect2020ExtMacScheduler : public Object
 
         // Setters and Getters
 
-        uint32_t GetSFN() const;
+        uint32_t GetSfn() const;
         std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
         void SetMac(Ptr<Dect2020ExtMac> mac);
 
@@ -138,6 +139,7 @@ class Dect2020ExtMacScheduler : public Object
 
         void PrintConfiguration() const;
         void PrintMacScheduler() const;
+        void Dummy(bool value);
 
     private:
         std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> m_macScheduler;
@@ -149,6 +151,7 @@ class Dect2020ExtMacScheduler : public Object
         uint32_t m_currentSubslotNumber;
 
         // Configuration
+
         uint8_t m_bandNumber;
         bool m_bandNumberSet = false;
 
@@ -159,6 +162,8 @@ class Dect2020ExtMacScheduler : public Object
         bool m_fourierTransformScalingFactorSet = false;
 
         Ptr<Dect2020ExtChannelManager> m_channelManager;
+
+        bool m_dummy = false;
 };
 
 } // namespace ns3

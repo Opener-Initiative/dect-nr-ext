@@ -3,6 +3,7 @@
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-config.h"
+#include "ns3/dect2020ext-config-values.h"
 #include "ns3/dect2020ext-utilities.h"
 #include "ns3/dect2020ext-statistics.h"
 
@@ -27,6 +28,7 @@ main(int argc, char *argv[])
 {
     LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME));
     LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
 
     NetDeviceContainer devices;
@@ -131,6 +133,16 @@ main(int argc, char *argv[])
     ftMac->Initialize();
     ftMac->Start();
     ftPhy->Start();
+
+    // Dummy MAC Scheduler to log frames
+    Dect2020ExtMacScheduler dummyMacScheduler;
+    dummyMacScheduler.Dummy(true);
+    dummyMacScheduler.SetBandNumber(BAND_NUMBER);
+    dummyMacScheduler.SetSubcarrierScalingFactor(SUBCARRIER_SCALING_FACTOR);
+    dummyMacScheduler.SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
+    dummyMacScheduler.SetChannelManager(config.m_channelManager);
+    dummyMacScheduler.Initialize();
+    dummyMacScheduler.StartMacScheduler();
 
     Simulator::Stop(Seconds(4));
     Simulator::Run();

@@ -236,7 +236,8 @@ set(dect2020ext_mac_pdu_size_calculation_test_src
 # MAC Scheduler Test
 set(dect2020ext_mac_scheduler_test_src
     test/mac-scheduler/dect2020ext-mac-scheduler-test.cc
-    test/mac-scheduler/dect2020ext-mac-scheduler-test-case.cc)
+    test/mac-scheduler/dect2020ext-mac-scheduler-test-case.cc
+    test/mac-scheduler/dect2020ext-mac-scheduler-sfn-test-case.cc)
 
 build_lib(
     LIBNAME dect-nr-ext

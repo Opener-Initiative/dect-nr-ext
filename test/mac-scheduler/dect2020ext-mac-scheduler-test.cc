@@ -1,4 +1,6 @@
 #include "dect2020ext-mac-scheduler-test-case.h"
+#include "dect2020ext-mac-scheduler-sfn-test-case.h"
+
 #include "ns3/test.h"
 
 namespace ns3 {
@@ -14,6 +16,7 @@ Dect2020ExtMacSchedulerTest::Dect2020ExtMacSchedulerTest()
     : TestSuite("dect2020ext-mac-scheduler-test", Type::UNIT)
 {
     AddTestCase(new Dect2020ExtMacSchedulerTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtMacSchedulerSfnTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020ExtMacSchedulerTest::~Dect2020ExtMacSchedulerTest()

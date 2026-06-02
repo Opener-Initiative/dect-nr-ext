@@ -477,7 +477,7 @@ Dect2020ExtMac::StartBeaconTransmission()
         this->StartNetworkBeaconTransmission();
     };
     networkBeaconOperation.periodFrames = ConvertNetworkBeaconPeriodToFrames(m_networkBeaconPeriod);
-    networkBeaconOperation.frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    networkBeaconOperation.frameOffset = m_macScheduler->GetSfn() + 1; // +1 since the operation is scheduled on the next frame
 
     m_networkBeaconSubslot = 0;
 
@@ -495,7 +495,7 @@ Dect2020ExtMac::StartBeaconTransmission()
     };
 
     clusterBeaconOperation.periodFrames = ConvertClusterBeaconPeriodToFrames(m_clusterBeaconPeriod);
-    clusterBeaconOperation.frameOffset = m_macScheduler->GetSFN() + 1; // +1 since the operation is scheduled on the next frame
+    clusterBeaconOperation.frameOffset = m_macScheduler->GetSfn() + 1; // +1 since the operation is scheduled on the next frame
 
     m_clusterBeaconSubslot = 4;
 
@@ -596,7 +596,7 @@ Dect2020ExtMac::BuildClusterBeacon(uint32_t clusterChannelNumber)
 
     // Cluster Beacon Message Ie
     Dect2020ExtClusterBeaconMessageIe clusterBeaconMessageIe;
-    clusterBeaconMessageIe.SetSFN(m_macScheduler->GetSFN());
+    clusterBeaconMessageIe.SetSFN(m_macScheduler->GetSfn());
     clusterBeaconMessageIe.SetTxPowerIncluded(false);
     clusterBeaconMessageIe.SetPowerConstraints(false);
     clusterBeaconMessageIe.SetFrameOffsetIncluded(false);

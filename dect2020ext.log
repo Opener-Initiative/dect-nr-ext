@@ -4,71 +4,93 @@
 +0.000000000s Dect2020ExtMac:SetLongRadioDeviceId(): FT_MAC[0]: Setting Long Radio Device ID: 0xc52ad94
 +0.000000000s Dect2020ExtMac:SetShortRadioDeviceId(): FT_MAC[0]: Setting Short Radio Device ID: 0x6d6e
 +0.000000000s Dect2020ExtMac:InitializeNetwork(): FT_MAC[0]: Starting background scan
++0.000000000s FRAME START | SFN: 0 | T: 0 ms =================================================================================================================================
 +0.000000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1657
 +0.009999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1657
 +0.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.010000000s FRAME START | SFN: 1 | T: 10 ms ================================================================================================================================
 +0.010000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1658
 +0.019999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1658
 +0.020000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1659
 +0.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.020000000s FRAME START | SFN: 2 | T: 20 ms ================================================================================================================================
 +0.029999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1659
 +0.030000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1660
 +0.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.030000000s FRAME START | SFN: 3 | T: 30 ms ================================================================================================================================
 +0.039999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1660
 +0.040000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1661
 +0.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.040000000s FRAME START | SFN: 4 | T: 40 ms ================================================================================================================================
 +0.049999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1661
 +0.050000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1662
 +0.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.050000000s FRAME START | SFN: 5 | T: 50 ms ================================================================================================================================
 +0.059999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1662
 +0.060000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1663
 +0.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.060000000s FRAME START | SFN: 6 | T: 60 ms ================================================================================================================================
 +0.069999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1663
 +0.070000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1664
 +0.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.070000000s FRAME START | SFN: 7 | T: 70 ms ================================================================================================================================
 +0.079999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1664
 +0.080000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1665
 +0.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.080000000s FRAME START | SFN: 8 | T: 80 ms ================================================================================================================================
 +0.089999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1665
 +0.090000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1666
 +0.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.090000000s FRAME START | SFN: 9 | T: 90 ms ================================================================================================================================
 +0.099999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1666
 +0.100000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1667
 +0.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.100000000s FRAME START | SFN: 10 | T: 100 ms ==============================================================================================================================
 +0.109999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1667
 +0.110000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1668
 +0.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.110000000s FRAME START | SFN: 11 | T: 110 ms ==============================================================================================================================
 +0.119999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1668
 +0.120000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1669
 +0.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.120000000s FRAME START | SFN: 12 | T: 120 ms ==============================================================================================================================
 +0.129999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1669
 +0.130000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1670
 +0.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.130000000s FRAME START | SFN: 13 | T: 130 ms ==============================================================================================================================
 +0.139999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1670
 +0.140000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1671
 +0.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.140000000s FRAME START | SFN: 14 | T: 140 ms ==============================================================================================================================
 +0.149999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1671
 +0.150000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1672
 +0.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.150000000s FRAME START | SFN: 15 | T: 150 ms ==============================================================================================================================
 +0.159999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1672
 +0.160000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1673
 +0.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.160000000s FRAME START | SFN: 16 | T: 160 ms ==============================================================================================================================
 +0.169999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1673
 +0.170000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1674
 +0.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.170000000s FRAME START | SFN: 17 | T: 170 ms ==============================================================================================================================
 +0.179999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1674
 +0.180000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1675
 +0.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.180000000s FRAME START | SFN: 18 | T: 180 ms ==============================================================================================================================
 +0.189999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1675
 +0.190000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1676
 +0.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.190000000s FRAME START | SFN: 19 | T: 190 ms ==============================================================================================================================
 +0.199999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1676
 +0.200000000s Dect2020ExtMac:MeasureRSSI1OnChannel(): FT_MAC[0]: Starting to scan channel 1677
 +0.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.200000000s FRAME START | SFN: 20 | T: 200 ms ==============================================================================================================================
 +0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all subslots on channel 1677
 +0.209999984s Dect2020ExtMac:EndSubslotScan(): FT_MAC[0]: Finished scanning all channels
 +0.209999984s Dect2020ExtMac:OperatingChannelSelection(): FT_MAC[0]: Selected Operating Channel: 1657 with 48 free subslots
 +0.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.210000000s FRAME START | SFN: 21 | T: 210 ms ==============================================================================================================================
 +0.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -99,14 +121,19 @@
 +0.211666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Discovering networks
 +0.211666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +0.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.220000000s FRAME START | SFN: 22 | T: 220 ms ==============================================================================================================================
 +0.221666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.230000000s FRAME START | SFN: 23 | T: 230 ms ==============================================================================================================================
 +0.231666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.240000000s FRAME START | SFN: 24 | T: 240 ms ==============================================================================================================================
 +0.241666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.250000000s FRAME START | SFN: 25 | T: 250 ms ==============================================================================================================================
 +0.251666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.260000000s FRAME START | SFN: 26 | T: 260 ms ==============================================================================================================================
 +0.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -116,14 +143,19 @@
 +0.261666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.261666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +0.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.270000000s FRAME START | SFN: 27 | T: 270 ms ==============================================================================================================================
 +0.271666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +0.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.280000000s FRAME START | SFN: 28 | T: 280 ms ==============================================================================================================================
 +0.281666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.290000000s FRAME START | SFN: 29 | T: 290 ms ==============================================================================================================================
 +0.291666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.300000000s FRAME START | SFN: 30 | T: 300 ms ==============================================================================================================================
 +0.301666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.310000000s FRAME START | SFN: 31 | T: 310 ms ==============================================================================================================================
 +0.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -140,14 +172,19 @@
 +0.311666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.311666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.320000000s FRAME START | SFN: 32 | T: 320 ms ==============================================================================================================================
 +0.321666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +0.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.330000000s FRAME START | SFN: 33 | T: 330 ms ==============================================================================================================================
 +0.331666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.340000000s FRAME START | SFN: 34 | T: 340 ms ==============================================================================================================================
 +0.341666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.350000000s FRAME START | SFN: 35 | T: 350 ms ==============================================================================================================================
 +0.351666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.360000000s FRAME START | SFN: 36 | T: 360 ms ==============================================================================================================================
 +0.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -157,14 +194,19 @@
 +0.361666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.361666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +0.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.370000000s FRAME START | SFN: 37 | T: 370 ms ==============================================================================================================================
 +0.371666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +0.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.380000000s FRAME START | SFN: 38 | T: 380 ms ==============================================================================================================================
 +0.381666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +0.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.390000000s FRAME START | SFN: 39 | T: 390 ms ==============================================================================================================================
 +0.391666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +0.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.400000000s FRAME START | SFN: 40 | T: 400 ms ==============================================================================================================================
 +0.401666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +0.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.410000000s FRAME START | SFN: 41 | T: 410 ms ==============================================================================================================================
 +0.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -181,14 +223,19 @@
 +0.411666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.411666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +0.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.420000000s FRAME START | SFN: 42 | T: 420 ms ==============================================================================================================================
 +0.421666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +0.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.430000000s FRAME START | SFN: 43 | T: 430 ms ==============================================================================================================================
 +0.431666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.440000000s FRAME START | SFN: 44 | T: 440 ms ==============================================================================================================================
 +0.441666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.450000000s FRAME START | SFN: 45 | T: 450 ms ==============================================================================================================================
 +0.451666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.460000000s FRAME START | SFN: 46 | T: 460 ms ==============================================================================================================================
 +0.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -198,14 +245,19 @@
 +0.461666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.461666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.470000000s FRAME START | SFN: 47 | T: 470 ms ==============================================================================================================================
 +0.471666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +0.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.480000000s FRAME START | SFN: 48 | T: 480 ms ==============================================================================================================================
 +0.481666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +0.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.490000000s FRAME START | SFN: 49 | T: 490 ms ==============================================================================================================================
 +0.491666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.500000000s FRAME START | SFN: 50 | T: 500 ms ==============================================================================================================================
 +0.501666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.510000000s FRAME START | SFN: 51 | T: 510 ms ==============================================================================================================================
 +0.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -222,14 +274,19 @@
 +0.511666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.511666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.520000000s FRAME START | SFN: 52 | T: 520 ms ==============================================================================================================================
 +0.521666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.530000000s FRAME START | SFN: 53 | T: 530 ms ==============================================================================================================================
 +0.531666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +0.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.540000000s FRAME START | SFN: 54 | T: 540 ms ==============================================================================================================================
 +0.541666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.550000000s FRAME START | SFN: 55 | T: 550 ms ==============================================================================================================================
 +0.551666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.560000000s FRAME START | SFN: 56 | T: 560 ms ==============================================================================================================================
 +0.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -239,14 +296,19 @@
 +0.561666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.561666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.570000000s FRAME START | SFN: 57 | T: 570 ms ==============================================================================================================================
 +0.571666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +0.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.580000000s FRAME START | SFN: 58 | T: 580 ms ==============================================================================================================================
 +0.581666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +0.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.590000000s FRAME START | SFN: 59 | T: 590 ms ==============================================================================================================================
 +0.591666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +0.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.600000000s FRAME START | SFN: 60 | T: 600 ms ==============================================================================================================================
 +0.601666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +0.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.610000000s FRAME START | SFN: 61 | T: 610 ms ==============================================================================================================================
 +0.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -263,14 +325,19 @@
 +0.611666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.611666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +0.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.620000000s FRAME START | SFN: 62 | T: 620 ms ==============================================================================================================================
 +0.621666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +0.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.630000000s FRAME START | SFN: 63 | T: 630 ms ==============================================================================================================================
 +0.631666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +0.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.640000000s FRAME START | SFN: 64 | T: 640 ms ==============================================================================================================================
 +0.641666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.650000000s FRAME START | SFN: 65 | T: 650 ms ==============================================================================================================================
 +0.651666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.660000000s FRAME START | SFN: 66 | T: 660 ms ==============================================================================================================================
 +0.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -280,14 +347,19 @@
 +0.661666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.661666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.670000000s FRAME START | SFN: 67 | T: 670 ms ==============================================================================================================================
 +0.671666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.680000000s FRAME START | SFN: 68 | T: 680 ms ==============================================================================================================================
 +0.681666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +0.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.690000000s FRAME START | SFN: 69 | T: 690 ms ==============================================================================================================================
 +0.691666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +0.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.700000000s FRAME START | SFN: 70 | T: 700 ms ==============================================================================================================================
 +0.701666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.710000000s FRAME START | SFN: 71 | T: 710 ms ==============================================================================================================================
 +0.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -304,14 +376,19 @@
 +0.711666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.711666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.720000000s FRAME START | SFN: 72 | T: 720 ms ==============================================================================================================================
 +0.721666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.730000000s FRAME START | SFN: 73 | T: 730 ms ==============================================================================================================================
 +0.731666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.740000000s FRAME START | SFN: 74 | T: 740 ms ==============================================================================================================================
 +0.741666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +0.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.750000000s FRAME START | SFN: 75 | T: 750 ms ==============================================================================================================================
 +0.751666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.760000000s FRAME START | SFN: 76 | T: 760 ms ==============================================================================================================================
 +0.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -321,14 +398,19 @@
 +0.761666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.761666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.770000000s FRAME START | SFN: 77 | T: 770 ms ==============================================================================================================================
 +0.771666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.780000000s FRAME START | SFN: 78 | T: 780 ms ==============================================================================================================================
 +0.781666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +0.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++0.790000000s FRAME START | SFN: 79 | T: 790 ms ==============================================================================================================================
 +0.791666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +0.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++0.800000000s FRAME START | SFN: 80 | T: 800 ms ==============================================================================================================================
 +0.801666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +0.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++0.810000000s FRAME START | SFN: 81 | T: 810 ms ==============================================================================================================================
 +0.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -345,14 +427,19 @@
 +0.811666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.811666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +0.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++0.820000000s FRAME START | SFN: 82 | T: 820 ms ==============================================================================================================================
 +0.821666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +0.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++0.830000000s FRAME START | SFN: 83 | T: 830 ms ==============================================================================================================================
 +0.831666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +0.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++0.840000000s FRAME START | SFN: 84 | T: 840 ms ==============================================================================================================================
 +0.841666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +0.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++0.850000000s FRAME START | SFN: 85 | T: 850 ms ==============================================================================================================================
 +0.851666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +0.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++0.860000000s FRAME START | SFN: 86 | T: 860 ms ==============================================================================================================================
 +0.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -362,14 +449,19 @@
 +0.861666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.861666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +0.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++0.870000000s FRAME START | SFN: 87 | T: 870 ms ==============================================================================================================================
 +0.871666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +0.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++0.880000000s FRAME START | SFN: 88 | T: 880 ms ==============================================================================================================================
 +0.881666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +0.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++0.890000000s FRAME START | SFN: 89 | T: 890 ms ==============================================================================================================================
 +0.891666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +0.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++0.900000000s FRAME START | SFN: 90 | T: 900 ms ==============================================================================================================================
 +0.901666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +0.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++0.910000000s FRAME START | SFN: 91 | T: 910 ms ==============================================================================================================================
 +0.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +0.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -386,14 +478,19 @@
 +0.911666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.911666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +0.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++0.920000000s FRAME START | SFN: 92 | T: 920 ms ==============================================================================================================================
 +0.921666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +0.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++0.930000000s FRAME START | SFN: 93 | T: 930 ms ==============================================================================================================================
 +0.931666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +0.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++0.940000000s FRAME START | SFN: 94 | T: 940 ms ==============================================================================================================================
 +0.941666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +0.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++0.950000000s FRAME START | SFN: 95 | T: 950 ms ==============================================================================================================================
 +0.951666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +0.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++0.960000000s FRAME START | SFN: 96 | T: 960 ms ==============================================================================================================================
 +0.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +0.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +0.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -403,14 +500,19 @@
 +0.961666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +0.961666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +0.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++0.970000000s FRAME START | SFN: 97 | T: 970 ms ==============================================================================================================================
 +0.971666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +0.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++0.980000000s FRAME START | SFN: 98 | T: 980 ms ==============================================================================================================================
 +0.981666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +0.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++0.990000000s FRAME START | SFN: 99 | T: 990 ms ==============================================================================================================================
 +0.991666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.000000000s FRAME START | SFN: 100 | T: 1000 ms ============================================================================================================================
 +1.001666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.010000000s FRAME START | SFN: 101 | T: 1010 ms ============================================================================================================================
 +1.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -427,14 +529,19 @@
 +1.011666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.011666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.020000000s FRAME START | SFN: 102 | T: 1020 ms ============================================================================================================================
 +1.021666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.030000000s FRAME START | SFN: 103 | T: 1030 ms ============================================================================================================================
 +1.031666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.040000000s FRAME START | SFN: 104 | T: 1040 ms ============================================================================================================================
 +1.041666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.050000000s FRAME START | SFN: 105 | T: 1050 ms ============================================================================================================================
 +1.051666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.060000000s FRAME START | SFN: 106 | T: 1060 ms ============================================================================================================================
 +1.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -444,14 +551,19 @@
 +1.061666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.061666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +1.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.070000000s FRAME START | SFN: 107 | T: 1070 ms ============================================================================================================================
 +1.071666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.080000000s FRAME START | SFN: 108 | T: 1080 ms ============================================================================================================================
 +1.081666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.090000000s FRAME START | SFN: 109 | T: 1090 ms ============================================================================================================================
 +1.091666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.100000000s FRAME START | SFN: 110 | T: 1100 ms ============================================================================================================================
 +1.101666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.110000000s FRAME START | SFN: 111 | T: 1110 ms ============================================================================================================================
 +1.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -468,14 +580,19 @@
 +1.111666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.111666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.120000000s FRAME START | SFN: 112 | T: 1120 ms ============================================================================================================================
 +1.121666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.130000000s FRAME START | SFN: 113 | T: 1130 ms ============================================================================================================================
 +1.131666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.140000000s FRAME START | SFN: 114 | T: 1140 ms ============================================================================================================================
 +1.141666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.150000000s FRAME START | SFN: 115 | T: 1150 ms ============================================================================================================================
 +1.151666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +1.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.160000000s FRAME START | SFN: 116 | T: 1160 ms ============================================================================================================================
 +1.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -485,14 +602,19 @@
 +1.161666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.161666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +1.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.170000000s FRAME START | SFN: 117 | T: 1170 ms ============================================================================================================================
 +1.171666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +1.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.180000000s FRAME START | SFN: 118 | T: 1180 ms ============================================================================================================================
 +1.181666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +1.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.190000000s FRAME START | SFN: 119 | T: 1190 ms ============================================================================================================================
 +1.191666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +1.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.200000000s FRAME START | SFN: 120 | T: 1200 ms ============================================================================================================================
 +1.201666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.210000000s FRAME START | SFN: 121 | T: 1210 ms ============================================================================================================================
 +1.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -509,14 +631,19 @@
 +1.211666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.211666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.220000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.220000000s FRAME START | SFN: 122 | T: 1220 ms ============================================================================================================================
 +1.221666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.230000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.230000000s FRAME START | SFN: 123 | T: 1230 ms ============================================================================================================================
 +1.231666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.240000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.240000000s FRAME START | SFN: 124 | T: 1240 ms ============================================================================================================================
 +1.241666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.250000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.250000000s FRAME START | SFN: 125 | T: 1250 ms ============================================================================================================================
 +1.251666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.260000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.260000000s FRAME START | SFN: 126 | T: 1260 ms ============================================================================================================================
 +1.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -531,14 +658,19 @@
 +1.261666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +1.261666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +1.270000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.270000000s FRAME START | SFN: 127 | T: 1270 ms ============================================================================================================================
 +1.271666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +1.280000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.280000000s FRAME START | SFN: 128 | T: 1280 ms ============================================================================================================================
 +1.281666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.290000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.290000000s FRAME START | SFN: 129 | T: 1290 ms ============================================================================================================================
 +1.291666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.300000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.300000000s FRAME START | SFN: 130 | T: 1300 ms ============================================================================================================================
 +1.301666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.310000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.310000000s FRAME START | SFN: 131 | T: 1310 ms ============================================================================================================================
 +1.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -555,14 +687,19 @@
 +1.311666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.311666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.320000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.320000000s FRAME START | SFN: 132 | T: 1320 ms ============================================================================================================================
 +1.321666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.330000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.330000000s FRAME START | SFN: 133 | T: 1330 ms ============================================================================================================================
 +1.331666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.340000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.340000000s FRAME START | SFN: 134 | T: 1340 ms ============================================================================================================================
 +1.341666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.350000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.350000000s FRAME START | SFN: 135 | T: 1350 ms ============================================================================================================================
 +1.351666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.360000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.360000000s FRAME START | SFN: 136 | T: 1360 ms ============================================================================================================================
 +1.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -572,14 +709,19 @@
 +1.361666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.361666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +1.370000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.370000000s FRAME START | SFN: 137 | T: 1370 ms ============================================================================================================================
 +1.371666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +1.380000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.380000000s FRAME START | SFN: 138 | T: 1380 ms ============================================================================================================================
 +1.381666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +1.390000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.390000000s FRAME START | SFN: 139 | T: 1390 ms ============================================================================================================================
 +1.391666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +1.400000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.400000000s FRAME START | SFN: 140 | T: 1400 ms ============================================================================================================================
 +1.401666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +1.410000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.410000000s FRAME START | SFN: 141 | T: 1410 ms ============================================================================================================================
 +1.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -596,14 +738,19 @@
 +1.411666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.411666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.420000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.420000000s FRAME START | SFN: 142 | T: 1420 ms ============================================================================================================================
 +1.421666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.430000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.430000000s FRAME START | SFN: 143 | T: 1430 ms ============================================================================================================================
 +1.431666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.440000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.440000000s FRAME START | SFN: 144 | T: 1440 ms ============================================================================================================================
 +1.441666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.450000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.450000000s FRAME START | SFN: 145 | T: 1450 ms ============================================================================================================================
 +1.451666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.460000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.460000000s FRAME START | SFN: 146 | T: 1460 ms ============================================================================================================================
 +1.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -613,14 +760,19 @@
 +1.461666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.461666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.470000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.470000000s FRAME START | SFN: 147 | T: 1470 ms ============================================================================================================================
 +1.471666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.480000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.480000000s FRAME START | SFN: 148 | T: 1480 ms ============================================================================================================================
 +1.481666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +1.490000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.490000000s FRAME START | SFN: 149 | T: 1490 ms ============================================================================================================================
 +1.491666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.500000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.500000000s FRAME START | SFN: 150 | T: 1500 ms ============================================================================================================================
 +1.501666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.510000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.510000000s FRAME START | SFN: 151 | T: 1510 ms ============================================================================================================================
 +1.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -637,14 +789,19 @@
 +1.511666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.511666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.520000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.520000000s FRAME START | SFN: 152 | T: 1520 ms ============================================================================================================================
 +1.521666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.530000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.530000000s FRAME START | SFN: 153 | T: 1530 ms ============================================================================================================================
 +1.531666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.540000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.540000000s FRAME START | SFN: 154 | T: 1540 ms ============================================================================================================================
 +1.541666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.550000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.550000000s FRAME START | SFN: 155 | T: 1550 ms ============================================================================================================================
 +1.551666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.560000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.560000000s FRAME START | SFN: 156 | T: 1560 ms ============================================================================================================================
 +1.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -654,14 +811,19 @@
 +1.561666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.561666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.570000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.570000000s FRAME START | SFN: 157 | T: 1570 ms ============================================================================================================================
 +1.571666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +1.580000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.580000000s FRAME START | SFN: 158 | T: 1580 ms ============================================================================================================================
 +1.581666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +1.590000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.590000000s FRAME START | SFN: 159 | T: 1590 ms ============================================================================================================================
 +1.591666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +1.600000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.600000000s FRAME START | SFN: 160 | T: 1600 ms ============================================================================================================================
 +1.601666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +1.610000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.610000000s FRAME START | SFN: 161 | T: 1610 ms ============================================================================================================================
 +1.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -678,14 +840,19 @@
 +1.611666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.611666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +1.620000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.620000000s FRAME START | SFN: 162 | T: 1620 ms ============================================================================================================================
 +1.621666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.630000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.630000000s FRAME START | SFN: 163 | T: 1630 ms ============================================================================================================================
 +1.631666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.640000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.640000000s FRAME START | SFN: 164 | T: 1640 ms ============================================================================================================================
 +1.641666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.650000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.650000000s FRAME START | SFN: 165 | T: 1650 ms ============================================================================================================================
 +1.651666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.660000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.660000000s FRAME START | SFN: 166 | T: 1660 ms ============================================================================================================================
 +1.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -695,14 +862,19 @@
 +1.661666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.661666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.670000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.670000000s FRAME START | SFN: 167 | T: 1670 ms ============================================================================================================================
 +1.671666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.680000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.680000000s FRAME START | SFN: 168 | T: 1680 ms ============================================================================================================================
 +1.681666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.690000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.690000000s FRAME START | SFN: 169 | T: 1690 ms ============================================================================================================================
 +1.691666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +1.700000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.700000000s FRAME START | SFN: 170 | T: 1700 ms ============================================================================================================================
 +1.701666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.710000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.710000000s FRAME START | SFN: 171 | T: 1710 ms ============================================================================================================================
 +1.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -719,14 +891,19 @@
 +1.711666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.711666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.720000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.720000000s FRAME START | SFN: 172 | T: 1720 ms ============================================================================================================================
 +1.721666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.730000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.730000000s FRAME START | SFN: 173 | T: 1730 ms ============================================================================================================================
 +1.731666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.740000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.740000000s FRAME START | SFN: 174 | T: 1740 ms ============================================================================================================================
 +1.741666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.750000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.750000000s FRAME START | SFN: 175 | T: 1750 ms ============================================================================================================================
 +1.751666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.760000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.760000000s FRAME START | SFN: 176 | T: 1760 ms ============================================================================================================================
 +1.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -736,14 +913,19 @@
 +1.761666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.761666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.770000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.770000000s FRAME START | SFN: 177 | T: 1770 ms ============================================================================================================================
 +1.771666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.780000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.780000000s FRAME START | SFN: 178 | T: 1780 ms ============================================================================================================================
 +1.781666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +1.790000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++1.790000000s FRAME START | SFN: 179 | T: 1790 ms ============================================================================================================================
 +1.791666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +1.800000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++1.800000000s FRAME START | SFN: 180 | T: 1800 ms ============================================================================================================================
 +1.801666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +1.810000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++1.810000000s FRAME START | SFN: 181 | T: 1810 ms ============================================================================================================================
 +1.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -760,14 +942,19 @@
 +1.811666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.811666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +1.820000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++1.820000000s FRAME START | SFN: 182 | T: 1820 ms ============================================================================================================================
 +1.821666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +1.830000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++1.830000000s FRAME START | SFN: 183 | T: 1830 ms ============================================================================================================================
 +1.831666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +1.840000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++1.840000000s FRAME START | SFN: 184 | T: 1840 ms ============================================================================================================================
 +1.841666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +1.850000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++1.850000000s FRAME START | SFN: 185 | T: 1850 ms ============================================================================================================================
 +1.851666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +1.860000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++1.860000000s FRAME START | SFN: 186 | T: 1860 ms ============================================================================================================================
 +1.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -777,14 +964,19 @@
 +1.861666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.861666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +1.870000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++1.870000000s FRAME START | SFN: 187 | T: 1870 ms ============================================================================================================================
 +1.871666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +1.880000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++1.880000000s FRAME START | SFN: 188 | T: 1880 ms ============================================================================================================================
 +1.881666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +1.890000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++1.890000000s FRAME START | SFN: 189 | T: 1890 ms ============================================================================================================================
 +1.891666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +1.900000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++1.900000000s FRAME START | SFN: 190 | T: 1900 ms ============================================================================================================================
 +1.901666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +1.910000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++1.910000000s FRAME START | SFN: 191 | T: 1910 ms ============================================================================================================================
 +1.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +1.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -801,14 +993,19 @@
 +1.911666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.911666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +1.920000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++1.920000000s FRAME START | SFN: 192 | T: 1920 ms ============================================================================================================================
 +1.921666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +1.930000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++1.930000000s FRAME START | SFN: 193 | T: 1930 ms ============================================================================================================================
 +1.931666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +1.940000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++1.940000000s FRAME START | SFN: 194 | T: 1940 ms ============================================================================================================================
 +1.941666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +1.950000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++1.950000000s FRAME START | SFN: 195 | T: 1950 ms ============================================================================================================================
 +1.951666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +1.960000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++1.960000000s FRAME START | SFN: 196 | T: 1960 ms ============================================================================================================================
 +1.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +1.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +1.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -818,14 +1015,19 @@
 +1.961666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +1.961666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +1.970000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++1.970000000s FRAME START | SFN: 197 | T: 1970 ms ============================================================================================================================
 +1.971666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +1.980000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++1.980000000s FRAME START | SFN: 198 | T: 1980 ms ============================================================================================================================
 +1.981666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +1.990000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++1.990000000s FRAME START | SFN: 199 | T: 1990 ms ============================================================================================================================
 +1.991666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +2.000000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++2.000000000s FRAME START | SFN: 200 | T: 2000 ms ============================================================================================================================
 +2.001666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
 +2.010000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
++2.010000000s FRAME START | SFN: 201 | T: 2010 ms ============================================================================================================================
 +2.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -842,14 +1044,19 @@
 +2.011666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.011666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
 +2.020000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
++2.020000000s FRAME START | SFN: 202 | T: 2020 ms ============================================================================================================================
 +2.021666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
 +2.030000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
++2.030000000s FRAME START | SFN: 203 | T: 2030 ms ============================================================================================================================
 +2.031666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
 +2.040000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
++2.040000000s FRAME START | SFN: 204 | T: 2040 ms ============================================================================================================================
 +2.041666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
 +2.050000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
++2.050000000s FRAME START | SFN: 205 | T: 2050 ms ============================================================================================================================
 +2.051666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
 +2.060000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
++2.060000000s FRAME START | SFN: 206 | T: 2060 ms ============================================================================================================================
 +2.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -859,14 +1066,19 @@
 +2.061666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.061666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
 +2.070000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
++2.070000000s FRAME START | SFN: 207 | T: 2070 ms ============================================================================================================================
 +2.071666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
 +2.080000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
++2.080000000s FRAME START | SFN: 208 | T: 2080 ms ============================================================================================================================
 +2.081666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
 +2.090000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
++2.090000000s FRAME START | SFN: 209 | T: 2090 ms ============================================================================================================================
 +2.091666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
 +2.100000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
++2.100000000s FRAME START | SFN: 210 | T: 2100 ms ============================================================================================================================
 +2.101666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
 +2.110000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1659
++2.110000000s FRAME START | SFN: 211 | T: 2110 ms ============================================================================================================================
 +2.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -883,14 +1095,19 @@
 +2.111666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.111666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1660
 +2.120000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1661
++2.120000000s FRAME START | SFN: 212 | T: 2120 ms ============================================================================================================================
 +2.121666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1662
 +2.130000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1663
++2.130000000s FRAME START | SFN: 213 | T: 2130 ms ============================================================================================================================
 +2.131666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1664
 +2.140000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1665
++2.140000000s FRAME START | SFN: 214 | T: 2140 ms ============================================================================================================================
 +2.141666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1666
 +2.150000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1667
++2.150000000s FRAME START | SFN: 215 | T: 2150 ms ============================================================================================================================
 +2.151666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1668
 +2.160000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1669
++2.160000000s FRAME START | SFN: 216 | T: 2160 ms ============================================================================================================================
 +2.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -900,14 +1117,19 @@
 +2.161666672s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to IDLE
 +2.161666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1670
 +2.170000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1671
++2.170000000s FRAME START | SFN: 217 | T: 2170 ms ============================================================================================================================
 +2.171666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1672
 +2.180000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1673
++2.180000000s FRAME START | SFN: 218 | T: 2180 ms ============================================================================================================================
 +2.181666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1674
 +2.190000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1675
++2.190000000s FRAME START | SFN: 219 | T: 2190 ms ============================================================================================================================
 +2.191666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1676
 +2.200000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1677
++2.200000000s FRAME START | SFN: 220 | T: 2200 ms ============================================================================================================================
 +2.201666794s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1657
 +2.210000000s Dect2020ExtMac:DiscoverNetworks(): PT_MAC[1]: Switching to channel 1658
++2.210000000s FRAME START | SFN: 221 | T: 2210 ms ============================================================================================================================
 +2.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -928,6 +1150,11 @@
 +2.211666794s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Best FT candidate cluster channel ID: 1657
 +2.211666794s Dect2020ExtMac:SelectBestFtCandidate(): PT_MAC[1]: Switching to best FT's channel: 1657
 +2.211666794s Dect2020ExtMac:ChangeAssociationStatus(): PT_MAC[1]: Association status changed to WAITING_FOR_SELECTED_FT
++2.220000000s FRAME START | SFN: 222 | T: 2220 ms ============================================================================================================================
++2.230000000s FRAME START | SFN: 223 | T: 2230 ms ============================================================================================================================
++2.240000000s FRAME START | SFN: 224 | T: 2240 ms ============================================================================================================================
++2.250000000s FRAME START | SFN: 225 | T: 2250 ms ============================================================================================================================
++2.260000000s FRAME START | SFN: 226 | T: 2260 ms ============================================================================================================================
 +2.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1051,6 +1278,7 @@
 +2.269166778s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
 +2.269166778s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
 +2.269166778s Dect2020ExtMac:ProcessAssociationResponse(): Association Response received, but association status is not ASSOCIATION_PENDING. Ignoring the response.
++2.270000000s FRAME START | SFN: 227 | T: 2270 ms ============================================================================================================================
 +2.273455325s Dect2020ExtMac:CheckIfMacPduFitsInMaxRandomAccessTxTime(): PT_MAC[1]: MAC PDU size: 3 subslots
 +2.273455325s Dect2020ExtMac:EvaluateLBTChannel(): PT_MAC[1]: Transmitting at position 99 -> power on channel is -111 dBm
 +2.273455325s Dect2020ExtPhy:Send(): PT_PHY[1]: sending
@@ -1086,6 +1314,10 @@
 +2.275208451s Dect2020ExtMac:ReceiveFromPhy(): PT_MAC[1]: Received Unicast Packet
 +2.275208451s Dect2020ExtMac:ProcessAssociationResponse(): PT_MAC[1]Processing association response
 +2.275208451s Dect2020ExtMac:ProcessAssociationResponse(): Association Response received, but association status is not ASSOCIATION_PENDING. Ignoring the response.
++2.280000000s FRAME START | SFN: 228 | T: 2280 ms ============================================================================================================================
++2.290000000s FRAME START | SFN: 229 | T: 2290 ms ============================================================================================================================
++2.300000000s FRAME START | SFN: 230 | T: 2300 ms ============================================================================================================================
++2.310000000s FRAME START | SFN: 231 | T: 2310 ms ============================================================================================================================
 +2.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1112,6 +1344,11 @@
 +2.311666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.320000000s FRAME START | SFN: 232 | T: 2320 ms ============================================================================================================================
++2.330000000s FRAME START | SFN: 233 | T: 2330 ms ============================================================================================================================
++2.340000000s FRAME START | SFN: 234 | T: 2340 ms ============================================================================================================================
++2.350000000s FRAME START | SFN: 235 | T: 2350 ms ============================================================================================================================
++2.360000000s FRAME START | SFN: 236 | T: 2360 ms ============================================================================================================================
 +2.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1125,6 +1362,11 @@
 +2.361666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.370000000s FRAME START | SFN: 237 | T: 2370 ms ============================================================================================================================
++2.380000000s FRAME START | SFN: 238 | T: 2380 ms ============================================================================================================================
++2.390000000s FRAME START | SFN: 239 | T: 2390 ms ============================================================================================================================
++2.400000000s FRAME START | SFN: 240 | T: 2400 ms ============================================================================================================================
++2.410000000s FRAME START | SFN: 241 | T: 2410 ms ============================================================================================================================
 +2.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1151,6 +1393,11 @@
 +2.411666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.420000000s FRAME START | SFN: 242 | T: 2420 ms ============================================================================================================================
++2.430000000s FRAME START | SFN: 243 | T: 2430 ms ============================================================================================================================
++2.440000000s FRAME START | SFN: 244 | T: 2440 ms ============================================================================================================================
++2.450000000s FRAME START | SFN: 245 | T: 2450 ms ============================================================================================================================
++2.460000000s FRAME START | SFN: 246 | T: 2460 ms ============================================================================================================================
 +2.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1164,6 +1411,11 @@
 +2.461666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.470000000s FRAME START | SFN: 247 | T: 2470 ms ============================================================================================================================
++2.480000000s FRAME START | SFN: 248 | T: 2480 ms ============================================================================================================================
++2.490000000s FRAME START | SFN: 249 | T: 2490 ms ============================================================================================================================
++2.500000000s FRAME START | SFN: 250 | T: 2500 ms ============================================================================================================================
++2.510000000s FRAME START | SFN: 251 | T: 2510 ms ============================================================================================================================
 +2.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1190,6 +1442,11 @@
 +2.511666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.520000000s FRAME START | SFN: 252 | T: 2520 ms ============================================================================================================================
++2.530000000s FRAME START | SFN: 253 | T: 2530 ms ============================================================================================================================
++2.540000000s FRAME START | SFN: 254 | T: 2540 ms ============================================================================================================================
++2.550000000s FRAME START | SFN: 255 | T: 2550 ms ============================================================================================================================
++2.560000000s FRAME START | SFN: 256 | T: 2560 ms ============================================================================================================================
 +2.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1203,6 +1460,11 @@
 +2.561666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.570000000s FRAME START | SFN: 257 | T: 2570 ms ============================================================================================================================
++2.580000000s FRAME START | SFN: 258 | T: 2580 ms ============================================================================================================================
++2.590000000s FRAME START | SFN: 259 | T: 2590 ms ============================================================================================================================
++2.600000000s FRAME START | SFN: 260 | T: 2600 ms ============================================================================================================================
++2.610000000s FRAME START | SFN: 261 | T: 2610 ms ============================================================================================================================
 +2.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1229,6 +1491,11 @@
 +2.611666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.620000000s FRAME START | SFN: 262 | T: 2620 ms ============================================================================================================================
++2.630000000s FRAME START | SFN: 263 | T: 2630 ms ============================================================================================================================
++2.640000000s FRAME START | SFN: 264 | T: 2640 ms ============================================================================================================================
++2.650000000s FRAME START | SFN: 265 | T: 2650 ms ============================================================================================================================
++2.660000000s FRAME START | SFN: 266 | T: 2660 ms ============================================================================================================================
 +2.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1242,6 +1509,11 @@
 +2.661666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.670000000s FRAME START | SFN: 267 | T: 2670 ms ============================================================================================================================
++2.680000000s FRAME START | SFN: 268 | T: 2680 ms ============================================================================================================================
++2.690000000s FRAME START | SFN: 269 | T: 2690 ms ============================================================================================================================
++2.700000000s FRAME START | SFN: 270 | T: 2700 ms ============================================================================================================================
++2.710000000s FRAME START | SFN: 271 | T: 2710 ms ============================================================================================================================
 +2.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1268,6 +1540,11 @@
 +2.711666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.720000000s FRAME START | SFN: 272 | T: 2720 ms ============================================================================================================================
++2.730000000s FRAME START | SFN: 273 | T: 2730 ms ============================================================================================================================
++2.740000000s FRAME START | SFN: 274 | T: 2740 ms ============================================================================================================================
++2.750000000s FRAME START | SFN: 275 | T: 2750 ms ============================================================================================================================
++2.760000000s FRAME START | SFN: 276 | T: 2760 ms ============================================================================================================================
 +2.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1281,6 +1558,11 @@
 +2.761666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.770000000s FRAME START | SFN: 277 | T: 2770 ms ============================================================================================================================
++2.780000000s FRAME START | SFN: 278 | T: 2780 ms ============================================================================================================================
++2.790000000s FRAME START | SFN: 279 | T: 2790 ms ============================================================================================================================
++2.800000000s FRAME START | SFN: 280 | T: 2800 ms ============================================================================================================================
++2.810000000s FRAME START | SFN: 281 | T: 2810 ms ============================================================================================================================
 +2.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1307,6 +1589,11 @@
 +2.811666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.820000000s FRAME START | SFN: 282 | T: 2820 ms ============================================================================================================================
++2.830000000s FRAME START | SFN: 283 | T: 2830 ms ============================================================================================================================
++2.840000000s FRAME START | SFN: 284 | T: 2840 ms ============================================================================================================================
++2.850000000s FRAME START | SFN: 285 | T: 2850 ms ============================================================================================================================
++2.860000000s FRAME START | SFN: 286 | T: 2860 ms ============================================================================================================================
 +2.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1320,6 +1607,11 @@
 +2.861666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.870000000s FRAME START | SFN: 287 | T: 2870 ms ============================================================================================================================
++2.880000000s FRAME START | SFN: 288 | T: 2880 ms ============================================================================================================================
++2.890000000s FRAME START | SFN: 289 | T: 2890 ms ============================================================================================================================
++2.900000000s FRAME START | SFN: 290 | T: 2900 ms ============================================================================================================================
++2.910000000s FRAME START | SFN: 291 | T: 2910 ms ============================================================================================================================
 +2.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +2.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1346,6 +1638,11 @@
 +2.911666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.920000000s FRAME START | SFN: 292 | T: 2920 ms ============================================================================================================================
++2.930000000s FRAME START | SFN: 293 | T: 2930 ms ============================================================================================================================
++2.940000000s FRAME START | SFN: 294 | T: 2940 ms ============================================================================================================================
++2.950000000s FRAME START | SFN: 295 | T: 2950 ms ============================================================================================================================
++2.960000000s FRAME START | SFN: 296 | T: 2960 ms ============================================================================================================================
 +2.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +2.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +2.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1359,6 +1656,11 @@
 +2.961666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +2.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +2.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++2.970000000s FRAME START | SFN: 297 | T: 2970 ms ============================================================================================================================
++2.980000000s FRAME START | SFN: 298 | T: 2980 ms ============================================================================================================================
++2.990000000s FRAME START | SFN: 299 | T: 2990 ms ============================================================================================================================
++3.000000000s FRAME START | SFN: 300 | T: 3000 ms ============================================================================================================================
++3.010000000s FRAME START | SFN: 301 | T: 3010 ms ============================================================================================================================
 +3.010000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.010000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.010000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1385,6 +1687,11 @@
 +3.011666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.011666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.011666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.020000000s FRAME START | SFN: 302 | T: 3020 ms ============================================================================================================================
++3.030000000s FRAME START | SFN: 303 | T: 3030 ms ============================================================================================================================
++3.040000000s FRAME START | SFN: 304 | T: 3040 ms ============================================================================================================================
++3.050000000s FRAME START | SFN: 305 | T: 3050 ms ============================================================================================================================
++3.060000000s FRAME START | SFN: 306 | T: 3060 ms ============================================================================================================================
 +3.060833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.060833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.060833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1398,6 +1705,11 @@
 +3.061666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.061666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.061666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.070000000s FRAME START | SFN: 307 | T: 3070 ms ============================================================================================================================
++3.080000000s FRAME START | SFN: 308 | T: 3080 ms ============================================================================================================================
++3.090000000s FRAME START | SFN: 309 | T: 3090 ms ============================================================================================================================
++3.100000000s FRAME START | SFN: 310 | T: 3100 ms ============================================================================================================================
++3.110000000s FRAME START | SFN: 311 | T: 3110 ms ============================================================================================================================
 +3.110000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.110000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.110000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1424,6 +1736,11 @@
 +3.111666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.111666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.111666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.120000000s FRAME START | SFN: 312 | T: 3120 ms ============================================================================================================================
++3.130000000s FRAME START | SFN: 313 | T: 3130 ms ============================================================================================================================
++3.140000000s FRAME START | SFN: 314 | T: 3140 ms ============================================================================================================================
++3.150000000s FRAME START | SFN: 315 | T: 3150 ms ============================================================================================================================
++3.160000000s FRAME START | SFN: 316 | T: 3160 ms ============================================================================================================================
 +3.160833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.160833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.160833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1437,6 +1754,11 @@
 +3.161666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.161666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.161666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.170000000s FRAME START | SFN: 317 | T: 3170 ms ============================================================================================================================
++3.180000000s FRAME START | SFN: 318 | T: 3180 ms ============================================================================================================================
++3.190000000s FRAME START | SFN: 319 | T: 3190 ms ============================================================================================================================
++3.200000000s FRAME START | SFN: 320 | T: 3200 ms ============================================================================================================================
++3.210000000s FRAME START | SFN: 321 | T: 3210 ms ============================================================================================================================
 +3.210000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.210000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.210000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1463,6 +1785,11 @@
 +3.211666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.211666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.211666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.220000000s FRAME START | SFN: 322 | T: 3220 ms ============================================================================================================================
++3.230000000s FRAME START | SFN: 323 | T: 3230 ms ============================================================================================================================
++3.240000000s FRAME START | SFN: 324 | T: 3240 ms ============================================================================================================================
++3.250000000s FRAME START | SFN: 325 | T: 3250 ms ============================================================================================================================
++3.260000000s FRAME START | SFN: 326 | T: 3260 ms ============================================================================================================================
 +3.260833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.260833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.260833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1476,6 +1803,11 @@
 +3.261666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.261666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.261666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.270000000s FRAME START | SFN: 327 | T: 3270 ms ============================================================================================================================
++3.280000000s FRAME START | SFN: 328 | T: 3280 ms ============================================================================================================================
++3.290000000s FRAME START | SFN: 329 | T: 3290 ms ============================================================================================================================
++3.300000000s FRAME START | SFN: 330 | T: 3300 ms ============================================================================================================================
++3.310000000s FRAME START | SFN: 331 | T: 3310 ms ============================================================================================================================
 +3.310000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.310000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.310000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1502,6 +1834,11 @@
 +3.311666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.311666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.320000000s FRAME START | SFN: 332 | T: 3320 ms ============================================================================================================================
++3.330000000s FRAME START | SFN: 333 | T: 3330 ms ============================================================================================================================
++3.340000000s FRAME START | SFN: 334 | T: 3340 ms ============================================================================================================================
++3.350000000s FRAME START | SFN: 335 | T: 3350 ms ============================================================================================================================
++3.360000000s FRAME START | SFN: 336 | T: 3360 ms ============================================================================================================================
 +3.360833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.360833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.360833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1515,6 +1852,11 @@
 +3.361666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.361666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.370000000s FRAME START | SFN: 337 | T: 3370 ms ============================================================================================================================
++3.380000000s FRAME START | SFN: 338 | T: 3380 ms ============================================================================================================================
++3.390000000s FRAME START | SFN: 339 | T: 3390 ms ============================================================================================================================
++3.400000000s FRAME START | SFN: 340 | T: 3400 ms ============================================================================================================================
++3.410000000s FRAME START | SFN: 341 | T: 3410 ms ============================================================================================================================
 +3.410000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.410000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.410000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1541,6 +1883,11 @@
 +3.411666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.411666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.420000000s FRAME START | SFN: 342 | T: 3420 ms ============================================================================================================================
++3.430000000s FRAME START | SFN: 343 | T: 3430 ms ============================================================================================================================
++3.440000000s FRAME START | SFN: 344 | T: 3440 ms ============================================================================================================================
++3.450000000s FRAME START | SFN: 345 | T: 3450 ms ============================================================================================================================
++3.460000000s FRAME START | SFN: 346 | T: 3460 ms ============================================================================================================================
 +3.460833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.460833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.460833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1554,6 +1901,11 @@
 +3.461666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.461666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.470000000s FRAME START | SFN: 347 | T: 3470 ms ============================================================================================================================
++3.480000000s FRAME START | SFN: 348 | T: 3480 ms ============================================================================================================================
++3.490000000s FRAME START | SFN: 349 | T: 3490 ms ============================================================================================================================
++3.500000000s FRAME START | SFN: 350 | T: 3500 ms ============================================================================================================================
++3.510000000s FRAME START | SFN: 351 | T: 3510 ms ============================================================================================================================
 +3.510000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.510000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.510000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1580,6 +1932,11 @@
 +3.511666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.511666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.520000000s FRAME START | SFN: 352 | T: 3520 ms ============================================================================================================================
++3.530000000s FRAME START | SFN: 353 | T: 3530 ms ============================================================================================================================
++3.540000000s FRAME START | SFN: 354 | T: 3540 ms ============================================================================================================================
++3.550000000s FRAME START | SFN: 355 | T: 3550 ms ============================================================================================================================
++3.560000000s FRAME START | SFN: 356 | T: 3560 ms ============================================================================================================================
 +3.560833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.560833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.560833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1593,6 +1950,11 @@
 +3.561666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.561666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.570000000s FRAME START | SFN: 357 | T: 3570 ms ============================================================================================================================
++3.580000000s FRAME START | SFN: 358 | T: 3580 ms ============================================================================================================================
++3.590000000s FRAME START | SFN: 359 | T: 3590 ms ============================================================================================================================
++3.600000000s FRAME START | SFN: 360 | T: 3600 ms ============================================================================================================================
++3.610000000s FRAME START | SFN: 361 | T: 3610 ms ============================================================================================================================
 +3.610000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.610000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.610000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1619,6 +1981,11 @@
 +3.611666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.611666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.620000000s FRAME START | SFN: 362 | T: 3620 ms ============================================================================================================================
++3.630000000s FRAME START | SFN: 363 | T: 3630 ms ============================================================================================================================
++3.640000000s FRAME START | SFN: 364 | T: 3640 ms ============================================================================================================================
++3.650000000s FRAME START | SFN: 365 | T: 3650 ms ============================================================================================================================
++3.660000000s FRAME START | SFN: 366 | T: 3660 ms ============================================================================================================================
 +3.660833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.660833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.660833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1632,6 +1999,11 @@
 +3.661666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.661666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.670000000s FRAME START | SFN: 367 | T: 3670 ms ============================================================================================================================
++3.680000000s FRAME START | SFN: 368 | T: 3680 ms ============================================================================================================================
++3.690000000s FRAME START | SFN: 369 | T: 3690 ms ============================================================================================================================
++3.700000000s FRAME START | SFN: 370 | T: 3700 ms ============================================================================================================================
++3.710000000s FRAME START | SFN: 371 | T: 3710 ms ============================================================================================================================
 +3.710000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.710000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.710000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1658,6 +2030,11 @@
 +3.711666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.711666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.720000000s FRAME START | SFN: 372 | T: 3720 ms ============================================================================================================================
++3.730000000s FRAME START | SFN: 373 | T: 3730 ms ============================================================================================================================
++3.740000000s FRAME START | SFN: 374 | T: 3740 ms ============================================================================================================================
++3.750000000s FRAME START | SFN: 375 | T: 3750 ms ============================================================================================================================
++3.760000000s FRAME START | SFN: 376 | T: 3760 ms ============================================================================================================================
 +3.760833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.760833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.760833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1671,6 +2048,11 @@
 +3.761666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.761666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.770000000s FRAME START | SFN: 377 | T: 3770 ms ============================================================================================================================
++3.780000000s FRAME START | SFN: 378 | T: 3780 ms ============================================================================================================================
++3.790000000s FRAME START | SFN: 379 | T: 3790 ms ============================================================================================================================
++3.800000000s FRAME START | SFN: 380 | T: 3800 ms ============================================================================================================================
++3.810000000s FRAME START | SFN: 381 | T: 3810 ms ============================================================================================================================
 +3.810000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.810000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.810000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1697,6 +2079,11 @@
 +3.811666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.811666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.820000000s FRAME START | SFN: 382 | T: 3820 ms ============================================================================================================================
++3.830000000s FRAME START | SFN: 383 | T: 3830 ms ============================================================================================================================
++3.840000000s FRAME START | SFN: 384 | T: 3840 ms ============================================================================================================================
++3.850000000s FRAME START | SFN: 385 | T: 3850 ms ============================================================================================================================
++3.860000000s FRAME START | SFN: 386 | T: 3860 ms ============================================================================================================================
 +3.860833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.860833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.860833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1710,6 +2097,11 @@
 +3.861666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.861666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.870000000s FRAME START | SFN: 387 | T: 3870 ms ============================================================================================================================
++3.880000000s FRAME START | SFN: 388 | T: 3880 ms ============================================================================================================================
++3.890000000s FRAME START | SFN: 389 | T: 3890 ms ============================================================================================================================
++3.900000000s FRAME START | SFN: 390 | T: 3900 ms ============================================================================================================================
++3.910000000s FRAME START | SFN: 391 | T: 3910 ms ============================================================================================================================
 +3.910000000s Dect2020ExtMac:SendNetworkBeaconOnChannel(): FT_MAC[0]: Sending Network Beacon (channel=1657,slot=0,subslot=0)
 +3.910000000s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.910000000s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1736,6 +2128,11 @@
 +3.911666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.911666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.920000000s FRAME START | SFN: 392 | T: 3920 ms ============================================================================================================================
++3.930000000s FRAME START | SFN: 393 | T: 3930 ms ============================================================================================================================
++3.940000000s FRAME START | SFN: 394 | T: 3940 ms ============================================================================================================================
++3.950000000s FRAME START | SFN: 395 | T: 3950 ms ============================================================================================================================
++3.960000000s FRAME START | SFN: 396 | T: 3960 ms ============================================================================================================================
 +3.960833332s Dect2020ExtMac:SendClusterBeaconOnChannel(): FT_MAC[0]: Sending Cluster Beacon (channel=1657,slot=2,subslot=4)
 +3.960833332s Dect2020ExtPhy:Send(): FT_PHY[0]: Sending
 +3.960833332s Dect2020ExtPhy:ChangeState(): FT_PHY[0]: State changed to TX
@@ -1749,5 +2146,8 @@
 +3.961666794s Dect2020ExtMac:HandleBeaconPacket(): PT_MAC[1]: Received Cluster Beacon Message
 +3.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Evaluating Cluster Beacon
 +3.961666794s Dect2020ExtMac:EvaluateClusterBeacon(): PT_MAC[1]: Device is already associated
++3.970000000s FRAME START | SFN: 397 | T: 3970 ms ============================================================================================================================
++3.980000000s FRAME START | SFN: 398 | T: 3980 ms ============================================================================================================================
++3.990000000s FRAME START | SFN: 399 | T: 3990 ms ============================================================================================================================
 FT_PHY[0] accepted 4 packets
 PT_PHY[1] accepted 59 packets

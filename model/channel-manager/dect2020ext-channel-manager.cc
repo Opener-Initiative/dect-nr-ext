@@ -86,7 +86,7 @@ Dect2020ExtChannelManager::GetBandParameters(uint8_t bandNumber)
         break;
 
     default:
-        NS_FATAL_ERROR("Invalid band number. Supported bands are 1, 2, 20, and 21.");
+        NS_FATAL_ERROR("Invalid band number. Supported bands are 1, 2, 20, and 21. Got " << static_cast<int>(bandNumber));
     }
 
     return bp;

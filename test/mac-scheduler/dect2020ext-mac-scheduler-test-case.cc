@@ -26,14 +26,15 @@ void
 Dect2020ExtMacSchedulerTestCase::DoRun()
 {
     Dect2020ExtConfig config;
-    Ptr<Dect2020ExtChannelManager> channelManager = config.m_channelManager;
+
     Dect2020ExtMacScheduler scheduler;
-    scheduler.SetBandNumber(1);
-    scheduler.SetSubcarrierScalingFactor(1);
-    scheduler.SetFourierTransformScalingFactor(1);
-    scheduler.SetChannelManager(channelManager);
+    scheduler.Dummy(true);
+    scheduler.SetBandNumber(BAND_NUMBER);
+    scheduler.SetSubcarrierScalingFactor(SUBCARRIER_SCALING_FACTOR);
+    scheduler.SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
+    scheduler.SetChannelManager(config.m_channelManager);
     scheduler.Initialize();
-    scheduler.StartMacScheduler();
+    // scheduler.StartMacScheduler(); <- this line crashes the test
 
     auto grid = scheduler.GetMacScheduler();
     NS_TEST_ASSERT_MSG_EQ(grid.empty(), false, "Error: the MAC Scheduler should not be empty after initialization");

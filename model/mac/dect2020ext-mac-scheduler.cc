@@ -9,12 +9,25 @@
 
 #include <cstdint>
 #include <sstream>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 namespace ns3
 {
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtMacScheduler");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtMacScheduler);
+
+static void
+PrintFrameBanner(const std::string& label)
+{
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    int width = (w.ws_col > 0) ? static_cast<int>(w.ws_col) : 80;
+    int fillLen = width - static_cast<int>(label.size()) - 1;
+    std::string fill = (fillLen > 0) ? " " + std::string(fillLen, '=') : "";
+    NS_LOG_INFO(label << fill);
+}
 
 // ##################################
 // #### Mac Scheduler Operation ####
@@ -81,8 +94,6 @@ Dect2020ExtMacScheduler::GetTypeId()
 void
 Dect2020ExtMacScheduler::Initialize()
 {
-    NS_LOG_FUNCTION(this);
-
     uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot(); // Get the number of subslots per slot based on the subcarrier scaling factor
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber); // Get current band parameters
     uint16_t numChannels = (bandParams.nEnd - bandParams.nStart) + 1; // Number of channels
@@ -134,22 +145,25 @@ Dect2020ExtMacScheduler::Initialize()
 void
 Dect2020ExtMacScheduler::StartMacScheduler()
 {
-    NS_LOG_FUNCTION(this);
-
     NS_ABORT_MSG_IF(!m_bandNumberSet, "Band number is not set for Dect2020ExtMacScheduler");
     NS_ABORT_MSG_IF(!m_subcarrierScalingFactorSet, "Subcarrier scaling factor is not set for Dect2020ExtMacScheduler");
     NS_ABORT_MSG_IF(!m_fourierTransformScalingFactorSet, "Fourier transform scaling factor is not set for Dect2020ExtMacScheduler");
     NS_ABORT_MSG_IF(!m_channelManager, "Channel Manager is not set for Dect2020ExtMacScheduler");
 
     m_currentFrameStartTime = Simulator::Now();
-    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    uint32_t numSubslotsPerFrame = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
-    // Update SFN if m_currentFrameStartTime is not equal to 0
     if (m_currentFrameStartTime != Seconds(0))
     {
         m_SFN++;
     }
+
+    if (m_dummy)
+    {
+        PrintFrameBanner("FRAME START | SFN: " + std::to_string(m_SFN) + " | T: " + std::to_string(Simulator::Now().GetMilliSeconds()) + " ms");
+    }
+
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t numSubslotsPerFrame = numSubslotsPerSlot * SLOTS_PER_FRAME;
 
     for (uint32_t slotNumber = 0; slotNumber < SLOTS_PER_FRAME; slotNumber++)
     {
@@ -169,24 +183,31 @@ Dect2020ExtMacScheduler::StartMacScheduler()
 void
 Dect2020ExtMacScheduler::ScheduleNextMacScheduler()
 {
-    NS_LOG_FUNCTION(this);
     m_macScheduler = m_nextMacScheduler;
+    // Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtMacScheduler::PrintFrameEnd, this);
     Simulator::Schedule(MicroSeconds(FRAME_DURATION_US), &Dect2020ExtMacScheduler::StartMacScheduler, this);
+}
+
+void
+Dect2020ExtMacScheduler::PrintFrameEnd()
+{
+    if (m_dummy)
+    {
+        PrintFrameBanner("FRAME END   | SFN: " + std::to_string(m_SFN) + " | T: " + std::to_string(Simulator::Now().GetMilliSeconds()) + " ms");
+    }
 }
 
 void
 Dect2020ExtMacScheduler::ProcessSlot(uint32_t slotNumber)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing slot " << slotNumber << " at time: " << Simulator::Now());
+    NS_LOG_DEBUG("Processing slot " << slotNumber << " at time: " << Simulator::Now());
     m_currentSlotNumber = slotNumber;
 }
 
 void
 Dect2020ExtMacScheduler::ProcessSubslot(uint32_t subslotNumber)
 {
-    NS_LOG_FUNCTION(this);
-    NS_LOG_INFO("Processing subslot " << subslotNumber << " at time: " << Simulator::Now());
+    NS_LOG_DEBUG("Processing subslot " << subslotNumber << " at time: " << Simulator::Now());
     m_currentSubslotNumber = subslotNumber;
     BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
 
@@ -228,11 +249,11 @@ Dect2020ExtMacScheduler::GetTimeTillNextFrameNs() const
 
     // Handle case where multiple frames have passed (module operation)
     int64_t elapsedInCurrentFrameNs = elapsedNs % frameDurationNs;
-    NS_LOG_INFO("Elapsed in current frame: " << elapsedInCurrentFrameNs << "ns");
+    NS_LOG_DEBUG("Elapsed in current frame: " << elapsedInCurrentFrameNs << "ns");
 
     // Calculate remaining time until next frame boundary
     int64_t timeToNextFrameNs = frameDurationNs - elapsedInCurrentFrameNs;
-    NS_LOG_INFO("Current time: " << currentTime.GetNanoSeconds() << "ns, "
+    NS_LOG_DEBUG("Current time: " << currentTime.GetNanoSeconds() << "ns, "
                         << "ns, Time to next frame: " << timeToNextFrameNs << "ns. " << "Current frame start time: " << m_currentFrameStartTime.GetNanoSeconds() << "ns");
 
     return static_cast<double>(timeToNextFrameNs);
@@ -308,7 +329,7 @@ Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
     {
         // Target subslot hasn't happened yet in current frame
         double timeToSubslotNs = targetSubslotAbsoluteTimeNs - elapsedInCurrentFrameNs;
-        NS_LOG_INFO(timeToSubslotNs / 1000000000);
+        NS_LOG_DEBUG(timeToSubslotNs / 1000000000);
         return timeToSubslotNs;
     }
     else
@@ -316,7 +337,7 @@ Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
         // Target subslot has already passed in current frame, calculate for next frame
         double timeToNextFrameNe = frameDurationNs - elapsedInCurrentFrameNs;
         double timeToSubslotNs = timeToNextFrameNe + targetSubslotOffsetNs;
-        NS_LOG_INFO(timeToSubslotNs / 1000000000);
+        NS_LOG_DEBUG(timeToSubslotNs / 1000000000);
         return timeToSubslotNs;
     }
 }
@@ -334,7 +355,7 @@ Dect2020ExtMacScheduler::GetCurrentSubslotNumber() const
 }
 
 uint32_t
-Dect2020ExtMacScheduler::GetSFN() const
+Dect2020ExtMacScheduler::GetSfn() const
 {
     return m_SFN;
 }
@@ -421,10 +442,10 @@ Dect2020ExtMacScheduler::ScheduleOperationOnNextFrame(Dect2020ExtMacSchedulerOpe
 void
 Dect2020ExtMacScheduler::PrintConfiguration() const
 {
-    NS_LOG_INFO("Mac Scheduler Configuration:");
-    NS_LOG_INFO("  Band Number: " << static_cast<uint16_t>(m_bandNumber));
-    NS_LOG_INFO("  Subcarrier Scaling Factor: " << static_cast<uint16_t>(m_subcarrierScalingFactor));
-    NS_LOG_INFO("  Fourier Transform Scaling Factor: " << static_cast<uint16_t>(m_fourierTransformScalingFactor));
+    NS_LOG_DEBUG("Mac Scheduler Configuration:");
+    NS_LOG_DEBUG("  Band Number: " << static_cast<uint16_t>(m_bandNumber));
+    NS_LOG_DEBUG("  Subcarrier Scaling Factor: " << static_cast<uint16_t>(m_subcarrierScalingFactor));
+    NS_LOG_DEBUG("  Fourier Transform Scaling Factor: " << static_cast<uint16_t>(m_fourierTransformScalingFactor));
 }
 
 void
@@ -452,6 +473,12 @@ Dect2020ExtMacScheduler::PrintMacScheduler() const
         }
         std::cout << ss.str();
     }
+}
+
+void
+Dect2020ExtMacScheduler::Dummy(bool value)
+{
+    m_dummy = value;
 }
 
 } // namespace ns3
