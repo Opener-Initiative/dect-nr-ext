@@ -321,6 +321,24 @@ Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
     return timeToSubslotNs;
 }
 
+double
+Dect2020ExtMacScheduler::GetTimeTillSubslotEndNs(uint32_t subslotNumber) const
+{
+    if (subslotNumber < m_currentSubslotNumber)
+    {
+        NS_FATAL_ERROR("The requested subslot number has already passed in the current frame. Requested subslot number: " << subslotNumber);
+    }
+
+    Time currentTime = Simulator::Now();
+
+    double targetSubslotOffsetNs = GetSubslotEndTimeOffsetNs(subslotNumber);
+
+    int64_t elapsedNs = (currentTime - m_currentFrameStartTime).GetNanoSeconds();
+    auto timeToSubslotNs = static_cast<double>(static_cast<int64_t>(targetSubslotOffsetNs) - elapsedNs);
+
+    return timeToSubslotNs;
+}
+
 uint32_t
 Dect2020ExtMacScheduler::GetCurrentSlotNumber() const
 {

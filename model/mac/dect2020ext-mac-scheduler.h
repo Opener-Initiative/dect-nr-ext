@@ -124,6 +124,10 @@ class Dect2020ExtMacScheduler : public Object
         // Asserts if the subslot is in the current frame and has not passed yet.
         double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
 
+        // Get time in nanoseconds till subslot end.
+        // Asserts if the subslot is in the current frame and has not passed yet.
+        double GetTimeTillSubslotEndNs(uint32_t subslotNumber) const;
+
         // Get the current slot number (m_currentSlotNumber)
         uint32_t GetCurrentSlotNumber() const;
 
