@@ -104,19 +104,38 @@ class Dect2020ExtMacScheduler : public Object
         // Time and Slot/Subslot Getters
 
         double GetTimeTillNextFrameNs() const;
-        double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
-        double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const; // relative to the frame
-        double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
-        double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const; // relative to the slot
+
+        // Relative to the frame
+        double GetSlotStartTimeOffsetNs(uint32_t slotNumber) const;
+
+        // Relative to the frame
+        double GetSlotEndTimeOffsetNs(uint32_t slotNumber) const;
+
+        // Relative to the frame
+        double GetSubslotStartTimeOffsetNs(uint32_t subslotNumber) const;
+
+        // Relative to the frame
+        double GetSubslotEndTimeOffsetNs(uint32_t subslotNumber) const;
+
+        // Get MAC Scheduler subslot (Dect2020ExtMacSchedulerSubslot) by the absolute subslot number
         Dect2020ExtMacSchedulerSubslot GetSubslotBySubslotNumber(uint16_t channelNumber, uint32_t subslotNumber) const;
+
+        // Get time in nanoseconds till subslot start.
+        // Asserts if the subslot is in the current frame and has not passed yet.
         double GetTimeTillSubslotStartNs(uint32_t subslotNumber) const;
+
+        // Get the current slot number (m_currentSlotNumber)
         uint32_t GetCurrentSlotNumber() const;
+
+        // Get the current subslot number (m_currentSubslotNumber)
         uint32_t GetCurrentSubslotNumber() const;
 
         // Setters and Getters
 
         uint32_t GetSfn() const;
+
         std::map<uint16_t, std::vector<Dect2020ExtMacSchedulerSlot>> GetMacScheduler() const;
+
         void SetMac(Ptr<Dect2020ExtMac> mac);
 
         void SetBandNumber(uint8_t bandNumber);

@@ -306,40 +306,19 @@ Dect2020ExtMacScheduler::GetSubslotBySubslotNumber(uint16_t channelNumber, uint3
 double
 Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs(uint32_t subslotNumber) const
 {
-    Time currentTime = Simulator::Now();
-    Time frameDuration = MicroSeconds(FRAME_DURATION_US);
+    if (subslotNumber < m_currentSubslotNumber)
+    {
+        NS_FATAL_ERROR("The requested subslot number has already passed in the current frame. Requested subslot number: " << subslotNumber);
+    }
 
-    // Get the offset of the target subslot within a frame
+    Time currentTime = Simulator::Now();
+
     double targetSubslotOffsetNs = GetSubslotStartTimeOffsetNs(subslotNumber);
 
-    // Calculate elapsed time since current frame started
-    Time elapsedSinceFrameStart = currentTime - m_currentFrameStartTime;
+    int64_t elapsedNs = (currentTime - m_currentFrameStartTime).GetNanoSeconds();
+    auto timeToSubslotNs = static_cast<double>(static_cast<int64_t>(targetSubslotOffsetNs) - elapsedNs);
 
-    int64_t elapsedNs = elapsedSinceFrameStart.GetNanoSeconds();
-    int64_t frameDurationNs = frameDuration.GetNanoSeconds();
-
-    // Handle case where multiple frames have passed (modulo operation)
-    int64_t elapsedInCurrentFrameNs = elapsedNs % frameDurationNs;
-
-    // Calculate the absolute time of the target subslot start within current frame
-    auto targetSubslotAbsoluteTimeNs = static_cast<int64_t>(targetSubslotOffsetNs);
-
-    // Check if target subslot is in the future within current frame
-    if (targetSubslotAbsoluteTimeNs > elapsedInCurrentFrameNs)
-    {
-        // Target subslot hasn't happened yet in current frame
-        double timeToSubslotNs = targetSubslotAbsoluteTimeNs - elapsedInCurrentFrameNs;
-        NS_LOG_DEBUG(timeToSubslotNs / 1000000000);
-        return timeToSubslotNs;
-    }
-    else
-    {
-        // Target subslot has already passed in current frame, calculate for next frame
-        double timeToNextFrameNe = frameDurationNs - elapsedInCurrentFrameNs;
-        double timeToSubslotNs = timeToNextFrameNe + targetSubslotOffsetNs;
-        NS_LOG_DEBUG(timeToSubslotNs / 1000000000);
-        return timeToSubslotNs;
-    }
+    return timeToSubslotNs;
 }
 
 uint32_t

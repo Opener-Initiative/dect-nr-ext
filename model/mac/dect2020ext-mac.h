@@ -28,6 +28,7 @@
 #include "ns3/uinteger.h"
 #include "ns3/node.h"
 
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <vector>
@@ -80,14 +81,19 @@ struct Dect2020ExtHarqProcess
         // NACK_PENDING // NACK received, retransmission needed
     };
 
+    void ResetProcess()
+    {
+        state = FREE;
+        reTxCount = 0;
+        packet = nullptr;
+    }
+
     State state = FREE;
-    uint8_t processId = 0;
-    uint8_t ndi = 0;
-    uint8_t rv = 0;
+    const uint8_t processId = 0; // Currently, only one process can exist with ID 0
+    bool ndi;
     uint8_t reTxCount = 0;
-    uint8_t maxRetx = 4;
+    const uint8_t maxRetx = 4; // Fixed number of max retransmissions
     Ptr<Packet> packet;
-    Time txTime;
     std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
 };
 
@@ -244,8 +250,7 @@ class Dect2020ExtMac : public Object
 
         // Random Access Procedure
 
-        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField);
-        void InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess);
+        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Dect2020ExtHarqProcess* harqProcess, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
@@ -301,9 +306,9 @@ class Dect2020ExtMac : public Object
 
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
-        // HARQ
+        // Random Access
 
-        void InitiateHARQ();
+        void InitiateHarq();
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
         void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
         void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2);
@@ -361,12 +366,19 @@ class Dect2020ExtMac : public Object
         uint8_t m_lastSfn;
         uint8_t m_potentialShortNetworkId;
         std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
-        Ptr<UniformRandomVariable> m_backoffRandomVariable;
-        std::queue<Ptr<Packet>> m_txQueue;
         Ptr<Dect2020ExtApp> m_app;
-        static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
-        std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqTable;
         Time m_lastRxTime;
+
+        // Random Access
+        Ptr<UniformRandomVariable> m_backoffRandomVariable;
+
+        // Tx Queue
+        std::queue<Ptr<Packet>> m_txQueue;
+
+        // HARQ
+
+        static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
+        std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqProcesses;
 
         // Configuration
 
@@ -408,7 +420,6 @@ class Dect2020ExtMac : public Object
 
         // Constants
 
-        // ETSI TS 103 636-4 V2.1.1 #7.2-1
         const double RSSI_THRESHOLD_MIN = -85; // dBm
         const double RSSI_THRESHOLD_MAX = -50; // dBm TODO: RSSI_THRESHOLDMAX = -52 - max TX Power of RD
         const int SCAN_MEAS_DURATION = 24;     // slots
@@ -416,7 +427,8 @@ class Dect2020ExtMac : public Object
                                             // fulfilling the operating conditions.
         const int SCAN_STATUS_VALID = 300;     // seconds
 
-        // CONSTANTS SPECIFICALLY FOR SUBCARRIeR SCALING FACTOR 1
+        // Constants specifically for subcarrier scaling factor 1
+
         const double GI_US = 18.52; // GI in microseconds GI = (4/9) * T_u_symb
         const double STF_US = 64.815; // STF = (14/9) * T_u_symb
         const double MINIMUM_LBT_PERIOD_US = STF_US + GI_US;

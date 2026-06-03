@@ -1,5 +1,6 @@
 #include "dect2020ext-mac-scheduler-test-case.h"
 #include "dect2020ext-mac-scheduler-sfn-test-case.h"
+#include "dect2020ext-mac-scheduler-time-till-subslot-test-case.h"
 
 #include "ns3/test.h"
 
@@ -17,6 +18,7 @@ Dect2020ExtMacSchedulerTest::Dect2020ExtMacSchedulerTest()
 {
     AddTestCase(new Dect2020ExtMacSchedulerTestCase(), TestCase::Duration::QUICK);
     AddTestCase(new Dect2020ExtMacSchedulerSfnTestCase(), TestCase::Duration::QUICK);
+    AddTestCase(new Dect2020ExtMacSchedulerTimeTillSubslotTestCase(), TestCase::Duration::QUICK);
 }
 
 Dect2020ExtMacSchedulerTest::~Dect2020ExtMacSchedulerTest()

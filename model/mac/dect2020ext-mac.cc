@@ -885,165 +885,75 @@ Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
     return packetLengthInSlots;
 }
 
-void
-Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeaderField)
-{
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
-    uint16_t startSubslot = randomAccessResourceIe.GetStartSubslot();
-    bool lengthInSubslots = !randomAccessResourceIe.GetLengthType();
-    uint8_t length = randomAccessResourceIe.GetRaraLength(); // RACH resources length
+// void
+// Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Dect2020ExtHarqProcess* process, Dect2020ExtPhyControlFieldType2 physicalHeaderField)
+// {
+//     NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
 
-    // Calculate the total RACH resource duration in microseconds
-    double rachDurationUs;
-    if (lengthInSubslots)
-    {
-        uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-        double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
-        rachDurationUs = length * subslotDurationUs;
-    }
-    else
-    {
-        // tbd --> Length in slots
-        NS_LOG_WARN("WARNING: RACH resources length is in slots (not yet implemented)");
-        return;
-    }
+//     uint16_t startSubslot = randomAccessResourceIe.GetStartSubslot();
+//     bool lengthInSubslots = !randomAccessResourceIe.GetLengthType();
+//     uint8_t length = randomAccessResourceIe.GetRaraLength(); // RACH resources length
 
-    const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us;
+//     // Calculate the total RACH resource duration in microseconds
+//     double rachDurationUs;
+//     if (lengthInSubslots)
+//     {
+//         uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+//         double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
+//         rachDurationUs = length * subslotDurationUs;
+//     }
+//     else
+//     {
+//         // tbd --> Length in slots
+//         NS_LOG_WARN("WARNING: RACH resources length is in slots (not yet implemented)");
+//         return;
+//     }
 
-    // Calculate all possible start positions
-    // Start positions are at 0, 1, 2, 3... times (STF + GI)
-    std::vector<double> startPositions;
-    double currentPosition = 0.0;
-    uint32_t positionIndex = 0;
+//     const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us;
 
-    while (currentPosition < rachDurationUs)
-    {
-        startPositions.push_back(currentPosition);
-        positionIndex++;
-        currentPosition = positionIndex * START_POSITION_INTERVAL_US;
-    }
+//     // Calculate all possible start positions
+//     // Start positions are at 0, 1, 2, 3... times (STF + GI)
+//     std::vector<double> startPositions;
+//     double currentPosition = 0.0;
+//     uint32_t positionIndex = 0;
 
-    // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
-    uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
+//     while (currentPosition < rachDurationUs)
+//     {
+//         startPositions.push_back(currentPosition);
+//         positionIndex++;
+//         currentPosition = positionIndex * START_POSITION_INTERVAL_US;
+//     }
 
-    // Calculate CW_MAX; CW_MAX = 256 * CWmax_sig
-    uint32_t CW_MAX = 256 * randomAccessResourceIe.GetCwMaxSig();
+//     // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
+//     uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
 
-    // Initialize and set CW_CURRENT to CW_MIN
-    uint32_t CW_CURRENT = CW_MIN;
+//     // Calculate CW_MAX; CW_MAX = 256 * CWmax_sig
+//     uint32_t CW_MAX = 256 * randomAccessResourceIe.GetCwMaxSig();
 
-    // Calculate time until RACH resources start
-    double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot);
-    Time delay = NanoSeconds(timeToRachStartNs);
+//     // Initialize and set CW_CURRENT to CW_MIN
+//     uint32_t CW_CURRENT = CW_MIN;
 
-    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
-    randomAccessContext->m_randomAccessResourceIe = randomAccessResourceIe;
-    randomAccessContext->m_startPositions = startPositions;
-    randomAccessContext->m_CW_MAX = CW_MAX;
-    randomAccessContext->m_CW_MIN = CW_MIN;
-    randomAccessContext->m_CW_CURRENT = CW_CURRENT;
-    randomAccessContext->m_packet = packet;
-    randomAccessContext->m_physicalHeaderFieldType1 = physicalHeaderField;
-    randomAccessContext->m_physicalHeaderFieldType = 1;
+//     // Calculate time until RACH resources start
+//     double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot);
+//     Time delay = NanoSeconds(timeToRachStartNs);
 
-    // Store RACH start time for precise timing calculations
-    randomAccessContext->m_rachStartTime = Simulator::Now() + delay;
-    randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
+//     std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
+//     randomAccessContext->m_randomAccessResourceIe = randomAccessResourceIe;
+//     randomAccessContext->m_startPositions = startPositions;
+//     randomAccessContext->m_CW_MAX = CW_MAX;
+//     randomAccessContext->m_CW_MIN = CW_MIN;
+//     randomAccessContext->m_CW_CURRENT = CW_CURRENT;
+//     randomAccessContext->m_packet = packet;
+//     randomAccessContext->m_physicalHeaderFieldType1 = physicalHeaderField;
+//     randomAccessContext->m_physicalHeaderFieldType = 1;
 
-    // Schedule the backoff initialization to start when RACH resources begin
-    Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
-}
+//     // Store RACH start time for precise timing calculations
+//     randomAccessContext->m_rachStartTime = Simulator::Now() + delay;
+//     randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
 
-void
-Dect2020ExtMac::InitiateHarqRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderField, Dect2020ExtHarqProcess* harqProcess)
-{
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Harq Random Access Procedure");
-    uint16_t startSubslot = randomAccessResourceIe.GetStartSubslot();
-    bool lengthInSubslots = !randomAccessResourceIe.GetLengthType();
-    uint8_t length = randomAccessResourceIe.GetRaraLength(); // RACH resources length
-
-    // Calculate the remaining RACH resource duration in microseconds
-    double rachDurationUs;
-    if (lengthInSubslots)
-    {
-        uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-        uint32_t subslotsPerFrame = subslotsPerSlot * 24;
-
-        uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
-        uint32_t nextSubslotNumber = currentSubslotNumber + 1;
-
-        // Reschedule for the next frame's RACH window if the current one has passed
-        if (nextSubslotNumber >= startSubslot + length)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": RACH window has passed, rescheduling for next frame");
-            double timeTillNextFrameNs = m_macScheduler->GetTimeTillNextFrameNs();
-            double offsetTillStartSubslot = m_macScheduler->GetSubslotStartTimeOffsetNs(startSubslot);
-            Simulator::Schedule(NanoSeconds(timeTillNextFrameNs + offsetTillStartSubslot), &Dect2020ExtMac::InitiateHarqRandomAccess, this, randomAccessResourceIe, packet, physicalHeaderField, harqProcess);
-            return;
-        }
-
-        if (nextSubslotNumber < startSubslot)
-        {
-            NS_LOG_WARN(MAC_IDENTITY << ": Not within RACH window, aborting");
-            return;
-        }
-
-        // nextSubslotNumber is within the RACH window; wrap for the scheduler vector lookup
-        uint32_t nextSubslotWrapped = nextSubslotNumber % subslotsPerFrame;
-        uint32_t remainingFullRachSubslots = currentSubslotNumber - startSubslot;
-        double timeTillNextSubslotUs = m_macScheduler->GetTimeTillSubslotStartNs(nextSubslotWrapped) / 1000.0;
-
-        double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
-        rachDurationUs = (length - remainingFullRachSubslots) * subslotDurationUs;
-        rachDurationUs += timeTillNextSubslotUs;
-    }
-    else
-    {
-        // tbd --> Length in slots
-        NS_LOG_WARN(MAC_IDENTITY << ": WARNING: RACH resources length is in slots (not yet implemented)");
-        return;
-    }
-
-    const double START_POSITION_INTERVAL_US = STF_US + GI_US; // 83.335 us;
-
-    // Calculate all possible start positions
-    // Start positions are at 0, 1, 2, 3... times (STF + GI)
-    std::vector<double> startPositions;
-    double currentPosition = 0.0;
-    uint32_t positionIndex = 0;
-
-    while (currentPosition < rachDurationUs)
-    {
-        startPositions.push_back(currentPosition);
-        positionIndex++;
-        currentPosition = positionIndex * START_POSITION_INTERVAL_US;
-    }
-
-    // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
-    uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
-
-    // Calculate CW_MAX; CW_MAX = 256 * CWmax_sig
-    uint32_t CW_MAX = 256 * randomAccessResourceIe.GetCwMaxSig();
-
-    // Initialize and set CW_CURRENT to CW_MIN
-    uint32_t CW_CURRENT = CW_MIN;
-
-    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
-    randomAccessContext->m_randomAccessResourceIe = randomAccessResourceIe;
-    randomAccessContext->m_startPositions = startPositions;
-    randomAccessContext->m_CW_MAX = CW_MAX;
-    randomAccessContext->m_CW_MIN = CW_MIN;
-    randomAccessContext->m_CW_CURRENT = CW_CURRENT;
-    randomAccessContext->m_packet = packet;
-    randomAccessContext->m_physicalHeaderFieldType2 = physicalHeaderField;
-    randomAccessContext->m_physicalHeaderFieldType = 2;
-    randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
-    randomAccessContext->m_harq = true;
-
-    harqProcess->randomAccessContext = randomAccessContext;
-
-    InitiateBackoff(randomAccessContext);
-}
+//     // Schedule the backoff initialization to start when RACH resources begin
+//     Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
+// }
 
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
@@ -1177,11 +1087,11 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
             NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at position " << randomAccessContext->m_currentPositionIndex << " -> power on channel is " << avgRssiDbm << " dBm");
             if (randomAccessContext->m_physicalHeaderFieldType == 1)
             {
-                m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType1);
+                // m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType1);
             }
             else
             {
-                m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
+                // m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
                 double subslotDurationNs = SLOT_DURATION_NS / 2;
                 Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIe.GetResponseWindow());
                 Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
@@ -1661,7 +1571,7 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     ChangeAssociationStatus(ASSOCIATION_PENDING);
 
     m_txQueue.push(BuildAssociationRequest(ft));
-    InitiateHARQ();
+    InitiateHarq();
 }
 
 void
@@ -1736,7 +1646,7 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
     Dect2020ExtPhyControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());
     physicalHeaderField.SetShortNetworkId(m_networkId);
 
-    m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
+    // m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
 }
 
 void
@@ -2032,59 +1942,56 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
 }
 
 void
-Dect2020ExtMac::InitiateHARQ()
+Dect2020ExtMac::InitiateHarq()
 {
-    NS_LOG_FUNCTION(MAC_IDENTITY);
-    // Find a free process
-    Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqTable)
+    // Find a free HARQ process
+    Dect2020ExtHarqProcess* process = nullptr;
+    for (auto& p: m_harqProcesses)
     {
         if (p.state == Dect2020ExtHarqProcess::FREE)
         {
-            proc = &p;
+            process = &p;
             break;
         }
     }
 
-    if (!proc)
+    // There should always be a free process when this function is called
+    // Currently, Stop-and-Wait ARQ protocol is implemented
+    if (!process)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": No free HARQ process, deferring");
-        return; // all processes in use - back-pressure to the tx queue
+        NS_FATAL_ERROR(MAC_IDENTITY << ": No free HARQ process");
     }
 
+    // The packet for transmission is taken from the front on the Tx queue
     Ptr<Packet> packet = m_txQueue.front();
     m_txQueue.pop();
 
-    proc->state = Dect2020ExtHarqProcess::WAITING_ACK;
-    proc->packet = packet->Copy();
-    proc->ndi = 1;
-    proc->rv = 0;
-    proc->reTxCount = 0;
-    proc->txTime = Simulator::Now();
+    NS_LOG_INFO(MAC_IDENTITY << ": Dequeued packet, initiating Random Access");
 
-    Dect2020ExtPhyControlFieldType2 phyCtrl(Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format::FORMAT_000);
-    phyCtrl.SetPacketLengthType(1); // length in slots
-    phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(packet->GetSize()));
-    phyCtrl.SetShortNetworkId(0); // currently not used
-    phyCtrl.SetTransmitterIdentity(m_shortRadioDeviceId);
-    phyCtrl.SetTransmitPower(10);
-    phyCtrl.SetDfmcs(m_mcs);
-    phyCtrl.SetReceiverIdentity(m_selectedFtCandidate.shortFtId);
-    phyCtrl.SetNumberOfSpatialStreams(0); // currently not used
-    phyCtrl.SetDfRedundancyVersion(proc->rv);
-    phyCtrl.SetDfNewDataIndication(proc->ndi);
-    phyCtrl.SetDfHarqProcessNumber(proc->processId);
-    phyCtrl.SetFeedbackFormat(1);
-    phyCtrl.SetFeedbackInfo(0);
+    process->state = Dect2020ExtHarqProcess::WAITING_ACK;
+    process->ndi = true; // New data with no previous versions
+    process->packet = packet->Copy();
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Dequeued packet, initiating HARQ");
-    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process ID " << (uint32_t)proc->processId);
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2(Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format::FORMAT_000);
+    phyControlFieldType2.SetPacketLengthType(1); // length in slots
+    phyControlFieldType2.SetPacketLength(CalculateMacPduSizeInSlots(packet->GetSize()));
+    phyControlFieldType2.SetShortNetworkId(0); // currently not used
+    phyControlFieldType2.SetTransmitterIdentity(m_shortRadioDeviceId);
+    phyControlFieldType2.SetTransmitPower(10);
+    phyControlFieldType2.SetDfmcs(m_mcs);
+    phyControlFieldType2.SetReceiverIdentity(m_selectedFtCandidate.shortFtId);
+    phyControlFieldType2.SetNumberOfSpatialStreams(0); // currently not used
+    phyControlFieldType2.SetDfRedundancyVersion(0);
+    phyControlFieldType2.SetDfNewDataIndication(process->ndi);
+    phyControlFieldType2.SetDfHarqProcessNumber(process->processId);
+    phyControlFieldType2.SetFeedbackFormat(1);
+    phyControlFieldType2.SetFeedbackInfo(0);
 
     // If the device is already inside the RACH resources -> execute InitiateHarqRandomAccess immediately
     if (m_macScheduler->GetCurrentSubslotNumber() > m_selectedFtCandidate.ftRandomAccessResourceIe.GetStartSubslot())
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
-        InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIe, packet, phyCtrl, proc);
+        // InitiateHarqRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIe, packet, phyCtrl, proc);
     }
     else if (m_macScheduler->GetCurrentSlotNumber() < m_selectedFtCandidate.ftRandomAccessResourceIe.GetStartSubslot())
     {
@@ -2092,7 +1999,7 @@ Dect2020ExtMac::InitiateHARQ()
         // Calculate time till RACH resources
         double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(m_selectedFtCandidate.ftRandomAccessResourceIe.GetStartSubslot());
         Time delay = NanoSeconds(timeToRachStartNs);
-        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIe, packet, phyCtrl, proc);
+        // Simulator::Schedule(delay, &Dect2020ExtMac::InitiateHarqRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIe, packet, phyCtrl, proc);
     }
 }
 
@@ -2101,7 +2008,7 @@ Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phy
 {
     NS_LOG_FUNCTION(MAC_IDENTITY);
     NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
-    m_phy->Send(ack, phyCtrl);
+    // m_phy->Send(ack, phyCtrl);
 }
 
 void
@@ -2110,7 +2017,7 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 p
     NS_LOG_FUNCTION(MAC_IDENTITY);
     // Find a HARQ process
     Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqTable)
+    for (auto& p: m_harqProcesses)
     {
         if (p.processId == phyCtrl.GetDfHarqProcessNumber())
         {
@@ -2131,14 +2038,13 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 p
     proc->state = Dect2020ExtHarqProcess::FREE;
     proc->packet = nullptr;
     proc->ndi = 0;
-    proc->rv = 0;
     proc->reTxCount = 0;
 
     RestartKeepAlivePeriod();
 
     if (!m_txQueue.empty())
     {
-        InitiateHARQ();
+        // InitiateHARQ();
     }
     else
     {
@@ -2152,7 +2058,7 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
 {
     // Find a HARQ process
     Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqTable)
+    for (auto& p: m_harqProcesses)
     {
         if (p.processId == phyCtrlType2.GetDfHarqProcessNumber())
         {
@@ -2192,7 +2098,7 @@ Dect2020ExtMac::MonitorTxQueue()
     else
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
-        InitiateHARQ();
+        // InitiateHARQ();
     }
 }
 
@@ -2230,7 +2136,7 @@ Dect2020ExtMac::LaunchApp()
     m_app->SetTxPeriod(MilliSeconds(5));
     m_app->SetPacketLimit(50);
     m_app->Start();
-    InitiateHARQ();
+    // InitiateHARQ();
 }
 
 void
