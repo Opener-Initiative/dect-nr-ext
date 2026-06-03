@@ -17,9 +17,10 @@ class Dect2020ExtSpectrumSignalParameters : public SpectrumSignalParameters
     virtual ~Dect2020ExtSpectrumSignalParameters();
     Ptr<SpectrumSignalParameters> Copy() const override;
 
-    Ptr<Packet> txPacket;
+    Ptr<Packet> m_txPacket;
     uint32_t m_currentChannelNumber;
     bool m_data;
+    bool m_random;
 };
 
 } // namespace ns3

@@ -127,15 +127,14 @@ struct Dect2020ExtSubslotScanContext
 
 struct Dect2020ExtFtCandidateInfo
 {
+    double rssiDbm;
     uint8_t shortNetworkId;
     uint32_t networkId;
     uint32_t shortFtId;
     uint32_t longFtId;
-
     uint16_t clusterChannelNumber;
     uint8_t sfn;
     Time receptionTime;
-    double rssiDbm;
 
     Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;           // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                     // Last received Beacon Header
@@ -146,12 +145,12 @@ struct Dect2020ExtFtCandidateInfo
 
     // Constructor to initialize all members to zero/default values
     Dect2020ExtFtCandidateInfo()
-        : shortNetworkId(0), 
+        : rssiDbm(-150.0), 
+          shortNetworkId(0),
           networkId(0),
           longFtId(0),
           clusterChannelNumber(0),
-          receptionTime(Seconds(0)),
-          rssiDbm(-150.0), 
+          receptionTime(Seconds(0)), 
           ftPhyHeaderField(),
           ftBeaconHeader(),
           ftNetworkBeaconMessage(),
@@ -233,6 +232,8 @@ class Dect2020ExtMac : public Object
         Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelNumber);
         Dect2020ExtRandomAccessResourceIe BuildRandomAccessResourceIe();
         Dect2020ExtPhyControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+        Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
+        Ptr<Packet> BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
 
         // Beacon Transmission Helper Functions
 
@@ -355,7 +356,6 @@ class Dect2020ExtMac : public Object
         uint32_t m_networkBeaconSubslot = 0;
         uint32_t m_clusterBeaconSubslot = 4;
         std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
-        Dect2020ExtMacMultiplexingHeaderTypeA m_lastFtMacMxHeader;
         Dect2020ExtAssociationStatus m_associationStatus = NOT_ASSOCIATED;
         bool m_isWaitingForClusterBeacon;
         uint8_t m_lastSfn;

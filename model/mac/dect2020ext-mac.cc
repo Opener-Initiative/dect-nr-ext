@@ -671,6 +671,145 @@ Dect2020ExtMac::BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t pack
     return physicalHeaderField;
 }
 
+Ptr<Packet>
+Dect2020ExtMac::BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
+{
+    Ptr<Packet> packet = Create<Packet>();
+
+    // --- Association Control Ie ---
+    packet->AddHeader(m_configuredAssociationControlIe);
+
+    // --- RD Capability Ie ---
+    Dect2020ExtRdCapabilityIe rdCapabilityIe;
+    rdCapabilityIe.SetRelease(this->m_device->m_release);
+    rdCapabilityIe.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
+    rdCapabilityIe.SetPaging(this->m_device->m_supportPaging);
+    rdCapabilityIe.SetOperatingModes(this->m_device->m_operatingModes);
+    rdCapabilityIe.SetMesh(this->m_device->m_mesh);
+    rdCapabilityIe.SetScheduledAccessDataTransfer(this->m_device->m_scheduledAccessDataTransfer);
+    rdCapabilityIe.SetMacSecurity(this->m_device->m_macSecurity);
+    rdCapabilityIe.SetDlcServiceType(this->m_device->m_dlcServiceType);
+    rdCapabilityIe.SetRdPowerClass(this->m_device->m_rdPowerClass);
+    rdCapabilityIe.SetMaxNssFoRx(this->m_device->m_maxNssFoRx);
+    rdCapabilityIe.SetRxForTxDiversity(this->m_device->m_rxForTxDiversity);
+    rdCapabilityIe.SetRxGain(this->m_device->m_rxGain);
+    rdCapabilityIe.SetMaxMcs(this->m_device->m_maxMcs);
+    rdCapabilityIe.SetSoftBufferSize(this->m_device->m_softBufferSize);
+    rdCapabilityIe.SetNumOfHarqProcesses(this->m_device->m_numOfHarqProcesses);
+    rdCapabilityIe.SetHarqFeedbackDelay(this->m_device->m_harqFeedbackDelay);
+    rdCapabilityIe.SetDDelay(this->m_device->m_dDelay);
+    rdCapabilityIe.SetHalfDulp(this->m_device->m_halfDulp);
+
+    packet->AddHeader(rdCapabilityIe);
+
+    // --- Association Request Message IE ---
+    Dect2020ExtAssociationRequestMessageIe associationRequestMessage;
+    associationRequestMessage.SetSetupCause(0); // Initial association
+    associationRequestMessage.SetNumberOfFlows(0);
+    associationRequestMessage.SetPowerConstraints(false);
+    associationRequestMessage.SetFtMode(false);
+    associationRequestMessage.SetCurrent(false);
+    associationRequestMessage.SetHarqProcessesTx(0);
+    associationRequestMessage.SetMaxHarqReTxDelay(0);
+    associationRequestMessage.SetHarqProcessesRx(0);
+    associationRequestMessage.SetMaxHarqReRxDelay(0);
+    associationRequestMessage.SetFlowId(0);
+
+    packet->AddHeader(associationRequestMessage);
+
+    // --- MAC Multiplexing Header ---
+    Dect2020ExtMacMultiplexingHeaderTypeA muxHeader;
+    muxHeader.SetMacExtensionFieldEncoding(0);
+    muxHeader.SetLengthField(false);
+    muxHeader.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE);
+
+    packet->AddHeader(muxHeader);
+
+    // --- Unicast Header ---
+    Dect2020ExtUnicastHeader unicastHeader;
+    unicastHeader.SetReset(false);
+    unicastHeader.SetSequenceNumber(0);
+    unicastHeader.SetReceiverAddress(ft->longFtId);
+    unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
+
+    packet->AddHeader(unicastHeader);
+
+    // --- MAC Header Type ---
+    Dect2020ExtMacHeaderType macHeaderType;
+    macHeaderType.SetVersion(0);
+    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
+    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER);
+
+    packet->AddHeader(macHeaderType);
+
+    return packet;
+}
+
+Ptr<Packet>
+Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
+{
+    Ptr<Packet> packet = Create<Packet>();
+
+    // --- RD Capability Ie ---
+    Dect2020ExtRdCapabilityIe rdCapabilityIe;
+    rdCapabilityIe.SetRelease(this->m_device->m_release);
+    rdCapabilityIe.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
+    rdCapabilityIe.SetPaging(this->m_device->m_supportPaging);
+    rdCapabilityIe.SetOperatingModes(this->m_device->m_operatingModes);
+    rdCapabilityIe.SetMesh(this->m_device->m_mesh);
+    rdCapabilityIe.SetScheduledAccessDataTransfer(this->m_device->m_scheduledAccessDataTransfer);
+    rdCapabilityIe.SetMacSecurity(this->m_device->m_macSecurity);
+    rdCapabilityIe.SetDlcServiceType(this->m_device->m_dlcServiceType);
+    rdCapabilityIe.SetRdPowerClass(this->m_device->m_rdPowerClass);
+    rdCapabilityIe.SetMaxNssFoRx(this->m_device->m_maxNssFoRx);
+    rdCapabilityIe.SetRxForTxDiversity(this->m_device->m_rxForTxDiversity);
+    rdCapabilityIe.SetRxGain(this->m_device->m_rxGain);
+    rdCapabilityIe.SetMaxMcs(this->m_device->m_maxMcs);
+    rdCapabilityIe.SetSoftBufferSize(this->m_device->m_softBufferSize);
+    rdCapabilityIe.SetNumOfHarqProcesses(this->m_device->m_numOfHarqProcesses);
+    rdCapabilityIe.SetHarqFeedbackDelay(this->m_device->m_harqFeedbackDelay);
+    rdCapabilityIe.SetDDelay(this->m_device->m_dDelay);
+    rdCapabilityIe.SetHalfDulp(this->m_device->m_halfDulp);
+
+    packet->AddHeader(rdCapabilityIe);
+
+    // --- Association Response Message IE ---
+    Dect2020ExtAssociationResponseMessageIe associationResponseMessage;
+    associationResponseMessage.SetAssociationAccepted(true);
+    associationResponseMessage.SetHarqMod(false);
+    associationResponseMessage.SetNumberOfFlows(7); // all flows are accepted
+    associationResponseMessage.SetGroupIdAndResourceTagIncluded(false);
+
+    packet->AddHeader(associationResponseMessage);
+
+    // --- MAC Multiplexing Header Type A ---
+    Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
+    mxHeader.SetMacExtensionFieldEncoding(0);
+    mxHeader.SetLengthField(0);
+    mxHeader.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE);
+
+    packet->AddHeader(mxHeader);
+
+    // --- Unicast Header ---
+    Dect2020ExtUnicastHeader unicastHeader;
+    unicastHeader.SetReset(false);
+    unicastHeader.SetSequenceNumber(0);
+    unicastHeader.SetReceiverAddress(ptInfo.longRdId);
+    unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
+
+    packet->AddHeader(unicastHeader);
+
+    // --- MAC Header Type ---
+    Dect2020ExtMacHeaderType macHeaderType;
+    macHeaderType.SetVersion(0);
+    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
+    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER);
+
+    packet->AddHeader(macHeaderType);
+
+    return packet;
+}
+
 uint32_t
 Dect2020ExtMac::ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod period)
 {
@@ -1120,6 +1259,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
             ft->ftPhyHeaderField = physicalHeaderFieldType1;
             ft->receptionTime = Simulator::Now();
             ft->shortFtId = physicalHeaderFieldType1.GetTransmitterIdentity();
+            ft->shortNetworkId = physicalHeaderFieldType1.GetShortNetworkId();
 
             HandleBeaconPacket(packet, ft);
         }
@@ -1160,7 +1300,6 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
     // --- MAC Multiplexing Header ---
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
     packet->RemoveHeader(mxHeader);
-    m_lastFtMacMxHeader = mxHeader;
 
     Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding ieType = mxHeader.GetIeTypeFieldEncoding();
 
@@ -1239,7 +1378,8 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
     if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Association Request");
-        // check whether this device is an FT --> a PT cannot process an association request
+
+        // Check whether this device is an FT --> a PT cannot process an association request
         if (m_device->GetTerminationPointType() !=
             Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
         {
@@ -1417,7 +1557,6 @@ Dect2020ExtMac::FindOrCreateFtCandidate(uint16_t shortFtId)
 void
 Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtCandidateInfo* ft)
 {
-    NS_LOG_FUNCTION(this);
     NS_LOG_INFO(MAC_IDENTITY << ": Evaluating Cluster Beacon");
     ft->sfn = clusterBeaconMessage.GetSFN();
     m_lastSfn = clusterBeaconMessage.GetSFN();
@@ -1442,7 +1581,7 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
         Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
     }
 
-    // prepare association request --> The device is waiting fot the cluster Beacon of the selected FT
+    // Prepare Association Request --> The device is waiting fot the cluster Beacon of the selected FT
     if (m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT && m_selectedFtCandidate.longFtId == ft->longFtId)
     {
         // Schedule the Association Request
@@ -1453,8 +1592,6 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
 void
 Dect2020ExtMac::SelectBestFtCandidate()
 {
-    NS_LOG_FUNCTION(this);
-
     // Step 1: Find the FT with the best (highest) RSSI-2
     double bestRssiDbm = -150.0; // start with very low RSSI
     Dect2020ExtFtCandidateInfo bestCandidate;
@@ -1493,8 +1630,6 @@ Dect2020ExtMac::SelectBestFtCandidate()
 
     // Cluster Beacon triggers next step in EvaluateClusterBeacon
 
-
-
     // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
     // be the case because it should have received a Cluster Beacon and sent an Association Request
     // and the status is either associated or association pending.
@@ -1515,80 +1650,11 @@ Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus()
 void
 Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 {
-    NS_LOG_FUNCTION(this << ft);
-    NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send association request");
-
-    Ptr<Packet> packet = Create<Packet>();
-
-    // --- Association Control Ie ---
-    packet->AddHeader(m_configuredAssociationControlIe);
-
-    // --- RD Capability Ie ---
-    Dect2020ExtRdCapabilityIe rdCapabilityIe;
-    rdCapabilityIe.SetRelease(this->m_device->m_release);
-    rdCapabilityIe.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
-    rdCapabilityIe.SetPaging(this->m_device->m_supportPaging);
-    rdCapabilityIe.SetOperatingModes(this->m_device->m_operatingModes);
-    rdCapabilityIe.SetMesh(this->m_device->m_mesh);
-    rdCapabilityIe.SetScheduledAccessDataTransfer(this->m_device->m_scheduledAccessDataTransfer);
-    rdCapabilityIe.SetMacSecurity(this->m_device->m_macSecurity);
-    rdCapabilityIe.SetDlcServiceType(this->m_device->m_dlcServiceType);
-    rdCapabilityIe.SetRdPowerClass(this->m_device->m_rdPowerClass);
-    rdCapabilityIe.SetMaxNssFoRx(this->m_device->m_maxNssFoRx);
-    rdCapabilityIe.SetRxForTxDiversity(this->m_device->m_rxForTxDiversity);
-    rdCapabilityIe.SetRxGain(this->m_device->m_rxGain);
-    rdCapabilityIe.SetMaxMcs(this->m_device->m_maxMcs);
-    rdCapabilityIe.SetSoftBufferSize(this->m_device->m_softBufferSize);
-    rdCapabilityIe.SetNumOfHarqProcesses(this->m_device->m_numOfHarqProcesses);
-    rdCapabilityIe.SetHarqFeedbackDelay(this->m_device->m_harqFeedbackDelay);
-    rdCapabilityIe.SetDDelay(this->m_device->m_dDelay);
-    rdCapabilityIe.SetHalfDulp(this->m_device->m_halfDulp);
-
-    packet->AddHeader(rdCapabilityIe);
-
-    // --- Association Request Message Ie ---
-    Dect2020ExtAssociationRequestMessageIe associationRequestMessage;
-    associationRequestMessage.SetSetupCause(0); // Initial association
-    associationRequestMessage.SetNumberOfFlows(0);
-    associationRequestMessage.SetPowerConstraints(0);
-    associationRequestMessage.SetFtMode(0);
-    associationRequestMessage.SetCurrent(0);
-    associationRequestMessage.SetHarqProcessesTx(0);
-    associationRequestMessage.SetMaxHarqReTxDelay(0);
-    associationRequestMessage.SetHarqProcessesRx(0);
-    associationRequestMessage.SetMaxHarqReRxDelay(0);
-    associationRequestMessage.SetFlowId(0);
-
-    packet->AddHeader(associationRequestMessage);
-
-    // --- MAC Multiplexing Header ---
-    Dect2020ExtMacMultiplexingHeaderTypeA muxHeader;
-    muxHeader.SetMacExtensionFieldEncoding(0);
-    muxHeader.SetLengthField(0);
-    muxHeader.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE);
-
-    packet->AddHeader(muxHeader);
-
-    // --- Unicast Header ---
-    Dect2020ExtUnicastHeader unicastHeader;
-    unicastHeader.SetReset(0);
-    unicastHeader.SetSequenceNumber(0);
-    unicastHeader.SetReceiverAddress(ft->longFtId);
-    unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
-
-    packet->AddHeader(unicastHeader);
-
-    // --- MAC Header Type ---
-    Dect2020ExtMacHeaderType macHeaderType;
-    macHeaderType.SetVersion(0);
-    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
-    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER);
-
-    packet->AddHeader(macHeaderType);
+    NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send Association Request");
 
     ChangeAssociationStatus(ASSOCIATION_PENDING);
 
-    m_txQueue.push(packet);
+    m_txQueue.push(BuildAssociationRequest(ft));
     InitiateHARQ();
 }
 
@@ -1625,7 +1691,7 @@ Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIe 
     // TODO: implement logic to accept or reject device. Currently every device is accepted
     // TODO: implement association maintenance
 
-    // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
+    // Calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
     uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
@@ -1656,44 +1722,9 @@ void
 Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
 {
     // TODO: Add RD Capability Ie
-    NS_LOG_FUNCTION(this);
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Association Response at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     Ptr<Packet> packet = Create<Packet>();
-
-    // --- Association Response Message ---
-    Dect2020ExtAssociationResponseMessageIe associationResponseMessage;
-    associationResponseMessage.SetAssociationAccepted(true);
-    associationResponseMessage.SetHarqMod(0);
-    associationResponseMessage.SetNumberOfFlows(7); // all flows are accepted
-    associationResponseMessage.SetGroupIdAndResourceTagIncluded(0);
-
-    packet->AddHeader(associationResponseMessage);
-
-    // --- MAC Multiplexing Header ---
-    Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
-    mxHeader.SetMacExtensionFieldEncoding(0);
-    mxHeader.SetLengthField(0);
-    mxHeader.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE);
-
-    packet->AddHeader(mxHeader);
-
-    // --- Unicast Header ---
-    Dect2020ExtUnicastHeader unicastHeader;
-    unicastHeader.SetReset(0);
-    unicastHeader.SetSequenceNumber(0);
-    unicastHeader.SetReceiverAddress(ptInfo.longRdId);
-    unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
-
-    packet->AddHeader(unicastHeader);
-
-    // --- MAC Header Type ---
-    Dect2020ExtMacHeaderType macHeaderType;
-    macHeaderType.SetVersion(0);
-    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
-    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER);
-
-    packet->AddHeader(macHeaderType);
 
     // --- Physical Header Field ---
     Dect2020ExtPhyControlFieldType1 physicalHeaderField = BuildPhysicalHeaderField(1, packet->GetSize());

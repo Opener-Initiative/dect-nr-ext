@@ -69,8 +69,8 @@ Size: 30 bytes
 
 | Position       | Association Response Message Structure | Size     |
 | -------------- | :------------------------------------: | -------- |
-| Index 5: back  |    Association Response Message IE     | 1 byte   |
-| Index 4        |            RD Capability IE            | 7 bytes  |
+| Index 5: back  |            RD Capability IE            | 7 bytes  |
+| Index 4        |    Association Response Message IE     | 1 byte   |
 | Index 3        |     MAC Multiplexing Header Type A     | 1 byte   |
 | Index 2        |             Unicast Header             | 10 bytes |
 | Index 1        |            MAC Header Type             | 1 byte   |

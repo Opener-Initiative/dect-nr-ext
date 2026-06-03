@@ -65,11 +65,22 @@ This step is important for `Dect2020ExtMac` since it allows to check if importan
 # Important Conventions
 Channel number (`uint16_t m_operatingChannelNumber`) stands for the absolute channel frequency number. Using channel IDs is avoided in the code base since it confuses what a channel ID and channel number are. Since the standard refers to the absolute channel frequency NUMBERING, channel numbers are used in the code, not channel IDs.
 # Spectrum Management Procedure
-`Dect2020ExtMac::InitializeNetwork` starts a background scan `Dect2020ExtMac::BackgroundScan` immediately (but the delay can also be modified manually). `Dect2020ExtMac::BackgroundScan` extracts band parameters from `Dect2020ExtChannelManager` to get the number of channels inside the operating band. The function schedules RSSI measurements for each channel and creates one `Dect2020ExtBackgroundScanContext` for the whole background scan and one `Dect2020ExtRssi1OnChannelContext` for each channel. The background scan function schedules RSSI measurements for each channel based on 10ms period (10 ms = 1 frame = all subslots to scan for each channel).
+`Dect2020ExtMac::InitializeNetwork` starts a background scan (`Dect2020ExtMac::BackgroundScan`) immediately (but the delay can also be modified manually). `Dect2020ExtMac::BackgroundScan` extracts band parameters from `Dect2020ExtChannelManager` to get the number of channels inside the operating band. The function schedules RSSI measurements for each channel and creates one `Dect2020ExtBackgroundScanContext` for the whole background scan and one `Dect2020ExtRssi1OnChannelContext` for each channel. The background scan function schedules RSSI measurements for each channel based on 10ms period (10 ms = 1 frame = all subslots to scan for each channel).
 #### Operating Channel
-The goal of the FT device performing the spectrum management procedure is to select the operating channel number. Operating channel will be used as the channel for cluster beacon transmissions and (currently) for network beacon transmissions (which is not required by the standard but still implemented for simplification).
+The goal of the FT device performing the background scan is to select the operating channel number. Operating channel will be used as the channel for cluster beacon transmissions and (currently) for network beacon transmissions (which is not required by the standard but still implemented for simplification).
 
 PT device doesn't perform any background scans. Therefore, the operating channel number will be defined as the channel which the PT uses to communicate with the FT. This channel is configured via the Cluster Beacon Message IE.
+#### `Dect2020ExtMac::ReceiveFromPhy`
+Reception of Network and Cluster Beacons is implemented through the `Dect2020ExtMac::ReceiveFromPhy` function. If random access (together with HARQ) have been used to transmit the packet (indicated by the `Dect2020ExtSpectrumSignalParameters::m_random` boolean variable), the PHY Control Field Type 2 header is deserialized. If the packet has not been transmitted with random access (for example a beacon transmission), the PHY Control Field Type 1 header is deserialized from the packet. After that point, packet handling happens based on MAC Header Type 
+
+If the packet is a data packet (indicated by the `Dect2020ExtSpectrumSignalParameters::m_data` boolean variable), the PHY Control Field Type 2 header is deserialized and if the packet is not data, the PHY Control Field Type 1 header is deserialized from the packet. Then, packet handling happens based on MAC Header Type:
+- If MAC Header Type is `BEACON_HEADER` and the receiving device is PT (only PT devices analyze beacons):
+	1. Create FT Candidate Info (`Dect2020ExtFtCandidateInfo`)
+	2. Call `Dect2020ExtMac::HandleBeaconPacket`
+- If MAC Header Type is `UNICAST_HEADER` (PT and FT can process unicast packets):
+	1. Call `Dect2020ExtMac::HandleUnicastPacket`
+- If MAC Header Type is `DATA_MAC_PDU_HEADER` (PT and FT can process data packets):
+	1. Call `Dect2020ExtMac::HandleDataPacket`
 # Association Procedure
 #### Association State
 - NOT_ASSOCIATED: the PT device is not associated with any FT device
@@ -77,6 +88,12 @@ PT device doesn't perform any background scans. Therefore, the operating channel
 - WAITING_FOR_SELECTED_FT: this state is switched upon the best FT candidate selection and can trigger association with the selected FT when the next Cluster Beacon arrives
 - ASSOCIATION_PENDING: this state indicates that Association Request Message has been sent to the FT and the PT is waiting for Association Response Message
 - ASSOCIATED: indicates that the device is associated with the selected FT device
+#### FT Candidate Info
+The FT Candidate Info is created or found with `Dect2020ExtMac::FindOrCreateFtCandidate`. FTs are distinguished by Transmitter Identity (short RD ID) inside `Dect2020ExtMac::m_ftCandidates` vector. If the candidate info is created in `Dect2020ExtMac::ReceiveFromPhy`, it is populated with the following data:
+1. RSSI value
+2. FT PHY Header Field (Type 1)
+3. Reception time (`Simulator::Now` in this case)
+4. Short RD ID (Transmitter Identity)
 # Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
 # 8 HARQ and Random Access Procedure
