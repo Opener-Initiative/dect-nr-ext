@@ -84,8 +84,8 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		// Dect2020ExtPhy Methods
 
-		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader);
-		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader);
+		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader, bool data, bool random);
+		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader, bool data, bool random);
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHeader);
 		void ChangeState(PhyState newState);

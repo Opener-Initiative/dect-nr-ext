@@ -326,22 +326,23 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
 
         // Pass the packet to the MAC after the whole duration of the signal
-        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->txPacket, rssiPacketDbm, dectParams->m_data);
+        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data);
     }
 }
 
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader, bool data, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
     params->txPhy = this;
-    params->txPacket = packet->Copy(); // deep copy to avoid modifying original
-    params->txPacket->AddHeader(physicalHeader);
+    params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
+    params->m_txPacket->AddHeader(physicalHeader);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
-    params->m_data = false;
+    params->m_data = data;
+    params->m_random = random;
     params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS
@@ -380,17 +381,18 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
 }
 
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader, bool data, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
     params->txPhy = this;
-    params->txPacket = packet->Copy(); // deep copy to avoid modifying original
-    params->txPacket->AddHeader(physicalHeader);
+    params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
+    params->m_txPacket->AddHeader(physicalHeader);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
-    params->m_data = false;
+    params->m_data = data;
+    params->m_random = random;
     params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS

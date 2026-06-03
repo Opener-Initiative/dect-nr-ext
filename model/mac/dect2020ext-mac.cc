@@ -519,19 +519,25 @@ Dect2020ExtMac::StartClusterBeaconTransmission()
 void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 {
-    Ptr<Packet> networkBeacon = BuildNetworkBeacon();
-
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
-    m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()));
+
+    Ptr<Packet> networkBeacon = BuildNetworkBeacon();
+    bool data = false;
+    bool random = false;
+
+    m_phy->Send(networkBeacon, BuildPhysicalHeaderField(1, networkBeacon->GetSize()), data, random);
 }
 
 void
 Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
 {
-    Ptr<Packet> packet = BuildClusterBeacon(channelNumber);
-
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
-    m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()));
+
+    Ptr<Packet> packet = BuildClusterBeacon(channelNumber);
+    bool data = false;
+    bool random = false;
+
+    m_phy->Send(packet, BuildPhysicalHeaderField(1, packet->GetSize()), data, random);
 }
 
 Ptr<Packet>
