@@ -239,22 +239,9 @@ Dect2020ExtMacScheduler::ProcessSubslot(uint32_t subslotNumber)
 double
 Dect2020ExtMacScheduler::GetTimeTillNextFrameNs() const
 {
-    Time currentTime = Simulator::Now();
-    Time elapsedSinceCurrentFrameStartTime = currentTime - m_currentFrameStartTime;
-    Time frameDuration = MicroSeconds(FRAME_DURATION_US);
-
-    // Get elapsed time in nanoseconds and calculate position within the current frame
-    int64_t elapsedNs = elapsedSinceCurrentFrameStartTime.GetNanoSeconds();
-    int64_t frameDurationNs = frameDuration.GetNanoSeconds();
-
-    // Handle case where multiple frames have passed (module operation)
-    int64_t elapsedInCurrentFrameNs = elapsedNs % frameDurationNs;
-    NS_LOG_DEBUG("Elapsed in current frame: " << elapsedInCurrentFrameNs << "ns");
-
-    // Calculate remaining time until next frame boundary
-    int64_t timeToNextFrameNs = frameDurationNs - elapsedInCurrentFrameNs;
-    NS_LOG_DEBUG("Current time: " << currentTime.GetNanoSeconds() << "ns, "
-                        << "ns, Time to next frame: " << timeToNextFrameNs << "ns. " << "Current frame start time: " << m_currentFrameStartTime.GetNanoSeconds() << "ns");
+    int64_t elapsedNs = (Simulator::Now() - m_currentFrameStartTime).GetNanoSeconds();
+    int64_t frameDurationNs = MicroSeconds(FRAME_DURATION_US).GetNanoSeconds();
+    int64_t timeToNextFrameNs = frameDurationNs - elapsedNs;
 
     return static_cast<double>(timeToNextFrameNs);
 }

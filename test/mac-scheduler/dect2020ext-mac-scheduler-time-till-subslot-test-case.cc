@@ -112,7 +112,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // ============================================================
-    // GetTimeTillSubslotEndNs — Frame 0
+    // GetTimeTillSubslotEndNs - Frame 0
     // ============================================================
 
     // At frame start (t=0), requesting end of subslot 0 → D remaining
@@ -146,7 +146,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // ============================================================
-    // Multi-frame — Frame 1 (starts at FRAME_DURATION_NS)
+    // Multi-frame - Frame 1 (starts at FRAME_DURATION_NS)
     // Note: tests are offset by +100 ns so ProcessSubslot(0) has
     // already fired and m_currentSubslotNumber is correctly set.
     // ============================================================
@@ -172,7 +172,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // ============================================================
-    // Multi-frame — Frame 5 (starts at 4 * frameDurationNs)
+    // Multi-frame - Frame 5 (starts at 4 * frameDurationNs)
     // ============================================================
 
     // GetTimeTillSubslotStartNs: 137 ns into subslot 10, requesting subslot 35 → 25 * D - 137 remaining
@@ -181,7 +181,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // GetTimeTillSubslotStartNs: 137 ns into subslot 34, requesting subslot 35 → D - 137 remaining
-    // Note: exact subslot boundaries cannot be tested in frames 2+ — ProcessSubslot(k) is
+    // Note: exact subslot boundaries cannot be tested in frames 2+ - ProcessSubslot(k) is
     // scheduled during StartMacScheduler's execution and therefore gets a higher event ID
     // than lambdas queued before Simulator::Run(), causing the lambda to fire before
     // ProcessSubslot(k) updates m_currentSubslotNumber.

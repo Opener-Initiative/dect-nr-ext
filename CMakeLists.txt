@@ -238,7 +238,8 @@ set(dect2020ext_mac_scheduler_test_src
     test/mac-scheduler/dect2020ext-mac-scheduler-test.cc
     test/mac-scheduler/dect2020ext-mac-scheduler-test-case.cc
     test/mac-scheduler/dect2020ext-mac-scheduler-sfn-test-case.cc
-    test/mac-scheduler/dect2020ext-mac-scheduler-time-till-subslot-test-case.cc)
+    test/mac-scheduler/dect2020ext-mac-scheduler-time-till-subslot-test-case.cc
+    test/mac-scheduler/dect2020ext-mac-scheduler-time-till-next-frame-test-case.cc)
 
 build_lib(
     LIBNAME dect-nr-ext
