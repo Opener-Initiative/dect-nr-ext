@@ -47,31 +47,6 @@ class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
 class Dect2020ExtMacHeaderType;
 
-struct Dect2020ExtRandomAccessContext
-{
-    Dect2020ExtRandomAccessResourceIe m_randomAccessResourceIe;
-    std::vector<double> m_startPositions;
-    uint32_t m_CW_MIN;
-    uint32_t m_CW_MAX;
-    uint32_t m_CW_CURRENT;
-    Ptr<Packet> m_packet;
-    Dect2020ExtPhyControlFieldType1 m_physicalHeaderFieldType1;
-    Dect2020ExtPhyControlFieldType2 m_physicalHeaderFieldType2;
-    int m_physicalHeaderFieldType;
-
-    // LBT sampling
-    std::vector<double> m_lbtRssiSamples; // Store RSSI samples during LBT
-    uint32_t m_lbtSampleCount = 0; // Counter for collected samples
-    uint32_t m_lbtTotalSamples = 5; // Total samples to collect
-
-    // Timing reference
-    Time m_rachStartTime; // Absolute time when RACH resources start
-    uint32_t m_currentPositionIndex = 0; // Track which start positiion we are at
-
-    // HARQ
-    bool m_harq = false;
-};
-
 struct Dect2020ExtHarqProcess
 {
     enum State
@@ -94,7 +69,26 @@ struct Dect2020ExtHarqProcess
     uint8_t reTxCount = 0;
     const uint8_t maxRetx = 4; // Fixed number of max retransmissions
     Ptr<Packet> packet;
-    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
+    // std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
+};
+
+struct Dect2020ExtRandomAccessContext
+{
+    Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
+    std::vector<double> startPositions;
+    uint32_t CW_MIN;
+    uint32_t CW_MAX;
+    uint32_t CW_CURRENT;
+    Dect2020ExtHarqProcess* process;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2;
+
+    // Position
+    uint32_t currentPositionIndex = 0;
+
+    // LBT sampling
+    std::vector<double> lbtRssiSamples; // Store RSSI samples during LBT
+    uint32_t lbtSampleCount = 0; // Counter for collected samples
+    uint32_t lbtTotalSamples = 5; // Total samples to collect
 };
 
 struct Dect2020ExtChannelEvaluation
@@ -256,9 +250,14 @@ class Dect2020ExtMac : public Object
         uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const;
         uint8_t CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const;
 
-        // Random Access Procedure
+        // ###### Random Access Procedure ######
 
-        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Dect2020ExtHarqProcess* harqProcess, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
+        void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe,
+                                  Dect2020ExtHarqProcess* harqProcess,
+                                  Dect2020ExtPhyControlFieldType2 phyControlFieldType2,
+                                  bool newContext = true,
+                                  std::shared_ptr<Dect2020ExtRandomAccessContext> previousContext = nullptr);
+
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
@@ -395,12 +394,12 @@ class Dect2020ExtMac : public Object
         // Tx Queue
         std::queue<Ptr<Packet>> m_txQueue;
 
-        // HARQ
+        // ###### HARQ ######
 
         static constexpr uint8_t HARQ_MAX_PROCESSES = 1;
         std::array<Dect2020ExtHarqProcess, HARQ_MAX_PROCESSES> m_harqProcesses;
 
-        // Configuration
+        // ###### Configuration ######
 
         uint8_t m_bandNumber;
         bool m_bandNumberSet = false;

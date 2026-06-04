@@ -152,6 +152,14 @@ Dect2020ExtMacScheduler::StartMacScheduler()
 
     m_currentFrameStartTime = Simulator::Now();
 
+    // Reset the slot/subslot counters at the frame boundary. StartMacScheduler runs
+    // before this frame's ProcessSubslot(0), so any event already queued for the start
+    // of the frame (e.g. a deferred Random Access) must observe fresh state instead of
+    // the previous frame's last subslot, which would otherwise trip the "already passed"
+    // guard in GetTimeTillSubslotStart/EndNs.
+    m_currentSlotNumber = 0;
+    m_currentSubslotNumber = 0;
+
     if (m_currentFrameStartTime != Seconds(0))
     {
         m_SFN++;

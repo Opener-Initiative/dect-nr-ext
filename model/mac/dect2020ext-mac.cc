@@ -913,7 +913,11 @@ Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
 }
 
 void
-Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe, Dect2020ExtHarqProcess* process, Dect2020ExtPhyControlFieldType2 physicalHeaderField)
+Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe,
+                                     Dect2020ExtHarqProcess* process,
+                                     Dect2020ExtPhyControlFieldType2 phyControlFieldType2,
+                                     bool newContext,
+                                     std::shared_ptr<Dect2020ExtRandomAccessContext> previousContext)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
 
@@ -925,13 +929,11 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
     double rachDurationUs;
     if (lengthInSubslots)
     {
-        uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-        double subslotDurationUs = (SLOT_DURATION_NS / subslotsPerSlot) / 1000.0; // Convert ns to us
-        rachDurationUs = length * subslotDurationUs;
+        rachDurationUs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot + length) / 1000.0; // Convert ns to us
     }
     else
     {
-        // tbd --> Length in slots
+        // TBD --> Length in slots
         NS_FATAL_ERROR("WARNING: RACH resources length is in slots (not yet implemented)");
         return;
     }
@@ -949,92 +951,92 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
         currentPosition = positionIndex * START_POSITION_INTERVAL_US;
     }
 
-    // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
-    uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
+    if (newContext)
+    {
+        // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
+        uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
 
-    // Calculate CW_MAX; CW_MAX = 256 * CWmax_sig
-    uint32_t CW_MAX = 256 * randomAccessResourceIe.GetCwMaxSig();
+        // Calculate CW_MAX; CW_MAX = 256 * CWmax_sig
+        uint32_t CW_MAX = 256 * randomAccessResourceIe.GetCwMaxSig();
 
-    // Initialize and set CW_CURRENT to CW_MIN
-    uint32_t CW_CURRENT = CW_MIN;
+        // Initialize and set CW_CURRENT to CW_MIN
+        uint32_t CW_CURRENT = CW_MIN;
 
-    // Calculate time until RACH resources start
-    double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot);
-    Time delay = NanoSeconds(timeToRachStartNs);
+        std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
+        randomAccessContext->randomAccessResourceIe = randomAccessResourceIe;
+        randomAccessContext->startPositions = startPositions;
+        randomAccessContext->CW_MAX = CW_MAX;
+        randomAccessContext->CW_MIN = CW_MIN;
+        randomAccessContext->CW_CURRENT = CW_CURRENT;
+        randomAccessContext->process = process;
 
-    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext = std::make_shared<Dect2020ExtRandomAccessContext>();
-    randomAccessContext->m_randomAccessResourceIe = randomAccessResourceIe;
-    randomAccessContext->m_startPositions = startPositions;
-    randomAccessContext->m_CW_MAX = CW_MAX;
-    randomAccessContext->m_CW_MIN = CW_MIN;
-    randomAccessContext->m_CW_CURRENT = CW_CURRENT;
-    randomAccessContext->m_packet = packet;
-    randomAccessContext->m_physicalHeaderFieldType1 = physicalHeaderField;
-    randomAccessContext->m_physicalHeaderFieldType = 1;
+        randomAccessContext->phyControlFieldType2 = phyControlFieldType2;
 
-    // Store RACH start time for precise timing calculations
-    randomAccessContext->m_rachStartTime = Simulator::Now() + delay;
-    randomAccessContext->m_currentPositionIndex = 0; // Start at position 0
-
-    // Schedule the backoff initialization to start when RACH resources begin
-    Simulator::Schedule(delay, &Dect2020ExtMac::InitiateBackoff, this, randomAccessContext);
+        InitiateBackoff(randomAccessContext);
+    }
+    else
+    {
+        previousContext->startPositions = startPositions; // Update starting positions
+        InitiateBackoff(previousContext);
+    }
 }
 
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
+    // Determine if MAC PDU fits into the remaining RACH resource subslots/slots
+    bool fitsInRachResources = CheckIfMacPduFitsInMaxRandomAccessTxTime(randomAccessContext);
+
+    if (!fitsInRachResources)
+    {
+        NS_FATAL_ERROR("Packet doesn't fit in Random Access Max Tx time");
+    }
+
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->currentPositionIndex);
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
-    uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->m_CW_CURRENT);
+    uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->CW_CURRENT);
     NS_LOG_INFO(MAC_IDENTITY << ": Random backoff value " << backoffValue);
 
-    // Calculate target position: current position + backoff
-    uint32_t targetPositionIndex = randomAccessContext->m_currentPositionIndex + backoffValue;
-
     // Ensure we don't exceed available positions
-    if (targetPositionIndex >= randomAccessContext->m_startPositions.size())
+    if (backoffValue >= randomAccessContext->startPositions.size())
     {        
-        NS_LOG_WARN(MAC_IDENTITY << ": Backoff target position " << targetPositionIndex 
-                    << " exceeds available positions (" 
-                    << randomAccessContext->m_startPositions.size() << ")");
+        NS_LOG_INFO(MAC_IDENTITY << ": Backoff target position " << backoffValue << " exceeds available positions (" << randomAccessContext->startPositions.size() << ")");
 
-        NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
+        // If all possible positions are exceeded -> the device is no longer inside RACH resources and need to wait for them again in the next frame
 
-        // Defer to next RACH opportunity
+        double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+        Time delay = NanoSeconds(timeToRachStartNs);
+
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                            randomAccessContext->randomAccessResourceIe,
+                            randomAccessContext->process,
+                            randomAccessContext->phyControlFieldType2,
+                            false,
+                            randomAccessContext);
         return;
     }
 
     // Calculate backoff duration in microseconds
-    double targetPositionTimeUs = randomAccessContext->m_startPositions[targetPositionIndex];
-    double currentPositionTimeUs = randomAccessContext->m_startPositions[randomAccessContext->m_currentPositionIndex];
-    double backoffDurationUs = targetPositionTimeUs - currentPositionTimeUs;
+    double targetPositionTimeUs = randomAccessContext->startPositions[backoffValue];
 
     NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
     NS_LOG_DEBUG(MAC_IDENTITY << ": Target position time us: " << targetPositionTimeUs);
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Current positioin time us: " << currentPositionTimeUs);
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Backoff duration us: " << backoffDurationUs);
-    
-    // Update current position to target position
-    randomAccessContext->m_currentPositionIndex = targetPositionIndex;
-
-    // Set rachBackOff
-    double totalDelayUs = backoffDurationUs;
-    Time totalDelay = MicroSeconds(totalDelayUs);
 
     // Schedule the LBT (Listen Before Talk) after rachBackOff expires
-    Simulator::Schedule(totalDelay, &Dect2020ExtMac::PerformLBT, this, randomAccessContext);
+    Simulator::Schedule(MicroSeconds(targetPositionTimeUs), &Dect2020ExtMac::PerformLBT, this, randomAccessContext);
 }
 
 void
 Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
+    NS_LOG_DEBUG(MAC_IDENTITY << ": Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     // Reset sampling context
-    randomAccessContext->m_lbtSampleCount = 0;
-    randomAccessContext->m_lbtRssiSamples.clear();
-    randomAccessContext->m_lbtRssiSamples.reserve(5); // Reserve space for 5 samples
+    randomAccessContext->lbtSampleCount = 0;
+    randomAccessContext->lbtRssiSamples.clear();
+    randomAccessContext->lbtRssiSamples.reserve(5); // Reserve space for 5 samples
 
     // Define sampling points within START_POSITION_INTERVAL_US (STF + GI)
     std::vector<double> samplingOffsetsUs = {
@@ -1067,13 +1069,13 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
     double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
 
     // Store the sample
-    randomAccessContext->m_lbtRssiSamples.push_back(rssiChannelDbm);
-    randomAccessContext->m_lbtSampleCount++;
+    randomAccessContext->lbtRssiSamples.push_back(rssiChannelDbm);
+    randomAccessContext->lbtSampleCount++;
 
     // If all samples collected, evaluate the channel
-    if (randomAccessContext->m_lbtSampleCount >= randomAccessContext->m_lbtTotalSamples)
+    if (randomAccessContext->lbtSampleCount >= randomAccessContext->lbtTotalSamples)
     {
-        randomAccessContext->m_currentPositionIndex++;
+        // randomAccessContext->currentPositionIndex++;
         EvaluateLBTChannel(randomAccessContext);
     }
 }
@@ -1081,21 +1083,17 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
 void
 Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Evaluating LBT channel at subslot " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->m_currentPositionIndex);
-
     // Calculate average RSSI from all samples
     double totalRssi = 0.0;
     double maxRssi = -std::numeric_limits<double>::infinity();
 
-    for (double rssi : randomAccessContext->m_lbtRssiSamples)
+    for (double rssi : randomAccessContext->lbtRssiSamples)
     {
         totalRssi += rssi;
         maxRssi = std::max(maxRssi, rssi);
     }
 
-    double avgRssiDbm = totalRssi / randomAccessContext->m_lbtRssiSamples.size();
-
-    NS_LOG_DEBUG(MAC_IDENTITY << ": LBT RSSI - Average: " << avgRssiDbm << " dBm, Max: " << maxRssi << " dBm");
+    double avgRssiDbm = totalRssi / randomAccessContext->lbtRssiSamples.size();
 
     // Determine channel state based on RSSI threshlods
     bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
@@ -1104,8 +1102,6 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
 
     if (channelIsFree || channelIsPossible)
     {
-        // Determine if MAC PDU fits into the remaining RACH resource subslots/slots
-        bool fitsInRachResources = CheckIfMacPduFitsInMaxRandomAccessTxTime(randomAccessContext);
         if (fitsInRachResources)
         {
             // Transmit packet
@@ -1150,19 +1146,19 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
 bool
 Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
-    bool lengthInSubslots = !randomAccessContext->m_randomAccessResourceIe.GetMaxRachLengthType();
+    bool lengthInSubslots = !randomAccessContext->randomAccessResourceIe.GetMaxRachLengthType();
 
     if (lengthInSubslots)
     {
-        uint8_t packetLengthInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->m_packet->GetSize());
+        uint8_t packetLengthInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
         NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU size: " << (uint32_t)packetLengthInSubslots << " subslots");
-        return packetLengthInSubslots <= randomAccessContext->m_randomAccessResourceIe.GetMaxRachLength();
+        return packetLengthInSubslots <= randomAccessContext->randomAccessResourceIe.GetMaxRachLength();
     }
     else
     {
-        uint8_t packetLengthInSlots = CalculateMacPduSizeInSlots(randomAccessContext->m_packet->GetSize());
+        uint8_t packetLengthInSlots = CalculateMacPduSizeInSlots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
         NS_LOG_INFO("MAC PDU size: " << (uint32_t)packetLengthInSlots << " slots");
-        return packetLengthInSlots <= randomAccessContext->m_randomAccessResourceIe.GetMaxRachLength();
+        return packetLengthInSlots <= randomAccessContext->randomAccessResourceIe.GetMaxRachLength();
     }
 }
 

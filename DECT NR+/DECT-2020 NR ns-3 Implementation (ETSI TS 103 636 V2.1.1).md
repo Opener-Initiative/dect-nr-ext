@@ -96,14 +96,52 @@ The FT Candidate Info is created or found with `Dect2020ExtMac::FindOrCreateFtCa
 4. Short RD ID (Transmitter Identity)
 # Statistics
 The `Dect2020ExtStatistics` model currently supports logging the number of accepted and dropped packets based on **the** `PHY_IDENTITY`.
-# 8 HARQ and Random Access Procedure
+# HARQ (Stop-and-Wait ARQ) and Random Access Procedure
 #### HARQ
 In DECT NR+, the procedure responsible for automatic retransmissions if packets are dropped or not correctly decoded is Hybrid Automatic Repeat Request (HARQ). Even though this procedure is referred to as "HARQ" in the code base, the procedure is not fully implemented.
 The current "HARQ" implementation only involves Automatic Repeat Request (ARQ) method with 1 HARQ process.
 The repeat requests are done upon the timeout (RACH response window exceeds and no ACK has been received).
 The RACH response window should always be longer than HARQ feedback delay to give the FT time to respond to the packet.
 The processing time for creating the feedback is two subslots or as indicated by the RD in the `HARQ feedback delay` field in RD capability IE.
+
 Feedback delay: n + `HARQ feedback delay` + 1.
+#### `Dect2020ExtMac::InitiateHarq`
+This function is responsible for triggering HARQ and Random Access. It controls when `Dect2020ExtMac::InitiateRandomAccess` will be called and which packet is dequeued from the Tx queue.
+
+The function acts as follows:
+1. Find a free HARQ process (this is designed to expand the implementation in the future). Currently, only 1 HARQ process is available (with ID 0). The function will raise `NS_FATAL_ERROR` if a free HARQ process was not found. There should always be a free process when `Dect2020ExtMac::InitiateHarq` is called. Stop-and-Wait ARQ protocol is used in the context of HARQ during the Random Access procedure.
+2. Pop a packet from the Tx queue `Dect2020ExtMac::m_txQueue`
+3. Prepare the process and build the PHY Control Field Type 2
+4. Get current subslot number and random access resource allocation start and end subslots
+5. If the RACH resources are yet to come in the current frame:
+	1. Schedule `Dect2020ExtMac::InitiateRandomAccess` at the start of the RACH resources in the current frame
+6. If the device is already inside or at the start of the RACH resources:
+	1. Execute `Dect2020ExtMac::InitiateRandomAccess` immediately
+7. If the device is outside of the RACH resources:
+	1. Schedule `Dect2020ExtMac` at the next RACH resources in the next frame
+8. At least one of the above conditions has to be met and the simulation will continue with `Dect2020ExtMac::InitiateRandomAccess`
+#### `Dect2020ExtMac::InitiateRandomAccess`
+This function is designed to purely control the Random Access. It is supposed to be called either inside or at the start of the RACH resources. `Dect2020ExtMac::InitiateHarq` is responsible for correctly triggering `Dect2020ExtMac::InitiateRandomAccess`.
+
+The function directly follows the DECT-2020 NR standard acts as follows:
+1. Get the start subslot, the length, and the length type of RACH resources from Random Access Resource IE
+2. If RACH length is in subslots:
+	1. Determine RACH duration in microseconds by calling `Dect2020ExtMacScheduler::GetTimeTillSubslotEndNs` and passing RACH end subslot (start subslot + length) to the function. This way, if the function is called either at the start or inside of the RACH resources it will get the correct available RACH duration
+3. If RACH length is in slots:
+	1. Raise `NS_FATAL_ERROR`. RACH resources shouldn't be in slots
+4. Calculate all possible start positions withing the available RACH duration
+5. Initialize CW_MIN, CW_MAX, and CW_CURRENT
+6. Initialize the `Dect2020ExtRandomAccessContext`
+7. Call `InitiateBackoff`
+#### `Dect2020ExtMac::InitiateBackoff`
+This function initiates the backoff and also handles the case where all available positions were exceeded. If this is the case, the procedure start from the begining by scheduling `Dect2020ExtMac::InitiateRandomAccess` again at the next RACH resources in the next frame. It is also important to start from `Dect2020ExtMac::InitiateRandomAccess` to avoid timing issues with starting positions. It is better to just recalculate them once again for the new RACH resources then trying to track down if existing starting positions still apply to the resources. 
+
+The function acts as follows:
+1. Get the backoff value from a random number generator (the backoff value will be the position index)
+2. Ensure that all available positions are not exceeded
+3. Calculate the backoff duration in microseconds by getting the starting position from `randomAccessContext->startPositions[backoffValue]`
+4. Schedule LBT with the backoff delay
+
 # Data Transmission
 #### General Description
 Data transmission is implemented via HARQ operation and Random Access. MAC PDU formats that belong to HARQ and Random Access are used to configure how data transmission will happen.
