@@ -16,7 +16,9 @@ constexpr uint8_t FOURIER_TRANSFORM_SCALING_FACTOR = 1;
 
 constexpr uint32_t SLOTS_PER_FRAME = 24;
 constexpr double SLOT_DURATION_NS = 416666; // 0,41667 milliseconds in nanoseconds
+constexpr uint32_t FRAME_DURATION_NS = 10000000; // 10 milliseconds in nanoseconds
 constexpr uint32_t FRAME_DURATION_US = 10000; // 10 milliseconds in microseconds
+constexpr uint32_t FRAME_DURATION_MS = 10;
 
 // Spectrum channel
 
@@ -29,7 +31,8 @@ using PROPAGATION_LOSS_MODEL = LogDistancePropagationLossModel;
 constexpr uint8_t RX_GAIN_INDEX = 5;
 
 // MAC Random Access Procedure
-constexpr bool USE_CPP_RNG = false;
+
+constexpr bool USE_CPP_RNG = false; // Use random values every simulation from C++
 
 } // namespace ns3
 

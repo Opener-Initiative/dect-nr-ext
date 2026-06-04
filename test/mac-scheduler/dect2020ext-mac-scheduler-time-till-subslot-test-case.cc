@@ -39,10 +39,9 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     scheduler.StartMacScheduler();
 
     double subslotDurationNs = SLOT_DURATION_NS / scheduler.GetChannelManager()->GetSubslotsPerSlot();
-    double frameDurationNs = static_cast<double>(FRAME_DURATION_US) * 1000.0;
 
     // ============================================================
-    // GetTimeTillSubslotStartNs — Frame 1
+    // GetTimeTillSubslotStartNs - Frame 0
     // ============================================================
 
     // D = subslot duration
@@ -64,7 +63,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
 
     // At exact start of subslot 1, requesting subslot 1 → 0 ns remaining
     Simulator::Schedule(NanoSeconds(subslotDurationNs), [&scheduler, this]() {
-        NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(scheduler.GetCurrentSubslotNumber()), 0.0, "Time till current subslot at its exact start should be 0");
+        NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(1), 0.0, "Time till current subslot at its exact start should be 0");
     });
 
     // At exact start of subslot 1, requesting subslot 3 → 2 * D remaining
@@ -113,7 +112,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // ============================================================
-    // GetTimeTillSubslotEndNs — Frame 1
+    // GetTimeTillSubslotEndNs — Frame 0
     // ============================================================
 
     // At frame start (t=0), requesting end of subslot 0 → D remaining
@@ -147,28 +146,28 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     });
 
     // ============================================================
-    // Multi-frame — Frame 2 (starts at frameDurationNs)
+    // Multi-frame — Frame 1 (starts at FRAME_DURATION_NS)
     // Note: tests are offset by +100 ns so ProcessSubslot(0) has
     // already fired and m_currentSubslotNumber is correctly set.
     // ============================================================
 
     // GetTimeTillSubslotStartNs: 100 ns into subslot 0 → D - 100 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs + 100), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS + 100), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(1), subslotDurationNs - 100.0, "Frame 2: incorrect time till subslot 1 at 100 ns into frame");
     });
 
     // GetTimeTillSubslotStartNs: 329 ns into subslot 1, requesting subslot 20 → 19 * D - 329 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs + subslotDurationNs + 329), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS + subslotDurationNs + 329), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(20), subslotDurationNs * 19 - 329.0, "Frame 2: incorrect time till subslot 20 at 329 ns into subslot 1");
     });
 
     // GetTimeTillSubslotEndNs: 100 ns into subslot 0, requesting end of subslot 1 → 2 * D - 100 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs + 100), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS + 100), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotEndNs(1), subslotDurationNs * 2 - 100.0, "Frame 2: incorrect time till end of subslot 1 at 100 ns into frame");
     });
 
     // GetTimeTillSubslotEndNs: 329 ns into subslot 20, requesting end of subslot 35 → 16 * D - 329 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs + subslotDurationNs * 20 + 329), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS + subslotDurationNs * 20 + 329), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotEndNs(35), subslotDurationNs * 16 - 329.0, "Frame 2: incorrect time till end of subslot 35 at 329 ns into subslot 20");
     });
 
@@ -177,7 +176,7 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     // ============================================================
 
     // GetTimeTillSubslotStartNs: 137 ns into subslot 10, requesting subslot 35 → 25 * D - 137 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs * 4 + subslotDurationNs * 10 + 137), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS * 4 + subslotDurationNs * 10 + 137), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(35), subslotDurationNs * 25 - 137.0, "Frame 5: incorrect time till subslot 35 at 137 ns into subslot 10");
     });
 
@@ -186,15 +185,16 @@ Dect2020ExtMacSchedulerTimeTillSubslotTestCase::DoRun()
     // scheduled during StartMacScheduler's execution and therefore gets a higher event ID
     // than lambdas queued before Simulator::Run(), causing the lambda to fire before
     // ProcessSubslot(k) updates m_currentSubslotNumber.
-    Simulator::Schedule(NanoSeconds(frameDurationNs * 4 + subslotDurationNs * 34 + 137), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS * 4 + subslotDurationNs * 34 + 137), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotStartNs(35), subslotDurationNs - 137.0, "Frame 5: incorrect time till subslot 35 at 137 ns into subslot 34");
     });
 
     // GetTimeTillSubslotEndNs: 329 ns into subslot 20, requesting end of subslot 35 → 16 * D - 329 remaining
-    Simulator::Schedule(NanoSeconds(frameDurationNs * 4 + subslotDurationNs * 20 + 329), [&scheduler, subslotDurationNs, this]() {
+    Simulator::Schedule(NanoSeconds(FRAME_DURATION_NS * 4 + subslotDurationNs * 20 + 329), [&scheduler, subslotDurationNs, this]() {
         NS_TEST_ASSERT_MSG_EQ(scheduler.GetTimeTillSubslotEndNs(35), subslotDurationNs * 16 - 329.0, "Frame 5: incorrect time till end of subslot 35 at 329 ns into subslot 20");
     });
 
+    // Run for 5 frames
     Simulator::Stop(MilliSeconds(50));
     Simulator::Run();
     Simulator::Destroy();
