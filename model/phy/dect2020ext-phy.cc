@@ -435,18 +435,18 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHe
 {
     if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
     {
-        // TBD
+        double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+        return physicalHeader.GetPacketLength() * subslotDurationNs;
     }
     else if (physicalHeader.GetPacketLengthType() == 1) // Packet length is given in slots
     {
-        return physicalHeader.GetPacketLength() * 416670; // 416.67 ns per slot
+        return physicalHeader.GetPacketLength() * SLOT_DURATION_NS;
     }
     else
     {
-        NS_LOG_WARN("Invalid packet length type");
+        NS_FATAL_ERROR("Invalid packet length type");
         return 0;
     }
-    return 0;
 }
 
 double
@@ -454,18 +454,18 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHe
 {
     if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
     {
-        // TBD
+        double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+        return physicalHeader.GetPacketLength() * subslotDurationNs;
     }
     else if (physicalHeader.GetPacketLengthType() == 1) // Packet length is given in slots
     {
-        return physicalHeader.GetPacketLength() * 416670; // 416.67 ns per slot
+        return physicalHeader.GetPacketLength() * SLOT_DURATION_NS;
     }
     else
     {
-        NS_LOG_WARN("Invalid packet length type");
+        NS_FATAL_ERROR("Invalid packet length type");
         return 0;
     }
-    return 0;
 }
 
 void

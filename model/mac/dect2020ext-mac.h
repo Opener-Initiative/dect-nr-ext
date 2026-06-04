@@ -232,16 +232,24 @@ class Dect2020ExtMac : public Object
         void SendNetworkBeaconOnChannel(uint16_t channelNumber);
         void SendClusterBeaconOnChannel(uint16_t channelNumber);
 
-        // Building MAC PDU
+        // ###### Building MAC PDU ######
 
         Ptr<Packet> BuildNetworkBeacon();
-        Ptr<Packet> BuildClusterBeacon(uint32_t clusterChannelNumber);
+        Ptr<Packet> BuildClusterBeacon(uint16_t clusterChannelNumber);
         Dect2020ExtRandomAccessResourceIe BuildRandomAccessResourceIe();
-        Dect2020ExtPhyControlFieldType1 BuildPhysicalHeaderField(uint8_t packetLengthType, uint32_t packetLengthBytes);
+
+        // Build PHY Control Field Type 1  
+        // packetLengthType: false - length in subslots, true - length in slots
+        Dect2020ExtPhyControlFieldType1 BuildPhyControlFieldType1(bool packetLengthType, uint32_t packetLengthInBytes);
+
+        // Build PHY Control Field Type 1  
+        // Currently, only FORMAT_000 is used
+        Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, Dect2020ExtHarqProcess* process);
+
         Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         Ptr<Packet> BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
 
-        // Beacon Transmission Helper Functions
+        // ###### Conversion and Calculation
 
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod period);
@@ -282,24 +290,36 @@ class Dect2020ExtMac : public Object
 
         void SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType);
         Dect2020ExtNetDevice::Dect2020ExtTerminationPointType GetTerminationPointType() const;
+
         void SetNetDevice(Ptr<Dect2020ExtNetDevice> device);
         Ptr<Dect2020ExtNetDevice> GetNetDevice() const;
+
         Ptr<Node> GetNode() const;
+
         void SetPhy(Ptr<Dect2020ExtPhy> phy);
         Ptr<Dect2020ExtPhy> GetPhy() const;
+
         void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
+        Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
+
         void SetNetworkId(uint32_t networkId);
         uint32_t GetNetworkId() const;
+
         void SetLongRadioDeviceId(uint32_t rdId);
         uint32_t GetLongRadioDeviceId() const;
+
         void SetShortRadioDeviceId(uint16_t rdId);
         uint16_t GetShortRadioDeviceId() const;
+
         void SetOperatingChannelNumber(uint16_t channelNumber);
         uint16_t GetOperatingChannelNumber() const;
+
         std::vector<Dect2020ExtChannelEvaluation> GetChannelEvaluations() const;
+
         double GetRxGainFromIndex(uint8_t index) const;
-        Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
+
         void SetMacScheduler(Ptr<Dect2020ExtMacScheduler> macScheduler);
+
         Dect2020ExtAssociationStatus GetAssociationStatus();
 
         // Association Status
@@ -432,6 +452,7 @@ class Dect2020ExtMac : public Object
         const double GI_US = 18.52; // GI in microseconds GI = (4/9) * T_u_symb
         const double STF_US = 64.815; // STF = (14/9) * T_u_symb
         const double MINIMUM_LBT_PERIOD_US = STF_US + GI_US;
+        const double START_POSITION_INTERVAL_US = STF_US + GI_US;
 };
 
 } // namespace ns3

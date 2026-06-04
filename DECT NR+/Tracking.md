@@ -33,5 +33,5 @@
 |`m_rxSignal` in interference|dead, never used|
 # 04.06.2026
 1. Check MAC Scheduler time till subslot test - done
-2. Write test for time till next frame
+2. Write test for time till next frame - done
 3. Come back to HARQ and RACH
