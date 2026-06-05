@@ -1,11 +1,13 @@
 #include "dect2020ext-phy.h"
 #include "dect2020ext-interference.h"
+
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
 #include "ns3/dect2020ext-mac-header-type.h"
 #include "ns3/dect2020ext-interference.h"
 #include "ns3/dect2020ext-statistics.h"
+#include "ns3/dect2020ext-config-values.h"
 
 #include "ns3/simulator.h"
 #include "ns3/pointer.h"
@@ -103,12 +105,6 @@ Dect2020ExtPhy::SetMac(Ptr<Dect2020ExtMac> mac)
     m_mac = mac;
 }
 
-uint32_t
-Dect2020ExtPhy::GetCurrentSFN() const
-{
-    return m_SFN.Get();
-}
-
 void
 Dect2020ExtPhy::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
 {
@@ -139,7 +135,7 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
 }
 
 void
-Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback)
+Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, bool> callback)
 {
     m_receiveCallback = callback;
     m_receiveCallbackSet = true;
@@ -326,7 +322,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
 
         // Pass the packet to the MAC after the whole duration of the signal
-        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data);
+        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data, dectParams->m_random);
     }
 }
 

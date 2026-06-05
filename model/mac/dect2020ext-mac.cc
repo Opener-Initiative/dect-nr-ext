@@ -517,9 +517,9 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
 
     Ptr<Packet> packet = BuildNetworkBeacon();
+    bool lengthInSlots = false;
     bool data = false;
     bool random = false;
-    bool lengthInSlots = false;
 
     m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), data, random);
 }
@@ -984,6 +984,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
 void
 Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
+    // Sanity check for configuration
     // Determine if MAC PDU fits into the remaining RACH resource subslots/slots
     bool fitsInRachResources = CheckIfMacPduFitsInMaxRandomAccessTxTime(randomAccessContext);
 
@@ -1083,63 +1084,63 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
 void
 Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
-    // Calculate average RSSI from all samples
-    double totalRssi = 0.0;
-    double maxRssi = -std::numeric_limits<double>::infinity();
+    bool rachTxFitsInRemainingResources = CheckIfRachTxFitsInRemainingResources(randomAccessContext);
 
-    for (double rssi : randomAccessContext->lbtRssiSamples)
+    if (rachTxFitsInRemainingResources)
     {
-        totalRssi += rssi;
-        maxRssi = std::max(maxRssi, rssi);
-    }
+        // Calculate average RSSI from all samples
+        double totalRssi = 0.0;
+        double maxRssi = -std::numeric_limits<double>::infinity();
 
-    double avgRssiDbm = totalRssi / randomAccessContext->lbtRssiSamples.size();
+        for (double rssi : randomAccessContext->lbtRssiSamples)
+        {
+            totalRssi += rssi;
+            maxRssi = std::max(maxRssi, rssi);
+        }
 
-    // Determine channel state based on RSSI threshlods
-    bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
-    bool channelIsPossible = (avgRssiDbm > RSSI_THRESHOLD_MIN && avgRssiDbm <= RSSI_THRESHOLD_MAX);
-    bool channelIsBusy = (avgRssiDbm > RSSI_THRESHOLD_MAX);
+        double avgRssiDbm = totalRssi / randomAccessContext->lbtRssiSamples.size();
 
-    if (channelIsFree || channelIsPossible)
-    {
-        if (fitsInRachResources)
+        // Determine channel state based on RSSI threshlods
+        bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
+        bool channelIsPossible = (avgRssiDbm > RSSI_THRESHOLD_MIN && avgRssiDbm <= RSSI_THRESHOLD_MAX);
+        bool channelIsBusy = (avgRssiDbm > RSSI_THRESHOLD_MAX);
+
+        if (channelIsFree || channelIsPossible)
         {
             // Transmit packet
-            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at position " << randomAccessContext->m_currentPositionIndex << " -> power on channel is " << avgRssiDbm << " dBm");
-            if (randomAccessContext->m_physicalHeaderFieldType == 1)
-            {
-                // m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType1);
-            }
-            else
-            {
-                // m_phy->Send(randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
-                double subslotDurationNs = SLOT_DURATION_NS / 2;
-                Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIe.GetResponseWindow());
-                Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
-            }
+            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting" << " -> power on channel is " << avgRssiDbm << " dBm");
+
+            m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, true);
+
+            // Response window should be considered as one frame
+            // double subslotDurationNs = SLOT_DURATION_NS / 2;
+            // Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIe.GetResponseWindow());
+            // Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
         }
-        else
+        else if (channelIsBusy)
         {
-            // Defer to next random access resources
-            // Reset to WAITING_FOR_SELECTED_FT so next cluster beacon re-triggers association
-            NS_LOG_INFO("Deferring to next random access resources -> the MAC PDU doesn't fit into RACH resources");
-            return;
+            NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
+
+            // Exponential backoff: double CW_CURRENT, cap at CW_MAX
+            uint32_t newCW = std::min(randomAccessContext->CW_CURRENT * 2, randomAccessContext->CW_MAX);
+            randomAccessContext->CW_CURRENT = newCW;
+
+            // Reset sample counter, vector, and starting positions for next attempt
+            randomAccessContext->lbtSampleCount = 0;
+            randomAccessContext->lbtRssiSamples.clear();
+
+            // Re-initiate Random Access with increased CW
+            bool newContext = false;
+            InitiateRandomAccess(randomAccessContext->randomAccessResourceIe,
+                                 randomAccessContext->process,
+                                 randomAccessContext->phyControlFieldType2,
+                                 newContext,
+                                 randomAccessContext);
         }
     }
-    else if (channelIsBusy)
+    else
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating backoff with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
-
-        // Exponential backoff: double CW_CURRENT, cap at CW_MAX
-        uint32_t newCW = std::min(randomAccessContext->m_CW_CURRENT * 2, randomAccessContext->m_CW_MAX);
-        randomAccessContext->m_CW_CURRENT = newCW;
-
-        // Reset sample counter and vector for next attempt
-        randomAccessContext->m_lbtSampleCount = 0;
-        randomAccessContext->m_lbtRssiSamples.clear();
-
-        // Re-initiate backoff with increased CW
-        InitiateBackoff(randomAccessContext);
+        // Defer till next RACH resources in the next frame
     }
 }
 
@@ -1162,16 +1163,60 @@ Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect202
     }
 }
 
-void
-Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
+bool
+Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
-    NS_LOG_FUNCTION(this << packet);
+    uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
+    uint32_t allSubslotsInFrame = SLOTS_PER_FRAME * m_channelManager->GetSubslotsPerSlot();
+    uint32_t macPduSizeInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
+    uint32_t responseAbsSubslot;
+
+    // If RD Capability IE from the selected FT available -> use the specified HARQ feedback delay value
+    if (m_selectedFtCandidate.rdCapabilityIeAvailable)
+    {
+        responseAbsSubslot = currentAbsSubslot + m_selectedFtCandidate.ftRdCapabilityIe.GetHarqFeedbackDelay() + 1;
+    }
+    else
+    {
+        responseAbsSubslot = currentAbsSubslot + 3;
+    }
+
+    if (responseAbsSubslot + macPduSizeInSubslots > allSubslotsInFrame)
+    {
+        NS_FATAL_ERROR("Response subslot " << responseAbsSubslot + macPduSizeInSubslots << " exceeds frame boundary (" << allSubslotsInFrame << " subslots)");
+    }
+
+    uint16_t startSubslot = randomAccessContext->randomAccessResourceIe.GetStartSubslot();
+    uint8_t length = randomAccessContext->randomAccessResourceIe.GetRaraLength();
+
+    return responseAbsSubslot + macPduSizeInSubslots <= startSubslot + length;
+}
+
+double
+Dect2020ExtMac::CalculateHarqFeedbackDurationNs(uint8_t harqFeedbackDelay)
+{
+    uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
+    uint32_t allSubslotsInFrame = SLOTS_PER_FRAME * m_channelManager->GetSubslotsPerSlot();
+    uint32_t responseAbsSubslot = currentAbsSubslot + harqFeedbackDelay + 1;
+
+    if (responseAbsSubslot >= allSubslotsInFrame)
+    {
+        NS_FATAL_ERROR("Response subslot " << responseAbsSubslot << " exceeds frame obundary (" << allSubslotsInFrame << " subslots)");
+    }
+
+    return m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
+}
+
+void
+Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
+{
     NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_operatingChannelNumber);
 
     Dect2020ExtPhyControlFieldType1 physicalHeaderFieldType1;
     Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2;
 
-    if (data)
+    // Packets are sent with PHY Control Field Type 2 during Random Access
+    if (random)
     {
         packet->RemoveHeader(physicalHeaderFieldType2);
     }
@@ -1194,7 +1239,6 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data)
             Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderFieldType1.GetTransmitterIdentity());
             ft->rssiDbm = rssiDbm;
             ft->ftPhyHeaderField = physicalHeaderFieldType1;
-            ft->receptionTime = Simulator::Now();
             ft->shortFtId = physicalHeaderFieldType1.GetTransmitterIdentity();
             ft->shortNetworkId = physicalHeaderFieldType1.GetShortNetworkId();
 
@@ -1592,7 +1636,9 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
     ChangeAssociationStatus(ASSOCIATION_PENDING);
 
     m_txQueue.push(BuildAssociationRequest(ft));
-    InitiateHarq();
+
+    bool data = false;
+    InitiateHarq(data);
 }
 
 void
@@ -1964,7 +2010,7 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
 }
 
 void
-Dect2020ExtMac::InitiateHarq()
+Dect2020ExtMac::InitiateHarq(bool data)
 {
     // Find a free HARQ process
     Dect2020ExtHarqProcess* process = nullptr;
@@ -1993,6 +2039,7 @@ Dect2020ExtMac::InitiateHarq()
     process->state = Dect2020ExtHarqProcess::WAITING_ACK;
     process->ndi = true; // New data with no previous versions
     process->packet = packet->Copy();
+    process->data = data;
 
     bool packetLengthInSlots = false;
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, process);
@@ -2012,7 +2059,10 @@ Dect2020ExtMac::InitiateHarq()
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000 << " ms");
         Time delay = NanoSeconds(timeToRachStartNs);
 
-        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIe, process, phyControlFieldType2);
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                            m_selectedFtCandidate.ftRandomAccessResourceIe,
+                            process,
+                            phyControlFieldType2);
     }
     // If the device is already inside or at the start of the RACH resources -> execute InitiateRandomAccess immediately
     if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)

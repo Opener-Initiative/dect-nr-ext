@@ -46,20 +46,15 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		void Start();
 
-		// ################################################
 		// ###### Dect2020ExtPhy Setters and Getters ######
-		// ################################################
 
 		void SetMac(Ptr<Dect2020ExtMac> mac);
-		uint32_t GetCurrentSFN() const;
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
-		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback);
+		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, bool> callback);
 
-		// ###########################
 		// ###### Configuration ######
-		// ###########################
 
 		void SetBandNumber(uint8_t bandNumber);
 		uint8_t GetBandNumber() const;
@@ -91,23 +86,13 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void ChangeState(PhyState newState);
 		void EndRx(Ptr<Packet> packet, double rssiDbm, bool data);
 
-		// #######################
-		// ###### Callbacks ######
-		// #######################
-
-		Callback<void, uint32_t, uint32_t> m_SFNCallback;
-
-		// ##########################
 		// ###### Interference ######
-		// ##########################
 
 		Ptr<Dect2020ExtInterference> m_interference;
 
 		std::string PHY_IDENTITY;
 
-		// ##################
 		// ###### Test ######
-		// ##################
 
 		bool m_phyTest = false;
 
@@ -115,25 +100,15 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint32_t m_currentSlot;
 		uint32_t m_currentSubslot;
 		uint16_t m_currentAbsoluteSubslot;
-		TracedValue<uint32_t> m_SFN; // System Frame Number traced value
-
 	    Time m_frameStartTime;
 		std::vector<int> m_frame;
 		uint32_t m_currentSubslotId;
 		uint32_t m_totalSubslotsPerFrame;
-		Ptr<Dect2020ExtMac> m_mac;
-		Callback<void, Ptr<Packet>, double, bool> m_receiveCallback;
-		bool m_receiveCallbackSet = false;
-
 		static const std::vector<uint16_t> m_singleSlotSingleStreamTransportBlockSizesMu1Beta1;
-
 		Ptr<const SpectrumModel> m_spectrumModel;
-
 		PhyState m_currentState;
 
-		// ###########################
 		// ###### Configuration ######
-		// ###########################
 
 		uint8_t m_bandNumber;
 		bool m_bandNumberSet = false;
@@ -144,19 +119,17 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint8_t m_fourierTransformScalingFactor;
 		bool m_fourierTransformScalingFactorSet = false;
 
+		Callback<void, Ptr<Packet>, double, bool, bool> m_receiveCallback;
+		bool m_receiveCallbackSet = false;
+
+		// Configuration pointers
+
+		Ptr<Dect2020ExtMac> m_mac;
 		Ptr<Dect2020ExtChannelManager> m_channelManager;
 		Ptr<SpectrumChannel> m_channel;
 		Ptr<Object> m_antenna;
 		Ptr<NetDevice> m_device;
 		Ptr<MobilityModel> m_mobilityModel;
-
-		// #######################
-		// ###### Constants ######
-		// #######################
-
-		const double SLOT_DURATION_NS = 416666; // 0,41667 ms in nanoseconds
-		const uint16_t FRAME_DURATION_US = 10000; // 10 ms in microseconds
-		const uint32_t SLOTS_PER_FRAME = 24;
 };
 
 } // namespace ns3

@@ -51,9 +51,8 @@ struct Dect2020ExtHarqProcess
 {
     enum State
     {
-        FREE, // prces is available for a new packet
+        FREE, // available for a new packet
         WAITING_ACK, // packet sent, waiting for feedback
-        // NACK_PENDING // NACK received, retransmission needed
     };
 
     void ResetProcess()
@@ -69,7 +68,8 @@ struct Dect2020ExtHarqProcess
     uint8_t reTxCount = 0;
     const uint8_t maxRetx = 4; // Fixed number of max retransmissions
     Ptr<Packet> packet;
-    // std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
+    bool data;
+    const bool random = true; // This context is only used for random access
 };
 
 struct Dect2020ExtRandomAccessContext
@@ -89,6 +89,9 @@ struct Dect2020ExtRandomAccessContext
     std::vector<double> lbtRssiSamples; // Store RSSI samples during LBT
     uint32_t lbtSampleCount = 0; // Counter for collected samples
     uint32_t lbtTotalSamples = 5; // Total samples to collect
+
+    bool data;
+    bool random;
 };
 
 struct Dect2020ExtChannelEvaluation
@@ -134,28 +137,28 @@ struct Dect2020ExtFtCandidateInfo
     uint32_t longFtId;
     uint16_t clusterChannelNumber;
     uint8_t sfn;
-    Time receptionTime;
+    bool rdCapabilityIeAvailable = false;
 
     Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;           // Last received Physical Header Field
     Dect2020ExtBeaconHeader ftBeaconHeader;                     // Last received Beacon Header
     Dect2020ExtUnicastHeader ftUnicastHeader;                   // Last received Unicast Header
-    Dect2020ExtNetworkBeaconMessageIe ftNetworkBeaconMessage;   // Last received Network Beacon Message
-    Dect2020ExtClusterBeaconMessageIe ftClusterBeaconMessage;   // Last received Cluster Beacon Message
-    Dect2020ExtRandomAccessResourceIe ftRandomAccessResourceIe; // Last received Random Access Resource Ie
+    Dect2020ExtNetworkBeaconMessageIe ftNetworkBeaconMessageIe; // Last received Network Beacon Message
+    Dect2020ExtClusterBeaconMessageIe ftClusterBeaconMessageIe; // Last received Cluster Beacon Message
+    Dect2020ExtRandomAccessResourceIe ftRandomAccessResourceIe; // Last received Random Access Resource IE
+    Dect2020ExtRdCapabilityIe ftRdCapabilityIe;                 // Last received RD Capability IE
 
-    // Constructor to initialize all members to zero/default values
     Dect2020ExtFtCandidateInfo()
         : rssiDbm(-150.0), 
           shortNetworkId(0),
           networkId(0),
           longFtId(0),
           clusterChannelNumber(0),
-          receptionTime(Seconds(0)), 
           ftPhyHeaderField(),
           ftBeaconHeader(),
-          ftNetworkBeaconMessage(),
-          ftClusterBeaconMessage(),
-          ftRandomAccessResourceIe()
+          ftNetworkBeaconMessageIe(),
+          ftClusterBeaconMessageIe(),
+          ftRandomAccessResourceIe(),
+          ftRdCapabilityIe()
     {
     }
 };
@@ -243,7 +246,7 @@ class Dect2020ExtMac : public Object
         Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
         Ptr<Packet> BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
 
-        // ###### Conversion and Calculation
+        // ###### MAC-PDU-Related Conversion and Calculation
 
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod period);
@@ -264,9 +267,16 @@ class Dect2020ExtMac : public Object
         void EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        // Association Procedure
+        // Check if the Random Access transmission (MAC PDU + response window) fits into the remaining
+        // RACH resources
+        bool CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data);
+        // Calculate HARQ feedback delay with the formula n + HARQ feedback delay + 1
+        double CalculateHarqFeedbackDurationNs(uint8_t harqFeedbackDelay);
+
+        // ###### Association Procedure ######
+
+        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet);
         void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2);
@@ -327,7 +337,7 @@ class Dect2020ExtMac : public Object
 
         // Random Access
 
-        void InitiateHarq();
+        void InitiateHarq(bool data);
         void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
         void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
         void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2);
