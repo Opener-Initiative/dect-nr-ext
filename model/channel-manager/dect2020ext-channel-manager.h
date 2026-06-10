@@ -1,7 +1,6 @@
 #ifndef DECT2020EXT_CHANNEL_MANAGER_H
 #define DECT2020EXT_CHANNEL_MANAGER_H
 
-#include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-net-device.h"
 
 #include "ns3/object.h"
@@ -17,7 +16,6 @@
 namespace ns3
 {
 
-class Dect2020ExtChannel;
 class Dect2020ExtNetDevice;
 
 struct BandParameters

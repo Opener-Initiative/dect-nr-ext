@@ -1,7 +1,6 @@
 #ifndef DECT2020EXT_PHY_H
 #define DECT2020EXT_PHY_H
 
-#include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
@@ -22,7 +21,6 @@ namespace ns3
 {
 
 class Dect2020ExtChannelManager;
-class Dect2020ExtChannel;
 class Dect2020ExtMac;
 class Dect2020ExtPhyControlFieldType1;
 class Dect2020ExtPhyControlFieldType2;

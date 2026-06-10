@@ -67,13 +67,6 @@ set(dect2020ext_net_device_src
 set(dect2020ext_net_device_h
     model/net-device/dect2020ext-net-device.h)
 
-# DECT-2020 EXT Channel
-set(dect2020ext_channel_src
-    model/channel/dect2020ext-channel.cc)
-    
-set(dect2020ext_channel_h
-    model/channel/dect2020ext-channel.h)
-
 # DECT-2020 EXT Channel Manager
 set(dect2020ext_channel_manager_src
     model/channel-manager/dect2020ext-channel-manager.cc)
@@ -251,7 +244,6 @@ build_lib(
         ${dect2020ext_information_elements_src}
         ${dect2020ext_net_device_src}
         ${dect2020ext_channel_manager_src}
-        ${dect2020ext_channel_src}
         ${dect2020ext_mac_src}
         ${dect2020ext_phy_src}
         ${dect2020ext_spectrum_signal_parameters_src}
@@ -271,7 +263,6 @@ build_lib(
         ${dect2020ext_types_h}
         ${dect2020ext_net_device_h}
         ${dect2020ext_channel_manager_h}
-        ${dect2020ext_channel_h}
         ${dect2020ext_mac_h}
         ${dect2020ext_phy_h}
         ${dect2020ext_spectrum_signal_parameters_h}

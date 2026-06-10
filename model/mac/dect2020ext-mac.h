@@ -2,7 +2,6 @@
 #define DECT2020EXT_MAC_H
 
 #include "ns3/dect2020ext-net-device.h"
-#include "ns3/dect2020ext-channel.h"
 #include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
