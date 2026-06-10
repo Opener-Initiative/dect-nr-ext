@@ -75,7 +75,7 @@ CreatePythonConnectionGraph(NetDeviceContainer devices)
             
         if (statusStr == "ASSOCIATED")
         {
-            uint64_t ftId = mac->m_associatedFTNetDeviceLongRdId;
+            uint64_t ftId = mac->m_associatedFtNetDeviceLongRdId;
             std::string ftName = longRdIdToName[ftId];
             topo << "edges.append(('" << ftName << "', '" << name << "', {'power': " << mac->m_selectedFtCandidate.rssiDbm << "}))\n";
         }

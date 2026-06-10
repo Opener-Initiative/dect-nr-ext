@@ -41,19 +41,20 @@ main(int argc, char *argv[])
     associationControlIe.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
     associationControlIe.SetUlPeriod(UlPeriod::S_10); // association maintenance period 10 seconds
 
+    // Response window = (Max RACH Tx length * 2) + 3 (HARQ feedback) + 1 (additional subslot to cover propagation delay)
     Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
     randomAccessResourceIe.SetRepeat(0);
     randomAccessResourceIe.SetSystemFrameNumberFieldIncluded(false);
     randomAccessResourceIe.SetChannelFieldIncluded(false);
     randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
     randomAccessResourceIe.SetStartSubslot(10);
-    randomAccessResourceIe.SetLengthType(false); // length in subslots
-    randomAccessResourceIe.SetRaraLength(50);
-    randomAccessResourceIe.SetMaxRachLengthType(false); // length in subslots
-    randomAccessResourceIe.SetMaxRachLength(4); // Max 4 subslots (2 slots) / transmission
+    randomAccessResourceIe.SetLengthType(false); // RACH resources length in subslots
+    randomAccessResourceIe.SetRaraLength(20);
+    randomAccessResourceIe.SetMaxRachLengthType(false); // Max RACH Tx length in subslots
+    randomAccessResourceIe.SetMaxRachLength(5); // in subslots
     randomAccessResourceIe.SetCwMinSig(1);
     randomAccessResourceIe.SetDectDelay(false);
-    randomAccessResourceIe.SetResponseWindow(5);
+    randomAccessResourceIe.SetResponseWindow(14); // in subslots
     randomAccessResourceIe.SetCwMaxSig(5);
 
     // ################
@@ -106,6 +107,7 @@ main(int argc, char *argv[])
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(associationControlIe);
         ptMac->ProceedToDataTransmission(false);
+        ptMac->SetSearchBestFtTimeMs(10);
         config.ApplyToMac(ptMac);
 
         ptPhy->SetMac(ptMac);

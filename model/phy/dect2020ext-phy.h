@@ -53,6 +53,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
 		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, bool> callback);
+		PhyState GetState() const;
 
 		// ###### Configuration ######
 
@@ -79,12 +80,12 @@ class Dect2020ExtPhy : public SpectrumPhy
 
 		// Dect2020ExtPhy Methods
 
-		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader, bool data, bool random);
-		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader, bool data, bool random);
+		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 phyControlField, bool data, bool random);
+		void Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlField, bool data, bool random);
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHeader);
 		double CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHeader);
 		void ChangeState(PhyState newState);
-		void EndRx(Ptr<Packet> packet, double rssiDbm, bool data);
+		void EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
 
 		// ###### Interference ######
 

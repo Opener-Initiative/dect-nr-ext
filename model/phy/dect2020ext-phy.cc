@@ -15,6 +15,8 @@
 namespace ns3
 {
 
+using PhyState = Dect2020ExtPhy::PhyState;
+
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtPhy");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtPhy);
 
@@ -139,6 +141,12 @@ Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, boo
 {
     m_receiveCallback = callback;
     m_receiveCallbackSet = true;
+}
+
+PhyState
+Dect2020ExtPhy::GetState() const
+{
+    return m_currentState;
 }
 
 void
@@ -327,7 +335,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 }
 
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physicalHeader, bool data, bool random)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 phyControlField, bool data, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
 
@@ -335,14 +343,14 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
     params->txPhy = this;
     params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
-    params->m_txPacket->AddHeader(physicalHeader);
+    params->m_txPacket->AddHeader(phyControlField);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
     params->m_data = data;
     params->m_random = random;
     params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS
-    Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
+    Time duration = Time(NanoSeconds(CalculateTxDurationNs(phyControlField)));
     params->duration = duration;
 
     // Get the channel index --> this is the index of the channel used for PSD
@@ -377,7 +385,7 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 physica
 }
 
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeader, bool data, bool random)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlField, bool data, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
 
@@ -385,14 +393,14 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physica
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
     params->txPhy = this;
     params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
-    params->m_txPacket->AddHeader(physicalHeader);
+    params->m_txPacket->AddHeader(phyControlField);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
     params->m_data = data;
     params->m_random = random;
     params->txMobility = m_mobilityModel;
 
     // Calculate the TX duration based on the packet size and MCS
-    Time duration = Time(NanoSeconds(CalculateTxDurationNs(physicalHeader)));
+    Time duration = Time(NanoSeconds(CalculateTxDurationNs(phyControlField)));
     params->duration = duration;
 
     // Get the channel index --> this is the index of the channel used for PSD
@@ -465,9 +473,9 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHe
 }
 
 void
-Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data)
+Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
 {
-    m_receiveCallback(packet, rssiDbm, data);
+    m_receiveCallback(packet, rssiDbm, data, random);
 }
 
 void

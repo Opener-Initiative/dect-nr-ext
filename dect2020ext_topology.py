@@ -5,7 +5,8 @@ nodes = []
 edges = []
 
 nodes.append(('FT0', 'FT', 'NOT_ASSOCIATED', 0, 0))
-nodes.append(('PT0', 'PT', 'ASSOCIATION_PENDING', 36.4294, 0))
+nodes.append(('PT0', 'PT', 'ASSOCIATED', 36.4294, 0))
+edges.append(('FT0', 'PT0', {'power': -83.5213}))
 
 graph = nx.Graph()
 

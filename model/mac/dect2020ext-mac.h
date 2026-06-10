@@ -27,8 +27,8 @@
 #include "ns3/packet.h"
 #include "ns3/uinteger.h"
 #include "ns3/node.h"
+#include "ns3/simulator.h"
 
-#include <cstddef>
 #include <map>
 #include <memory>
 #include <vector>
@@ -46,6 +46,7 @@ class Dect2020ExtRdCapabilityIe;
 class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
 class Dect2020ExtMacHeaderType;
+struct Dect2020ExtRandomAccessContext;
 
 struct Dect2020ExtHarqProcess
 {
@@ -55,21 +56,26 @@ struct Dect2020ExtHarqProcess
         WAITING_ACK, // packet sent, waiting for feedback
     };
 
-    void ResetProcess()
+    void Reset()
     {
         state = FREE;
+        ndi = true;
         reTxCount = 0;
+        data = false;
         packet = nullptr;
+        randomAccessContext = nullptr;
     }
 
     State state = FREE;
-    const uint8_t processId = 0; // Currently, only one process can exist with ID 0
     bool ndi;
     uint8_t reTxCount = 0;
-    const uint8_t maxRetx = 4; // Fixed number of max retransmissions
-    Ptr<Packet> packet;
     bool data;
-    const bool random = true; // This context is only used for random access
+    Ptr<Packet> packet;
+    std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext;
+
+    const uint8_t processNumber = 0; // Currently, only one process can exist with ID 0
+    const uint8_t maxRetx = 4; // Fixed number of max retransmissions
+    const bool random = true; // This context is only used for Random Access
 };
 
 struct Dect2020ExtRandomAccessContext
@@ -83,7 +89,7 @@ struct Dect2020ExtRandomAccessContext
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2;
 
     // Position
-    uint32_t currentPositionIndex = 0;
+    // uint32_t currentPositionIndex = 0;
 
     // LBT sampling
     std::vector<double> lbtRssiSamples; // Store RSSI samples during LBT
@@ -128,7 +134,7 @@ struct Dect2020ExtSubslotScanContext
     uint32_t totalSubslots;
 };
 
-struct Dect2020ExtFtCandidateInfo
+struct Dect2020ExtFtInfo
 {
     double rssiDbm;
     uint8_t shortNetworkId;
@@ -137,48 +143,27 @@ struct Dect2020ExtFtCandidateInfo
     uint32_t longFtId;
     uint16_t clusterChannelNumber;
     uint8_t sfn;
-    bool rdCapabilityIeAvailable = false;
+    Time receptionTime;
 
-    Dect2020ExtPhyControlFieldType1 ftPhyHeaderField;           // Last received Physical Header Field
-    Dect2020ExtBeaconHeader ftBeaconHeader;                     // Last received Beacon Header
-    Dect2020ExtUnicastHeader ftUnicastHeader;                   // Last received Unicast Header
-    Dect2020ExtNetworkBeaconMessageIe ftNetworkBeaconMessageIe; // Last received Network Beacon Message
-    Dect2020ExtClusterBeaconMessageIe ftClusterBeaconMessageIe; // Last received Cluster Beacon Message
-    Dect2020ExtRandomAccessResourceIe ftRandomAccessResourceIe; // Last received Random Access Resource IE
-    Dect2020ExtRdCapabilityIe ftRdCapabilityIe;                 // Last received RD Capability IE
-
-    Dect2020ExtFtCandidateInfo()
-        : rssiDbm(-150.0), 
-          shortNetworkId(0),
-          networkId(0),
-          longFtId(0),
-          clusterChannelNumber(0),
-          ftPhyHeaderField(),
-          ftBeaconHeader(),
-          ftNetworkBeaconMessageIe(),
-          ftClusterBeaconMessageIe(),
-          ftRandomAccessResourceIe(),
-          ftRdCapabilityIe()
-    {
-    }
+    Dect2020ExtPhyControlFieldType1 phyControlFieldType1;                 // Last received PHY Control Field Type 1
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2;                 // Last received PHY Control Field Type 2
+    Dect2020ExtBeaconHeader beaconHeader;                                 // Last received Beacon Header
+    Dect2020ExtUnicastHeader unicastHeader;                               // Last received Unicast Header
+    Dect2020ExtNetworkBeaconMessageIe networkBeaconMessageIe;             // Last received Network Beacon Message
+    Dect2020ExtClusterBeaconMessageIe clusterBeaconMessageIe;             // Last received Cluster Beacon Message
+    Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;             // Last received Random Access Resource IE
+    Dect2020ExtRdCapabilityIe rdCapabilityIe;                             // Last received RD Capability IE
+    Dect2020ExtAssociationResponseMessageIe associationResponseMessageIe; // Last received Association Response Message IE
 };
 
-struct Dect2020ExtAssociatedPtInfo
+struct Dect2020ExtPtInfo
 {
-    Time associationEstablished;
-    uint32_t longRdId; // Long Radio Device ID of the PT
-    // uint8_t numberOfFlows;
-    // bool powerConstraints;
-    // bool ftMode;
-    // uint8_t harqProcessesTx;
-    // uint8_t maxHarqReTxDelay;
-    // uint8_t harqProcessesRx;
-    // uint8_t maxHarqReRxDelay;
-    // uint8_t flowId;
-    // bool cb_m;
+    Time associationAcceptedTime;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2;
+    Dect2020ExtUnicastHeader unicastHeader;
+    Dect2020ExtAssociationRequestMessageIe associationRequestMessageIe;
     Dect2020ExtRdCapabilityIe rdCapabilityIe;
-
-    // double lastRssi;
+    Dect2020ExtAssociationControlIe associationControlIe;
 };
 
 class Dect2020ExtMac : public Object
@@ -201,7 +186,7 @@ class Dect2020ExtMac : public Object
 
         void TestFunction();
 
-        // Initialization
+        // ###### Initialization ######
 
         void Initialize();
         void Start();
@@ -211,7 +196,7 @@ class Dect2020ExtMac : public Object
         uint32_t GenerateLongRadioDeviceId();
         uint16_t GenerateShortRadioDeviceId();
 
-        // Spectrum Management Procedure
+        // ###### Background Scan ######
 
         void DisplayChannelEvaluations();
         void OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext);
@@ -221,7 +206,7 @@ class Dect2020ExtMac : public Object
         void MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext);
         void BackgroundScan();
 
-        // Beacon Transmission
+        // ###### Beacon Transmission ######
 
         void StartBeaconTransmission();
         void StartNetworkBeaconTransmission();
@@ -241,19 +226,35 @@ class Dect2020ExtMac : public Object
 
         // Build PHY Control Field Type 1  
         // Currently, only FORMAT_000 is used
-        Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, Dect2020ExtHarqProcess* process);
+        Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber);
 
-        Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
-        Ptr<Packet> BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
+        Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtInfo* ft);
+        Ptr<Packet> BuildAssociationResponse(Dect2020ExtPtInfo ptInfo);
 
         // ###### MAC-PDU-Related Conversion and Calculation
 
         uint32_t ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod period);
         uint32_t ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod period);
-        uint8_t CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const;
-        uint8_t CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const;
+        uint8_t CalculateMacPduSizeInSubslots(uint32_t packetSizeInBytes) const;
+        uint8_t CalculateMacPduSizeInSlots(uint32_t packetSizeInBytes) const;
 
-        // ###### Random Access Procedure ######
+        // ###### HARQ and Random Access Procedure ######
+
+        void InitiateHarq(bool data);
+
+        // Find a free HARQ process.  
+        // While only one HARQ process is currently used, this function is implemented
+        // to find a free HARQ process when
+        // multiple processes are available.
+        Dect2020ExtHarqProcess* FindFreeHarqProcess();
+
+        // Find a HARQ process based on the process number.
+        Dect2020ExtHarqProcess* FindHarqProcess(uint8_t harqProcessNumber);
+
+        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
+        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
+        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
+        void MonitorTxQueue();
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe,
                                   Dect2020ExtHarqProcess* harqProcess,
@@ -262,35 +263,42 @@ class Dect2020ExtMac : public Object
                                   std::shared_ptr<Dect2020ExtRandomAccessContext> previousContext = nullptr);
 
         void InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
-        void PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
-        void SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
-        void EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        void PerformLbt(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        void SampleLbtRssi(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
+        void EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
         // Check if the Random Access transmission (MAC PDU + response window) fits into the remaining
         // RACH resources
         bool CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        // Calculate HARQ feedback delay with the formula n + HARQ feedback delay + 1
-        double CalculateHarqFeedbackDurationNs(uint8_t harqFeedbackDelay);
-
         // ###### Association Procedure ######
 
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
-        void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft);
-        void HandleUnicastPacket(Ptr<Packet> packet);
+        void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft);
+        void HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2);
-        Dect2020ExtFtCandidateInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
-        void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtCandidateInfo* ft);
+
+        // Check if the Unicast Message is for this device.
+        bool PacketIsForThisDevice(Dect2020ExtUnicastHeader unicastHeader);
+
+        Dect2020ExtFtInfo* FindOrCreateFtCandidate(uint16_t shortFtId);
+
+        // Find FT candidate among all possible candidates for association.  
+        // This function asserts that the candidate exists and must be called
+        // in the context where the candidate is assumed to exist.
+        Dect2020ExtFtInfo* FindFtCandidate(uint16_t shortFtId);
+
+        void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtInfo* ft);
         void SelectBestFtCandidate();
         void VerifyWaitingForSelectedFtAssociationStatus();
-        void SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft);
+        void SendAssociationRequest(Dect2020ExtFtInfo* ft);
         void VerifyPendingAssociationStatus();
-        void ProcessAssociationRequest(const Dect2020ExtAssociationControlIe associationControlIe, const Dect2020ExtRdCapabilityIe& rdCapabilityIe, const Dect2020ExtAssociationRequestMessageIe& associationRequestMessage, uint32_t transmitterAddress);
-        void SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo);
-        void ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIe associationResponseMessage, uint32_t transmitterAddress);
+        void ProcessAssociationRequest(Dect2020ExtPtInfo ptInfo);
+        void SendAssociationResponse(Dect2020ExtPtInfo ptInfo);
+        void ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo);
         void VerifyAssociatedStatus();
-        Dect2020ExtFtCandidateInfo* FindFtCandidateByLongId(uint32_t longFtId);
+        Dect2020ExtFtInfo* FindFtCandidateByLongId(uint32_t longFtId);
         void StartKeepAlivePeriod();
         void VerifyKeepAlivePeriodNotExceeded();
         void RestartKeepAlivePeriod();
@@ -335,45 +343,45 @@ class Dect2020ExtMac : public Object
 
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
 
-        // Random Access
-
-        void InitiateHarq(bool data);
-        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
-        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
-        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2);
-        void MonitorTxQueue();
 
         // Application
 
         void EnqueuePacket();
         void LaunchApp();
 
-        // Configuration
+        // ###### Configuration ######
 
         void SetBandNumber(uint8_t bandNumber);
         uint8_t GetBandNumber() const;
+
         void SetSubcarrierScalingFactor(uint8_t subcarrierScalingFactor);
         uint8_t GetSubcarrierScalingFactor() const;
+
         void SetFourierTransformScalingFactor(uint8_t fourierTransformScalingFactor);
         uint8_t GetFourierTransformScalingFactor() const;
+
         void ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe);
         void ConfigureAssociationControlIe(Dect2020ExtAssociationControlIe associationControlIe);
         void ConfigureRngStream(int64_t stream);
+
         void ProceedToBeaconTransmission(bool value);
-        void ProceedToAssociation(bool value);
+        void ProceedToAssociationRequest(bool value);
+        void ProceedToAssociationResponse(bool value);
         void ProceedToDataTransmission(bool value);
+
         void DisplayChannelEvaluations(bool value);
+
         void PrintConfiguration() const;
 
-        uint32_t m_associatedFTNetDeviceLongRdId = 0;
-        Dect2020ExtFtCandidateInfo m_selectedFtCandidate;
-        uint8_t m_nextAvailableSubslot = 2;
-        bool m_dectDelay = false;
+        void SetSearchBestFtTimeMs(double timeMs);
+
+        // ###### Required to be public for dect2020ext-utilities.cc ######
+        uint32_t m_associatedFtNetDeviceLongRdId = 0;
+        Dect2020ExtFtInfo m_selectedFtCandidate;
         std::string MAC_IDENTITY;
 
     private:
         uint16_t m_operatingChannelNumber;
-
         std::vector<Dect2020ExtChannelEvaluation> m_channelEvaluations;
         std::map<uint16_t, std::vector<double>> m_rssiByChannel;
         uint32_t m_networkId;
@@ -389,14 +397,15 @@ class Dect2020ExtMac : public Object
         Time m_nextNetworkBeaconTime;
         uint32_t m_networkBeaconSubslot = 0;
         uint32_t m_clusterBeaconSubslot = 4;
-        std::vector<Dect2020ExtFtCandidateInfo> m_ftCandidates;
+        std::vector<Dect2020ExtFtInfo> m_ftCandidates;
         Dect2020ExtAssociationStatus m_associationStatus = NOT_ASSOCIATED;
         bool m_isWaitingForClusterBeacon;
         uint8_t m_lastSfn;
         uint8_t m_potentialShortNetworkId;
-        std::vector<Dect2020ExtAssociatedPtInfo> m_associatedPtDevices;
+        std::vector<Dect2020ExtPtInfo> m_associatedPtDevices;
         Ptr<Dect2020ExtApp> m_app;
         Time m_lastRxTime;
+        bool m_dectDelay = false;
 
         // Random Access
         Ptr<UniformRandomVariable> m_backoffRandomVariable;
@@ -436,18 +445,18 @@ class Dect2020ExtMac : public Object
         int64_t m_configuredRngStream;
         bool m_configuredRngStreamSet = false;
 
-        // Dect2020ExtRdCapabilityIe m_configuredRdCapabilityIe;
-        // bool m_configuredRdCapabilityIeSet = false;
-
         Ptr<Dect2020ExtNetDevice> m_device;
 
         bool m_proceedToBeaconTransmission = true;
-        bool m_proceedToAssociation = true;
+        bool m_proceedToAssociationRequest = true;
+        bool m_proceedToAssociationResponse = true;
         bool m_proceedToDataTransmission = true;
 
         bool m_displayChannelEvaluations = false;
 
-        // Constants
+        double m_searchBestFtTimeMs = 0;
+
+        // ###### Constants ######
 
         const double RSSI_THRESHOLD_MIN = -85; // dBm
         const double RSSI_THRESHOLD_MAX = -50; // dBm TODO: RSSI_THRESHOLDMAX = -52 - max TX Power of RD
@@ -456,7 +465,7 @@ class Dect2020ExtMac : public Object
                                             // fulfilling the operating conditions.
         const int SCAN_STATUS_VALID = 300;     // seconds
 
-        // Constants specifically for subcarrier scaling factor 1
+        // ###### Constants specifically for subcarrier scaling factor 1 ######
 
         const double GI_US = 18.52; // GI in microseconds GI = (4/9) * T_u_symb
         const double STF_US = 64.815; // STF = (14/9) * T_u_symb

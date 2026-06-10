@@ -23,6 +23,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <glib.h>
 #include <limits>
 #include <memory>
 #include <sstream>
@@ -33,6 +34,9 @@
 namespace ns3
 {
 
+using PhyState = Dect2020ExtPhy::PhyState;
+using MacHeaderTypeField = Dect2020ExtMacHeaderType::MacHeaderTypeField;
+using IeTypeFieldEncoding = Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding;
 using DlDataReception = Dect2020ExtAssociationControlIe::DlDataReception;
 using UlPeriod = Dect2020ExtAssociationControlIe::UlPeriod;
 
@@ -514,6 +518,12 @@ Dect2020ExtMac::StartClusterBeaconTransmission()
 void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 {
+    // Sanity check to assert that the device is currently not transmmitting another packet
+    if (m_phy->GetState() == PhyState::TX)
+    {
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+    }
+
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
 
     Ptr<Packet> packet = BuildNetworkBeacon();
@@ -527,6 +537,12 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 void
 Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
 {
+    // Sanity check to assert that the device is currently not transmmitting another packet
+    if (m_phy->GetState() == PhyState::TX)
+    {
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+    }
+
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
 
     Ptr<Packet> packet = BuildClusterBeacon(channelNumber);
@@ -675,18 +691,18 @@ Dect2020ExtMac::BuildPhyControlFieldType1(bool packetLengthType, uint32_t packet
 }
 
 Dect2020ExtPhyControlFieldType2
-Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, Dect2020ExtHarqProcess* process)
+Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber)
 {
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2(Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format::FORMAT_000);
     phyControlFieldType2.SetPacketLengthType(packetLengthType);
 
     if (packetLengthType) // length in slots
     {
-        phyControlFieldType2.SetPacketLength(CalculateMacPduSizeInSlots(process->packet->GetSize()));
+        phyControlFieldType2.SetPacketLength(CalculateMacPduSizeInSlots(packetSizeInBytes));
     }
     else // length in subslots
     {
-        phyControlFieldType2.SetPacketLength(CalculateMacPduSizeInSubslots(process->packet->GetSize()));
+        phyControlFieldType2.SetPacketLength(CalculateMacPduSizeInSubslots(packetSizeInBytes));
     }
 
     phyControlFieldType2.SetShortNetworkId(0); // currently not used
@@ -696,8 +712,8 @@ Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, Dect2020ExtHarq
     phyControlFieldType2.SetReceiverIdentity(m_selectedFtCandidate.shortFtId);
     phyControlFieldType2.SetNumberOfSpatialStreams(0); // currently not used
     phyControlFieldType2.SetDfRedundancyVersion(0);
-    phyControlFieldType2.SetDfNewDataIndication(process->ndi);
-    phyControlFieldType2.SetDfHarqProcessNumber(process->processId);
+    phyControlFieldType2.SetDfNewDataIndication(ndi);
+    phyControlFieldType2.SetDfHarqProcessNumber(harqProcessNumber);
     phyControlFieldType2.SetFeedbackFormat(1);
     phyControlFieldType2.SetFeedbackInfo(0);
 
@@ -705,7 +721,7 @@ Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, Dect2020ExtHarq
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
+Dect2020ExtMac::BuildAssociationRequest(Dect2020ExtFtInfo* ft)
 {
     Ptr<Packet> packet = Create<Packet>();
 
@@ -779,11 +795,11 @@ Dect2020ExtMac::BuildAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
+Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo ptInfo)
 {
     Ptr<Packet> packet = Create<Packet>();
 
-    // --- RD Capability Ie ---
+    // --- RD Capability IE ---
     Dect2020ExtRdCapabilityIe rdCapabilityIe;
     rdCapabilityIe.SetRelease(this->m_device->m_release);
     rdCapabilityIe.SetGroupAssignment(this->m_device->m_supportGroupAssignment);
@@ -809,16 +825,16 @@ Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
     // --- Association Response Message IE ---
     Dect2020ExtAssociationResponseMessageIe associationResponseMessage;
     associationResponseMessage.SetAssociationAccepted(true);
-    associationResponseMessage.SetHarqMod(false);
-    associationResponseMessage.SetNumberOfFlows(7); // all flows are accepted
-    associationResponseMessage.SetGroupIdAndResourceTagIncluded(false);
+    associationResponseMessage.SetHarqMod(false); // HARQ configuration accepted as configured in the Association Request
+    associationResponseMessage.SetNumberOfFlows(0); // Currently not used
+    associationResponseMessage.SetGroupIdAndResourceTagIncluded(false); // Currently not used
 
     packet->AddHeader(associationResponseMessage);
 
     // --- MAC Multiplexing Header Type A ---
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
     mxHeader.SetMacExtensionFieldEncoding(0);
-    mxHeader.SetLengthField(0);
+    mxHeader.SetLengthField(false);
     mxHeader.SetIeTypeFieldEncoding(Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE);
 
     packet->AddHeader(mxHeader);
@@ -827,7 +843,7 @@ Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
     Dect2020ExtUnicastHeader unicastHeader;
     unicastHeader.SetReset(false);
     unicastHeader.SetSequenceNumber(0);
-    unicastHeader.SetReceiverAddress(ptInfo.longRdId);
+    unicastHeader.SetReceiverAddress(ptInfo.unicastHeader.GetTransmitterAddress());
     unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
 
     packet->AddHeader(unicastHeader);
@@ -884,9 +900,9 @@ Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessa
 }
 
 uint8_t
-Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) const
+Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetSizeInBytes) const
 {
-    double packetLengthInBits = packetLengthInBytes * 8;
+    double packetLengthInBits = packetSizeInBytes * 8;
     double mcsTransportBlockSizeBitsPerSlot = m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor, m_fourierTransformScalingFactor, m_mcs);
 
     uint32_t subslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
@@ -901,15 +917,274 @@ Dect2020ExtMac::CalculateMacPduSizeInSubslots(uint32_t packetLengthInBytes) cons
 }
 
 uint8_t
-Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetLengthInBytes) const
+Dect2020ExtMac::CalculateMacPduSizeInSlots(uint32_t packetSizeInBytes) const
 {
-    double packetLengthInBits = packetLengthInBytes * 8;
+    double packetLengthInBits = packetSizeInBytes * 8;
     double mcsTransportBlockSizeBitsPerSlot = m_phy->GetMcsTransportBlockSize(m_subcarrierScalingFactor, m_fourierTransformScalingFactor, m_mcs);
 
     // Calculate packet length in slots (round up)
     uint8_t packetLengthInSlots = std::ceil(packetLengthInBits / mcsTransportBlockSizeBitsPerSlot);
 
     return packetLengthInSlots;
+}
+
+void
+Dect2020ExtMac::InitiateHarq(bool data)
+{
+    Dect2020ExtHarqProcess* process = FindFreeHarqProcess();
+
+    // The packet for transmission is taken from the front of the Tx queue
+    Ptr<Packet> packet = m_txQueue.front();
+    m_txQueue.pop();
+
+    NS_LOG_INFO(MAC_IDENTITY << ": Dequeued packet");
+
+    process->state = Dect2020ExtHarqProcess::WAITING_ACK;
+    process->ndi = true; // New data with no previous versions
+    process->packet = packet->Copy();
+    process->data = data;
+
+    bool packetLengthInSlots = false;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber);
+
+    uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
+    uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
+    uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
+
+    // InitiateRandomAccess must always be scheduled either inside or at the start of RACH resources
+
+    // If the RACH resources are yet to come in the frame -> wait till the RACH resources
+    if (currentSubslotNumber < raraStartSubslot)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access in the current frame");
+
+        double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000000 << "s");
+        Time delay = NanoSeconds(timeToRachStartNs);
+
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                            m_selectedFtCandidate.randomAccessResourceIe,
+                            process,
+                            phyControlFieldType2,
+                            true,
+                            std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
+    }
+    // If the device is already inside or at the start of the RACH resources -> execute InitiateRandomAccess immediately
+    if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
+        InitiateRandomAccess(m_selectedFtCandidate.randomAccessResourceIe, process, phyControlFieldType2);
+    }
+    // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
+    if (currentSubslotNumber >= raraEndSubslot)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access at the next RACH resources in the next frame");
+
+        double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot());
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+        Time delay = NanoSeconds(timeToRachStartNs);
+
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                            m_selectedFtCandidate.randomAccessResourceIe,
+                            process,
+                            phyControlFieldType2,
+                            true,
+                            std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
+    }
+}
+
+Dect2020ExtHarqProcess*
+Dect2020ExtMac::FindFreeHarqProcess()
+{
+    Dect2020ExtHarqProcess* process = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.state == Dect2020ExtHarqProcess::FREE)
+        {
+            process = &p;
+            break;
+        }
+    }
+
+    // There should always be a free process when this function is called
+    // Currently, Stop-and-Wait ARQ protocol is implemented
+    if (!process)
+    {
+        NS_FATAL_ERROR(MAC_IDENTITY << ": No free HARQ process");
+    }
+
+    return process;
+}
+
+Dect2020ExtHarqProcess*
+Dect2020ExtMac::FindHarqProcess(uint8_t harqProcessNumber)
+{
+    // Find a HARQ process with the process number from the PHY Control Field Type 2
+    Dect2020ExtHarqProcess* process = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.processNumber == harqProcessNumber)
+        {
+            process = &p;
+            break;
+        }
+    }
+
+    if (!process)
+    {
+        NS_FATAL_ERROR("HARQ process was not found");
+    }
+
+    return process;
+}
+
+void
+Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
+{
+    NS_LOG_FUNCTION(MAC_IDENTITY);
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
+    // m_phy->Send(ack, phyCtrl);
+}
+
+void
+Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
+{
+    NS_LOG_FUNCTION(MAC_IDENTITY);
+    // Find a HARQ process
+    Dect2020ExtHarqProcess* proc = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.processNumber == phyCtrl.GetDfHarqProcessNumber())
+        {
+            proc = &p;
+            break;
+        }
+    }
+
+    if (!proc)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
+        return; // all processes in use - back-pressure to the tx queue
+    }
+   
+    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processNumber << " ACK");
+
+    // Reset the HARQ process
+    proc->Reset();
+
+    RestartKeepAlivePeriod();
+
+    if (!m_txQueue.empty())
+    {
+        // InitiateHARQ();
+    }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
+        MonitorTxQueue();
+    }
+}
+
+void
+Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
+{
+    // Find a HARQ process with the process number from the PHY Control Field Type 2
+    Dect2020ExtHarqProcess* process = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
+        {
+            process = &p;
+            break;
+        }
+    }
+
+    if (!process)
+    {
+        NS_FATAL_ERROR("HARQ process was not found");
+        return;
+    }
+
+    // If HARQ ACK has not been already received -> retransmit with the same context, but increased CW
+    if (process->state == Dect2020ExtHarqProcess::WAITING_ACK)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
+
+        // Exponential backoff for the same random access context:
+        // double CW_CURRENT, but cap at CW_MAX
+        uint32_t newCW = std::min(process->randomAccessContext->CW_CURRENT * 2, process->randomAccessContext->CW_MAX);
+        process->randomAccessContext->CW_CURRENT = newCW;
+
+        // Reset sample counter and sample vector for the next attempt
+        process->randomAccessContext->lbtSampleCount = 0;
+        process->randomAccessContext->lbtRssiSamples.clear();
+      
+        uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
+        uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
+        uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
+        bool newContext = false;
+
+        // If the RACH resources are yet to come in the frame -> wait till the RACH resources
+        if (currentSubslotNumber < raraStartSubslot)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the current frame");
+
+            double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
+            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000000 << "s");
+            Time delay = NanoSeconds(timeToRachStartNs);
+
+            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                                m_selectedFtCandidate.randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+        // If the device is already inside or at the start of the RACH resources -> execute the Random Access Procedure immediately
+        if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
+        {
+            InitiateRandomAccess(process->randomAccessContext->randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+        // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
+        if (currentSubslotNumber >= raraEndSubslot)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the next RACH resources in the next frame");
+
+            double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot());
+            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+            Time delay = NanoSeconds(timeToRachStartNs);
+
+            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                                m_selectedFtCandidate.randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+    }
+
+    NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
+}
+
+void
+Dect2020ExtMac::MonitorTxQueue()
+{
+    if (m_txQueue.empty())
+    {
+        Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMac::MonitorTxQueue, this);
+    }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
+        // InitiateHARQ();
+    }
 }
 
 void
@@ -953,6 +1228,8 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
 
     if (newContext)
     {
+        NS_LOG_INFO(MAC_IDENTITY << ": Creating new context");
+
         // Calculate CW_MIN; CW_MIN = 8 * CWmin_sig
         uint32_t CW_MIN = 8 * randomAccessResourceIe.GetCwMinSig();
 
@@ -969,13 +1246,16 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
         randomAccessContext->CW_MIN = CW_MIN;
         randomAccessContext->CW_CURRENT = CW_CURRENT;
         randomAccessContext->process = process;
-
         randomAccessContext->phyControlFieldType2 = phyControlFieldType2;
+
+        process->randomAccessContext = randomAccessContext;
 
         InitiateBackoff(randomAccessContext);
     }
     else
     {
+        NS_LOG_INFO(MAC_IDENTITY << ": Using existing context");
+
         previousContext->startPositions = startPositions; // Update starting positions
         InitiateBackoff(previousContext);
     }
@@ -993,19 +1273,18 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
         NS_FATAL_ERROR("Packet doesn't fit in Random Access Max Tx time");
     }
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber() << ", position - " << randomAccessContext->currentPositionIndex);
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber());
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->CW_CURRENT);
-    NS_LOG_INFO(MAC_IDENTITY << ": Random backoff value " << backoffValue);
 
     // Ensure we don't exceed available positions
     if (backoffValue >= randomAccessContext->startPositions.size())
     {        
         NS_LOG_INFO(MAC_IDENTITY << ": Backoff target position " << backoffValue << " exceeds available positions (" << randomAccessContext->startPositions.size() << ")");
 
-        // If all possible positions are exceeded -> the device is no longer inside RACH resources and need to wait for them again in the next frame
-
+        // If all possible positions are exceeded ->
+        // the device is no longer inside RACH resources and need to wait for them again in the next frame
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
         Time delay = NanoSeconds(timeToRachStartNs);
@@ -1022,15 +1301,15 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
     // Calculate backoff duration in microseconds
     double targetPositionTimeUs = randomAccessContext->startPositions[backoffValue];
 
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
-    NS_LOG_DEBUG(MAC_IDENTITY << ": Target position time us: " << targetPositionTimeUs);
+    NS_LOG_INFO(MAC_IDENTITY << ": Random backoff value: " << backoffValue);
+    NS_LOG_INFO(MAC_IDENTITY << ": Target position time: " << targetPositionTimeUs << "us");
 
     // Schedule the LBT (Listen Before Talk) after rachBackOff expires
-    Simulator::Schedule(MicroSeconds(targetPositionTimeUs), &Dect2020ExtMac::PerformLBT, this, randomAccessContext);
+    Simulator::Schedule(MicroSeconds(targetPositionTimeUs), &Dect2020ExtMac::PerformLbt, this, randomAccessContext);
 }
 
 void
-Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+Dect2020ExtMac::PerformLbt(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_DEBUG(MAC_IDENTITY << ": Performing LBT at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
@@ -1051,12 +1330,12 @@ Dect2020ExtMac::PerformLBT(std::shared_ptr<Dect2020ExtRandomAccessContext> rando
     // Schedule RSSI sampling at each offset
     for (double offsetUs : samplingOffsetsUs)
     {
-        Simulator::Schedule(MicroSeconds(offsetUs), &Dect2020ExtMac::SampleLBTRSSI, this, randomAccessContext);
+        Simulator::Schedule(MicroSeconds(offsetUs), &Dect2020ExtMac::SampleLbtRssi, this, randomAccessContext);
     }
 }
 
 void
-Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+Dect2020ExtMac::SampleLbtRssi(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
     NS_LOG_DEBUG(MAC_IDENTITY << ": Sampling LBT RSSI");
 
@@ -1076,14 +1355,19 @@ Dect2020ExtMac::SampleLBTRSSI(std::shared_ptr<Dect2020ExtRandomAccessContext> ra
     // If all samples collected, evaluate the channel
     if (randomAccessContext->lbtSampleCount >= randomAccessContext->lbtTotalSamples)
     {
-        // randomAccessContext->currentPositionIndex++;
-        EvaluateLBTChannel(randomAccessContext);
+        EvaluateLbtChannel(randomAccessContext);
     }
 }
 
 void
-Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
+Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext)
 {
+    // Sanity check to assert that the device is currently not transmmitting another packet
+    if (m_phy->GetState() == PhyState::TX)
+    {
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+    }
+
     bool rachTxFitsInRemainingResources = CheckIfRachTxFitsInRemainingResources(randomAccessContext);
 
     if (rachTxFitsInRemainingResources)
@@ -1105,42 +1389,64 @@ Dect2020ExtMac::EvaluateLBTChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
         bool channelIsPossible = (avgRssiDbm > RSSI_THRESHOLD_MIN && avgRssiDbm <= RSSI_THRESHOLD_MAX);
         bool channelIsBusy = (avgRssiDbm > RSSI_THRESHOLD_MAX);
 
+        // If channel is free or possible -> transmit immediately
         if (channelIsFree || channelIsPossible)
         {
             // Transmit packet
             NS_LOG_INFO(MAC_IDENTITY << ": Transmitting" << " -> power on channel is " << avgRssiDbm << " dBm");
 
-            m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, true);
+            bool random = true;
+            m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, random);
 
-            // Response window should be considered as one frame
-            // double subslotDurationNs = SLOT_DURATION_NS / 2;
-            // Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->m_randomAccessResourceIe.GetResponseWindow());
-            // Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->m_packet, randomAccessContext->m_physicalHeaderFieldType2);
+            // Verify ACK after the RACH response window expires
+            // Response window size is in subslots
+            double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+            Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->randomAccessResourceIe.GetResponseWindow());
+            Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2);
         }
-        else if (channelIsBusy)
+        // If the channel is detectet busy or the PHY state became Rx right at the time
+        // when this function is called -> re-initiate the Random Access Procedure
+        else if (channelIsBusy || m_phy->GetState() == PhyState::RX)
         {
-            NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with doubled CW_CURRENT -> the channel is busy (avg RSSI: " << avgRssiDbm << " dBm)");
+            NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with the same context");
+            NS_LOG_INFO(MAC_IDENTITY << ": The PHY or the channel is busy (avg RSSI: " << avgRssiDbm << " dBm");
 
-            // Exponential backoff: double CW_CURRENT, cap at CW_MAX
-            uint32_t newCW = std::min(randomAccessContext->CW_CURRENT * 2, randomAccessContext->CW_MAX);
-            randomAccessContext->CW_CURRENT = newCW;
-
-            // Reset sample counter, vector, and starting positions for next attempt
+            // Reset sample counter and sample vector for the next attempt
             randomAccessContext->lbtSampleCount = 0;
             randomAccessContext->lbtRssiSamples.clear();
 
-            // Re-initiate Random Access with increased CW
+            // Re-initiate the Random Access Procedure with the same context
             bool newContext = false;
             InitiateRandomAccess(randomAccessContext->randomAccessResourceIe,
                                  randomAccessContext->process,
                                  randomAccessContext->phyControlFieldType2,
                                  newContext,
                                  randomAccessContext);
+            return;
         }
     }
     else
     {
         // Defer till next RACH resources in the next frame
+        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources. "
+                                 << "Deferring random access till the next RACH resources in the next frame.");
+        double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+        Time delay = NanoSeconds(timeToRachStartNs);
+
+        // Reset sample counter and sample vector for the next attempt
+        randomAccessContext->lbtSampleCount = 0;
+        randomAccessContext->lbtRssiSamples.clear();
+
+        // Re-initiate the Random Access Procedure with the same context
+        bool newContext = false;
+        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                            randomAccessContext->randomAccessResourceIe,
+                            randomAccessContext->process,
+                            randomAccessContext->phyControlFieldType2,
+                            newContext,
+                            randomAccessContext);
+        return;
     }
 }
 
@@ -1167,44 +1473,12 @@ bool
 Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
-    uint32_t allSubslotsInFrame = SLOTS_PER_FRAME * m_channelManager->GetSubslotsPerSlot();
     uint32_t macPduSizeInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
-    uint32_t responseAbsSubslot;
-
-    // If RD Capability IE from the selected FT available -> use the specified HARQ feedback delay value
-    if (m_selectedFtCandidate.rdCapabilityIeAvailable)
-    {
-        responseAbsSubslot = currentAbsSubslot + m_selectedFtCandidate.ftRdCapabilityIe.GetHarqFeedbackDelay() + 1;
-    }
-    else
-    {
-        responseAbsSubslot = currentAbsSubslot + 3;
-    }
-
-    if (responseAbsSubslot + macPduSizeInSubslots > allSubslotsInFrame)
-    {
-        NS_FATAL_ERROR("Response subslot " << responseAbsSubslot + macPduSizeInSubslots << " exceeds frame boundary (" << allSubslotsInFrame << " subslots)");
-    }
-
+    uint32_t responseAbsSubslot = currentAbsSubslot + 3; // Formula from the standard
     uint16_t startSubslot = randomAccessContext->randomAccessResourceIe.GetStartSubslot();
     uint8_t length = randomAccessContext->randomAccessResourceIe.GetRaraLength();
 
     return responseAbsSubslot + macPduSizeInSubslots <= startSubslot + length;
-}
-
-double
-Dect2020ExtMac::CalculateHarqFeedbackDurationNs(uint8_t harqFeedbackDelay)
-{
-    uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
-    uint32_t allSubslotsInFrame = SLOTS_PER_FRAME * m_channelManager->GetSubslotsPerSlot();
-    uint32_t responseAbsSubslot = currentAbsSubslot + harqFeedbackDelay + 1;
-
-    if (responseAbsSubslot >= allSubslotsInFrame)
-    {
-        NS_FATAL_ERROR("Response subslot " << responseAbsSubslot << " exceeds frame obundary (" << allSubslotsInFrame << " subslots)");
-    }
-
-    return m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
 }
 
 void
@@ -1212,35 +1486,38 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bo
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_operatingChannelNumber);
 
-    Dect2020ExtPhyControlFieldType1 physicalHeaderFieldType1;
-    Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2;
+    Dect2020ExtPhyControlFieldType1 phyControlFieldType1;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2;
 
-    // Packets are sent with PHY Control Field Type 2 during Random Access
+    // Unicast and Data packets are sent with PHY Control Field Type 2 during Random Access
     if (random)
     {
-        packet->RemoveHeader(physicalHeaderFieldType2);
+        packet->RemoveHeader(phyControlFieldType2);
     }
+    // Beacon packets are sent with PHY Control Field Type 1
     else
     {
-        packet->RemoveHeader(physicalHeaderFieldType1);
+        packet->RemoveHeader(phyControlFieldType1);
     }
 
     // --- MAC Header Type ---
     Dect2020ExtMacHeaderType macHeaderType;
     packet->RemoveHeader(macHeaderType);
+    MacHeaderTypeField receivedMacHeaderTypeField = macHeaderType.GetMacHeaderTypeField();
 
-    // FT devices can receive beacons but currently they do nothing with them
-    if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtNetDevice::PT)
+    // Either Network or Cluster Beacon (only PT devices process them)
+    if (receivedMacHeaderTypeField == MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtNetDevice::PT)
     {
-        if (m_proceedToAssociation)
+        NS_LOG_INFO(MAC_IDENTITY << ": Received Beacon packet");
+        if (m_proceedToAssociationRequest)
         {
             // Create FT Candidate Info
             // FT Candidate Info can be updated if the candidate has sent a beacon message before
-            Dect2020ExtFtCandidateInfo* ft = FindOrCreateFtCandidate(physicalHeaderFieldType1.GetTransmitterIdentity());
+            Dect2020ExtFtInfo* ft = FindOrCreateFtCandidate(phyControlFieldType1.GetTransmitterIdentity());
             ft->rssiDbm = rssiDbm;
-            ft->ftPhyHeaderField = physicalHeaderFieldType1;
-            ft->shortFtId = physicalHeaderFieldType1.GetTransmitterIdentity();
-            ft->shortNetworkId = physicalHeaderFieldType1.GetShortNetworkId();
+            ft->phyControlFieldType1 = phyControlFieldType1;
+            ft->shortFtId = phyControlFieldType1.GetTransmitterIdentity();
+            ft->shortNetworkId = phyControlFieldType1.GetShortNetworkId();
 
             HandleBeaconPacket(packet, ft);
         }
@@ -1249,16 +1526,18 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bo
             return;
         }
     }
-
-    else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::UNICAST_HEADER)
+    
+    // Either Association Request or Response (must be acknowledged for according HARQ process)
+    else if (receivedMacHeaderTypeField == MacHeaderTypeField::UNICAST_HEADER)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Received Unicast Packet");
-        HandleUnicastPacket(packet);
+        NS_LOG_INFO(MAC_IDENTITY << ": Received Unicast packet");
+        HandleUnicastPacket(packet, phyControlFieldType2);
     }
 
+    // Data packet used for data transmission (must be acknowledged for according HARQ process)
     else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER)
     {
-        HandleDataPacket(packet, physicalHeaderFieldType2);
+        HandleDataPacket(packet, phyControlFieldType2);
     }
 
     // Forward the packet to the net device for minimal implementation
@@ -1266,15 +1545,13 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bo
 }
 
 void
-Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInfo* ft)
+Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
 {
-    NS_LOG_FUNCTION(this << packet);
-
     // --- Beacon Header ---
     Dect2020ExtBeaconHeader beaconHeader;
     packet->RemoveHeader(beaconHeader);
 
-    ft->ftBeaconHeader = beaconHeader;
+    ft->beaconHeader = beaconHeader;
     ft->networkId = beaconHeader.GetNetworkId();
     ft->longFtId = beaconHeader.GetTransmitterAddress();
 
@@ -1292,7 +1569,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
         // --- Network Beacon Message Ie ---
         Dect2020ExtNetworkBeaconMessageIe networkBeaconMessage;
         packet->RemoveHeader(networkBeaconMessage);
-        ft->ftNetworkBeaconMessage = networkBeaconMessage;
+        ft->networkBeaconMessageIe = networkBeaconMessage;
 
         // Get the cluster channel id from the network beacon message
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
@@ -1311,96 +1588,108 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtCandidateInf
 
         // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster channel is the current channel
-        if (ft->ftNetworkBeaconMessage.GetNextClusterChannel() == 0)
+        if (ft->networkBeaconMessageIe.GetNextClusterChannel() == 0)
         {
             NS_LOG_INFO(MAC_IDENTITY << ": No Network Beacon Message received before, setting cluster channel to current channel");
-            ft->ftNetworkBeaconMessage.SetNextClusterChannel(this->m_operatingChannelNumber);
+            ft->networkBeaconMessageIe.SetNextClusterChannel(this->m_operatingChannelNumber);
             ft->clusterChannelNumber = this->m_operatingChannelNumber;
         }
 
         Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
         packet->RemoveHeader(randomAccessResourceIe);
-        ft->ftRandomAccessResourceIe = randomAccessResourceIe;
+        ft->randomAccessResourceIe = randomAccessResourceIe;
 
         Dect2020ExtClusterBeaconMessageIe clusterBeaconMessage;
         packet->RemoveHeader(clusterBeaconMessage);
-        ft->ftClusterBeaconMessage = clusterBeaconMessage;
+        ft->clusterBeaconMessageIe = clusterBeaconMessage;
 
         EvaluateClusterBeacon(clusterBeaconMessage, randomAccessResourceIe, ft);
     }
 }
 
 void
-Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet)
+Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
 {
-    NS_LOG_FUNCTION(this << packet);
-
     // --- Unicast Header ---
     Dect2020ExtUnicastHeader unicastHeader;
     packet->RemoveHeader(unicastHeader);
 
     // Check if the Unicast Message is for this device
-    uint32_t receiverAddress = unicastHeader.GetReceiverAddress();
-    uint32_t transmitterAddress = unicastHeader.GetTransmitterAddress();
-
-    if (receiverAddress != this->GetLongRadioDeviceId())
+    if (!PacketIsForThisDevice(unicastHeader))
     {
         NS_LOG_INFO(MAC_IDENTITY << ": The unicast packet is not for this device");
-        return; // Packet is not for this device
+        return;
     }
 
-    // --- MAC Multiplexing Header ---
-    Dect2020ExtMacMultiplexingHeaderTypeA mxHeader;
-    packet->RemoveHeader(mxHeader);
+    // --- MAC Multiplexing Header Type A ---
+    Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA;
+    packet->RemoveHeader(mxHeaderTypeA);
 
-    Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding ieType = mxHeader.GetIeTypeFieldEncoding();
+    IeTypeFieldEncoding ieType = mxHeaderTypeA.GetIeTypeFieldEncoding();
 
-    // Message is an association request
-    if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE)
+    // Message is an Association Request (only FT devices can process them)
+    if (ieType == IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE && m_terminationPointType == Dect2020ExtNetDevice::FT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Association Request");
 
-        // Check whether this device is an FT --> a PT cannot process an association request
-        if (m_device->GetTerminationPointType() !=
-            Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+        if (m_proceedToAssociationResponse)
         {
-            NS_LOG_INFO(MAC_IDENTITY << "Association Request received, but this device is not an FT.");
+            // --- Association Request Message IE ---
+            Dect2020ExtAssociationRequestMessageIe associationRequestMessageIe;
+            packet->RemoveHeader(associationRequestMessageIe);
+
+            // --- RD Capability IE ---
+            Dect2020ExtRdCapabilityIe rdCapabilityIe;
+            packet->RemoveHeader(rdCapabilityIe);
+
+            // --- Association Control IE ---
+            Dect2020ExtAssociationControlIe associationControlIe;
+            packet->RemoveHeader(associationControlIe);
+
+            // Create PT Info
+            Dect2020ExtPtInfo ptInfo;
+            ptInfo.associationAcceptedTime = Simulator::Now();
+            ptInfo.phyControlFieldType2 = phyControlFieldType2;
+            ptInfo.unicastHeader = unicastHeader;
+            ptInfo.associationRequestMessageIe = associationRequestMessageIe;
+            ptInfo.rdCapabilityIe = rdCapabilityIe;
+            ptInfo.associationControlIe = associationControlIe;
+
+            ProcessAssociationRequest(ptInfo);
             return;
         }
+        else
+        {
+            return;
+        }
+    }
+    // Message is an Association Response (only PT devices can process them)
+    if (ieType == IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE && m_terminationPointType == Dect2020ExtNetDevice::PT)
+    {
+        // Sanity check to assert that m_selectedFtCandidate
+        // is the one who sent the Association Response
+        if (m_selectedFtCandidate.phyControlFieldType1.GetTransmitterIdentity() != phyControlFieldType2.GetTransmitterIdentity())
+        {
+            NS_FATAL_ERROR("FT sent an Association Response to the wrong PT");
+        }
 
-        // Strip the message headers
-        Dect2020ExtAssociationRequestMessageIe associationRequestMessage;
-        packet->RemoveHeader(associationRequestMessage);
+        // --- Association Response Message IE ---
+        Dect2020ExtAssociationResponseMessageIe associationResponseMessageIe;
+        packet->RemoveHeader(associationResponseMessageIe);
 
+        // --- RD Capability IE ---
         Dect2020ExtRdCapabilityIe rdCapabilityIe;
         packet->RemoveHeader(rdCapabilityIe);
 
-        Dect2020ExtAssociationControlIe associationControlIe;
-        packet->RemoveHeader(associationControlIe);
+        // FindFtCandidate asserts that the FT exists
+        Dect2020ExtFtInfo* ftInfo = FindFtCandidate(phyControlFieldType2.GetTransmitterIdentity());
+        ftInfo->phyControlFieldType2 = phyControlFieldType2;
+        ftInfo->unicastHeader = unicastHeader;
+        ftInfo->associationResponseMessageIe = associationResponseMessageIe;
+        ftInfo->rdCapabilityIe = rdCapabilityIe;
 
-        ProcessAssociationRequest(associationControlIe, rdCapabilityIe, associationRequestMessage, transmitterAddress);
-    }
-
-    // Message is an association response
-    else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE)
-    {
-        // check whether this device is an PT --> TODO: implement associationable FTs
-        if (m_device->GetTerminationPointType() !=
-            Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << "Association Response received, but this device is not an PT. FT "
-                        "association not yet implemented.");
-            return;
-        }
-
-    //     // // Strip the message headers
-        Dect2020ExtAssociationResponseMessageIe associationResponseMessage;
-        packet->RemoveHeader(associationResponseMessage);
-
-        // Dect2020RdCapabilityIe rdCapabilityIe;
-        // packet->RemoveHeader(rdCapabilityIe);
-
-        ProcessAssociationResponse(associationResponseMessage, transmitterAddress);
+        ProcessAssociationResponse(ftInfo);
+        return;
     }
 }
 
@@ -1412,13 +1701,13 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
     packet->RemoveHeader(unicastHeader);
 
     // Check if the Unicast Message is for this device
-    uint32_t receiverAddress = unicastHeader.GetReceiverAddress();
-    uint32_t transmitterAddress = unicastHeader.GetTransmitterAddress();
-
-    if (receiverAddress != this->GetLongRadioDeviceId())
+    if (!PacketIsForThisDevice(unicastHeader))
     {
-        return; // Packet is not for this device
+        NS_LOG_INFO(MAC_IDENTITY << ": The packet is not for this device");
+        return;
     }
+
+    uint32_t transmitterAddress = unicastHeader.GetTransmitterAddress();
 
     NS_LOG_INFO(MAC_IDENTITY << ": Received DATA MAC PDU");
 
@@ -1434,15 +1723,15 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
 
     auto it = std::find_if(m_associatedPtDevices.begin(),
                         m_associatedPtDevices.end(),
-                        [targetId](const Dect2020ExtAssociatedPtInfo& pt)
+                        [targetId](const Dect2020ExtPtInfo& pt)
                         {
-                            return pt.longRdId == targetId;
+                            return pt.unicastHeader.GetTransmitterAddress() == targetId;
                         });
 
     if (it != m_associatedPtDevices.end())
     {
         // found — *it is the Dect2020ExtAssociatedPtInfo
-        NS_LOG_INFO(MAC_IDENTITY << ": Found PT with longRdId " << it->longRdId);
+        NS_LOG_INFO(MAC_IDENTITY << ": Found PT with longRdId " << it->unicastHeader.GetTransmitterAddress());
 
         // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
         uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
@@ -1481,7 +1770,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
         unicastHeader.SetReset(0);
         unicastHeader.SetMacSequence(0);
         unicastHeader.SetSequenceNumber(0);
-        unicastHeader.SetReceiverAddress(it->longRdId);
+        unicastHeader.SetReceiverAddress(it->unicastHeader.GetTransmitterAddress());
         unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
 
         ack->AddHeader(unicastHeader);
@@ -1516,10 +1805,15 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
     }
 }
 
-Dect2020ExtFtCandidateInfo*
+bool
+Dect2020ExtMac::PacketIsForThisDevice(Dect2020ExtUnicastHeader unicastHeader)
+{
+    return unicastHeader.GetReceiverAddress() == GetLongRadioDeviceId();
+}
+
+Dect2020ExtFtInfo*
 Dect2020ExtMac::FindOrCreateFtCandidate(uint16_t shortFtId)
 {
-    NS_LOG_FUNCTION(this << shortFtId);
     for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
     {
         if (m_ftCandidates[idx].shortFtId == shortFtId)
@@ -1529,14 +1823,29 @@ Dect2020ExtMac::FindOrCreateFtCandidate(uint16_t shortFtId)
     }
 
     // No candidate found, create one
-    Dect2020ExtFtCandidateInfo newCandidate;
+    Dect2020ExtFtInfo newCandidate;
     m_ftCandidates.push_back(newCandidate);
 
     return &m_ftCandidates.back();
 }
 
+Dect2020ExtFtInfo*
+Dect2020ExtMac::FindFtCandidate(uint16_t shortFtId)
+{
+    for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
+    {
+        if (m_ftCandidates[idx].shortFtId == shortFtId)
+        {
+            return &m_ftCandidates[idx];
+        }
+    }
+
+    // No candidate found -> raise fatal error
+    NS_FATAL_ERROR("No FT candidate found");
+}
+
 void
-Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtCandidateInfo* ft)
+Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtInfo* ft)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Evaluating Cluster Beacon");
     ft->sfn = clusterBeaconMessage.GetSFN();
@@ -1553,13 +1862,21 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
     // best FT" timer
     if (m_associationStatus == Dect2020ExtAssociationStatus::NOT_ASSOCIATED)
     {
-        // This is the time in seconds for the PT to listen to other channels to collect potential FT candidates
-        Time searchBestFtTimeSeconds = Seconds(2);
+        // The time in milliseconds for the PT to listen to other channels to discover potential FT candidates
+        Time searchBestFtTimeMs;
+        if (m_searchBestFtTimeMs != 0)
+        {
+            searchBestFtTimeMs = MilliSeconds(m_searchBestFtTimeMs);
+        }
+        else
+        {
+            searchBestFtTimeMs = MilliSeconds(2000);
+        }
         
         ChangeAssociationStatus(ASSOCIATION_PREPARING);
         NS_LOG_INFO(MAC_IDENTITY << ": Discovering networks to find all possible candidates");
         DiscoverNetworks();
-        Simulator::Schedule(searchBestFtTimeSeconds, &Dect2020ExtMac::SelectBestFtCandidate, this);
+        Simulator::Schedule(searchBestFtTimeMs, &Dect2020ExtMac::SelectBestFtCandidate, this);
     }
 
     // Prepare Association Request --> The device is waiting fot the cluster Beacon of the selected FT
@@ -1575,7 +1892,7 @@ Dect2020ExtMac::SelectBestFtCandidate()
 {
     // Step 1: Find the FT with the best (highest) RSSI-2
     double bestRssiDbm = -150.0; // start with very low RSSI
-    Dect2020ExtFtCandidateInfo bestCandidate;
+    Dect2020ExtFtInfo bestCandidate;
     bool found = false;
 
     for (const auto& ft : m_ftCandidates)
@@ -1629,7 +1946,7 @@ Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus()
 }
 
 void
-Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtCandidateInfo* ft)
+Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtInfo* ft)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send Association Request");
 
@@ -1651,95 +1968,86 @@ Dect2020ExtMac::VerifyPendingAssociationStatus()
 }
 
 void
-Dect2020ExtMac::ProcessAssociationRequest(const Dect2020ExtAssociationControlIe associationControlIe, const Dect2020ExtRdCapabilityIe& rdCapabilityIe, const Dect2020ExtAssociationRequestMessageIe& associationRequestMessage, uint32_t transmitterAddress)
+Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo ptInfo)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
 
-    Dect2020ExtAssociatedPtInfo ptInfo;
-    ptInfo.associationEstablished = Simulator::Now();
-    ptInfo.longRdId = transmitterAddress;
-    // ptInfo.numberOfFlows = associationRequestMessage.GetNumberOfFlows();
-    // ptInfo.powerConstraints = associationRequestMessage.GetPowerConstraints();
-    // ptInfo.ftMode = associationRequestMessage.GetFtMode();
-    // ptInfo.harqProcessesTx = associationRequestMessage.GetHarqProcessesTx();
-    // ptInfo.maxHarqReTxDelay = associationRequestMessage.GetMaxHarqReTxDelay();
-    // ptInfo.harqProcessesRx = associationRequestMessage.GetHarqProcessesRx();
-    // ptInfo.maxHarqReRxDelay = associationRequestMessage.GetMaxHarqReRxDelay();
-    // ptInfo.flowId = associationRequestMessage.GetFlowId();
-    // // ptInfo.cb_m = assoControlIe.GetClusterBeaconMonitoring() == 1 ? true : false;
-    ptInfo.rdCapabilityIe = rdCapabilityIe;
-
     m_associatedPtDevices.push_back(ptInfo);
 
-    // TODO: implement logic to accept or reject device. Currently every device is accepted
-    // TODO: implement association maintenance
+    // TODO: Implement logic to accept or reject device. Currently every device is accepted
+    // TODO: Implement association maintenance
 
-    // Calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
-    uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+    // Calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay + 1
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
-    uint8_t harqDelay = rdCapabilityIe.GetHarqFeedbackDelay();
+    uint8_t harqDelay = ptInfo.rdCapabilityIe.GetHarqFeedbackDelay();
     uint32_t responseAbsSubslot;
 
-    if (m_dectDelay == 0)
-    {
-        responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
-        NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
-        NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
-        NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
-    }
-    else
-    {
-        responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
-    }
+    responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
+    NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
+    NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
+    NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
-    NS_LOG_INFO(MAC_IDENTITY << ": Association Response absolute subslot " << responseAbsSubslot);
-
+    // It is assumed that RACH resources cannot be configured to enter the next frame ->
+    // GetTimeTillSubslotStartNs should be safe to call
     double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
 
     Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendAssociationResponse, this, ptInfo);
 }
 
 void
-Dect2020ExtMac::SendAssociationResponse(Dect2020ExtAssociatedPtInfo ptInfo)
+Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo ptInfo)
 {
-    // TODO: Add RD Capability Ie
+    // Sanity check to assert that the device is currently not transmmitting another packet
+    if (m_phy->GetState() == PhyState::TX)
+    {
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+    }
+
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Association Response at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
-    Ptr<Packet> packet = Create<Packet>();
+    Ptr<Packet> packet = BuildAssociationResponse(ptInfo);
 
-    // --- Physical Header Field ---
-    // Dect2020ExtPhyControlFieldType1 physicalHeaderField = BuildPhyC(1, packet->GetSize());
-    // physicalHeaderField.SetShortNetworkId(m_networkId);
+    // --- Physical Header Field Type 2 ---
+    bool lengthInSlots = false;
+    bool ndi = false; // Currently not used, but indicates that that the ACK is for the received packet
 
-    // m_phy->Send(packet, physicalHeaderField); // Send the packet to the PHY
+    // Build PHY Control Field Type 2 for the appropriate HARQ process number taken
+    // from the PHY Control Fild Type 2 of the Association Request
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo.phyControlFieldType2.GetDfHarqProcessNumber()); 
+
+    bool data = false;
+    bool random = true; // This packet is an ACK for the received Association Request with Random Access
+    m_phy->Send(packet, phyControlFieldType2, data, random); // Send the packet to the PHY
 }
 
 void
-Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessageIe associationResponseMessage, uint32_t transmitterAddress)
+Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo)
 {
-    NS_LOG_INFO(MAC_IDENTITY << "Processing association response");
+    NS_LOG_INFO(MAC_IDENTITY << "Processing Association Response");
 
+    // Sanity check of the association state
     if (m_associationStatus != ASSOCIATION_PENDING)
     {
-        NS_LOG_WARN(
-            "Association Response received, but association status is not ASSOCIATION_PENDING. "
-            "Ignoring the response.");
+        NS_FATAL_ERROR("Association Response received, but association status is not ASSOCIATION_PENDING");
         return;
     }
 
-    if (associationResponseMessage.GetAssociationAccepted())
+    if (ftInfo->associationResponseMessageIe.GetAssociationAccepted())
     {
-        // Currently, we accept all association responses
+        Dect2020ExtHarqProcess* process = FindHarqProcess(ftInfo->phyControlFieldType2.GetDfHarqProcessNumber());
+
+        // Reset the HARQ process
+        process->Reset();
+
+        // Currently, all association responses are accepted
         ChangeAssociationStatus(Dect2020ExtAssociationStatus::ASSOCIATED);
 
         // If we dont receive a Cluster Beacon every 60 Seconds, we assume the FT is offline
         // Simulator::Schedule(Seconds(60), &Dect2020ExtMac::VerifyAssociatedStatus, this);
 
         // Store the associated FTs Long RD ID
-        m_associatedFTNetDeviceLongRdId = transmitterAddress;
-        NS_LOG_INFO(MAC_IDENTITY << ": Association Response accepted");
+        m_associatedFtNetDeviceLongRdId = ftInfo->unicastHeader.GetTransmitterAddress();
 
         if (m_proceedToDataTransmission)
         {
@@ -1750,21 +2058,21 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtAssociationResponseMessage
     }
     else
     {
-        // tbd
+        NS_FATAL_ERROR("Association was not accepted. Currently, all Association Requests must be accepted");
     }
 }
 
 void
 Dect2020ExtMac::VerifyAssociatedStatus()
 {
-    Dect2020ExtFtCandidateInfo* ft = FindFtCandidateByLongId(m_associatedFTNetDeviceLongRdId);
-    Time lastrBeaconReceived = ft->receptionTime;
+    Dect2020ExtFtInfo* ft = FindFtCandidateByLongId(m_associatedFtNetDeviceLongRdId);
+    Time lastBeaconReceived = ft->receptionTime;
     Time currentTime = Simulator::Now();
     Time VerifyAssociatedStatusPeriod = Seconds(60);
     NS_LOG_INFO(MAC_IDENTITY << ": ASSOCIATED");
 
     // Check if the last received Cluster Beacon is older than 60 seconds
-    if (currentTime - lastrBeaconReceived > VerifyAssociatedStatusPeriod)
+    if (currentTime - lastBeaconReceived > VerifyAssociatedStatusPeriod)
     {
         NS_LOG_WARN(
             Simulator::Now().GetMicroSeconds()
@@ -1781,7 +2089,7 @@ Dect2020ExtMac::VerifyAssociatedStatus()
     }
 }
 
-Dect2020ExtFtCandidateInfo*
+Dect2020ExtFtInfo*
 Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
 {
     for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
@@ -1793,7 +2101,7 @@ Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
     }
 
     // No candidate found, create one
-    Dect2020ExtFtCandidateInfo newCandidate;
+    Dect2020ExtFtInfo newCandidate;
     m_ftCandidates.push_back(newCandidate);
 
     return &m_ftCandidates.back();
@@ -2009,178 +2317,6 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
     NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
 }
 
-void
-Dect2020ExtMac::InitiateHarq(bool data)
-{
-    // Find a free HARQ process
-    Dect2020ExtHarqProcess* process = nullptr;
-    for (auto& p: m_harqProcesses)
-    {
-        if (p.state == Dect2020ExtHarqProcess::FREE)
-        {
-            process = &p;
-            break;
-        }
-    }
-
-    // There should always be a free process when this function is called
-    // Currently, Stop-and-Wait ARQ protocol is implemented
-    if (!process)
-    {
-        NS_FATAL_ERROR(MAC_IDENTITY << ": No free HARQ process");
-    }
-
-    // The packet for transmission is taken from the front on the Tx queue
-    Ptr<Packet> packet = m_txQueue.front();
-    m_txQueue.pop();
-
-    NS_LOG_INFO(MAC_IDENTITY << ": Dequeued packet, initiating Random Access");
-
-    process->state = Dect2020ExtHarqProcess::WAITING_ACK;
-    process->ndi = true; // New data with no previous versions
-    process->packet = packet->Copy();
-    process->data = data;
-
-    bool packetLengthInSlots = false;
-    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, process);
-
-    uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
-    uint16_t raraStartSubslot = m_selectedFtCandidate.ftRandomAccessResourceIe.GetStartSubslot();
-    uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.ftRandomAccessResourceIe.GetRaraLength();
-
-    // InitiateRandomAccess should always be scheduled either inside or at the start of RACH resources
-
-    // If the RACH resources are yet to come in the frame -> wait till the RACH resources
-    if (currentSubslotNumber < raraStartSubslot)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access at RACH resources in current frame");
-
-        double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
-        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000 << " ms");
-        Time delay = NanoSeconds(timeToRachStartNs);
-
-        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
-                            m_selectedFtCandidate.ftRandomAccessResourceIe,
-                            process,
-                            phyControlFieldType2);
-    }
-    // If the device is already inside or at the start of the RACH resources -> execute InitiateRandomAccess immediately
-    if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
-        InitiateRandomAccess(m_selectedFtCandidate.ftRandomAccessResourceIe, process, phyControlFieldType2);
-    }
-    // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
-    if (currentSubslotNumber >= raraEndSubslot)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access at the next RACH resources in the next frame");
-
-        double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.ftRandomAccessResourceIe.GetStartSubslot());
-        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
-        Time delay = NanoSeconds(timeToRachStartNs);
-
-        Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this, m_selectedFtCandidate.ftRandomAccessResourceIe, process, phyControlFieldType2);
-    }
-}
-
-void
-Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
-{
-    NS_LOG_FUNCTION(MAC_IDENTITY);
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
-    // m_phy->Send(ack, phyCtrl);
-}
-
-void
-Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
-{
-    NS_LOG_FUNCTION(MAC_IDENTITY);
-    // Find a HARQ process
-    Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqProcesses)
-    {
-        if (p.processId == phyCtrl.GetDfHarqProcessNumber())
-        {
-            proc = &p;
-            break;
-        }
-    }
-
-    if (!proc)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
-        return; // all processes in use - back-pressure to the tx queue
-    }
-   
-    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processId << " ACK");
-
-    // Reset the HARQ process
-    proc->state = Dect2020ExtHarqProcess::FREE;
-    proc->packet = nullptr;
-    proc->ndi = 0;
-    proc->reTxCount = 0;
-
-    RestartKeepAlivePeriod();
-
-    if (!m_txQueue.empty())
-    {
-        // InitiateHARQ();
-    }
-    else
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
-        MonitorTxQueue();
-    }
-}
-
-void
-Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyCtrlType2)
-{
-    // Find a HARQ process
-    Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqProcesses)
-    {
-        if (p.processId == phyCtrlType2.GetDfHarqProcessNumber())
-        {
-            proc = &p;
-            break;
-        }
-    }
-
-    if (!proc)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
-        return; // all processes in use - back-pressure to the tx queue
-    }
-
-    // If HARQ ACK has not been already received -> retransmit
-    if (proc->state == Dect2020ExtHarqProcess::WAITING_ACK)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
-
-        uint32_t newCW = std::min(proc->randomAccessContext->m_CW_CURRENT * 2, proc->randomAccessContext->m_CW_MAX);
-        proc->randomAccessContext->m_CW_CURRENT = newCW;
-        proc->randomAccessContext->m_lbtSampleCount = 0;
-        proc->randomAccessContext->m_lbtRssiSamples.clear();
-        
-        InitiateBackoff(proc->randomAccessContext);
-    }
-    NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
-}
-
-void
-Dect2020ExtMac::MonitorTxQueue()
-{
-    if (m_txQueue.empty())
-    {
-        Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMac::MonitorTxQueue, this);
-    }
-    else
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
-        // InitiateHARQ();
-    }
-}
 
 void
 Dect2020ExtMac::EnqueuePacket()
@@ -2286,9 +2422,15 @@ Dect2020ExtMac::ProceedToBeaconTransmission(bool value)
 }
 
 void
-Dect2020ExtMac::ProceedToAssociation(bool value)
+Dect2020ExtMac::ProceedToAssociationRequest(bool value)
 {
-    m_proceedToAssociation = value;
+    m_proceedToAssociationRequest = value;
+}
+
+void
+Dect2020ExtMac::ProceedToAssociationResponse(bool value)
+{
+    m_proceedToAssociationResponse = value;
 }
 
 void
@@ -2316,6 +2458,12 @@ Dect2020ExtMac::PrintConfiguration() const
     std::cout << "Band Number: " << static_cast<uint32_t>(m_bandNumber) << "\n";
     std::cout << "Subcarrier Scaling Factor: " << static_cast<uint32_t>(m_subcarrierScalingFactor) << "\n";
     std::cout << "Fourier Transform Scaling Factor: " << static_cast<uint32_t>(m_fourierTransformScalingFactor) << "\n";
+}
+
+void
+Dect2020ExtMac::SetSearchBestFtTimeMs(double timeMs)
+{
+    m_searchBestFtTimeMs = timeMs;
 }
 
 } // namespace ns3
