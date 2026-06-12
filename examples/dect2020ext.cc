@@ -49,13 +49,13 @@ main(int argc, char *argv[])
     randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
     randomAccessResourceIe.SetStartSubslot(10);
     randomAccessResourceIe.SetLengthType(false); // RACH resources length in subslots
-    randomAccessResourceIe.SetRaraLength(20);
+    randomAccessResourceIe.SetRaraLength(30);
     randomAccessResourceIe.SetMaxRachLengthType(false); // Max RACH Tx length in subslots
     randomAccessResourceIe.SetMaxRachLength(5); // in subslots
     randomAccessResourceIe.SetCwMinSig(1);
     randomAccessResourceIe.SetDectDelay(false);
     randomAccessResourceIe.SetResponseWindow(14); // in subslots
-    randomAccessResourceIe.SetCwMaxSig(5);
+    randomAccessResourceIe.SetCwMaxSig(3);
 
     // ################
     // ###### FT ######
@@ -68,6 +68,7 @@ main(int argc, char *argv[])
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
     ftMac->SetPhy(ftPhy);
     ftMac->ConfigureRandomAccessResources(randomAccessResourceIe);
+    ftMac->ProceedToAssociationResponse(false);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);

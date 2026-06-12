@@ -154,11 +154,11 @@ Dect2020ExtMac::Start()
 void
 Dect2020ExtMac::DiscoverNetworks()
 {
-    if (m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING ||
-        m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT ||
-        m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATED)
+    if (m_associationStatus == WAITING_FOR_SELECTED_FT ||
+        m_associationStatus == ASSOCIATION_PENDING ||
+        m_associationStatus == ASSOCIATED)
     {
-        return; // Device is in association process --> abort discovering networks
+        return; // Abort discovering networks
     }
 
     BandParameters bp = m_channelManager->GetBandParameters(this->GetBandNumber());
@@ -1109,6 +1109,7 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
     if (process->state == Dect2020ExtHarqProcess::WAITING_ACK)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
+        NS_LOG_INFO(MAC_IDENTITY<< ": Applying exponential backoff");
 
         // Exponential backoff for the same random access context:
         // double CW_CURRENT, but cap at CW_MAX
@@ -1144,6 +1145,8 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
         // If the device is already inside or at the start of the RACH resources -> execute the Random Access Procedure immediately
         if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
         {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure immediately");
+
             InitiateRandomAccess(process->randomAccessContext->randomAccessResourceIe,
                                 process,
                                 phyControlFieldType2,
@@ -1194,7 +1197,7 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
                                      bool newContext,
                                      std::shared_ptr<Dect2020ExtRandomAccessContext> previousContext)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating Random Access Procedure");
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating the Random Access Procedure");
 
     uint16_t startSubslot = randomAccessResourceIe.GetStartSubslot();
     bool lengthInSubslots = !randomAccessResourceIe.GetLengthType();
@@ -1273,7 +1276,7 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
         NS_FATAL_ERROR("Packet doesn't fit in Random Access Max Tx time");
     }
 
-    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot - " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_INFO(MAC_IDENTITY << ": Initiating backoff at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     // Pick a random backoff value uniformly distributed between 0 and CW_CURRENT
     uint32_t backoffValue = m_backoffRandomVariable->GetInteger(0, randomAccessContext->CW_CURRENT);
@@ -1286,7 +1289,10 @@ Dect2020ExtMac::InitiateBackoff(std::shared_ptr<Dect2020ExtRandomAccessContext> 
         // If all possible positions are exceeded ->
         // the device is no longer inside RACH resources and need to wait for them again in the next frame
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
+
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+        NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the RACH resources in the next frame");
+
         Time delay = NanoSeconds(timeToRachStartNs);
 
         Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
@@ -1393,7 +1399,8 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
         if (channelIsFree || channelIsPossible)
         {
             // Transmit packet
-            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting" << " -> power on channel is " << avgRssiDbm << " dBm");
+            NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at subslot " << m_macScheduler->GetCurrentSubslotNumber()
+                                     << " -> power on channel is " << avgRssiDbm << " dBm");
 
             bool random = true;
             m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, random);
@@ -1428,10 +1435,10 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
     else
     {
         // Defer till next RACH resources in the next frame
-        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources. "
-                                 << "Deferring random access till the next RACH resources in the next frame.");
+        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources");
+        NS_LOG_INFO(MAC_IDENTITY << "Deferring random access till the next RACH resources in the next frame");
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
-        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000000 << "s");
         Time delay = NanoSeconds(timeToRachStartNs);
 
         // Reset sample counter and sample vector for the next attempt
@@ -1472,13 +1479,15 @@ Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect202
 bool
 Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
+    // uint32_t macPduSizeInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
+    // uint32_t responseAbsSubslot = currentAbsSubslot + 3; // Formula from the standard
+
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
-    uint32_t macPduSizeInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
-    uint32_t responseAbsSubslot = currentAbsSubslot + 3; // Formula from the standard
+    uint32_t responseWindow = randomAccessContext->randomAccessResourceIe.GetResponseWindow(); 
     uint16_t startSubslot = randomAccessContext->randomAccessResourceIe.GetStartSubslot();
     uint8_t length = randomAccessContext->randomAccessResourceIe.GetRaraLength();
 
-    return responseAbsSubslot + macPduSizeInSubslots <= startSubslot + length;
+    return currentAbsSubslot + responseWindow <= startSubslot + length;
 }
 
 void
@@ -1571,12 +1580,12 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
         packet->RemoveHeader(networkBeaconMessage);
         ft->networkBeaconMessageIe = networkBeaconMessage;
 
-        // Get the cluster channel id from the network beacon message
+        // Get the cluster channel number from the Network Beacon Message
         uint16_t ftBeaconNextClusterChannel = networkBeaconMessage.GetNextClusterChannel();
         NS_LOG_INFO(MAC_IDENTITY << ": Next cluster channel in network beacon: " << ftBeaconNextClusterChannel);
         ft->clusterChannelNumber = ftBeaconNextClusterChannel;
 
-        // Get time to next cluster beacon from the network beacon message
+        // Get time to next Cluster Beacon Message
         uint32_t timeToNextCluster = networkBeaconMessage.GetTimeToNext();
         NS_LOG_INFO(MAC_IDENTITY << ": Time to next cluster beacon: " << timeToNextCluster << " microseconds");
     }
@@ -1586,7 +1595,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Cluster Beacon Message");
 
-        // if the PT has received a Cluster Beacon and no Network Beacon before, we assume the
+        // If the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster channel is the current channel
         if (ft->networkBeaconMessageIe.GetNextClusterChannel() == 0)
         {
@@ -1873,7 +1882,7 @@ Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& c
         return;
     }
 
-    // if device is not associated, switch the status to ASSOCIATION_PREPARING and start the "select
+    // If device is not associated, switch the status to ASSOCIATION_PREPARING and start the "select
     // best FT" timer
     if (m_associationStatus == Dect2020ExtAssociationStatus::NOT_ASSOCIATED)
     {

@@ -176,11 +176,11 @@ class Dect2020ExtMac : public Object
 
         enum Dect2020ExtAssociationStatus
         {
-            NOT_ASSOCIATED,
-            ASSOCIATION_PREPARING,
-            WAITING_FOR_SELECTED_FT,
-            ASSOCIATION_PENDING,
-            ASSOCIATED
+            NOT_ASSOCIATED, // The device is not associated
+            ASSOCIATION_PREPARING, // The device is discovering networks to find the best FT candidate for association
+            WAITING_FOR_SELECTED_FT, // The device is waiting when another Cluster Beacon will trigger association
+            ASSOCIATION_PENDING, // The device is in the procedd of association and executing the Random Access Procedure
+            ASSOCIATED // The device is associated
         };
 
         void TestFunction();
@@ -267,8 +267,8 @@ class Dect2020ExtMac : public Object
         void EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext);
         bool CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
-        // Check if the Random Access transmission (MAC PDU + response window) fits into the remaining
-        // RACH resources
+        // Check if the random access transmission (response window)
+        // fits into the remaining RACH resources
         bool CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const;
 
         // ###### Association Procedure ######
