@@ -2,3 +2,4 @@
 venv/
 /logs/*
 !/logs/.gitkeep
+dect2020ext.log
