@@ -228,7 +228,7 @@ class Dect2020ExtMac : public Object
         Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber);
 
         Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtInfo* ft);
-        Ptr<Packet> BuildAssociationResponse(Dect2020ExtPtInfo ptInfo);
+        Ptr<Packet> BuildAssociationResponse(Dect2020ExtPtInfo* ptInfo);
 
         // ###### MAC-PDU-Related Conversion and Calculation
 
@@ -288,13 +288,17 @@ class Dect2020ExtMac : public Object
         // in the context where the candidate is assumed to exist.
         Dect2020ExtFtInfo* FindFtCandidate(uint16_t shortFtId);
 
+        // Create PT device info
+        // or find the PT device info among all associated PT device infos
+        Dect2020ExtPtInfo* FindOrCreateAssociatedPtInfo(uint16_t shortPtId);
+
         void EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtInfo* ft);
         void SelectBestFtCandidate();
         void VerifyWaitingForSelectedFtAssociationStatus();
         void SendAssociationRequest(Dect2020ExtFtInfo* ft);
         void VerifyPendingAssociationStatus();
-        void ProcessAssociationRequest(Dect2020ExtPtInfo ptInfo);
-        void SendAssociationResponse(Dect2020ExtPtInfo ptInfo);
+        void ProcessAssociationRequest(Dect2020ExtPtInfo* ptInfo);
+        void SendAssociationResponse(Dect2020ExtPtInfo* ptInfo);
         void ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo);
         void VerifyAssociatedStatus();
         Dect2020ExtFtInfo* FindFtCandidateByLongId(uint32_t longFtId);

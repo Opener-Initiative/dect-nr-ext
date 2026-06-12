@@ -329,7 +329,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         // Otherwise, receive packet successfully
         Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
 
-        // Pass the packet to the MAC after the whole duration of the signal
+        // Pass the packet to the MAC after the whole duration (reception) of the signal
         Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data, dectParams->m_random);
     }
 }
@@ -473,12 +473,6 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHe
 }
 
 void
-Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
-{
-    m_receiveCallback(packet, rssiDbm, data, random);
-}
-
-void
 Dect2020ExtPhy::ChangeState(PhyState newState)
 {
     std::string state = "";
@@ -490,6 +484,18 @@ Dect2020ExtPhy::ChangeState(PhyState newState)
     }
     m_currentState = newState;
     NS_LOG_INFO(PHY_IDENTITY << ": State changed to " << state);
+}
+
+void
+Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
+{
+    m_receiveCallback(packet, rssiDbm, data, random);
+}
+
+bool
+Dect2020ExtPhy::IsAvailable()
+{
+    return m_currentState == IDLE;
 }
 
 } // namespace ns3

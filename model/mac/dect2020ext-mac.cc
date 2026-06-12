@@ -795,7 +795,7 @@ Dect2020ExtMac::BuildAssociationRequest(Dect2020ExtFtInfo* ft)
 }
 
 Ptr<Packet>
-Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo ptInfo)
+Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 {
     Ptr<Packet> packet = Create<Packet>();
 
@@ -825,7 +825,7 @@ Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo ptInfo)
     // --- Association Response Message IE ---
     Dect2020ExtAssociationResponseMessageIe associationResponseMessage;
     associationResponseMessage.SetAssociationAccepted(true);
-    associationResponseMessage.SetHarqMod(false); // HARQ configuration accepted as configured in the Association Request
+    associationResponseMessage.SetHarqMod(false); // HARQ configuration is accepted as configured in the Association Request Message
     associationResponseMessage.SetNumberOfFlows(0); // Currently not used
     associationResponseMessage.SetGroupIdAndResourceTagIncluded(false); // Currently not used
 
@@ -843,7 +843,7 @@ Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo ptInfo)
     Dect2020ExtUnicastHeader unicastHeader;
     unicastHeader.SetReset(false);
     unicastHeader.SetSequenceNumber(0);
-    unicastHeader.SetReceiverAddress(ptInfo.unicastHeader.GetTransmitterAddress());
+    unicastHeader.SetReceiverAddress(ptInfo->unicastHeader.GetTransmitterAddress());
     unicastHeader.SetTransmitterAddress(this->GetLongRadioDeviceId());
 
     packet->AddHeader(unicastHeader);
@@ -1624,7 +1624,6 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
     // --- MAC Multiplexing Header Type A ---
     Dect2020ExtMacMultiplexingHeaderTypeA mxHeaderTypeA;
     packet->RemoveHeader(mxHeaderTypeA);
-
     IeTypeFieldEncoding ieType = mxHeaderTypeA.GetIeTypeFieldEncoding();
 
     // Message is an Association Request (only FT devices can process them)
@@ -1647,16 +1646,15 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
             packet->RemoveHeader(associationControlIe);
 
             // Create PT Info
-            Dect2020ExtPtInfo ptInfo;
-            ptInfo.associationAcceptedTime = Simulator::Now();
-            ptInfo.phyControlFieldType2 = phyControlFieldType2;
-            ptInfo.unicastHeader = unicastHeader;
-            ptInfo.associationRequestMessageIe = associationRequestMessageIe;
-            ptInfo.rdCapabilityIe = rdCapabilityIe;
-            ptInfo.associationControlIe = associationControlIe;
+            Dect2020ExtPtInfo* ptInfo = FindOrCreateAssociatedPtInfo(phyControlFieldType2.GetTransmitterIdentity());
+            ptInfo->associationAcceptedTime = Simulator::Now(); // Currently, all PT devices are accepted for association
+            ptInfo->phyControlFieldType2 = phyControlFieldType2;
+            ptInfo->unicastHeader = unicastHeader;
+            ptInfo->associationRequestMessageIe = associationRequestMessageIe;
+            ptInfo->rdCapabilityIe = rdCapabilityIe;
+            ptInfo->associationControlIe = associationControlIe;
 
             ProcessAssociationRequest(ptInfo);
-            return;
         }
         else
         {
@@ -1689,7 +1687,6 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
         ftInfo->rdCapabilityIe = rdCapabilityIe;
 
         ProcessAssociationResponse(ftInfo);
-        return;
     }
 }
 
@@ -1844,6 +1841,24 @@ Dect2020ExtMac::FindFtCandidate(uint16_t shortFtId)
     NS_FATAL_ERROR("No FT candidate found");
 }
 
+Dect2020ExtPtInfo*
+Dect2020ExtMac::FindOrCreateAssociatedPtInfo(uint16_t shortPtId)
+{
+    for (size_t idx = 0; idx < m_associatedPtDevices.size(); idx++)
+    {
+        if (m_associatedPtDevices[idx].phyControlFieldType2.GetTransmitterIdentity() == shortPtId)
+        {
+            return &m_associatedPtDevices[idx];
+        }
+    }
+
+    // No PT device info found -> create one
+    Dect2020ExtPtInfo newPtInfo;
+    m_associatedPtDevices.push_back(newPtInfo);
+
+    return &m_associatedPtDevices.back();
+}
+
 void
 Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtInfo* ft)
 {
@@ -1968,25 +1983,23 @@ Dect2020ExtMac::VerifyPendingAssociationStatus()
 }
 
 void
-Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo ptInfo)
+Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo* ptInfo)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
 
-    m_associatedPtDevices.push_back(ptInfo);
+    // TODO: Implement logic to accept or reject device. Currently, every device is accepted
+    // TODO: Implement Association Maintenance
 
-    // TODO: Implement logic to accept or reject device. Currently every device is accepted
-    // TODO: Implement association maintenance
-
-    // Calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay + 1
+    // Calculate the time to send the association response
+    // DECT_Delay == 0 --> subslot n + HARQ_feedback_delay + 1
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
-    uint8_t harqDelay = ptInfo.rdCapabilityIe.GetHarqFeedbackDelay();
-    uint32_t responseAbsSubslot;
+    uint8_t harqDelay = ptInfo->rdCapabilityIe.GetHarqFeedbackDelay();
+    uint32_t responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
 
-    responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
     NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
-    NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
     NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
+    NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
 
     // It is assumed that RACH resources cannot be configured to enter the next frame ->
     // GetTimeTillSubslotStartNs should be safe to call
@@ -1996,12 +2009,15 @@ Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo ptInfo)
 }
 
 void
-Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo ptInfo)
+Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 {
-    // Sanity check to assert that the device is currently not transmmitting another packet
-    if (m_phy->GetState() == PhyState::TX)
+    // Check if the PHY is available for Association Response Message transmission
+    // If the PHY is busy -> drop the Association Response Message
+    // The PT device will detect the absence of the ACK and retransmit the Associatioin Request Message
+    // During the next Association Request Message transmission, the FT will update the PT info
+    if (!m_phy->IsAvailable())
     {
-        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+        return;
     }
 
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Association Response at subslot " << m_macScheduler->GetCurrentSubslotNumber());
@@ -2013,8 +2029,8 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo ptInfo)
     bool ndi = false; // Currently not used, but indicates that that the ACK is for the received packet
 
     // Build PHY Control Field Type 2 for the appropriate HARQ process number taken
-    // from the PHY Control Fild Type 2 of the Association Request
-    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo.phyControlFieldType2.GetDfHarqProcessNumber()); 
+    // from the PHY Control Fild Type 2 of the Association Request Message
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo->phyControlFieldType2.GetDfHarqProcessNumber()); 
 
     bool data = false;
     bool random = true; // This packet is an ACK for the received Association Request with Random Access
