@@ -14,7 +14,7 @@ The function does the following actions:
 	3. Assign the boolean `data` value to the process to indicate whether this packet is a data packet and not Association Request Message
 4. Build the PHY Control Field Type 2
 5. Conduct sanity check to assert that the RACH length is defined in subslots
-6. Correctly schedule `Dect2020ExtMac::InitiateRandomAccess` to fulfill those conditions:
+6. Correctly schedule `Dect2020ExtMac::InitiateRandomAccess` with a new context to fulfill those conditions:
 	1. If the RACH resources are yet to come in the current frame -> schedule `Dect2020ExtMac::InitiateRandomAccess` at the start of the RACH resources in the current frame
 	2. If the device is already inside or at the start of the RACH resources -> execute `Dect2020ExtMac::InitiateRandomAccess` immediately
 	3. If the device is outside of the RACH resources -> schedule `Dect2020Ext::InitiateRandomAccess` at the next RACH resources in the next frame
@@ -26,7 +26,7 @@ The function directly follows the DECT-2020 NR standard and does the following a
 1. Get the duration of the RACH resources to calculate all possible starting positions. Using `Dect2020ExtMacScheduler::GetTimeTillSubslotStartNs` with RACH start subslot + RACH length as a parameter allows to correctly get the remaining RACH duration if the device is at the start or inside the RACH resources.
 2. Calculate all possible starting positions (`START_POSITION_INTERVAL_US` = `STF_US` + `GI_US`)
 3. If a new Random Access Procedure context is created:
-	1. Configure CW_MIN, CW_MAX as defined in the standard
+	1. Configure CW_MIN, CW_MAX as defined in the DECT-2020 NR standard
 	2. Set CW_CURRENT to CW_MIN. Note, a new context indicates that the Random Access Procedure is being conducted for a new packet. This means that CW_MIN, CW_MAX, and CW_CURRENT will be reset and recalculated for each new packet (each new packet doesn't mean re-transmissions due to collisions or no ACK, it means with each new packet from the TX queue)
 	3. Assign the new context to the corresponding HARQ process
 4. If existing Random Access Procedure context is used:
@@ -62,7 +62,7 @@ The function does the following actions:
 #### `Dect2020ExtMac::EvaluateLbtChannel`
 The function does the following actions:
 1. Conducts a sanity check to assert that the device is currently not transmitting another packet (this happened in the past due to implementation errors)
-2. Check if the RACH TX fits into the remaining RACH resources. RACH TX is defined as the response window (the worst case scenario which is the response window). `Dect2020ExtMac::EvaluateLbtChennel` calls `Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources` to check if the duration of the response window (response window * `subslotDurationNs`) fits into the remaining RACH duration defined as `m_macScheduler->GetTimeTillSubslotStartNs(startSubslot + length)`
+2. Check if the RACH TX fits into the remaining RACH resources. RACH TX is defined as the response window (the worst case scenario which is the response window). `Dect2020ExtMac::EvaluateLbtChennel` calls `Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources` to check if the duration of the response window (response window * `subslotDurationNs`) fits into the remaining RACH duration defined as `m_macScheduler->GetTimeTillSubslotStartNs(startSubslot + length)`. The response window is defined as `(Max RACH Tx length * 2) + 3 (HARQ feedback) + 1 (additional subslot to cover propagation delay)`. The HARQ feedback must always be 3 (HARQ feedback from RD Capability IE must always be 2)
 3. If the RACH TX fits into the remaining RACH resources, the function determines the channel state based on RSSI thresholds
 	1. If the channel is free or possible and the PHY has not started receiving in the meantime (race condition: PHY may enter RX between the LBT samples and `Dect2020ExtMac::EvaluateLbtChannel`):
 		1. Transmit the packet immediately with the boolean `ranom` option as `true` (indicating that this transmission is conducted with the Random Access Procedure)
@@ -70,3 +70,17 @@ The function does the following actions:
 	2. If the channel is busy or the PHY entered RX right at the time when this function is called -> re-initiate the Random Access Procedure:
 		1. Re-initiate the Random Access Procedure with the same context
 4. If the RACH TX doesn't fit into the remaining RACH resources -> defer the TX till the next RACH resources in the next frame with the same context
+
+#### `Dect2020ExtMac::VerifyHarq`
+The function does the following actions:
+1. Find a HARQ process with the process number from the given PHY Control Field Type 2
+2. Check if the packet has been acknowledged by asserting that the process state is `WAITING_ACK`
+3. If the process state is `WAITING_ACK`:
+	1. Apply exponential backoff by multiplying `CW_CURRENT` by 2, but capping at CW_MAX
+	2. Determine if the device is behind, at the start, inside, or already outside of the RACH resources (like in `Dect2020ExtMac::InitiateHarq`)
+	3. Schedule the appropriate execution of `Dect2020ExtMac::InitiateRandomAccess`
+4. If the process state is not `WAITING_ACK`:
+	1. Simply do nothing, the execution continues without re-transmissions
+
+#### Random Access Response (ACK)
+The ACK is sent with the delay of `rdCapabilityIe.harqDelay + 1`. The HARQ delay value from the RD Capability IE must always be 2 to fulfill the default HARQ feedback duration of 3 subslots as specified in the DECT-2020 NR standard.

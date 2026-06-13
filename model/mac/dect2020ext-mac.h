@@ -225,7 +225,7 @@ class Dect2020ExtMac : public Object
 
         // Build PHY Control Field Type 1  
         // Currently, only FORMAT_000 is used
-        Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber);
+        Dect2020ExtPhyControlFieldType2 BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber, bool ack);
 
         Ptr<Packet> BuildAssociationRequest(Dect2020ExtFtInfo* ft);
         Ptr<Packet> BuildAssociationResponse(Dect2020ExtPtInfo* ptInfo);

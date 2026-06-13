@@ -518,7 +518,7 @@ Dect2020ExtMac::StartClusterBeaconTransmission()
 void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 {
-    // Sanity check to assert that the device is currently not transmmitting another packet
+    // Sanity check to assert that the device is currently not transmmitting or receiving another packet
     if (m_phy->GetState() == PhyState::TX)
     {
         NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
@@ -691,7 +691,7 @@ Dect2020ExtMac::BuildPhyControlFieldType1(bool packetLengthType, uint32_t packet
 }
 
 Dect2020ExtPhyControlFieldType2
-Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber)
+Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, uint32_t packetSizeInBytes, bool ndi, uint8_t harqProcessNumber, bool ack)
 {
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2(Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format::FORMAT_000);
     phyControlFieldType2.SetPacketLengthType(packetLengthType);
@@ -715,7 +715,7 @@ Dect2020ExtMac::BuildPhyControlFieldType2(bool packetLengthType, uint32_t packet
     phyControlFieldType2.SetDfNewDataIndication(ndi);
     phyControlFieldType2.SetDfHarqProcessNumber(harqProcessNumber);
     phyControlFieldType2.SetFeedbackFormat(1);
-    phyControlFieldType2.SetFeedbackInfo(0);
+    phyControlFieldType2.SetFeedbackInfo(ack);
 
     return phyControlFieldType2;
 }
@@ -945,7 +945,7 @@ Dect2020ExtMac::InitiateHarq(bool data)
     process->data = data;
 
     bool packetLengthInSlots = false;
-    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber);
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber, false);
 
     // Random Access Resource IE configuration sanity check
     if (m_selectedFtCandidate.randomAccessResourceIe.GetLengthType()) // length in slots
@@ -958,6 +958,8 @@ Dect2020ExtMac::InitiateHarq(bool data)
     uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
 
     // InitiateRandomAccess must always be scheduled either inside or at the start of RACH resources
+
+    bool newContext = true;
 
     // If the RACH resources are yet to come in the frame -> wait till the RACH resources
     if (currentSubslotNumber < raraStartSubslot)
@@ -972,7 +974,7 @@ Dect2020ExtMac::InitiateHarq(bool data)
                             m_selectedFtCandidate.randomAccessResourceIe,
                             process,
                             phyControlFieldType2,
-                            true,
+                            newContext,
                             std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
     }
     // If the device is already inside or at the start of the RACH resources -> execute InitiateRandomAccess immediately
@@ -994,7 +996,7 @@ Dect2020ExtMac::InitiateHarq(bool data)
                             m_selectedFtCandidate.randomAccessResourceIe,
                             process,
                             phyControlFieldType2,
-                            true,
+                            newContext,
                             std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
     }
 }
@@ -1122,10 +1124,6 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
         uint32_t newCW = std::min(process->randomAccessContext->CW_CURRENT * 2, process->randomAccessContext->CW_MAX);
         process->randomAccessContext->CW_CURRENT = newCW;
 
-        // Reset sample counter and sample vector for the next attempt
-        process->randomAccessContext->lbtSampleCount = 0;
-        process->randomAccessContext->lbtRssiSamples.clear();
-      
         uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
         uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
         uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
@@ -1158,7 +1156,6 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
                                 phyControlFieldType2,
                                 newContext,
                                 process->randomAccessContext);
-            return;
         }
         // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
         if (currentSubslotNumber >= raraEndSubslot)
@@ -2038,7 +2035,8 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 
     // Build PHY Control Field Type 2 for the appropriate HARQ process number taken
     // from the PHY Control Fild Type 2 of the Association Request Message
-    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo->phyControlFieldType2.GetDfHarqProcessNumber()); 
+    bool ack = true;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo->phyControlFieldType2.GetDfHarqProcessNumber(), ack); 
 
     bool data = false;
     bool random = true; // This packet is an ACK for the received Association Request with Random Access
