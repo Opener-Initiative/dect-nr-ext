@@ -947,6 +947,12 @@ Dect2020ExtMac::InitiateHarq(bool data)
     bool packetLengthInSlots = false;
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber);
 
+    // Random Access Resource IE configuration sanity check
+    if (m_selectedFtCandidate.randomAccessResourceIe.GetLengthType()) // length in slots
+    {
+        NS_FATAL_ERROR("Random Access Resource IE length type is in slots, but must be in subslots");
+    }
+
     uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
     uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
     uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
@@ -1199,22 +1205,14 @@ Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAcc
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Initiating the Random Access Procedure");
 
-    uint16_t startSubslot = randomAccessResourceIe.GetStartSubslot();
-    bool lengthInSubslots = !randomAccessResourceIe.GetLengthType();
+    uint16_t raraStartSubslot = randomAccessResourceIe.GetStartSubslot();
     uint8_t length = randomAccessResourceIe.GetRaraLength(); // RACH resources length
 
-    // Calculate the total RACH resource duration in microseconds
-    double rachDurationUs;
-    if (lengthInSubslots)
-    {
-        rachDurationUs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot + length) / 1000.0; // Convert ns to us
-    }
-    else
-    {
-        // TBD --> Length in slots
-        NS_FATAL_ERROR("WARNING: RACH resources length is in slots (not yet implemented)");
-        return;
-    }
+    // Calculate the remaining RACH resource duration in microseconds from now until the RACH window closes.
+    // GetTimeTillSubslotStartNs measures from the current simulator time, so using the fixed RACH endpoint
+    // (raraStartSubslot + length) naturally returns the full duration when called at the start of the RACH
+    // resources, or only the remaining duration when called inside the window.
+    double rachDurationUs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot + length) / 1000.0; // Convert ns to us
 
     // Calculate all possible start positions
     // Start positions are at 0, 1, 2, 3... times (STF + GI)
@@ -1390,37 +1388,35 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
 
         double avgRssiDbm = totalRssi / randomAccessContext->lbtRssiSamples.size();
 
-        // Determine channel state based on RSSI threshlods
+        // Determine channel state based on RSSI thresholds
         bool channelIsFree = (avgRssiDbm <= RSSI_THRESHOLD_MIN);
         bool channelIsPossible = (avgRssiDbm > RSSI_THRESHOLD_MIN && avgRssiDbm <= RSSI_THRESHOLD_MAX);
         bool channelIsBusy = (avgRssiDbm > RSSI_THRESHOLD_MAX);
 
-        // If channel is free or possible -> transmit immediately
-        if (channelIsFree || channelIsPossible)
+        // If channel is free or possible AND the PHY has not started receiving in the
+        // meantime (race condition: PHY may enter RX between the LBT samples and here)
+        if ((channelIsFree || channelIsPossible) && m_phy->GetState() != PhyState::RX)
         {
-            // Transmit packet
             NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at subslot " << m_macScheduler->GetCurrentSubslotNumber()
                                      << " -> power on channel is " << avgRssiDbm << " dBm");
 
+            // Transmit packet
             bool random = true;
             m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, random);
 
             // Verify ACK after the RACH response window expires
-            // Response window size is in subslots
+            // Response window size is always in subslots
             double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
             Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->randomAccessResourceIe.GetResponseWindow());
             Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2);
+            return;
         }
-        // If the channel is detectet busy or the PHY state became Rx right at the time
-        // when this function is called -> re-initiate the Random Access Procedure
+        // If the channel is busy or the PHY entered RX right at the time
+        // when this function is called -> re-initiate the Random Access Procedure immediately
         else if (channelIsBusy || m_phy->GetState() == PhyState::RX)
         {
             NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with the same context");
             NS_LOG_INFO(MAC_IDENTITY << ": The PHY or the channel is busy (avg RSSI: " << avgRssiDbm << " dBm");
-
-            // Reset sample counter and sample vector for the next attempt
-            randomAccessContext->lbtSampleCount = 0;
-            randomAccessContext->lbtRssiSamples.clear();
 
             // Re-initiate the Random Access Procedure with the same context
             bool newContext = false;
@@ -1429,21 +1425,17 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
                                  randomAccessContext->phyControlFieldType2,
                                  newContext,
                                  randomAccessContext);
-            return;
         }
     }
     else
     {
         // Defer till next RACH resources in the next frame
-        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources");
-        NS_LOG_INFO(MAC_IDENTITY << "Deferring random access till the next RACH resources in the next frame");
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
-        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000000 << "s");
         Time delay = NanoSeconds(timeToRachStartNs);
 
-        // Reset sample counter and sample vector for the next attempt
-        randomAccessContext->lbtSampleCount = 0;
-        randomAccessContext->lbtRssiSamples.clear();
+        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources");
+        NS_LOG_INFO(MAC_IDENTITY << "Deferring random access till the next RACH resources in the next frame");
+        NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000000 << "s");
 
         // Re-initiate the Random Access Procedure with the same context
         bool newContext = false;
@@ -1479,15 +1471,22 @@ Dect2020ExtMac::CheckIfMacPduFitsInMaxRandomAccessTxTime(std::shared_ptr<Dect202
 bool
 Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020ExtRandomAccessContext> randomAccessContext) const
 {
-    // uint32_t macPduSizeInSubslots = CalculateMacPduSizeInSubslots(randomAccessContext->process->packet->GetSize() + randomAccessContext->phyControlFieldType2.GetSerializedSize());
-    // uint32_t responseAbsSubslot = currentAbsSubslot + 3; // Formula from the standard
-
-    uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
-    uint32_t responseWindow = randomAccessContext->randomAccessResourceIe.GetResponseWindow(); 
+    uint32_t responseWindow = randomAccessContext->randomAccessResourceIe.GetResponseWindow();
     uint16_t startSubslot = randomAccessContext->randomAccessResourceIe.GetStartSubslot();
     uint8_t length = randomAccessContext->randomAccessResourceIe.GetRaraLength();
 
-    return currentAbsSubslot + responseWindow <= startSubslot + length;
+    // EvaluateLbtChannel executes at LBT-interval boundaries (every 83.335 µs = STF+GI),
+    // which are NOT aligned with subslot boundaries (208.333 µs = 2.5 LBT intervals).
+    // An integer subslot comparison would pass even when a mid-subslot offset causes the
+    // TX to overshoot the RACH window by up to one LBT interval.
+    // Use an exact nanosecond comparison instead: measure the actual remaining time from
+    // the current simulator time to the RACH window close, and compare against the
+    // required response window duration.
+    double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+    double remainingRachTimeNs = m_macScheduler->GetTimeTillSubslotStartNs(startSubslot + length);
+    double requiredTimeNs = responseWindow * subslotDurationNs;
+
+    return remainingRachTimeNs >= requiredTimeNs;
 }
 
 void
