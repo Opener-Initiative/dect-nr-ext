@@ -1,4 +1,4 @@
-# Random Access Procedure — DECT-2020 NR Compliance Findings
+	 Random Access Procedure — DECT-2020 NR Compliance Findings
 
 **Reference standard:** ETSI TS 103 636-4 V2.1.1 (2024-10), clause 5.3 (Random Access procedure).
 **Module under review:** `contrib/dect-nr-ext/model/mac/dect2020ext-mac.cc` (+ `dect2020ext-mac.h`, `model/phy/dect2020ext-phy.cc`, `model/mac/dect2020ext-mac-scheduler.cc`).

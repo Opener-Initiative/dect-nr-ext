@@ -49,7 +49,7 @@ main(int argc, char *argv[])
     ftMac->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftMac->SetPhy(ftPhy);
     ftMac->ConfigureRandomAccessResources(randomAccessResourceIe);
-    ftMac->ProceedToAssociationResponse(false);
+    // ftMac->ProceedToAssociationResponse(false);
     config.ApplyToMac(ftMac);
 
     ftPhy->SetMac(ftMac);
@@ -88,7 +88,7 @@ main(int argc, char *argv[])
         ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(associationControlIe);
-        ptMac->ProceedToDataTransmission(false);
+        // ptMac->ProceedToDataTransmission(false);
         ptMac->SetSearchBestFtTimeMs(10);
         config.ApplyToMac(ptMac);
 

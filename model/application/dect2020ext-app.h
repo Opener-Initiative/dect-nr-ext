@@ -24,15 +24,15 @@ class Dect2020ExtApp : public Object
         void GeneratePacket();
 
         // Configuration
-        void SetTxPeriod(Time period);
+        void SetPacketGenerationPeriod(Time period);
         void SetMac(Ptr<Dect2020ExtMac> mac);
         void SetPacketLimit(int quantity);
 
     private:
 
         // Configuration
-        Time m_txPeriod;
-        bool m_txPeriodSet = false;
+        Time m_packetGenerationPeriod;
+        bool m_packetGenerationPeriodSet = false;
         Ptr<Dect2020ExtMac> m_mac;
         EventId m_event;
         int m_packetLimit;

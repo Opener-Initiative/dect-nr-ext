@@ -964,7 +964,8 @@ Dect2020ExtMac::InitiateHarq(bool data)
     process->data = data;
 
     bool packetLengthInSlots = false;
-    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber, false);
+    bool ack = false;
+    Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(packetLengthInSlots, packet->GetSize(), process->ndi, process->processNumber, ack);
 
     // Random Access Resource IE configuration sanity check
     if (m_selectedFtCandidate.randomAccessResourceIe.GetLengthType()) // length in slots
@@ -1066,22 +1067,33 @@ Dect2020ExtMac::FindHarqProcess(uint8_t harqProcessNumber)
 }
 
 void
-Dect2020ExtMac::SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
+Dect2020ExtMac::SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
 {
     NS_LOG_FUNCTION(MAC_IDENTITY);
     NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
-    // m_phy->Send(ack, phyCtrl);
+
+    // Drop the ACK if the PHY is already busy with another packet
+    if (!m_phy->IsAvailable())
+    {
+        NS_LOG_INFO(MAC_IDENTITY << "Dropping Data Packet ACK due to busy PHY");
+        return;
+    }
+
+    bool data = true;
+    bool random = true;
+    m_phy->Send(packet, phyControlFieldType2, data, random);
 }
 
 void
-Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl)
+Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
 {
     NS_LOG_FUNCTION(MAC_IDENTITY);
+
     // Find a HARQ process
     Dect2020ExtHarqProcess* proc = nullptr;
     for (auto& p: m_harqProcesses)
     {
-        if (p.processNumber == phyCtrl.GetDfHarqProcessNumber())
+        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
         {
             proc = &p;
             break;
@@ -1103,7 +1115,8 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 p
 
     if (!m_txQueue.empty())
     {
-        // InitiateHARQ();
+        bool data = true;
+        InitiateHarq(data);
     }
     else
     {
@@ -1718,7 +1731,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
 }
 
 void
-Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2)
+Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
 {
     // --- Unicast Header ---
     Dect2020ExtUnicastHeader unicastHeader;
@@ -1739,7 +1752,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
     if (m_terminationPointType == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received HARQ ACK");
-        HandleHarqAck(packet, physicalHeaderFieldType2);
+        HandleHarqAck(packet, phyControlFieldType2);
         return;
     }
 
@@ -1757,75 +1770,51 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
         // found — *it is the Dect2020ExtAssociatedPtInfo
         NS_LOG_INFO(MAC_IDENTITY << ": Found PT with longRdId " << it->unicastHeader.GetTransmitterAddress());
 
-        // calculate the time to send the association response. DECT_Delay == 0 --> subslot n + HARQ_feedback_delay +1
-        uint32_t subslotsPerFrame = m_channelManager->GetSubslotsPerSlot() * 24;
+        // Calculate the time to send the association response
+        // DECT_Delay == 0 --> subslot n + HARQ_feedback_delay + 1
         uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
+        // The FT can take PTs HARQ feedback delay since it is always the same for all devices
         uint8_t harqDelay = it->rdCapabilityIe.GetHarqFeedbackDelay();
-        uint32_t responseAbsSubslot;
+        uint32_t responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
 
-        if (m_dectDelay == 0)
-        {
-            responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
-            NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
-            NS_LOG_INFO(MAC_IDENTITY << ": Absolute HARQ ACK subslot: " << responseAbsSubslot);
-            NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
-        }
-        else
-        {
-            responseAbsSubslot = currentAbsSubslot + (subslotsPerFrame / 2); // 0.5 frame later
-        }
+        NS_LOG_INFO(MAC_IDENTITY << ": HARQ Delay: " << (uint32_t)harqDelay);
+        NS_LOG_INFO(MAC_IDENTITY << ": Current absolute subslot: " << currentAbsSubslot);
+        NS_LOG_INFO(MAC_IDENTITY << ": Absolute response subslot: " << responseAbsSubslot);
 
-        // Wrap into the current frame's subslot range so the scheduler vector lookup
-        // stays in bounds. GetTimeTillSubslotStartNs already handles the case where
-        // the wrapped subslot has already passed in the current frame by adding one
-        // full frame duration, so cross-frame responses are scheduled correctly.
-        uint32_t responseSubslotInFrame = responseAbsSubslot % subslotsPerFrame;
+        // It is assumed that RACH resources cannot be configured to enter the next frame ->
+        // GetTimeTillSubslotStartNs should be safe to call
+        double t = m_macScheduler->GetTimeTillSubslotStartNs(responseAbsSubslot);
 
-        NS_LOG_INFO(MAC_IDENTITY << ": Current subslot " << currentAbsSubslot);
-        NS_LOG_INFO(MAC_IDENTITY << ": HARQ ACK absolute subslot " << responseAbsSubslot
-                                 << " (in-frame: " << responseSubslotInFrame << ")");
-
-        double t = m_macScheduler->GetTimeTillSubslotStartNs(responseSubslotInFrame);
-
-        Ptr<Packet> ack = Create<Packet>();
+        Ptr<Packet> packet = Create<Packet>();
 
         Dect2020ExtUnicastHeader unicastHeader;
-        unicastHeader.SetReset(0);
+        unicastHeader.SetReset(false);
         unicastHeader.SetMacSequence(0);
         unicastHeader.SetSequenceNumber(0);
         unicastHeader.SetReceiverAddress(it->unicastHeader.GetTransmitterAddress());
         unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
 
-        ack->AddHeader(unicastHeader);
+        packet->AddHeader(unicastHeader);
 
         Dect2020ExtMacHeaderType macHeaderType;
         macHeaderType.SetVersion(0);
         macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
         macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
 
-        ack->AddHeader(macHeaderType);
+        packet->AddHeader(macHeaderType);
 
-        Dect2020ExtPhyControlFieldType2 phyCtrl(Dect2020ExtPhyControlFieldType2::PhyControlFieldType2Format::FORMAT_000);
-        phyCtrl.SetPacketLengthType(true); // length in slots
-        phyCtrl.SetPacketLength(CalculateMacPduSizeInSlots(ack->GetSize()));
-        phyCtrl.SetShortNetworkId(0); // currently not used
-        phyCtrl.SetTransmitterIdentity(m_shortRadioDeviceId);
-        phyCtrl.SetTransmitPower(23);
-        phyCtrl.SetDfmcs(m_mcs);
-        phyCtrl.SetReceiverIdentity(0); // not used
-        phyCtrl.SetNumberOfSpatialStreams(0); // currently not used
-        phyCtrl.SetDfRedundancyVersion(0); // currently not used
-        phyCtrl.SetDfNewDataIndication(0); // currently not used
-        phyCtrl.SetDfHarqProcessNumber(physicalHeaderFieldType2.GetDfHarqProcessNumber()); // currently not used
-        phyCtrl.SetFeedbackFormat(1);
-        phyCtrl.SetFeedbackInfo(1);
+        bool lengthInSlots = false;
+        bool ndi = false; // Currently not used
+        bool ack = true;
 
-        Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendHarqAck, this, ack, phyCtrl);
+        Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendHarqAck, this,
+                            ack,
+                            BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, phyControlFieldType2.GetDfHarqProcessNumber(), ack));
     }
     else
     {
-        NS_LOG_WARN(MAC_IDENTITY << ": PT with longRdId " << targetId << " not found");
+        NS_FATAL_ERROR(MAC_IDENTITY << ": PT with longRdId " << targetId << " not found");
     }
 }
 
@@ -2021,6 +2010,7 @@ Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo* ptInfo)
     // DECT_Delay == 0 --> subslot n + HARQ_feedback_delay + 1
     uint32_t currentAbsSubslot = m_macScheduler->GetCurrentSubslotNumber();
 
+    // The FT can take PTs HARQ feedback delay since it is always the same for all devices
     uint8_t harqDelay = ptInfo->rdCapabilityIe.GetHarqFeedbackDelay();
     uint32_t responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
 
@@ -2099,7 +2089,7 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo)
 
         if (m_proceedToDataTransmission)
         {
-            // Starting app transmission
+            // Starting app
             LaunchApp();
             StartKeepAlivePeriod();
         }
@@ -2169,7 +2159,7 @@ Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded()
 
     if (Simulator::Now() - m_lastRxTime >= ulPeriod)
     {
-        // KeepAlivePeriod exceeded - send Keep Alive Ie
+        // KeepAlivePeriod exceeded - send Keep Alive IE (not yet implemented)
         NS_LOG_INFO(MAC_IDENTITY << ": Keep Alive Period exceeded");
         Simulator::Schedule(ulPeriod, &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
     }
@@ -2369,26 +2359,26 @@ Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus association
 void
 Dect2020ExtMac::EnqueuePacket()
 {
-    Ptr<Packet> macPdu = Create<Packet>(10); // dummy MAC PDU
+    Ptr<Packet> packet = Create<Packet>(); // dummy MAC PDU
     NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     Dect2020ExtUnicastHeader unicastHeader;
-    unicastHeader.SetReset(0);
+    unicastHeader.SetReset(false);
     unicastHeader.SetMacSequence(0);
     unicastHeader.SetSequenceNumber(0);
     unicastHeader.SetReceiverAddress(m_selectedFtCandidate.longFtId);
     unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
 
-    macPdu->AddHeader(unicastHeader);
+    packet->AddHeader(unicastHeader);
 
     Dect2020ExtMacHeaderType macHeaderType;
     macHeaderType.SetVersion(0);
     macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
     macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
 
-    macPdu->AddHeader(macHeaderType);
+    packet->AddHeader(macHeaderType);
 
-    m_txQueue.push(macPdu);
+    m_txQueue.push(packet);
 }
 
 void
@@ -2397,10 +2387,15 @@ Dect2020ExtMac::LaunchApp()
     NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
     m_app = CreateObject<Dect2020ExtApp>();
     m_app->SetMac(this);
-    m_app->SetTxPeriod(MilliSeconds(5));
+    m_app->SetPacketGenerationPeriod(MilliSeconds(5)); // Set the period for packet generation
     m_app->SetPacketLimit(50);
     m_app->Start();
-    // InitiateHARQ();
+
+    // InitiateHarq will trigger the Random Access Procedure cycle for the
+    // enqueued packet. Later, data transmission cycle will be handled by
+    // VerifyHarqAck
+    bool data = true;
+    InitiateHarq(data);
 }
 
 void

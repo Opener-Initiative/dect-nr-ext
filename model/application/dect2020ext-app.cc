@@ -26,7 +26,7 @@ Dect2020ExtApp::GetTypeId()
 void
 Dect2020ExtApp::Start()
 {
-    if (!m_mac || !m_txPeriodSet)
+    if (!m_mac || !m_packetGenerationPeriodSet)
     {
         return;
     }
@@ -52,7 +52,7 @@ Dect2020ExtApp::GeneratePacket()
     {
         m_mac->EnqueuePacket();
         m_enqueuedPacketQuantity++;
-        m_event = Simulator::Schedule(m_txPeriod, &Dect2020ExtApp::GeneratePacket, this);
+        m_event = Simulator::Schedule(m_packetGenerationPeriod, &Dect2020ExtApp::GeneratePacket, this);
     }
     else
     {
@@ -61,10 +61,10 @@ Dect2020ExtApp::GeneratePacket()
 }
 
 void
-Dect2020ExtApp::SetTxPeriod(Time period)
+Dect2020ExtApp::SetPacketGenerationPeriod(Time period)
 {
-    m_txPeriod = period;
-    m_txPeriodSet = true;
+    m_packetGenerationPeriod = period;
+    m_packetGenerationPeriodSet = true;
 }
 
 void

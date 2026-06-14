@@ -1,6 +1,6 @@
 mu = 1, beta = 1
-# 1 Spectrum Management Procedure
-## 1.1 Network Beacon Message
+# Spectrum Management Procedure
+#### Network Beacon Message
 Transmitter: FT
 Receiver: PT
 Build functions: `Dect2020ExtMac::BuildNetworkBeacon`, `Dect2020ExtMac::BuildPhysicalHeaderField`
@@ -19,7 +19,8 @@ Configuration for optional fields:
 	- The RD operating in FT mode does not have power constraints (power constraints are not particularly relevant to ns-3)
 	- The current cluster channel is the same as the next cluster channel. The current cluster channel field is not included
 	- Number of additional Network beacon channels: 0
-## 1.2 Cluster Beacon Message
+
+#### Cluster Beacon Message
 Transmitter: FT
 Receiver: PT
 Build functions: `Dect2020ExtMac::BuildClusterBeacon`, `Dect2020ExtMac::BuildPhysicalHeaderField`
@@ -45,8 +46,9 @@ Configuration for optional fields:
 	- SFN is not included
 	- The resource allocation is valid for the channel where the IE is received. The channel field is not present in the IE
 	- The random access response is sent on the same channel as the random access message
-# 2 Association Procedure
-## 2.1 Association Request Message
+
+# Association Procedure
+#### Association Request Message
 Transmitter: PT
 Receiver: FT
 Build function: `Dect2020ExtMac::SendAssociationRequest`
@@ -61,7 +63,7 @@ Size: 35 bytes
 | Index 2        |            Unicast Header             | 10 bytes |
 | Index 1        |            MAC Header Type            | 1 byte   |
 | Index 0: front |       PHY Control Field Type 2        | 10 bytes |
-## 2.2 Association Response Message
+#### Association Response Message
 Transmitter: FT
 Receiver: PT
 Build function: `Dect2020ExtMac::SendAssociationResponse`
@@ -75,6 +77,17 @@ Size: 30 bytes
 | Index 2        |             Unicast Header             | 10 bytes |
 | Index 1        |            MAC Header Type             | 1 byte   |
 | Index 0: front |        PHY Control Field Type 2        | 10 bytes |
+
+# Data Transmission
+#### Data Packet
+
+| Position       | Data Packet Structure    | Size     |
+| -------------- | ------------------------ | -------- |
+| Index 2        | Unicast Header           | 10 bytes |
+| Index 1        | MAC Header Type          | 1 byte   |
+| Index 0: front | PHY Control Field Type 2 | 10 bytes |
+
+
 Results from `dect2020ext-mac-pdu-size-calculation-test-case.cc`
 ----------------------------------------
 Network Beacon Message

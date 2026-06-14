@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Procedures/Random Access Compliance Findings.md",
+                "file": "MAC PDU.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Random Access Compliance Findings"
+              "title": "MAC PDU"
             }
           },
           {
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 225.50072860717773,
-    "collapsed": true
+    "width": 225.50072860717773
   },
   "right": {
     "id": "85c6a212cc3f323c",
@@ -200,8 +199,9 @@
   },
   "active": "1058449cee74a4c4",
   "lastOpenFiles": [
-    "Procedures/Random Access Procedure and HARQ Operation.md",
+    "Procedures/Data Transmission Compliance Findings.md",
     "Procedures/Random Access Compliance Findings.md",
+    "Procedures/Random Access Procedure and HARQ Operation.md",
     "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
     "Identities.md",
     "Procedures",

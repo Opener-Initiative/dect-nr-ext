@@ -250,8 +250,8 @@ class Dect2020ExtMac : public Object
         // Find a HARQ process based on the process number.
         Dect2020ExtHarqProcess* FindHarqProcess(uint8_t harqProcessNumber);
 
-        void SendHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
-        void HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyCtrl);
+        void SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
+        void HandleHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void MonitorTxQueue();
 
@@ -276,7 +276,7 @@ class Dect2020ExtMac : public Object
         void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
-        void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 physicalHeaderFieldType2);
+        void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
 
         // Check if the Unicast Message is for this device.
         bool PacketIsForThisDevice(Dect2020ExtUnicastHeader unicastHeader);
@@ -345,7 +345,6 @@ class Dect2020ExtMac : public Object
         // Association Status
 
         void ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus);
-
 
         // Application
 
