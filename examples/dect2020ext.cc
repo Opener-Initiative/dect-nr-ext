@@ -1,25 +1,6 @@
-#include "ns3/dect2020ext-mac-scheduler.h"
-#include "ns3/dect2020ext-channel-manager.h"
-#include "ns3/dect2020ext-mac.h"
-#include "ns3/dect2020ext-phy.h"
-#include "ns3/dect2020ext-config.h"
-#include "ns3/dect2020ext-config-values.h"
-#include "ns3/dect2020ext-utilities.h"
-#include "ns3/dect2020ext-statistics.h"
-
-#include "ns3/simulator.h"
-#include "ns3/single-model-spectrum-channel.h"
-#include "ns3/node.h"
-#include "ns3/mobility-module.h"
-#include "ns3/net-device-container.h"
-#include "ns3/isotropic-antenna-model.h"
-
-#include <string>
+#include "ns3/dect2020ext-module.h"
 
 using namespace ns3;
-
-using DlDataReception = Dect2020ExtAssociationControlIe::DlDataReception;
-using UlPeriod = Dect2020ExtAssociationControlIe::UlPeriod;
 
 NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 
@@ -65,7 +46,7 @@ main(int argc, char *argv[])
     config.ApplyToPhy(ftPhy);
 
     Ptr<Dect2020ExtMac> ftMac = CreateObject<Dect2020ExtMac>();
-    ftMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
+    ftMac->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftMac->SetPhy(ftPhy);
     ftMac->ConfigureRandomAccessResources(randomAccessResourceIe);
     ftMac->ProceedToAssociationResponse(false);
@@ -76,7 +57,7 @@ main(int argc, char *argv[])
     Ptr<Node> ftNode = CreateObject<Node>();
 
     Ptr<Dect2020ExtNetDevice> ftNetDevice = CreateObject<Dect2020ExtNetDevice>();
-    ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT);
+    ftNetDevice->SetTerminationPointType(Dect2020ExtNetDevice::FT);
     ftNetDevice->SetPhy(ftPhy);
     ftNetDevice->SetMac(ftMac);
     ftNetDevice->SetNode(ftNode);
