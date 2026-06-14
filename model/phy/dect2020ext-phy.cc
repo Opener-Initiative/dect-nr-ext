@@ -301,7 +301,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     if (rssiPacketDbm < minRxSensitivityDbm)
     {
         NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet due to weak signal");
-        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
+        Dect2020ExtStatistics::m_droppedPacketsPhy[PHY_IDENTITY]++;
         return;
     }
 
@@ -309,7 +309,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     if (m_currentState != IDLE)
     {
         NS_LOG_INFO(PHY_IDENTITY << ": Dropping packet due to collision");
-        Dect2020ExtStatistics::m_droppedPackets[PHY_IDENTITY]++;
+        Dect2020ExtStatistics::m_droppedPacketsPhy[PHY_IDENTITY]++;
         return;
     }
 
@@ -329,7 +329,7 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     else
     {
         // Otherwise, receive packet successfully
-        Dect2020ExtStatistics::m_acceptedPackets[PHY_IDENTITY]++;
+        Dect2020ExtStatistics::m_acceptedPacketsPhy[PHY_IDENTITY]++;
 
         // Pass the packet to the MAC after the whole duration (reception) of the signal
         Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data, dectParams->m_random);

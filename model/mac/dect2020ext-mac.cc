@@ -14,6 +14,7 @@
 #include "ns3/dect2020ext-association-control-ie.h"
 #include "ns3/dect2020ext-mac-header-type.h"
 #include "ns3/dect2020ext-config-values.h"
+#include "ns3/dect2020ext-statistics.h"
 
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
@@ -528,6 +529,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
     if (m_phy->GetState() == PhyState::RX)
     {
         NS_LOG_INFO(MAC_IDENTITY << "The network beacon collided with the incoming packet, dropping the beacon");
+        Dect2020ExtStatistics::m_droppedNetworkBeaconsFtMac[MAC_IDENTITY]++;
         return;
     }
 
@@ -538,6 +540,7 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
     bool data = false;
     bool random = false;
 
+    Dect2020ExtStatistics::m_transmittedNetworkBeaconsFtMac[MAC_IDENTITY]++;
     m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), data, random);
 }
 
@@ -554,6 +557,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
     if (m_phy->GetState() == PhyState::RX)
     {
         NS_LOG_INFO(MAC_IDENTITY << "The cluster beacon collided with the incoming packet, dropping the beacon");
+        Dect2020ExtStatistics::m_droppedClusterBeaconsFtMac[MAC_IDENTITY]++;
         return;
     }
 
@@ -564,6 +568,7 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
     bool random = false;
     bool lengthInSlots = false;
 
+    Dect2020ExtStatistics::m_transmittedClusterBeaconsFtMac[MAC_IDENTITY]++;
     m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), data, random);
 }
 
@@ -1554,7 +1559,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bo
     }
 
     // Data packet used for data transmission (must be acknowledged for according HARQ process)
-    else if (macHeaderType.GetMacHeaderTypeField() == Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER)
+    else if (receivedMacHeaderTypeField == MacHeaderTypeField::DATA_MAC_PDU_HEADER)
     {
         HandleDataPacket(packet, phyControlFieldType2);
     }
@@ -1584,6 +1589,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
     if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::NETWORK_BEACON_MESSAGE)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Network Beacon Message");
+        Dect2020ExtStatistics::m_acceptedNetworkBeaconsPtMac[MAC_IDENTITY]++;
 
         // --- Network Beacon Message Ie ---
         Dect2020ExtNetworkBeaconMessageIe networkBeaconMessage;
@@ -1604,6 +1610,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
     else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::CLUSTER_BEACON_MESSAGE)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Cluster Beacon Message");
+        Dect2020ExtStatistics::m_acceptedClusterBeaconsPtMac[MAC_IDENTITY]++;
 
         // If the PT has received a Cluster Beacon and no Network Beacon before, we assume the
         // cluster channel is the current channel
@@ -1649,6 +1656,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
     if (ieType == IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE && m_terminationPointType == Dect2020ExtNetDevice::FT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Association Request");
+        Dect2020ExtStatistics::m_acceptedAssociationRequestsFtMac[MAC_IDENTITY]++;
 
         if (m_proceedToAssociationResponse)
         {
@@ -2036,6 +2044,8 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
     // During the next Association Request Message transmission, the FT will update the PT info
     if (!m_phy->IsAvailable())
     {
+        NS_LOG_INFO(MAC_IDENTITY << "Dropping Association Request Message due to collision");
+        Dect2020ExtStatistics::m_droppedAssociationResponsesFtMac[MAC_IDENTITY]++;
         return;
     }
 
@@ -2054,6 +2064,8 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 
     bool data = false;
     bool random = true; // This packet is an ACK for the received Association Request with Random Access
+
+    Dect2020ExtStatistics::m_transmittedAssociationResponsesFtMac[MAC_IDENTITY]++;
     m_phy->Send(packet, phyControlFieldType2, data, random);
 }
 

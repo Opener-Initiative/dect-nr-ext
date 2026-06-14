@@ -151,8 +151,7 @@ main(int argc, char *argv[])
     Simulator::Run();
     Simulator::Destroy();
 
-    Dect2020ExtStatistics::OutputDroppedPackets();
-    Dect2020ExtStatistics::OutputAcceptedPackets();
+    Dect2020ExtStatistics::OutputAllStatistics();
     CreatePythonConnectionGraph(devices);
 
     return 0;
