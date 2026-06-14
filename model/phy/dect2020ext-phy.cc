@@ -265,8 +265,15 @@ Dect2020ExtPhy::GetAntenna() const
 void
 Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 {
-    // Cast the generic SpectrumSignalParameters to our specific DECT-2020 parameters
+    // Cast the generic SpectrumSignalParameters to the specific DECT-2020 NR parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> dectParams = DynamicCast<Dect2020ExtSpectrumSignalParameters>(params);
+
+    // Drop packet if the params are not DECT params
+    if (!dectParams)
+    {
+        NS_LOG_INFO("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
+        return;
+    }
 
     // Extract the channel index within the spectrum model
     uint16_t channelIndex = dectParams->m_currentChannelNumber -
@@ -280,13 +287,6 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
 
     // Add the received signal to the interference (signal will be removed after the duration)
     m_interference->AddSignal(params->psd, params->duration, channelIndex);
-
-    // Drop packet if the params are not DECT params
-    if (!dectParams)
-    {
-        NS_LOG_WARN("Received non-DECT signal (e.g., from WaveformGenerator), ignoring");
-        return;
-    }
 
     // Drop packet if the device is not currently tuned to the correct channel
     if (dectParams->m_currentChannelNumber != m_mac->GetOperatingChannelNumber())

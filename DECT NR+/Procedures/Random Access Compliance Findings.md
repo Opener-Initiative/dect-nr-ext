@@ -27,7 +27,7 @@ The MAC-level random-access state machine is **substantially compliant** with §
 | F8  | `NDI=true` / fixed redundancy version reused on retransmissions                                    | Intentional simplification                  | —        |        |
 | M1  | `CW_CURRENT` not explicitly reset to `CW_MIN` on success                                           | Compliant-by-design                         | —        |        |
 | M2  | Fixed `m_mcs = 0` instead of "highest MCS"                                                         | Design choice                               | —        |        |
-| M4  | `StartRx` dereferences `dectParams` before its null check                                          | TODO fix                                    | Low      |        |
+| M4  | `StartRx` dereferences `dectParams` before its null check                                          | TODO fix                                    | Low      | Done   |
 
 ---
 
