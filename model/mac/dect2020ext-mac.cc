@@ -518,10 +518,17 @@ Dect2020ExtMac::StartClusterBeaconTransmission()
 void
 Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 {
-    // Sanity check to assert that the device is currently not transmmitting or receiving another packet
+    // Sanity check to assert that the device is currently not transmmitting another packet
     if (m_phy->GetState() == PhyState::TX)
     {
-        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit a network beacon");
+    }
+
+    // For example, if the PHY is busy with a beacon from another FT -> drop the beacon and log
+    if (m_phy->GetState() == PhyState::RX)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << "The network beacon collided with the incoming packet, dropping the beacon");
+        return;
     }
 
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Network Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
@@ -540,7 +547,14 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
     // Sanity check to assert that the device is currently not transmmitting another packet
     if (m_phy->GetState() == PhyState::TX)
     {
-        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit another packet");
+        NS_FATAL_ERROR("Device is already transmitting a packet while attempting to transmit a cluster beacon");
+    }
+
+    // For example, if the PHY is busy with a beacon from another FT -> drop the beacon and log
+    if (m_phy->GetState() == PhyState::RX)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << "The cluster beacon collided with the incoming packet, dropping the beacon");
+        return;
     }
 
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
@@ -2040,7 +2054,7 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 
     bool data = false;
     bool random = true; // This packet is an ACK for the received Association Request with Random Access
-    m_phy->Send(packet, phyControlFieldType2, data, random); // Send the packet to the PHY
+    m_phy->Send(packet, phyControlFieldType2, data, random);
 }
 
 void

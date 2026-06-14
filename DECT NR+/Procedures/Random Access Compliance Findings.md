@@ -22,7 +22,7 @@ The MAC-level random-access state machine is **substantially compliant** with §
 | F3  | LBT senses the interval *at* start position `k`, transmits at `k+1`                                | Possible deviation from the standard ???    | Low      |        |
 | F4  | Backoff is re-drawn each RACH occurrence instead of one persistent `rachBackOff`                   | Possible deviation (unresolved — to verify) | Medium   |        |
 | F5  | No RACH failure/abort (`dectRachResourceFailure`, `maxRetx`) → infinite retransmission             | Intentional simplification (known)          | —        |        |
-| F6  | Inconsistent `m_phy->Send` guards; beacons ignore `RX`; `NS_FATAL_ERROR` on `TX` can crash the sim | Bug + TODO                                  | Medium   |        |
+| F6  | Inconsistent `m_phy->Send` guards; beacons ignore `RX`; `NS_FATAL_ERROR` on `TX` can crash the sim | Bug + TODO                                  | Medium   | Done   |
 | F7  | PHY collision model is first-wins capture with no SINR                                             | Modeling-choice                             | —        |        |
 | F8  | `NDI=true` / fixed redundancy version reused on retransmissions                                    | Intentional simplification                  | —        |        |
 | M1  | `CW_CURRENT` not explicitly reset to `CW_MIN` on success                                           | Compliant-by-design                         | —        |        |
