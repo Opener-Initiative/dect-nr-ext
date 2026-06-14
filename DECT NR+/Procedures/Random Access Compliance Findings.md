@@ -15,19 +15,19 @@
 
 The MAC-level random-access state machine is **substantially compliant** with §5.3 for the association use case: parameters are taken from the Random Access Resource IE; start positions are computed at integer multiples of `STF+GI`; backoff is uniform in `[0, CW_CURRENT]`; LBT senses for `MINIMUM_LBT_PERIOD` before transmitting; the "free/possible/busy" decision uses the §5.1.2 thresholds; on **busy** the backoff is re-initiated (no CW change, per §5.3.3); on a **missing response** `CW_CURRENT` is doubled with a `CW_MAX` cap and a new procedure is initiated (per §5.3.4); on **success** the context is discarded. The findings below are the deviations, design choices, and edge cases identified during the review.
 
-| # | Finding | Classification | Severity |
-|---|---------|----------------|----------|
-| F1 | "Fits in remaining RACH" gate checks the response window, not the MAC PDU TX duration | Not standard compliant → design choice | — |
-| F2 | Response-window size is a sound but unenforced configuration assumption | TODO (add runtime check) | Medium |
-| F3 | LBT senses the interval *at* start position `k`, transmits at `k+1` | Possible deviation from the standard ??? | Low |
-| F4 | Backoff is re-drawn each RACH occurrence instead of one persistent `rachBackOff` | Possible deviation (unresolved — to verify) | Medium |
-| F5 | No RACH failure/abort (`dectRachResourceFailure`, `maxRetx`) → infinite retransmission | Intentional simplification (known) | — |
-| F6 | Inconsistent `m_phy->Send` guards; beacons ignore `RX`; `NS_FATAL_ERROR` on `TX` can crash the sim | Bug + TODO | Medium |
-| F7 | PHY collision model is first-wins capture with no SINR | Modeling-choice | — |
-| F8 | `NDI=true` / fixed redundancy version reused on retransmissions | Intentional simplification | — |
-| M1 | `CW_CURRENT` not explicitly reset to `CW_MIN` on success | Compliant-by-design | — |
-| M2 | Fixed `m_mcs = 0` instead of "highest MCS" | Design choice | — |
-| M4 | `StartRx` dereferences `dectParams` before its null check | TODO fix | Low |
+| #   | Finding                                                                                            | Classification                              | Severity | Status |
+| --- | -------------------------------------------------------------------------------------------------- | ------------------------------------------- | -------- | ------ |
+| F1  | "Fits in remaining RACH" gate checks the response window, not the MAC PDU TX duration              | Not standard compliant → design choice      | —        |        |
+| F2  | Response-window size is a sound but unenforced configuration assumption                            | TODO (add runtime check)                    | Medium   |        |
+| F3  | LBT senses the interval *at* start position `k`, transmits at `k+1`                                | Possible deviation from the standard ???    | Low      |        |
+| F4  | Backoff is re-drawn each RACH occurrence instead of one persistent `rachBackOff`                   | Possible deviation (unresolved — to verify) | Medium   |        |
+| F5  | No RACH failure/abort (`dectRachResourceFailure`, `maxRetx`) → infinite retransmission             | Intentional simplification (known)          | —        |        |
+| F6  | Inconsistent `m_phy->Send` guards; beacons ignore `RX`; `NS_FATAL_ERROR` on `TX` can crash the sim | Bug + TODO                                  | Medium   |        |
+| F7  | PHY collision model is first-wins capture with no SINR                                             | Modeling-choice                             | —        |        |
+| F8  | `NDI=true` / fixed redundancy version reused on retransmissions                                    | Intentional simplification                  | —        |        |
+| M1  | `CW_CURRENT` not explicitly reset to `CW_MIN` on success                                           | Compliant-by-design                         | —        |        |
+| M2  | Fixed `m_mcs = 0` instead of "highest MCS"                                                         | Design choice                               | —        |        |
+| M4  | `StartRx` dereferences `dectParams` before its null check                                          | TODO fix                                    | Low      |        |
 
 ---
 

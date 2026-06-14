@@ -2,6 +2,7 @@
 #include "dect2020ext-interference.h"
 
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
+#include "ns3/dect2020ext-phy-control-field-type-2.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-spectrum-signal-parameters.h"
 #include "ns3/dect2020ext-mac-header-type.h"
@@ -11,6 +12,7 @@
 
 #include "ns3/simulator.h"
 #include "ns3/pointer.h"
+#include <cstdint>
 
 namespace ns3
 {
@@ -334,10 +336,16 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
     }
 }
 
+template <typename PhyControlFieldT>
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 phyControlField, bool data, bool random)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool data, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
+
+    if (!IsAvailable())
+    {
+        NS_FATAL_ERROR("The PHY is not available, but the MAC attempted to transmit");
+    }
 
     // Create and initialize the transmission parameters
     Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
@@ -363,10 +371,10 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 phyCont
     // Create PSD and initialize
     Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
     Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
-    
+
     for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
     {
-        (*psd)[i] = 0.0; // Initialize all channels to 0.0
+        (*psd)[i] = 0.0;
     }
 
     // Set power only on the current channel
@@ -379,63 +387,17 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType1 phyCont
 
     NS_LOG_INFO(PHY_IDENTITY << ": Sending packet");
 
-    // Change state to RX - switch bach to IDLE after params->duration
+    // Change the state to TX -> switch back to IDLE after params->duration
     ChangeState(TX);
     Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
 }
 
-void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlField, bool data, bool random)
-{
-    NS_ASSERT_MSG(packet, "Packet is null");
+template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType1>(Ptr<Packet>, Dect2020ExtPhyControlFieldType1, bool, bool);
+template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType2>(Ptr<Packet>, Dect2020ExtPhyControlFieldType2, bool, bool);
 
-    // Create and initialize the transmission parameters
-    Ptr<Dect2020ExtSpectrumSignalParameters> params = Create<Dect2020ExtSpectrumSignalParameters>();
-    params->txPhy = this;
-    params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
-    params->m_txPacket->AddHeader(phyControlField);
-    params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
-    params->m_data = data;
-    params->m_random = random;
-    params->txMobility = m_mobilityModel;
-
-    // Calculate the TX duration based on the packet size and MCS
-    Time duration = Time(NanoSeconds(CalculateTxDurationNs(phyControlField)));
-    params->duration = duration;
-
-    // Get the channel index --> this is the index of the channel used for PSD
-    uint16_t channelIndex = m_mac->GetOperatingChannelNumber() - m_channelManager->GetFirstValidChannelNumber(m_bandNumber);
-
-    // Set the PSD value for the current channel
-    Ptr<Dect2020ExtNetDevice> dectNetDevice = DynamicCast<Dect2020ExtNetDevice>(this->m_device);
-    double txPowerWatt = m_channelManager->DbmToW(dectNetDevice->m_txPowerDbm);
-
-    // Create PSD and initialize
-    Ptr<const SpectrumModel> spectrumModel = m_channelManager->GetSpectrumModel(m_bandNumber);
-    Ptr<SpectrumValue> psd = Create<SpectrumValue>(spectrumModel);
-    
-    for (uint32_t i = 0; i < psd->GetSpectrumModel()->GetNumBands(); ++i)
-    {
-        (*psd)[i] = 0.0; // Initialize all channels to 0.0
-    }
-
-    // Set power only on the current channel
-    (*psd)[channelIndex] = txPowerWatt;
-    params->psd = psd;
-
-    // Start the transmission immediately
-    m_channel->StartTx(params);
-    DynamicCast<Dect2020ExtNetDevice>(m_device)->m_txTrace(packet);
-
-    NS_LOG_INFO(PHY_IDENTITY << ": Sending packet");
-
-    // Change state to RX - switch bach to IDLE after params->duration
-    ChangeState(TX);
-    Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
-}
-
+template <typename PhyControlFieldT>
 double
-Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHeader)
+Dect2020ExtPhy::CalculateTxDurationNs(PhyControlFieldT physicalHeader)
 {
     if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
     {
@@ -453,24 +415,8 @@ Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType1 physicalHe
     }
 }
 
-double
-Dect2020ExtPhy::CalculateTxDurationNs(Dect2020ExtPhyControlFieldType2 physicalHeader)
-{
-    if (physicalHeader.GetPacketLengthType() == 0) // Packet length is given in subslots
-    {
-        double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
-        return physicalHeader.GetPacketLength() * subslotDurationNs;
-    }
-    else if (physicalHeader.GetPacketLengthType() == 1) // Packet length is given in slots
-    {
-        return physicalHeader.GetPacketLength() * SLOT_DURATION_NS;
-    }
-    else
-    {
-        NS_FATAL_ERROR("Invalid packet length type");
-        return 0;
-    }
-}
+template double Dect2020ExtPhy::CalculateTxDurationNs<Dect2020ExtPhyControlFieldType1>(Dect2020ExtPhyControlFieldType1);
+template double Dect2020ExtPhy::CalculateTxDurationNs<Dect2020ExtPhyControlFieldType2>(Dect2020ExtPhyControlFieldType2);
 
 void
 Dect2020ExtPhy::ChangeState(PhyState newState)
