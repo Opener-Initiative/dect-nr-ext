@@ -224,39 +224,108 @@ Dect2020ExtMac::GenerateShortRadioDeviceId()
 
 
 void
-Dect2020ExtMac::DisplayChannelEvaluations()
+Dect2020ExtMac::BackgroundScan()
 {
-    NS_LOG_INFO("============ Channel Evaluations Summary ============");
-    
-    // Display all channel evaluations
-    if (m_channelEvaluations.empty())
+    NS_LOG_FUNCTION(this);
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    double baseScanDelayMs = 0;
+
+    // Create context for background scan
+    std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
+
+    for (uint32_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
     {
-        NS_FATAL_ERROR("No channel evaluations available yet at: " << Simulator::Now().GetMilliSeconds());
-        return;
+        // Create context for each channel scan
+        std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRssi1OnChannelContext>();
+        channelContext->channelNumber = channelNumber;
+
+        // Schedule MeasureRSSI1OnChannel for the channel
+        // Use one background scan context for all channels
+        Simulator::Schedule(MilliSeconds(baseScanDelayMs), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
+        baseScanDelayMs += 10; // 10ms delay between channels (frame duration)
     }
-    
-    // Display header
-    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
-    NS_LOG_INFO("-----------------------------------------------------");
-    
-    // Display each channel evaluation
-    for (const auto& eval : m_channelEvaluations)
+}
+
+void
+Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext)
+{
+    NS_LOG_INFO(MAC_IDENTITY << ": Starting to scan channel " << channelContext->channelNumber);
+
+    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
+    uint32_t subslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
+
+    // Store the measurement start time for testing
+    channelContext->channelMeasurementStartTime = Simulator::Now();
+
+    // Initialize the RSSI average vector for the channel
+    channelContext->rssiAverages.resize(subslotsPerChannel);
+
+    // Schedule StartSlotScan at the start of all subslots inside the channel
+    // Schedule EndSlotScan at the end of all subslots inside the channel
+    for (uint32_t subslotNumber = 0; subslotNumber < subslotsPerChannel; subslotNumber++)
     {
-        uint32_t total = eval.Total();
-        double freePercentage = (total > 0) ? (eval.free * 100.0 / total) : 0.0;
-        
-        std::ostringstream oss;
-        oss << std::setw(10) << eval.channelNumber << " | "
-            << std::setw(4) << eval.free << " | "
-            << std::setw(8) << eval.possible << " | "
-            << std::setw(4) << eval.busy << " | "
-            << std::setw(5) << total << " | "
-            << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
-        
-        NS_LOG_INFO(oss.str());
+        double subslotStartTimeNs = m_macScheduler->GetSubslotStartTimeOffsetNs(subslotNumber);
+        double subslotEndTimeNs = m_macScheduler->GetSubslotEndTimeOffsetNs(subslotNumber);
+
+        Simulator::Schedule(NanoSeconds(subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
+        Simulator::Schedule(NanoSeconds(subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
     }
+}
+
+void
+Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
+{
+    NS_LOG_FUNCTION(this);
+
+    // 1. Tune to the correct channel
+    SetOperatingChannelNumber(channelContext->channelNumber);
+
+    // 2. Get power from the subslot with sampling rate
+    double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
+    double baseSamplingOffsetNs = subslotDurationNs / 5;
+
+    for (uint32_t sampleIndex = 0; sampleIndex < 5; sampleIndex++)
+    {
+        double samplingOffsetNs = baseSamplingOffsetNs * sampleIndex;
+
+        // NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
+        Simulator::Schedule(NanoSeconds(samplingOffsetNs), &Dect2020ExtMac::SampleRSSIFromInterference, this, channelContext, subslotNumber);
+    }
+}
+
+void
+Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
+{
+    NS_LOG_FUNCTION(this);
+    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
+    backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
+    if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all channels");
+        OperatingChannelSelection(backgroundScanContext);
+    }
+
+    else if (subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
+    }
+}
+
+void
+Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> context, uint32_t subslotNumber)
+{
+    // Calculate channel index from the channel number
+    uint16_t channelIndex = context->channelNumber - m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(context->channelNumber));
+
+    // Get RSSI from interference
+    double rssiChannelWatt = (*m_phy->m_interference->m_allSignals)[channelIndex];
+    double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
+
+    // Store the RSSI sample
+    context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
     
-    NS_LOG_INFO("====================================================");
+    // NS_LOG_INFO(MAC_IDENTITY << ": Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
 }
 
 void
@@ -343,108 +412,39 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
 }
 
 void
-Dect2020ExtMac::SampleRSSIFromInterference(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> context, uint32_t subslotNumber)
+Dect2020ExtMac::DisplayChannelEvaluations()
 {
-    // Calculate channel index from the channel number
-    uint16_t channelIndex = context->channelNumber - m_channelManager->GetFirstValidChannelNumber(m_channelManager->GetBandNumber(context->channelNumber));
-
-    // Get RSSI from interference
-    double rssiChannelWatt = (*m_phy->m_interference->m_allSignals)[channelIndex];
-    double rssiChannelDbm = m_channelManager->WToDbm(rssiChannelWatt);
-
-    // Store the RSSI sample
-    context->rssiAverages[subslotNumber].push_back(rssiChannelDbm);
+    NS_LOG_INFO("============ Channel Evaluations Summary ============");
     
-    // NS_LOG_INFO(MAC_IDENTITY << ": Sampled RSSI on channel " << context->channelNumber << ", subslot " << subslotNumber << ": " << rssiChannelDbm << " dBm");
-}
-
-void
-Dect2020ExtMac::StartSubslotScan(std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
-{
-    NS_LOG_FUNCTION(this);
-
-    // 1. Tune to the correct channel
-    SetOperatingChannelNumber(channelContext->channelNumber);
-
-    // 2. Get power from the subslot with sampling rate
-    double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
-    double baseSamplingOffsetNs = subslotDurationNs / 5;
-
-    for (uint32_t sampleIndex = 0; sampleIndex < 5; sampleIndex++)
+    // Display all channel evaluations
+    if (m_channelEvaluations.empty())
     {
-        double samplingOffsetNs = baseSamplingOffsetNs * sampleIndex;
-
-        // NS_LOG_INFO("Scheduling RSSI sampling at " << samplingOffsetNs << " ns");
-        Simulator::Schedule(NanoSeconds(samplingOffsetNs), &Dect2020ExtMac::SampleRSSIFromInterference, this, channelContext, subslotNumber);
+        NS_FATAL_ERROR("No channel evaluations available yet at: " << Simulator::Now().GetMilliSeconds());
+        return;
     }
-}
-
-void
-Dect2020ExtMac::EndSubslotScan(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext, uint32_t subslotNumber)
-{
-    NS_LOG_FUNCTION(this);
-    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    backgroundScanContext->channelContexts[channelContext->channelNumber] = channelContext;
-    if (channelContext->channelNumber == bandParams.nEnd && subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
+    
+    // Display header
+    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
+    NS_LOG_INFO("-----------------------------------------------------");
+    
+    // Display each channel evaluation
+    for (const auto& eval : m_channelEvaluations)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
-        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all channels");
-        OperatingChannelSelection(backgroundScanContext);
+        uint32_t total = eval.Total();
+        double freePercentage = (total > 0) ? (eval.free * 100.0 / total) : 0.0;
+        
+        std::ostringstream oss;
+        oss << std::setw(10) << eval.channelNumber << " | "
+            << std::setw(4) << eval.free << " | "
+            << std::setw(8) << eval.possible << " | "
+            << std::setw(4) << eval.busy << " | "
+            << std::setw(5) << total << " | "
+            << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
+        
+        NS_LOG_INFO(oss.str());
     }
-
-    else if (subslotNumber == m_channelManager->GetSubslotsPerSlot() * 24 - 1)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Finished scanning all subslots on channel " << channelContext->channelNumber);
-    }
-}
-
-void
-Dect2020ExtMac::MeasureRSSI1OnChannel(std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext, std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext)
-{
-    NS_LOG_INFO(MAC_IDENTITY << ": Starting to scan channel " << channelContext->channelNumber);
-
-    uint32_t numSubslotsPerSlot = m_channelManager->GetSubslotsPerSlot();
-    uint32_t subslotsPerChannel = numSubslotsPerSlot * SLOTS_PER_FRAME;
-
-    // Store the measurement start time for testing
-    channelContext->channelMeasurementStartTime = Simulator::Now();
-
-    // Initialize the RSSI average vector for the channel
-    channelContext->rssiAverages.resize(subslotsPerChannel);
-
-    // Schedule StartSlotScan at the start of all subslots inside the channel
-    // Schedule EndSlotScan at the end of all subslots inside the channel
-    for (uint32_t subslotNumber = 0; subslotNumber < subslotsPerChannel; subslotNumber++)
-    {
-        double subslotStartTimeNs = m_macScheduler->GetSubslotStartTimeOffsetNs(subslotNumber);
-        double subslotEndTimeNs = m_macScheduler->GetSubslotEndTimeOffsetNs(subslotNumber);
-
-        Simulator::Schedule(NanoSeconds(subslotStartTimeNs), &Dect2020ExtMac::StartSubslotScan, this, channelContext, subslotNumber);
-        Simulator::Schedule(NanoSeconds(subslotEndTimeNs), &Dect2020ExtMac::EndSubslotScan, this, backgroundScanContext, channelContext, subslotNumber);
-    }
-}
-
-void
-Dect2020ExtMac::BackgroundScan()
-{
-    NS_LOG_FUNCTION(this);
-    BandParameters bandParams = m_channelManager->GetBandParameters(m_bandNumber);
-    double baseScanDelayMs = 0;
-
-    // Create context for background scan
-    std::shared_ptr<Dect2020ExtBackgroundScanContext> backgroundScanContext = std::make_shared<Dect2020ExtBackgroundScanContext>();
-
-    for (uint32_t channelNumber = bandParams.nStart; channelNumber <= bandParams.nEnd; channelNumber++)
-    {
-        // Create context for each channel scan
-        std::shared_ptr<Dect2020ExtRssi1OnChannelContext> channelContext = std::make_shared<Dect2020ExtRssi1OnChannelContext>();
-        channelContext->channelNumber = channelNumber;
-
-        // Schedule MeasureRSSI1OnChannel for the channel
-        // Use one background scan context for all channels
-        Simulator::Schedule(MilliSeconds(baseScanDelayMs), &Dect2020ExtMac::MeasureRSSI1OnChannel, this, backgroundScanContext, channelContext);
-        baseScanDelayMs += 10; // 10ms delay between channels (frame duration)
-    }
+    
+    NS_LOG_INFO("====================================================");
 }
 
 void
@@ -1076,195 +1076,6 @@ Dect2020ExtMac::FindHarqProcess(uint8_t harqProcessNumber)
 }
 
 void
-Dect2020ExtMac::SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
-{
-    NS_LOG_FUNCTION(MAC_IDENTITY);
-    NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
-
-    // Drop the ACK if the PHY is already busy with another packet
-    if (!m_phy->IsAvailable())
-    {
-        NS_LOG_INFO(MAC_IDENTITY << "Dropping Data Packet ACK due to busy PHY");
-        return;
-    }
-
-    bool random = true;
-    m_phy->Send(packet, phyControlFieldType2, random);
-}
-
-void
-Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
-{
-    NS_LOG_FUNCTION(MAC_IDENTITY);
-
-    // Find a HARQ process
-    Dect2020ExtHarqProcess* proc = nullptr;
-    for (auto& p: m_harqProcesses)
-    {
-        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
-        {
-            proc = &p;
-            break;
-        }
-    }
-
-    if (!proc)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
-        return; // all processes in use - back-pressure to the tx queue
-    }
-   
-    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processNumber << " ACK");
-
-    // Reset the HARQ process
-    proc->Reset();
-
-    RestartKeepAlivePeriod();
-}
-
-void
-Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2, bool data)
-{
-    // Find a HARQ process with the process number from the PHY Control Field Type 2
-    Dect2020ExtHarqProcess* process = nullptr;
-    for (auto& p: m_harqProcesses)
-    {
-        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
-        {
-            process = &p;
-            break;
-        }
-    }
-
-    if (!process)
-    {
-        NS_FATAL_ERROR("HARQ process was not found");
-        return;
-    }
-
-    // If HARQ ACK has not been already received -> retransmit with the same context, but increased CW
-    if (process->state == Dect2020ExtHarqProcess::WAITING_ACK)
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
-        NS_LOG_INFO(MAC_IDENTITY<< ": Applying exponential backoff");
-
-        // Exponential backoff for the same random access context:
-        // double CW_CURRENT, but cap at CW_MAX
-        uint32_t newCW = std::min(process->randomAccessContext->CW_CURRENT * 2, process->randomAccessContext->CW_MAX);
-        process->randomAccessContext->CW_CURRENT = newCW;
-
-        uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
-        uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
-        uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
-        bool newContext = false;
-
-        // If the RACH resources are yet to come in the frame -> wait till the RACH resources
-        if (currentSubslotNumber < raraStartSubslot)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the current frame");
-
-            double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
-            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000000 << "s");
-            Time delay = NanoSeconds(timeToRachStartNs);
-
-            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
-                                m_selectedFtCandidate.randomAccessResourceIe,
-                                process,
-                                phyControlFieldType2,
-                                newContext,
-                                process->randomAccessContext);
-            return;
-        }
-        // If the device is already inside or at the start of the RACH resources -> execute the Random Access Procedure immediately
-        if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure immediately");
-
-            InitiateRandomAccess(process->randomAccessContext->randomAccessResourceIe,
-                                process,
-                                phyControlFieldType2,
-                                newContext,
-                                process->randomAccessContext);
-            return;
-        }
-        // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
-        if (currentSubslotNumber >= raraEndSubslot)
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the next RACH resources in the next frame");
-
-            double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot());
-            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
-            Time delay = NanoSeconds(timeToRachStartNs);
-
-            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
-                                m_selectedFtCandidate.randomAccessResourceIe,
-                                process,
-                                phyControlFieldType2,
-                                newContext,
-                                process->randomAccessContext);
-            return;
-        }
-
-        return;
-    }
-
-    NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
-
-    // If packet is not a data packet (Association Response Message)
-    if (!data)
-    {
-        if (m_associationStatus != ASSOCIATED)
-        {
-            NS_FATAL_ERROR("The device is not associated, but the Association Request is acknowledged");
-        }
-        if (m_proceedToDataTransmission)
-        {
-            // Starting app
-            LaunchApp();
-            StartKeepAlivePeriod();
-            return;
-        }
-        else
-        {
-            return;
-        }
-    }
-    // If the packet is a data packet
-    if (data)
-    {
-        if (!m_txQueue.empty())
-        {
-            InitiateHarq(data);
-            return;
-        }
-        else
-        {
-            NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
-            MonitorTxQueue();
-            return;
-        }
-    }
-}
-
-void
-Dect2020ExtMac::MonitorTxQueue()
-{
-    if (m_txQueue.empty())
-    {
-        Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMac::MonitorTxQueue, this);
-    }
-    else
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
-
-        // The context of this function is data transmission ->
-        // the data option is always true
-        bool data = true;
-        InitiateHarq(data);
-    }
-}
-
-void
 Dect2020ExtMac::InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe,
                                      Dect2020ExtHarqProcess* process,
                                      Dect2020ExtPhyControlFieldType2 phyControlFieldType2,
@@ -1555,6 +1366,272 @@ Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020Ex
     double requiredTimeNs = responseWindow * subslotDurationNs;
 
     return remainingRachTimeNs >= requiredTimeNs;
+}
+
+void
+Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2, bool data)
+{
+    // Find a HARQ process with the process number from the PHY Control Field Type 2
+    Dect2020ExtHarqProcess* process = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
+        {
+            process = &p;
+            break;
+        }
+    }
+
+    if (!process)
+    {
+        NS_FATAL_ERROR("HARQ process was not found");
+        return;
+    }
+
+    // If HARQ ACK has not been already received -> retransmit with the same context, but increased CW
+    if (process->state == Dect2020ExtHarqProcess::WAITING_ACK)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": received no ACK, retransmitting");
+        NS_LOG_INFO(MAC_IDENTITY<< ": Applying exponential backoff");
+
+        // Exponential backoff for the same random access context:
+        // double CW_CURRENT, but cap at CW_MAX
+        uint32_t newCW = std::min(process->randomAccessContext->CW_CURRENT * 2, process->randomAccessContext->CW_MAX);
+        process->randomAccessContext->CW_CURRENT = newCW;
+
+        uint32_t currentSubslotNumber = m_macScheduler->GetCurrentSubslotNumber();
+        uint16_t raraStartSubslot = m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot();
+        uint16_t raraEndSubslot = raraStartSubslot + m_selectedFtCandidate.randomAccessResourceIe.GetRaraLength();
+        bool newContext = false;
+
+        // If the RACH resources are yet to come in the frame -> wait till the RACH resources
+        if (currentSubslotNumber < raraStartSubslot)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the current frame");
+
+            double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
+            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000000 << "s");
+            Time delay = NanoSeconds(timeToRachStartNs);
+
+            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                                m_selectedFtCandidate.randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+        // If the device is already inside or at the start of the RACH resources -> execute the Random Access Procedure immediately
+        if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure immediately");
+
+            InitiateRandomAccess(process->randomAccessContext->randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+        // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
+        if (currentSubslotNumber >= raraEndSubslot)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the next RACH resources in the next frame");
+
+            double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot());
+            NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
+            Time delay = NanoSeconds(timeToRachStartNs);
+
+            Simulator::Schedule(delay, &Dect2020ExtMac::InitiateRandomAccess, this,
+                                m_selectedFtCandidate.randomAccessResourceIe,
+                                process,
+                                phyControlFieldType2,
+                                newContext,
+                                process->randomAccessContext);
+            return;
+        }
+
+        return;
+    }
+
+    NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
+
+    // If packet is not a data packet (Association Response Message)
+    if (!data)
+    {
+        if (m_associationStatus != ASSOCIATED)
+        {
+            NS_FATAL_ERROR("The device is not associated, but the Association Request is acknowledged");
+        }
+        if (m_proceedToDataTransmission)
+        {
+            // Starting app
+            LaunchApp();
+            StartKeepAlivePeriod();
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+    // If the packet is a data packet
+    if (data)
+    {
+        if (!m_txQueue.empty())
+        {
+            InitiateHarq(data);
+            return;
+        }
+        else
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
+            MonitorTxQueue();
+            return;
+        }
+    }
+}
+
+void
+Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
+{
+    NS_LOG_FUNCTION(MAC_IDENTITY);
+
+    // Find a HARQ process
+    Dect2020ExtHarqProcess* proc = nullptr;
+    for (auto& p: m_harqProcesses)
+    {
+        if (p.processNumber == phyControlFieldType2.GetDfHarqProcessNumber())
+        {
+            proc = &p;
+            break;
+        }
+    }
+
+    if (!proc)
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": No HARQ process found");
+        return; // all processes in use - back-pressure to the tx queue
+    }
+   
+    NS_LOG_INFO(MAC_IDENTITY << ": HARQ process " << (uint32_t)proc->processNumber << " ACK");
+
+    // Reset the HARQ process
+    proc->Reset();
+
+    RestartKeepAlivePeriod();
+}
+
+void
+Dect2020ExtMac::SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
+{
+    NS_LOG_FUNCTION(MAC_IDENTITY);
+    NS_LOG_INFO(MAC_IDENTITY << ": Sending ACK");
+
+    // Drop the ACK if the PHY is already busy with another packet
+    if (!m_phy->IsAvailable())
+    {
+        NS_LOG_INFO(MAC_IDENTITY << "Dropping Data Packet ACK due to busy PHY");
+        return;
+    }
+
+    bool random = true;
+    m_phy->Send(packet, phyControlFieldType2, random);
+}
+
+void
+Dect2020ExtMac::MonitorTxQueue()
+{
+    if (m_txQueue.empty())
+    {
+        Simulator::Schedule(MilliSeconds(1), &Dect2020ExtMac::MonitorTxQueue, this);
+    }
+    else
+    {
+        NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
+
+        // The context of this function is data transmission ->
+        // the data option is always true
+        bool data = true;
+        InitiateHarq(data);
+    }
+}
+
+void
+Dect2020ExtMac::StartKeepAlivePeriod()
+{
+    m_lastRxTime = Simulator::Now();
+    Simulator::Schedule(m_configuredAssociationControlIe.DecodeUlPeriod(), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+}
+
+void
+Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded()
+{
+    Time ulPeriod = m_configuredAssociationControlIe.DecodeUlPeriod();
+
+    if (Simulator::Now() - m_lastRxTime >= ulPeriod)
+    {
+        // KeepAlivePeriod exceeded - send Keep Alive IE (not yet implemented)
+        NS_LOG_INFO(MAC_IDENTITY << ": Keep Alive Period exceeded");
+        Simulator::Schedule(ulPeriod, &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+    }
+    else
+    {
+        Time remaining = ulPeriod - (Simulator::Now() - m_lastRxTime);
+        Simulator::Schedule(Max(remaining, MilliSeconds(1)), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
+    }
+}
+
+void
+Dect2020ExtMac::RestartKeepAlivePeriod()
+{
+    m_lastRxTime = Simulator::Now();
+}
+
+void
+Dect2020ExtMac::EnqueuePacket()
+{
+    Ptr<Packet> packet = Create<Packet>(); // dummy MAC PDU
+    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
+
+    Dect2020ExtUnicastHeader unicastHeader;
+    unicastHeader.SetReset(false);
+    unicastHeader.SetMacSequence(0);
+    unicastHeader.SetSequenceNumber(0);
+    unicastHeader.SetReceiverAddress(m_selectedFtCandidate.longFtId);
+    unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
+
+    packet->AddHeader(unicastHeader);
+
+    Dect2020ExtMacHeaderType macHeaderType;
+    macHeaderType.SetVersion(0);
+    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
+    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
+
+    packet->AddHeader(macHeaderType);
+
+    m_txQueue.push(packet);
+}
+
+void
+Dect2020ExtMac::LaunchApp()
+{
+    NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
+    m_app = CreateObject<Dect2020ExtApp>();
+    m_app->SetMac(this);
+    m_app->SetPacketGenerationPeriod(MilliSeconds(5)); // Set the period for packet generation
+    m_app->SetPacketLimit(50);
+    m_app->Start();
+
+    if (m_txQueue.empty())
+    {
+        NS_FATAL_ERROR("The application launched with an empty TX queue");
+    }
+
+    // InitiateHarq will trigger the Random Access Procedure cycle for the
+    // enqueued packet. Later, data transmission cycle will be handled by VerifyHarqAck
+    bool data = true;
+    InitiateHarq(data);
 }
 
 void
@@ -1896,6 +1973,24 @@ Dect2020ExtMac::FindFtCandidate(uint16_t shortFtId)
     NS_FATAL_ERROR("No FT candidate found");
 }
 
+Dect2020ExtFtInfo*
+Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
+{
+    for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
+    {
+        if (m_ftCandidates[idx].longFtId == longFtId)
+        {
+            return &m_ftCandidates[idx];
+        }
+    }
+
+    // No candidate found, create one
+    Dect2020ExtFtInfo newCandidate;
+    m_ftCandidates.push_back(newCandidate);
+
+    return &m_ftCandidates.back();
+}
+
 Dect2020ExtPtInfo*
 Dect2020ExtMac::FindOrCreateAssociatedPtInfo(uint16_t shortPtId)
 {
@@ -2146,78 +2241,20 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo)
 //     }
 // }
 
-Dect2020ExtFtInfo*
-Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
+void
+Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus)
 {
-    for (size_t idx = 0; idx < m_ftCandidates.size(); idx++)
+    std::string newStatus = "";
+    switch (associationStatus)
     {
-        if (m_ftCandidates[idx].longFtId == longFtId)
-        {
-            return &m_ftCandidates[idx];
-        }
+        case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING: newStatus = "ASSOCIATION_PREPARING"; break;
+        case Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT: newStatus = "WAITING_FOR_SELECTED_FT"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATION_PENDING: newStatus = "ASSOCIATION_PENDING"; break;
+        case Dect2020ExtAssociationStatus::ASSOCIATED: newStatus = "ASSOCIATED"; break;
     }
-
-    // No candidate found, create one
-    Dect2020ExtFtInfo newCandidate;
-    m_ftCandidates.push_back(newCandidate);
-
-    return &m_ftCandidates.back();
-}
-
-void
-Dect2020ExtMac::StartKeepAlivePeriod()
-{
-    m_lastRxTime = Simulator::Now();
-    Simulator::Schedule(m_configuredAssociationControlIe.DecodeUlPeriod(), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
-}
-
-void
-Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded()
-{
-    Time ulPeriod = m_configuredAssociationControlIe.DecodeUlPeriod();
-
-    if (Simulator::Now() - m_lastRxTime >= ulPeriod)
-    {
-        // KeepAlivePeriod exceeded - send Keep Alive IE (not yet implemented)
-        NS_LOG_INFO(MAC_IDENTITY << ": Keep Alive Period exceeded");
-        Simulator::Schedule(ulPeriod, &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
-    }
-    else
-    {
-        Time remaining = ulPeriod - (Simulator::Now() - m_lastRxTime);
-        Simulator::Schedule(Max(remaining, MilliSeconds(1)), &Dect2020ExtMac::VerifyKeepAlivePeriodNotExceeded, this);
-    }
-}
-
-void
-Dect2020ExtMac::RestartKeepAlivePeriod()
-{
-    m_lastRxTime = Simulator::Now();
-}
-
-void
-Dect2020ExtMac::SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType)
-{
-    m_terminationPointType = terminationPointType;
-    m_terminationPointTypeSet = true;
-}
-
-Dect2020ExtTerminationPointType
-Dect2020ExtMac::GetTerminationPointType() const
-{
-    return m_terminationPointType;
-}
-
-void
-Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
-{
-    m_device = device;
-}
-
-Ptr<Dect2020ExtNetDevice>
-Dect2020ExtMac::GetNetDevice() const
-{
-    return m_device;
+    m_associationStatus = associationStatus;
+    NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
 }
 
 Ptr<Node>
@@ -2229,32 +2266,6 @@ Dect2020ExtMac::GetNode() const
     }
     return nullptr;
 }
-
-void
-Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
-{
-    m_phy = phy;
-    m_phy->SetReceiveCallback(MakeCallback(&Dect2020ExtMac::ReceiveFromPhy, this));
-}
-
-Ptr<Dect2020ExtPhy>
-Dect2020ExtMac::GetPhy() const
-{
-    return m_phy;
-}
-
-void
-Dect2020ExtMac::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
-{
-    m_channelManager = channelManager;
-}
-
-Ptr<Dect2020ExtChannelManager>
-Dect2020ExtMac::GetChannelManager() const
-{
-    return m_channelManager;
-}
-
 
 void
 Dect2020ExtMac::SetNetworkId(uint32_t networkId)
@@ -2359,69 +2370,6 @@ Dect2020ExtMac::GetAssociationStatus()
 }
 
 void
-Dect2020ExtMac::ChangeAssociationStatus(Dect2020ExtAssociationStatus associationStatus)
-{
-    std::string newStatus = "";
-    switch (associationStatus)
-    {
-        case Dect2020ExtAssociationStatus::NOT_ASSOCIATED: newStatus = "NOT_ASSOCIATED"; break;
-        case Dect2020ExtAssociationStatus::ASSOCIATION_PREPARING: newStatus = "ASSOCIATION_PREPARING"; break;
-        case Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT: newStatus = "WAITING_FOR_SELECTED_FT"; break;
-        case Dect2020ExtAssociationStatus::ASSOCIATION_PENDING: newStatus = "ASSOCIATION_PENDING"; break;
-        case Dect2020ExtAssociationStatus::ASSOCIATED: newStatus = "ASSOCIATED"; break;
-    }
-    m_associationStatus = associationStatus;
-    NS_LOG_INFO(MAC_IDENTITY << ": Association status changed to " << newStatus);
-}
-
-
-void
-Dect2020ExtMac::EnqueuePacket()
-{
-    Ptr<Packet> packet = Create<Packet>(); // dummy MAC PDU
-    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
-
-    Dect2020ExtUnicastHeader unicastHeader;
-    unicastHeader.SetReset(false);
-    unicastHeader.SetMacSequence(0);
-    unicastHeader.SetSequenceNumber(0);
-    unicastHeader.SetReceiverAddress(m_selectedFtCandidate.longFtId);
-    unicastHeader.SetTransmitterAddress(m_longRadioDeviceId);
-
-    packet->AddHeader(unicastHeader);
-
-    Dect2020ExtMacHeaderType macHeaderType;
-    macHeaderType.SetVersion(0);
-    macHeaderType.SetMacSecurity(Dect2020ExtMacHeaderType::MacSecurityField::MAC_SECURITY_NOT_USED);
-    macHeaderType.SetMacHeaderTypeField(Dect2020ExtMacHeaderType::MacHeaderTypeField::DATA_MAC_PDU_HEADER);
-
-    packet->AddHeader(macHeaderType);
-
-    m_txQueue.push(packet);
-}
-
-void
-Dect2020ExtMac::LaunchApp()
-{
-    NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
-    m_app = CreateObject<Dect2020ExtApp>();
-    m_app->SetMac(this);
-    m_app->SetPacketGenerationPeriod(MilliSeconds(5)); // Set the period for packet generation
-    m_app->SetPacketLimit(50);
-    m_app->Start();
-
-    if (m_txQueue.empty())
-    {
-        NS_FATAL_ERROR("The application launched with an empty TX queue");
-    }
-
-    // InitiateHarq will trigger the Random Access Procedure cycle for the
-    // enqueued packet. Later, data transmission cycle will be handled by VerifyHarqAck
-    bool data = true;
-    InitiateHarq(data);
-}
-
-void
 Dect2020ExtMac::SetBandNumber(uint8_t bandNumber)
 {
     m_bandNumber = bandNumber;
@@ -2461,6 +2409,44 @@ Dect2020ExtMac::GetFourierTransformScalingFactor() const
 }
 
 void
+Dect2020ExtMac::SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager)
+{
+    m_channelManager = channelManager;
+}
+
+Ptr<Dect2020ExtChannelManager>
+Dect2020ExtMac::GetChannelManager() const
+{
+    return m_channelManager;
+}
+
+void
+Dect2020ExtMac::SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType)
+{
+    m_terminationPointType = terminationPointType;
+    m_terminationPointTypeSet = true;
+}
+
+Dect2020ExtTerminationPointType
+Dect2020ExtMac::GetTerminationPointType() const
+{
+    return m_terminationPointType;
+}
+
+void
+Dect2020ExtMac::SetPhy(Ptr<Dect2020ExtPhy> phy)
+{
+    m_phy = phy;
+    m_phy->SetReceiveCallback(MakeCallback(&Dect2020ExtMac::ReceiveFromPhy, this));
+}
+
+Ptr<Dect2020ExtPhy>
+Dect2020ExtMac::GetPhy() const
+{
+    return m_phy;
+}
+
+void
 Dect2020ExtMac::ConfigureRandomAccessResources(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe)
 {
     m_configuredRandomAccessResourceIe = randomAccessResourceIe;
@@ -2479,6 +2465,18 @@ Dect2020ExtMac::ConfigureRngStream(int64_t stream)
 {
     m_configuredRngStream = stream;
     m_configuredRngStreamSet = true;
+}
+
+void
+Dect2020ExtMac::SetNetDevice(Ptr<Dect2020ExtNetDevice> device)
+{
+    m_device = device;
+}
+
+Ptr<Dect2020ExtNetDevice>
+Dect2020ExtMac::GetNetDevice() const
+{
+    return m_device;
 }
 
 void
