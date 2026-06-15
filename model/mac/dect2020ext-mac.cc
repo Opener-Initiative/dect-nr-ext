@@ -1279,6 +1279,17 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
             NS_LOG_INFO(MAC_IDENTITY << ": Transmitting at subslot " << m_macScheduler->GetCurrentSubslotNumber()
                                      << " -> power on channel is " << avgRssiDbm << " dBm");
 
+            // Association Request Message is being transmitted
+            if (!randomAccessContext->process->data)
+            {
+                Dect2020ExtStatistics::m_transmittedAssociationRequestsPtMac[MAC_IDENTITY]++;
+            }
+            // DATA MAC PDU packet
+            else
+            {
+                Dect2020ExtStatistics::m_transmittedDataPacketsPtMac[MAC_IDENTITY]++;
+            }
+
             // Transmit packet
             bool random = true;
             m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, random);
@@ -1459,6 +1470,8 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
     // If packet is not a data packet (Association Response Message)
     if (!data)
     {
+        Dect2020ExtStatistics::m_acceptedAssociationResponsesPtMac[MAC_IDENTITY]++;
+
         if (m_associationStatus != ASSOCIATED)
         {
             NS_FATAL_ERROR("The device is not associated, but the Association Request is acknowledged");
@@ -1478,6 +1491,8 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
     // If the packet is a data packet
     if (data)
     {
+        Dect2020ExtStatistics::m_acknowledgedDataPacketsPtMac[MAC_IDENTITY]++;
+
         if (!m_txQueue.empty())
         {
             InitiateHarq(data);

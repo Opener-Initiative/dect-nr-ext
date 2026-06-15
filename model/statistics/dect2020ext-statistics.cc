@@ -70,6 +70,8 @@ void
 Dect2020ExtStatistics::OutputAllStatistics()
 {
     NS_LOG_INFO("========== PHY Layer Statistics ==========");
+    for (auto& [key, val] : m_transmittedPacketsPhy)
+        NS_LOG_INFO(key << " transmitted " << val << " packets (PHY)");
     for (auto& [key, val] : m_droppedPacketsPhy)
         NS_LOG_INFO(key << " dropped " << val << " packets (PHY)");
     for (auto& [key, val] : m_acceptedPacketsPhy)
@@ -94,12 +96,22 @@ Dect2020ExtStatistics::OutputAllStatistics()
         NS_LOG_INFO(key << " accepted " << val << " cluster beacons (PT MAC)");
 
     NS_LOG_INFO("--- Association ---");
+    for (auto& [key, val] : m_transmittedAssociationRequestsPtMac)
+        NS_LOG_INFO(key << " transmitted " << val << " association requests (PT MAC)");
     for (auto& [key, val] : m_acceptedAssociationRequestsFtMac)
         NS_LOG_INFO(key << " accepted " << val << " association requests (FT MAC)");
     for (auto& [key, val] : m_transmittedAssociationResponsesFtMac)
         NS_LOG_INFO(key << " transmitted " << val << " association responses (FT MAC)");
     for (auto& [key, val] : m_droppedAssociationResponsesFtMac)
         NS_LOG_INFO(key << " dropped " << val << " association responses (FT MAC)");
+    for (auto& [key, val] : m_acceptedAssociationResponsesPtMac)
+        NS_LOG_INFO(key << " accepted " << val << " association responses (PT MAC)");
+
+    NS_LOG_INFO("--- Data ---");
+    for (auto& [key, val] : m_transmittedDataPacketsPtMac)
+        NS_LOG_INFO(key << " transmitted " << val << " data packets (PT MAC)");
+    for (auto& [key, val] : m_acknowledgedDataPacketsPtMac)
+        NS_LOG_INFO(key << " acknowledged " << val << " data packets (PT MAC)");
 }
 
 } // namespace ns3

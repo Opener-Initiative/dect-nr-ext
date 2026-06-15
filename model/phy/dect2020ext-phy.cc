@@ -387,6 +387,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool 
 
     NS_LOG_INFO(PHY_IDENTITY << ": Sending packet");
 
+    Dect2020ExtStatistics::m_transmittedPacketsPhy[PHY_IDENTITY]++;
+
     // Change the state to TX -> switch back to IDLE after params->duration
     ChangeState(TX);
     Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);

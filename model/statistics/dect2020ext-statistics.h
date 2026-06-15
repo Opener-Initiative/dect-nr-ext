@@ -19,11 +19,17 @@ class Dect2020ExtStatistics
 
         // ###### Packets in the PHY layer ######
 
-        // Dropped packets at the PHY layer due to collisions
+        // Dropped packets at the PHY layer due to collisions and other factors  
+        // Used in Dect2020ExtPhy::StartRx
         static std::map<std::string, int> m_droppedPacketsPhy;
 
-        // Accepted packets at the PHY layer
+        // Accepted packets at the PHY layer  
+        // Used in Dect2020ExtPhy::StartRx
         static std::map<std::string, int> m_acceptedPacketsPhy;
+
+        // Transmitted packets at the PHY layer  
+        // Used in Dect2020ExtPhy::Send
+        static std::map<std::string, int> m_transmittedPacketsPhy;
 
         // ###### Packets in the MAC layer ######
 
@@ -53,8 +59,9 @@ class Dect2020ExtStatistics
         // Used in Dect2020ExtMac::HandleBeaconPacket
         static std::map<std::string, int> m_acceptedClusterBeaconsPtMac;
 
-        // Transmitted Association Request Messages by PTs
-        // static std::map<std::string, int> m_transmittedAssociationRequestsPtMac;
+        // Transmitted Association Request Messages by PTs  
+        // Used in Dect2020ExtMac::EvaluateLbtChannel
+        static std::map<std::string, int> m_transmittedAssociationRequestsPtMac;
 
         // Accepted Association Request Messges by FTs  
         // Used in Dect2020ExtMac::HandleUnicastPacket
@@ -69,8 +76,17 @@ class Dect2020ExtStatistics
         // Used in Dect2020ExtMac::SendAssociationResponse
         static std::map<std::string, int> m_transmittedAssociationResponsesFtMac;
 
-        // Accepted Association Response Messges by PTs
-        // static std::map<std::string, int> m_acceptedAssociationResponsesPtMac;
+        // Accepted Association Response Messges by PTs  
+        // Used in Dect2020ExtMac::VerifyHarqAck
+        static std::map<std::string, int> m_acceptedAssociationResponsesPtMac;
+
+        // Transmitted DATA MAC PDU packets by PTs  
+        // Used in Dect2020ExtMac::EvaluateLbtChannel
+        static std::map<std::string, int> m_transmittedDataPacketsPtMac;
+
+        // Acknowledged DATA MAC PDU packets by FTs  
+        // Used in Dect2020ExtMac::VerifyHarqAck
+        static std::map<std::string, int> m_acknowledgedDataPacketsPtMac;
 };
 
 } // namespace ns3
