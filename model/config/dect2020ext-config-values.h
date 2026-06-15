@@ -27,8 +27,8 @@ constexpr uint32_t FRAME_DURATION_MS = 10;
 // ###### Spectrum channel ######
 
 using SPECTRUM_CHANNEL_TYPE = SingleModelSpectrumChannel;
-using PROPAGATION_DELAY_MODEL = ConstantSpeedPropagationDelayModel;
-using PROPAGATION_LOSS_MODEL = LogDistancePropagationLossModel;
+using PROPAGATION_DELAY_MODEL = ConstantSpeedPropagationDelayModel; // DON'T CHANGE
+using PROPAGATION_LOSS_MODEL = LogDistancePropagationLossModel; // DON'T CHANGE
 
 // ###### Antenna ######
 
