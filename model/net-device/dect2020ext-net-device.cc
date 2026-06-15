@@ -1,5 +1,6 @@
 #include "dect2020ext-net-device.h"
 #include "ns3/dect2020ext-mac.h"
+#include "ns3/dect2020ext-phy.h"
 
 #include "ns3/node.h"
 #include "ns3/channel.h"

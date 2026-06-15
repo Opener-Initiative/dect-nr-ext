@@ -1,5 +1,7 @@
-#include "dect2020ext-mac.h" 
+#include "dect2020ext-mac.h"
 
+#include "ns3/dect2020ext-app.h"
+#include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-config-values.h"
 #include "ns3/dect2020ext-statistics.h"
 
@@ -47,7 +49,7 @@ Dect2020ExtMac::GetTypeId()
 void
 Dect2020ExtMac::TestFunction()
 {
-    if (m_terminationPointType == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    if (m_terminationPointType == Dect2020ExtTerminationPointType::FT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Hi, I am FT!");
     }
@@ -95,7 +97,7 @@ Dect2020ExtMac::Initialize()
     }
 
     // Network ID for FT
-    if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    if (m_device->GetTerminationPointType() == Dect2020ExtTerminationPointType::FT)
     {
         SetNetworkId(GenerateValidNetworkId());
     }
@@ -106,7 +108,7 @@ Dect2020ExtMac::Start()
 {
     std::string errorMessage = " was not set for Dect2020ExtMac";
 
-    if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT)
+    if (m_device->GetTerminationPointType() == Dect2020ExtTerminationPointType::FT)
     {
         NS_ABORT_MSG_IF(!m_configuredRandomAccessResourceIeSet, "Random Access Resource Ie" << errorMessage);
 
@@ -119,7 +121,7 @@ Dect2020ExtMac::Start()
 
         InitializeNetwork();
     }
-    if (m_device->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
+    if (m_device->GetTerminationPointType() == Dect2020ExtTerminationPointType::PT)
     {
         NS_ABORT_MSG_IF(!m_configuredAssociationControlIeSet, "Association Control Ie" << errorMessage);
 
@@ -859,7 +861,7 @@ Dect2020ExtMac::BuildAssociationResponse(Dect2020ExtPtInfo* ptInfo)
 }
 
 uint32_t
-Dect2020ExtMac::ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconPeriod period)
+Dect2020ExtMac::ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconPeriod period)
 {
     switch (period)
     {
@@ -877,7 +879,7 @@ Dect2020ExtMac::ConvertNetworkBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessa
 }
 
 uint32_t
-Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtClusterBeaconPeriod period)
+Dect2020ExtMac::ConvertClusterBeaconPeriodToFrames(Dect2020ExtClusterBeaconPeriod period)
 {
     switch (period)
     {
@@ -1580,7 +1582,7 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool random)
     MacHeaderTypeField receivedMacHeaderTypeField = macHeaderType.GetMacHeaderTypeField();
 
     // Either Network or Cluster Beacon (only PT devices process them)
-    if (receivedMacHeaderTypeField == MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtNetDevice::PT)
+    if (receivedMacHeaderTypeField == MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtTerminationPointType::PT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Beacon packet");
         if (m_proceedToAssociationRequest)
@@ -1703,7 +1705,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
     IeTypeFieldEncoding ieType = mxHeaderTypeA.GetIeTypeFieldEncoding();
 
     // Message is an Association Request (only FT devices can process them)
-    if (ieType == IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE && m_terminationPointType == Dect2020ExtNetDevice::FT)
+    if (ieType == IeTypeFieldEncoding::ASSOCIATION_REQUEST_MESSAGE && m_terminationPointType == Dect2020ExtTerminationPointType::FT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received Association Request");
         Dect2020ExtStatistics::m_acceptedAssociationRequestsFtMac[MAC_IDENTITY]++;
@@ -1739,7 +1741,7 @@ Dect2020ExtMac::HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFie
         }
     }
     // Message is an Association Response (only PT devices can process them)
-    if (ieType == IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE && m_terminationPointType == Dect2020ExtNetDevice::PT)
+    if (ieType == IeTypeFieldEncoding::ASSOCIATION_RESPONSE_MESSAGE && m_terminationPointType == Dect2020ExtTerminationPointType::PT)
     {
         // Sanity check to assert that m_selectedFtCandidate
         // is the one who sent the Association Response
@@ -1786,7 +1788,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
     NS_LOG_INFO(MAC_IDENTITY << ": Received DATA MAC PDU");
 
     // Only PT devices can receive ACK for DATA MAC PDU
-    if (m_terminationPointType == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT)
+    if (m_terminationPointType == Dect2020ExtTerminationPointType::PT)
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Received HARQ ACK");
         HandleHarqAck(packet, phyControlFieldType2);
@@ -1993,25 +1995,16 @@ Dect2020ExtMac::SelectBestFtCandidate()
 
     // Step 4: Set status and wait for next cluster beacon of selected FT
     ChangeAssociationStatus(WAITING_FOR_SELECTED_FT);
-
-    // Cluster Beacon triggers next step in EvaluateClusterBeacon
-
-    // Verify after 2 Seconds if the device is still waiting for the selected FT. This should not
-    // be the case because it should have received a Cluster Beacon and sent an Association Request
-    // and the status is either associated or association pending.
-    // Simulator::Schedule(Seconds(2),
-    //                     &Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus,
-    //                     this);
 }
 
-void
-Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus()
-{
-    if (this->m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)
-    {
-        m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
-    }
-}
+// void
+// Dect2020ExtMac::VerifyWaitingForSelectedFtAssociationStatus()
+// {
+//     if (this->m_associationStatus == Dect2020ExtAssociationStatus::WAITING_FOR_SELECTED_FT)
+//     {
+//         m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
+//     }
+// }
 
 void
 Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtInfo* ft)
@@ -2026,14 +2019,14 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtInfo* ft)
     InitiateHarq(data);
 }
 
-void
-Dect2020ExtMac::VerifyPendingAssociationStatus()
-{
-    if (this->m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING)
-    {
-        m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
-    }
-}
+// void
+// Dect2020ExtMac::VerifyPendingAssociationStatus()
+// {
+//     if (this->m_associationStatus == Dect2020ExtAssociationStatus::ASSOCIATION_PENDING)
+//     {
+//         m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
+//     }
+// }
 
 void
 Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo* ptInfo)
@@ -2126,32 +2119,32 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo)
     }
 }
 
-void
-Dect2020ExtMac::VerifyAssociatedStatus()
-{
-    Dect2020ExtFtInfo* ft = FindFtCandidateByLongId(m_associatedFtNetDeviceLongRdId);
-    Time lastBeaconReceived = ft->receptionTime;
-    Time currentTime = Simulator::Now();
-    Time VerifyAssociatedStatusPeriod = Seconds(60);
-    NS_LOG_INFO(MAC_IDENTITY << ": ASSOCIATED");
+// void
+// Dect2020ExtMac::VerifyAssociatedStatus()
+// {
+//     Dect2020ExtFtInfo* ft = FindFtCandidateByLongId(m_associatedFtNetDeviceLongRdId);
+//     Time lastBeaconReceived = ft->receptionTime;
+//     Time currentTime = Simulator::Now();
+//     Time VerifyAssociatedStatusPeriod = Seconds(60);
+//     NS_LOG_INFO(MAC_IDENTITY << ": ASSOCIATED");
 
-    // Check if the last received Cluster Beacon is older than 60 seconds
-    if (currentTime - lastBeaconReceived > VerifyAssociatedStatusPeriod)
-    {
-        NS_LOG_WARN(
-            Simulator::Now().GetMicroSeconds()
-            << ": Dect2020Mac::VerifyAssociatedStatus: No Cluster Beacon received in the last "
-            << "60 seconds. Setting association status to NOT_ASSOCIATED.");
-        m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
-    }
-    else
-    {
-        // Check again in VerifyAssociatedStatusPeriod
-        Simulator::Schedule(VerifyAssociatedStatusPeriod,
-                            &Dect2020ExtMac::VerifyAssociatedStatus,
-                            this);
-    }
-}
+//     // Check if the last received Cluster Beacon is older than 60 seconds
+//     if (currentTime - lastBeaconReceived > VerifyAssociatedStatusPeriod)
+//     {
+//         NS_LOG_WARN(
+//             Simulator::Now().GetMicroSeconds()
+//             << ": Dect2020Mac::VerifyAssociatedStatus: No Cluster Beacon received in the last "
+//             << "60 seconds. Setting association status to NOT_ASSOCIATED.");
+//         m_associationStatus = Dect2020ExtAssociationStatus::NOT_ASSOCIATED;
+//     }
+//     else
+//     {
+//         // Check again in VerifyAssociatedStatusPeriod
+//         Simulator::Schedule(VerifyAssociatedStatusPeriod,
+//                             &Dect2020ExtMac::VerifyAssociatedStatus,
+//                             this);
+//     }
+// }
 
 Dect2020ExtFtInfo*
 Dect2020ExtMac::FindFtCandidateByLongId(uint32_t longFtId)
@@ -2203,13 +2196,13 @@ Dect2020ExtMac::RestartKeepAlivePeriod()
 }
 
 void
-Dect2020ExtMac::SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType terminationPointType)
+Dect2020ExtMac::SetTerminationPointType(Dect2020ExtTerminationPointType terminationPointType)
 {
     m_terminationPointType = terminationPointType;
     m_terminationPointTypeSet = true;
 }
 
-Dect2020ExtNetDevice::Dect2020ExtTerminationPointType
+Dect2020ExtTerminationPointType
 Dect2020ExtMac::GetTerminationPointType() const
 {
     return m_terminationPointType;

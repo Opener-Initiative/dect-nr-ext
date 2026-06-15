@@ -5,10 +5,11 @@
 #include "ns3/ptr.h"
 #include "ns3/buffer.h"
 #include "ns3/nstime.h"
-#include "ns3/dect2020ext-mac.h"
 
 namespace ns3
 {
+
+class Dect2020ExtMac;
 
 class Dect2020ExtApp : public Object
 {

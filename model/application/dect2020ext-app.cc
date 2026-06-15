@@ -1,4 +1,5 @@
 #include "dect2020ext-app.h"
+#include "ns3/dect2020ext-mac.h"
 #include "ns3/simulator.h"
 
 namespace ns3

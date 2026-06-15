@@ -1,5 +1,6 @@
 #include "dect2020ext-phy.h"
 #include "dect2020ext-interference.h"
+#include "ns3/dect2020ext-mac.h"
 
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/dect2020ext-phy-control-field-type-2.h"

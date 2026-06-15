@@ -1,7 +1,6 @@
 #ifndef DECT2020EXT_PHY_H
 #define DECT2020EXT_PHY_H
 
-#include "ns3/dect2020ext-mac.h"
 #include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy-control-field-type-1.h"
 #include "ns3/dect2020ext-phy-control-field-type-2.h"
