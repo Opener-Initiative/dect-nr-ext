@@ -1,18 +1,5 @@
 #include "dect2020ext-mac.h" 
-#include "ns3/dect2020ext-channel-manager.h"
-#include "ns3/dect2020ext-net-device.h"
-#include "ns3/dect2020ext-phy.h"
-#include "ns3/dect2020ext-mac-multiplexing-header-type-a.h"
-#include "ns3/dect2020ext-network-beacon-message-ie.h"
-#include "ns3/dect2020ext-cluster-beacon-message-ie.h"
-#include "ns3/dect2020ext-random-access-resource-ie.h"
-#include "ns3/dect2020ext-beacon-header.h"
-#include "ns3/dect2020ext-association-request-message-ie.h"
-#include "ns3/dect2020ext-unicast-header.h"
-#include "ns3/dect2020ext-association-response-message-ie.h"
-#include "ns3/dect2020ext-rd-capability-ie.h"
-#include "ns3/dect2020ext-association-control-ie.h"
-#include "ns3/dect2020ext-mac-header-type.h"
+
 #include "ns3/dect2020ext-config-values.h"
 #include "ns3/dect2020ext-statistics.h"
 
@@ -22,12 +9,7 @@
 #include "ns3/callback.h"
 #include "ns3/pointer.h"
 
-#include <cstdint>
-#include <cstdlib>
-#include <glib.h>
 #include <limits>
-#include <memory>
-#include <sstream>
 #include <algorithm>
 #include <string>
 #include <iomanip>

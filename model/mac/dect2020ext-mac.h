@@ -20,31 +20,16 @@
 #include "ns3/dect2020ext-phy-control-field-type-2.h"
 #include "ns3/dect2020ext-mac-header-type.h"
 
-#include "ns3/object.h"
-#include "ns3/nstime.h"
-#include "ns3/event-id.h"
-#include "ns3/packet.h"
-#include "ns3/uinteger.h"
 #include "ns3/node.h"
-#include "ns3/simulator.h"
 
 #include <map>
-#include <memory>
 #include <vector>
 #include <queue>
 
 namespace ns3
 {
 
-class Dect2020ExtChannelManager;
-class Dect2020ExtNetDevice;
-class Dect2020ExtPhy;
-class Dect2020ExtPhyControlFieldType1;
-class Dect2020ExtRandomAccessResourceIe;
-class Dect2020ExtRdCapabilityIe;
-class Dect2020ExtMacScheduler;
 class Dect2020ExtApp;
-class Dect2020ExtMacHeaderType;
 struct Dect2020ExtRandomAccessContext;
 
 struct Dect2020ExtHarqProcess
