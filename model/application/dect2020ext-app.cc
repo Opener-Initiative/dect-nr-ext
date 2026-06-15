@@ -28,6 +28,7 @@ Dect2020ExtApp::Start()
 {
     if (!m_mac || !m_packetGenerationPeriodSet)
     {
+        NS_FATAL_ERROR("Missing configuration for the application");
         return;
     }
     else

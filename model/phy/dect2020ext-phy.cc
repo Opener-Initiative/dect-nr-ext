@@ -139,7 +139,7 @@ Dect2020ExtPhy::GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIn
 }
 
 void
-Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, bool> callback)
+Dect2020ExtPhy::SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback)
 {
     m_receiveCallback = callback;
     m_receiveCallbackSet = true;
@@ -332,13 +332,13 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         Dect2020ExtStatistics::m_acceptedPacketsPhy[PHY_IDENTITY]++;
 
         // Pass the packet to the MAC after the whole duration (reception) of the signal
-        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_data, dectParams->m_random);
+        Simulator::Schedule(params->duration, &Dect2020ExtPhy::EndRx, this, dectParams->m_txPacket, rssiPacketDbm, dectParams->m_random);
     }
 }
 
 template <typename PhyControlFieldT>
 void
-Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool data, bool random)
+Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool random)
 {
     NS_ASSERT_MSG(packet, "Packet is null");
 
@@ -353,7 +353,6 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool 
     params->m_txPacket = packet->Copy(); // deep copy to avoid modifying original
     params->m_txPacket->AddHeader(phyControlField);
     params->m_currentChannelNumber = m_mac->GetOperatingChannelNumber();
-    params->m_data = data;
     params->m_random = random;
     params->txMobility = m_mobilityModel;
 
@@ -392,8 +391,8 @@ Dect2020ExtPhy::Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool 
     Simulator::Schedule(params->duration, &Dect2020ExtPhy::ChangeState, this, IDLE);
 }
 
-template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType1>(Ptr<Packet>, Dect2020ExtPhyControlFieldType1, bool, bool);
-template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType2>(Ptr<Packet>, Dect2020ExtPhyControlFieldType2, bool, bool);
+template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType1>(Ptr<Packet>, Dect2020ExtPhyControlFieldType1, bool);
+template void Dect2020ExtPhy::Send<Dect2020ExtPhyControlFieldType2>(Ptr<Packet>, Dect2020ExtPhyControlFieldType2, bool);
 
 template <typename PhyControlFieldT>
 double
@@ -433,9 +432,9 @@ Dect2020ExtPhy::ChangeState(PhyState newState)
 }
 
 void
-Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
+Dect2020ExtPhy::EndRx(Ptr<Packet> packet, double rssiDbm, bool random)
 {
-    m_receiveCallback(packet, rssiDbm, data, random);
+    m_receiveCallback(packet, rssiDbm, random);
 }
 
 bool

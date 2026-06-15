@@ -50,7 +50,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		void SetChannelManager(Ptr<Dect2020ExtChannelManager> channelManager);
 		Ptr<Dect2020ExtChannelManager> GetChannelManager() const;
 		uint16_t GetMcsTransportBlockSize(uint8_t mu, uint8_t beta, uint8_t mcsIndex);
-		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool, bool> callback);
+		void SetReceiveCallback(Callback<void, Ptr<Packet>, double, bool> callback);
 		PhyState GetState() const;
 
 		// ###### Configuration ######
@@ -79,13 +79,13 @@ class Dect2020ExtPhy : public SpectrumPhy
 		// Dect2020ExtPhy Methods
 
 		template <typename PhyControlFieldT>
-		void Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool data, bool random);
+		void Send(Ptr<Packet> packet, PhyControlFieldT phyControlField, bool random);
 
 		template <typename PhyControlFieldT>
 		double CalculateTxDurationNs(PhyControlFieldT physicalHeader);
 
 		void ChangeState(PhyState newState);
-		void EndRx(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
+		void EndRx(Ptr<Packet> packet, double rssiDbm, bool random);
 		bool IsAvailable();
 
 		// ###### Interference ######
@@ -121,7 +121,7 @@ class Dect2020ExtPhy : public SpectrumPhy
 		uint8_t m_fourierTransformScalingFactor;
 		bool m_fourierTransformScalingFactorSet = false;
 
-		Callback<void, Ptr<Packet>, double, bool, bool> m_receiveCallback;
+		Callback<void, Ptr<Packet>, double, bool> m_receiveCallback;
 		bool m_receiveCallbackSet = false;
 
 		// Configuration pointers

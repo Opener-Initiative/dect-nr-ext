@@ -94,9 +94,6 @@ struct Dect2020ExtRandomAccessContext
     std::vector<double> lbtRssiSamples; // Store RSSI samples during LBT
     uint32_t lbtSampleCount = 0; // Counter for collected samples
     uint32_t lbtTotalSamples = 5; // Total samples to collect
-
-    bool data;
-    bool random;
 };
 
 struct Dect2020ExtChannelEvaluation
@@ -252,7 +249,7 @@ class Dect2020ExtMac : public Object
 
         void SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void HandleHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
-        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
+        void VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2, bool data);
         void MonitorTxQueue();
 
         void InitiateRandomAccess(Dect2020ExtRandomAccessResourceIe randomAccessResourceIe,
@@ -273,7 +270,7 @@ class Dect2020ExtMac : public Object
 
         // ###### Association Procedure ######
 
-        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random);
+        void ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool random);
         void HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft);
         void HandleUnicastPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);
         void HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2);

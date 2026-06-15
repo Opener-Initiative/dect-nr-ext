@@ -19,7 +19,6 @@ class Dect2020ExtSpectrumSignalParameters : public SpectrumSignalParameters
 
     Ptr<Packet> m_txPacket;
     uint32_t m_currentChannelNumber;
-    bool m_data;
     bool m_random;
 };
 

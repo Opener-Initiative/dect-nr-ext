@@ -537,11 +537,10 @@ Dect2020ExtMac::SendNetworkBeaconOnChannel(uint16_t channelNumber)
 
     Ptr<Packet> packet = BuildNetworkBeacon();
     bool lengthInSlots = false;
-    bool data = false;
     bool random = false;
 
     Dect2020ExtStatistics::m_transmittedNetworkBeaconsFtMac[MAC_IDENTITY]++;
-    m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), data, random);
+    m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), random);
 }
 
 void
@@ -564,12 +563,11 @@ Dect2020ExtMac::SendClusterBeaconOnChannel(uint16_t channelNumber)
     NS_LOG_INFO(MAC_IDENTITY << ": Sending Cluster Beacon (channel=" << m_operatingChannelNumber << ",slot=" << m_macScheduler->GetCurrentSlotNumber() << ",subslot=" << m_macScheduler->GetCurrentSubslotNumber() << ")");
 
     Ptr<Packet> packet = BuildClusterBeacon(channelNumber);
-    bool data = false;
     bool random = false;
     bool lengthInSlots = false;
 
     Dect2020ExtStatistics::m_transmittedClusterBeaconsFtMac[MAC_IDENTITY]++;
-    m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), data, random);
+    m_phy->Send(packet, BuildPhyControlFieldType1(lengthInSlots, packet->GetSize()), random);
 }
 
 Ptr<Packet>
@@ -984,7 +982,16 @@ Dect2020ExtMac::InitiateHarq(bool data)
     // If the RACH resources are yet to come in the frame -> wait till the RACH resources
     if (currentSubslotNumber < raraStartSubslot)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access in the current frame");
+        // A packet can be either not data (Association Request Meessage) or a data packet
+        if (data)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the current frame for a data packet");
+
+        }
+        else
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure in the current frame for the Association Request Message");
+        }
 
         double timeToRachStartNs = m_macScheduler->GetTimeTillSubslotStartNs(raraStartSubslot);
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the current frame are in " << timeToRachStartNs / 1000000000 << "s");
@@ -996,17 +1003,34 @@ Dect2020ExtMac::InitiateHarq(bool data)
                             phyControlFieldType2,
                             newContext,
                             std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
+        return;
     }
     // If the device is already inside or at the start of the RACH resources -> execute InitiateRandomAccess immediately
     if (currentSubslotNumber >= raraStartSubslot && currentSubslotNumber < raraEndSubslot)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access immediately");
+        if (data)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure immediately for a data packet");
+        }
+        else
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure immediately for the Association Request Message");
+        }
+
         InitiateRandomAccess(m_selectedFtCandidate.randomAccessResourceIe, process, phyControlFieldType2);
+        return;
     }
     // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
     if (currentSubslotNumber >= raraEndSubslot)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Executing Random Access at the next RACH resources in the next frame");
+        if (data)
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure at the next RACH resources in the next frame for a data packet");
+        }
+        else
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Executing the Random Access Procedure at the next RACH resources in the next frame for the Association Request Message");
+        }
 
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(m_selectedFtCandidate.randomAccessResourceIe.GetStartSubslot());
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000 << " ms");
@@ -1018,6 +1042,7 @@ Dect2020ExtMac::InitiateHarq(bool data)
                             phyControlFieldType2,
                             newContext,
                             std::shared_ptr<Dect2020ExtRandomAccessContext>(nullptr));
+        return;
     }
 }
 
@@ -1079,9 +1104,8 @@ Dect2020ExtMac::SendHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 
         return;
     }
 
-    bool data = true;
     bool random = true;
-    m_phy->Send(packet, phyControlFieldType2, data, random);
+    m_phy->Send(packet, phyControlFieldType2, random);
 }
 
 void
@@ -1112,21 +1136,10 @@ Dect2020ExtMac::HandleHarqAck(Ptr<Packet> ack, Dect2020ExtPhyControlFieldType2 p
     proc->Reset();
 
     RestartKeepAlivePeriod();
-
-    if (!m_txQueue.empty())
-    {
-        bool data = true;
-        InitiateHarq(data);
-    }
-    else
-    {
-        NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
-        MonitorTxQueue();
-    }
 }
 
 void
-Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2)
+Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType2 phyControlFieldType2, bool data)
 {
     // Find a HARQ process with the process number from the PHY Control Field Type 2
     Dect2020ExtHarqProcess* process = nullptr;
@@ -1188,6 +1201,7 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
                                 phyControlFieldType2,
                                 newContext,
                                 process->randomAccessContext);
+            return;
         }
         // If the device is outside of the RACH resources -> execute the random access at the next RACH resources in the next frame
         if (currentSubslotNumber >= raraEndSubslot)
@@ -1206,9 +1220,46 @@ Dect2020ExtMac::VerifyHarqAck(Ptr<Packet> packet, Dect2020ExtPhyControlFieldType
                                 process->randomAccessContext);
             return;
         }
+
+        return;
     }
 
     NS_LOG_INFO(MAC_IDENTITY << ": ACK verified");
+
+    // If packet is not a data packet (Association Response Message)
+    if (!data)
+    {
+        if (m_associationStatus != ASSOCIATED)
+        {
+            NS_FATAL_ERROR("The device is not associated, but the Association Request is acknowledged");
+        }
+        if (m_proceedToDataTransmission)
+        {
+            // Starting app
+            LaunchApp();
+            StartKeepAlivePeriod();
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+    // If the packet is a data packet
+    if (data)
+    {
+        if (!m_txQueue.empty())
+        {
+            InitiateHarq(data);
+            return;
+        }
+        else
+        {
+            NS_LOG_INFO(MAC_IDENTITY << ": Tx queue empty, monitoring Tx queue");
+            MonitorTxQueue();
+            return;
+        }
+    }
 }
 
 void
@@ -1221,7 +1272,11 @@ Dect2020ExtMac::MonitorTxQueue()
     else
     {
         NS_LOG_INFO(MAC_IDENTITY << ": Detected a new packet in Tx queue");
-        // InitiateHARQ();
+
+        // The context of this function is data transmission ->
+        // the data option is always true
+        bool data = true;
+        InitiateHarq(data);
     }
 }
 
@@ -1431,13 +1486,13 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
 
             // Transmit packet
             bool random = true;
-            m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data, random);
+            m_phy->Send(randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, random);
 
             // Verify ACK after the RACH response window expires
             // Response window size is always in subslots
             double subslotDurationNs = SLOT_DURATION_NS / m_channelManager->GetSubslotsPerSlot();
             Time delay = NanoSeconds(subslotDurationNs * randomAccessContext->randomAccessResourceIe.GetResponseWindow());
-            Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2);
+            Simulator::Schedule(delay, &Dect2020ExtMac::VerifyHarqAck, this, randomAccessContext->process->packet, randomAccessContext->phyControlFieldType2, randomAccessContext->process->data);
             return;
         }
         // If the channel is busy or the PHY entered RX right at the time
@@ -1519,7 +1574,7 @@ Dect2020ExtMac::CheckIfRachTxFitsInRemainingResources(std::shared_ptr<Dect2020Ex
 }
 
 void
-Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool data, bool random)
+Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool random)
 {
     NS_LOG_INFO(MAC_IDENTITY << ": Received packet from PHY with RSSI " << rssiDbm << " dBm on channel " << m_operatingChannelNumber);
 
@@ -1809,7 +1864,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
         bool ack = true;
 
         Simulator::Schedule(NanoSeconds(t), &Dect2020ExtMac::SendHarqAck, this,
-                            ack,
+                            packet,
                             BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, phyControlFieldType2.GetDfHarqProcessNumber(), ack));
     }
     else
@@ -2052,11 +2107,10 @@ Dect2020ExtMac::SendAssociationResponse(Dect2020ExtPtInfo* ptInfo)
     bool ack = true;
     Dect2020ExtPhyControlFieldType2 phyControlFieldType2 = BuildPhyControlFieldType2(lengthInSlots, packet->GetSize(), ndi, ptInfo->phyControlFieldType2.GetDfHarqProcessNumber(), ack); 
 
-    bool data = false;
     bool random = true; // This packet is an ACK for the received Association Request with Random Access
 
     Dect2020ExtStatistics::m_transmittedAssociationResponsesFtMac[MAC_IDENTITY]++;
-    m_phy->Send(packet, phyControlFieldType2, data, random);
+    m_phy->Send(packet, phyControlFieldType2, random);
 }
 
 void
@@ -2079,20 +2133,10 @@ Dect2020ExtMac::ProcessAssociationResponse(Dect2020ExtFtInfo* ftInfo)
         process->Reset();
 
         // Currently, all association responses are accepted
-        ChangeAssociationStatus(Dect2020ExtAssociationStatus::ASSOCIATED);
-
-        // If we dont receive a Cluster Beacon every 60 Seconds, we assume the FT is offline
-        // Simulator::Schedule(Seconds(60), &Dect2020ExtMac::VerifyAssociatedStatus, this);
+        ChangeAssociationStatus(ASSOCIATED);
 
         // Store the associated FTs Long RD ID
         m_associatedFtNetDeviceLongRdId = ftInfo->unicastHeader.GetTransmitterAddress();
-
-        if (m_proceedToDataTransmission)
-        {
-            // Starting app
-            LaunchApp();
-            StartKeepAlivePeriod();
-        }
     }
     else
     {
@@ -2391,9 +2435,13 @@ Dect2020ExtMac::LaunchApp()
     m_app->SetPacketLimit(50);
     m_app->Start();
 
+    if (m_txQueue.empty())
+    {
+        NS_FATAL_ERROR("The application launched with an empty TX queue");
+    }
+
     // InitiateHarq will trigger the Random Access Procedure cycle for the
-    // enqueued packet. Later, data transmission cycle will be handled by
-    // VerifyHarqAck
+    // enqueued packet. Later, data transmission cycle will be handled by VerifyHarqAck
     bool data = true;
     InitiateHarq(data);
 }

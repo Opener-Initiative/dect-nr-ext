@@ -88,7 +88,7 @@ main(int argc, char *argv[])
         ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(associationControlIe);
-        // ptMac->ProceedToDataTransmission(false);
+        ptMac->ProceedToDataTransmission(false);
         ptMac->SetSearchBestFtTimeMs(10);
         config.ApplyToMac(ptMac);
 
