@@ -31,5 +31,3 @@
 | `GetRxSpectrumModel()` returns correct model                | ✗ returns nullptr — `m_spectrumModel` never assigned |
 | Compatibility enforced when adding signal to interference   | ✗ direct `double` indexing bypasses `NS_ASSERT`      |
 | `m_rxSignal` in interference                                | dead, never used                                     |
-# Edge cases
-1. What if FT drops Association Response if the PHY is in Rx or Tx state?

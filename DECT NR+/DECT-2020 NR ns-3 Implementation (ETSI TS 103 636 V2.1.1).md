@@ -5,29 +5,6 @@
 	- [Part 4: MAC layer; ETSI TS 103 636-4 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363604/02.01.01_60/ts_10363604v020101p.pdf)
 	- [Part 5: DLC and Convergence layers; ETSI TS 103 636-5 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103600_103699/10363605/02.01.01_60/ts_10363605v020101p.pdf)
 - [ns-3](https://www.nsnam.org/)
-# Configuration
-The project can be configured through the `config` model located in `/model/config`. The configuration model is divided into two parts: `dect2020ext-config-values` (a single header file) and `dect2020ext-config` (config class). `dect2020ext-config-values` contains configuration variables that are used by `dect2020ext-config` to configure `dect2020ext` models.
-
-The `Dect2020ExtConfig` class creates two objects that are shared by all `Dect2020Ext` models:
-- `ns3::SpectrumChannel`
-- `Dect2020ExtChannelManager`
-`Dect2020ExtConfig` also creates an Isotropic Antenna for every PHY.
-`Dect2020ExtConfig` has `ApplyToPhy` and `ApplyToMac` functions that bootstrap the values from `dect2020ext-config-values` to the corresponding `Dect2020ExtPhy` and `Dect2020ExtMac` models.
-#### Values required for `Dect2020ExtMac` configuration:
-Provided by `Dect2020ExtConfig`:
-- Band number (currently only band 1 is supported)
-- Subcarrier scaling factor (currently only value 1 is supported)
-- Fourier transform scaling factor (currently only value 1 is supported)
-- Pointer to `Dect2020ExtChannelManager`
-Provided directly in the simulation file:
-- Termination Point Type
-- Pointer to `Dect2020ExtPhy` (that belongs to the MAC)
-- Pointer to `Dect2020ExtNetDevice` (that belongs to the MAC)
-- Boolean value for proceeding to beacon transmission (if the simulation should stop at the background scan)
-- If the device is FT:
-	- Random Access Resource IE
-- If the device is PT:
-	- Association Control IE
 # Logging
 The default logging setup (logging levels) looks like this:
 ```c++
