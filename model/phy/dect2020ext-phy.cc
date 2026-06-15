@@ -295,6 +295,9 @@ Dect2020ExtPhy::StartRx(Ptr<SpectrumSignalParameters> params)
         NS_LOG_INFO(PHY_IDENTITY << ": Received packet on wrong channel");
         NS_LOG_INFO(PHY_IDENTITY << ": Current channel: " << m_mac->GetOperatingChannelNumber());
         NS_LOG_INFO(PHY_IDENTITY << ": Channel from dect params: " << dectParams->m_currentChannelNumber);
+
+        Dect2020ExtStatistics::m_droppedPacketsPhy[PHY_IDENTITY]++;
+
         return;
     }
 

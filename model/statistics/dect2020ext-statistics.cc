@@ -10,6 +10,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtStatistics");
 // PHY
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedPacketsPhy;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedPacketsPhy;
+std::map<std::string, int> Dect2020ExtStatistics::m_transmittedPacketsPhy;
 
 // MAC – Network Beacons
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedNetworkBeaconsFtMac;
@@ -22,9 +23,15 @@ std::map<std::string, int> Dect2020ExtStatistics::m_transmittedClusterBeaconsFtM
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedClusterBeaconsPtMac;
 
 // MAC – Association
+std::map<std::string, int> Dect2020ExtStatistics::m_transmittedAssociationRequestsPtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedAssociationRequestsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedAssociationResponsesFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedAssociationResponsesFtMac;
+std::map<std::string, int> Dect2020ExtStatistics::m_acceptedAssociationResponsesPtMac;
+
+// MAC – Data
+std::map<std::string, int> Dect2020ExtStatistics::m_transmittedDataPacketsPtMac;
+std::map<std::string, int> Dect2020ExtStatistics::m_acknowledgedDataPacketsPtMac;
 
 Dect2020ExtStatistics::Dect2020ExtStatistics()
 {
@@ -111,7 +118,7 @@ Dect2020ExtStatistics::OutputAllStatistics()
     for (auto& [key, val] : m_transmittedDataPacketsPtMac)
         NS_LOG_INFO(key << " transmitted " << val << " data packets (PT MAC)");
     for (auto& [key, val] : m_acknowledgedDataPacketsPtMac)
-        NS_LOG_INFO(key << " acknowledged " << val << " data packets (PT MAC)");
+        NS_LOG_INFO(key << val << " Data packets were acknowledged (PT MAC)");
 }
 
 } // namespace ns3

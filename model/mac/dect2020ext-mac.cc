@@ -1305,8 +1305,8 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
         // when this function is called -> re-initiate the Random Access Procedure immediately
         else if (channelIsBusy || m_phy->GetState() == PhyState::RX)
         {
-            NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with the same context");
             NS_LOG_INFO(MAC_IDENTITY << ": The PHY or the channel is busy (avg RSSI: " << avgRssiDbm << " dBm");
+            NS_LOG_INFO(MAC_IDENTITY << ": Re-initiating Random Access Procedure with the same context immediately");
 
             // Re-initiate the Random Access Procedure with the same context
             bool newContext = false;
@@ -1323,8 +1323,8 @@ Dect2020ExtMac::EvaluateLbtChannel(std::shared_ptr<Dect2020ExtRandomAccessContex
         double timeToRachStartNs = m_macScheduler->GetTimeTillNextFrameNs() + m_macScheduler->GetSubslotStartTimeOffsetNs(randomAccessContext->randomAccessResourceIe.GetStartSubslot());
         Time delay = NanoSeconds(timeToRachStartNs);
 
-        NS_LOG_INFO(MAC_IDENTITY << ": MAC PDU and HARQ feedback don't fit into the remaining RACH resources");
-        NS_LOG_INFO(MAC_IDENTITY << "Deferring random access till the next RACH resources in the next frame");
+        NS_LOG_INFO(MAC_IDENTITY << ": Response window doesn't fit into the remaining RACH resources");
+        NS_LOG_INFO(MAC_IDENTITY << ": Deferring random access till the next RACH resources in the next frame");
         NS_LOG_INFO(MAC_IDENTITY << ": Next RACH resources in the next frame are in " << timeToRachStartNs / 1000000000 << "s");
 
         // Re-initiate the Random Access Procedure with the same context
@@ -1607,7 +1607,7 @@ void
 Dect2020ExtMac::EnqueuePacket()
 {
     Ptr<Packet> packet = Create<Packet>(); // dummy MAC PDU
-    NS_LOG_INFO(MAC_IDENTITY << ": Enqueue packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
+    NS_LOG_INFO(MAC_IDENTITY << ": Enqueued packet at subslot " << m_macScheduler->GetCurrentSubslotNumber());
 
     Dect2020ExtUnicastHeader unicastHeader;
     unicastHeader.SetReset(false);
@@ -1676,7 +1676,6 @@ Dect2020ExtMac::ReceiveFromPhy(Ptr<Packet> packet, double rssiDbm, bool random)
     // Either Network or Cluster Beacon (only PT devices process them)
     if (receivedMacHeaderTypeField == MacHeaderTypeField::BEACON_HEADER && m_terminationPointType == Dect2020ExtTerminationPointType::PT)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Received Beacon packet");
         if (m_proceedToAssociationRequest)
         {
             // Create FT Candidate Info
@@ -2027,7 +2026,7 @@ Dect2020ExtMac::FindOrCreateAssociatedPtInfo(uint16_t shortPtId)
 void
 Dect2020ExtMac::EvaluateClusterBeacon(const Dect2020ExtClusterBeaconMessageIe& clusterBeaconMessage, const Dect2020ExtRandomAccessResourceIe& randomAccessResourceIe, Dect2020ExtFtInfo* ft)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Evaluating Cluster Beacon");
+    NS_LOG_INFO(MAC_IDENTITY << ": Evaluating Cluster Beacon Message");
     ft->sfn = clusterBeaconMessage.GetSFN();
     m_lastSfn = clusterBeaconMessage.GetSFN();
 
@@ -2119,7 +2118,7 @@ Dect2020ExtMac::SelectBestFtCandidate()
 void
 Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtInfo* ft)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send Association Request");
+    NS_LOG_INFO(MAC_IDENTITY << ": Preparing to send Association Request Message");
 
     ChangeAssociationStatus(ASSOCIATION_PENDING);
 
@@ -2141,7 +2140,7 @@ Dect2020ExtMac::SendAssociationRequest(Dect2020ExtFtInfo* ft)
 void
 Dect2020ExtMac::ProcessAssociationRequest(Dect2020ExtPtInfo* ptInfo)
 {
-    NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request");
+    NS_LOG_INFO(MAC_IDENTITY << ": Processing Association Request Message");
 
     // TODO: Implement logic to accept or reject device. Currently, every device is accepted
     // TODO: Implement Association Maintenance

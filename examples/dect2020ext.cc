@@ -73,7 +73,7 @@ main(int argc, char *argv[])
     // ###### PT ######
     // ################
 
-    int ptNumber = 1;
+    int ptNumber = 2;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
     randomRadius->SetAttribute("Min", DoubleValue(10.0));
@@ -128,7 +128,7 @@ main(int argc, char *argv[])
     dummyMacScheduler.Initialize();
     dummyMacScheduler.StartMacScheduler();
 
-    Simulator::Stop(Seconds(4));
+    Simulator::Stop(Seconds(6));
     Simulator::Run();
     Simulator::Destroy();
 
