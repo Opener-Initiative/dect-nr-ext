@@ -116,9 +116,9 @@ Dect2020ExtStatistics::OutputAllStatistics()
 
     NS_LOG_INFO("--- Data ---");
     for (auto& [key, val] : m_transmittedDataPacketsPtMac)
-        NS_LOG_INFO(key << " transmitted " << val << " data packets (PT MAC)");
+        NS_LOG_INFO(key << " transmitted " << val << " data packets (but not necessairly acknowledged) (PT MAC)");
     for (auto& [key, val] : m_acknowledgedDataPacketsPtMac)
-        NS_LOG_INFO(key << val << " Data packets were acknowledged (PT MAC)");
+        NS_LOG_INFO(key << " " << val << " Data packets were acknowledged (PT MAC)");
 }
 
 } // namespace ns3
