@@ -169,7 +169,7 @@ Dect2020ExtRdCapabilityIe::Deserialize(Buffer::Iterator start)
 
     m_softBufferSize = (byte5 >> 4) & 0x0F;
     m_numOfHarqProcesses = (byte5 >> 2) & 0x03;
-    // Bit 6–7 reserved
+    // Bit 6-7 reserved
 
     // Byte 6
     uint8_t byte6 = start.ReadU8();
@@ -177,7 +177,7 @@ Dect2020ExtRdCapabilityIe::Deserialize(Buffer::Iterator start)
     m_harqFeedbackDelay = (byte6 >> 4) & 0x0F;
     m_dDelay = ((byte6 >> 3) & 0x01);
     m_halfDulp = ((byte6 >> 2) & 0x01);
-    // Bit 6–7 reserved
+    // Bit 6-7 reserved
 
     return GetSerializedSize();
 }

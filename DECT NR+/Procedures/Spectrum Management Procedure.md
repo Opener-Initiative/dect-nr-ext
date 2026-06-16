@@ -57,7 +57,7 @@ Processes all collected RSSI samples and selects the operating channel. The step
 4. **Select** the top-ranked channel and store it as `Dect2020ExtMac::m_operatingChannelNumber`.
 5. **Proceed** to `Dect2020ExtMac::StartBeaconTransmission()` (if `Dect2020ExtMac::m_proceedToBeaconTransmission` is `true`).
 
-> **Known deviation — to be fixed:** The standard specifies a hierarchical selection algorithm: prefer channels where *all* subslots are free; if none exist, prefer the channel with the fewest `busy` subslots; break ties by fewest `possible` subslots. The implementation uses a simpler sort by most `free` subslots, which can select a different channel than the standard algorithm would. The sort-by-free approach produces correct results when a clearly dominant channel exists, but will be replaced with the standard-compliant algorithm in a future revision.
+> **Known deviation - to be fixed:** The standard specifies a hierarchical selection algorithm: prefer channels where *all* subslots are free; if none exist, prefer the channel with the fewest `busy` subslots; break ties by fewest `possible` subslots. The implementation uses a simpler sort by most `free` subslots, which can select a different channel than the standard algorithm would. The sort-by-free approach produces correct results when a clearly dominant channel exists, but will be replaced with the standard-compliant algorithm in a future revision.
 
 > **Known missing feature:** The constant `SCAN_SUITABLE = 0.75` is defined but never evaluated. The standard allows the RD to stop the scan early and proceed to beacon transmission as soon as one channel has ≥ 75 % free+possible subslots. The implementation always completes the full sweep across all channels before selecting.
 
@@ -73,7 +73,7 @@ An optional debug helper. When enabled via `Dect2020ExtMac::DisplayChannelEvalua
 
 Corresponds to standard clause **5.1.5**. After channel selection, the FT transmits Network and Cluster Beacons periodically on the selected operating channel.
 
-> **Design choice:** Beacon transmissions are always **single-channel**. The Network Beacon is only ever sent on `Dect2020ExtMac::m_operatingChannelNumber`. The standard permits the FT to transmit the Network Beacon on multiple channels to reduce PT search time; this multi-channel sweep is not implemented. PT devices compensate by actively cycling through all band channels during discovery (see [Network Discovery — PT Mode](#network-discovery-and-ft-selection-pt-mode)). Sending the Network Beacon on a single channel is sufficient because the PT performs an active channel sweep; multi-channel sweeping would only reduce PT discovery latency, which is not a primary concern in current simulation scenarios.
+> **Design choice:** Beacon transmissions are always **single-channel**. The Network Beacon is only ever sent on `Dect2020ExtMac::m_operatingChannelNumber`. The standard permits the FT to transmit the Network Beacon on multiple channels to reduce PT search time; this multi-channel sweep is not implemented. PT devices compensate by actively cycling through all band channels during discovery (see [Network Discovery - PT Mode](#network-discovery-and-ft-selection-pt-mode)). Sending the Network Beacon on a single channel is sufficient because the PT performs an active channel sweep; multi-channel sweeping would only reduce PT discovery latency, which is not a primary concern in current simulation scenarios.
 
 > **Design choice:** Beacon subslot positions within a frame are **fixed**. The Network Beacon is always placed at **subslot 0** (start of the first slot) and the Cluster Beacon is always placed at **subslot 4** (start of the second slot). These offsets are hardcoded and are not negotiated or configurable at runtime. This simplifies scheduler configuration and ensures predictable beacon timing without requiring dynamic slot negotiation.
 
@@ -174,7 +174,7 @@ The Joining Beacon message type, which enables secure authentication procedures,
 | # | Area | Clause | Description | Classification |
 |---|---|---|---|---|
 | 1 | RSSI-1 measurement | 5.1.2 | Average of 5 samples used instead of `max(RSSI-1)` | Design choice |
-| 2 | Channel selection algorithm | 5.1.2 | Sorted by most free subslots; standard requires hierarchical free→busy→possible ranking | Known deviation — to be fixed |
+| 2 | Channel selection algorithm | 5.1.2 | Sorted by most free subslots; standard requires hierarchical free→busy→possible ranking | Known deviation - to be fixed |
 | 3 | `SCAN_SUITABLE` early-stop | 5.1.2 | Constant defined but not evaluated; scan always completes full sweep | Known missing feature |
 | 4 | `scanStatusValid` timer | 5.1.2 | Not started; scan results never expire; no re-scan triggered | Known missing feature |
 | 5 | `CHANNEL_LOADED` re-scan | 5.1.2 | Not defined or evaluated | Known missing feature |
@@ -183,7 +183,7 @@ The Joining Beacon message type, which enables secure authentication procedures,
 | 8 | PT route cost selection | 5.1.4 | Route Info IE not evaluated; always selects by highest RSSI-2 | Known missing feature |
 | 9 | PT no-FT retry | 5.1.4 | PT stays NOT_ASSOCIATED permanently if no FT found; no retry | Intended behavior |
 | 10 | Single-channel Network Beacon | 5.1.5 | Network Beacon sent on operating channel only; no multi-channel sweep | Design choice |
-| 11 | Fixed beacon subslot positions | 5.1.5 | Network Beacon at subslot 0, Cluster Beacon at subslot 4 — hardcoded | Design choice |
+| 11 | Fixed beacon subslot positions | 5.1.5 | Network Beacon at subslot 0, Cluster Beacon at subslot 4 - hardcoded | Design choice |
 | 12 | Beacon drop on PHY collision | 5.1.5 | Beacon dropped when PHY is in RX state; no retry or deferral | Design choice |
 | 13 | Joining Beacon | 5.1.5 | Not implemented | Out of scope |
 | 14 | Optimum power level selection | 5.1.6 | TX power is fixed; no power control | Design choice |

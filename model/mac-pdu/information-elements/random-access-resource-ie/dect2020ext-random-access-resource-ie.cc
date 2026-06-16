@@ -46,7 +46,7 @@ Dect2020ExtRandomAccessResourceIe::GetSerializedSize() const
 
     if (m_repeat == 1 || m_repeat == 2)
     {
-        size += 2; // Byte 6–7: Repetition + Validity
+        size += 2; // Byte 6-7: Repetition + Validity
     }
 
     if (m_systemFrameNumberFieldIncluded)
@@ -56,12 +56,12 @@ Dect2020ExtRandomAccessResourceIe::GetSerializedSize() const
 
     if (m_channelFieldIncluded)
     {
-        size += 2; // Bytes 9–10: Channel (13 Bit)
+        size += 2; // Bytes 9-10: Channel (13 Bit)
     }
 
     if (m_separateChannelFieldIncluded)
     {
-        size += 2; // Bytes 11–12: Separate Channel (13 Bit)
+        size += 2; // Bytes 11-12: Separate Channel (13 Bit)
     }
 
     return size;
@@ -172,7 +172,7 @@ Dect2020ExtRandomAccessResourceIe::Deserialize(Buffer::Iterator start)
     // Byte 0
     uint8_t byte0 = i.ReadU8();
 
-    m_repeat = (byte0 >> 3) & 0x03; // Bits 3–4
+    m_repeat = (byte0 >> 3) & 0x03; // Bits 3-4
 
     m_systemFrameNumberFieldIncluded = (byte0 & (1 << 2)) != 0; // Bit 5
     m_channelFieldIncluded = (byte0 & (1 << 1)) != 0;           // Bit 6
@@ -187,21 +187,21 @@ Dect2020ExtRandomAccessResourceIe::Deserialize(Buffer::Iterator start)
     // Byte 3
     uint8_t byte3 = i.ReadU8();
     m_lengthType = (byte3 >> 7) & 0x01; // Bit 0
-    m_raraLength = byte3 & 0x7F;        // Bits 1–7
+    m_raraLength = byte3 & 0x7F;        // Bits 1-7
 
     // Byte 4
     uint8_t byte4 = i.ReadU8();
     m_maxRachLengthType = (byte4 >> 7) & 0x01; // Bit 0
-    m_maxRachLength = (byte4 >> 3) & 0x0F;     // Bits 1–4
-    m_cwMin_sig = byte4 & 0x07;                // Bits 5–7
+    m_maxRachLength = (byte4 >> 3) & 0x0F;     // Bits 1-4
+    m_cwMin_sig = byte4 & 0x07;                // Bits 5-7
 
     // Byte 5
     uint8_t byte5 = i.ReadU8();
     m_dectDelay = (byte5 >> 7) & 0x01;      // Bit 0
-    m_responseWindow = (byte5 >> 3) & 0x0F; // Bits 1–4
-    m_cwMax_sig = byte5 & 0x07;             // Bits 5–7
+    m_responseWindow = (byte5 >> 3) & 0x0F; // Bits 1-4
+    m_cwMax_sig = byte5 & 0x07;             // Bits 5-7
 
-    // Byte 6–7
+    // Byte 6-7
     if (m_repeat == 1 || m_repeat == 2)
     {
         m_repitition = i.ReadU8(); // Byte 6
@@ -214,20 +214,20 @@ Dect2020ExtRandomAccessResourceIe::Deserialize(Buffer::Iterator start)
         m_systemFrameNumberValue = i.ReadU8(); // Byte 8
     }
 
-    // Byte 9–10
+    // Byte 9-10
     if (m_channelFieldIncluded)
     {
-        uint8_t byte9 = i.ReadU8();  // Bits 3–7 relevant
-        uint8_t byte10 = i.ReadU8(); // Bits 1–7
+        uint8_t byte9 = i.ReadU8();  // Bits 3-7 relevant
+        uint8_t byte10 = i.ReadU8(); // Bits 1-7
 
         m_channelAbsoluteCarrierCentryFrequency = ((byte9 & 0x1F) << 8) | byte10;
     }
 
-    // Byte 11–12
+    // Byte 11-12
     if (m_separateChannelFieldIncluded)
     {
-        uint8_t byte11 = i.ReadU8(); // Bits 3–7 relevant
-        uint8_t byte12 = i.ReadU8(); // Bits 1–7
+        uint8_t byte11 = i.ReadU8(); // Bits 3-7 relevant
+        uint8_t byte12 = i.ReadU8(); // Bits 1-7
 
         m_separateChannelAbsoluteCarrierCentryFrequency = ((byte11 & 0x1F) << 8) | byte12;
     }

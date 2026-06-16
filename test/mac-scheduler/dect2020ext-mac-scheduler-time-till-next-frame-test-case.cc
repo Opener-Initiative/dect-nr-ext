@@ -56,7 +56,7 @@ Dect2020ExtMacSchedulerTimeTillNextFrameTestCase::DoRun()
     });
 
     // GetTimeTillNextFrame - Frame 3 (starts at t=30ms)
-    // Note: exact frame boundaries cannot be tested in frames 1+ — StartMacScheduler is
+    // Note: exact frame boundaries cannot be tested in frames 1+ - StartMacScheduler is
     // scheduled during simulation and gets a higher event ID than lambdas queued before
     // Simulator::Run(), so the lambda fires before m_currentFrameStartTime is updated.
 

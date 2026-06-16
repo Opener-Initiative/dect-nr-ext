@@ -44,14 +44,14 @@ Dect2020ExtAssociationResponseMessageIe::GetSerializedSize() const
 
     if (m_harqMod)
     {
-        size += 2; // Byte 2–3: HARQ RX + TX
+        size += 2; // Byte 2-3: HARQ RX + TX
     }
 
     size += 1; // Byte 4: Flow ID
 
     if (m_groupIdAndResourceTagIncluded)
     {
-        size += 2; // Byte 5–6: Group ID + Resource Tag
+        size += 2; // Byte 5-6: Group ID + Resource Tag
     }
 
     return size;

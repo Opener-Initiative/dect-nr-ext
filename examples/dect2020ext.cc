@@ -18,7 +18,7 @@ main(int argc, char *argv[])
     Dect2020ExtConfig config;
 
     Dect2020ExtAssociationControlIe associationControlIe;
-    associationControlIe.SetCbM(1); // maintain Cluster Beacon reception
+    associationControlIe.SetCbM(0); // maintain Cluster Beacon reception
     associationControlIe.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
     associationControlIe.SetUlPeriod(UlPeriod::S_10); // association maintenance period 10 seconds
 

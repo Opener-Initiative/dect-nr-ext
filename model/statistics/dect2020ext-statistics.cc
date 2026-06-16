@@ -12,24 +12,24 @@ std::map<std::string, int> Dect2020ExtStatistics::m_droppedPacketsPhy;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedPacketsPhy;
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedPacketsPhy;
 
-// MAC – Network Beacons
+// MAC - Network Beacons
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedNetworkBeaconsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedNetworkBeaconsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedNetworkBeaconsPtMac;
 
-// MAC – Cluster Beacons
+// MAC - Cluster Beacons
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedClusterBeaconsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedClusterBeaconsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedClusterBeaconsPtMac;
 
-// MAC – Association
+// MAC - Association
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedAssociationRequestsPtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedAssociationRequestsFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_droppedAssociationResponsesFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedAssociationResponsesFtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acceptedAssociationResponsesPtMac;
 
-// MAC – Data
+// MAC - Data
 std::map<std::string, int> Dect2020ExtStatistics::m_transmittedDataPacketsPtMac;
 std::map<std::string, int> Dect2020ExtStatistics::m_acknowledgedDataPacketsPtMac;
 

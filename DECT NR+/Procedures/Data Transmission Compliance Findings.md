@@ -1,9 +1,9 @@
-# Data Transmission over Random Access — DECT-2020 NR Compliance Findings
+# Data Transmission over Random Access - DECT-2020 NR Compliance Findings
 
 **Reference standard:** ETSI TS 103 636-4 V2.1.1 (2024-10), clause 5.3 (Random Access procedure) + §5.5 (HARQ).
 **Companion document:** `Random Access Compliance Findings.md` (association procedure). The data uplink reuses the **identical** random-access code path, so the association findings carry over (see *Inherited findings*).
 **Module under review:** `contrib/dect-nr-ext/model/mac/dect2020ext-mac.cc` (+ `model/application/dect2020ext-app.cc`, `model/phy/dect2020ext-phy.cc`, `model/mac/dect2020ext-mac-scheduler.cc`).
-**Deliverable:** findings only — no code was changed.
+**Deliverable:** findings only - no code was changed.
 
 ## Scope and assumptions
 
@@ -31,22 +31,22 @@ The data path correctly **reuses** the association random-access machinery for t
 | D2     | `MonitorTxQueue` re-trigger commented out → cycle stalls when the queue empties                                                                                       | **Bug**                                                          | High     | Fixed                                      |
 | D3     | FT `NS_FATAL_ERROR` on data from an unregistered PT                                                                                                                   | **Runtime-crash-risk** (assertion kept by choice)                | Low      | Kept for now by choice                     |
 | D4     | `responseAbsSubslot` can overflow the frame → scheduler `.at()` out-of-range                                                                                          | **Runtime-crash-risk** (indirectly mitigated; no explicit guard) | Medium   | A risk which has to be fixed in the future |
-| D5     | No sequence-number / NDI duplicate detection → duplicate over-count on ACK loss                                                                                       | **Design choice** (known)                                        | —        | Known design choice                        |
-| D6/D7  | No NACK/CRC handling; any received DATA PDU = ACK; no downlink-data path                                                                                              | **Design choice**                                                | —        | Known design choice                        |
-| D8     | ACK sent without LBT/backoff, graceful `IsAvailable` drop                                                                                                             | **Design choice** (correct/consistent)                           | —        | Known design choice                        |
+| D5     | No sequence-number / NDI duplicate detection → duplicate over-count on ACK loss                                                                                       | **Design choice** (known)                                        | -        | Known design choice                        |
+| D6/D7  | No NACK/CRC handling; any received DATA PDU = ACK; no downlink-data path                                                                                              | **Design choice**                                                | -        | Known design choice                        |
+| D8     | ACK sent without LBT/backoff, graceful `IsAvailable` drop                                                                                                             | **Design choice** (correct/consistent)                           | -        | Known design choice                        |
 | M-data | `LaunchApp`'s direct `InitiateHarq` pops `m_txQueue.front()` with no empty-check                                                                                      | **Minor latent-bug**                                             | Low      | Fixed                                      |
 
 ---
 
 ## Detailed findings
 
-### D1 — Stale `VerifyHarqAck` on the reused HARQ process (critical)
+### D1 - Stale `VerifyHarqAck` on the reused HARQ process (critical)
 
-**Status:** fix applied by the author (cycle progression collapsed to a single decision point — see *Recommended fix* below).
+**Status:** fix applied by the author (cycle progression collapsed to a single decision point - see *Recommended fix* below).
 
 **Root cause (one sentence):** the response-window verifier (`VerifyHarqAck`) is keyed **only by HARQ process number** (always `0`) and is **never cancelled when the ACK arrives**, so a verifier scheduled for the *current* packet fires later against the *next* packet, which by then is reusing the same single HARQ process.
 
-#### Clearest framing — guaranteed (not a race), driven by the deliberate response-window oversizing
+#### Clearest framing - guaranteed (not a race), driven by the deliberate response-window oversizing
 
 The response window is intentionally configured a bit **larger** than the real request→response cycle. In `examples/dect2020ext.cc`:
 
@@ -65,7 +65,7 @@ The response window is intentionally configured a bit **larger** than the real r
 
 1. `t0`: PT transmits packet A; `VerifyHarqAck` is scheduled at `t0 + 14 subslots`.
 2. The ACK for A arrives well before that → `HandleHarqAck` → `InitiateHarq(next)` → the **single** HARQ process is set back to `WAITING_ACK`, now for the *next* packet B.
-3. `t0 + 14 subslots`: the still-pending `VerifyHarqAck` (scheduled for A) fires, finds the process in state `WAITING_ACK`, and **wrongly concludes the already-acknowledged packet A failed** → bogus exponential backoff / CW doubling and an extra retransmission chain (or a crash — see below).
+3. `t0 + 14 subslots`: the still-pending `VerifyHarqAck` (scheduled for A) fires, finds the process in state `WAITING_ACK`, and **wrongly concludes the already-acknowledged packet A failed** → bogus exponential backoff / CW doubling and an extra retransmission chain (or a crash - see below).
 
 Because the oversizing is intentional, this triggers on essentially **every** packet, not just occasionally.
 
@@ -108,7 +108,7 @@ Because the next packet's context and `VerifyHarqAck` are created only *after* t
 
 ---
 
-### D2 — `MonitorTxQueue` re-trigger is disabled → cycle stalls on an empty queue (bug)
+### D2 - `MonitorTxQueue` re-trigger is disabled → cycle stalls on an empty queue (bug)
 
 The empty-queue fallback can detect a new packet but cannot start transmitting it:
 
@@ -128,13 +128,13 @@ Dect2020ExtMac::MonitorTxQueue()
 }
 ```
 
-When a packet finally arrives, it logs "Detected a new packet" and then does nothing (`InitiateHarq` commented out), so the data cycle **stalls permanently** for any configuration where the queue empties — which is an explicitly intended scenario (delay measurement). Under the D1 fix this is the path `VerifyHarqAck` takes when the queue is empty, so it must work.
+When a packet finally arrives, it logs "Detected a new packet" and then does nothing (`InitiateHarq` commented out), so the data cycle **stalls permanently** for any configuration where the queue empties - which is an explicitly intended scenario (delay measurement). Under the D1 fix this is the path `VerifyHarqAck` takes when the queue is empty, so it must work.
 
-**Classification: Bug.** **Fix:** the packet-detected branch must call `InitiateHarq(data=true)`. The **1 ms polling** mechanism is kept intentionally (configurable, not performance-critical) — recorded as a design choice rather than requiring an event-driven enqueue notification.
+**Classification: Bug.** **Fix:** the packet-detected branch must call `InitiateHarq(data=true)`. The **1 ms polling** mechanism is kept intentionally (configurable, not performance-critical) - recorded as a design choice rather than requiring an event-driven enqueue notification.
 
 ---
 
-### D3 — FT fatal-errors on data from an unregistered PT (runtime-crash-risk)
+### D3 - FT fatal-errors on data from an unregistered PT (runtime-crash-risk)
 
 ```1815:1818:contrib/dect-nr-ext/model/mac/dect2020ext-mac.cc
     else
@@ -149,7 +149,7 @@ Usually unreachable in the intended scenario (a PT transmits data only after ass
 
 ---
 
-### D4 — Response subslot can overflow the frame (runtime-crash-risk)
+### D4 - Response subslot can overflow the frame (runtime-crash-risk)
 
 ```1779:1787:contrib/dect-nr-ext/model/mac/dect2020ext-mac.cc
         uint32_t responseAbsSubslot = currentAbsSubslot + harqDelay + 1;
@@ -161,13 +161,13 @@ Usually unreachable in the intended scenario (a PT transmits data only after ass
 
 If `currentAbsSubslot + harqDelay + 1 ≥ subslotsPerFrame`, then `GetSubslotStartTimeOffsetNs` computes `slotNumber ≥ 24` and `m_macScheduler.at(nStart).at(slotNumber)` throws `std::out_of_range` → crash. Guarded only by a comment-level assumption, not a runtime check.
 
-**Mitigation present:** RACH is always configured not to exceed one frame, and `EvaluateLbtChannel`'s `CheckIfRachTxFitsInRemainingResources` only transmits when the (request+response) window fits in the remaining RACH, which keeps the ACK subslot inside the RACH window and therefore inside the frame. So the overflow is **indirectly** prevented — but there is no explicit guard, and the guarantee depends on the fit-check and response-window sizing remaining correct.
+**Mitigation present:** RACH is always configured not to exceed one frame, and `EvaluateLbtChannel`'s `CheckIfRachTxFitsInRemainingResources` only transmits when the (request+response) window fits in the remaining RACH, which keeps the ACK subslot inside the RACH window and therefore inside the frame. So the overflow is **indirectly** prevented - but there is no explicit guard, and the guarantee depends on the fit-check and response-window sizing remaining correct.
 
 **Classification: Runtime-crash-risk (medium).** **Recommended fix:** add a config-time assertion (`raraEndSubslot + maxHarqFeedbackDelay + 1 (+ response TX subslots) < subslotsPerFrame`) or modulo-wrap and handle the cross-frame case explicitly.
 
 ---
 
-### D5 — No duplicate detection (design choice)
+### D5 - No duplicate detection (design choice)
 
 Every dummy data PDU is built with `SequenceNumber(0)` (`EnqueuePacket`, `:2360`) and `NDI` is always `true`, so when an ACK is lost (FT PHY busy → `SendHarqAck` drops, or ACK collision) and the PT retransmits, the FT cannot recognize the retransmission and processes/ACKs it again. §5.6/HARQ would use the MAC sequence number / NDI to discard duplicates. Net effect: delivered/throughput counts are over-counted on ACK loss (relevant under multi-PT contention).
 
@@ -175,16 +175,16 @@ Every dummy data PDU is built with `SequenceNumber(0)` (`EnqueuePacket`, `:2360`
 
 ---
 
-### D6 / D7 — ACK semantics (design choice)
+### D6 / D7 - ACK semantics (design choice)
 
-- **No NACK / no CRC:** `HandleHarqAck` (`:1088`) resets the HARQ process on *reception* of the response, without inspecting feedback format/info or any CRC result — reception always means success (consistent with the no-SINR/no-CRC PHY model). The §5.3.4/§5.5 NACK and "CRC of DATA part fails ⇒ retransmit" paths are not implemented.
+- **No NACK / no CRC:** `HandleHarqAck` (`:1088`) resets the HARQ process on *reception* of the response, without inspecting feedback format/info or any CRC result - reception always means success (consistent with the no-SINR/no-CRC PHY model). The §5.3.4/§5.5 NACK and "CRC of DATA part fails ⇒ retransmit" paths are not implemented.
 - **Any DATA PDU = ACK:** the PT branch of `HandleDataPacket` routes every received DATA_MAC_PDU into `HandleHarqAck`; there is no downlink-data path, so a hypothetical FT→PT data packet would be read as an ACK. Harmless here because the FT only sends ACKs.
 
 **Classification: Design choice.**
 
 ---
 
-### D8 — ACK sent without LBT/backoff (design choice, correct)
+### D8 - ACK sent without LBT/backoff (design choice, correct)
 
 The uplink data PDU uses the full RACH path; the downlink ACK is sent as a scheduled response with only an availability check:
 
@@ -207,11 +207,11 @@ This mirrors `SendAssociationResponse` and matches the standard's model where th
 
 ---
 
-### M-data — `LaunchApp` initiates HARQ without an empty-queue check (minor latent-bug)
+### M-data - `LaunchApp` initiates HARQ without an empty-queue check (minor latent-bug)
 
 `LaunchApp` (`:2385`) calls `InitiateHarq(data=true)` directly, and `InitiateHarq` does `m_txQueue.front()` / `pop()` with no empty-check (`:956`). Harmless today because `m_app->Start()` enqueues exactly one packet first, but a misconfiguration such as `packetLimit == 0` (or any future path that launches with an empty queue) would pop an empty queue → undefined behavior / crash. All other `InitiateHarq` callers (`HandleHarqAck`, and `VerifyHarqAck` under the D1 fix) are guarded by a non-empty check.
 
-**Classification: Minor latent-bug.** (Author will decide on a fix — e.g., guard `InitiateHarq` with an empty-queue check, or only launch when a packet exists.)
+**Classification: Minor latent-bug.** (Author will decide on a fix - e.g., guard `InitiateHarq` with an empty-queue check, or only launch when a packet exists.)
 
 ---
 
@@ -219,26 +219,26 @@ This mirrors `SendAssociationResponse` and matches the standard's model where th
 
 These were classified in `Random Access Compliance Findings.md` and apply unchanged to data transmission:
 
-- **assoc-F2 (TODO):** the response-window size is an unenforced configuration assumption. **The D1 fix's correctness directly depends on it** — the ACK must arrive before `VerifyHarqAck` fires, otherwise the device retransmits a packet that was actually delivered. Add the runtime check recommended in F2.
+- **assoc-F2 (TODO):** the response-window size is an unenforced configuration assumption. **The D1 fix's correctness directly depends on it** - the ACK must arrive before `VerifyHarqAck` fires, otherwise the device retransmits a packet that was actually delivered. Add the runtime check recommended in F2.
 - **assoc-F3 (possible deviation ???):** LBT senses the interval *at* start position `k` and transmits at `k+1`.
 - **assoc-F4 (possible deviation, unresolved):** backoff is re-drawn each RACH occurrence instead of one persistent `rachBackOff` carried across frames.
 - **assoc-F5 (intentional simplification):** no `dectRachResourceFailure` / `maxRetx`. For data this means a packet that is never ACKed is **retransmitted forever** (CW saturates at `CW_MAX`).
-- **assoc-F7 (modeling-choice):** PHY first-wins capture, no SINR — governs how colliding data transmissions resolve (one winner + retries rather than mutual loss).
-- **assoc-F8 (intentional simplification):** `NDI` always `true` / fixed redundancy version on (re)transmissions — overlaps D5.
+- **assoc-F7 (modeling-choice):** PHY first-wins capture, no SINR - governs how colliding data transmissions resolve (one winner + retries rather than mutual loss).
+- **assoc-F8 (intentional simplification):** `NDI` always `true` / fixed redundancy version on (re)transmissions - overlaps D5.
 
 ---
 
 ## Decision log
 
-- **Deliverable = separate findings report**, no code changes — written beside the association report; classifications agreed item-by-item.
-- **Cycle trace confirmed**, and **both regimes in scope** — queue non-empty at ACK time (steady state) *and* queue empty at ACK time (configurable, for delay measurement) — so both re-trigger paths must be correct.
-- **D1 = critical bug (fix applied)** — stale `VerifyHarqAck` on the reused HARQ process causes a null-context dereference (or misattribution + duplicate TX); root cause is that the verify is keyed only by process number and never cancelled on ACK. The harmful ordering is **deterministic** (not a race): the response window is intentionally oversized (`ResponseWindow(14) = MaxRachLength(5)×2 + 3 + 1`) so the ACK is always processed before the verifier fires, re-arming the single process to `WAITING_ACK` for the next packet, which the stale verifier then misreads.
-- **D1 fix = single decision point** — `HandleHarqAck` only frees the process; `VerifyHarqAck` decides next action (next packet / monitor / retransmit). Accepted trade-off: next packet waits to the response-window boundary even on an early ACK.
-- **D2 = bug** — `MonitorTxQueue` must call `InitiateHarq` on packet detection; 1 ms polling kept as a configurable design choice.
-- **D3 = runtime-crash-risk** — author keeps the `NS_FATAL_ERROR` as an intentional invariant assertion; documented as a crash risk.
-- **D4 = runtime-crash-risk** — frame overflow is indirectly mitigated by the RACH fit-check + response-window sizing, but lacks an explicit guard; recommend a config-time assertion or modulo-wrap.
-- **D5 = design choice** — dummy packets without sequence numbers / NDI; duplicate over-count on ACK loss is known and accepted; `m_device->Receive` forwarding is out of scope.
-- **D6/D7 = design choice** — no NACK/CRC; any received DATA PDU is treated as a positive ACK; no downlink-data path.
-- **D8 = design choice (correct)** — ACK is a scheduled, non-contention response (no LBT) with a graceful busy-PHY drop, consistent with the association response and F6.
-- **M-data = minor latent-bug** — `LaunchApp`'s unguarded `InitiateHarq` would pop an empty queue under misconfiguration; author will decide on a fix.
-- **Inherited findings carry over** — especially assoc-F2 (response-window sizing) which the D1 fix relies on, and assoc-F5 (no abort) which means unacked data retransmits indefinitely.
+- **Deliverable = separate findings report**, no code changes - written beside the association report; classifications agreed item-by-item.
+- **Cycle trace confirmed**, and **both regimes in scope** - queue non-empty at ACK time (steady state) *and* queue empty at ACK time (configurable, for delay measurement) - so both re-trigger paths must be correct.
+- **D1 = critical bug (fix applied)** - stale `VerifyHarqAck` on the reused HARQ process causes a null-context dereference (or misattribution + duplicate TX); root cause is that the verify is keyed only by process number and never cancelled on ACK. The harmful ordering is **deterministic** (not a race): the response window is intentionally oversized (`ResponseWindow(14) = MaxRachLength(5)×2 + 3 + 1`) so the ACK is always processed before the verifier fires, re-arming the single process to `WAITING_ACK` for the next packet, which the stale verifier then misreads.
+- **D1 fix = single decision point** - `HandleHarqAck` only frees the process; `VerifyHarqAck` decides next action (next packet / monitor / retransmit). Accepted trade-off: next packet waits to the response-window boundary even on an early ACK.
+- **D2 = bug** - `MonitorTxQueue` must call `InitiateHarq` on packet detection; 1 ms polling kept as a configurable design choice.
+- **D3 = runtime-crash-risk** - author keeps the `NS_FATAL_ERROR` as an intentional invariant assertion; documented as a crash risk.
+- **D4 = runtime-crash-risk** - frame overflow is indirectly mitigated by the RACH fit-check + response-window sizing, but lacks an explicit guard; recommend a config-time assertion or modulo-wrap.
+- **D5 = design choice** - dummy packets without sequence numbers / NDI; duplicate over-count on ACK loss is known and accepted; `m_device->Receive` forwarding is out of scope.
+- **D6/D7 = design choice** - no NACK/CRC; any received DATA PDU is treated as a positive ACK; no downlink-data path.
+- **D8 = design choice (correct)** - ACK is a scheduled, non-contention response (no LBT) with a graceful busy-PHY drop, consistent with the association response and F6.
+- **M-data = minor latent-bug** - `LaunchApp`'s unguarded `InitiateHarq` would pop an empty queue under misconfiguration; author will decide on a fix.
+- **Inherited findings carry over** - especially assoc-F2 (response-window sizing) which the D1 fix relies on, and assoc-F5 (no abort) which means unacked data retransmits indefinitely.

@@ -28,6 +28,6 @@
 | ----------------------------------------------------------- | ---------------------------------------------------- |
 | Same `SpectrumModel` pointer in interference `m_allSignals` | ✓ via ChannelManager cache                           |
 | Same `SpectrumModel` pointer in TX PSD                      | ✓ via ChannelManager cache                           |
-| `GetRxSpectrumModel()` returns correct model                | ✗ returns nullptr — `m_spectrumModel` never assigned |
+| `GetRxSpectrumModel()` returns correct model                | ✗ returns nullptr - `m_spectrumModel` never assigned |
 | Compatibility enforced when adding signal to interference   | ✗ direct `double` indexing bypasses `NS_ASSERT`      |
 | `m_rxSignal` in interference                                | dead, never used                                     |

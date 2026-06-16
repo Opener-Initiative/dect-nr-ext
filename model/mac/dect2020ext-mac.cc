@@ -1897,7 +1897,7 @@ Dect2020ExtMac::HandleDataPacket(Ptr<Packet> packet, Dect2020ExtPhyControlFieldT
 
     if (it != m_associatedPtDevices.end())
     {
-        // found — *it is the Dect2020ExtAssociatedPtInfo
+        // found - *it is the Dect2020ExtAssociatedPtInfo
         NS_LOG_INFO(MAC_IDENTITY << ": Found PT with longRdId " << it->unicastHeader.GetTransmitterAddress());
 
         // Calculate the time to send the association response

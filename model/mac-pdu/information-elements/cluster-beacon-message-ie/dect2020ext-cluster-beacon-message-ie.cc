@@ -68,12 +68,12 @@ Dect2020ExtClusterBeaconMessageIe::GetSerializedSize() const
 
     if (m_nextChannelIncluded)
     {
-        sizeInBits += 16; // Bytes 6–7: Next Cluster Channel (13 bits + reserved)
+        sizeInBits += 16; // Bytes 6-7: Next Cluster Channel (13 bits + reserved)
     }
 
     if (m_timeToNextFieldPresent)
     {
-        sizeInBits += 32; // Bytes 8–11: Time to Next (32 bits)
+        sizeInBits += 32; // Bytes 8-11: Time to Next (32 bits)
     }
 
     // Round up to full bytes
@@ -206,7 +206,7 @@ Dect2020ExtClusterBeaconMessageIe::Deserialize(Buffer::Iterator start)
         m_frameOffset = byte5; // only 8 Bit variant implemented
     }
 
-    // Bytes 6–7 (optional)
+    // Bytes 6-7 (optional)
     if (m_nextChannelIncluded)
     {
         uint8_t byte6 = start.ReadU8();
@@ -216,7 +216,7 @@ Dect2020ExtClusterBeaconMessageIe::Deserialize(Buffer::Iterator start)
         m_nextClusterChannel = ((byte6 & 0x1F) << 8) | byte7;
     }
 
-    // Bytes 8–11 (optional)
+    // Bytes 8-11 (optional)
     if (m_timeToNextFieldPresent)
     {
         m_timeToNext = start.ReadU32();
