@@ -1,12 +1,14 @@
 # Spectrum Management Procedure
 
+> All standard clause references in this document refer to **ETSI TS 103 636-4 V2.1.1** (DECT-2020 NR Part 4: MAC layer).
+
 ## Overview
 
 The Spectrum Management Procedure governs how an RD selects operating channels and coordinates radio resources. The procedure differs depending on whether the RD operates in FT mode or PT mode.
 
 **FT mode** (coordinator):
 1. Performs a background scan to select the best operating channel.
-2. Transmits Network and Cluster Beacons on the selected channel so that PT devices can discover and join.
+2. Transmits Network and Cluster Beacons on the selected channel so that PT devices can discover and join the network.
 
 **PT mode** (client):
 1. Scans frequency channels to discover FT candidates by receiving their beacons.
@@ -36,7 +38,7 @@ Called at the start of each subslot. Tunes the PHY to the target channel by call
 
 Reads the instantaneous interference power for the target channel directly from the PHY interference model (`m_interference->m_allSignals`) and converts it from watts to dBm. The result is appended to the per-subslot sample vector in the `Dect2020ExtRssi1OnChannelContext`.
 
-> **Design choice - deviation from standard:** The standard (clause 5.1.2) requires using `max(RSSI-1)` within the subslot duration. The implementation instead computes the **average** of the 5 collected samples. This is considered acceptable in a simulation environment where interference levels are relatively stable.
+> **Design choice - deviation from the DECT-2020 NR standard:** The standard (clause 5.1.2) requires using `max(RSSI-1)` within the subslot duration. The implementation instead computes the **average** of the 5 collected samples.
 
 ### `Dect2020ExtMac::EndSubslotScan()`
 
@@ -47,7 +49,7 @@ Called at the end of each subslot. Stores the channel's context into the shared 
 Processes all collected RSSI samples and selects the operating channel. The steps are:
 
 1. **Average RSSI per subslot:** For each subslot on each channel, compute the mean of its 5 RSSI samples.
-2. **Classify each subslot** using the thresholds defined in the standard:
+2. **Classify each subslot** using the thresholds defined in the DECT-2020 NR standard:
    - `free` if average RSSI ≤ `RSSI_THRESHOLD_MIN` (−85 dBm)
    - `possible` if `RSSI_THRESHOLD_MIN` < average RSSI ≤ `RSSI_THRESHOLD_MAX` (−50 dBm)
    - `busy` if average RSSI > `RSSI_THRESHOLD_MAX`
@@ -55,15 +57,15 @@ Processes all collected RSSI samples and selects the operating channel. The step
 4. **Select** the top-ranked channel and store it as `Dect2020ExtMac::m_operatingChannelNumber`.
 5. **Proceed** to `Dect2020ExtMac::StartBeaconTransmission()` (if `Dect2020ExtMac::m_proceedToBeaconTransmission` is `true`).
 
-> **Known deviation - to be fixed:** The standard specifies a hierarchical selection algorithm: prefer channels where *all* subslots are free; if none exist, prefer the channel with the fewest `busy` subslots; break ties by fewest `possible` subslots. The implementation uses a simpler sort by most `free` subslots, which can select a different channel than the standard algorithm would. This will be corrected in a future revision.
+> **Known deviation — to be fixed:** The standard specifies a hierarchical selection algorithm: prefer channels where *all* subslots are free; if none exist, prefer the channel with the fewest `busy` subslots; break ties by fewest `possible` subslots. The implementation uses a simpler sort by most `free` subslots, which can select a different channel than the standard algorithm would. The sort-by-free approach produces correct results when a clearly dominant channel exists, but will be replaced with the standard-compliant algorithm in a future revision.
 
-> **Known missing feature (not planned):** The constant `SCAN_SUITABLE = 0.75` is defined but never evaluated. The standard allows the RD to stop the scan early and proceed to beacon transmission as soon as one channel has ≥ 75 % free+possible subslots. The implementation always completes the full sweep across all channels before selecting.
+> **Known missing feature:** The constant `SCAN_SUITABLE = 0.75` is defined but never evaluated. The standard allows the RD to stop the scan early and proceed to beacon transmission as soon as one channel has ≥ 75 % free+possible subslots. The implementation always completes the full sweep across all channels before selecting.
 
-> **Known missing feature (not planned):** The `scanStatusValid` timer (`SCAN_STATUS_VALID = 300 s`) is defined but never started. The standard requires the RD to track scan result validity and re-initiate the background scan when the timer expires or when the channel load exceeds `CHANNEL_LOADED` (not defined in this implementation). The scan result is considered valid for the entire simulation duration.
+> **Known missing feature:** The `scanStatusValid` timer (`SCAN_STATUS_VALID = 300 s`) is defined but never started. The standard requires the RD to track scan result validity and re-initiate the background scan when the timer expires or when the channel load exceeds `CHANNEL_LOADED` (not defined in this implementation). The scan result is considered valid for the entire simulation duration.
 
 ### `Dect2020ExtMac::DisplayChannelEvaluations()`
 
-An optional debug helper. When enabled via `Dect2020ExtMac::DisplayChannelEvaluations(true)`, prints a formatted table of all channel evaluations (channel ID, free/possible/busy/total subslot counts, and free percentage) to the NS-3 log at `INFO` level after channel selection completes.
+An optional debug helper. When enabled via `Dect2020ExtMac::DisplayChannelEvaluations(true)`, prints a formatted table of all channel evaluations (channel ID, free/possible/busy/total subslot counts, and free percentage) to the ns-3 log at `INFO` level after channel selection completes.
 
 ---
 
@@ -71,9 +73,9 @@ An optional debug helper. When enabled via `Dect2020ExtMac::DisplayChannelEvalua
 
 Corresponds to standard clause **5.1.5**. After channel selection, the FT transmits Network and Cluster Beacons periodically on the selected operating channel.
 
-> **Design choice:** Beacon transmissions are always **single-channel**. The Network Beacon is only ever sent on `Dect2020ExtMac::m_operatingChannelNumber`. The standard permits the FT to transmit the Network Beacon on multiple channels to reduce PT search time; this multi-channel sweep is not implemented. PT devices compensate by actively cycling through all band channels during discovery (see [Network Discovery - PT Mode](#network-discovery-and-ft-selection-pt-mode)).
+> **Design choice:** Beacon transmissions are always **single-channel**. The Network Beacon is only ever sent on `Dect2020ExtMac::m_operatingChannelNumber`. The standard permits the FT to transmit the Network Beacon on multiple channels to reduce PT search time; this multi-channel sweep is not implemented. PT devices compensate by actively cycling through all band channels during discovery (see [Network Discovery — PT Mode](#network-discovery-and-ft-selection-pt-mode)). Sending the Network Beacon on a single channel is sufficient because the PT performs an active channel sweep; multi-channel sweeping would only reduce PT discovery latency, which is not a primary concern in current simulation scenarios.
 
-> **Design choice:** Beacon subslot positions within a frame are **fixed**. The Network Beacon is always placed at **subslot 0** (start of the first slot) and the Cluster Beacon is always placed at **subslot 4** (start of the second slot). These offsets are hardcoded and are not negotiated or configurable at runtime.
+> **Design choice:** Beacon subslot positions within a frame are **fixed**. The Network Beacon is always placed at **subslot 0** (start of the first slot) and the Cluster Beacon is always placed at **subslot 4** (start of the second slot). These offsets are hardcoded and are not negotiated or configurable at runtime. This simplifies scheduler configuration and ensures predictable beacon timing without requiring dynamic slot negotiation.
 
 ### `Dect2020ExtMac::StartBeaconTransmission()`
 
@@ -97,7 +99,7 @@ Perform two PHY state checks before transmitting:
 - If the PHY is in `TX` state: **fatal error** - this would indicate a scheduler conflict.
 - If the PHY is in `RX` state: the beacon is **silently dropped** and the dropped-beacon counter is incremented. There is no retry or deferral.
 
-> **Design choice:** On a PHY collision (another packet is being received at the scheduled beacon subslot), the beacon is dropped rather than deferred. Deferring would require tracking the end of the incoming reception and re-scheduling within the same subslot, adding complexity with limited simulation value.
+> **Design choice:** On a PHY collision (another packet is being received at the scheduled beacon subslot), the beacon is dropped rather than deferred. Deferring would require tracking the end of the incoming reception and re-scheduling within the same subslot, adding complexity.
 
 If the PHY is idle, the beacon packet is built (`Dect2020ExtMac::BuildNetworkBeacon()` / `Dect2020ExtMac::BuildClusterBeacon()`) and passed to the PHY via `Dect2020ExtMac::m_phy->Send()`.
 
@@ -135,7 +137,7 @@ Called when the PHY delivers a received beacon. Parses the Beacon Header to extr
 Handles the FT candidate state machine on the PT side:
 
 - If already `ASSOCIATED`: ignores the beacon.
-- If `NOT_ASSOCIATED` (first cluster beacon ever received): transitions to `ASSOCIATION_PREPARING`, resumes `Dect2020ExtMac::DiscoverNetworks()` to keep collecting candidates, and schedules `Dect2020ExtMac::SelectBestFtCandidate()` after `searchBestFtTimeMs` (default: **2000 ms**, configurable via `Dect2020ExtMac::SetSearchBestFtTimeMs()`).
+- If `NOT_ASSOCIATED` (first cluster beacon ever received): transitions to `ASSOCIATION_PREPARING`, resumes `Dect2020ExtMac::DiscoverNetworks()` to keep collecting candidates, and schedules `Dect2020ExtMac::SelectBestFtCandidate()` after `searchBestFtTimeMs` (default: **2000 ms**, configurable via `Dect2020ExtMac::SetSearchBestFtTimeMs()`). The 2000 ms default is chosen to be large enough to hear at least one full beacon period from every FT in the band before committing to a candidate.
 - If `WAITING_FOR_SELECTED_FT` and the beacon is from the previously selected FT: schedules `Dect2020ExtMac::SendAssociationRequest()` immediately.
 
 ### `Dect2020ExtMac::SelectBestFtCandidate()`
@@ -147,11 +149,11 @@ After the discovery window expires, selects the best FT from all entries in `Dec
 3. Switches `Dect2020ExtMac::m_operatingChannelNumber` to the selected FT's cluster channel.
 4. Transitions to `WAITING_FOR_SELECTED_FT` and waits for the next Cluster Beacon from the selected FT to trigger the Association Request.
 
-If `Dect2020ExtMac::m_ftCandidates` is empty (no FT was heard during the discovery window), the PT logs a warning and remains in `NOT_ASSOCIATED` with **no automatic retry**. It will stay in this state for the rest of the simulation.
+If `Dect2020ExtMac::m_ftCandidates` is empty (no FT was heard during the discovery window), the PT logs a warning and remains in `NOT_ASSOCIATED` with **no automatic retry**. It will stay in this state for the rest of the simulation. In the target simulation scenarios the network is always present, so an automatic retry would only mask a misconfiguration.
 
-> **Known missing feature (not planned):** The standard requires a minimum quality gate before an FT is accepted: `RSSI-2 ≥ MIN_SENSITIVITY_LEVEL + MIN_QUALITY`. This check is not performed. All heard FT candidates are accepted regardless of signal strength, and the one with the highest RSSI-2 is always selected.
+> **Known missing feature:** The standard requires a minimum quality gate before an FT is accepted: `RSSI-2 ≥ MIN_SENSITIVITY_LEVEL + MIN_QUALITY`. This check is not performed. All heard FT candidates are accepted regardless of signal strength, and the one with the highest RSSI-2 is always selected. In controlled simulation environments, all FTs are within range and signal quality is guaranteed by the simulation topology, so the gate would never filter any candidate.
 
-> **Known missing feature (not planned):** The standard specifies that if a cluster beacon contains a Route Info IE, the PT should calculate its route cost to each FT and prefer the lower-cost path, falling back to highest RSSI-2 only on a tie. Route cost calculation is not implemented; the PT always selects strictly by highest RSSI-2.
+> **Known missing feature:** The standard specifies that if a cluster beacon contains a Route Info IE, the PT should calculate its route cost to each FT and prefer the lower-cost path, falling back to highest RSSI-2 only on a tie. Route cost calculation is not implemented; the PT always selects strictly by highest RSSI-2.
 
 ---
 
@@ -188,17 +190,3 @@ The Joining Beacon message type, which enables secure authentication procedures,
 | 15 | Simultaneous FT+PT mode | 5.1.1 | Single mode only; RD cannot act as FT and PT simultaneously | Design choice |
 | 16 | Short RD ID collision detection | 5.1.2 | Not checked during background scan | Known missing feature |
 
----
-
-## Decision Log
-
-- **Average vs. max RSSI-1:** Averaging 5 intra-subslot samples was chosen over `max()` for implementation simplicity. In a simulation, interference levels are deterministic and stable within a subslot, so the practical difference is minimal.
-- **Single-scan at startup:** The background scan runs once and results are permanent. This avoids the complexity of scan refresh, timer management, and channel re-selection mid-operation, which are not required by the target simulation scenarios.
-- **Fixed beacon subslots:** Hardcoding subslot 0 (Network Beacon) and subslot 4 (Cluster Beacon) simplifies scheduler configuration and ensures predictable beacon timing without requiring dynamic slot negotiation.
-- **Single-channel beacon:** Sending the Network Beacon only on the operating channel is simpler and sufficient because the PT performs an active channel sweep. Multi-channel beacon sweeping would only reduce PT discovery latency, which is not a primary concern in current simulation scenarios.
-- **Beacon drop on collision:** Deferring a beacon transmission after a received packet ends requires fine-grained timing within an already-occupied subslot. Dropping is acceptable because missed beacons are periodic and the next period will retry.
-- **PT discovery window:** The default 2000 ms window for `Dect2020ExtMac::SelectBestFtCandidate()` is configurable and was chosen to be large enough to hear at least one beacon period from every FT in the band before committing to a candidate.
-- **Channel selection algorithm (to be fixed):** The current sort-by-free approach is a simplification. The standard-compliant hierarchical algorithm (all-free → fewest-busy → fewest-possible) will be implemented in a future revision.
-- **No-FT-found behavior:** When no FT candidates are heard, the PT stays stuck in `NOT_ASSOCIATED`. This is intentional — in the target simulation scenarios the network is always present, so an automatic retry would only mask a misconfiguration.
-- **PT quality gate and route cost omitted:** In controlled simulation environments, all FTs are within range and signal quality is guaranteed by topology design. The quality gate and route cost logic add complexity without changing the outcome in the target scenarios.
-- **Last Minute Scan omitted:** `DECT_PROTECTED` mode and `dectProTime` are irrelevant to the target simulation scenarios, which do not model protected DECT spectrum. The feature is omitted entirely.
