@@ -439,10 +439,10 @@ class Dect2020ExtMac : public Object
 
         const double RSSI_THRESHOLD_MIN = -85; // dBm
         const double RSSI_THRESHOLD_MAX = -50; // dBm TODO: RSSI_THRESHOLDMAX = -52 - max TX Power of RD
-        const int SCAN_MEAS_DURATION = 24;     // slots
+        const int SCAN_MEAS_DURATION = 24;     // Slots
         const double SCAN_SUITABLE = 0.75;     // Threshold when an operating channel can be considered
                                                // fulfilling the operating conditions.
-        const int SCAN_STATUS_VALID = 300;     // seconds
+        const int SCAN_STATUS_VALID = 300;     // Seconds
 
         // ###### Constants specifically for subcarrier scaling factor 1 ######
 

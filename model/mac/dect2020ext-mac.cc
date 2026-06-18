@@ -435,7 +435,7 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
 void
 Dect2020ExtMac::DisplayChannelEvaluations()
 {
-    NS_LOG_INFO("============ Channel Evaluations Summary ============");
+    NS_LOG_INFO(MAC_IDENTITY << "============ Channel Evaluations Summary ============");
     
     // Display all channel evaluations
     if (m_channelEvaluations.empty())
@@ -445,8 +445,8 @@ Dect2020ExtMac::DisplayChannelEvaluations()
     }
     
     // Display header
-    NS_LOG_INFO("Channel ID | Free | Possible | Busy | Total | Free %");
-    NS_LOG_INFO("-----------------------------------------------------");
+    NS_LOG_INFO(MAC_IDENTITY << "Channel ID | Free | Possible | Busy | Total | Free %");
+    NS_LOG_INFO(MAC_IDENTITY << "-----------------------------------------------------");
     
     // Display each channel evaluation
     for (const auto& eval : m_channelEvaluations)
@@ -462,10 +462,10 @@ Dect2020ExtMac::DisplayChannelEvaluations()
             << std::setw(5) << total << " | "
             << std::fixed << std::setprecision(1) << std::setw(5) << freePercentage << "%";
         
-        NS_LOG_INFO(oss.str());
+        NS_LOG_INFO(MAC_IDENTITY << oss.str());
     }
     
-    NS_LOG_INFO("====================================================");
+    NS_LOG_INFO(MAC_IDENTITY << "====================================================");
 }
 
 void

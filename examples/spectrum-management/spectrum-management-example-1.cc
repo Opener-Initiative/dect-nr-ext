@@ -1,7 +1,8 @@
 // Spectrum Management Procedure: Example 1 - operating channel selection for 2 FTs
 // 1. Establish communication for 1 FT and 1 PT
 // 2. Launch another FT
-// Goal: determine which channel is selected by two FT devices
+// Goal: determine which channel is selected by two FT devices if communication is already
+// happening on one channel
 
 #include "ns3/dect2020ext-module.h"
 
@@ -12,8 +13,8 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 int
 main(int argc, char *argv[])
 {
-    // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
-    // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME));
     // LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
 
@@ -51,8 +52,8 @@ main(int argc, char *argv[])
     NodeContainer ftNodes;
     NetDeviceContainer ftDevices;
     Ptr<UniformRandomVariable> randomFtRadius = CreateObject<UniformRandomVariable>();
-    randomFtRadius->SetAttribute("Min", DoubleValue(5.0));
-    randomFtRadius->SetAttribute("Max", DoubleValue(10.0));
+    randomFtRadius->SetAttribute("Min", DoubleValue(0.0));
+    randomFtRadius->SetAttribute("Max", DoubleValue(1.0));
     Time startDelay = MilliSeconds(300);
 
     for (int i = 0; i < ftNumber; i++)
@@ -97,11 +98,11 @@ main(int argc, char *argv[])
     // ###### PT ######
     // ################
 
-    int ptNumber = 2;
+    int ptNumber = 1;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
-    randomRadius->SetAttribute("Min", DoubleValue(10.0));
-    randomRadius->SetAttribute("Max", DoubleValue(50.0));
+    randomRadius->SetAttribute("Min", DoubleValue(1.0));
+    randomRadius->SetAttribute("Max", DoubleValue(5.0));
 
     for (int i = 0; i < ptNumber; i++)
     {

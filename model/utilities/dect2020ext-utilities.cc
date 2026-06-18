@@ -91,16 +91,17 @@ graph.add_edges_from(edges)
 
 position = {name: (x, y) for name, type, status, x, y in nodes}
 
-plt.figure(figsize=(10, 6))
-nx.draw(graph, position, with_labels=True, node_size=700, edge_color='red')
+plt.figure(figsize=(14, 10))
+nx.draw(graph, position, with_labels=True, node_size=2000, edge_color='red', font_size=12, font_weight='bold')
 
 edge_labels = nx.get_edge_attributes(graph, 'power')
 edge_labels = {k: f'{v:.1f} dBm' for k, v in edge_labels.items()}
 
-nx.draw_networkx_edge_labels(graph, position, edge_labels)
+nx.draw_networkx_edge_labels(graph, position, edge_labels, font_size=20)
 
 plt.axis('on')
 plt.grid(True)
+plt.margins(0.4)
 plt.show()
 )";
 
