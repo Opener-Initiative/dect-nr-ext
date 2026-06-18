@@ -375,13 +375,34 @@ Dect2020ExtMac::OperatingChannelSelection(std::shared_ptr<Dect2020ExtBackgroundS
         evaluations.push_back(evaluation);
     }
 
-    // Sort by free subslots
-    auto SortByFreeSubslotsLambda = [](const Dect2020ExtChannelEvaluation& a, const Dect2020ExtChannelEvaluation& b)
+    // Standard-compliant hierarchical sort (ETSI TS 103 636-4):
+    // 1. Channels where ALL subslots are free come first.
+    // 2. Among the rest, prefer fewer busy subslots.
+    // 3. Break busy ties by fewer possible subslots.
+    // 4. Break remaining ties by ascending channel number so the lowest-numbered
+    //    channel is always preferred when all other criteria are equal.
+    auto StandardCompliantSortLambda = [](const Dect2020ExtChannelEvaluation& a,
+                                          const Dect2020ExtChannelEvaluation& b)
     {
-        return a.free > b.free;
+        bool aAllFree = (a.busy == 0 && a.possible == 0);
+        bool bAllFree = (b.busy == 0 && b.possible == 0);
+
+        if (aAllFree != bAllFree)
+        {
+            return aAllFree;
+        }
+        if (a.busy != b.busy)
+        {
+            return a.busy < b.busy;
+        }
+        if (a.possible != b.possible)
+        {
+            return a.possible < b.possible;
+        }
+        return a.channelNumber < b.channelNumber;
     };
-    
-    std::stable_sort(evaluations.begin(), evaluations.end(), SortByFreeSubslotsLambda);
+
+    std::sort(evaluations.begin(), evaluations.end(), StandardCompliantSortLambda);
 
     m_channelEvaluations = evaluations;
     

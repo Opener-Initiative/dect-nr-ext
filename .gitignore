@@ -3,3 +3,4 @@ venv/
 /logs/*
 !/logs/.gitkeep
 dect2020ext.log
+DECT NR+/.obsidian/

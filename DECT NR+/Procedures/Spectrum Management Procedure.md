@@ -53,11 +53,13 @@ Processes all collected RSSI samples and selects the operating channel. The step
    - `free` if average RSSI ≤ `RSSI_THRESHOLD_MIN` (−85 dBm)
    - `possible` if `RSSI_THRESHOLD_MIN` < average RSSI ≤ `RSSI_THRESHOLD_MAX` (−50 dBm)
    - `busy` if average RSSI > `RSSI_THRESHOLD_MAX`
-3. **Rank channels** by their number of `free` subslots in descending order.
+3. **Rank channels** using the standard-compliant hierarchical algorithm:
+   1. Prefer any channel where **all** subslots are `free`.
+   2. If no such channel exists, prefer the channel with the **fewest `busy`** subslots.
+   3. Break ties on `busy` by preferring the channel with the **fewest `possible`** subslots.
+   4. Break any remaining ties by **ascending channel number** (lowest channel number wins).
 4. **Select** the top-ranked channel and store it as `Dect2020ExtMac::m_operatingChannelNumber`.
 5. **Proceed** to `Dect2020ExtMac::StartBeaconTransmission()` (if `Dect2020ExtMac::m_proceedToBeaconTransmission` is `true`).
-
-> **Known deviation - to be fixed:** The standard specifies a hierarchical selection algorithm: prefer channels where *all* subslots are free; if none exist, prefer the channel with the fewest `busy` subslots; break ties by fewest `possible` subslots. The implementation uses a simpler sort by most `free` subslots, which can select a different channel than the standard algorithm would. The sort-by-free approach produces correct results when a clearly dominant channel exists, but will be replaced with the standard-compliant algorithm in a future revision.
 
 > **Known missing feature:** The constant `SCAN_SUITABLE = 0.75` is defined but never evaluated. The standard allows the RD to stop the scan early and proceed to beacon transmission as soon as one channel has ≥ 75 % free+possible subslots. The implementation always completes the full sweep across all channels before selecting.
 
