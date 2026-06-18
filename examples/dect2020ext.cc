@@ -85,7 +85,7 @@ main(int argc, char *argv[])
         config.ApplyToPhy(ptPhy);
 
         Ptr<Dect2020ExtMac> ptMac = CreateObject<Dect2020ExtMac>();
-        ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
+        ptMac->SetTerminationPointType(Dect2020ExtNetDevice::PT);
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(associationControlIe);
         // ptMac->ProceedToDataTransmission(false);

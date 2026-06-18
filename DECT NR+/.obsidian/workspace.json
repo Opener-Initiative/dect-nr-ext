@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Procedures/Spectrum Management Procedure.md",
+                "file": "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spectrum Management Procedure"
+              "title": "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1)"
             }
           }
         ]
@@ -185,22 +185,25 @@
   },
   "active": "3a7f9800f07017c1",
   "lastOpenFiles": [
-    "Procedures/Random Access Compliance Findings.md",
-    "Procedures/Spectrum Management Procedure.md",
-    "Procedures/Data Transmission Compliance Findings.md",
+    "Identities.md",
+    "Diagrams.md",
+    "Spectrum, Interference, and RSSI.md",
     "Tracking.md",
-    "Configuration.md",
+    "Logging.md",
     "DECT-2020 NR ns-3 Implementation (ETSI TS 103 636 V2.1.1).md",
+    "Procedures/Association Procedure.md",
+    "Configuration.md",
+    "Procedures/Spectrum Management Procedure.md",
+    "Procedures/Random Access Procedure, HARQ Operation, and Data Transmission.md",
+    "Procedures/Random Access Compliance Findings.md",
+    "Procedures/Data Transmission Compliance Findings.md",
     "README.md",
     "Manual.md",
     "Procedures/Data Option Trace and Association-to-Data Handoff Findings.md",
     "Procedures/Random Access Procedure and HARQ Operation.md",
     "MAC PDU.md",
-    "Identities.md",
     "Procedures",
-    "Spectrum, Interference, and RSSI.md",
     "Dect2020Ext Manual.md",
-    "Diagrams.md",
     "DECT NR+.html",
     "DECT NR+_tmp.html",
     "DECT NR+.pdf",

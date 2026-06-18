@@ -4,3 +4,10 @@ build_lib_example(
     LIBRARIES_TO_LINK
         ${libdect-nr-ext}
 )
+
+build_lib_example(
+    NAME spectrum-management-example-1
+    SOURCE_FILES spectrum-management/spectrum-management-example-1.cc
+    LIBRARIES_TO_LINK
+        ${libdect-nr-ext}
+)
