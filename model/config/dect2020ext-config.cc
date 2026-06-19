@@ -8,6 +8,9 @@
 namespace ns3
 {
 
+using DlDataReception = ns3::Dect2020ExtAssociationControlIe::DlDataReception;
+using UlPeriod = ns3::Dect2020ExtAssociationControlIe::UlPeriod;
+
 Dect2020ExtConfig::Dect2020ExtConfig()
 {
     m_spectrumChannel = CreateConfiguredSpectrumChannel();
@@ -73,6 +76,39 @@ Dect2020ExtConfig::ApplyToMac(Ptr<Dect2020ExtMac> mac)
     mac->SetSubcarrierScalingFactor(SUBCARRIER_SCALING_FACTOR);
     mac->SetFourierTransformScalingFactor(FOURIER_TRANSFORM_SCALING_FACTOR);
     mac->SetChannelManager(m_channelManager);
+}
+
+Dect2020ExtRandomAccessResourceIe
+Dect2020ExtConfig::GetDefaultRandomAccessResourceIe()
+{
+    // Response window = (Max RACH Tx length * 2) + 3 (HARQ feedback) + 1 (additional subslot to cover propagation delay)
+    Dect2020ExtRandomAccessResourceIe randomAccessResourceIe;
+    randomAccessResourceIe.SetRepeat(0);
+    randomAccessResourceIe.SetSystemFrameNumberFieldIncluded(false);
+    randomAccessResourceIe.SetChannelFieldIncluded(false);
+    randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
+    randomAccessResourceIe.SetStartSubslot(10);
+    randomAccessResourceIe.SetLengthType(false); // RACH resources length in subslots
+    randomAccessResourceIe.SetRaraLength(30);
+    randomAccessResourceIe.SetMaxRachLengthType(false); // Max RACH Tx length in subslots
+    randomAccessResourceIe.SetMaxRachLength(5); // enough length for common MAC PDU Messages in subslots
+    randomAccessResourceIe.SetCwMinSig(1);
+    randomAccessResourceIe.SetDectDelay(false);
+    randomAccessResourceIe.SetResponseWindow(14); // in subslots
+    randomAccessResourceIe.SetCwMaxSig(3);
+
+    return randomAccessResourceIe;
+}
+
+Dect2020ExtAssociationControlIe
+Dect2020ExtConfig::GetDefaultAssociationControlIe()
+{
+    Dect2020ExtAssociationControlIe associationControlIe;
+    associationControlIe.SetCbM(0); // maintain Cluster Beacon reception
+    associationControlIe.SetDlDataReception(DlDataReception::MS_0); // maintaining Cluster Beacon reception
+    associationControlIe.SetUlPeriod(UlPeriod::S_10); // association maintenance period 10 seconds
+
+    return associationControlIe;
 }
 
 } // namespace ns3

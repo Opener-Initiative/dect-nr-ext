@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 nodes = []
 edges = []
 
-nodes.append(('FT0', 'FT', 'NOT_ASSOCIATED', 0.816532, 0))
-nodes.append(('FT1', 'FT', 'NOT_ASSOCIATED', -0.606846, 7.43172e-17))
-nodes.append(('PT0', 'PT', 'ASSOCIATED', 4.47197, 0))
-edges.append(('FT0', 'PT0', {'power': -53.5659}))
+nodes.append(('FT_MAC[0]', 'FT', 'NOT_ASSOCIATED', 0.816532, 0))
+nodes.append(('FT_MAC[1]', 'FT', 'NOT_ASSOCIATED', -0.606846, 7.43172e-17))
+nodes.append(('PT_MAC[2]', 'PT', 'ASSOCIATED', 4.47197, 0))
+edges.append(('FT_MAC[0]', 'PT_MAC[2]', {'power': -53.5659}))
 
 graph = nx.Graph()
 

@@ -30,7 +30,7 @@ main(int argc, char *argv[])
     randomAccessResourceIe.SetSeparateChannelFieldIncluded(false);
     randomAccessResourceIe.SetStartSubslot(10);
     randomAccessResourceIe.SetLengthType(false); // RACH resources length in subslots
-    randomAccessResourceIe.SetRaraLength(20);
+    randomAccessResourceIe.SetRaraLength(30);
     randomAccessResourceIe.SetMaxRachLengthType(false); // Max RACH Tx length in subslots
     randomAccessResourceIe.SetMaxRachLength(5); // in subslots
     randomAccessResourceIe.SetCwMinSig(1);

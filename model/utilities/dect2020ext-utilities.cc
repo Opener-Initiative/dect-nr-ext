@@ -13,8 +13,8 @@ namespace ns3
 void
 CreatePythonConnectionGraph(NetDeviceContainer devices)
 {
-    int ftCounter = 0;
-    int ptCounter = 0;
+    // int ftCounter = 0;
+    // int ptCounter = 0;
     std::map<uint64_t, std::string> longRdIdToName;
 
     std::ofstream topo("./contrib/dect-nr-ext/dect2020ext_topology.py");
@@ -55,19 +55,20 @@ CreatePythonConnectionGraph(NetDeviceContainer devices)
             break;
         }
 
-        std::string type = dectDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT ? "FT" : "PT";
-        std::string name;
-        if (type == "FT")
-        {
-            name = "FT" + std::to_string(ftCounter);
-            ftCounter++;
-        }
-        else
-        {
-            name = "PT" + std::to_string(ptCounter);
-            ptCounter++;
-        }
+        // std::string name;
+        // if (type == "FT")
+        // {
+        //     name = "FT" + std::to_string(ftCounter);
+        //     ftCounter++;
+        // }
+        // else
+        // {
+        //     name = "PT" + std::to_string(ptCounter);
+        //     ptCounter++;
+        // }
 
+        std::string type = dectDevice->GetTerminationPointType() == Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::FT ? "FT" : "PT";
+        std::string name = mac->MAC_IDENTITY;
         longRdIdToName[mac->GetLongRadioDeviceId()] = name;
 
         topo << "nodes.append(('" << name << "', '" << type << "', '"
@@ -139,6 +140,18 @@ InstallCenterMobilityModel(Ptr<Node> node)
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 
     mobility.Install(node);
+}
+
+void
+OutputSelectedOperatingChannels(NetDeviceContainer devices)
+{
+    std::cout << "========== Selected Operating Channels by all devices ==========" << "\n";
+    for (auto device = devices.Begin(); device != devices.End(); device++)
+    {
+        Ptr<Dect2020ExtNetDevice> dectDevice = DynamicCast<Dect2020ExtNetDevice>(*device);
+        Ptr<Dect2020ExtMac> mac = dectDevice->GetMac();
+        std::cout << mac->MAC_IDENTITY << ": " << mac->GetOperatingChannelNumber() << "\n";
+    }
 }
 
 } // namespace ns3

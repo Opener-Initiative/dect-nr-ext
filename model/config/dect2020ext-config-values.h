@@ -1,6 +1,7 @@
 #ifndef DECT2020EXT_CONFIG_VALUES_H
 #define DECT2020EXT_CONFIG_VALUES_H
 
+
 #include "ns3/single-model-spectrum-channel.h"
 #include "ns3/propagation-delay-model.h"
 #include "ns3/propagation-loss-model.h"

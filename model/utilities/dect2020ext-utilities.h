@@ -9,5 +9,6 @@ namespace ns3
 void CreatePythonConnectionGraph(NetDeviceContainer devices);
 void InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius);
 void InstallCenterMobilityModel(Ptr<Node> node);
+void OutputSelectedOperatingChannels(NetDeviceContainer devices);
 
 } // namespace ns3

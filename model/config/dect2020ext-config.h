@@ -3,7 +3,6 @@
 
 #include "dect2020ext-config-values.h"
 
-#include "ns3/dect2020ext-channel-manager.h"
 #include "ns3/dect2020ext-phy.h"
 #include "ns3/dect2020ext-mac.h"
 
@@ -25,6 +24,8 @@ class Dect2020ExtConfig
         Ptr<IsotropicAntennaModel> CreateConfiguredIsotropicAntennaModel();
         void ApplyToPhy(Ptr<Dect2020ExtPhy> phy);
         void ApplyToMac(Ptr<Dect2020ExtMac> mac);
+        Dect2020ExtRandomAccessResourceIe GetDefaultRandomAccessResourceIe();
+        Dect2020ExtAssociationControlIe GetDefaultAssociationControlIe();
 
         Ptr<SpectrumChannel> m_spectrumChannel;
         Ptr<Dect2020ExtChannelManager> m_channelManager;
