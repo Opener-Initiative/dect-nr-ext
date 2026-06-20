@@ -1,4 +1,4 @@
-// Spectrum Management Procedure: Example 1 - operating channel selection for 2 FTs
+// Spectrum Management Procedure: Example 1 - operating channel selection for 2 FTs during background scan
 // 1. Establish communication for 1 FT and 1 PT
 // 2. Launch another FT
 // Goal: determine which channel is selected by two FT devices if communication is already
@@ -27,16 +27,18 @@ main(int argc, char *argv[])
     // Configuration
     Dect2020ExtConfig config;
 
+    Time startDelay = MilliSeconds(300);
+
     // ################
     // ###### FT ######
     // ################
 
     int ftNumber = 2;
     NodeContainer ftNodes;
+    NetDeviceContainer ftDevices;
     Ptr<UniformRandomVariable> randomFtRadius = CreateObject<UniformRandomVariable>();
     randomFtRadius->SetAttribute("Min", DoubleValue(0.0));
     randomFtRadius->SetAttribute("Max", DoubleValue(1.0));
-    Time startDelay = MilliSeconds(300);
 
     for (int i = 0; i < ftNumber; i++)
     {
@@ -61,11 +63,10 @@ main(int argc, char *argv[])
         ftNetDevice->SetNode(ftNode);
 
         ftNode->AddDevice(ftNetDevice);
-
-        InstallCircularMobilityModel(i, ftNumber, ftNode, randomFtRadius);
-        ftPhy->SetMobility(ftNode->GetObject<MobilityModel>());
+        ftNodes.Add(ftNode);
 
         devices.Add(ftNetDevice);
+        ftDevices.Add(ftNetDevice);
 
         ftMac->Initialize();
 
@@ -79,6 +80,7 @@ main(int argc, char *argv[])
 
     int ptNumber = 1;
     NodeContainer ptNodes;
+    NetDeviceContainer ptDevices;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
     randomRadius->SetAttribute("Min", DoubleValue(1.0));
     randomRadius->SetAttribute("Max", DoubleValue(5.0));
@@ -107,15 +109,27 @@ main(int argc, char *argv[])
 
         ptNode->AddDevice(ptNetDevice);
 
-        InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius);
+        InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius, Vector(-2.5, 0.0, 0.0));
         ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
 
         devices.Add(ptNetDevice);
+        ptDevices.Add(ptNetDevice);
 
         ptMac->Initialize();
-        ptMac->Start();
-        ptPhy->Start();
+
+        Simulator::Schedule(startDelay * i, &Dect2020ExtMac::Start, ptMac);
+        Simulator::Schedule(startDelay * i, &Dect2020ExtPhy::Start, ptPhy);
     }
+
+    // Place FT1 at -2.5, 0, 0
+    InstallConstantMobilityModel(ftNodes.Get(0), Vector(-2.5, 0.0, 0.0));
+    Ptr<Dect2020ExtNetDevice> ftDevice1 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(0));
+    ftDevice1->GetPhy()->SetMobility(ftNodes.Get(0)->GetObject<MobilityModel>());
+
+    // Place FT2 at 2.5, 0, 0
+    InstallConstantMobilityModel(ftNodes.Get(1), Vector(2.5, 0.0, 0.0));
+    Ptr<Dect2020ExtNetDevice> ftDevice2 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(1));
+    ftDevice2->GetPhy()->SetMobility(ftNodes.Get(1)->GetObject<MobilityModel>());
 
     Simulator::Stop(Seconds(6));
     Simulator::Run();

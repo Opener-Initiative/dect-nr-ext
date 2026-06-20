@@ -110,7 +110,7 @@ plt.show()
 }
 
 void
-InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius)
+InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius, Vector center)
 {        
     NS_ASSERT_MSG(totalNodes > 0, "totalNodes must be > 0 to avoid division by zero");
     MobilityHelper mobility;
@@ -119,10 +119,10 @@ InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node
     // Calculate angle for the node (evenly distributed around circle)
     double angle = (2.0 * M_PI * index) / totalNodes; // radians
     double radius = randomRadius->GetValue();
-    double x = radius * std::cos(angle);
-    double y = radius * std::sin(angle);        
-    
-    positionAllocator->Add(Vector(x, y, 0.0));        
+    double x = center.x + radius * std::cos(angle);
+    double y = center.y + radius * std::sin(angle);
+
+    positionAllocator->Add(Vector(x, y, center.z));
 
     mobility.SetPositionAllocator(positionAllocator);
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
@@ -136,6 +136,18 @@ InstallCenterMobilityModel(Ptr<Node> node)
     MobilityHelper mobility;
     Ptr<ListPositionAllocator> positionAllocator = CreateObject<ListPositionAllocator>();
     positionAllocator->Add(Vector(0.0, 0.0, 0.0));
+    mobility.SetPositionAllocator(positionAllocator);
+    mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+
+    mobility.Install(node);
+}
+
+void
+InstallConstantMobilityModel(Ptr<Node> node, Vector position)
+{
+    MobilityHelper mobility;
+    Ptr<ListPositionAllocator> positionAllocator = CreateObject<ListPositionAllocator>();
+    positionAllocator->Add(position);
     mobility.SetPositionAllocator(positionAllocator);
     mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
 

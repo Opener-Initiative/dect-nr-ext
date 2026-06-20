@@ -7,8 +7,9 @@ namespace ns3
 {
 
 void CreatePythonConnectionGraph(NetDeviceContainer devices);
-void InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius);
+void InstallCircularMobilityModel(uint32_t index, uint32_t totalNodes, Ptr<Node> node, Ptr<UniformRandomVariable> randomRadius, Vector center = Vector(0.0, 0.0, 0.0));
 void InstallCenterMobilityModel(Ptr<Node> node);
+void InstallConstantMobilityModel(Ptr<Node> node, Vector position);
 void OutputSelectedOperatingChannels(NetDeviceContainer devices);
 
 } // namespace ns3
