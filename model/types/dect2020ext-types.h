@@ -8,6 +8,12 @@
 namespace ns3
 {
 
+// Future work:
+// This strong-type system is intended to be adopted more broadly across the
+// implementation for DECT-specific parameters (band IDs, scaling factors,
+// channel IDs, and similar fields). Keeping these wrappers is beneficial
+// because they provide compile-time type separation and runtime range checks,
+// which helps prevent invalid configurations and accidental parameter mixing.
 template <typename T, typename Tag, T MinValue, T MaxValue>
 class StrongType
 {
@@ -25,6 +31,8 @@ class StrongType
 };
 
 // Tags
+// Future extension point: add new tags as additional DECT-specific domains are
+// introduced (for example, future band/channel families or protocol fields).
 struct BandNumberTag{};
 struct SubcarrierScalingFactorTag{};
 struct FourierTransformScalingFactorTag{};

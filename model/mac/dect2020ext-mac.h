@@ -354,6 +354,9 @@ class Dect2020ExtMac : public Object
 
         void SetSearchBestFtTimeMs(double timeMs);
 
+        void SetPacketLimit(int packetLimit);
+        void SetPacketGenerationPeriod(Time period);
+
         // ###### Required to be public for dect2020ext-utilities.cc ######
         uint32_t m_associatedFtNetDeviceLongRdId = 0;
         Dect2020ExtFtInfo m_selectedFtCandidate;
@@ -434,6 +437,12 @@ class Dect2020ExtMac : public Object
         bool m_displayChannelEvaluations = false;
 
         double m_searchBestFtTimeMs = 0;
+
+        int m_packetLimit;
+        bool m_packetLimitSet = false;
+
+        Time m_packetGenerationPeriod;
+        bool m_packetGenerationPeriodSet = false;
 
         // ###### Constants ######
 

@@ -90,6 +90,7 @@ main(int argc, char *argv[])
         ptMac->ConfigureAssociationControlIe(associationControlIe);
         // ptMac->ProceedToDataTransmission(false);
         ptMac->SetSearchBestFtTimeMs(10);
+        ptMac->SetPacketLimit(100);
         config.ApplyToMac(ptMac);
 
         ptPhy->SetMac(ptMac);

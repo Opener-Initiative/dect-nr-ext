@@ -15,7 +15,7 @@ This manual explains how the `dect-nr-ext` project is organized, how to set it u
 
 - `model/`: core module implementation (MAC, PHY, scheduler, channel manager, config, statistics, utilities, message definitions).
 - `examples/`: runnable experiment entry points.
-  - `dect2020ext.cc`
+  - `dect2020ext.cc` (all-purpose simulation file for quick experimentation with the implementation)
   - `association/association-example-1.cc`
   - `spectrum-management/spectrum-management-example-1.cc`
   - `spectrum-management/spectrum-management-example-2.cc`
@@ -24,6 +24,7 @@ This manual explains how the `dect-nr-ext` project is organized, how to set it u
 - `CMakeLists.txt`: module build/test wiring.
 - `examples/CMakeLists.txt`: example registration for `ns3 run <example-name>`.
 - `splitlogs.py`: optional log post-processing utility.
+- `launch.sh`: helper script to quickly launch `dect2020ext.cc` and split the produced log file.
 - `propagation-delay-calculation.py`: optional propagation-delay helper utility.
 - `logs/`: expected output location for split logs.
 - `dect2020ext_topology.py`: generated artifact from experiments (do not treat as source code to edit manually).
@@ -86,6 +87,19 @@ Windows (PowerShell):
 ```powershell
 .\ns3 run <example-name>
 ```
+
+### Quick launch helper for `dect2020ext.cc`
+
+For quick iteration, `contrib/dect-nr-ext/launch.sh` is provided as a convenience script to launch the `dect2020ext.cc` example and then run log splitting.
+
+Run it from `contrib/dect-nr-ext`:
+
+```bash
+cd contrib/dect-nr-ext
+bash launch.sh
+```
+
+Note: run the script from that directory, because `launch.sh` uses relative paths for both simulation execution and log processing.
 
 ### Experiment list and source mapping
 

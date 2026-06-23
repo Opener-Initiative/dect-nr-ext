@@ -1655,8 +1655,25 @@ Dect2020ExtMac::LaunchApp()
     NS_LOG_INFO(MAC_IDENTITY << ": Launching application");
     m_app = CreateObject<Dect2020ExtApp>();
     m_app->SetMac(this);
-    m_app->SetPacketGenerationPeriod(MilliSeconds(5)); // Set the period for packet generation
-    m_app->SetPacketLimit(50);
+
+    if (m_packetGenerationPeriodSet)
+    {
+        m_app->SetPacketGenerationPeriod(m_packetGenerationPeriod);
+    }
+    else
+    {
+        m_app->SetPacketGenerationPeriod(MilliSeconds(5)); // Set the period for packet generation
+    }
+
+    if (m_packetLimitSet)
+    {
+        m_app->SetPacketLimit(m_packetLimit);
+    }
+    else
+    {
+        m_app->SetPacketLimit(50);
+    }
+
     m_app->Start();
 
     if (m_txQueue.empty())
@@ -2563,6 +2580,20 @@ void
 Dect2020ExtMac::SetSearchBestFtTimeMs(double timeMs)
 {
     m_searchBestFtTimeMs = timeMs;
+}
+
+void
+Dect2020ExtMac::SetPacketLimit(int packetLimit)
+{
+    m_packetLimit = packetLimit;
+    m_packetLimitSet = true;
+}
+
+void
+Dect2020ExtMac::SetPacketGenerationPeriod(Time period)
+{
+    m_packetGenerationPeriod = period;
+    m_packetGenerationPeriodSet = true;
 }
 
 } // namespace ns3
