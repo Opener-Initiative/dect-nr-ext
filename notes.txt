@@ -1,9 +1,0 @@
-SNR ( from distance Tx-Rx, channel model)
-from SNR look into table what is the BER-
-There is one specifc table for each MCS
-once you found the ber in the table for the snr
-PER= 1 - (1-ber)^L
-
-L - packet length
-
-AWGN

@@ -1,79 +1,227 @@
-# DECT-2020 NR ns-3 Implementation
-# Installation
-## Download ns-3
-This link can be used to download the source code and the `ns3` executable:  
-https://www.nsnam.org/releases/
-## Clone the project
-Clone the repository to the `contrib` directory inside ns-3
+# DECT-2020 NR Extension for ns-3 (`dect-nr-ext`)
+
+This manual explains how the `dect-nr-ext` project is organized, how to set it up, and how to run experiments.
+
+## Scope and assumptions
+
+- This manual is written for users with no prior project knowledge.
+- Commands are written to be executed from the ns-3 root directory (the directory that contains the `ns3` script and `test.py`).
+- The project is tested and supported on `ns-3.47`.
+- Setup instructions include Linux, macOS, and Windows (PowerShell).
+
+## Project organization
+
+`contrib/dect-nr-ext` is organized as follows:
+
+- `model/`: core module implementation (MAC, PHY, scheduler, channel manager, config, statistics, utilities, message definitions).
+- `examples/`: runnable experiment entry points.
+  - `dect2020ext.cc`
+  - `association/association-example-1.cc`
+  - `spectrum-management/spectrum-management-example-1.cc`
+  - `spectrum-management/spectrum-management-example-2.cc`
+  - `spectrum-management/spectrum-management-example-3.cc`
+- `test/`: module test suites used by ns-3 test runner.
+- `CMakeLists.txt`: module build/test wiring.
+- `examples/CMakeLists.txt`: example registration for `ns3 run <example-name>`.
+- `splitlogs.py`: optional log post-processing utility.
+- `propagation-delay-calculation.py`: optional propagation-delay helper utility.
+- `logs/`: expected output location for split logs.
+- `dect2020ext_topology.py`: generated artifact from experiments (do not treat as source code to edit manually).
+
+## Setup
+
+### 1) Get ns-3.47 and prerequisites
+
+Use official ns-3 resources:
+
+- ns-3 releases: [https://www.nsnam.org/releases/](https://www.nsnam.org/releases/)
+- ns-3 getting started and prerequisites: [https://www.nsnam.org/docs/tutorial/html/getting-started.html](https://www.nsnam.org/docs/tutorial/html/getting-started.html)
+
+### 2) Clone `dect-nr-ext` into `contrib`
+
+Run from ns-3 root:
+
 ```bash
-git clone https://github.com/seelennebel/dect-nr-ext.git
+git clone https://github.com/seelennebel/dect-nr-ext.git contrib/dect-nr-ext
 ```
-## Configure and compile
-Run these commands in the ns-3 root directory (where `ns3` executable is located) to configure ns-3 to run examples (simulation scripts) and tests:
+
+### 3) Configure and build ns-3 with `dect-nr-ext`
+
+Linux/macOS:
+
 ```bash
 ./ns3 configure --enable-examples --enable-tests
-```
-```bash
 ./ns3 build dect-nr-ext
 ```
-# Running simulation scripts
-1. Start by moving into the root directory of `dect-nr-ext`
-2. Use this command to run any simulation script from the project's `examples` directory:
-```bash
-../../ns3 run examples/<example script to run>
+
+Windows (PowerShell):
+
+```powershell
+.\ns3 configure --enable-examples --enable-tests
+.\ns3 build dect-nr-ext
 ```
-# Running tests
-Python is required to run the ns-3 test.py program
-1. Start by moving into the root directory of ns-3 (where the `test.py` program is located)
-2. Run the command:
+
+## Run experiments
+
+All commands below are run from ns-3 root.
+
+### Available experiment entry points
+
+- `dect2020ext`
+- `association-example-1`
+- `spectrum-management-example-1`
+- `spectrum-management-example-2`
+- `spectrum-management-example-3`
+
+### Base run command
+
+Linux/macOS:
+
 ```bash
-python test.py --suite="dect*"
-````
-The argument to the `--suite` option can be any full name of the test, or, as shown in the example above, it can also be a regex.
-# To synchronize local project source code with GitHub
-1. Start by navigating to contrib/dect-nr-ext directory
-2. Use this command to synchronize local project source code with new commit on GitHub:
-```bash
-git pull
+./ns3 run <example-name>
 ```
-3. Reconfigure and recompile NS3 (this action is needed every time the source code is changed)
-# Visualization
-If this command is executed:
-```bash
-../../ns3 run examples/dect2020ext.cc
+
+Windows (PowerShell):
+
+```powershell
+.\ns3 run <example-name>
 ```
-The script will create `dect2020ext_topology.py` and put it into the root directory of the project. Run these commands from `dect-nr-ext` root to create a Python virtual environment, download dependencies, and view the visualization:
+
+### Experiment list and source mapping
+
+- `dect2020ext`
+  - Source: `contrib/dect-nr-ext/examples/dect2020ext.cc`
+  - Typical use: baseline end-to-end DECT NR+ scenario.
+- `association-example-1`
+  - Source: `contrib/dect-nr-ext/examples/association/association-example-1.cc`
+  - Typical use: association-focused behavior.
+- `spectrum-management-example-1`
+  - Source: `contrib/dect-nr-ext/examples/spectrum-management/spectrum-management-example-1.cc`
+  - Typical use: channel selection experiment with 2 FTs.
+- `spectrum-management-example-2`
+  - Source: `contrib/dect-nr-ext/examples/spectrum-management/spectrum-management-example-2.cc`
+  - Typical use: channel selection experiment with 3 FTs.
+- `spectrum-management-example-3`
+  - Source: `contrib/dect-nr-ext/examples/spectrum-management/spectrum-management-example-3.cc`
+  - Typical use: square-layout channel selection experiment with 4 FTs.
+
+### File-based success checks
+
+After a successful run, check for generated artifacts (no console-pattern matching required):
+
+- `contrib/dect-nr-ext/dect2020ext_topology.py` exists or has been updated.
+- If logs are redirected, `contrib/dect-nr-ext/dect2020ext.log` exists.
+- If `splitlogs.py` is used, split logs are created under `contrib/dect-nr-ext/logs/`.
+
+## Recommended log workflow (optional)
+
+Recommended for experiment analysis:
+
+1. Run an example and redirect logs to one file.
+2. Split the combined log into per-identifier files.
+
+Linux/macOS:
+
 ```bash
-python -m venv my-venv
+./ns3 run <example-name> 2> contrib/dect-nr-ext/dect2020ext.log
+(cd contrib/dect-nr-ext && python3 splitlogs.py dect2020ext.log)
 ```
-If you are on MacOs/Linux:
+
+Windows (PowerShell):
+
+```powershell
+.\ns3 run <example-name> 2> contrib/dect-nr-ext/dect2020ext.log
+Push-Location contrib/dect-nr-ext
+py splitlogs.py dect2020ext.log
+Pop-Location
+```
+
+Warning:
+
+- `splitlogs.py` requires the `contrib/dect-nr-ext/logs/` directory to exist.
+
+## Topology visualization (optional)
+
+`dect2020ext_topology.py` is generated by example runs. To visualize it, install plotting dependencies in a Python virtual environment.
+
+Linux/macOS:
+
 ```bash
-source my-venv/bin/activate
+python3 -m venv contrib/dect-nr-ext/.venv
+source contrib/dect-nr-ext/.venv/bin/activate
+python -m pip install matplotlib networkx
+python contrib/dect-nr-ext/dect2020ext_topology.py
 ```
-If you are on Windows:
+
+Windows (PowerShell):
+
+```powershell
+py -m venv contrib/dect-nr-ext/.venv
+.\contrib\dect-nr-ext\.venv\Scripts\Activate.ps1
+python -m pip install matplotlib networkx
+python .\contrib\dect-nr-ext\dect2020ext_topology.py
+```
+
+## Propagation delay helper (optional utility)
+
+`contrib/dect-nr-ext/propagation-delay-calculation.py` is a standalone utility script.
+
+Linux/macOS:
+
 ```bash
-./my-venv/Scripts/activate
+python3 -m pip install scipy
+python3 contrib/dect-nr-ext/propagation-delay-calculation.py
 ```
-Install dependencies:
+
+Windows (PowerShell):
+
+```powershell
+py -m pip install scipy
+py contrib/dect-nr-ext/propagation-delay-calculation.py
+```
+
+## Run tests (short section)
+
+From ns-3 root:
+
+Linux/macOS:
+
 ```bash
-pip install matplotlib networkx
+python3 test.py --suite="dect*"
 ```
-Run the visualization script:
+
+Windows (PowerShell):
+
+```powershell
+py test.py --suite="dect*"
+```
+
+The `--suite` argument accepts either a full suite name or a regex pattern.
+
+## Update from GitHub and rebuild
+
+If you need to sync local code with new commits:
+
+Linux/macOS:
+
 ```bash
-python dect2020ext_topology.py
+git -C contrib/dect-nr-ext pull
+./ns3 configure --enable-examples --enable-tests
+./ns3 build dect-nr-ext
 ```
-# Reading logs from simulations
-If this command is executed:
-```bash
-../../ns3 run examples/dect2020ext.cc
+
+Windows (PowerShell):
+
+```powershell
+git -C contrib/dect-nr-ext pull
+.\ns3 configure --enable-examples --enable-tests
+.\ns3 build dect-nr-ext
 ```
-The `dect2020ext.cc` simulation script will output all logs into the terminal. The logs can be also redirected into a file:
-```bash
-../../ns3 run examples/dect2020ext.cc 2> dect2020ext.log
-```
-This command will output all logs into a single file `dect2020ext.log` located in the root directory of `dect-nr-ext`.  
-Logs can be separated based on indentity of models:
-```bash
-python splitlogs.py dect2020ext.log
-```
-After those steps, all logs can be visible inside the `logs` directory of `dect-nr-ext`. The logs are separated by layer and node ID.
+
+## Troubleshooting
+
+- Ensure you are in ns-3 root before running commands in this manual.
+- If `splitlogs.py` fails, verify `contrib/dect-nr-ext/logs/` exists.
+- If topology visualization fails, make sure `matplotlib` and `networkx` are installed in the active environment.
+- If propagation utility fails, install `scipy` first.
+- If examples are not found, rerun configure/build with `--enable-examples`.

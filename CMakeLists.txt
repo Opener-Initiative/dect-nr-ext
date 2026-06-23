@@ -280,11 +280,6 @@ build_lib(
         ${dect2020ext_message_tests_src}
         ${dect2020ext_mac_pdu_size_calculation_test_src}
         ${dect2020ext_mac_scheduler_test_src}
-
-        # ${dect2020ext_spectrum_management_procedure_test_src}
-        # ${dect2020ext_configuration_test_src}
-        # ${dect2020ext_random_access_test_src}
-        # ${dect2020ext_phy_test_src}
     LIBRARIES_TO_LINK
         ${libnetwork}
         ${libspectrum}
