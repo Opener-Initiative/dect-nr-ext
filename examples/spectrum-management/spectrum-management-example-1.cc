@@ -17,7 +17,7 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtExample");
 int
 main(int argc, char *argv[])
 {
-    // LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
+    LogComponentEnable("Dect2020ExtMac", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("Dect2020ExtPhy", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME | LOG_PREFIX_FUNC));
     // LogComponentEnable("Dect2020ExtMacScheduler", LogLevel(LOG_LEVEL_INFO | LOG_PREFIX_TIME));
     LogComponentEnable("Dect2020ExtStatistics", LogLevel(LOG_LEVEL_INFO));
@@ -36,9 +36,6 @@ main(int argc, char *argv[])
     int ftNumber = 2;
     NodeContainer ftNodes;
     NetDeviceContainer ftDevices;
-    Ptr<UniformRandomVariable> randomFtRadius = CreateObject<UniformRandomVariable>();
-    randomFtRadius->SetAttribute("Min", DoubleValue(0.0));
-    randomFtRadius->SetAttribute("Max", DoubleValue(1.0));
 
     for (int i = 0; i < ftNumber; i++)
     {
@@ -80,10 +77,9 @@ main(int argc, char *argv[])
 
     int ptNumber = 1;
     NodeContainer ptNodes;
-    NetDeviceContainer ptDevices;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
-    randomRadius->SetAttribute("Min", DoubleValue(1.0));
-    randomRadius->SetAttribute("Max", DoubleValue(5.0));
+    randomRadius->SetAttribute("Min", DoubleValue(0.0));
+    randomRadius->SetAttribute("Max", DoubleValue(1.0));
 
     for (int i = 0; i < ptNumber; i++)
     {
@@ -109,11 +105,10 @@ main(int argc, char *argv[])
 
         ptNode->AddDevice(ptNetDevice);
 
-        InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius, Vector(-2.5, 0.0, 0.0));
+        InstallCircularMobilityModel(i, ptNumber, ptNode, randomRadius, Vector(0.0, 0.0, 0.0));
         ptPhy->SetMobility(ptNode->GetObject<MobilityModel>());
 
         devices.Add(ptNetDevice);
-        ptDevices.Add(ptNetDevice);
 
         ptMac->Initialize();
 
@@ -121,17 +116,21 @@ main(int argc, char *argv[])
         Simulator::Schedule(startDelay * i, &Dect2020ExtPhy::Start, ptPhy);
     }
 
-    // Place FT1 at -2.5, 0, 0
-    InstallConstantMobilityModel(ftNodes.Get(0), Vector(-2.5, 0.0, 0.0));
+    // Place FT1
+    double x1 = -2.5;
+    double y1 = 0.0;
+    InstallConstantMobilityModel(ftNodes.Get(0), Vector(x1, y1, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice1 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(0));
     ftDevice1->GetPhy()->SetMobility(ftNodes.Get(0)->GetObject<MobilityModel>());
 
-    // Place FT2 at 2.5, 0, 0
-    InstallConstantMobilityModel(ftNodes.Get(1), Vector(2.5, 0.0, 0.0));
+    // Place FT2
+    double x2 = 2.5;
+    double y2 = 0.0;
+    InstallConstantMobilityModel(ftNodes.Get(1), Vector(x2, y2, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice2 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(1));
     ftDevice2->GetPhy()->SetMobility(ftNodes.Get(1)->GetObject<MobilityModel>());
 
-    Simulator::Stop(Seconds(6));
+    Simulator::Stop(Seconds(10));
     Simulator::Run();
     Simulator::Destroy();
 

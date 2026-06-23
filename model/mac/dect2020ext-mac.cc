@@ -1752,7 +1752,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
     // --- Network Beacon Message ---
     if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::NETWORK_BEACON_MESSAGE)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Received Network Beacon Message");
+        NS_LOG_INFO(MAC_IDENTITY << ": Received Network Beacon Message from FT with Long RD ID 0x" << std::hex << beaconHeader.GetTransmitterAddress());
         Dect2020ExtStatistics::m_acceptedNetworkBeaconsPtMac[MAC_IDENTITY]++;
 
         // --- Network Beacon Message Ie ---
@@ -1773,7 +1773,7 @@ Dect2020ExtMac::HandleBeaconPacket(Ptr<Packet> packet, Dect2020ExtFtInfo* ft)
     // --- Cluster Beacon Message ---
     else if (ieType == Dect2020ExtMacMultiplexingHeaderTypeA::IeTypeFieldEncoding::CLUSTER_BEACON_MESSAGE)
     {
-        NS_LOG_INFO(MAC_IDENTITY << ": Received Cluster Beacon Message");
+        NS_LOG_INFO(MAC_IDENTITY << ": Received Cluster Beacon Message from FT with Long RD ID 0x" << std::hex << beaconHeader.GetTransmitterAddress());
         Dect2020ExtStatistics::m_acceptedClusterBeaconsPtMac[MAC_IDENTITY]++;
 
         // If the PT has received a Cluster Beacon and no Network Beacon before, we assume the
@@ -2101,8 +2101,8 @@ Dect2020ExtMac::SelectBestFtCandidate()
         {
             bestRssiDbm = ft.rssiDbm;
             NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate found with RSSI " << bestRssiDbm << " dBm");
-            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate long ID: " << ft.longFtId);
-            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate network ID: " << ft.networkId);
+            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate Long RD ID: 0x" << std::hex << ft.longFtId);
+            NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate network ID: 0x" << std::hex << ft.networkId);
             NS_LOG_INFO(MAC_IDENTITY << ": Best FT candidate cluster channel ID: " << ft.clusterChannelNumber);
             bestCandidate = ft;
             found = true;

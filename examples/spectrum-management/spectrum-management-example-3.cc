@@ -1,6 +1,5 @@
-// Spectrum Management Procedure: Example 4 - operating channel selection for 4 FTs during background scan
+// Spectrum Management Procedure: Example 3 - operating channel selection for 4 FTs during background scan
 // Create a square mobility model where each square edge is FT device
-// OutputSelectedOperatingChannels is supposed to output:
 
 #include "ns3/dect2020ext-module.h"
 
@@ -21,7 +20,7 @@ main(int argc, char *argv[])
     // Configuration
     Dect2020ExtConfig config;
 
-    Time startFtDelay = MilliSeconds(300); // one background scan duration
+    Time startFtDelay = MilliSeconds(300);
     Time startPtDelay = MilliSeconds(300);
 
     // ################
@@ -31,9 +30,6 @@ main(int argc, char *argv[])
     int ftNumber = 4;
     NodeContainer ftNodes;
     NetDeviceContainer ftDevices;
-    Ptr<UniformRandomVariable> randomFtRadius = CreateObject<UniformRandomVariable>();
-    randomFtRadius->SetAttribute("Min", DoubleValue(0.0));
-    randomFtRadius->SetAttribute("Max", DoubleValue(1.0));
 
     for (int i = 0; i < ftNumber; i++)
     {
@@ -69,9 +65,9 @@ main(int argc, char *argv[])
         Simulator::Schedule(startFtDelay * i, &Dect2020ExtPhy::Start, ftPhy);
     }
 
-    // ################
-    // ###### PT ######
-    // ################
+    // // ################
+    // // ###### PT ######
+    // // ################
 
     int ptNumber = 10;
     NodeContainer ptNodes;
@@ -88,7 +84,7 @@ main(int argc, char *argv[])
         ptMac->SetTerminationPointType(Dect2020ExtNetDevice::Dect2020ExtTerminationPointType::PT);
         ptMac->SetPhy(ptPhy);
         ptMac->ConfigureAssociationControlIe(config.GetDefaultAssociationControlIe());
-        ptMac->SetSearchBestFtTimeMs(10);
+        // ptMac->SetSearchBestFtTimeMs(10);
         config.ApplyToMac(ptMac);
 
         ptPhy->SetMac(ptMac);
@@ -114,27 +110,35 @@ main(int argc, char *argv[])
         Simulator::Schedule(startPtDelay * i, &Dect2020ExtPhy::Start, ptPhy);
     }
 
-    // Place FT1 at -2.5, -2.5, 0
-    InstallConstantMobilityModel(ftNodes.Get(0), Vector(-2.5, -2.5, 0.0));
+    // Place FT1
+    double x1 = -2.0;
+    double y1 = -2.0;
+    InstallConstantMobilityModel(ftNodes.Get(0), Vector(x1, y1, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice1 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(0));
     ftDevice1->GetPhy()->SetMobility(ftNodes.Get(0)->GetObject<MobilityModel>());
 
-    // Place FT2 at 2.5, 2.5, 0
-    InstallConstantMobilityModel(ftNodes.Get(1), Vector(2.5, 2.5, 0.0));
+    // Place FT2
+    double x2 = 2.0;
+    double y2 = 2.0;
+    InstallConstantMobilityModel(ftNodes.Get(1), Vector(x2, y2, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice2 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(1));
     ftDevice2->GetPhy()->SetMobility(ftNodes.Get(1)->GetObject<MobilityModel>());
 
-    // Place FT3 at -2.5, 2.5, 0
-    InstallConstantMobilityModel(ftNodes.Get(2), Vector(-2.5, 2.5, 0.0));
+    // Place FT3
+    double x3 = -2.0;
+    double y3 = 2.0;
+    InstallConstantMobilityModel(ftNodes.Get(2), Vector(x3, y3, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice3 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(2));
     ftDevice3->GetPhy()->SetMobility(ftNodes.Get(2)->GetObject<MobilityModel>());
 
-    // Place FT4 at 2.5, -2.5, 0
-    InstallConstantMobilityModel(ftNodes.Get(3), Vector(2.5, -2.5, 0.0));
+    // Place FT4
+    double x4 = 2.0;
+    double y4 = -2.0;
+    InstallConstantMobilityModel(ftNodes.Get(3), Vector(x4, y4, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice4 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(3));
     ftDevice4->GetPhy()->SetMobility(ftNodes.Get(3)->GetObject<MobilityModel>());
 
-    Simulator::Stop(Seconds(6));
+    Simulator::Stop(Seconds(10));
     Simulator::Run();
     Simulator::Destroy();
 

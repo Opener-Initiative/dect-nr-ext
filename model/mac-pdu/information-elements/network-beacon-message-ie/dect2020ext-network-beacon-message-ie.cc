@@ -11,6 +11,16 @@ NS_LOG_COMPONENT_DEFINE("Dect2020ExtNetworkBeaconMessageIe");
 NS_OBJECT_ENSURE_REGISTERED(Dect2020ExtNetworkBeaconMessageIe);
 
 Dect2020ExtNetworkBeaconMessageIe::Dect2020ExtNetworkBeaconMessageIe()
+    : m_txPowerIncluded(false),
+      m_powerConstraints(false),
+      m_currentClusterChannelIncluded(false),
+      m_networkBeaconChannels(0),
+      m_networkBeaconPeriod(NETWORK_BEACON_PERIOD_100MS),
+      m_clusterBeaconPeriod(CLUSTER_BEACON_PERIOD_100MS),
+      m_nextClusterChannel(0),
+      m_timeToNext(0),
+      m_clusterMaxTxPower(0),
+      m_currentClusterChannel(0)
 {
 }
 

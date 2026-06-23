@@ -2,12 +2,6 @@
 // 1. Establish communication for 2 FTs and 2 PTs (with time division of 300 ms)
 // 2. Launch another FT
 // Goal: determine which channel is selected by three FT devices
-// OutputSelectedOperatingChannels is supposed to output:
-// FT_MAC[0]: 1657
-// FT_MAC[1]: 1658
-// FT_MAC[2]: 1659
-// PT_MAC[3]: 1657
-// PT_MAC[4]: 1657
 
 #include "ns3/dect2020ext-module.h"
 
@@ -37,9 +31,6 @@ main(int argc, char *argv[])
     int ftNumber = 3;
     NodeContainer ftNodes;
     NetDeviceContainer ftDevices;
-    Ptr<UniformRandomVariable> randomFtRadius = CreateObject<UniformRandomVariable>();
-    randomFtRadius->SetAttribute("Min", DoubleValue(0.0));
-    randomFtRadius->SetAttribute("Max", DoubleValue(1.0));
 
     for (int i = 0; i < ftNumber; i++)
     {
@@ -66,9 +57,6 @@ main(int argc, char *argv[])
         ftNode->AddDevice(ftNetDevice);
         ftNodes.Add(ftNode);
 
-        InstallCircularMobilityModel(i, ftNumber, ftNode, randomFtRadius);
-        ftPhy->SetMobility(ftNode->GetObject<MobilityModel>());
-
         devices.Add(ftNetDevice);
         ftDevices.Add(ftNetDevice);
 
@@ -85,8 +73,8 @@ main(int argc, char *argv[])
     int ptNumber = 2;
     NodeContainer ptNodes;
     Ptr<UniformRandomVariable> randomRadius = CreateObject<UniformRandomVariable>();
-    randomRadius->SetAttribute("Min", DoubleValue(1.0));
-    randomRadius->SetAttribute("Max", DoubleValue(5.0));
+    randomRadius->SetAttribute("Min", DoubleValue(0.0));
+    randomRadius->SetAttribute("Max", DoubleValue(1.0));
 
     for (int i = 0; i < ptNumber; i++)
     {
@@ -123,22 +111,28 @@ main(int argc, char *argv[])
         Simulator::Schedule(startDelay * i, &Dect2020ExtPhy::Start, ptPhy);
     }
 
-    // Place FT1 at -2.5, 0, 0
-    InstallConstantMobilityModel(ftNodes.Get(0), Vector(-2.5, 0.0, 0.0));
+    // Place FT1
+    double x1 = -2.0;
+    double y1 = 0.0;
+    InstallConstantMobilityModel(ftNodes.Get(0), Vector(x1, y1, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice1 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(0));
     ftDevice1->GetPhy()->SetMobility(ftNodes.Get(0)->GetObject<MobilityModel>());
 
-    // Place FT2 at 2.5, 0, 0
-    InstallConstantMobilityModel(ftNodes.Get(1), Vector(2.5, 0.0, 0.0));
+    // Place FT2
+    double x2 = 0.0;
+    double y2 = 0.0;
+    InstallConstantMobilityModel(ftNodes.Get(1), Vector(x2, y2, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice2 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(1));
     ftDevice2->GetPhy()->SetMobility(ftNodes.Get(1)->GetObject<MobilityModel>());
 
-    // Place FT3 at 5, 0, 0
-    InstallConstantMobilityModel(ftNodes.Get(2), Vector(5.0, 0.0, 0.0));
+    // Place FT3
+    double x3 = 2.0;
+    double y3 = 0.0;
+    InstallConstantMobilityModel(ftNodes.Get(2), Vector(x3, y3, 0.0));
     Ptr<Dect2020ExtNetDevice> ftDevice3 = DynamicCast<Dect2020ExtNetDevice>(ftDevices.Get(2));
     ftDevice3->GetPhy()->SetMobility(ftNodes.Get(2)->GetObject<MobilityModel>());
 
-    Simulator::Stop(Seconds(6));
+    Simulator::Stop(Seconds(10));
     Simulator::Run();
     Simulator::Destroy();
 

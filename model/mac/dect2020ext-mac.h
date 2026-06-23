@@ -117,13 +117,13 @@ struct Dect2020ExtSubslotScanContext
 
 struct Dect2020ExtFtInfo
 {
-    double rssiDbm;
-    uint8_t shortNetworkId;
-    uint32_t networkId;
-    uint32_t shortFtId;
-    uint32_t longFtId;
-    uint16_t clusterChannelNumber;
-    uint8_t sfn;
+    double rssiDbm = 0.0;
+    uint8_t shortNetworkId = 0;
+    uint32_t networkId = 0;
+    uint32_t shortFtId = 0;
+    uint32_t longFtId = 0;
+    uint16_t clusterChannelNumber = 0;
+    uint8_t sfn = 0;
     Time receptionTime;
 
     Dect2020ExtPhyControlFieldType1 phyControlFieldType1;                 // Last received PHY Control Field Type 1
